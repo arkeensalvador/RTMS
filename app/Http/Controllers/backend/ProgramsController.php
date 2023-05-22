@@ -53,9 +53,9 @@ class ProgramsController extends Controller
             $data2 = array();
             $data2['budget'] = $request->budget;
             $data2['amount_release'] = $request->amount_release;
-            $data2['check_no'] = $request->check_no;
-            $data2['or_no'] = $request->or_no;
-            $data2['or_date'] = $request->or_date;
+            // $data2['check_no'] = $request->check_no;
+            // $data2['or_no'] = $request->or_no;
+            // $data2['or_date'] = $request->or_date;
             $data2['start_date'] = $request->start_date;
             $data2['end_date'] = $request->end_date;
             $data2['extend_date'] = $request->extend_date;
@@ -68,10 +68,9 @@ class ProgramsController extends Controller
 
                 // upload file
                 $dt = Carbon::now();
-
-                $folder_name = $request->agencyID;
                 $date_time = $dt->toDayDateTimeString();
                 if ($request->hasFile('fileupload1') or $request->hasFile('fileupload2') or $request->hasFile('fileupload3') or $request->hasFile('fileupload4')) {
+                $folder_name = $request->agencyID;
 
                     // memorandum of agreement
                     if ($request->hasFile('fileupload1')) {
@@ -169,6 +168,10 @@ class ProgramsController extends Controller
         } catch (\Exception $e) {
             echo "Error Message: " . $e;
         }
+    }
+
+    public function AddProgramFiles() {
+
     }
 
     public function ViewProgramIndex($programID)
