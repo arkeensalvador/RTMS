@@ -172,9 +172,10 @@
                         <ul class="list-unstyled">
                             @foreach ($documents as $key=>$items )
                             <li>
-                                <a href="{{ url('download/'.$items->id)}}" class="btn-link text-secondary"><i class="far fa-fw fa-file-pdf"></i>{{
-                                        $items->file_name }}</a>
-                                
+                                <a href="{{ url('download/'.$items->id)}}" class="btn-link text-secondary"><i
+                                        class="far fa-fw fa-file-pdf"></i>{{
+                                    $items->file_name }}</a>
+
                             </li>
                             @endforeach
                             <li>
@@ -206,8 +207,7 @@
                     </div>
                 </div>
             </div>
-
         </div>
-
     </section>
-    @endsection
+</div>
+@endsection

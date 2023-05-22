@@ -52,7 +52,7 @@
                 @if(auth()->user()->role == 'Admin')
 
                 <li class="nav-item">
-                    <a href="publications-index" class="nav-link {{ Route::current()->getName() == ('publicationsIndex') ? 'active' : '' }}">
+                    <a href="publications-index" class="nav-link {{ Request::is('publications-index') ? 'active' : ''}}">
                        
                         <i class="nav-icon fa-solid fa-book-journal-whills"></i>
                         <p>
@@ -62,7 +62,7 @@
                 </li>
 
                 <li class="nav-item">
-                    <a href="" class="nav-link">
+                    <a href="index" class="nav-link {{ Request::is('index', 'add-programs-index', 'edit-program-index/') ? 'active' : '' }}">
                         <i class="nav-icon fas fa-tachometer-alt"></i>
                         <p>
                             Programs
@@ -72,7 +72,7 @@
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
                             <a href="{{URL::to('/index')}}"
-                                class="nav-link {{ Request::is('index', 'add-programs-index', 'view-program-index/*', 'edit-program-index/*') ? 'active' : '' }}">
+                                class="nav-link {{ Request::is('index', 'view-program-index/') ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>View Programs</p>
                             </a>
