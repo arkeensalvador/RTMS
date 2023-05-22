@@ -90,6 +90,5 @@ Route::get('download/{id}', [App\Http\Controllers\backend\ProgramsController::cl
 Route::get('/publications-index', [App\Http\Controllers\backend\PublicationsController::class, 'publicationsIndex'])->name('publicationsIndex');
 
 
-// Route::get('add-remove-multiple-input-fields', [App\Http\Controllers\backend\DynamicAddRemoveFieldController::class, 'index']);
-// Route::post('add-remove-multiple-input-fields', [App\Http\Controllers\backend\DynamicAddRemoveFieldController::class, 'store']);
+
 
