@@ -1,0 +1,14 @@
+/* .os-content {
+    background-color: teal !important;
+} */
+
+td.action {
+    width: 8rem;
+    overflow: hidden;
+    /* display: inline-block; */
+    white-space: nowrap;
+}
+
+.content-wrapper {
+   padding-top: 1rem;
+}

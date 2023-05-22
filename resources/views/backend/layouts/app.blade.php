@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>CLAARRDEC - CMS x RTMS</title>
+
+    <!-- Google Font: Source Sans Pro -->
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="{{asset('backend/plugins/fontawesome-free/css/all.min.css')}}">
+    <link rel="stylesheet" href="{{asset('backend/plugins/fontawesome-free-6.3.0-web/css/all.min.css')}}">
+    {{-- <script src="https://kit.fontawesome.com/403b4fe327.js" crossorigin="anonymous"></script> --}}
+
+    <!-- overlayScrollbars -->
+    <link rel="stylesheet" href="{{asset('backend/plugins/overlayScrollbars/css/OverlayScrollbars.min.css')}}">
+    <!-- DataTables -->
+    <link rel="stylesheet" href="{{asset('backend/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css')}}">
+    <link rel="stylesheet" href="{{asset('backend/plugins/datatables-responsive/css/responsive.bootstrap4.min.css')}}">
+    <link rel="stylesheet" href="{{asset('backend/plugins/datatables-buttons/css/buttons.bootstrap4.min.css')}}">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="{{asset('backend/dist/css/adminlte.min.css')}}">
+    {{--
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous">
+    --}}
+
+    {{-- Toastr & Sweet Alert --}}
+    <link rel="stylesheet" href="{{asset('toaster/toastr.min.css')}}">
+
+    {{-- Select2 --}}
+    <link rel="stylesheet" href="{{asset('backend/plugins/select2/css/select2.min.css')}}">
+
+    {{-- bs stepper --}}
+
+    <link rel="stylesheet" href="{{asset('backend/plugins/bs-stepper/css/bs-stepper.min.css')}}">
+
+    {{-- iCheck --}}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/icheck-bootstrap/3.0.1/icheck-bootstrap.min.css"
+        integrity="sha512-8vq2g5nHE062j3xor4XxPeZiPjmRDh6wlufQlfC6pdQ/9urJkU07NM0tEREeymP++NczacJ/Q59ul+/K2eYvcg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    {{-- CSS --}}
+    <link rel="stylesheet" type="text/css" href="{{ mix('resources/css/app.css') }}" />
+
+    {{-- DropZone --}}
+    <link rel="stylesheet" href="{{ asset ('backend/plugins/dropzone/min/dropzone.css') }}">
+    {{-- <script>
+        @if(Session::has('message'))
+        var type="{{Session::get('alert-type','info')}}"
+        switch(type) {
+            case 'info':
+                toastr.info("{{Session::get('message')}}");
+                break;
+            case 'success':
+                toastr.success("{{Session::get('message')}}");
+                break;
+            case 'warning':
+                toastr.warning("{{Session::get('message')}}");
+                break;
+            case 'error':
+                toastr.error("{{Session::get('message')}}");
+                break;
+        }
+        @endif
+    </script> --}}
+
+
+
+    <style>
+        .form-control,
+        .form-control:focus,
+        .input-group-addon {
+            border-color: #e1e1e1;
+            border-radius: 0;
+        }
+
+        .signup-form {
+            width: 50%;
+            margin: 0 auto;
+            padding: 30px 0;
+        }
+
+        .signup-form h2 {
+            color: #636363;
+            margin: 0 0 15px;
+            text-align: center;
+        }
+
+        .signup-form .lead {
+            font-size: 14px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .signup-form form {
+            border-radius: 1px;
+            margin-bottom: 15px;
+            background: #fff;
+            border: 1px solid #f3f3f3;
+            box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+            padding: 30px;
+        }
+
+        .signup-form .form-group {
+            margin-bottom: 20px;
+        }
+
+        .signup-form label {
+            font-weight: normal;
+            font-size: 13px;
+        }
+
+        .signup-form .form-control {
+            min-height: 38px;
+            box-shadow: none !important;
+            border-width: 0 0 1px 0;
+        }
+
+        .signup-form .input-group-addon {
+            max-width: 42px;
+            text-align: center;
+            background: none;
+            border-bottom: 1px solid #e1e1e1;
+            padding-left: 5px;
+        }
+
+        .signup-form .btn,
+        .signup-form .btn:active {
+            font-size: 16px;
+            font-weight: bold;
+            background: #19aa8d !important;
+            border-radius: 3px;
+            border: none;
+            min-width: 140px;
+        }
+
+        .signup-form .btn:hover,
+        .signup-form .btn:focus {
+            background: #179b81 !important;
+        }
+
+        .signup-form a {
+            color: #19aa8d;
+            text-decoration: none;
+        }
+
+        .signup-form a:hover {
+            text-decoration: underline;
+        }
+
+        .signup-form .fa {
+            font-size: 21px;
+            position: relative;
+            top: 8px;
+        }
+
+        .form-control,
+        .form-control:focus,
+        .input-group-addon {
+            border-color: #e1e1e1;
+            border-radius: 0;
+        }
+
+        .signup-form {
+            width: 50%;
+            margin: 0 auto;
+            padding: 30px 0;
+        }
+
+        .signup-form h2 {
+            color: #636363;
+            margin: 0 0 15px;
+            text-align: center;
+        }
+
+        .signup-form .lead {
+            font-size: 14px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .signup-form form {
+            border-radius: 1px;
+            margin-bottom: 15px;
+            background: #fff;
+            border: 1px solid #f3f3f3;
+            box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+            padding: 30px;
+        }
+
+        .signup-form .form-group {
+            margin-bottom: 20px;
+        }
+
+        .signup-form label {
+            font-weight: normal;
+            font-size: 13px;
+        }
+
+        .signup-form .form-control {
+            min-height: 38px;
+            box-shadow: none !important;
+            border-width: 0 0 1px 0;
+        }
+
+        .signup-form .input-group-addon {
+            max-width: 42px;
+            text-align: center;
+            background: none;
+            border-bottom: 1px solid #e1e1e1;
+            padding-left: 5px;
+        }
+
+        .signup-form .btn,
+        .signup-form .btn:active {
+            font-size: 16px;
+            font-weight: bold;
+            background: #19aa8d !important;
+            border-radius: 3px;
+            border: none;
+            min-width: 140px;
+        }
+
+        .signup-form .btn:hover,
+        .signup-form .btn:focus {
+            background: #179b81 !important;
+        }
+
+        .signup-form a {
+            color: #19aa8d;
+            text-decoration: none;
+        }
+
+        .signup-form a:hover {
+            text-decoration: underline;
+        }
+
+        .signup-form .fa {
+            font-size: 21px;
+            position: relative;
+            top: 8px;
+        }
+
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        .currencyinput {
+            border: 1px inset #ccc;
+        }
+
+        .currencyinput input {
+            border: 0;
+        }
+
+        #regiration_form fieldset:not(:first-of-type) {
+            display: none;
+        }
+
+
+
+        .icheck-success.rad {
+            padding-left: 20px;
+            padding-top: 3px;
+        }
+
+        .loader {
+            --cell-size: 52px;
+            --cell-spacing: 1px;
+            --cells: 3;
+            --total-size: calc(var(--cells) * (var(--cell-size) + 2 * var(--cell-spacing)));
+            display: flex;
+            flex-wrap: wrap;
+            width: var(--total-size);
+            height: var(--total-size);
+        }
+
+        .cell {
+            flex: 0 0 var(--cell-size);
+            margin: var(--cell-spacing);
+            background-color: transparent;
+            box-sizing: border-box;
+            border-radius: 4px;
+            animation: 1s ripple ease infinite;
+        }
+
+        .cell.d-1 {
+            animation-delay: 100ms;
+        }
+
+        .cell.d-2 {
+            animation-delay: 150ms;
+        }
+
+        .cell.d-3 {
+            animation-delay: 200ms;
+        }
+
+        .cell.d-4 {
+            animation-delay: 250ms;
+        }
+
+        .cell:nth-child(1) {
+            --cell-color: #00FF87;
+        }
+
+        .cell:nth-child(2) {
+            --cell-color: #0CFD95;
+        }
+
+        .cell:nth-child(3) {
+            --cell-color: #17FBA2;
+        }
+
+        .cell:nth-child(4) {
+            --cell-color: #23F9B2;
+        }
+
+        .cell:nth-child(5) {
+            --cell-color: #30F7C3;
+        }
+
+        .cell:nth-child(6) {
+            --cell-color: #3DF5D4;
+        }
+
+        .cell:nth-child(7) {
+            --cell-color: #45F4DE;
+        }
+
+        .cell:nth-child(8) {
+            --cell-color: #53F1F0;
+        }
+
+        .cell:nth-child(9) {
+            --cell-color: #60EFFF;
+        }
+
+        /*Animation*/
+        @keyframes ripple {
+            0% {
+                background-color: transparent;
+            }
+
+            30% {
+                background-color: var(--cell-color);
+            }
+
+            60% {
+                background-color: transparent;
+            }
+
+            100% {
+                background-color: transparent;
+            }
+        }
+
+        .colored-toast.swal2-icon-success {
+            background-color: #a5dc86 !important;
+        }
+
+        .colored-toast.swal2-icon-error {
+            background-color: #f27474 !important;
+        }
+
+        .colored-toast.swal2-icon-warning {
+            background-color: #f8bb86 !important;
+        }
+
+        .colored-toast.swal2-icon-info {
+            background-color: #3fc3ee !important;
+        }
+
+        .colored-toast.swal2-icon-question {
+            background-color: #87adbd !important;
+        }
+
+        .colored-toast .swal2-title {
+            color: white;
+        }
+
+        .colored-toast .swal2-close {
+            color: white;
+        }
+
+        .colored-toast .swal2-html-container {
+            color: white;
+        }
+
+        .sweet_loader {
+            width: 140px;
+            height: 140px;
+            margin: 0 auto;
+            animation-duration: 0.5s;
+            animation-timing-function: linear;
+            animation-iteration-count: infinite;
+            animation-name: ro;
+            transform-origin: 50% 50%;
+            transform: rotate(0) translate(0, 0);
+        }
+
+        @keyframes ro {
+            100% {
+                transform: rotate(-360deg) translate(0, 0);
+            }
+        }
+    </style>
+
+
+
+</head>
+
+<body class="hold-transition light-mode sidebar-mini layout-fixed layout-navbar-fixed layout-footer">
+    <div class="wrapper">
+        <!-- Preloader -->
+        {{-- <div class="preloader flex-column justify-content-center align-items-center" @disabled(true)>
+            <div class="loader">
+                <div class="cell d-0"></div>
+                <div class="cell d-1"></div>
+                <div class="cell d-2"></div>
+
+                <div class="cell d-1"></div>
+                <div class="cell d-2"></div>
+
+
+                <div class="cell d-2"></div>
+                <div class="cell d-3"></div>
+
+
+                <div class="cell d-3"></div>
+                <div class="cell d-4"></div>
+            </div>
+        </div> --}}
+
+
+
+        {{-- <div class="preloader flex-column justify-content-center align-items-center">
+            <img class="animation__wobble" src="{{asset('backend/dist/img/claarrdec.png')}}" alt="CLAARRDEC Logo"
+                height="150" width="150">
+        </div> --}}
+
+
+
+        @include('sweetalert::alert')
+        <!-- Navbar -->
+        @include('backend.layouts.navbar')
+        <!-- /.navbar -->
+
+        <!-- Main Sidebar Container -->
+        @include('backend.layouts.sidebar')
+
+        <!-- Content Wrapper. Contains page content -->
+        {{-- @include('backend.layouts.dashboard') --}}
+        @yield('content')
+        <!-- /.content-wrapper -->
+
+        <!-- Control Sidebar -->
+        <aside class="control-sidebar control-sidebar-dark">
+            <!-- Control sidebar content goes here -->
+        </aside>
+        <!-- /.control-sidebar -->
+
+        <!-- Main Footer -->
+        <footer class="main-footer text-sm">
+            <strong>Copyright &copy; 2023 <a
+                    href="http://pcaarrd.dost.gov.ph/index.php/claarrdec">CLAARRDEC</a>.</strong>
+            All rights reserved.
+            <div class="float-right d-none d-sm-inline-block">
+                <b>Version</b> 1.0
+            </div>
+        </footer>
+    </div>
+    <!-- ./wrapper -->
+
+
+    <!-- REQUIRED SCRIPTS -->
+    <!-- jQuery -->
+    <script src="{{asset('backend/plugins/jquery/jquery.min.js')}}"></script>
+    <!-- Bootstrap -->
+    <script src="{{asset('backend/plugins/bootstrap/js/bootstrap.bundle.min.j')}}s"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-qKXV1j0HvMUeCBQ+QVp7JcfGl760yU08IQ+GpUo5hlbpg51QRiuqHAJz8+BrxE/N" crossorigin="anonymous">
+    </script>
+    <!-- overlayScrollbars -->
+    <script src="{{asset('backend/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js')}}"></script>
+    <!-- AdminLTE App -->
+    <script src="{{asset('backend/dist/js/adminlte.js')}}"></script>
+
+    <!-- PAGE PLUGINS -->
+    <!-- jQuery Mapael -->
+    <script src="{{asset('backend/plugins/jquery-mousewheel/jquery.mousewheel.js')}}"></script>
+    <script src="{{asset('backend/plugins/raphael/raphael.min.js')}}"></script>
+    <script src="{{asset('backend/plugins/jquery-mapael/jquery.mapael.min.js')}}"></script>
+    <script src="{{asset('backend/plugins/jquery-mapael/maps/usa_states.min.js')}}"></script>
+
+    <!-- DataTables  & Plugins -->
+    <script src="{{asset('backend/plugins/datatables/jquery.dataTables.min.js')}}"></script>
+    <script src="{{asset('backend/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js')}}"></script>
+    <script src="{{asset('backend/plugins/datatables-responsive/js/dataTables.responsive.min.js')}}"></script>
+    <script src="{{asset('backend/plugins/datatables-responsive/js/responsive.bootstrap4.min.js')}}"></script>
+    <script src="{{asset('backend/plugins/datatables-buttons/js/dataTables.buttons.min.js')}}"></script>
+    <script src="{{asset('backend/plugins/datatables-buttons/js/buttons.bootstrap4.min.js')}}"></script>
+    <script src="{{asset('backend/plugins/jszip/jszip.min.js')}}"></script>
+    <script src="{{asset('backend/plugins/pdfmake/pdfmake.min.js')}}"></script>
+    <script src="{{asset('backend/plugins/pdfmake/vfs_fonts.js')}}"></script>
+    <script src="{{asset('backend/plugins/datatables-buttons/js/buttons.html5.min.js')}}"></script>
+    <script src="{{asset('backend/plugins/datatables-buttons/js/buttons.print.min.js')}}"></script>
+    <script src="{{asset('backend/plugins/datatables-buttons/js/buttons.colVis.min.js')}}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bs-stepper/dist/js/bs-stepper.min.js"></script>
+
+    <script src="{{asset('backend/plugins/inputmask/inputmask.js')}}"></script>
+    <script src="{{asset('backend/plugins/inputmask/inputmask.es6.js')}}"></script>
+    <script src="{{asset('backend/plugins/inputmask/inputmask.min.js')}}"></script>
+    <script src="{{asset('backend/plugins/inputmask/jquery.inputmask.js')}}"></script>
+    <script src="{{asset('backend/plugins/inputmask/jquery.inputmask.min.js')}}"></script>
+
+    {{-- bs stepper --}}
+    <script src="{{asset('backend/plugins/bs-stepper/js/bs-stepper.min.js')}}"></script>
+
+    {{-- Repeater --}}
+    <script src="{{asset('backend/plugins/jquery-repeater-master/repeater.js')}}"></script>
+
+    {{-- Select2 --}}
+    <script src="{{asset('backend/plugins/select2/js/select2.min.js')}}"></script>
+
+    {{-- sweet alert start --}}
+    <script src="{{asset('toaster/toastr.min.js')}}"></script>
+    <script src="{{asset('toaster/sweetalert.min.js')}}"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+    {{-- Dropzone --}}
+    <script src="{{ asset('backend/plugins/dropzone/min/dropzone.css') }}"></script>
+
+
+    <!-- ChartJS -->
+    <script src="{{asset('backend/plugins/chart.js/Chart.min.js')}}"></script>
+
+    <!-- AdminLTE for demo purposes -->
+    {{-- <script src="{{asset('backend/dist/js/demo.js')}}"></script> --}}
+    <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
+    <script src="{{asset('backend/dist/js/pages/dashboard2.js')}}"></script>
+
+
+
+
+</body>
+<script>
+    function formatNumber(e){
+    var rex = /(^\d{2})|(\d{1,3})(?=\d{1,3}|$)/g,
+    val = this.value.replace(/^0+|\.|,/g,""),
+    res;
+  
+    if (val.length) {
+    res = Array.prototype.reduce.call(val, (p,c) => c + p)            // reverse the pure numbers string
+            .match(rex)                                            // get groups in array
+            .reduce((p,c,i) => i - 1 ? p + "," + c : p + "." + c); // insert (.) and (,) accordingly
+    res += /\.|,/.test(res) ? "" : ".0";                              // test if res has (.) or (,) in it
+    this.value = Array.prototype.reduce.call(res, (p,c) => c + p);    // reverse the string and display
+    }
+}
+
+    var ni = document.getElementById("numin");
+
+    ni.addEventListener("keyup", formatNumber);
+
+    var ni2 = document.getElementById("numin2");
+
+    ni2.addEventListener("keyup", formatNumber);
+</script>
+
+<script>
+    $(document).ready(function() {
+    $('.agency').select2({
+        placeholder: "Select Agency",
+        allowClear: false
+    });
+    
+});
+</script>
+
+<script>
+    @if(Session::has('message'))
+        var type="{{ Session::get('alert-type','info') }}"
+        switch (type) {
+            case 'info':
+                Swal.fire({
+                icon: 'info',
+                title: "{{ Session::get('message') }}",
+                timerProgressBar: true,
+                showConfirmButton: false,
+                timer: 1000
+                })
+                // toastr.info("{{ Session::get('message') }}");
+                break;
+            case 'success':
+                Swal.fire({
+                icon: 'success',
+                title: "{{ Session::get('message') }}",
+                timerProgressBar: true,
+                showConfirmButton: false,
+                timer: 1000
+                })
+                // toastr.success("{{ Session::get('message') }}");
+                break;
+            case 'warning':
+                Swal.fire({
+                icon: 'warning',
+                title: "{{ Session::get('message') }}",
+                timerProgressBar: true,
+                showConfirmButton: false,
+                timer: 1000
+                })
+
+                // toastr.warning("{{ Session::get('message') }}");
+                break;
+            case 'error':
+                Swal.fire({
+                icon: 'error',
+                title: "{{ Session::get('message') }}",
+                timerProgressBar: true,
+                showConfirmButton: false,
+                timer: 1000
+                })
+
+                // toastr.error("{{ Session::get('message') }}");
+                break;
+        }
+    @endif
+</script>
+
+<script>
+    $(document).ready(function () {
+    var stepper = new Stepper($('.bs-stepper')[0])
+    })
+
+    $("#repeater").createRepeater({
+    showFirstItemToDefault: true,
+    });
+</script>
+
+<script>
+    $(document).on("click", "#delete", function(e){
+    e.preventDefault();
+    var link= $(this).attr("href");
+
+    Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        dangerMode: true,
+        // confirmButtonColor: '#3085d6',
+        // cancelButtonColor: '#d33',
+        allowEscapeKey: false,
+        allowOutsideClick: false,
+        confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+        if (result.isConfirmed) {
+            window.location.href = link;
+        }
+        })
+    });  
+</script>
+
+<script>
+    $(document).on('click', '.sweet-alert-trigger', function() {
+        swal.fire({
+			html: '<h4>Loading...</h4>',
+			onRender: function() {
+				prepend(sweet_loader);
+			}
+		});
+        setTimeout(function() {
+			swal.fire({
+				icon: 'success',
+				html: '<h4>Success!</h4>'
+			});
+		}, 700);
+    });
+
+</script>
+
+<script>
+    $(function () {
+      $("#example1").DataTable({
+        "responsive": true, "lengthChange": false, "autoWidth": false,
+        "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+      }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+      $('#example2').DataTable({
+        "paging": true,
+        "lengthChange": false,
+        "searching": false,
+        "ordering": true,
+        "info": true,
+        "autoWidth": false,
+        "responsive": true,
+      });
+    });
+
+</script>
+
+<script>
+    $(document).ready(function(){
+        $('#start_date').inputmask("99/99/9999", { 
+            inputFormat:"mm/dd/yyyy",
+            placeholder: 'mm/dd/yyyy' 
+        });
+
+        $('#end_date').inputmask("99/99/9999", { 
+            inputFormat:"mm/dd/yyyy",
+            placeholder: 'mm/dd/yyyy' 
+        });
+
+        $('#contact[]').inputmask("0999-999-9999");
+
+        
+    });
+</script>
+
+<script>
+    $(document).ready(function(){
+    var current = 1,current_step,next_step,steps;
+    steps = $("fieldset").length;
+    $(".next").click(function(){
+        current_step = $(this).parent();
+        next_step = $(this).parent().next();
+        next_step.show();
+        current_step.hide();
+        setProgressBar(++current);
+    });
+    $(".previous").click(function(){
+        current_step = $(this).parent();
+        next_step = $(this).parent().prev();
+        next_step.show();
+        current_step.hide();
+        setProgressBar(--current);
+    });
+    setProgressBar(current);
+    // Change progress bar action
+    function setProgressBar(curStep){
+        var percent = parseFloat(100 / steps) * curStep;
+        percent = percent.toFixed();
+        $(".progress-bar")
+        .css("width",percent+"%")
+        .html(percent+"%");   
+  }
+});
+</script>
+
+
+
+</html>
