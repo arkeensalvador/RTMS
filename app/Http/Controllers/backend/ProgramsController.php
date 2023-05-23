@@ -23,6 +23,7 @@ class ProgramsController extends Controller
         ->leftJoin('program_details', 'programs.programID', '=', 'program_details.programID')
         ->select('*')
         ->get();
+        
         return view('backend.programs.index', compact('all', 'agency'));
     }
 
