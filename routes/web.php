@@ -93,7 +93,16 @@ Route::post('form/save', [App\Http\Controllers\backend\ProgramsController::class
 Route::get('download/{id}', [App\Http\Controllers\backend\ProgramsController::class, 'download']);
 
 // report
-Route::get('/report-index', [App\Http\Controllers\backend\PublicationsController::class, 'reportIndex'])->name('reportIndex');
+Route::get('/report-index', [App\Http\Controllers\backend\ReportController::class, 'reportIndex'])->name('reportIndex');
+
+// R & D Management and Coordination
+Route::get('/rdmc-index', [App\Http\Controllers\backend\ReportController::class, 'rdmcIndex'])->name('rdmcIndex');
+Route::get('/monitoring-evaluation', [App\Http\Controllers\backend\ReportController::class, 'monitoringEvaluation'])->name('monitoringEvaluation');
+Route::get('/linkages', [App\Http\Controllers\backend\ReportController::class, 'linkages'])->name('linkages');
+Route::get('/db-infosys', [App\Http\Controllers\backend\ReportController::class, 'dbInfoSys'])->name('dbInfoSys');
+
+
+
 
 
 

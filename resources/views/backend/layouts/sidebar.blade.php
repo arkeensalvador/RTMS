@@ -53,7 +53,6 @@
 
                 <li class="nav-item">
                     <a href="report-index" class="nav-link {{ set_active(['report-index']) }}">
-                       
                         <i class="nav-icon fa-solid fa-book-journal-whills"></i>
                         <p>
                             Add Report

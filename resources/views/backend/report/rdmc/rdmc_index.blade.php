@@ -14,11 +14,10 @@
                             <div class="row">
                                 <div class="col-12 col-md-12">
                                     <div class="col-sm-12">
-                                        <a href="rdmc-index">
+                                        <a href="monitoring-evaluation">
                                             <div class="info-box bg-light">
                                                 <div class="info-box-content">
-                                                    <span class="info-box-number text-center text-muted">R & D
-                                                        Management and Coordination
+                                                    <span class="info-box-number text-center text-muted">Monitoring and Evaluation
                                                     </span>
                                                 </div>
                                             </div>
@@ -29,8 +28,7 @@
                                         <a href="#">
                                             <div class="info-box bg-light">
                                                 <div class="info-box-content">
-                                                    <span class="info-box-number text-center text-muted">Strategic R & D
-                                                        Activities
+                                                    <span class="info-box-number text-center text-muted">Linkages
                                                     </span>
 
                                                 </div>
@@ -42,23 +40,12 @@
                                         <a href="#">
                                             <div class="info-box bg-light">
                                                 <div class="info-box-content">
-                                                    <span class="info-box-number text-center text-muted">R & D Results
-                                                        Utilization</span>
+                                                    <span class="info-box-number text-center text-muted">Database and Information System</span>
                                                 </div>
                                             </div>
                                         </a>
                                     </div>
 
-                                    <div class="col-sm-12">
-                                        <a href="#">
-                                            <div class="info-box bg-light">
-                                                <div class="info-box-content">
-                                                    <span class="info-box-number text-center text-muted">Capability Building
-                                                        and Governance</span>
-                                                </div>
-                                            </div>
-                                        </a>
-                                    </div>
                                 </div>
                             </div>
                         </div>

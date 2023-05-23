@@ -14,7 +14,7 @@
                             <div class="row">
                                 <div class="col-12 col-md-12">
                                     <div class="col-sm-12">
-                                        <a href="rdmc-index">
+                                        <a href="#">
                                             <div class="info-box bg-light">
                                                 <div class="info-box-content">
                                                     <span class="info-box-number text-center text-muted">R & D
