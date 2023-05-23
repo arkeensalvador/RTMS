@@ -72,7 +72,6 @@ class ProgramsController extends Controller
                 $date_time = $dt->toDayDateTimeString();
                 if ($request->hasFile('fileupload1') or $request->hasFile('fileupload2') or $request->hasFile('fileupload3') or $request->hasFile('fileupload4')) {
                 $folder_name = $request->agencyID;
-
                     // memorandum of agreement
                     if ($request->hasFile('fileupload1')) {
                         $file_name = "Memorandum-of-Agreement" . "(" . $request->agencyID . ")" . "." . $request->fileupload1->getClientOriginalExtension();
@@ -88,8 +87,8 @@ class ProgramsController extends Controller
 
 
                         // $folderdrive = Storage::disk('google')->makeDirectory($request->agencyID); //creates directory
-                        // Storage::disk('local')->put($folder_name . '/' . $file_name, file_get_contents($request->fileupload1->getRealPath()));
-                        Storage::disk('google')->put($destinationPath . $file_name, file_get_contents($request->fileupload1->getRealPath()));
+                        Storage::disk('local')->put($folder_name . '/' . $file_name, file_get_contents($request->fileupload1->getRealPath()));
+                        // Storage::disk('google')->put($destinationPath . $file_name, file_get_contents($request->fileupload1->getRealPath()));
                         DB::table('program_files')->insert($upload_tbl);
                     }
 
@@ -150,26 +149,26 @@ class ProgramsController extends Controller
         }
     }
 
-    public function createFolder()
-    {
-        try {
-            $client = new Client();
-            $client->useApplicationDefaultCredentials();
-            $client->addScope(Drive::DRIVE);
-            $driveService = new Drive($client);
-            $fileMetadata = new Drive\DriveFile(array(
-                'name' => 'Invoices',
-                'mimeType' => 'application/vnd.google-apps.folder'
-            ));
-            $file = $driveService->files->create($fileMetadata, array(
-                'fields' => 'id'
-            ));
-            printf("Folder ID: %s\n", $file->id);
-            return $file->id;
-        } catch (\Exception $e) {
-            echo "Error Message: " . $e;
-        }
-    }
+    // public function createFolder()
+    // {
+    //     try {
+    //         $client = new Client();
+    //         $client->useApplicationDefaultCredentials();
+    //         $client->addScope(Drive::DRIVE);
+    //         $driveService = new Drive($client);
+    //         $fileMetadata = new Drive\DriveFile(array(
+    //             'name' => 'Invoices',
+    //             'mimeType' => 'application/vnd.google-apps.folder'
+    //         ));
+    //         $file = $driveService->files->create($fileMetadata, array(
+    //             'fields' => 'id'
+    //         ));
+    //         printf("Folder ID: %s\n", $file->id);
+    //         return $file->id;
+    //     } catch (\Exception $e) {
+    //         echo "Error Message: " . $e;
+    //     }
+    // }
 
     public function AddProgramFiles() {
 
