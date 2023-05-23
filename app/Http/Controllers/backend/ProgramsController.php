@@ -36,6 +36,7 @@ class ProgramsController extends Controller
 
     public function AddProgram(Request $request)
     {
+
         date_default_timezone_set('Asia/Hong_Kong');
 
         $data = array();
