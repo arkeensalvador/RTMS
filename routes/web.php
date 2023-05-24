@@ -98,8 +98,10 @@ Route::get('/report-index', [App\Http\Controllers\backend\ReportController::clas
 // R & D Management and Coordination
 Route::get('/rdmc-index', [App\Http\Controllers\backend\ReportController::class, 'rdmcIndex'])->name('rdmcIndex');
 Route::get('/monitoring-evaluation', [App\Http\Controllers\backend\ReportController::class, 'monitoringEvaluation'])->name('monitoringEvaluation');
+Route::get('/aihrs', [App\Http\Controllers\backend\ReportController::class, 'aihrsIndex'])->name('aihrsIndex');
 Route::get('/linkages', [App\Http\Controllers\backend\ReportController::class, 'linkages'])->name('linkages');
 Route::get('/db-infosys', [App\Http\Controllers\backend\ReportController::class, 'dbInfoSys'])->name('dbInfoSys');
+
 
 
 

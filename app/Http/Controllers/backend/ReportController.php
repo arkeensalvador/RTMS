@@ -26,6 +26,11 @@ class ReportController extends Controller
     {
         return view('backend.report.rdmc.monitoring.monitoring_index');
     }
+
+    public function aihrsIndex() {
+        return view('backend.report.rdmc.monitoring.aihrs.aihrs_index');
+    }
+
     public function linkages()
     {
         return view('backend.report.linkages.linkages_index');

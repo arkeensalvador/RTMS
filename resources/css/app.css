@@ -84,3 +84,9 @@ nav.main-header.navbar.navbar-expand {
 .info-box .info-box-number {
     margin-top: 0;
 }
+
+.row {
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+}
