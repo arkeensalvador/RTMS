@@ -209,16 +209,17 @@
                                 <thead>
                                     <tr>
                                         <th>No</th>
-                                        <th>Path Name</th>
+                                        {{-- <th>Path Name</th> --}}
                                         <th>File Name</th>
                                         <th>Date Time</th>
+                                        <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @foreach ($upload_files as $key=>$items )
                                     <tr>
                                         <td>{{ ++$key }}</td>
-                                        <td>{{ $items->path }}</td>
+                                        {{-- <td>{{ $items->path }}</td> --}}
                                         <td><a href="{{ url('download/'.$items->id)}}">{{ $items->file_name }}</a></td>
                                         <td>{{ $items->datetime }}</td>
                                         <td><a href="{{ URL::to('/delete-file/'.$items->id)}}"
