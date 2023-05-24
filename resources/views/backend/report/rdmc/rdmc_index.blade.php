@@ -15,9 +15,9 @@
                                 <div class="col-12 col-md-12">
                                     <div class="col-sm-12">
                                         <a href="monitoring-evaluation">
-                                            <div class="info-box bg-light">
-                                                <div class="info-box-content">
-                                                    <span class="info-box-number text-center text-muted">Monitoring and Evaluation
+                                            <div class="monitoring info-box bg-light">
+                                                <div class="monitoring info-box-content">
+                                                    <span class="monitoring info-box-number text-center text-muted">Monitoring and Evaluation
                                                     </span>
                                                 </div>
                                             </div>
@@ -26,9 +26,9 @@
 
                                     <div class="col-sm-12">
                                         <a href="#">
-                                            <div class="info-box bg-light">
-                                                <div class="info-box-content">
-                                                    <span class="info-box-number text-center text-muted">Linkages
+                                            <div class="monitoring info-box bg-light">
+                                                <div class="monitoring info-box-content">
+                                                    <span class="monitoring info-box-number text-center text-muted">Linkages
                                                     </span>
 
                                                 </div>
@@ -38,9 +38,9 @@
 
                                     <div class="col-sm-12">
                                         <a href="#">
-                                            <div class="info-box bg-light">
-                                                <div class="info-box-content">
-                                                    <span class="info-box-number text-center text-muted">Database and Information System</span>
+                                            <div class="monitoring info-box bg-light">
+                                                <div class="monitoring info-box-content">
+                                                    <span class="monitoring info-box-number text-center text-muted">Database and Information System</span>
                                                 </div>
                                             </div>
                                         </a>

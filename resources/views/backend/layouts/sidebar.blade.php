@@ -41,7 +41,7 @@
                 <!-- Add icons to the links using the .nav-icon class
                 with font-awesome or any other icon font library -->
                 <li class="nav-item">
-                    <a href="home" class="nav-link {{ set_active(['home']) }}">
+                    <a href="{{ URL::to('home') }}" class="nav-link {{ set_active(['home']) }}">
                         <i class="nav-icon fas fa-tachometer-alt"></i>
                         <p>
                             Dashboard
@@ -52,7 +52,7 @@
                 @if(auth()->user()->role == 'Admin')
 
                 <li class="nav-item">
-                    <a href="report-index" class="nav-link {{ set_active(['report-index']) }}">
+                    <a href="{{ URL::to('report-index') }}" class="nav-link {{ set_active(['report-index']) }}">
                         <i class="nav-icon fa-solid fa-book-journal-whills"></i>
                         <p>
                             Add Report
@@ -61,7 +61,7 @@
                 </li>
 
                 <li class="nav-item">
-                    <a href="" class="nav-link {{ set_active(['index']) }}">
+                    <a href="{{ URL::to('index') }}" class="nav-link {{ set_active(['index']) }}">
                         <i class="nav-icon fas fa-tachometer-alt"></i>
                         <p>
                             Programs
@@ -70,14 +70,14 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="index"
+                            <a href="{{ URL::to('index') }}"
                                 class="nav-link {{ set_active(['index']) }}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>View Programs</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{URL::to('/add-projects-index')}}"
+                            <a href="{{ URL::to('/add-projects-index') }}"
                                 class="nav-link {{ Request::is('') ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Projects</p>
@@ -128,14 +128,14 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="{{URL::to('/all-projects')}}"
+                            <a href="{{ URL::to('/all-projects') }}"
                                 class="nav-link {{ Request::is('all-projects') ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>View Projects</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{URL::to('/add-projects-index')}}"
+                            <a href="{{ URL::to('/add-projects-index') }}"
                                 class="nav-link {{ Request::is('add-projects-index') ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Add Project</p>
@@ -144,7 +144,7 @@
                     </ul>
                 </li>
                 <li class="nav-item">
-                    <a href="{{URL::to('/all-agency')}}"
+                    <a href="{{ URL::to('/all-agency') }}"
                         class="nav-link {{ Request::is('all-agency', 'edit-agency/*') ? 'active' : '' }}">
                         <i class="nav-icon fas fa-building"></i>
                         <p>

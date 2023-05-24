@@ -15,9 +15,9 @@
                                 <div class="col-12 col-md-12">
                                     <div class="col-sm-12">
                                         <a href="rdmc-index">
-                                            <div class="info-box bg-light">
-                                                <div class="info-box-content">
-                                                    <span class="info-box-number text-center text-muted">R & D
+                                            <div class="monitoring info-box bg-light">
+                                                <div class="monitoring info-box-content">
+                                                    <span class="monitoring info-box-number text-center text-muted">R & D
                                                         Management and Coordination
                                                     </span>
                                                 </div>
@@ -27,9 +27,9 @@
 
                                     <div class="col-sm-12">
                                         <a href="#">
-                                            <div class="info-box bg-light">
-                                                <div class="info-box-content">
-                                                    <span class="info-box-number text-center text-muted">Strategic R & D
+                                            <div class="monitoring info-box bg-light">
+                                                <div class="monitoring info-box-content">
+                                                    <span class="monitoring info-box-number text-center text-muted">Strategic R & D
                                                         Activities
                                                     </span>
 
@@ -40,9 +40,9 @@
 
                                     <div class="col-sm-12">
                                         <a href="#">
-                                            <div class="info-box bg-light">
-                                                <div class="info-box-content">
-                                                    <span class="info-box-number text-center text-muted">R & D Results
+                                            <div class="monitoring info-box bg-light">
+                                                <div class="monitoring info-box-content">
+                                                    <span class="monitoring info-box-number text-center text-muted">R & D Results
                                                         Utilization</span>
                                                 </div>
                                             </div>
@@ -51,9 +51,9 @@
 
                                     <div class="col-sm-12">
                                         <a href="#">
-                                            <div class="info-box bg-light">
-                                                <div class="info-box-content">
-                                                    <span class="info-box-number text-center text-muted">Capability Building
+                                            <div class="monitoring info-box bg-light">
+                                                <div class="monitoring info-box-content">
+                                                    <span class="monitoring info-box-number text-center text-muted">Capability Building
                                                         and Governance</span>
                                                 </div>
                                             </div>
