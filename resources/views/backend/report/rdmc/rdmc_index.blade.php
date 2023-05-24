@@ -5,7 +5,7 @@
     <!-- Main content -->
     <section class="content report">
         <div class="container-fluid">
-            <div class="row">
+            <div class="monitoring row">
                 <div class="col-6">
                     <div class="card">
 

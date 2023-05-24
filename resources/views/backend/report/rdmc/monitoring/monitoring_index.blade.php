@@ -6,11 +6,12 @@
     <section class="content report">
         <div class="container-fluid">
             <div class="row">
-                <div class="col-8">
+                <div class="col-6">
                     <div class="card">
+
                         <!-- /.card-header -->
                         <div class="card-body">
-                            <div class="row">
+                            <div class="monitoring row">
                                 <div class="col-12 col-md-12">
                                     <div class="col-sm-12">
                                         <a href="aihrs">
@@ -22,6 +23,39 @@
                                             </div>
                                         </a>
                                     </div>
+
+                                    <div class="col-sm-12">
+                                        <a href="#">
+                                            <div class="monitoring info-box bg-light">
+                                                <div class="monitoring info-box-content monitoring">
+                                                    <span class="monitoring info-box-number text-center text-muted">Projects
+                                                    </span>
+
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+
+                                    <div class="col-sm-12">
+                                        <a href="#">
+                                            <div class="monitoring info-box bg-light monitoring">
+                                                <div class="monitoring info-box-content monitoring">
+                                                    <span class="monitoring info-box-number text-center text-muted">Activities</span>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+
+                                    <!-- <div class="col-sm-12">
+                                        <a href="#">
+                                            <div class="monitoring info-box bg-light monitoring">
+                                                <div class="monitoring info-box-content monitoring">
+                                                    <span class="monitoring info-box-number text-center text-muted">Capability Building
+                                                        and Governance</span>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div> -->
                                 </div>
                             </div>
                         </div>

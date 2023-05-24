@@ -34,52 +34,7 @@
                         <!-- /.card-header -->
                         <div class="card-body">
 
-                            {{-- <script>
-                                Swal.fire({
-                                                title: 'Is your project under specific program?',
-                                                showDenyButton: true,
-                                                confirmButtonText: 'Yes',
-                                                denyButtonText: 'No',
-                                                allowEscapeKey: false,
-                                                allowOutsideClick: false,
-                                                allowEnterKey: false,
-                                                }).then((result) => {
-                                                if (result.isConfirmed) {
-                                                    (async () => {
-                                                            const { value: program } = await Swal.fire({
-                                                            title: 'Select Program',
-                                                            input: 'select',
-                                                            inputOptions: {
-                                                                'Programs': {
-                                                                program1: 'Program #1',
-                                                                program2: 'Program #2',
-                                                                program3: 'Program #3',
-                                                                program4: 'Program #4',
-                                                                others: 'Others'
-                                                                }
-                                                            },
-                                                            inputPlaceholder: 'Select a program',
-                                                            showCancelButton: true,
-                                                            inputValidator: (value) => {
-                                                                return new Promise((resolve) => {
-                                                                if (value === 'others') {
-                                                                    window.location = "home";
-                                                                } else {
-                                                                    resolve('You need to select Others')
-                                                                }
-                                                                })
-                                                            }
-                                                            })
-
-                                                            if (program) {
-                                                            Swal.fire(`You selected: ${program}`)
-                                                            }
-                                                        })()
-                                                    } else if (result.isDenied) {
-                                                        Swal.fire('Changes are not saved', '', 'info')
-                                                    }
-                                                });
-                            </script> --}}
+                            
                             <table id="example1" class="table table-bordered table-striped" >
                                 <thead>
                                     <tr>
