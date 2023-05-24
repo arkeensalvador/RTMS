@@ -1,0 +1,67 @@
+@extends('backend.layouts.app')
+@section('content')
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<div class="content-wrapper">
+    <!-- Main content -->
+    <section class="content report">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+
+                        <!-- /.card-header -->
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-12 col-md-12">
+                                    <div class="col-sm-12">
+                                        <a href="monitoring-evaluation">
+                                            <div class="info-box bg-light">
+                                                <div class="info-box-content">
+                                                    <span class="info-box-number text-center text-muted">Monitoring and Evaluation
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+
+                                    <div class="col-sm-12">
+                                        <a href="#">
+                                            <div class="info-box bg-light">
+                                                <div class="info-box-content">
+                                                    <span class="info-box-number text-center text-muted">Linkages
+                                                    </span>
+
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+
+                                    <div class="col-sm-12">
+                                        <a href="#">
+                                            <div class="info-box bg-light">
+                                                <div class="info-box-content">
+                                                    <span class="info-box-number text-center text-muted">Database and Information System</span>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /.card-body -->
+
+
+                    </div>
+                    <!-- /.card -->
+                </div>
+                <!-- /.col -->
+            </div>
+            <!-- /.row -->
+        </div>
+        <!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
+</div>
+
+@endsection

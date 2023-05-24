@@ -41,7 +41,7 @@
                 <!-- Add icons to the links using the .nav-icon class
                 with font-awesome or any other icon font library -->
                 <li class="nav-item">
-                    <a href="home" class="nav-link {{ Route::current()->getName() == 'home' ? 'active' : '' }}">
+                    <a href="home" class="nav-link {{ set_active(['home']) }}">
                         <i class="nav-icon fas fa-tachometer-alt"></i>
                         <p>
                             Dashboard
@@ -52,17 +52,16 @@
                 @if(auth()->user()->role == 'Admin')
 
                 <li class="nav-item">
-                    <a href="publications-index" class="nav-link {{ Request::is('publications-index') ? 'active' : ''}}">
-                       
+                    <a href="report-index" class="nav-link {{ set_active(['report-index']) }}">
                         <i class="nav-icon fa-solid fa-book-journal-whills"></i>
                         <p>
-                            Publications
+                            Add Report
                         </p>
                     </a>
                 </li>
 
                 <li class="nav-item">
-                    <a href="index" class="nav-link {{ Request::is('index', 'add-programs-index', 'edit-program-index/') ? 'active' : '' }}">
+                    <a href="" class="nav-link {{ set_active(['index']) }}">
                         <i class="nav-icon fas fa-tachometer-alt"></i>
                         <p>
                             Programs
@@ -71,8 +70,8 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="{{URL::to('/index')}}"
-                                class="nav-link {{ Request::is('index', 'view-program-index/') ? 'active' : '' }}">
+                            <a href="index"
+                                class="nav-link {{ set_active(['index']) }}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>View Programs</p>
                             </a>

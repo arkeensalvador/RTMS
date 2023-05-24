@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -12,6 +13,13 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+
+function set_active($route) {
+    if (is_array($route)) {
+        return in_array(Request::path(), $route) ? 'active' : '';
+    }
+    return Request::path() == $route ? 'active' : '';
+}
 
 Route::get('/', function () {
     return view('auth.login');
@@ -84,10 +92,17 @@ Route::post('form/save', [App\Http\Controllers\backend\ProgramsController::class
 // download files
 Route::get('download/{id}', [App\Http\Controllers\backend\ProgramsController::class, 'download']);
 
+// report
+Route::get('/report-index', [App\Http\Controllers\backend\ReportController::class, 'reportIndex'])->name('reportIndex');
+
+// R & D Management and Coordination
+Route::get('/rdmc-index', [App\Http\Controllers\backend\ReportController::class, 'rdmcIndex'])->name('rdmcIndex');
+Route::get('/monitoring-evaluation', [App\Http\Controllers\backend\ReportController::class, 'monitoringEvaluation'])->name('monitoringEvaluation');
+Route::get('/linkages', [App\Http\Controllers\backend\ReportController::class, 'linkages'])->name('linkages');
+Route::get('/db-infosys', [App\Http\Controllers\backend\ReportController::class, 'dbInfoSys'])->name('dbInfoSys');
 
 
-// publications
-Route::get('/publications-index', [App\Http\Controllers\backend\PublicationsController::class, 'publicationsIndex'])->name('publicationsIndex');
+
 
 
 

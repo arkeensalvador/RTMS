@@ -3,7 +3,7 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <div class="content-wrapper">
     <!-- Main content -->
-    <section class="content">
+    <section class="content report">
         <div class="container-fluid">
             <div class="row">
                 <div class="col-12">
@@ -14,7 +14,7 @@
                             <div class="row">
                                 <div class="col-12 col-md-12">
                                     <div class="col-sm-12">
-                                        <a href="#">
+                                        <a href="rdmc-index">
                                             <div class="info-box bg-light">
                                                 <div class="info-box-content">
                                                     <span class="info-box-number text-center text-muted">R & D

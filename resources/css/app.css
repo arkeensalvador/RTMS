@@ -12,3 +12,15 @@ td.action {
 .content-wrapper {
    padding-top: 1rem;
 }
+
+.select2-container--default .select2-selection--single .select2-selection__arrow {
+    top: 0.4rem;
+}
+
+section.content.report {
+    margin-top: 5rem;
+}
+
+section.content.report span.info-box-number.text-center.text-muted {
+    font-size: 1.5rem;
+}
