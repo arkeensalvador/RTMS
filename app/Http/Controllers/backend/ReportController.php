@@ -60,4 +60,9 @@ class ReportController extends Controller
     {
         return view('backend.report.rdru.rdru_list');
     }
+
+    public function rdruAdd()
+    {
+        return view('backend.report.rdru.rdru_add');
+    }
 }

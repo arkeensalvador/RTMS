@@ -11,8 +11,8 @@
                             <div class="card-header">
                                 <h2 class="card-title">List of Technology Transfer Proposals</h2>
                                 <div class="card-tools">
-                                    <a href="{{ url('add-strategic-index') }}"
-                                        class="btn btn-success {{ Route::current()->getName() == 'add-programs-index' ? 'active' : '' }}"><span><i class="fa-solid fa-plus"></i> Create</span></a>
+                                    <a href="{{ url('rdru-add') }}"
+                                        class="btn btn-success"><span><i class="fa-solid fa-plus"></i> Create</span></a>
                                    
                                     <!-- Here is a label for example -->
                                     {{-- <span class="badge badge-primary">Label</span> --}}

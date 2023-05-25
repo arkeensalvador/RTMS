@@ -24,7 +24,7 @@
                             <div class="row">
                                 <div class="col-12 col-md-12">
                                     <div class="col-sm-12">
-                                        <a href="rdru_list">
+                                        <a href="rdru-list">
                                             <div class="monitoring info-box bg-light">
                                                 <div class="monitoring info-box-content">
                                                     <span class="monitoring info-box-number text-center text-muted">Technology Transfer Proposals

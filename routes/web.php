@@ -109,6 +109,7 @@ Route::get('/add-strategic-index', [App\Http\Controllers\backend\ReportControlle
 // R & D Results Utilization
 Route::get('/rdru-index', [App\Http\Controllers\backend\ReportController::class, 'rdruIndex']);
 Route::get('/rdru-list', [App\Http\Controllers\backend\ReportController::class, 'rdruList']);
+Route::get('/rdru-add', [App\Http\Controllers\backend\ReportController::class, 'rdruAdd']);
 
 
 
