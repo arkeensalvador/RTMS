@@ -26,7 +26,7 @@
                                     </div>
 
                                     <div class="col-sm-12">
-                                        <a href="#">
+                                        <a href="strategic-activities">
                                             <div class="monitoring info-box bg-light">
                                                 <div class="monitoring info-box-content">
                                                     <span class="monitoring info-box-number text-center text-muted">Strategic R & D

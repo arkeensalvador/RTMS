@@ -102,6 +102,9 @@ Route::get('/aihrs', [App\Http\Controllers\backend\ReportController::class, 'aih
 Route::get('/linkages', [App\Http\Controllers\backend\ReportController::class, 'linkages'])->name('linkages');
 Route::get('/db-infosys', [App\Http\Controllers\backend\ReportController::class, 'dbInfoSys'])->name('dbInfoSys');
 
+// Strategic activities
+Route::get('/strategic-activities', [App\Http\Controllers\backend\ReportController::class, 'strategicActivities']);
+Route::get('/add-strategic-index', [App\Http\Controllers\backend\ReportController::class, 'addStrategicActivities']);
 
 
 

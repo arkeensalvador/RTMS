@@ -27,7 +27,8 @@ class ReportController extends Controller
         return view('backend.report.rdmc.monitoring.monitoring_index');
     }
 
-    public function aihrsIndex() {
+    public function aihrsIndex()
+    {
         return view('backend.report.rdmc.monitoring.aihrs.aihrs_index');
     }
 
@@ -38,5 +39,14 @@ class ReportController extends Controller
     public function dbInfoSys()
     {
         return view('backend.report.dbinfosys.dbinfosys_index');
+    }
+
+    public function strategicActivities()
+    {
+        return view('backend.report.strategic.strategic_activities');
+    }
+
+    public function addStrategicActivities() {
+        return view('backend.report.strategic.add_strategic_activities');
     }
 }

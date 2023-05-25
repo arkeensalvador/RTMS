@@ -50,11 +50,7 @@ nav.main-header.navbar.navbar-expand {
     color: #74c023 !important;
 }
 
-.monitoring.info-box .info-box-number {
-    display: block;   
-    font-weight: 700;
-    height: 100%;
-}
+
 
 .monitoring.info-box .info-box-number:hover {
     color: #74c023 !important;
@@ -75,6 +71,7 @@ nav.main-header.navbar.navbar-expand {
     display: block;
     padding-top: 1.25rem;
     font-weight: 700;
+    height: 100%;
 }
 
 .monitoring.info-box .info-box-content {
@@ -89,4 +86,27 @@ nav.main-header.navbar.navbar-expand {
     align-content: center;
     justify-content: center;
     align-items: center;
+}
+
+.monitoring.info-box-content {
+    padding: 0;
+}
+
+.back-btn.col-2 {
+    padding: 0;
+}
+
+.card-title {
+    font-size: 2rem;
+}
+.strategic.row {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    margin-right: -7.5px;
+    margin-left: -7.5px;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
 }
