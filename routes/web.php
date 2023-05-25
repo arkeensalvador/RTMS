@@ -106,6 +106,10 @@ Route::get('/db-infosys', [App\Http\Controllers\backend\ReportController::class,
 Route::get('/strategic-activities', [App\Http\Controllers\backend\ReportController::class, 'strategicActivities']);
 Route::get('/add-strategic-index', [App\Http\Controllers\backend\ReportController::class, 'addStrategicActivities']);
 
+// R & D Results Utilization
+Route::get('/rdru-index', [App\Http\Controllers\backend\ReportController::class, 'rdruIndex']);
+Route::get('/rdru-list', [App\Http\Controllers\backend\ReportController::class, 'rdruList']);
+
 
 
 

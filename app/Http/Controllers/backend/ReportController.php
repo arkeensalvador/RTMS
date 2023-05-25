@@ -46,7 +46,18 @@ class ReportController extends Controller
         return view('backend.report.strategic.strategic_activities');
     }
 
-    public function addStrategicActivities() {
+    public function addStrategicActivities()
+    {
         return view('backend.report.strategic.add_strategic_activities');
+    }
+
+    public function rdruIndex()
+    {
+        return view('backend.report.rdru.rdru_index');
+    }
+
+    public function rdruList()
+    {
+        return view('backend.report.rdru.rdru_list');
     }
 }

@@ -90,7 +90,7 @@
 
                         {{-- card body start --}}
                         <div class="card-body">
-                            <form role="form" id="regiration_form" action="{{ url('add-programs') }}" method="POST"
+                            <form role="form" id="regiration_form" action="#" method="POST"
                                 enctype="multipart/form-data">
                                 @csrf
                                 <div class="row">
@@ -170,52 +170,64 @@
                                 <div class="row">
                                     <div class="col-sm-2">
                                         <div class="form-group">
-                                            <label>Duration</label>
-                                            <input type="date" class="form-control" placeholder="Enter ...">
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-2">
-                                        <div class="form-group">
-                                            <label>Duration</label>
-                                            <input type="date" class="form-control" placeholder="Enter ...">
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-2">
-                                        <div class="form-group">
-                                            <label>Duration</label>
+                                            <label>Start Date</label>
                                             <input type="date" class="form-control" placeholder="Enter ...">
                                         </div>
                                     </div>
 
+                                    <div class="col-sm-2">
+                                        <div class="form-group">
+                                            <label>End Date</label>
+                                            <input type="date" class="form-control" placeholder="Enter ...">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-1">
+                                        {{-- used for spacing --}}
+                                    </div>
 
 
                                     <div class="col-sm-5">
                                         <div class="form-group">
                                             <label>Budget</label>
-                                            <input type="text" class="form-control" placeholder="Enter ..."
-                                                list="funddtlist">
-                                            <datalist id="funddtlist">
-                                                <option value="Funding Agency 1"></option>
-                                                <option value="Funding Agency 2"></option>
-                                                <option value="Funding Agency 3"></option>
-                                                <option value="Funding Agency 4"></option>
-                                            </datalist>
+                                            <input type="text" class="form-control" placeholder="Enter ...">
                                         </div>
                                     </div>
                                 </div>
 
 
+                                <div class="row">
+                                    <div class="col-sm-5">
+                                        <!-- textarea -->
+                                        <div class="form-group">
+                                            <label>Commodities</label>
+                                            <input type="text" class="form-control" placeholder="Enter ...">
+                                        </div>
+                                    </div>
+                                
+
+                               
+                                    <div class="col-sm-5">
+                                        <div class="form-group">
+                                            <label>Role of Consortium</label>
+                                            <input type="text" class="form-control" placeholder="Enter ...">
+                                        </div>
+                                    </div>
+
+                                    <!-- /.card-body -->
+                                </div>
+
+                                <a href="{{ url('report-index') }}" class="btn btn-default">Back</a>
+                                <input type="submit" name="submit" class="submit btn btn-success" value="Submit" />
                                 <!-- /.card-body -->
                         </div>
-                        <!-- /.card-body -->
-                    </div>
-                    </form>
-                </div> {{-- card body end --}}
-            </div>{{-- card end --}}
-    </div>
-    <div class="col-lg-1">
+                        </form>
+                    </div> {{-- card body end --}}
+                </div>{{-- card end --}}
+            </div>
+            <div class="col-lg-1">
 
-    </div>
+            </div>
     </div>
 
     </section>
