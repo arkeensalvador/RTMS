@@ -84,7 +84,7 @@
                     <div class="card">
                         <div class="card-header">
                             <h5 class="card-title">
-                                Technology Transfer Modalities
+                                Awards Received
                             </h5>
                         </div>
 
@@ -93,46 +93,19 @@
                             <form role="form" id="regiration_form" action="#" method="POST"
                                 enctype="multipart/form-data">
                                 @csrf
-
                                 <div class="row">
-                                    <div class="col-sm-6">
-                                        <!-- textarea -->
+                                    <div class="col-sm-3">
                                         <div class="form-group">
-                                            <label>Title</label>
-                                            <textarea class="form-control" rows="3" placeholder="Enter ..."></textarea>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="col-sm-5">
-                                        <div class="form-group">
-                                            <label>Type of Technology</label>
-                                            <input type="text" class="form-control" placeholder="Enter ..."
-                                                list="techdtlist">
-                                            <datalist id="techdtlist">
-                                                <option value="STCBF">STCBF</option>
-                                                <option value="STMF">STMF</option>
-                                                <option value="STMP">STMP</option>
-                                                <option value="Techno Demo">Techno Demo</option>
-                                            </datalist>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-sm-5">
-                                        <div class="form-group">
-                                            <label>Status</label>
-                                            <select name="" id="" class="form-control">
-                                                <option value="Commercialized">Commercialized</option>
-                                                <option value="Pre-Commercialized">Pre-Commercialized</option>
+                                            <label>Type of Award</label>
+                                            <select type="text" class="form-control" placeholder="Enter ...">
+                                                <option value="Local">Local</option>
+                                                <option value="Regional">Regional</option>
+                                                <option value="National">National</option>
+                                                <option value="International">International</option>
                                             </select>
                                         </div>
                                     </div>
 
-
-                                </div>
-
-                                <div class="row">
                                     <div class="col-sm-5">
                                         <div class="form-group">
                                             <label>Agency</label>
@@ -144,9 +117,62 @@
                                             </select>
                                         </div>
                                     </div>
+                                    <div class="col-sm-2">
+                                        <div class="form-group">
+                                            <label>Date</label>
+                                            <input type="date" class="form-control" placeholder="Enter ...">
+                                        </div>
+                                    </div>
                                 </div>
 
-                                <a href="{{ url('rdru-ttm') }}" class="btn btn-default">Back</a>
+                                <div class="row">
+                                    <div class="col-sm-10">
+                                        <!-- textarea -->
+                                        <div class="form-group">
+                                            <label>Title of Activity/Training</label>
+                                            <textarea class="form-control" rows="3" placeholder="Enter ..."></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-sm-5">
+                                        <div class="form-group">
+                                            <label>Recipient(s)</label>
+                                            <input type="text" class="form-control" placeholder="Enter ...">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-5">
+                                        <div class="form-group">
+                                            <label>Sponsor</label>
+                                            <input type="text" class="form-control" placeholder="Enter ..."
+                                                list="sponsordtlist">
+                                            <datalist id="sponsordtlist">
+                                                <option value="DOST-PCAARRD"></option>
+                                                <option value="Department of Agriculture - Bayanihan Act"></option>
+                                            </datalist>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-sm-5">
+                                        <div class="form-group">
+                                            <label>Event/Activity</label>
+                                            <input type="text" class="form-control" placeholder="Enter ...">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-5">
+                                        <div class="form-group">
+                                            <label>Place of Award</label>
+                                            <input type="text" class="form-control" placeholder="Enter ...">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <a href="{{ url('cbg-awards') }}" class="btn btn-default">Back</a>
                                 <input type="submit" name="submit" class="submit btn btn-success" value="Submit" />
                                 <!-- /.card-body -->
                         </div>

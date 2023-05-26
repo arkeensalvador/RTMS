@@ -116,6 +116,19 @@ Route::get('/rdru-tpa', [App\Http\Controllers\backend\ReportController::class, '
 Route::get('/rdru-tpa-add', [App\Http\Controllers\backend\ReportController::class, 'rdruTpaAdd']);
 
 
+// Cabability Building and Governance
+Route::get('/cbg-index', [App\Http\Controllers\backend\ReportController::class, 'cbgIndex']);
+Route::get('/cbg-training', [App\Http\Controllers\backend\ReportController::class, 'cbgTraining']);
+Route::get('/cbg-awards', [App\Http\Controllers\backend\ReportController::class, 'cbgAwards']);
+Route::get('/cbg-equipment', [App\Http\Controllers\backend\ReportController::class, 'cbgEquipment']);
+Route::get('/cbg-training-add', [App\Http\Controllers\backend\ReportController::class, 'cbgTrainingAdd']);
+Route::get('/cbg-awards-add', [App\Http\Controllers\backend\ReportController::class, 'cbgAwardsAdd']);
+Route::get('/cbg-equipment-add', [App\Http\Controllers\backend\ReportController::class, 'cbgEquipmentAdd']);
+
+// Researchers
+Route::get('/researcher-index', [App\Http\Controllers\backend\ResearcherController::class, 'researcherIndex']);
+Route::get('/researcher-add', [App\Http\Controllers\backend\ResearcherController::class, 'researcherAdd']);
+
 
 
 

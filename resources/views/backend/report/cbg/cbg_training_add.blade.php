@@ -84,7 +84,7 @@
                     <div class="card">
                         <div class="card-header">
                             <h5 class="card-title">
-                                Technology Transfer Modalities
+                                Training - Workshops
                             </h5>
                         </div>
 
@@ -95,44 +95,19 @@
                                 @csrf
 
                                 <div class="row">
-                                    <div class="col-sm-6">
-                                        <!-- textarea -->
-                                        <div class="form-group">
-                                            <label>Title</label>
-                                            <textarea class="form-control" rows="3" placeholder="Enter ..."></textarea>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="row">
                                     <div class="col-sm-5">
                                         <div class="form-group">
-                                            <label>Type of Technology</label>
+                                            <label>Source of Fund</label>
                                             <input type="text" class="form-control" placeholder="Enter ..."
-                                                list="techdtlist">
-                                            <datalist id="techdtlist">
-                                                <option value="STCBF">STCBF</option>
-                                                <option value="STMF">STMF</option>
-                                                <option value="STMP">STMP</option>
-                                                <option value="Techno Demo">Techno Demo</option>
+                                                list="funddtlist">
+                                            <datalist id="funddtlist">
+                                                <option value="">DOST-PCAARRD</option>
+                                                <option value="">Department of Agriculture - Bayanihan Act</option>
+                                                <option value="">STMP</option>
                                             </datalist>
                                         </div>
                                     </div>
 
-                                    <div class="col-sm-5">
-                                        <div class="form-group">
-                                            <label>Status</label>
-                                            <select name="" id="" class="form-control">
-                                                <option value="Commercialized">Commercialized</option>
-                                                <option value="Pre-Commercialized">Pre-Commercialized</option>
-                                            </select>
-                                        </div>
-                                    </div>
-
-
-                                </div>
-
-                                <div class="row">
                                     <div class="col-sm-5">
                                         <div class="form-group">
                                             <label>Agency</label>
@@ -146,7 +121,42 @@
                                     </div>
                                 </div>
 
-                                <a href="{{ url('rdru-ttm') }}" class="btn btn-default">Back</a>
+                                <div class="row">
+                                    <div class="col-sm-10">
+                                        <!-- textarea -->
+                                        <div class="form-group">
+                                            <label>Title of Activity/Training</label>
+                                            <textarea class="form-control" rows="3" placeholder="Enter ..."></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-sm-5">
+                                        <div class="form-group">
+                                            <label>Expenditures</label>
+                                            <input type="text" class="form-control" placeholder="Enter ...">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-sm-2">
+                                        <div class="form-group">
+                                            <label>Date</label>
+                                            <input type="date" class="form-control" placeholder="Enter ...">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <label>No. of Participants</label>
+                                            <input type="text" class="form-control" placeholder="Enter ...">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <a href="{{ url('cbg-training') }}" class="btn btn-default">Back</a>
                                 <input type="submit" name="submit" class="submit btn btn-success" value="Submit" />
                                 <!-- /.card-body -->
                         </div>

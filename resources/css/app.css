@@ -110,3 +110,6 @@ nav.main-header.navbar.navbar-expand {
     align-items: center;
     flex-direction: column;
 }
+.ttm.row .custom-control-label {
+    font-weight: 500;
+}

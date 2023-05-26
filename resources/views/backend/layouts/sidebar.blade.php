@@ -144,6 +144,15 @@
                     </ul>
                 </li>
                 <li class="nav-item">
+                    <a href="{{ URL::to('/researcher-index') }}"
+                        class="nav-link {{ Request::is('researcher-index') ? 'active' : '' }}">
+                        <i class="nav-icon fas fa-users"></i>
+                        <p>
+                            Researchers
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
                     <a href="{{ URL::to('/all-agency') }}"
                         class="nav-link {{ Request::is('all-agency', 'edit-agency/*') ? 'active' : '' }}">
                         <i class="nav-icon fas fa-building"></i>

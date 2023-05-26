@@ -7,6 +7,16 @@
         <div class="container-fluid">
             <div class="monitoring row">
                 <div class="col-6">
+                    <div class="back-btn col-2">
+                        <a href="report-index">
+                            <div class="monitoring info-box bg-light">
+                                <div class="monitoring info-box-content">
+                                    <span class="back monitoring info-box-number text-center text-muted"><i class="fa-sharp fa-solid fa-circle-left fa-2xl"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
                     <div class="card">
 
                         <!-- /.card-header -->
@@ -14,11 +24,10 @@
                             <div class="row">
                                 <div class="col-12 col-md-12">
                                     <div class="col-sm-12">
-                                        <a href="rdmc-index">
+                                        <a href="cbg-training">
                                             <div class="monitoring info-box bg-light">
                                                 <div class="monitoring info-box-content">
-                                                    <span class="monitoring info-box-number text-center text-muted">R & D
-                                                        Management and Coordination
+                                                    <span class="monitoring info-box-number text-center text-muted">Training - Workshop
                                                     </span>
                                                 </div>
                                             </div>
@@ -26,39 +35,26 @@
                                     </div>
 
                                     <div class="col-sm-12">
-                                        <a href="strategic-activities">
+                                        <a href="cbg-awards">
                                             <div class="monitoring info-box bg-light">
                                                 <div class="monitoring info-box-content">
-                                                    <span class="monitoring info-box-number text-center text-muted">Strategic R & D
-                                                        Activities
+                                                    <span class="monitoring info-box-number text-center text-muted">Awards
                                                     </span>
-
                                                 </div>
                                             </div>
                                         </a>
                                     </div>
 
                                     <div class="col-sm-12">
-                                        <a href="rdru-index">
+                                        <a href="cbg-equipment">
                                             <div class="monitoring info-box bg-light">
                                                 <div class="monitoring info-box-content">
-                                                    <span class="monitoring info-box-number text-center text-muted">R & D Results
-                                                        Utilization</span>
+                                                    <span class="monitoring info-box-number text-center text-muted">Equipments and Facilitation</span>
                                                 </div>
                                             </div>
                                         </a>
                                     </div>
 
-                                    <div class="col-sm-12">
-                                        <a href="cbg-index">
-                                            <div class="monitoring info-box bg-light">
-                                                <div class="monitoring info-box-content">
-                                                    <span class="monitoring info-box-number text-center text-muted">Capability Building
-                                                        and Governance</span>
-                                                </div>
-                                            </div>
-                                        </a>
-                                    </div>
                                 </div>
                             </div>
                         </div>

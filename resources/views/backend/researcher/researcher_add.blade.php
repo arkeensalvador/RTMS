@@ -84,7 +84,7 @@
                     <div class="card">
                         <div class="card-header">
                             <h5 class="card-title">
-                                Technology Transfer Modalities
+                                Add Researcher
                             </h5>
                         </div>
 
@@ -95,11 +95,20 @@
                                 @csrf
 
                                 <div class="row">
-                                    <div class="col-sm-6">
-                                        <!-- textarea -->
+                                    <div class="col-sm-5">
                                         <div class="form-group">
-                                            <label>Title</label>
-                                            <textarea class="form-control" rows="3" placeholder="Enter ..."></textarea>
+                                            <label>Researcher Name</label>
+                                            <input type="text" class="form-control" placeholder="Enter ...">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-5">
+                                        <div class="form-group">
+                                            <label>Gender</label>
+                                            <select name="" id="" class="form-control">
+                                                <option value="">Male</option>
+                                                <option value="">Female</option>
+                                            </select>
                                         </div>
                                     </div>
                                 </div>
@@ -107,29 +116,17 @@
                                 <div class="row">
                                     <div class="col-sm-5">
                                         <div class="form-group">
-                                            <label>Type of Technology</label>
-                                            <input type="text" class="form-control" placeholder="Enter ..."
-                                                list="techdtlist">
-                                            <datalist id="techdtlist">
-                                                <option value="STCBF">STCBF</option>
-                                                <option value="STMF">STMF</option>
-                                                <option value="STMP">STMP</option>
-                                                <option value="Techno Demo">Techno Demo</option>
-                                            </datalist>
+                                            <label>Contact No.</label>
+                                            <input type="text" class="form-control" placeholder="Enter ...">
                                         </div>
                                     </div>
 
                                     <div class="col-sm-5">
                                         <div class="form-group">
-                                            <label>Status</label>
-                                            <select name="" id="" class="form-control">
-                                                <option value="Commercialized">Commercialized</option>
-                                                <option value="Pre-Commercialized">Pre-Commercialized</option>
-                                            </select>
+                                            <label>Email</label>
+                                            <input type="email" class="form-control" placeholder="Enter ...">
                                         </div>
                                     </div>
-
-
                                 </div>
 
                                 <div class="row">
@@ -146,7 +143,7 @@
                                     </div>
                                 </div>
 
-                                <a href="{{ url('rdru-ttm') }}" class="btn btn-default">Back</a>
+                                <a href="{{ url('researcher-index') }}" class="btn btn-default">Back</a>
                                 <input type="submit" name="submit" class="submit btn btn-success" value="Submit" />
                                 <!-- /.card-body -->
                         </div>

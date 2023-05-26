@@ -81,4 +81,32 @@ class ReportController extends Controller
     {
         return view('backend.report.rdru.rdru_tpa_add');
     }
+
+    public function cbgIndex() {
+        return view('backend.report.cbg.cbg_index');
+    }
+
+    public function cbgTraining() {
+        return view('backend.report.cbg.cbg_training');
+    }    
+
+    public function cbgAwards() {
+        return view('backend.report.cbg.cbg_awards');
+    }
+
+    public function cbgEquipment() {
+        return view('backend.report.cbg.cbg_equipment');
+    }
+
+    public function cbgTrainingAdd() {
+        return view('backend.report.cbg.cbg_training_add');
+    }    
+
+    public function cbgAwardsAdd() {
+        return view('backend.report.cbg.cbg_awards_add');
+    }
+
+    public function cbgEquipmentAdd() {
+        return view('backend.report.cbg.cbg_equipment_add');
+    }
 }
