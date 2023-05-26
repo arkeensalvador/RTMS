@@ -65,4 +65,20 @@ class ReportController extends Controller
     {
         return view('backend.report.rdru.rdru_add');
     }
+    public function rdruTtm()
+    {
+        return view('backend.report.rdru.rdru_ttm');
+    }
+    public function rdruTtmAdd()
+    {
+        return view('backend.report.rdru.rdru_ttm_add');
+    }
+    public function rdruTpa()
+    {
+        return view('backend.report.rdru.rdru_tpa');
+    }
+    public function rdruTpaAdd()
+    {
+        return view('backend.report.rdru.rdru_tpa_add');
+    }
 }

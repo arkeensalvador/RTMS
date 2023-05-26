@@ -110,6 +110,11 @@ Route::get('/add-strategic-index', [App\Http\Controllers\backend\ReportControlle
 Route::get('/rdru-index', [App\Http\Controllers\backend\ReportController::class, 'rdruIndex']);
 Route::get('/rdru-list', [App\Http\Controllers\backend\ReportController::class, 'rdruList']);
 Route::get('/rdru-add', [App\Http\Controllers\backend\ReportController::class, 'rdruAdd']);
+Route::get('/rdru-ttm', [App\Http\Controllers\backend\ReportController::class, 'rdruTtm']);
+Route::get('/rdru-ttm-add', [App\Http\Controllers\backend\ReportController::class, 'rdruTtmAdd']);
+Route::get('/rdru-tpa', [App\Http\Controllers\backend\ReportController::class, 'rdruTpa']);
+Route::get('/rdru-tpa-add', [App\Http\Controllers\backend\ReportController::class, 'rdruTpaAdd']);
+
 
 
 

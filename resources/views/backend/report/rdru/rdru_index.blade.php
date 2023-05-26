@@ -35,7 +35,7 @@
                                     </div>
 
                                     <div class="col-sm-12">
-                                        <a href="#">
+                                        <a href="rdru-ttm">
                                             <div class="monitoring info-box bg-light">
                                                 <div class="monitoring info-box-content">
                                                     <span class="monitoring info-box-number text-center text-muted">Technology Transfer Modalities
@@ -47,7 +47,7 @@
                                     </div>
 
                                     <div class="col-sm-12">
-                                        <a href="#">
+                                        <a href="rdru-tpa">
                                             <div class="monitoring info-box bg-light">
                                                 <div class="monitoring info-box-content">
                                                     <span class="monitoring info-box-number text-center text-muted">Technology Promotion Approaches</span>
