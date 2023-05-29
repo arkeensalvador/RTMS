@@ -24,12 +24,35 @@ class ReportController extends Controller
 
     public function monitoringEvaluation()
     {
-        return view('backend.report.rdmc.monitoring.monitoring_index');
+        return view('backend.report.rdmc.monitoring_index');
+    }
+
+    public function rdmcProjects()
+    {
+        return view('backend.report.rdmc.rdmc_projects');
+    }
+    public function rdmcChooseProgram()
+    {  
+        return view('backend.report.rdmc.rdmc_program_chooser');
+    }
+    public function projectsAdd()
+    {
+        return view('backend.report.rdmc.rdmc_projects_add');
+    }
+
+    public function activitiesAdd()
+    {
+        return view('backend.report.rdmc.rdmc_activities_add');
+    }
+
+    public function rdmcActivities()
+    {
+        return view('backend.report.rdmc.rdmc_activities');
     }
 
     public function aihrsIndex()
     {
-        return view('backend.report.rdmc.monitoring.aihrs.aihrs_index');
+        return view('backend.report.rdmc.aihrs_index');
     }
 
     public function linkages()
@@ -82,31 +105,38 @@ class ReportController extends Controller
         return view('backend.report.rdru.rdru_tpa_add');
     }
 
-    public function cbgIndex() {
+    public function cbgIndex()
+    {
         return view('backend.report.cbg.cbg_index');
     }
 
-    public function cbgTraining() {
+    public function cbgTraining()
+    {
         return view('backend.report.cbg.cbg_training');
-    }    
+    }
 
-    public function cbgAwards() {
+    public function cbgAwards()
+    {
         return view('backend.report.cbg.cbg_awards');
     }
 
-    public function cbgEquipment() {
+    public function cbgEquipment()
+    {
         return view('backend.report.cbg.cbg_equipment');
     }
 
-    public function cbgTrainingAdd() {
+    public function cbgTrainingAdd()
+    {
         return view('backend.report.cbg.cbg_training_add');
-    }    
+    }
 
-    public function cbgAwardsAdd() {
+    public function cbgAwardsAdd()
+    {
         return view('backend.report.cbg.cbg_awards_add');
     }
 
-    public function cbgEquipmentAdd() {
+    public function cbgEquipmentAdd()
+    {
         return view('backend.report.cbg.cbg_equipment_add');
     }
 }

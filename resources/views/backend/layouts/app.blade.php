@@ -597,7 +597,7 @@
                 title: "{{ Session::get('message') }}",
                 timerProgressBar: true,
                 showConfirmButton: false,
-                timer: 1000
+                timer: 900
                 })
                 // toastr.info("{{ Session::get('message') }}");
                 break;
@@ -607,7 +607,7 @@
                 title: "{{ Session::get('message') }}",
                 timerProgressBar: true,
                 showConfirmButton: false,
-                timer: 1000
+                timer: 900
                 })
                 // toastr.success("{{ Session::get('message') }}");
                 break;
@@ -617,7 +617,7 @@
                 title: "{{ Session::get('message') }}",
                 timerProgressBar: true,
                 showConfirmButton: false,
-                timer: 1000
+                timer: 900
                 })
 
                 // toastr.warning("{{ Session::get('message') }}");
@@ -628,7 +628,7 @@
                 title: "{{ Session::get('message') }}",
                 timerProgressBar: true,
                 showConfirmButton: false,
-                timer: 1000
+                timer: 900
                 })
 
                 // toastr.error("{{ Session::get('message') }}");

@@ -37,7 +37,7 @@
                                     </div>
 
                                     <div class="col-sm-12">
-                                        <a href="#">
+                                        <a href="rdmc-projects">
                                             <div class="monitoring info-box bg-light">
                                                 <div class="monitoring info-box-content">
                                                     <span class="monitoring info-box-number text-center text-muted">Projects
@@ -48,7 +48,7 @@
                                     </div>
 
                                     <div class="col-sm-12">
-                                        <a href="#">
+                                        <a href="rdmc-activities">
                                             <div class="monitoring info-box bg-light">
                                                 <div class="monitoring info-box-content">
                                                     <span class="monitoring info-box-number text-center text-muted">Activities</span>
