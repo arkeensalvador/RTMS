@@ -18,13 +18,13 @@
                                                     <div class="col-sm-12">
                                                         <select class="form-control"
                                                             onchange="window.open(this.value,'_self');" style="text-align: center">
-                                                            <option value="#" selected disabled>Choose existing program</option>
-                                                            <option value="projects-add">Page 1</option>
-                                                            <option value="">Page 2</option>
-                                                            <option value="">Page 3</option>
+                                                            <option class="opt" value="#" selected disabled>Choose existing program</option>
+                                                            <option class="opt" value="">Project 1</option>
+                                                            <option class="opt" value="">Project 2</option>
+                                                            <option class="opt" value="">Project 3</option>
+                                                            <option class="opt" value="rdmc-create-program">Create New Program</option>
                                                         </select>
                                                     </div>
-
                                                 </div>
                                             </div>
                                         </div>

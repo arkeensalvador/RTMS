@@ -32,7 +32,7 @@
                                             allowEscapeKey: false,
                                             allowOutsideClick: false
                                         })
-                                        .then((result) => {
+                                        .then((result) => { 
                                             var link= $(this).attr('href');
                                             if (result.isConfirmed) {
                                                 window.location.href = 'rdmc-choose-program';

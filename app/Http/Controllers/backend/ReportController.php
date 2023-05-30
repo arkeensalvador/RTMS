@@ -35,6 +35,10 @@ class ReportController extends Controller
     {  
         return view('backend.report.rdmc.rdmc_program_chooser');
     }
+    public function rdmcCreateProgram()
+    {  
+        return view('backend.report.rdmc.rdmc_create_program');
+    }
     public function projectsAdd()
     {
         return view('backend.report.rdmc.rdmc_projects_add');

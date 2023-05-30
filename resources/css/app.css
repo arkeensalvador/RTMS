@@ -113,3 +113,21 @@ nav.main-header.navbar.navbar-expand {
 .ttm.row .custom-control-label {
     font-weight: 500;
 }
+
+option.opt {
+    font-size: 1.2rem;
+    /* font-weight: 500; */
+}
+
+option.opt::-webkit-option-placeholder {
+    font-size: 1.2rem;
+    font-weight: 500;
+}
+
+.col.staffs {
+    border: 1px solid black;
+    position: absolute;
+    right: 20px;
+    width: 32%;
+    z-index: 1;
+}
