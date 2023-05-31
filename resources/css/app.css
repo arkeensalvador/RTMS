@@ -42,7 +42,7 @@ nav.main-header.navbar.navbar-expand {
 }
 
 .monitoring.info-box.bg-light:hover {
-    background-color: #3c3c3c!important;
+    background-color: #3c3c3c !important;
     color: #74c023 !important;
 }
 
@@ -55,6 +55,7 @@ nav.main-header.navbar.navbar-expand {
 .monitoring.info-box .info-box-number:hover {
     color: #74c023 !important;
 }
+
 .monitoring.info-box {
     box-shadow: 0 0 1px rgba(0, 0, 0, .125), 0 1px 3px rgba(0, 0, 0, .2);
     border-radius: .25rem;
@@ -67,6 +68,7 @@ nav.main-header.navbar.navbar-expand {
     position: relative;
     width: 100%;
 }
+
 .monitoring.info-box .info-box-number {
     display: block;
     padding-top: 1.25rem;
@@ -99,10 +101,10 @@ nav.main-header.navbar.navbar-expand {
 .card-title {
     font-size: 2rem;
 }
+
 .strategic.row {
-    display: -ms-flexbox;
     display: flex;
-    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
     margin-right: -7.5px;
     margin-left: -7.5px;
     align-content: center;
@@ -110,6 +112,7 @@ nav.main-header.navbar.navbar-expand {
     align-items: center;
     flex-direction: column;
 }
+
 .ttm.row .custom-control-label {
     font-weight: 500;
 }
@@ -124,10 +127,48 @@ option.opt::-webkit-option-placeholder {
     font-weight: 500;
 }
 
-.col.staffs {
+/* .col.staffs {
     border: 1px solid black;
     position: absolute;
     right: 20px;
     width: 32%;
     z-index: 1;
+} */
+
+.col.staffs span {
+    right: inherit;
+}
+
+#add-btn {
+    height: fit-content;
+}
+
+.row.append {
+    display: flex;
+    flex-wrap: wrap;
+    margin-right: -7.5px;
+    margin-left: -7.5px;
+    align-items: center;
+}
+
+td.append {
+    padding: 0rem;
+    border: none;
+}
+
+.table-append td,
+.table-append th {
+    /* padding: .459rem; */
+    vertical-align: middle;
+    border-top: none;
+    padding-bottom: .75rem;
+}
+
+.table-append td i {
+    padding: .75rem;
+}
+
+input#agencyAbbrev {
+    text-align: center;
+    font-weight: 700;
 }

@@ -584,6 +584,10 @@
         allowClear: false
     });
     
+    $('.year').select2({
+        placeholder: "Select Year",
+        allowClear: false
+    });
 });
 </script>
 

@@ -92,7 +92,7 @@
                             </h5>
                         </div>
                         <div class="progress">
-                            <div class="progress-bar bg-info progress-bar-striped" role="progressbar" aria-valuemin="0"
+                            <div class="progress-bar bg-success progress-bar-striped" role="progressbar" aria-valuemin="0"
                                 aria-valuemax="100"></div>
                         </div>
 
@@ -177,8 +177,8 @@
                                         </div>
                                     </div>
 
-                                    <a href="{{ url('rdmc-projects') }}" class="btn btn-default">Back</a>
-                                    <input type="submit" name="submit" class="submit btn btn-success" value="Submit" />
+                                    {{-- <a href="{{ url('rdmc-projects') }}" class="btn btn-default">Back</a>
+                                    <input type="submit" name="submit" class="submit btn btn-success" value="Submit" /> --}}
 
                                     <a href="{{ url('rdmc-projects') }}" class="btn btn-default">Back</a>
                                     <input type="button" name="next" class="next btn btn-info" value="Next" />
@@ -189,8 +189,47 @@
                                 </fieldset>
 
                                 <fieldset>
+
                                     <div class="row">
-                                        <div class="col-sm-4">
+                                        <div class="col-sm-2">
+                                            <div class="form-group">
+                                                <label>Start Date</label>
+                                                <input type="date" class="form-control" name="start_date" required
+                                                    autocomplete="false">
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-2">
+                                            <div class="form-group">
+                                                <label>End Date</label>
+                                                <input type="date" class="form-control" name="end_date" required
+                                                    autocomplete="false">
+                                            </div>
+                                        </div>
+
+                                        @if (auth()->user()->role == 'Admin')
+                                            <div class="col-sm-2">
+                                                <div class="form-group">
+                                                    <label>Extend Date</label>
+                                                    <input type="date" class="form-control" name="extend_date" required
+                                                        autocomplete="false">
+                                                </div>
+                                            </div>
+                                        @endif
+                                    </div>
+
+
+                                    <div class="row">
+                                        <div class="col-sm-5">
+                                            <div class="form-group">
+                                                <label>Coordination Fund</label>
+                                                <input type="text" class="form-control" placeholder="Enter ...">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-sm-5">
                                             <div class="form-group">
                                                 <label>Program Leader</label>
                                                 <input type="text" class="form-control" placeholder="Program Leader"
@@ -203,58 +242,16 @@
                                             </div>
                                         </div>
 
-                                        <div class="col-sm-4">
+                                        <div class="col-sm-5">
                                             <div class="form-group">
-                                                <label>Program Staff</label>
-                                                <input type="text" class="form-control" placeholder="Program Staffs">
-                                            </div>
-                                        </div>
-
-                                        <div class="col staffs">
-                                            <div class="col-sm-12">
-                                                <div class="form-group">
-                                                    <label>Program Staff</label>
-                                                    <input type="text" class="form-control"
-                                                        placeholder="Program Staffs">
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-12">
-                                                <div class="form-group">
-                                                    <label>Program Staff</label>
-                                                    <input type="text" class="form-control"
-                                                        placeholder="Program Staffs">
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-12">
-                                                <div class="form-group">
-                                                    <label>Program Staff</label>
-                                                    <input type="text" class="form-control"
-                                                        placeholder="Program Staffs">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-
-                                    <div class="row">
-                                        <div class="col-sm-8">
-                                            <div class="form-group">
-                                                <label>Program Title</label>
-                                                <textarea name="" id="" cols="30" rows="5" style="resize: none;" class="form-control"></textarea>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="row">
-                                        <div class="col-sm-8">
-                                            <div class="form-group">
-                                                <label>Funding Agency</label>
-                                                <select name="" id="" class="form-control">
-                                                    <option value="">Agency 1</option>
-                                                    <option value="">Agency 2</option>
-                                                    <option value="">Agency 3</option>
-                                                    <option value="">Agency 4</option>
-                                                </select>
+                                                <label>Assistant Leader</label>
+                                                <input type="text" class="form-control" placeholder="Program Leader"
+                                                    list="assisdtlist">
+                                                <datalist id="assisdtlist">
+                                                    <option value="Leader 1"><span>Agency</span></option>
+                                                    <option value="Leader 2"></option>
+                                                    <option value="Leader 3"></option>
+                                                </datalist>
                                             </div>
                                         </div>
                                     </div>
@@ -262,8 +259,21 @@
                                     <div class="row">
                                         <div class="col-sm-5">
                                             <div class="form-group">
-                                                <label>Coordination Fund</label>
-                                                <input type="text" class="form-control" placeholder="Enter ...">
+                                                <label>Program Staff(s)</label>
+                                                <table class="table table-append" id="dynamicAddRemove">
+                                                    <tr>
+                                                        <td class="append">
+                                                            {{-- <label>Program Staff</label> --}}
+                                                            <input type="text" class="form-control"
+                                                                placeholder="Program Staffs" name="moreFields[0][name]">
+                                                        </td>
+
+                                                        <td class="append">
+                                                            <i class="fa-solid fa-user-plus fa-lg" style="color: #28a745;"
+                                                                name="add" id="add-btn"></i>
+                                                        </td>
+                                                    </tr>
+                                                </table>
                                             </div>
                                         </div>
                                     </div>
@@ -271,6 +281,107 @@
                                     <input type="button" name="previous" class="previous btn btn-default"
                                         value="Previous" />
                                     <input type="button" name="next" class="next btn btn-info" value="Next" />
+                                </fieldset>
+
+                                <fieldset>
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <div class="form-group">
+                                                <label>Program Description</label>
+                                                <textarea name="" id="" cols="30" rows="5" style="resize: none;" class="form-control"></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <label>Approved Budget</label>
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text">PHP</span>
+                                                    </div>
+                                                    <input type="text" class="form-control" id="numin">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-2">
+                                            <div class="form-group">
+                                                <label>Amount of Released</label>
+                                                <select name="" id="year" class="form-control">
+                                                    <option value="Year 1">Year 1</option>
+                                                    <option value="Year 2">Year 2</option>
+                                                    <option value="Year 3">Year 3</option>
+                                                    <option value="Year 4">Year 4</option>
+                                                    <option value="Year 5">Year 5</option>
+                                                    <option value="Year 6">Year 6</option>
+                                                </select>
+                                            </div>
+                                            <input type="text" id="textYear">
+
+                                        </div>
+
+                                        <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <label style="visibility: hidden">Amount of Released</label>
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text">PHP</span>
+                                                    </div>
+                                                    <input type="text" class="form-control" id="numin2">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-sm-5">
+                                            <div class="form-group">
+                                                <label>Form of Development</label>
+                                                <select name="" id="" class="form-control">
+                                                    <option value="">Local</option>
+                                                    <option value="">National</option>
+                                                    <option value="">International</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <input type="button" name="previous" class="previous btn btn-default"
+                                        value="Previous" />
+
+                                    <a href="{{ url('projects-add') }}" class="btn btn-info"
+                                        onclick="event.preventDefault();
+                                        swalWithBootstrapButtons = Swal.mixin({
+                                    customClass: {
+                                        confirmButton: 'btn btn-success',
+                                        cancelButton: 'btn btn-danger'
+                                        },
+                                        buttonsStyling: false
+                                        })
+                                        Swal.fire({
+                                            icon: 'info',
+                                            title: 'Are there any Project associated with this Program?',
+                                            confirmButtonText: 'Yes',
+                                            cancelButtonText: 'No',
+                                            showCancelButton: true,
+                                            reverseButtons: true,
+                                            buttons: true,
+                                            allowEscapeKey: false,
+                                            allowOutsideClick: false
+                                        })
+                                        .then((result) => { 
+                                            var link= $(this).attr('href');
+                                            if (result.isConfirmed) {
+                                                window.location.href = 'projects-add';
+                                            // } else if (result.isDismissed){
+                                            //     window.location.href = link;
+                                            }
+                                        }); ">
+
+                                        <span>Next</span></a>
+                                    {{-- <input type="submit" name="submit" class="submit btn btn-success" value="Submit" /> --}}
                                 </fieldset>
                         </div>
                         </form>
@@ -285,6 +396,55 @@
     </section>
     </div>
 
-
+    <script>
+        var selectBox = document.getElementById("year");
+        selectBox.onchange = function() {
+            var textbox = document.getElementById("textYear");
+            textbox.value = this.value;
+        };
+    </script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+    <script>
+        function formatNumber(e) {
+            var rex = /(^\d{2})|(\d{1,3})(?=\d{1,3}|$)/g,
+                val = this.value.replace(/^0+|\.|,/g, ""),
+                res;
+
+            if (val.length) {
+                res = Array.prototype.reduce.call(val, (p, c) => c + p) // reverse the pure numbers string
+                    .match(rex) // get groups in array
+                    .reduce((p, c, i) => i - 1 ? p + "," + c : p + "." + c); // insert (.) and (,) accordingly
+                res += /\.|,/.test(res) ? "" : ".0"; // test if res has (.) or (,) in it
+                this.value = Array.prototype.reduce.call(res, (p, c) => c + p); // reverse the string and display
+            }
+        }
+
+        var ni = document.getElementById("numin");
+        var ni2 = document.getElementById("numin2");
+
+        ni.addEventListener("keyup", formatNumber);
+        ni2.addEventListener("keyup", formatNumber);
+    </script>
+
+    <script type="text/javascript">
+        var i = 0;
+        $("#add-btn").click(function() {
+            ++i;
+            $("#dynamicAddRemove").append(`
+            <tr>
+                <td class="append">
+                    <input type="text" class="form-control" placeholder="Program Staffs" name="moreFields[0][name]">
+                </td>
+
+                <td class="append">
+                    <i class="fa-solid fa-user-minus fa-lg remove-input" style="color: #dc3545;"></i>
+                </td>
+            </tr>
+            `);
+        });
+        $(document).on('click', '.remove-input', function() {
+            $(this).parents('tr').remove();
+        });
+    </script>
 @endsection
