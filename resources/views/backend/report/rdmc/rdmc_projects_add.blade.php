@@ -93,10 +93,21 @@
                         </div>
                         {{-- card body start --}}
                         <div class="card-body">
-                            <form role="form" id="regiration_form" action="#" method="POST"
+                            <form role="form" id="regiration_form" action="{{ url('add-programs') }}" method="POST"
                                 enctype="multipart/form-data">
                                 @csrf
                                 <fieldset>
+                                    <div class="row">
+                                        <div class="col-sm-2">
+                                            <div class="form-group">
+                                                <label>ProgramID</label>
+                                                {{-- Route::input('name'); --}}
+                                                <input type="text" class="form-control"
+                                                    value="<?= substr(md5(microtime()), 0, 10) ?>" disabled
+                                                    placeholder="Enter code">
+                                            </div>
+                                        </div>
+                                    </div>
                                     <div class="row">
                                         <div class="col-sm-2">
                                             <div class="form-group">
@@ -360,7 +371,7 @@
                                     <input type="button" name="previous" class="previous btn btn-default"
                                         value="Previous" />
 
-                                    <input type="submit" name="submit" class="submit btn btn-success"
+                                    <input type="button" id="btn-ok" name="submit" class="submit btn btn-success"
                                         value="Submit" />
                                 </fieldset>
                             </form>
@@ -376,6 +387,55 @@
     </section>
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            $('form #btn-ok').click(function(e) {
+                let $form = $(this).closest('form');
+                Swal.fire({
+                    title: 'Are you  sure?',
+                    text: "Check plz",
+                    type: 'warning',
+                    showCancelButton: true,
+                    confirmButtonText: 'OK',
+                    cancelButtonText: 'Cancel',
+                    reverseButtons: true
+                }).then((result) => {
+                    if (result.value) {
+
+                        $form.submit();
+                        window.location.href = 'rdmc-choose-program';
+
+                        onst Toast = Swal.mixin({
+                            toast: true,
+                            position: 'top-end',
+                            showConfirmButton: false,
+                            timer: 3000,
+                            timerProgressBar: true,
+                            didOpen: (toast) => {
+                                toast.addEventListener('mouseenter', Swal.stopTimer)
+                                toast.addEventListener('mouseleave', Swal.resumeTimer)
+                            }
+                        })
+
+                        Toast.fire({
+                            icon: 'success',
+                            title: 'Signed in successfully'
+                        })
+                    } else if (
+                        result.dismiss === Swal.DismissReason.cancel
+                    ) {
+                        Swal.fire(
+                            'Canceled',
+                            'Do corrections and then retry :)',
+                            'error'
+                        );
+                    }
+                });
+
+            });
+        });
+    </script>
     <script>
         var selectBox = document.getElementById("agency");
         selectBox.onchange = function() {

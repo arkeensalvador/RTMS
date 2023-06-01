@@ -166,6 +166,7 @@ td.append {
 
 .table-append td i {
     padding: .75rem;
+    cursor: pointer;
 }
 
 input#agencyAbbrev {

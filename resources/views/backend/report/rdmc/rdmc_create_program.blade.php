@@ -318,8 +318,6 @@
                                                     <option value="Year 6">Year 6</option>
                                                 </select>
                                             </div>
-                                            <input type="text" id="textYear">
-
                                         </div>
 
                                         <div class="col-sm-4">

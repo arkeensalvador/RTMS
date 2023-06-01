@@ -14,13 +14,7 @@
 
                                     <a href="{{ url('projects-add') }}" class="btn btn-success"
                                         onclick="event.preventDefault();
-                                        const swalWithBootstrapButtons = Swal.mixin({
-                                    customClass: {
-                                        confirmButton: 'btn btn-success',
-                                        cancelButton: 'btn btn-danger'
-                                    },
-                                    buttonsStyling: false
-                                    })
+                                        
                                         Swal.fire({
                                             icon: 'info',
                                             title: 'Is your project under a program?',
@@ -30,7 +24,7 @@
                                             reverseButtons: true,
                                             buttons: true,
                                             allowEscapeKey: false,
-                                            allowOutsideClick: false
+                                            allowOutsideClick: false,
                                         })
                                         .then((result) => { 
                                             var link= $(this).attr('href');
