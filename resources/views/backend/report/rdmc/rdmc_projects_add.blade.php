@@ -393,35 +393,20 @@
             $('form #btn-ok').click(function(e) {
                 let $form = $(this).closest('form');
                 Swal.fire({
-                    title: 'Are you  sure?',
-                    text: "Check plz",
+                    // title: 'Are you  sure?',
+                    icon: 'info',
+                    text: 'Are there any studies/sub-projects associated with this Project?',
                     type: 'warning',
                     showCancelButton: true,
-                    confirmButtonText: 'OK',
-                    cancelButtonText: 'Cancel',
+                    confirmButtonText: 'Yes',
+                    cancelButtonText: 'None',
                     reverseButtons: true
                 }).then((result) => {
                     if (result.value) {
 
                         $form.submit();
-                        window.location.href = 'rdmc-choose-program';
+                        window.location.href = 'sub-projects-add';
 
-                        onst Toast = Swal.mixin({
-                            toast: true,
-                            position: 'top-end',
-                            showConfirmButton: false,
-                            timer: 3000,
-                            timerProgressBar: true,
-                            didOpen: (toast) => {
-                                toast.addEventListener('mouseenter', Swal.stopTimer)
-                                toast.addEventListener('mouseleave', Swal.resumeTimer)
-                            }
-                        })
-
-                        Toast.fire({
-                            icon: 'success',
-                            title: 'Signed in successfully'
-                        })
                     } else if (
                         result.dismiss === Swal.DismissReason.cancel
                     ) {
@@ -436,6 +421,7 @@
             });
         });
     </script>
+
     <script>
         var selectBox = document.getElementById("agency");
         selectBox.onchange = function() {

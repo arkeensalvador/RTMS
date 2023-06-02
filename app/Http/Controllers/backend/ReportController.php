@@ -43,6 +43,10 @@ class ReportController extends Controller
     {
         return view('backend.report.rdmc.rdmc_projects_add');
     }
+    public function subProjectsAdd()
+    {
+        return view('backend.report.rdmc.rdmc_sub_project_add');
+    }
 
     public function activitiesAdd()
     {
