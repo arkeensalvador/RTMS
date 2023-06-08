@@ -9,10 +9,10 @@
                     <div class="col-11">
                         <div class="card">
                             <div class="card-header">
-                                <h2 class="card-title">List of Linkages</h2>
+                                <h2 class="card-title">List of Database & Information System</h2>
                                 <div class="card-tools">
 
-                                    <a href="{{ url('rdmc-linkages-add') }}" class="btn btn-success">
+                                    <a href="{{ url('rdmc-dbinfosys-add') }}" class="btn btn-success">
                                         <span><i class="fa-solid fa-plus"></i> Create</span></a>
                                     <!-- Here is a label for example -->
                                     {{-- <span class="badge badge-primary">Label</span> --}}
@@ -27,22 +27,22 @@
                                                 <thead>
                                                     <tr>
                                                         <th>#</th>
+                                                        <th>Database/Information System</th>
                                                         <th>Type</th>
-                                                        <th>Agency/Institution</th>
-                                                        <th>Year</th>
-                                                        <th>Address</th>
-                                                        <th>Nature of Assistance/Linkages/Projects</th>
+                                                        <th>Title</th>
+                                                        <th>Date Created</th>
+                                                        <th>Purpose/Use</th>
                                                         <th>Action</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                     <tr>
                                                         <td>1</td>
-                                                        <td>Developed/New</td>
-                                                        <td>Local</td>
-                                                        <td>2022</td>
-                                                        <td>CLSU-PCAARRD</td>
-                                                        <td>Let’s Doe Business: Goats Milk-based Livelihood Opportunities to Mitogate The Effects of the Covid 19 Pandemic</td>
+                                                        <td>Database</td>
+                                                        <td>Developed/Enhanced</td>
+                                                        <td>CLSU-RADIS</td>
+                                                        <td>November, 2022</td>
+                                                        <td>Sample Purpose/Use</td>
                                                         <td class="action">
                                                             <a class="btn btn-primary" href="#"><i
                                                                     class="fa-solid fa-pen-to-square"
@@ -54,11 +54,11 @@
                                                     </tr>
                                                     <tr>
                                                         <td>2</td>
-                                                        <td>Developed/New</td>
-                                                        <td>Local</td>
-                                                        <td>2022</td>
-                                                        <td>CLSU-Jollibee Foundation</td>
-                                                        <td>To bring the agricultural technologies to the farmer-partner of the JGF under their Farmer Entrepreneurship Program</td>
+                                                        <td>Information System</td>
+                                                        <td>Maintained</td>
+                                                        <td>CLAARRDEC - Facebook Page</td>
+                                                        <td>January, 2020</td>
+                                                        <td>Sample Purpose/Use</td>
                                                         <td class="action">
                                                             <a class="btn btn-primary" href="#"><i
                                                                     class="fa-solid fa-pen-to-square"

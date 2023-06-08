@@ -24,7 +24,7 @@
                             <div class="row">
                                 <div class="col-12 col-md-12">
                                     <div class="col-sm-12">
-                                        <a href="monitoring-evaluation">
+                                        <a href="rdmc-monitoring-evaluation">
                                             <div class="monitoring info-box bg-light">
                                                 <div class="monitoring info-box-content">
                                                     <span class="monitoring info-box-number text-center text-muted">Monitoring and Evaluation
@@ -35,19 +35,18 @@
                                     </div>
 
                                     <div class="col-sm-12">
-                                        <a href="linkages-index">
+                                        <a href="rdmc-linkages-index">
                                             <div class="monitoring info-box bg-light">
                                                 <div class="monitoring info-box-content">
                                                     <span class="monitoring info-box-number text-center text-muted">Linkages
                                                     </span>
-
                                                 </div>
                                             </div>
                                         </a>
                                     </div>
 
                                     <div class="col-sm-12">
-                                        <a href="db-infosys-index">
+                                        <a href="rdmc-dbinfosys-index">
                                             <div class="monitoring info-box bg-light">
                                                 <div class="monitoring info-box-content">
                                                     <span class="monitoring info-box-number text-center text-muted">Database and Information System</span>

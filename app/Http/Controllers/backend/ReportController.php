@@ -69,11 +69,19 @@ class ReportController extends Controller
 
     public function linkagesIndex()
     {
-        return view('backend.report.rdmc_linkages_index');
+        return view('backend.report.rdmc.rdmc_linkages_index');
+    }
+    public function linkagesAddIndex()
+    {
+        return view('backend.report.rdmc.rdmc_linkages_add');
     }
     public function dbInfoSys()
     {
-        return view('backend.report.rdmc_dbinfosys_index');
+        return view('backend.report.rdmc.rdmc_dbinfosys_index');
+    }
+    public function dbInfoSysAdd()
+    {
+        return view('backend.report.rdmc.rdmc_dbinfosys_add');
     }
 
     public function strategicActivities()
