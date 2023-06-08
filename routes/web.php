@@ -100,13 +100,14 @@ Route::get('/rdmc-index', [App\Http\Controllers\backend\ReportController::class,
 Route::get('/monitoring-evaluation', [App\Http\Controllers\backend\ReportController::class, 'monitoringEvaluation'])->name('monitoringEvaluation');
 Route::get('/rdmc-projects', [App\Http\Controllers\backend\ReportController::class, 'rdmcProjects'])->name('rdmcProjects');
 Route::get('/rdmc-activities', [App\Http\Controllers\backend\ReportController::class, 'rdmcActivities'])->name('rdmcActivities');
+Route::get('/rdmc-activities-add', [App\Http\Controllers\backend\ReportController::class, 'rdmcAddActivities'])->name('rdmcAddActivities');
 Route::get('/projects-add', [App\Http\Controllers\backend\ReportController::class, 'projectsAdd'])->name('projectsAdd');
 Route::get('/sub-projects-add', [App\Http\Controllers\backend\ReportController::class, 'subProjectsAdd'])->name('subProjectsAdd');
 Route::get('/rdmc-create-program', [App\Http\Controllers\backend\ReportController::class, 'rdmcCreateProgram'])->name('rdmcCreateProgram');
 Route::get('/projects-add-no-program', [App\Http\Controllers\backend\ReportController::class, 'projectsAddNoProgram'])->name('projectsAddNoProgram');
 Route::get('/rdmc-choose-program', [App\Http\Controllers\backend\ReportController::class, 'rdmcChooseProgram'])->name('rdmcChooseProgram');
 Route::get('/aihrs', [App\Http\Controllers\backend\ReportController::class, 'aihrsIndex'])->name('aihrsIndex');
-Route::get('/linkages', [App\Http\Controllers\backend\ReportController::class, 'linkages'])->name('linkages');
+Route::get('/linkages-index', [App\Http\Controllers\backend\ReportController::class, 'linkagesIndex'])->name('linkagesIndex');
 Route::get('/db-infosys', [App\Http\Controllers\backend\ReportController::class, 'dbInfoSys'])->name('dbInfoSys');
 
 // Strategic activities

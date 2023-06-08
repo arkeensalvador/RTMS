@@ -12,28 +12,7 @@
                                 <h2 class="card-title">List of Projects</h2>
                                 <div class="card-tools">
 
-                                    <a href="{{ url('projects-add') }}" class="btn btn-success"
-                                        onclick="event.preventDefault();
-                                        
-                                        Swal.fire({
-                                            icon: 'info',
-                                            title: 'Is your project under a program?',
-                                            confirmButtonText: 'Yes',
-                                            cancelButtonText: 'No',
-                                            showCancelButton: true,
-                                            reverseButtons: true,
-                                            buttons: true,
-                                            allowEscapeKey: false,
-                                            allowOutsideClick: false,
-                                        })
-                                        .then((result) => { 
-                                            var link= $(this).attr('href');
-                                            if (result.isConfirmed) {
-                                                window.location.href = 'rdmc-choose-program';
-                                            } else if (result.isDismissed){
-                                                window.location.href = link;
-                                            }
-                                        }); ">
+                                    <a href="{{ url('rdmc-activities-add') }}" class="btn btn-success">
 
                                         <span><i class="fa-solid fa-plus"></i> Create</span></a>
 

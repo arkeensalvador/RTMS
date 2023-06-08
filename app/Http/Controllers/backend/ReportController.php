@@ -57,19 +57,23 @@ class ReportController extends Controller
     {
         return view('backend.report.rdmc.rdmc_activities');
     }
+    public function rdmcAddActivities()
+    {
+        return view('backend.report.rdmc.rdmc_activities_add');
+    }
 
     public function aihrsIndex()
     {
         return view('backend.report.rdmc.aihrs_index');
     }
 
-    public function linkages()
+    public function linkagesIndex()
     {
-        return view('backend.report.linkages.linkages_index');
+        return view('backend.report.rdmc_linkages_index');
     }
     public function dbInfoSys()
     {
-        return view('backend.report.dbinfosys.dbinfosys_index');
+        return view('backend.report.rdmc_dbinfosys_index');
     }
 
     public function strategicActivities()
