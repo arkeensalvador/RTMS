@@ -16,9 +16,6 @@ return new class extends Migration
             $table->id();
             $table->string('budget')->nullable();
             $table->string('amount_release')->nullable();
-            // $table->string('check_no')->nullable();
-            // $table->string('or_no')->nullable();
-            // $table->string('or_date')->nullable();
             $table->date('start_date')->nullable();
             $table->date('end_date')->nullable();
             $table->date('extend_date')->nullable();

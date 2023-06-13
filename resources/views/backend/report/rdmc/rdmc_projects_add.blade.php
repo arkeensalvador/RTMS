@@ -163,8 +163,8 @@
 
                                         <div class="col-sm-6">
                                             <div class="form-group">
-                                                <label for=""></label>
-                                                <input type="text" class="form-control" id="agencyAbbrev"
+                                                <label for="" style="visibility: hidden; background-color: white;">Agency</label>
+                                                <input type="text" readonly class="form-control" id="agencyAbbrev"
                                                     style="border: none;">
                                             </div>
                                         </div>

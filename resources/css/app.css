@@ -172,4 +172,5 @@ td.append {
 input#agencyAbbrev {
     text-align: center;
     font-weight: 700;
+    background: none;
 }

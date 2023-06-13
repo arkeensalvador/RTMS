@@ -144,6 +144,15 @@
                     </ul>
                 </li>
                 <li class="nav-item">
+                    <a href="#"
+                        class="nav-link">
+                        <i class="nav-icon fa-solid fa-list-ul"></i>
+                        <p>
+                            List of Reports
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
                     <a href="{{ URL::to('/researcher-index') }}"
                         class="nav-link {{ Request::is('researcher-index') ? 'active' : '' }}">
                         <i class="nav-icon fas fa-users"></i>
@@ -172,9 +181,9 @@
                 </li>
                 <li class="nav-item has-treeview">
                     <a href="{{URL::to('/all-user')}}" class="nav-link {{ Request::is('all-user','add-user-index', 'edit-user/*') ? 'active' : '' }}">
-                        <i class="nav-icon fas fa-users"></i>
+                        <i class="nav-icon fa-solid fa-users-gear"></i>
                         <p>
-                            User Management
+                            Manage Accounts
                             {{-- <span class="right badge badge-danger">New</span> --}}
                             {{-- <i class="fas fa-angle-left right"></i> --}}
                         </p>
