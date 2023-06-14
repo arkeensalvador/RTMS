@@ -10,32 +10,33 @@
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <!-- Font Awesome Icons -->
-    <link rel="stylesheet" href="{{asset('backend/plugins/fontawesome-free/css/all.min.css')}}">
-    <link rel="stylesheet" href="{{asset('backend/plugins/fontawesome-free-6.3.0-web/css/all.min.css')}}">
+    <link rel="stylesheet" href="{{ asset('backend/plugins/fontawesome-free/css/all.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('backend/plugins/fontawesome-free-6.3.0-web/css/all.min.css') }}">
     {{-- <script src="https://kit.fontawesome.com/403b4fe327.js" crossorigin="anonymous"></script> --}}
 
     <!-- overlayScrollbars -->
-    <link rel="stylesheet" href="{{asset('backend/plugins/overlayScrollbars/css/OverlayScrollbars.min.css')}}">
+    <link rel="stylesheet" href="{{ asset('backend/plugins/overlayScrollbars/css/OverlayScrollbars.min.css') }}">
     <!-- DataTables -->
-    <link rel="stylesheet" href="{{asset('backend/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css')}}">
-    <link rel="stylesheet" href="{{asset('backend/plugins/datatables-responsive/css/responsive.bootstrap4.min.css')}}">
-    <link rel="stylesheet" href="{{asset('backend/plugins/datatables-buttons/css/buttons.bootstrap4.min.css')}}">
+    <link rel="stylesheet" href="{{ asset('backend/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
+    <link rel="stylesheet"
+        href="{{ asset('backend/plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('backend/plugins/datatables-buttons/css/buttons.bootstrap4.min.css') }}">
     <!-- Theme style -->
-    <link rel="stylesheet" href="{{asset('backend/dist/css/adminlte.min.css')}}">
+    <link rel="stylesheet" href="{{ asset('backend/dist/css/adminlte.min.css') }}">
     {{--
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous">
     --}}
 
     {{-- Toastr & Sweet Alert --}}
-    <link rel="stylesheet" href="{{asset('toaster/toastr.min.css')}}">
+    <link rel="stylesheet" href="{{ asset('toaster/toastr.min.css') }}">
 
     {{-- Select2 --}}
-    <link rel="stylesheet" href="{{asset('backend/plugins/select2/css/select2.min.css')}}">
+    <link rel="stylesheet" href="{{ asset('backend/plugins/select2/css/select2.min.css') }}">
 
     {{-- bs stepper --}}
 
-    <link rel="stylesheet" href="{{asset('backend/plugins/bs-stepper/css/bs-stepper.min.css')}}">
+    <link rel="stylesheet" href="{{ asset('backend/plugins/bs-stepper/css/bs-stepper.min.css') }}">
 
     {{-- iCheck --}}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/icheck-bootstrap/3.0.1/icheck-bootstrap.min.css"
@@ -46,9 +47,9 @@
     <link rel="stylesheet" type="text/css" href="{{ mix('resources/css/app.css') }}" />
 
     {{-- DropZone --}}
-    <link rel="stylesheet" href="{{ asset ('backend/plugins/dropzone/min/dropzone.css') }}">
+    <link rel="stylesheet" href="{{ asset('backend/plugins/dropzone/min/dropzone.css') }}">
     {{-- <script>
-        @if(Session::has('message'))
+        @if (Session::has('message'))
         var type="{{Session::get('alert-type','info')}}"
         switch(type) {
             case 'info':
@@ -480,57 +481,57 @@
 
     <!-- REQUIRED SCRIPTS -->
     <!-- jQuery -->
-    <script src="{{asset('backend/plugins/jquery/jquery.min.js')}}"></script>
+    <script src="{{ asset('backend/plugins/jquery/jquery.min.js') }}"></script>
     <!-- Bootstrap -->
-    <script src="{{asset('backend/plugins/bootstrap/js/bootstrap.bundle.min.j')}}s"></script>
+    <script src="{{ asset('backend/plugins/bootstrap/js/bootstrap.bundle.min.j') }}s"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-qKXV1j0HvMUeCBQ+QVp7JcfGl760yU08IQ+GpUo5hlbpg51QRiuqHAJz8+BrxE/N" crossorigin="anonymous">
     </script>
     <!-- overlayScrollbars -->
-    <script src="{{asset('backend/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js')}}"></script>
+    <script src="{{ asset('backend/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js') }}"></script>
     <!-- AdminLTE App -->
-    <script src="{{asset('backend/dist/js/adminlte.js')}}"></script>
+    <script src="{{ asset('backend/dist/js/adminlte.js') }}"></script>
 
     <!-- PAGE PLUGINS -->
     <!-- jQuery Mapael -->
-    <script src="{{asset('backend/plugins/jquery-mousewheel/jquery.mousewheel.js')}}"></script>
-    <script src="{{asset('backend/plugins/raphael/raphael.min.js')}}"></script>
-    <script src="{{asset('backend/plugins/jquery-mapael/jquery.mapael.min.js')}}"></script>
-    <script src="{{asset('backend/plugins/jquery-mapael/maps/usa_states.min.js')}}"></script>
+    <script src="{{ asset('backend/plugins/jquery-mousewheel/jquery.mousewheel.js') }}"></script>
+    <script src="{{ asset('backend/plugins/raphael/raphael.min.js') }}"></script>
+    <script src="{{ asset('backend/plugins/jquery-mapael/jquery.mapael.min.js') }}"></script>
+    <script src="{{ asset('backend/plugins/jquery-mapael/maps/usa_states.min.js') }}"></script>
 
     <!-- DataTables  & Plugins -->
-    <script src="{{asset('backend/plugins/datatables/jquery.dataTables.min.js')}}"></script>
-    <script src="{{asset('backend/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js')}}"></script>
-    <script src="{{asset('backend/plugins/datatables-responsive/js/dataTables.responsive.min.js')}}"></script>
-    <script src="{{asset('backend/plugins/datatables-responsive/js/responsive.bootstrap4.min.js')}}"></script>
-    <script src="{{asset('backend/plugins/datatables-buttons/js/dataTables.buttons.min.js')}}"></script>
-    <script src="{{asset('backend/plugins/datatables-buttons/js/buttons.bootstrap4.min.js')}}"></script>
-    <script src="{{asset('backend/plugins/jszip/jszip.min.js')}}"></script>
-    <script src="{{asset('backend/plugins/pdfmake/pdfmake.min.js')}}"></script>
-    <script src="{{asset('backend/plugins/pdfmake/vfs_fonts.js')}}"></script>
-    <script src="{{asset('backend/plugins/datatables-buttons/js/buttons.html5.min.js')}}"></script>
-    <script src="{{asset('backend/plugins/datatables-buttons/js/buttons.print.min.js')}}"></script>
-    <script src="{{asset('backend/plugins/datatables-buttons/js/buttons.colVis.min.js')}}"></script>
+    <script src="{{ asset('backend/plugins/datatables/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset('backend/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
+    <script src="{{ asset('backend/plugins/datatables-responsive/js/dataTables.responsive.min.js') }}"></script>
+    <script src="{{ asset('backend/plugins/datatables-responsive/js/responsive.bootstrap4.min.js') }}"></script>
+    <script src="{{ asset('backend/plugins/datatables-buttons/js/dataTables.buttons.min.js') }}"></script>
+    <script src="{{ asset('backend/plugins/datatables-buttons/js/buttons.bootstrap4.min.js') }}"></script>
+    <script src="{{ asset('backend/plugins/jszip/jszip.min.js') }}"></script>
+    <script src="{{ asset('backend/plugins/pdfmake/pdfmake.min.js') }}"></script>
+    <script src="{{ asset('backend/plugins/pdfmake/vfs_fonts.js') }}"></script>
+    <script src="{{ asset('backend/plugins/datatables-buttons/js/buttons.html5.min.js') }}"></script>
+    <script src="{{ asset('backend/plugins/datatables-buttons/js/buttons.print.min.js') }}"></script>
+    <script src="{{ asset('backend/plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/bs-stepper/dist/js/bs-stepper.min.js"></script>
 
-    <script src="{{asset('backend/plugins/inputmask/inputmask.js')}}"></script>
-    <script src="{{asset('backend/plugins/inputmask/inputmask.es6.js')}}"></script>
-    <script src="{{asset('backend/plugins/inputmask/inputmask.min.js')}}"></script>
-    <script src="{{asset('backend/plugins/inputmask/jquery.inputmask.js')}}"></script>
-    <script src="{{asset('backend/plugins/inputmask/jquery.inputmask.min.js')}}"></script>
+    <script src="{{ asset('backend/plugins/inputmask/inputmask.js') }}"></script>
+    <script src="{{ asset('backend/plugins/inputmask/inputmask.es6.js') }}"></script>
+    <script src="{{ asset('backend/plugins/inputmask/inputmask.min.js') }}"></script>
+    <script src="{{ asset('backend/plugins/inputmask/jquery.inputmask.js') }}"></script>
+    <script src="{{ asset('backend/plugins/inputmask/jquery.inputmask.min.js') }}"></script>
 
     {{-- bs stepper --}}
-    <script src="{{asset('backend/plugins/bs-stepper/js/bs-stepper.min.js')}}"></script>
+    <script src="{{ asset('backend/plugins/bs-stepper/js/bs-stepper.min.js') }}"></script>
 
     {{-- Repeater --}}
-    <script src="{{asset('backend/plugins/jquery-repeater-master/repeater.js')}}"></script>
+    <script src="{{ asset('backend/plugins/jquery-repeater-master/repeater.js') }}"></script>
 
     {{-- Select2 --}}
-    <script src="{{asset('backend/plugins/select2/js/select2.min.js')}}"></script>
+    <script src="{{ asset('backend/plugins/select2/js/select2.min.js') }}"></script>
 
     {{-- sweet alert start --}}
-    <script src="{{asset('toaster/toastr.min.js')}}"></script>
-    <script src="{{asset('toaster/sweetalert.min.js')}}"></script>
+    <script src="{{ asset('toaster/toastr.min.js') }}"></script>
+    <script src="{{ asset('toaster/sweetalert.min.js') }}"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
@@ -542,31 +543,31 @@
 
 
     <!-- ChartJS -->
-    <script src="{{asset('backend/plugins/chart.js/Chart.min.js')}}"></script>
+    <script src="{{ asset('backend/plugins/chart.js/Chart.min.js') }}"></script>
 
     <!-- AdminLTE for demo purposes -->
     {{-- <script src="{{asset('backend/dist/js/demo.js')}}"></script> --}}
     <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-    <script src="{{asset('backend/dist/js/pages/dashboard2.js')}}"></script>
+    <script src="{{ asset('backend/dist/js/pages/dashboard2.js') }}"></script>
 
 
 
 
 </body>
 <script>
-    function formatNumber(e){
-    var rex = /(^\d{2})|(\d{1,3})(?=\d{1,3}|$)/g,
-    val = this.value.replace(/^0+|\.|,/g,""),
-    res;
-  
-    if (val.length) {
-    res = Array.prototype.reduce.call(val, (p,c) => c + p)            // reverse the pure numbers string
-            .match(rex)                                            // get groups in array
-            .reduce((p,c,i) => i - 1 ? p + "," + c : p + "." + c); // insert (.) and (,) accordingly
-    res += /\.|,/.test(res) ? "" : ".0";                              // test if res has (.) or (,) in it
-    this.value = Array.prototype.reduce.call(res, (p,c) => c + p);    // reverse the string and display
+    function formatNumber(e) {
+        var rex = /(^\d{2})|(\d{1,3})(?=\d{1,3}|$)/g,
+            val = this.value.replace(/^0+|\.|,/g, ""),
+            res;
+
+        if (val.length) {
+            res = Array.prototype.reduce.call(val, (p, c) => c + p) // reverse the pure numbers string
+                .match(rex) // get groups in array
+                .reduce((p, c, i) => i - 1 ? p + "," + c : p + "." + c); // insert (.) and (,) accordingly
+            res += /\.|,/.test(res) ? "" : ".0"; // test if res has (.) or (,) in it
+            this.value = Array.prototype.reduce.call(res, (p, c) => c + p); // reverse the string and display
+        }
     }
-}
 
     var ni = document.getElementById("numin");
 
@@ -579,61 +580,84 @@
 
 <script>
     $(document).ready(function() {
-    $('.agency').select2({
-        placeholder: "Select Agency",
-        allowClear: false
+        $('.agency').select2({
+            placeholder: "Select Agency",
+            allowClear: false
+        });
+
+        $('.year').select2({
+            placeholder: "Select Year",
+            allowClear: false
+        });
     });
-    
-    $('.year').select2({
-        placeholder: "Select Year",
-        allowClear: false
-    });
-});
 </script>
 
 <script>
-    @if(Session::has('message'))
-        var type="{{ Session::get('alert-type','info') }}"
+    @if (Session::has('message'))
+        var type = "{{ Session::get('alert-type', 'info') }}"
         switch (type) {
             case 'info':
                 Swal.fire({
-                icon: 'info',
-                title: "{{ Session::get('message') }}",
-                timerProgressBar: true,
-                showConfirmButton: false,
-                timer: 900
+                    icon: 'info',
+                    title: "{{ Session::get('message') }}",
+                    timerProgressBar: true,
+                    showConfirmButton: false,
+                    timer: 900
                 })
                 // toastr.info("{{ Session::get('message') }}");
                 break;
             case 'success':
                 Swal.fire({
-                icon: 'success',
-                title: "{{ Session::get('message') }}",
-                timerProgressBar: true,
-                showConfirmButton: false,
-                timer: 900
+                    icon: 'success',
+                    title: "{{ Session::get('message') }}",
+                    timerProgressBar: true,
+                    showConfirmButton: false,
+                    timer: 900
                 })
                 // toastr.success("{{ Session::get('message') }}");
                 break;
             case 'warning':
                 Swal.fire({
-                icon: 'warning',
-                title: "{{ Session::get('message') }}",
-                timerProgressBar: true,
-                showConfirmButton: false,
-                timer: 900
+                    icon: 'warning',
+                    title: "{{ Session::get('message') }}",
+                    timerProgressBar: true,
+                    showConfirmButton: false,
+                    timer: 900
                 })
 
                 // toastr.warning("{{ Session::get('message') }}");
                 break;
             case 'error':
                 Swal.fire({
-                icon: 'error',
-                title: "{{ Session::get('message') }}",
-                timerProgressBar: true,
-                showConfirmButton: false,
-                timer: 900
+                    icon: 'error',
+                    title: "{{ Session::get('message') }}",
+                    timerProgressBar: true,
+                    showConfirmButton: false,
+                    timer: 900
                 })
+
+                // toastr.error("{{ Session::get('message') }}");
+                break;
+
+            case 'test':
+                Swal.fire({
+                    icon: 'success',
+                    title: "{{ Session::get('message') }}",
+                    text: 'Are there any Project associated with this Program?',
+                    // type: 'success',
+                    showCancelButton: true,
+                    confirmButtonText: 'Yes',
+                    cancelButtonText: 'None',
+                    allowEscapeKey: false,
+                    allowOutsideClick: false,
+                    reverseButtons: true
+                }).then((result) => {
+                    if (result.value) {
+                        window.location.href = 'projects-add';
+                    } else {
+                        window.location.href = 'rdmc-projects';
+                    }
+                });
 
                 // toastr.error("{{ Session::get('message') }}");
                 break;
@@ -642,123 +666,124 @@
 </script>
 
 <script>
-    $(document).ready(function () {
-    var stepper = new Stepper($('.bs-stepper')[0])
+    $(document).ready(function() {
+        var stepper = new Stepper($('.bs-stepper')[0])
     })
 
     $("#repeater").createRepeater({
-    showFirstItemToDefault: true,
+        showFirstItemToDefault: true,
     });
 </script>
 
 <script>
-    $(document).on("click", "#delete", function(e){
-    e.preventDefault();
-    var link= $(this).attr("href");
+    $(document).on("click", "#delete", function(e) {
+        e.preventDefault();
+        var link = $(this).attr("href");
 
-    Swal.fire({
-        title: 'Are you sure?',
-        text: "You won't be able to revert this!",
-        icon: 'warning',
-        showCancelButton: true,
-        dangerMode: true,
-        // confirmButtonColor: '#3085d6',
-        // cancelButtonColor: '#d33',
-        allowEscapeKey: false,
-        allowOutsideClick: false,
-        confirmButtonText: 'Yes, delete it!'
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            dangerMode: true,
+            // confirmButtonColor: '#3085d6',
+            // cancelButtonColor: '#d33',
+            allowEscapeKey: false,
+            allowOutsideClick: false,
+            confirmButtonText: 'Yes, delete it!'
         }).then((result) => {
-        if (result.isConfirmed) {
-            window.location.href = link;
-        }
+            if (result.isConfirmed) {
+                window.location.href = link;
+            }
         })
-    });  
+    });
 </script>
 
 <script>
     $(document).on('click', '.sweet-alert-trigger', function() {
         swal.fire({
-			html: '<h4>Loading...</h4>',
-			onRender: function() {
-				prepend(sweet_loader);
-			}
-		});
+            html: '<h4>Loading...</h4>',
+            onRender: function() {
+                prepend(sweet_loader);
+            }
+        });
         setTimeout(function() {
-			swal.fire({
-				icon: 'success',
-				html: '<h4>Success!</h4>'
-			});
-		}, 700);
+            swal.fire({
+                icon: 'success',
+                html: '<h4>Success!</h4>'
+            });
+        }, 700);
     });
-
 </script>
 
 <script>
-    $(function () {
-      $("#example1").DataTable({
-        "responsive": true, "lengthChange": false, "autoWidth": false,
-        "buttons": ["csv", "excel", "pdf", "print"]
-        // "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
-      }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
-      $('#example2').DataTable({
-        "paging": true,
-        "lengthChange": false,
-        "searching": false,
-        "ordering": true,
-        "info": true,
-        "autoWidth": false,
-        "responsive": true,
-      });
+    $(function() {
+        $("#example1").DataTable({
+            "responsive": true,
+            "lengthChange": false,
+            "autoWidth": false,
+            "buttons": ["csv", "excel", "pdf", "print"]
+            // "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+        }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+        $('#example2').DataTable({
+            "paging": true,
+            "lengthChange": false,
+            "searching": false,
+            "ordering": true,
+            "info": true,
+            "autoWidth": false,
+            "responsive": true,
+        });
     });
-
 </script>
 
 <script>
-    $(document).ready(function(){
-        $('#start_date').inputmask("99/99/9999", { 
-            inputFormat:"mm/dd/yyyy",
-            placeholder: 'mm/dd/yyyy' 
+    $(document).ready(function() {
+        $('#start_date').inputmask("99/99/9999", {
+            inputFormat: "mm/dd/yyyy",
+            placeholder: 'mm/dd/yyyy'
         });
 
-        $('#end_date').inputmask("99/99/9999", { 
-            inputFormat:"mm/dd/yyyy",
-            placeholder: 'mm/dd/yyyy' 
+        $('#end_date').inputmask("99/99/9999", {
+            inputFormat: "mm/dd/yyyy",
+            placeholder: 'mm/dd/yyyy'
         });
 
         $('#contact[]').inputmask("0999-999-9999");
 
-        
+
     });
 </script>
 
 <script>
-    $(document).ready(function(){
-    var current = 1,current_step,next_step,steps;
-    steps = $("fieldset").length;
-    $(".next").click(function(){
-        current_step = $(this).parent();
-        next_step = $(this).parent().next();
-        next_step.show();
-        current_step.hide();
-        setProgressBar(++current);
+    $(document).ready(function() {
+        var current = 1,
+            current_step, next_step, steps;
+        steps = $("fieldset").length;
+        $(".next").click(function() {
+            current_step = $(this).parent();
+            next_step = $(this).parent().next();
+            next_step.show();
+            current_step.hide();
+            setProgressBar(++current);
+        });
+        $(".previous").click(function() {
+            current_step = $(this).parent();
+            next_step = $(this).parent().prev();
+            next_step.show();
+            current_step.hide();
+            setProgressBar(--current);
+        });
+        setProgressBar(current);
+        // Change progress bar action
+        function setProgressBar(curStep) {
+            var percent = parseFloat(100 / steps) * curStep;
+            percent = percent.toFixed();
+            $(".progress-bar")
+                .css("width", percent + "%")
+                .html(percent + "%");
+        }
     });
-    $(".previous").click(function(){
-        current_step = $(this).parent();
-        next_step = $(this).parent().prev();
-        next_step.show();
-        current_step.hide();
-        setProgressBar(--current);
-    });
-    setProgressBar(current);
-    // Change progress bar action
-    function setProgressBar(curStep){
-        var percent = parseFloat(100 / steps) * curStep;
-        percent = percent.toFixed();
-        $(".progress-bar")
-        .css("width",percent+"%")
-        .html(percent+"%");   
-  }
-});
 </script>
 
 

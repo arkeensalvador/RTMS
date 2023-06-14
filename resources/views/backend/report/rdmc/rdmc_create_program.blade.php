@@ -98,7 +98,7 @@
 
                         {{-- card body start --}}
                         <div class="card-body">
-                            <form role="form" id="regiration_form" action="#" method="POST"
+                            <form role="form" id="regiration_form" action="{{ url('add-programs') }}" method="POST"
                                 enctype="multipart/form-data">
                                 @csrf
                                 <fieldset>
@@ -108,8 +108,8 @@
                                                 <label>ProgramID</label>
                                                 {{-- Route::input('name'); --}}
                                                 <input type="text" class="form-control"
-                                                    value="<?= substr(md5(microtime()), 0, 10) ?>" disabled
-                                                    placeholder="Enter code">
+                                                    value="<?= substr(md5(microtime()), 0, 10) ?>" readonly
+                                                    placeholder="Enter code" name="programID">
                                             </div>
                                         </div>
                                     </div>
@@ -118,14 +118,15 @@
                                         <div class="col-sm-2">
                                             <div class="form-group">
                                                 <label>Fund Code</label>
-                                                <input type="text" class="form-control" placeholder="Enter code">
+                                                <input type="text" class="form-control" placeholder="Enter code"
+                                                    name="fund_code">
                                             </div>
                                         </div>
 
                                         <div class="col-sm-2">
                                             <div class="form-group">
                                                 <label>Status</label>
-                                                <select name="" id="" class="form-control">
+                                                <select name="program_status" id="" class="form-control">
                                                     <option value="New">New</option>
                                                     <option value="On-going">On-going</option>
                                                     <option value="Terminated">Terminated</option>
@@ -137,7 +138,7 @@
                                         <div class="col-sm-3">
                                             <div class="form-group">
                                                 <label>Category</label>
-                                                <select name="" id="" class="form-control">
+                                                <select name="category" id="" class="form-control">
                                                     <option value="Research Category">Research Category</option>
                                                     <option value="Development Category">Development Category</option>
                                                 </select>
@@ -149,7 +150,7 @@
                                         <div class="col-sm-12">
                                             <div class="form-group">
                                                 <label>Program Title</label>
-                                                <textarea name="" id="" cols="30" rows="5" style="resize: none;" class="form-control"></textarea>
+                                                <textarea name="program_title" id="" cols="30" rows="5" style="resize: none;" class="form-control"></textarea>
                                             </div>
                                         </div>
                                     </div>
@@ -158,7 +159,7 @@
                                         <div class="col-sm-8">
                                             <div class="form-group">
                                                 <label>Funding Agency</label>
-                                                <select name="" id="" class="form-control">
+                                                <select name="funding_agency" id="" class="form-control">
                                                     <option value="">Agency 1</option>
                                                     <option value="">Agency 2</option>
                                                     <option value="">Agency 3</option>
@@ -172,7 +173,8 @@
                                         <div class="col-sm-5">
                                             <div class="form-group">
                                                 <label>Coordination Fund</label>
-                                                <input type="text" class="form-control" placeholder="Enter ...">
+                                                <input type="text" name="coordination_fund" class="form-control"
+                                                    id="cf" placeholder="Enter ...">
                                             </div>
                                         </div>
                                     </div>
@@ -194,7 +196,7 @@
                                         <div class="col-sm-2">
                                             <div class="form-group">
                                                 <label>Start Date</label>
-                                                <input type="date" class="form-control" name="start_date" required
+                                                <input type="date" class="form-control" name="start_date" 
                                                     autocomplete="false">
                                             </div>
                                         </div>
@@ -202,7 +204,7 @@
                                         <div class="col-sm-2">
                                             <div class="form-group">
                                                 <label>End Date</label>
-                                                <input type="date" class="form-control" name="end_date" required
+                                                <input type="date" class="form-control" name="end_date" 
                                                     autocomplete="false">
                                             </div>
                                         </div>
@@ -211,29 +213,19 @@
                                             <div class="col-sm-2">
                                                 <div class="form-group">
                                                     <label>Extend Date</label>
-                                                    <input type="date" class="form-control" name="extend_date" required
+                                                    <input type="date" class="form-control" name="extend_date"
                                                         autocomplete="false">
                                                 </div>
                                             </div>
                                         @endif
                                     </div>
 
-
-                                    <div class="row">
-                                        <div class="col-sm-5">
-                                            <div class="form-group">
-                                                <label>Coordination Fund</label>
-                                                <input type="text" class="form-control" placeholder="Enter ...">
-                                            </div>
-                                        </div>
-                                    </div>
-
                                     <div class="row">
                                         <div class="col-sm-5">
                                             <div class="form-group">
                                                 <label>Program Leader</label>
-                                                <input type="text" class="form-control" placeholder="Program Leader"
-                                                    list="leaderdtlist">
+                                                <input type="text" name="program_leader" class="form-control"
+                                                    placeholder="Program Leader" list="leaderdtlist">
                                                 <datalist id="leaderdtlist">
                                                     <option value="Leader 1"><span>Agency</span></option>
                                                     <option value="Leader 2"></option>
@@ -245,8 +237,8 @@
                                         <div class="col-sm-5">
                                             <div class="form-group">
                                                 <label>Assistant Leader</label>
-                                                <input type="text" class="form-control" placeholder="Program Leader"
-                                                    list="assisdtlist">
+                                                <input type="text" name="assistant_leader" class="form-control"
+                                                    placeholder="Program Leader" list="assisdtlist">
                                                 <datalist id="assisdtlist">
                                                     <option value="Leader 1"><span>Agency</span></option>
                                                     <option value="Leader 2"></option>
@@ -288,7 +280,8 @@
                                         <div class="col-sm-12">
                                             <div class="form-group">
                                                 <label>Program Description</label>
-                                                <textarea name="" id="" cols="30" rows="5" style="resize: none;" class="form-control"></textarea>
+                                                <textarea name="program_description" id="" cols="30" rows="5" style="resize: none;"
+                                                    class="form-control"></textarea>
                                             </div>
                                         </div>
                                     </div>
@@ -301,7 +294,8 @@
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text">PHP</span>
                                                     </div>
-                                                    <input type="text" class="form-control" id="numin">
+                                                    <input type="text" class="form-control" id="numin"
+                                                        name="approved_budget">
                                                 </div>
                                             </div>
                                         </div>
@@ -309,7 +303,7 @@
                                         <div class="col-sm-2">
                                             <div class="form-group">
                                                 <label>Amount of Released</label>
-                                                <select name="" id="year" class="form-control">
+                                                <select name="budget_year" id="year" class="form-control">
                                                     <option value="Year 1">Year 1</option>
                                                     <option value="Year 2">Year 2</option>
                                                     <option value="Year 3">Year 3</option>
@@ -327,7 +321,8 @@
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text">PHP</span>
                                                     </div>
-                                                    <input type="text" class="form-control" id="numin2">
+                                                    <input type="text" class="form-control" id="numin2"
+                                                        name="amount_of_released">
                                                 </div>
                                             </div>
                                         </div>
@@ -337,10 +332,10 @@
                                         <div class="col-sm-5">
                                             <div class="form-group">
                                                 <label>Form of Development</label>
-                                                <select name="" id="" class="form-control">
-                                                    <option value="">Local</option>
-                                                    <option value="">National</option>
-                                                    <option value="">International</option>
+                                                <select name="form_of_development" id="" class="form-control">
+                                                    <option value="Local">Local</option>
+                                                    <option value="National">National</option>
+                                                    <option value="International">International</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -348,8 +343,11 @@
 
                                     <input type="button" name="previous" class="previous btn btn-default"
                                         value="Previous" />
+{{-- 
+                                    <input type="button" name="submit" class="submit btn btn-success"
+                                        value="Submit" /> --}}
 
-                                    <a href="{{ url('projects-add') }}" class="btn btn-info"
+                                    {{-- <a href="{{ url('projects-add') }}" class="btn btn-info"
                                         onclick="event.preventDefault();
                                         swalWithBootstrapButtons = Swal.mixin({
                                     customClass: {
@@ -371,28 +369,63 @@
                                         })
                                         .then((result) => { 
                                             var link= $(this).attr('href');
+                                            $form.submit();
                                             if (result.isConfirmed) {
+                                                
                                                 window.location.href = 'projects-add';
                                             // } else if (result.isDismissed){
                                             //     window.location.href = link;
                                             }
                                         }); ">
 
-                                        <span>Next</span></a>
-                                    {{-- <input type="submit" name="submit" class="submit btn btn-success" value="Submit" /> --}}
+                                        <span>Next</span></a> --}}
+                                    <input type="submit" name="submit" class="submit btn btn-success" value="Submit" />
                                 </fieldset>
+                            </form>
                         </div>
-                        </form>
                     </div> {{-- card body end --}}
                 </div>{{-- card end --}}
             </div>
             <div class="col-lg-1">
-
             </div>
     </div>
 
     </section>
     </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+
+    {{-- <script>
+        $(document).ready(function() {
+            $('form #btn-ok').click(function(e) {
+                let $form = $(this).closest('form');
+                Swal.fire({
+                    // title: 'Are you  sure?',
+                    icon: 'info',
+                    text: 'Are there any Project associated with this Program?',
+                    type: 'warning',
+                    showCancelButton: true,
+                    confirmButtonText: 'Yes',
+                    cancelButtonText: 'None',
+                    allowEscapeKey: false,
+                    allowOutsideClick: false,
+                    reverseButtons: true
+                }).then((result) => {
+                    if (result.value) {
+
+                        $form.submit();
+                        window.location.href = "projects-add" + "/" + $_SESSION['programID'];
+
+                    } else if (
+                        result.dismiss === Swal.DismissReason.cancel
+                    ) {
+                        $form.submit();
+                        window.location.href = 'rdmc-projects';
+                    }
+                });
+
+            });
+        });
+    </script> --}}
 
     <script>
         var selectBox = document.getElementById("year");
@@ -420,9 +453,11 @@
 
         var ni = document.getElementById("numin");
         var ni2 = document.getElementById("numin2");
+        var ni3 = document.getElementById("cf");
 
         ni.addEventListener("keyup", formatNumber);
         ni2.addEventListener("keyup", formatNumber);
+        ni3.addEventListener("keyup", formatNumber);
     </script>
 
     <script type="text/javascript">

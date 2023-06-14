@@ -103,7 +103,7 @@
                                                 <label>ProgramID</label>
                                                 {{-- Route::input('name'); --}}
                                                 <input type="text" class="form-control"
-                                                    value="<?= substr(md5(microtime()), 0, 10) ?>" disabled
+                                                    value="<?php session_start(); echo $_SESSION['programID']?>" disabled
                                                     placeholder="Enter code">
                                             </div>
                                         </div>
