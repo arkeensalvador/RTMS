@@ -653,10 +653,11 @@
                     reverseButtons: true
                 }).then((result) => {
                     if (result.value) {
-                        window.location.href = 'projects-add';
-                    } else {
-                        window.location.href = 'rdmc-projects';
-                    }
+                        window.location.href = 'program-projects-add';
+                    } 
+                    // else {
+                    //     window.location.href = 'projects-add';
+                    // }
                 });
 
                 // toastr.error("{{ Session::get('message') }}");

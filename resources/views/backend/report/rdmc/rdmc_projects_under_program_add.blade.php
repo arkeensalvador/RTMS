@@ -97,7 +97,15 @@
                                 enctype="multipart/form-data">
                                 @csrf
                                 <fieldset>
-                                    
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <div class="form-group">
+                                                <label>Program</label>
+                                                <input type="text" class="form-control" value="{{ request()->route()->programID }}" readonly placeholder="Enter ...">
+                                            </div>
+                                        </div>
+                                    </div>
+
                                     <div class="row">
                                         <div class="col-sm-2">
                                             <div class="form-group">

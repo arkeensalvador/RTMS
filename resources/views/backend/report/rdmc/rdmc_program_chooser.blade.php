@@ -17,12 +17,16 @@
                                                     <h2>Choose Program</h2>
                                                     <div class="col-sm-12">
                                                         <select class="form-control"
-                                                            onchange="window.open(this.value,'_self');" style="text-align: center">
-                                                            <option class="opt" value="#" selected disabled>Choose existing program</option>
-                                                            <option class="opt" value="">Project 1</option>
-                                                            <option class="opt" value="">Project 2</option>
-                                                            <option class="opt" value="">Project 3</option>
-                                                            <option class="opt" value="rdmc-create-program">Create New Program</option>
+                                                            onchange="window.location.assign(this.value)"
+                                                            style="text-align: center">
+                                                            <option class="opt" value="#" selected disabled>Choose
+                                                                existing program</option>
+                                                            <option class="opt" value="rdmc-create-program">Create New
+                                                                Program</option>
+                                                            @foreach ($programs as $program)
+                                                                <option class="opt" value="projects-u-program-add/{{ $program->programID }}">
+                                                                    {{ $program->programID }}</option>
+                                                            @endforeach
                                                         </select>
                                                     </div>
                                                 </div>

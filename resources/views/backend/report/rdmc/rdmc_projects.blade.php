@@ -44,7 +44,6 @@
                             <!-- /.card-header -->
                             <div class="card-body">
                                 <div class="row">
-                                    <input type="text" id="programID" value="<?php session_start(); echo $_SESSION['programID']; ?>">
                                     <div class="col-12 col-md-12">
                                         <div class="col-sm-12">
                                             <table id="example1" class="table table-bordered table-striped">

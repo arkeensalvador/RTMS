@@ -16,55 +16,7 @@ use Illuminate\Support\Facades\DB;
 
 class ProgramsController extends Controller
 {
-    public function AddProgram(Request $request)
-    {
-        date_default_timezone_set('Asia/Hong_Kong');
-        
-        $data = array();
-        $data['programID'] = $request->programID;
-        $data['agencyID'] = $request->agencyID;
-        $data['fundingAgencyID'] = $request->fundingAgencyID;
-        $data['researcherID'] = $request->researcherID;
-        $data['fund_code'] = $request->fund_code;
-        $data['program_title'] = $request->program_title;
-        $data['program_status'] = $request->program_status;
-        $data['category'] = $request->category;
-        $data['funding_agency'] = $request->funding_agency;
-        $data['coordination_fund'] = $request->coordination_fund;
-        $data['start_date'] = $request->start_date;
-        $data['end_date'] = $request->end_date;
-        $data['extend_date'] = $request->extend_date;
-        $data['program_leader'] = $request->program_leader;
-        $data['assistant_leader'] = $request->assistant_leader;
-        $data['program_description'] = $request->program_description;
-        $data['approved_budget'] = $request->approved_budget;
-        $data['amount_released'] = $request->amount_released;
-        $data['budget_year'] = $request->budget_year;
-        $data['form_of_development'] = $request->form_of_development;
-        $data['created_at'] = now();
-
-        $insert = DB::table('programs')->insert($data);
-        if ($insert) {
-            
-            session_start();
-
-            $_SESSION['programID'] = $data['programID'];
-            
-            $notification = array(
-                'message' => 'Program Successfully Added!',
-                'alert-type' => 'test'
-            );
-            return redirect()->route('rdmcProjects')->with($notification);
-        } else {
-            $notification = array(
-                'message' => 'Something is wrong, please try again!',
-                'alert-type' => 'error'
-            );
-            return redirect()->route('rdmcProjects')->with($notification);
-        }
-
-
-    }
+    
     public function index()
     {
         $agency = DB::table('agency')->get();
@@ -238,7 +190,7 @@ class ProgramsController extends Controller
             ->first();
 
         $documents = DB::table('program_files')->where('programID', $programID)->get();
-
+        
         return view('backend.programs.view_program_index', compact('program', 'program_details', 'agency', 'personnels', 'documents', 'program_leader'));
     }
 
