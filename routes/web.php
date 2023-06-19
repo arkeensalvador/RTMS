@@ -116,6 +116,7 @@ Route::get('/rdmc-dbinfosys-add', [App\Http\Controllers\backend\ReportController
 // Adding projects
 Route::post('add-programs', [\App\Http\Controllers\backend\ReportController::class, 'AddProgram'])->name('AddProgram');
 Route::get('/rdmc-programs', [App\Http\Controllers\backend\ReportController::class, 'rdmcProgramsIndex'])->name('rdmcProgramsIndex');
+Route::post('/add-projects', [App\Http\Controllers\backend\ReportController::class, 'AddProjects'])->name('AddProjects');
 
 // Strategic activities
 Route::get('/strategic-activities', [App\Http\Controllers\backend\ReportController::class, 'strategicActivities']);

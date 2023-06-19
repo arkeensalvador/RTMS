@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->timestamp('created_at');
             $table->string('programID')->nullable();
+            // $table->string('projectID')->nullable();
             $table->string('agencyID')->nullable();
             $table->string('fund_code')->nullable();
             $table->string('category')->nullable();

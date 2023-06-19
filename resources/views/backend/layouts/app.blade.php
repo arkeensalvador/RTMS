@@ -662,6 +662,17 @@
 
                 // toastr.error("{{ Session::get('message') }}");
                 break;
+
+                case 'project':
+                Swal.fire({
+                    icon: 'success',
+                    title: "{{ Session::get('message') }}",
+                    timerProgressBar: true,
+                    showConfirmButton: false,
+                    timer: 900
+                })
+                // toastr.success("{{ Session::get('message') }}");
+                break;
         }
     @endif
 </script>

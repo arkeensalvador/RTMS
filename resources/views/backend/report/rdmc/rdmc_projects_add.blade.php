@@ -93,7 +93,7 @@
                         </div>
                         {{-- card body start --}}
                         <div class="card-body">
-                            <form role="form" id="regiration_form" action="{{ url('add-programs') }}" method="POST"
+                            <form role="form" id="regiration_form" action="{{ url('add-projects') }}" method="POST"
                                 enctype="multipart/form-data">
                                 @csrf
                                 <fieldset>
@@ -355,7 +355,7 @@
                                     <input type="button" name="previous" class="previous btn btn-default"
                                         value="Previous" />
 
-                                    <input type="button" id="btn-ok" name="submit" class="submit btn btn-success"
+                                    <input type="submit" name="submit" class="submit btn btn-success"
                                         value="Submit" />
                                 </fieldset>
                             </form>
