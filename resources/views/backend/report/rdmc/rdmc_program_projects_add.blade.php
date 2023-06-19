@@ -245,14 +245,6 @@
                                     </div>
 
 
-                                    {{-- <div class="row">
-                                        <div class="col-sm-5">
-                                            <div class="form-group">
-                                                <label>Coordination Fund</label>
-                                                <input type="text" class="form-control" placeholder="Enter ...">
-                                            </div>
-                                        </div>
-                                    </div> --}}
 
                                     <div class="row">
                                         <div class="col-sm-5">

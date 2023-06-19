@@ -102,18 +102,19 @@
                                         <div class="col-sm-2">
                                             <div class="form-group">
                                                 <label>Fund Code</label>
-                                                <input type="text" class="form-control" placeholder="Enter ...">
+                                                <input type="text" name="fund_code" class="form-control" placeholder="Enter ...">
                                             </div>
                                         </div>
 
                                         <div class="col-sm-3">
                                             <div class="form-group">
                                                 <label>Status</label>
-                                                <select name="" id="" class="form-control">
-                                                    <option value="">New</option>
-                                                    <option value="">On-going</option>
-                                                    <option value="">Terminated</option>
-                                                    <option value="">Completed</option>
+                                                <select name="project_status" id="" class="form-control">
+                                                    <option value="" disabled selected>Select Project Status</option>
+                                                    <option value="New">New</option>
+                                                    <option value="On-going">On-going</option>
+                                                    <option value="Terminated">Terminated</option>
+                                                    <option value="Completed">Completed</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -121,9 +122,10 @@
                                         <div class="col-sm-3">
                                             <div class="form-group">
                                                 <label>Category</label>
-                                                <select name="" id="" class="form-control">
-                                                    <option value="">Research Category</option>
-                                                    <option value="">Development Category</option>
+                                                <select name="project_category" id="" class="form-control">
+                                                    <option value="" disabled selected>Select Project Category</option>
+                                                    <option value="Research Category">Research Category</option>
+                                                    <option value="Development Category">Development Category</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -133,7 +135,7 @@
                                         <div class="col-sm-12">
                                             <div class="form-group">
                                                 <label>Project Title</label>
-                                                <textarea name="" id="" cols="30" rows="5" style="resize: none;" class="form-control"></textarea>
+                                                <textarea name="project_title" id="" cols="30" rows="5" style="resize: none;" class="form-control"></textarea>
                                             </div>
                                         </div>
                                     </div>
@@ -142,7 +144,7 @@
                                         <div class="col-sm-6">
                                             <div class="form-group">
                                                 <label>Agency</label>
-                                                <select name="" id="agency" class="form-control">
+                                                <select name="agency" id="agency" class="form-control">
                                                     <option value="Agency 1">Agency 1</option>
                                                     <option value="Agency 2">Agency 2</option>
                                                     <option value="Agency 3">Agency 3</option>
@@ -166,7 +168,7 @@
                                         <div class="col-sm-3">
                                             <div class="form-group">
                                                 <label>Funding Duration</label>
-                                                <select name="select1" id="select1" class="form-control">
+                                                <select name="funding_duration" id="select1" class="form-control">
                                                     <option value="" selected disabled>Select type of fund</option>
                                                     <option value="1">One-time Grant</option>
                                                     <option value="2">Multi-year Funding</option>
@@ -179,7 +181,7 @@
                                         <div class="col-sm-3">
                                             <div class="form-group">
                                                 <label>&#8203;</label>
-                                                <select name="select2" id="select2" class="form-control">
+                                                <select name="funding_years" id="select2" class="form-control">
                                                     <option value="" selected disabled>&shy;</option>
                                                     <option value="1">1 Year</option>
                                                     <option value="2">2 Years</option>
@@ -207,7 +209,7 @@
                                         <div class="col-sm-2">
                                             <div class="form-group">
                                                 <label>Start Date</label>
-                                                <input type="date" class="form-control" name="start_date" required
+                                                <input type="date" class="form-control" name="start_date" 
                                                     autocomplete="false">
                                             </div>
                                         </div>
@@ -215,7 +217,7 @@
                                         <div class="col-sm-2">
                                             <div class="form-group">
                                                 <label>End Date</label>
-                                                <input type="date" class="form-control" name="end_date" required
+                                                <input type="date" class="form-control" name="end_date" 
                                                     autocomplete="false">
                                             </div>
                                         </div>
@@ -225,27 +227,17 @@
                                                 <div class="form-group">
                                                     <label>Extend Date</label>
                                                     <input type="date" class="form-control" name="extend_date"
-                                                        required autocomplete="false">
+                                                         autocomplete="false">
                                                 </div>
                                             </div>
                                         @endif
                                     </div>
 
-
-                                    {{-- <div class="row">
-                                        <div class="col-sm-5">
-                                            <div class="form-group">
-                                                <label>Coordination Fund</label>
-                                                <input type="text" class="form-control" placeholder="Enter ...">
-                                            </div>
-                                        </div>
-                                    </div> --}}
-
                                     <div class="row">
                                         <div class="col-sm-5">
                                             <div class="form-group">
                                                 <label>Project Leader</label>
-                                                <input type="text" class="form-control" placeholder="Project Leader"
+                                                <input type="text" class="form-control" name="project_leader" placeholder="Project Leader"
                                                     list="leaderdtlist">
                                                 <datalist id="leaderdtlist">
                                                     <option value="Leader 1"><span>Agency</span></option>
@@ -258,7 +250,7 @@
                                         <div class="col-sm-5">
                                             <div class="form-group">
                                                 <label>Assistant Leader</label>
-                                                <input type="text" class="form-control" placeholder="Project Leader"
+                                                <input type="text" name="assist_leader" class="form-control" placeholder="Project Leader"
                                                     list="assisdtlist">
                                                 <datalist id="assisdtlist">
                                                     <option value="Leader 1"><span>Agency</span></option>
@@ -301,7 +293,7 @@
                                         <div class="col-sm-12">
                                             <div class="form-group">
                                                 <label>Project Description</label>
-                                                <textarea name="" id="" cols="30" rows="5" style="resize: none;" class="form-control"></textarea>
+                                                <textarea name="project_description" id="" cols="30" rows="5" style="resize: none;" class="form-control"></textarea>
                                             </div>
                                         </div>
                                     </div>
@@ -314,7 +306,7 @@
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text">PHP</span>
                                                     </div>
-                                                    <input type="text" class="form-control" id="numin">
+                                                    <input type="text" name="approved_budget" class="form-control" id="numin">
                                                 </div>
                                             </div>
                                         </div>
@@ -322,7 +314,7 @@
                                         <div class="col-sm-2">
                                             <div class="form-group">
                                                 <label>Amount of Released</label>
-                                                <select name="" id="year" class="form-control">
+                                                <select name="budget_year" id="year" class="form-control">
                                                     <option value="Year 1">Year 1</option>
                                                     <option value="Year 2">Year 2</option>
                                                     <option value="Year 3">Year 3</option>
@@ -340,7 +332,7 @@
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text">PHP</span>
                                                     </div>
-                                                    <input type="text" class="form-control" id="numin2">
+                                                    <input type="text" name="amount_released" class="form-control" id="numin2">
                                                 </div>
                                             </div>
                                         </div>
@@ -350,10 +342,11 @@
                                         <div class="col-sm-5">
                                             <div class="form-group">
                                                 <label>Form of Development</label>
-                                                <select name="" id="" class="form-control">
-                                                    <option value="">Local</option>
-                                                    <option value="">National</option>
-                                                    <option value="">International</option>
+                                                <select name="form_of_development" id="" class="form-control">
+                                                    <option value="" disabled selected>Form of Development</option>
+                                                    <option value="Local">Local</option>
+                                                    <option value="National">National</option>
+                                                    <option value="International">International</option>
                                                 </select>
                                             </div>
                                         </div>

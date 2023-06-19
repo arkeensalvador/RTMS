@@ -138,7 +138,7 @@
                                         <div class="col-sm-3">
                                             <div class="form-group">
                                                 <label>Category</label>
-                                                <select name="category" id="" class="form-control">
+                                                <select name="program_category" id="" class="form-control">
                                                     <option value="Research Category">Research Category</option>
                                                     <option value="Development Category">Development Category</option>
                                                 </select>

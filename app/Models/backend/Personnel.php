@@ -9,11 +9,12 @@ class Personnel extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'name',
-        'gender',
-        'contact',
-        'email',
+        'staff_name',
+        'leader',
+        'assist_leader',
         'role',
-        'programID'
+        'programID',
+        'projectID',
+        'subprojectID'
     ];
 }
