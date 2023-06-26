@@ -255,7 +255,6 @@
                                                 <table class="table table-append" id="dynamicAddRemove">
                                                     <tr>
                                                         <td class="append">
-                                                            {{-- <label>Program Staff</label> --}}
                                                             <input type="text" class="form-control"
                                                                 placeholder="Program Staffs" name="moreFields[0][name]">
                                                         </td>
@@ -343,42 +342,7 @@
 
                                     <input type="button" name="previous" class="previous btn btn-default"
                                         value="Previous" />
-{{-- 
-                                    <input type="button" name="submit" class="submit btn btn-success"
-                                        value="Submit" /> --}}
 
-                                    {{-- <a href="{{ url('projects-add') }}" class="btn btn-info"
-                                        onclick="event.preventDefault();
-                                        swalWithBootstrapButtons = Swal.mixin({
-                                    customClass: {
-                                        confirmButton: 'btn btn-success',
-                                        cancelButton: 'btn btn-danger'
-                                        },
-                                        buttonsStyling: false
-                                        })
-                                        Swal.fire({
-                                            icon: 'info',
-                                            title: 'Are there any Project associated with this Program?',
-                                            confirmButtonText: 'Yes',
-                                            cancelButtonText: 'No',
-                                            showCancelButton: true,
-                                            reverseButtons: true,
-                                            buttons: true,
-                                            allowEscapeKey: false,
-                                            allowOutsideClick: false
-                                        })
-                                        .then((result) => { 
-                                            var link= $(this).attr('href');
-                                            $form.submit();
-                                            if (result.isConfirmed) {
-                                                
-                                                window.location.href = 'projects-add';
-                                            // } else if (result.isDismissed){
-                                            //     window.location.href = link;
-                                            }
-                                        }); ">
-
-                                        <span>Next</span></a> --}}
                                     <input type="submit" name="submit" class="submit btn btn-success" value="Submit" />
                                 </fieldset>
                             </form>

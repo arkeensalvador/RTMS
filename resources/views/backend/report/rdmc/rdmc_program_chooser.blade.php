@@ -25,7 +25,7 @@
                                                                 Program</option>
                                                             @foreach ($programs as $program)
                                                                 <option class="opt" value="projects-u-program-add/{{ $program->programID }}">
-                                                                    {{ $program->programID }}</option>
+                                                                    {{ $program->program_title }}</option>
                                                             @endforeach
                                                         </select>
                                                     </div>

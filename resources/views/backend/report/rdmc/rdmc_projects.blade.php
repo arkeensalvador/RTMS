@@ -75,6 +75,10 @@
                                                             <a class="btn btn-primary" href="#"><i
                                                                     class="fa-solid fa-pen-to-square"
                                                                     style="color: white;"></i></a>
+                                                            <a class="btn btn-warning"
+                                                                href="{{ URL::to('/add-program-personnel-index/') }}">
+                                                                <i class="fa-solid fa-user-plus"></i>
+                                                            </a>
                                                             <a href="#" class="btn btn-danger" id="delete"><i
                                                                     class="fa-solid fa-trash"></i></a>
 

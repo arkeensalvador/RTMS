@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('leader')->nullable();
             $table->string('assist_leader')->nullable();
             $table->string('staff_name')->nullable();
-            $table->string('role')->nullable();
+            $table->string('role')->default('staff');
             $table->string('programID')->nullable();
             $table->string('projectID')->nullable();
             $table->string('subprojectID')->nullable();

@@ -95,6 +95,10 @@ Route::get('download/{id}', [App\Http\Controllers\backend\ProgramsController::cl
 // report
 Route::get('/report-index', [App\Http\Controllers\backend\ReportController::class, 'reportIndex'])->name('reportIndex');
 
+
+// Add Program Personnel
+Route::post('/add-program-personnel', [\App\Http\Controllers\backend\ReportController::class, 'AddProgramPersonnel'])->name('AddProgramPersonnel');
+
 // R & D Management and Coordination
 Route::get('/rdmc-index', [App\Http\Controllers\backend\ReportController::class, 'rdmcIndex'])->name('rdmcIndex');
 Route::get('/rdmc-monitoring-evaluation', [App\Http\Controllers\backend\ReportController::class, 'monitoringEvaluation'])->name('monitoringEvaluation');
@@ -144,6 +148,8 @@ Route::get('/cbg-equipment-add', [App\Http\Controllers\backend\ReportController:
 // Researchers
 Route::get('/researcher-index', [App\Http\Controllers\backend\ResearcherController::class, 'researcherIndex']);
 Route::get('/researcher-add', [App\Http\Controllers\backend\ResearcherController::class, 'researcherAdd']);
+Route::get('/delete-researcher/{id}', [App\Http\Controllers\backend\ResearcherController::class, 'DeleteResearcher']);
+Route::post('/add-researcher', [\App\Http\Controllers\backend\ResearcherController::class, 'AddResearcher'])->name('AddResearcher');
 
 
 

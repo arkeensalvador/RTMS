@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\backend;
 
 use App\Http\Controllers\Controller;
+use App\Models\backend\Personnel;
 use Illuminate\Http\Request;
 use DB;
 
@@ -207,7 +208,7 @@ class ReportController extends Controller
         $data['fund_code'] = $request->fund_code;
         $data['program_title'] = $request->program_title;
         $data['program_status'] = $request->program_status;
-        $data['category'] = $request->category;
+        $data['category'] = $request->program_category;
         $data['funding_agency'] = $request->funding_agency;
         $data['coordination_fund'] = $request->coordination_fund;
         $data['start_date'] = $request->start_date;
@@ -238,6 +239,24 @@ class ReportController extends Controller
             );
             return redirect()->route('rdmcProjects')->with($notification);
         }
+    }
+
+    public function AddProgramPersonnel(Request $request)
+    {
+        $request->validate([
+            'moreFields.*.staff_name' => 'required'
+        ]);
+
+        foreach ($request->moreFields as $key => $value) {
+
+            Personnel::create($value);
+            $notification = array(
+                'message' => 'Personnel(s) Successfully Added!',
+                'alert-type' => 'success'
+            );
+        }
+
+        return back()->with($notification);
     }
 
     public function AddProjects(Request $request)
@@ -279,5 +298,6 @@ class ReportController extends Controller
             return redirect()->route('rdmcProjects')->with($notification);
         }
     }
+
     
 }
