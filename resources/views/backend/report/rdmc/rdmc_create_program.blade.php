@@ -431,7 +431,7 @@
             $("#dynamicAddRemove").append(`
             <tr>
                 <td class="append">
-                    <input type="text" class="form-control" placeholder="Program Staffs" name="moreFields[0][name]">
+                    <input type="text" class="form-control" placeholder="Program Staffs" name="moreFields[`+i+`][staff_name]">
                 </td>
 
                 <td class="append">

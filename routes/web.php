@@ -70,7 +70,7 @@ Route::get('/index-projects', [App\Http\Controllers\backend\AddProject::class, '
 // Route::post('insert-new-projects', [App\Http\Controllers\backend\UserController::class, 'InsertProjectInfo'])->name('InsertProjectInfo');
 
 // Programs Route
-Route::get('/index', [App\Http\Controllers\backend\ProgramsController::class, 'index'])->name('index');
+Route::get('/rdmc-programs', [App\Http\Controllers\backend\ProgramsController::class, 'rdmcPrograms'])->name('rdmcPrograms');
 Route::get('/add-programs-index', [\App\Http\Controllers\backend\ProgramsController::class, 'AddProgramIndex'])->name('AddProgramIndex');
 Route::post('add-programs', [\App\Http\Controllers\backend\ProgramsController::class, 'AddProgram'])->name('AddProgram');
 Route::post('edit-program', [\App\Http\Controllers\backend\ProgramsController::class, 'EditProgram'])->name('EditProgram');
@@ -146,7 +146,7 @@ Route::get('/cbg-awards-add', [App\Http\Controllers\backend\ReportController::cl
 Route::get('/cbg-equipment-add', [App\Http\Controllers\backend\ReportController::class, 'cbgEquipmentAdd']);
 
 // Researchers
-Route::get('/researcher-index', [App\Http\Controllers\backend\ResearcherController::class, 'researcherIndex']);
+Route::get('/researcher-index', [App\Http\Controllers\backend\ResearcherController::class, 'researcherIndex'])->name('researcherIndex');;
 Route::get('/researcher-add', [App\Http\Controllers\backend\ResearcherController::class, 'researcherAdd']);
 Route::get('/delete-researcher/{id}', [App\Http\Controllers\backend\ResearcherController::class, 'DeleteResearcher']);
 Route::post('/add-researcher', [\App\Http\Controllers\backend\ResearcherController::class, 'AddResearcher'])->name('AddResearcher');

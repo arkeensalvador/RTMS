@@ -70,8 +70,8 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="{{ URL::to('index') }}"
-                                class="nav-link {{ set_active(['index']) }}">
+                            <a href="{{ URL::to('rdmc-programs') }}"
+                                class="nav-link {{ set_active(['rdmc-programs']) }}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>View Programs</p>
                             </a>

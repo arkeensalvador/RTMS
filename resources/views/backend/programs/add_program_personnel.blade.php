@@ -93,7 +93,7 @@
                                 <input type="button" name="next" class="next btn btn-info" value="Next" /> --}}
 
                                 <div class="card-footer">
-                                    <a href="{{ url('index') }}" class="btn btn-default">Back</a>
+                                    <a href="{{ url('rdmc-programs') }}" class="btn btn-default">Back</a>
                                     <button type="submit" name="submit" class="next btn btn-info">Submit</button>
                                    
                                 </div>

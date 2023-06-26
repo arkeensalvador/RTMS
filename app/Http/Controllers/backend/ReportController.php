@@ -48,7 +48,7 @@ class ReportController extends Controller
             ->limit(1)
             ->get();
 
-        return view('backend.report.rdmc.rdmc_programs', compact('all','agency'));
+        return view('backend.report.rdmc.rdmc_programs', compact('all', 'agency'));
     }
 
     public function rdmcChooseProgram()
@@ -208,7 +208,7 @@ class ReportController extends Controller
         $data['fund_code'] = $request->fund_code;
         $data['program_title'] = $request->program_title;
         $data['program_status'] = $request->program_status;
-        $data['category'] = $request->program_category;
+        $data['program_category'] = $request->program_category;
         $data['funding_agency'] = $request->funding_agency;
         $data['coordination_fund'] = $request->coordination_fund;
         $data['start_date'] = $request->start_date;
@@ -259,6 +259,7 @@ class ReportController extends Controller
         return back()->with($notification);
     }
 
+    
     public function AddProjects(Request $request)
     {
         date_default_timezone_set('Asia/Hong_Kong');
@@ -298,6 +299,4 @@ class ReportController extends Controller
             return redirect()->route('rdmcProjects')->with($notification);
         }
     }
-
-    
 }

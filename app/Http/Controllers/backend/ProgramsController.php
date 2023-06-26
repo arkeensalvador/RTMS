@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\DB;
 class ProgramsController extends Controller
 {
     
-    public function index()
+    public function rdmcPrograms()
     {
         $agency = DB::table('agency')->get();
         $all = DB::table('programs')
@@ -25,7 +25,7 @@ class ProgramsController extends Controller
             ->select('*')
             ->get();
 
-        return view('backend.programs.index', compact('all', 'agency'));
+        return view('backend.report.rdmc.rdmc_programs', compact('all', 'agency'));
     }
 
     public function AddProgramIndex()

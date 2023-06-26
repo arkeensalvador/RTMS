@@ -653,7 +653,7 @@
                     reverseButtons: true
                 }).then((result) => {
                     if (result.value) {
-                        window.location.href = 'program-projects-add';
+                        window.location.href = 'projects-u-program-add';
                     } 
                     // else {
                     //     window.location.href = 'projects-add';

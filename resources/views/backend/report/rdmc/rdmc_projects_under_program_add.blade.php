@@ -100,7 +100,7 @@
                                     <div class="row">
                                         <div class="col-sm-12">
                                             <div class="form-group">
-                                                <label>Program</label>
+                                                <label>ProgramID</label>
                                                 <input type="text" class="form-control" value="{{ request()->route()->programID }}" readonly placeholder="Enter ...">
                                             </div>
                                         </div>

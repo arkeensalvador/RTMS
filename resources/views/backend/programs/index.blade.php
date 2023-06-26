@@ -14,14 +14,14 @@
                                 <!-- Buttons, labels, and many other things can be placed here! -->
 
                                 @if($agency->isEmpty())
-                                <a href="{{ url('add-programs-index') }}"
-                                    class="btn btn-success {{ Route::current()->getName() == 'add-programs-index' ? 'active' : '' }}"
+                                <a href="{{ url('rdmc-create-program') }}"
+                                    class="btn btn-success {{ Route::current()->getName() == 'rdmc-create-program' ? 'active' : '' }}"
                                     hidden>Add
                                     Program</a>
 
                                 @else
-                                <a href="{{ url('add-programs-index') }}"
-                                    class="btn btn-success {{ Route::current()->getName() == 'add-programs-index' ? 'active' : '' }}">Add
+                                <a href="{{ url('rdmc-create-program') }}"
+                                    class="btn btn-success {{ Route::current()->getName() == 'rdmc-create-program' ? 'active' : '' }}">Add
                                     Program</a>
                                 @endif
 
@@ -69,7 +69,7 @@
                                         {{-- <td>{{ $row->project_extension_date }}</td> --}}
                                         <td>{{ $row->agencyID }}</td>
                                         <td>{{ $row->program_title }}</td>
-                                        <td>{{ $row->description }}</td>
+                                        <td>{{ $row->program_description }}</td>
                                         {{-- <td>{{ $row->amount_of_release }}</td> --}}
                                         <td class="action">
                                             <a class="btn btn-info" href="{{ url("view-program-index/$row->programID")
