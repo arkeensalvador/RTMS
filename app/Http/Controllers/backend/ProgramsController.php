@@ -307,14 +307,14 @@ class ProgramsController extends Controller
     public function AddProgramPersonnel(Request $request)
     {
         $request->validate([
-            'moreFields.*.email' => 'required'
+            'moreFields.*.programID' => 'required'
         ]);
 
         foreach ($request->moreFields as $key => $value) {
 
             Personnel::create($value);
             $notification = array(
-                'message' => 'Personnel(s) Successfully Added!',
+                'message' => 'Staff(s) Successfully Added!',
                 'alert-type' => 'success'
             );
         }
