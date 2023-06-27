@@ -11,6 +11,7 @@
                             <div class="card-header">
                                 <h3 class="card-title">List of Programs</h3>
                                 <div class="card-tools">
+                                    
                                     @if ($agency->isEmpty())
                                         <a href="{{ url('rdmc-create-program') }}"
                                             class="btn btn-success {{ Route::current()->getName() == 'rdmc-create-program' ? 'active' : '' }}"
@@ -74,8 +75,7 @@
                                                             class="fa-solid fa-pen-to-square" style="color: white;"></i></a>
 
                                                     <a class="btn btn-secondary"
-                                                        href="{{ url("upload-program-files-index/$row->programID") }}"><i
-                                                            class="fa-solid fa-file-import"></i></a>
+                                                        href="{{ url("upload-program-files-index/$row->programID") }}"><i class="fa-solid fa-file-circle-plus"></i></a>
 
                                                     <a class="btn btn-warning"
                                                         href="{{ URL::to('/add-program-personnel-index/' . $row->programID) }}">

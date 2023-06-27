@@ -248,7 +248,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="row">
+                                    {{-- <div class="row">
                                         <div class="col-sm-5">
                                             <div class="form-group">
                                                 <label>Program Staff(s)</label>
@@ -267,7 +267,7 @@
                                                 </table>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> --}}
 
                                     <input type="button" name="previous" class="previous btn btn-default"
                                         value="Previous" />

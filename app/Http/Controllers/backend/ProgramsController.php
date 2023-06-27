@@ -177,11 +177,11 @@ class ProgramsController extends Controller
     public function ViewProgramIndex($programID)
     {
         $program = DB::table('programs')->where('programID', $programID)->first();
-        $program_details = DB::table('program_details')->where('programID', $programID)->first();
+        // $programs = DB::table('programs')->where('programID', $programID)->first();
 
         $program_leader = DB::table('personnels')->where('role', '=', "Program Leader")->where('programID', $programID)->get();
 
-        $personnels = DB::table('personnels')->orderByDesc("name")->where('role', '=', "Staff")->where('programID', $programID)->get();
+        $personnels = DB::table('personnels')->orderByDesc("staff_name")->where('role', '=', "Staff")->where('programID', $programID)->get();
         // $all = DB::table('programs')->get();
 
         $agency = DB::table('programs')
@@ -191,7 +191,7 @@ class ProgramsController extends Controller
 
         $documents = DB::table('program_files')->where('programID', $programID)->get();
         
-        return view('backend.programs.view_program_index', compact('program', 'program_details', 'agency', 'personnels', 'documents', 'program_leader'));
+        return view('backend.programs.view_program_index', compact('program', 'agency', 'personnels', 'documents', 'program_leader'));
     }
 
     public function EditProgramIndex($programID)

@@ -98,13 +98,15 @@
                                 @csrf
                                 <fieldset>
                                     <div class="row">
-                                        <div class="col-sm-2">
+                                        <div class="col-sm-12">
                                             <div class="form-group">
-                                                <label>ProgramID</label>
+                                                <label>Program Title</label>
                                                 {{-- Route::input('name'); --}}
-                                                @foreach ($all as $latest)
-                                                    <input type="text" class="form-control" value="{{ $latest->programID }}" readonly
-                                                        placeholder="Enter code">
+                                                @foreach ($programs as $latest)
+                                                    <input type="text" class="form-control"
+                                                        value="{{ $latest->programID }}" hidden readonly placeholder="Enter code">
+                                                    <input type="text" class="form-control"
+                                                        value="{{ $latest->program_title }}" readonly placeholder="Enter code">
                                                 @endforeach
 
                                             </div>

@@ -61,14 +61,14 @@
                 </li>
 
                 <li class="nav-item">
-                    <a href="{{ URL::to('index') }}" class="nav-link {{ set_active(['index']) }}">
+                    <a href="{{ URL::to('rdmc-programs') }}" class="nav-link {{ set_active(['rdmc-programs']) }}">
                         <i class="nav-icon fas fa-tachometer-alt"></i>
                         <p>
                             Programs
                         </p>
-                        <i class="fas fa-angle-left right"></i>
+                        {{-- <i class="fas fa-angle-left right"></i> --}}
                     </a>
-                    <ul class="nav nav-treeview">
+                    {{-- <ul class="nav nav-treeview">
                         <li class="nav-item">
                             <a href="{{ URL::to('rdmc-programs') }}"
                                 class="nav-link {{ set_active(['rdmc-programs']) }}">
@@ -115,7 +115,7 @@
                                 </li>
                             </ul>
                         </li>
-                    </ul>
+                    </ul> --}}
                 </li>
 
                 <li class="nav-item">

@@ -80,6 +80,7 @@ Route::get('/delete-program/{id}', [App\Http\Controllers\backend\ProgramsControl
 
 // Add Program Personnel
 Route::post('/add-program-personnel', [\App\Http\Controllers\backend\ProgramsController::class, 'AddProgramPersonnel'])->name('AddProgramPersonnel');
+// Route::post('/add-program-personnel', [\App\Http\Controllers\backend\ReportController::class, 'AddProgramPersonnel'])->name('AddProgramPersonnel');
 Route::get('/add-program-personnel-index/{programID}', [\App\Http\Controllers\backend\ProgramsController::class, 'AddProgramPersonnelsIndex'])->name('AddProgramPersonnelsIndex');
 
 // Program Details Route
@@ -97,7 +98,7 @@ Route::get('/report-index', [App\Http\Controllers\backend\ReportController::clas
 
 
 // Add Program Personnel
-Route::post('/add-program-personnel', [\App\Http\Controllers\backend\ReportController::class, 'AddProgramPersonnel'])->name('AddProgramPersonnel');
+
 
 // R & D Management and Coordination
 Route::get('/rdmc-index', [App\Http\Controllers\backend\ReportController::class, 'rdmcIndex'])->name('rdmcIndex');

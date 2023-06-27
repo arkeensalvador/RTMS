@@ -44,8 +44,6 @@ class ReportController extends Controller
         $agency = DB::table('agency')->get();
         $all = DB::table('programs')
             ->select('*')
-            ->orderByDesc("id")
-            ->limit(1)
             ->get();
 
         return view('backend.report.rdmc.rdmc_programs', compact('all', 'agency'));
@@ -63,11 +61,22 @@ class ReportController extends Controller
     {
         return view('backend.report.rdmc.rdmc_create_program');
     }
+    // ADD PROJECTS WITHOUT PROGRAM
     public function projectsAdd()
     {
         return view('backend.report.rdmc.rdmc_projects_add');
     }
-
+    // ADD PROJECTS TO PROGRAM IN CONTINUOUS METHOD
+    public function programProjectsAdd()
+    {
+        $programs = DB::table('programs')
+            ->select('*')
+            ->orderByDesc("id")
+            ->limit(1)
+            ->get();
+        return view('backend.report.rdmc.rdmc_program_projects_add',compact('programs'));
+    }
+    // ADD PROJECTS TO PROGRAM IN NOT CONTINUOUS METHOD
     public function projectsUnderProgramAdd($programID)
     {
         $program = DB::table('programs')->where('programID', $programID)->first();
@@ -244,7 +253,7 @@ class ReportController extends Controller
     public function AddProgramPersonnel(Request $request)
     {
         $request->validate([
-            'moreFields.*.staff_name' => 'required'
+            'moreFields.*.programID' => 'required'
         ]);
 
         foreach ($request->moreFields as $key => $value) {
@@ -255,7 +264,6 @@ class ReportController extends Controller
                 'alert-type' => 'success'
             );
         }
-
         return back()->with($notification);
     }
 

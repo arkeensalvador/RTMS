@@ -162,6 +162,7 @@ td.append {
     vertical-align: middle;
     border-top: none;
     padding-bottom: .75rem;
+    text-align: center;
 }
 
 .table-append td i {

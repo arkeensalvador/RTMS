@@ -13,8 +13,6 @@ return new class extends Migration
     {
         Schema::create('personnels', function (Blueprint $table) {
             $table->id();
-            $table->string('leader')->nullable();
-            $table->string('assist_leader')->nullable();
             $table->string('staff_name')->nullable();
             $table->string('role')->default('staff');
             $table->string('programID')->nullable();
