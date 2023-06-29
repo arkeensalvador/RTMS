@@ -734,7 +734,11 @@
             "responsive": true,
             "lengthChange": false,
             "autoWidth": false,
-            "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+            "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"],
+                columnDefs: [{
+                    targets: 0,
+                    visible: false
+                }]
         }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
         $('#example2').DataTable({
             "paging": true,
@@ -756,11 +760,6 @@
 
         $('#accounts').DataTable({
             "paging": true,
-
-            "columnDefs": [{
-                targets: -1,
-                visible: false
-            }],
             "lengthChange": false,
             "responsive": true,
             "autoWidth": false,
@@ -795,7 +794,11 @@
                     exportOptions: {
                         columns: ':visible'
                     }
-                }, "colvis"]
+                }, "colvis"],
+                columnDefs: [{
+                    targets: 0,
+                    visible: false
+                }]
             }
 
             // "buttons": ["csv", "excel", "pdf", "print", "colvis"]
