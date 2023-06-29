@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>CLAARRDEC - CMS x RTMS</title>
+    <title>{{ $title }}</title>
 
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet"
@@ -734,7 +734,7 @@
             "responsive": true,
             "lengthChange": false,
             "autoWidth": false,
-            "buttons": ["csv", "excel", "pdf", "print"]
+            "buttons": ["csv", "excel", "pdf", "print", "colvis"],
             // "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
         }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
         $('#example2').DataTable({
@@ -746,6 +746,14 @@
             "autoWidth": false,
             "responsive": true,
         });
+        $("#aihrs").DataTable({
+            "responsive": true,
+            "lengthChange": false,
+            "autoWidth": false,
+            "searching": false,
+            "buttons": ["csv", "excel", "pdf", "print"]
+            // "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+        }).buttons().container().appendTo('#aihrs_wrapper .col-md-6:eq(0)');
     });
 </script>
 

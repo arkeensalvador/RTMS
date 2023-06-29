@@ -62,7 +62,7 @@
 
                 <li class="nav-item">
                     <a href="{{ URL::to('rdmc-programs') }}" class="nav-link {{ set_active(['rdmc-programs']) }}">
-                        <i class="nav-icon fas fa-tachometer-alt"></i>
+                        <i class="nav-icon fas fa-diagram-project"></i>
                         <p>
                             Programs
                         </p>
@@ -118,7 +118,7 @@
                     </ul> --}}
                 </li>
 
-                <li class="nav-item">
+                {{-- <li class="nav-item">
                     <a href="" class="nav-link {{ Request::is('all-projects','add-projects-index') ? 'active' : '' }}">
                         <i class="nav-icon fas fa-diagram-project"></i>
                         <p>
@@ -142,7 +142,7 @@
                             </a>
                         </li>
                     </ul>
-                </li>
+                </li> --}}
                 <li class="nav-item">
                     <a href="#"
                         class="nav-link">
@@ -170,7 +170,7 @@
                         </p>
                     </a>
                 </li>
-                <li class="nav-item">
+                {{-- <li class="nav-item">
                     <a href="#" class="nav-link">
                         <i class="nav-icon fas fa-cogs"></i>
                         <p>
@@ -178,7 +178,7 @@
                         </p>
                     </a>
 
-                </li>
+                </li> --}}
                 <li class="nav-item has-treeview">
                     <a href="{{URL::to('/all-user')}}" class="nav-link {{ Request::is('all-user','add-user-index', 'edit-user/*') ? 'active' : '' }}">
                         <i class="nav-icon fa-solid fa-users-gear"></i>

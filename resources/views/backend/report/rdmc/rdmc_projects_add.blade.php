@@ -196,8 +196,6 @@
                                         </div>
                                     </div>
 
-
-
                                     <a href="{{ url('rdmc-projects') }}" class="btn btn-default">Back</a>
                                     <input type="button" name="next" class="next btn btn-info" value="Next" />
                                 </fieldset>

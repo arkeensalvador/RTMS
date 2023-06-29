@@ -23,10 +23,13 @@ class HomeController extends Controller
      */
     public function index()
     {
+        $title = 'Home';
         $all = DB::table('agency')
         ->join('users', 'users.agencyID', '=', 'agency.id')
         ->select('users.*', 'agency.*')
         ->get();
-        return view('backend.layouts.dashboard', compact('all'));
+        return view('backend.layouts.dashboard', compact('all','title'));
     }
+
+    
 }
