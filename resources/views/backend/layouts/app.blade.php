@@ -780,12 +780,17 @@
 
             buttons: {
                 buttons: [{
-                    extend: 'pdf',
+                    extend: 'csv',
                     exportOptions: {
                         columns: ':visible'
                     }
-                }, {
+                },{
                     extend: 'excel',
+                    exportOptions: {
+                        columns: ':visible'
+                    }
+                },{
+                    extend: 'pdf',
                     exportOptions: {
                         columns: ':visible'
                     }
@@ -794,12 +799,12 @@
                     exportOptions: {
                         columns: ':visible'
                     }
-                }, "colvis"],
+                }, "colvis"]
+            },
                 columnDefs: [{
                     targets: 0,
                     visible: false
                 }]
-            }
 
             // "buttons": ["csv", "excel", "pdf", "print", "colvis"]
         }).buttons().container().appendTo('#accounts_wrapper .col-md-6:eq(0)');
