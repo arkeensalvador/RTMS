@@ -20,8 +20,9 @@ class UserController extends Controller
 
     public function AllUser()
     {
+        $title = 'Manage Accounts';
         $all = DB::table('users')->get();
-        return view('backend.user.all-user', compact('all'));
+        return view('backend.user.all-user', compact('all', 'title'));
     }
 
     // AddUser & InsertUser

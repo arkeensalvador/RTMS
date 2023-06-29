@@ -654,7 +654,7 @@
                 }).then((result) => {
                     if (result.value) {
                         window.location.href = 'program-projects-add';
-                    } 
+                    }
                     // else {
                     //     window.location.href = 'projects-add';
                     // }
@@ -663,7 +663,7 @@
                 // toastr.error("{{ Session::get('message') }}");
                 break;
 
-                case 'project':
+            case 'project':
                 Swal.fire({
                     icon: 'success',
                     title: "{{ Session::get('message') }}",
@@ -734,8 +734,7 @@
             "responsive": true,
             "lengthChange": false,
             "autoWidth": false,
-            "buttons": ["csv", "excel", "pdf", "print", "colvis"],
-            // "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+            "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
         }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
         $('#example2').DataTable({
             "paging": true,
@@ -754,6 +753,57 @@
             "buttons": ["csv", "excel", "pdf", "print"]
             // "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
         }).buttons().container().appendTo('#aihrs_wrapper .col-md-6:eq(0)');
+
+        $('#accounts').DataTable({
+            "paging": true,
+
+            "columnDefs": [{
+                targets: -1,
+                visible: false
+            }],
+            "lengthChange": false,
+            "responsive": true,
+            "autoWidth": false,
+            "info": true,
+            // "buttons": [{
+            //         extend: 'pdf',
+            //         exportOptions: {
+            //             columns: ':visible'
+            //         }
+            //     },
+            //      'colvis'
+            // ],
+            // columnDefs: [{
+            //     targets: -1,
+            //     visible: false
+            // }]
+
+
+            buttons: {
+                buttons: [{
+                    extend: 'pdf',
+                    exportOptions: {
+                        columns: ':visible'
+                    }
+                }, {
+                    extend: 'excel',
+                    exportOptions: {
+                        columns: ':visible'
+                    }
+                }, {
+                    extend: 'print',
+                    exportOptions: {
+                        columns: ':visible'
+                    }
+                }, "colvis"]
+            }
+
+            // "buttons": ["csv", "excel", "pdf", "print", "colvis"]
+        }).buttons().container().appendTo('#accounts_wrapper .col-md-6:eq(0)');
+    });
+
+    $(document).ready(function() {
+
     });
 </script>
 
