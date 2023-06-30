@@ -18,7 +18,7 @@ class ReportController extends Controller
     //R & D Management and Coordination
     public function reportIndex()
     {
-        $title = 'Reports';
+        $title = 'Reports | RTMS';
         $agency = DB::table('programs')
             ->rightJoin('agency', 'programs.agencyID', '=', 'agency.abbrev')
             ->select('agency.agency_name', 'agency.abbrev')
@@ -33,13 +33,13 @@ class ReportController extends Controller
 
     public function monitoringEvaluation()
     {
-        $title = 'RDMC Monitoring and Evaluation';
+        $title = 'Monitoring and Evaluation | RDMC';
         return view('backend.report.rdmc.monitoring_index', compact('title'));
     }
 
     public function rdmcProjects()
     {
-        $title = 'RDMC Projects';
+        $title = 'Projects | RDMC';
         return view('backend.report.rdmc.rdmc_projects', compact('title'));
     }
 
@@ -98,16 +98,18 @@ class ReportController extends Controller
 
     public function rdmcActivities()
     {
-        return view('backend.report.rdmc.rdmc_activities');
+        $title = 'Activities | RDMC';
+        return view('backend.report.rdmc.rdmc_activities', compact('title'));
     }
     public function rdmcAddActivities()
     {
-        return view('backend.report.rdmc.rdmc_activities_add');
+        $title = 'Activities | RDMC';
+        return view('backend.report.rdmc.rdmc_activities_add', compact('title'));
     }
 
     public function aihrsIndex()
     {
-        $title = 'Agency In-House Reviews (AIHRs)';
+        $title = 'Agency In-House Reviews (AIHRs) | RDMC';
         return view('backend.report.rdmc.aihrs_index',compact('title'));
     }
 

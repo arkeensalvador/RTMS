@@ -9,7 +9,7 @@
                     <div class="col-11">
                         <div class="card">
                             <div class="card-header">
-                                <h2 class="card-title">List of Projects</h2>
+                                <h2 class="card-title">List of Activities</h2>
                                 <div class="card-tools">
 
                                     <a href="{{ url('rdmc-activities-add') }}" class="btn btn-success">

@@ -20,7 +20,7 @@ class UserController extends Controller
 
     public function AllUser()
     {
-        $title = 'Manage Accounts';
+        $title = 'Manage Accounts | RTMS';
         $all = DB::table('users')->get();
         return view('backend.user.all-user', compact('all', 'title'));
     }
@@ -28,8 +28,9 @@ class UserController extends Controller
     // AddUser & InsertUser
     public function AddUserIndex()
     {
+        $title = 'Manage Accounts | RTMS';
         $all = DB::table('agency')->get();
-        return view('backend.user.add_user', compact('all'));
+        return view('backend.user.add_user', compact('all', 'title'));
     }
 
     public function InsertUser(Request $request)
@@ -62,6 +63,7 @@ class UserController extends Controller
 
     public function EditUser($id)
     {
+        $title = 'Manage Accounts | RTMS';
         $edit2 = DB::table('agency')
         ->rightJoin('users', 'agency.abbrev', '=', 'users.agencyID')
         ->select('users.*','agency.agency_name', 'agency.id', 'agency.abbrev')
@@ -71,7 +73,7 @@ class UserController extends Controller
         $edit = DB::table('users')->where('id', $id)->first();
         
         $agency = DB::table('agency')->get();
-        return view('backend.user.edit_user', compact('edit','edit2', 'agency'));
+        return view('backend.user.edit_user', compact('edit','edit2', 'agency', 'title'));
     }
 
     public function UpdateUser(Request $request, $id)

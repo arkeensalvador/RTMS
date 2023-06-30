@@ -12,13 +12,15 @@ class AgencyController extends Controller
 
     public function AddAgencyIndex()
     {
-        return view('backend.agency.add_agency');
+        $title = "Agency | RTMS";
+        return view('backend.agency.add_agency', compact('title'));
     }
 
     public function AllAgency()
     {
+        $title = "Agency | RTMS";
         $all = DB::table('agency')->orderBy("agency_name")->get();
-        return view('backend.agency.agency', compact('all'));
+        return view('backend.agency.agency', compact('all', 'title'));
     }
 
     public function AddAgency(Request $request)
@@ -50,8 +52,9 @@ class AgencyController extends Controller
 
     public function EditAgency($id)
     {
+        $title = "Agency | RTMS";
         $edit = DB::table('agency')->where('id', $id)->first();
-        return view('backend.agency.edit_agency', compact('edit'));
+        return view('backend.agency.edit_agency', compact('edit', 'title'));
     }
 
     public function EditAgencyProcess(Request $request, $id)

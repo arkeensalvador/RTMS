@@ -19,20 +19,22 @@ class ProgramsController extends Controller
     
     public function rdmcPrograms()
     {
+        $title = 'Programs | RTMS';
         $agency = DB::table('agency')->get();
         $all = DB::table('programs')
             ->leftJoin('program_details', 'programs.programID', '=', 'program_details.programID')
             ->select('*')
             ->get();
 
-        return view('backend.report.rdmc.rdmc_programs', compact('all', 'agency'));
+        return view('backend.report.rdmc.rdmc_programs', compact('all', 'agency', 'title'));
     }
 
     public function AddProgramIndex()
     {
+        $title = 'Programs | RTMS';
         $all = DB::table('programs')->get();
         $agency = DB::table('agency')->get();
-        return view('backend.programs.add_programs', compact('all', 'agency'));
+        return view('backend.programs.add_programs', compact('all', 'agency', 'title'));
     }
 
     // public function AddProgram(Request $request)
@@ -176,6 +178,7 @@ class ProgramsController extends Controller
 
     public function ViewProgramIndex($programID)
     {
+        $title = 'Programs | RTMS';
         $program = DB::table('programs')->where('programID', $programID)->first();
         // $programs = DB::table('programs')->where('programID', $programID)->first();
 
@@ -191,11 +194,12 @@ class ProgramsController extends Controller
 
         $documents = DB::table('program_files')->where('programID', $programID)->get();
         
-        return view('backend.programs.view_program_index', compact('program', 'agency', 'personnels', 'documents', 'program_leader'));
+        return view('backend.programs.view_program_index', compact('program', 'agency', 'personnels', 'documents', 'program_leader', 'title'));
     }
 
     public function EditProgramIndex($programID)
     {
+        $title = 'Programs | RTMS';
         $program = DB::table('programs')->where('programID', $programID)->first();
         $program_details = DB::table('program_details')->where('programID', $programID)->first();
         $personnels = DB::table('personnels')->where('programID', $programID)->get();
@@ -203,13 +207,14 @@ class ProgramsController extends Controller
         $documents = DB::table('program_files')->where('programID', $programID)->get();
         $agency = DB::table('agency')->get();
 
-        return view('backend.programs.edit_program_index', compact('program', 'program_details', 'agency', 'personnels', 'documents'));
+        return view('backend.programs.edit_program_index', compact('program', 'program_details', 'agency', 'personnels', 'documents', 'title'));
     }
     public function UploadProgramFilesIndex($programID)
     {
+        $title = 'Programs | RTMS';
         $program = DB::table('programs')->where('programID', $programID)->first();
         $upload_files = DB::table('program_files')->where('programID', $programID)->get();
-        return view('backend.programs.upload_program_files', compact('program', 'upload_files'));
+        return view('backend.programs.upload_program_files', compact('program', 'upload_files', 'title'));
     }
 
     public function saveRecord(Request $request)
@@ -377,7 +382,8 @@ class ProgramsController extends Controller
 
     public function AddProgramPersonnelsIndex()
     {
-        return view('backend.programs.add_program_personnel');
+        $title = 'Programs | RTMS';
+        return view('backend.programs.add_program_personnel', compact('title'));
     }
 
     public function AddProgramRequirementsIndex()

@@ -9,13 +9,15 @@ class ResearcherController extends Controller
 {
     public function researcherIndex()
     {
+        $title = "Researchers | RTMS";
         $all = DB::table('researchers')->get();
-        return view('backend.researcher.researcher_index', compact('all'));
+        return view('backend.researcher.researcher_index', compact('all', 'title'));
     }
     public function researcherAdd()
     {
+        $title = "Researchers | RTMS";
         $agency = DB::table('agency')->get();
-        return view('backend.researcher.researcher_add',compact('agency'));
+        return view('backend.researcher.researcher_add',compact('agency', 'title'));
     }
 
     public function AddResearcher(Request $request)
