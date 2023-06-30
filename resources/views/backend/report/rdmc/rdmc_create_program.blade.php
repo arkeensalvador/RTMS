@@ -185,8 +185,6 @@
                                     <a href="{{ url('rdmc-projects') }}" class="btn btn-default">Back</a>
                                     <input type="button" name="next" class="next btn btn-info" value="Next" />
                                     <!-- /.card-body -->
-
-
                                     {{-- Page2 --}}
                                 </fieldset>
 
@@ -196,7 +194,7 @@
                                         <div class="col-sm-2">
                                             <div class="form-group">
                                                 <label>Start Date</label>
-                                                <input type="date" class="form-control" name="start_date" 
+                                                <input type="date" class="form-control" name="start_date"
                                                     autocomplete="false">
                                             </div>
                                         </div>
@@ -204,7 +202,7 @@
                                         <div class="col-sm-2">
                                             <div class="form-group">
                                                 <label>End Date</label>
-                                                <input type="date" class="form-control" name="end_date" 
+                                                <input type="date" class="form-control" name="end_date"
                                                     autocomplete="false">
                                             </div>
                                         </div>
@@ -343,7 +341,8 @@
                                     <input type="button" name="previous" class="previous btn btn-default"
                                         value="Previous" />
 
-                                    <input type="submit" name="submit" class="submit btn btn-success" value="Submit" />
+                                    <input type="submit" name="submit" class="submit btn btn-success"
+                                        value="Submit" />
                                 </fieldset>
                             </form>
                         </div>
@@ -431,7 +430,7 @@
             $("#dynamicAddRemove").append(`
             <tr>
                 <td class="append">
-                    <input type="text" class="form-control" placeholder="Program Staffs" name="moreFields[`+i+`][staff_name]">
+                    <input type="text" class="form-control" placeholder="Program Staffs" name="moreFields[` + i + `][staff_name]">
                 </td>
 
                 <td class="append">
