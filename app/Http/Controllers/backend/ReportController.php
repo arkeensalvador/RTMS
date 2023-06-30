@@ -123,95 +123,115 @@ class ReportController extends Controller
 
     public function linkagesIndex()
     {
-        return view('backend.report.rdmc.rdmc_linkages_index');
+        $title = 'Linkages | RDMC';
+        return view('backend.report.rdmc.rdmc_linkages_index', compact('title'));
     }
     public function linkagesAddIndex()
     {
-        return view('backend.report.rdmc.rdmc_linkages_add');
+        $title = 'Linkages | RDMC';
+        return view('backend.report.rdmc.rdmc_linkages_add', compact('title'));
     }
     public function dbInfoSys()
     {
-        return view('backend.report.rdmc.rdmc_dbinfosys_index');
+        $title = 'DBIS | RDMC';
+        return view('backend.report.rdmc.rdmc_dbinfosys_index', compact('title'));
     }
     public function dbInfoSysAdd()
     {
-        return view('backend.report.rdmc.rdmc_dbinfosys_add');
+        $title = 'DBIS | RDMC';
+        return view('backend.report.rdmc.rdmc_dbinfosys_add', compact('title'));
     }
 
     public function strategicActivities()
     {
-        return view('backend.report.strategic.strategic_activities');
+        $title = 'Strategic R&D Activities';
+        return view('backend.report.strategic.strategic_activities', compact('title'));
     }
 
     public function addStrategicActivities()
     {
-        return view('backend.report.strategic.add_strategic_activities');
+        $title = 'Strategic R&D Activities';
+        return view('backend.report.strategic.add_strategic_activities', compact('title'));
     }
 
     public function rdruIndex()
     {
-        return view('backend.report.rdru.rdru_index');
+        $title = 'R&D Results Utilizations';
+        return view('backend.report.rdru.rdru_index', compact('title'));
     }
 
-    public function rdruList()
+    public function rdruTtp()
     {
-        return view('backend.report.rdru.rdru_list');
+        $title = 'TTP | R&D Results Utilizations';
+        return view('backend.report.rdru.rdru_ttp', compact('title'));
     }
 
     public function rdruAdd()
     {
-        return view('backend.report.rdru.rdru_add');
+        $title = 'TTP | R&D Results Utilizations';
+        return view('backend.report.rdru.rdru_add', compact('title'));
     }
     public function rdruTtm()
     {
-        return view('backend.report.rdru.rdru_ttm');
+        $title = 'TTM | R&D Results Utilizations';
+        return view('backend.report.rdru.rdru_ttm', compact('title'));
     }
     public function rdruTtmAdd()
     {
-        return view('backend.report.rdru.rdru_ttm_add');
+        $title = 'TTM | R&D Results Utilizations';
+        return view('backend.report.rdru.rdru_ttm_add', compact('title'));
     }
     public function rdruTpa()
     {
-        return view('backend.report.rdru.rdru_tpa');
+        $title = 'TPA | R&D Results Utilizations';
+        return view('backend.report.rdru.rdru_tpa', compact('title'));
     }
     public function rdruTpaAdd()
     {
-        return view('backend.report.rdru.rdru_tpa_add');
+        $title = 'TPA | R&D Results Utilizations';
+        return view('backend.report.rdru.rdru_tpa_add', compact('title'));
     }
 
     public function cbgIndex()
     {
-        return view('backend.report.cbg.cbg_index');
+        $title = 'CBG';
+        return view('backend.report.cbg.cbg_index', compact('title'));
     }
 
     public function cbgTraining()
     {
-        return view('backend.report.cbg.cbg_training');
+        $title = 'Trainings | CBG';
+        return view('backend.report.cbg.cbg_training', compact('title'));
     }
 
     public function cbgAwards()
     {
-        return view('backend.report.cbg.cbg_awards');
+        $title = 'Awards | CBG';
+        return view('backend.report.cbg.cbg_awards', compact('title'));
     }
 
     public function cbgEquipment()
     {
-        return view('backend.report.cbg.cbg_equipment');
+        $title = 'Equipments | CBG';
+        return view('backend.report.cbg.cbg_equipment', compact('title'));
     }
 
     public function cbgTrainingAdd()
     {
-        return view('backend.report.cbg.cbg_training_add');
+        $title = 'Trainings | CBG';
+        return view('backend.report.cbg.cbg_training_add', compact('title'));
     }
 
     public function cbgAwardsAdd()
     {
-        return view('backend.report.cbg.cbg_awards_add');
+        $title = 'Awards | CBG';
+        return view('backend.report.cbg.cbg_awards_add', compact('title'));
     }
 
     public function cbgEquipmentAdd()
     {
-        return view('backend.report.cbg.cbg_equipment_add');
+        $title = 'Equipments | CBG';
+        return view('backend.report.cbg.cbg_equipment_add', compact('title'));
     }
 
 

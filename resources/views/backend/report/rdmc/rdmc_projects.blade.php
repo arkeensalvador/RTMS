@@ -2,11 +2,29 @@
 @section('content')
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <div class="content-wrapper">
+        <div class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-6">
+                        {{-- <h1 class="m-0">{{ auth()->user()->role }} - Manage Accounts</h1> --}}
+                    </div><!-- /.col -->
+                    <div class="col-sm-6">
+                        <ol class="breadcrumb float-sm-right">
+                            <li class="breadcrumb-item"><a href="home">Home</a></li>
+                            <li class="breadcrumb-item"><a href="report-index">Reports</a></li>
+                            <li class="breadcrumb-item"><a href="rdmc-index">RDMC</a></li>
+                            <li class="breadcrumb-item"><a href="rdmc-monitoring-evaluation">Monitoring and Evaluation</a></li>
+                            <li class="breadcrumb-item active">Projects</li>
+                        </ol>
+                    </div><!-- /.col -->
+                </div><!-- /.row -->
+            </div><!-- /.container-fluid -->
+        </div>
         <!-- Main content -->
-        <section class="content report">
+        <section class="report">
             <div class="container-fluid">
                 <div class="monitoring row">
-                    <div class="col-11">
+                    <div class="col-12">
                         <div class="card">
                             <div class="card-header">
                                 <h2 class="card-title">List of Projects</h2>
@@ -106,7 +124,7 @@
                                                     </tr>
                                                 </tbody>
                                             </table>
-
+                                            <a href="{{ url('rdmc-monitoring-evaluation') }}" class="btn btn-default">Back</a>
                                         </div>
                                     </div>
                                 </div>

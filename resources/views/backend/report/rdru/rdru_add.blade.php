@@ -183,7 +183,7 @@
                                     <!-- /.card-body -->
                                 </div>
 
-                                <a href="{{ url('rdru-index') }}" class="btn btn-default">Back</a>
+                                <a href="{{ url('rdru-ttp') }}" class="btn btn-default">Back</a>
                                 <input type="submit" name="submit" class="submit btn btn-success" value="Submit" />
                                 <!-- /.card-body -->
                         </div>

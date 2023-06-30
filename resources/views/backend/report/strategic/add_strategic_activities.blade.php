@@ -217,7 +217,7 @@
                                     <!-- /.card-body -->
                                 </div>
 
-                                <a href="{{ url('report-index') }}" class="btn btn-default">Back</a>
+                                <a href="{{ url('strategic-activities') }}" class="btn btn-default">Back</a>
                                 <input type="submit" name="submit" class="submit btn btn-success" value="Submit" />
                                 <!-- /.card-body -->
                         </div>

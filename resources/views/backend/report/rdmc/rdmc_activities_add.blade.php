@@ -150,6 +150,7 @@
                                     </div>
                                 </div>
 
+                                <a href="{{ url('rdmc-activities') }}" class="btn btn-default">Back</a>
                                 <input type="submit" name="submit" class="submit btn btn-success" value="Submit" />
                             </form>
                         </div>
