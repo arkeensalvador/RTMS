@@ -45,54 +45,62 @@ class ReportController extends Controller
 
     public function rdmcProgramsIndex()
     {
+        $title = 'Programs | RDMC';
         $agency = DB::table('agency')->get();
         $all = DB::table('programs')
             ->select('*')
             ->get();
 
-        return view('backend.report.rdmc.rdmc_programs', compact('all', 'agency'));
+        return view('backend.report.rdmc.rdmc_programs', compact('all', 'agency', 'title'));
     }
 
     public function rdmcChooseProgram()
     {
+        $title = 'Programs | RDMC';
         $programs = DB::table('programs')
             ->select('*')
             ->orderByDesc("id")
             ->get();
-        return view('backend.report.rdmc.rdmc_program_chooser', compact('programs'));
+        return view('backend.report.rdmc.rdmc_program_chooser', compact('programs', 'title'));
     }
     public function rdmcCreateProgram()
     {
-        return view('backend.report.rdmc.rdmc_create_program');
+        $title = 'Programs | RDMC';
+        return view('backend.report.rdmc.rdmc_create_program', compact('title'));
     }
     // ADD PROJECTS WITHOUT PROGRAM
     public function projectsAdd()
     {
-        return view('backend.report.rdmc.rdmc_projects_add');
+        $title = 'Projects | RDMC';
+        return view('backend.report.rdmc.rdmc_projects_add', compact('title'));
     }
     // ADD PROJECTS TO PROGRAM IN CONTINUOUS METHOD
     public function programProjectsAdd()
     {
+        $title = 'Program - projects | RDMC';
         $programs = DB::table('programs')
             ->select('*')
             ->orderByDesc("id")
             ->limit(1)
             ->get();
-        return view('backend.report.rdmc.rdmc_program_projects_add',compact('programs'));
+        return view('backend.report.rdmc.rdmc_program_projects_add',compact('programs', 'title'));
     }
     // ADD PROJECTS TO PROGRAM IN NOT CONTINUOUS METHOD
     public function projectsUnderProgramAdd($programID)
     {
+        $title = 'Program - projects | RDMC';
         $program = DB::table('programs')->where('programID', $programID)->first();
         return view('backend.report.rdmc.rdmc_projects_under_program_add', compact('program'));
     }
     public function subProjectsAdd()
     {
-        return view('backend.report.rdmc.rdmc_sub_project_add');
+        $title = 'Sub-projects | RDMC';
+        return view('backend.report.rdmc.rdmc_sub_project_add', compact('title'));
     }
 
     public function activitiesAdd()
     {
+        $title = 'Activities | RDMC';
         return view('backend.report.rdmc.rdmc_activities_add');
     }
 
@@ -274,7 +282,6 @@ class ReportController extends Controller
         return back()->with($notification);
     }
 
-    
     public function AddProjects(Request $request)
     {
         date_default_timezone_set('Asia/Hong_Kong');
