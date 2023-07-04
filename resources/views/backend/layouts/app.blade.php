@@ -734,11 +734,7 @@
             "responsive": true,
             "lengthChange": false,
             "autoWidth": false,
-            "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"],
-                columnDefs: [{
-                    targets: 0,
-                    visible: false
-                }]
+            "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
         }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
         $('#example2').DataTable({
             "paging": true,
@@ -749,6 +745,43 @@
             "autoWidth": false,
             "responsive": true,
         });
+        $('#projects').DataTable({
+            "paging": true,
+            "lengthChange": false,
+            "responsive": true,
+            "autoWidth": false,
+            "info": true,
+            buttons: {
+                buttons: [{
+                    extend: 'csv',
+                    exportOptions: {
+                        columns: ':visible'
+                    }
+                },{
+                    extend: 'excel',
+                    exportOptions: {
+                        columns: ':visible'
+                    }
+                },{
+                    extend: 'pdf',
+                    exportOptions: {
+                        columns: ':visible'
+                    }
+                }, {
+                    extend: 'print',
+                    exportOptions: {
+                        columns: ':visible'
+                    }
+                }, "colvis"]
+            },
+                columnDefs: [{
+                    targets: 0,
+                    visible: false
+                }]
+
+            // "buttons": ["csv", "excel", "pdf", "print", "colvis"]
+        }).buttons().container().appendTo('#accounts_wrapper .col-md-6:eq(0)');
+    });
         $("#aihrs").DataTable({
             "responsive": true,
             "lengthChange": false,
@@ -764,20 +797,6 @@
             "responsive": true,
             "autoWidth": false,
             "info": true,
-            // "buttons": [{
-            //         extend: 'pdf',
-            //         exportOptions: {
-            //             columns: ':visible'
-            //         }
-            //     },
-            //      'colvis'
-            // ],
-            // columnDefs: [{
-            //     targets: -1,
-            //     visible: false
-            // }]
-
-
             buttons: {
                 buttons: [{
                     extend: 'csv',

@@ -127,10 +127,10 @@
                                         </div>
                                     </div>
 
-                                    <div class="card-footer">
+                                    {{-- <div class="card-footer"> --}}
                                         <a href="{{ url('rdmc-programs') }}" class="btn btn-default">Back</a>
                                         <button type="submit" name="submit" class="next btn btn-info">Submit</button>
-                                    </div>
+                                    {{-- </div> --}}
                                 </fieldset>
 
 

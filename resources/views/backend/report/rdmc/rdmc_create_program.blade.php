@@ -82,7 +82,7 @@
 
             <div class="strategic row">
 
-                <div class="col-md-8">
+                <div class="col-md-6">
 
                     {{-- card start --}}
                     <div class="card">
@@ -115,7 +115,7 @@
                                     </div>
 
                                     <div class="row">
-                                        <div class="col-sm-2">
+                                        <div class="col-sm-3">
                                             <div class="form-group">
                                                 <label>Fund Code</label>
                                                 <input type="text" class="form-control" placeholder="Enter code"
@@ -123,7 +123,7 @@
                                             </div>
                                         </div>
 
-                                        <div class="col-sm-2">
+                                        <div class="col-sm-3">
                                             <div class="form-group">
                                                 <label>Status</label>
                                                 <select name="program_status" id="" class="form-control">
@@ -135,7 +135,7 @@
                                             </div>
                                         </div>
 
-                                        <div class="col-sm-3">
+                                        <div class="col-sm-4">
                                             <div class="form-group">
                                                 <label>Category</label>
                                                 <select name="program_category" id="" class="form-control">
@@ -170,7 +170,7 @@
                                     </div>
 
                                     <div class="row">
-                                        <div class="col-sm-5">
+                                        <div class="col-sm-6">
                                             <div class="form-group">
                                                 <label>Coordination Fund</label>
                                                 <input type="text" name="coordination_fund" class="form-control"
@@ -191,24 +191,27 @@
                                 <fieldset>
 
                                     <div class="row">
-                                        <div class="col-sm-2">
+                                        <div class="col-sm-3">
                                             <div class="form-group">
                                                 <label>Start Date</label>
                                                 <input type="date" class="form-control" name="start_date"
                                                     autocomplete="false">
                                             </div>
                                         </div>
-
-                                        <div class="col-sm-2">
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-3">
                                             <div class="form-group">
                                                 <label>End Date</label>
                                                 <input type="date" class="form-control" name="end_date"
                                                     autocomplete="false">
                                             </div>
                                         </div>
+                                    </div>
 
+                                    <div class="row">
                                         @if (auth()->user()->role == 'Admin')
-                                            <div class="col-sm-2">
+                                            <div class="col-sm-3">
                                                 <div class="form-group">
                                                     <label>Extend Date</label>
                                                     <input type="date" class="form-control" name="extend_date"
@@ -219,7 +222,7 @@
                                     </div>
 
                                     <div class="row">
-                                        <div class="col-sm-5">
+                                        <div class="col-sm-6">
                                             <div class="form-group">
                                                 <label>Program Leader</label>
                                                 <input type="text" name="program_leader" class="form-control"
@@ -231,8 +234,10 @@
                                                 </datalist>
                                             </div>
                                         </div>
+                                    </div>
 
-                                        <div class="col-sm-5">
+                                    <div class="row">
+                                        <div class="col-sm-6">
                                             <div class="form-group">
                                                 <label>Assistant Leader</label>
                                                 <input type="text" name="assistant_leader" class="form-control"
@@ -284,7 +289,7 @@
                                     </div>
 
                                     <div class="row">
-                                        <div class="col-sm-4">
+                                        <div class="col-sm-6">
                                             <div class="form-group">
                                                 <label>Approved Budget</label>
                                                 <div class="input-group">
@@ -296,8 +301,10 @@
                                                 </div>
                                             </div>
                                         </div>
+                                    </div>
 
-                                        <div class="col-sm-2">
+                                    <div class="row">
+                                        <div class="col-sm-3">
                                             <div class="form-group">
                                                 <label>Amount of Released</label>
                                                 <select name="budget_year" id="year" class="form-control">
@@ -311,7 +318,7 @@
                                             </div>
                                         </div>
 
-                                        <div class="col-sm-4">
+                                        <div class="col-sm-6">
                                             <div class="form-group">
                                                 <label style="visibility: hidden">Amount of Released</label>
                                                 <div class="input-group">

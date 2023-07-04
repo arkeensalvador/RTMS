@@ -128,27 +128,27 @@ Route::get('/strategic-activities', [App\Http\Controllers\backend\ReportControll
 Route::get('/add-strategic-index', [App\Http\Controllers\backend\ReportController::class, 'addStrategicActivities']);
 
 // R & D Results Utilization
-Route::get('/rdru-index', [App\Http\Controllers\backend\ReportController::class, 'rdruIndex']);
-Route::get('/rdru-ttp', [App\Http\Controllers\backend\ReportController::class, 'rdruTtp']);
-Route::get('/rdru-add', [App\Http\Controllers\backend\ReportController::class, 'rdruAdd']);
-Route::get('/rdru-ttm', [App\Http\Controllers\backend\ReportController::class, 'rdruTtm']);
-Route::get('/rdru-ttm-add', [App\Http\Controllers\backend\ReportController::class, 'rdruTtmAdd']);
-Route::get('/rdru-tpa', [App\Http\Controllers\backend\ReportController::class, 'rdruTpa']);
-Route::get('/rdru-tpa-add', [App\Http\Controllers\backend\ReportController::class, 'rdruTpaAdd']);
+Route::get('/rdru-index', [App\Http\Controllers\backend\ReportController::class, 'rdruIndex'])->name('rdruIndex');
+Route::get('/rdru-ttp', [App\Http\Controllers\backend\ReportController::class, 'rdruTtp'])->name('rdruTtp');
+Route::get('/rdru-add', [App\Http\Controllers\backend\ReportController::class, 'rdruAdd'])->name('rdruAdd');
+Route::get('/rdru-ttm', [App\Http\Controllers\backend\ReportController::class, 'rdruTtm'])->name('rdruTtm');
+Route::get('/rdru-ttm-add', [App\Http\Controllers\backend\ReportController::class, 'rdruTtmAdd'])->name('rdruTtmAdd');
+Route::get('/rdru-tpa', [App\Http\Controllers\backend\ReportController::class, 'rdruTpa'])->name('rdruTpa');
+Route::get('/rdru-tpa-add', [App\Http\Controllers\backend\ReportController::class, 'rdruTpaAdd'])->name('rdruTpaAdd');
 
 
 // Cabability Building and Governance
-Route::get('/cbg-index', [App\Http\Controllers\backend\ReportController::class, 'cbgIndex']);
-Route::get('/cbg-training', [App\Http\Controllers\backend\ReportController::class, 'cbgTraining']);
-Route::get('/cbg-awards', [App\Http\Controllers\backend\ReportController::class, 'cbgAwards']);
-Route::get('/cbg-equipment', [App\Http\Controllers\backend\ReportController::class, 'cbgEquipment']);
-Route::get('/cbg-training-add', [App\Http\Controllers\backend\ReportController::class, 'cbgTrainingAdd']);
-Route::get('/cbg-awards-add', [App\Http\Controllers\backend\ReportController::class, 'cbgAwardsAdd']);
-Route::get('/cbg-equipment-add', [App\Http\Controllers\backend\ReportController::class, 'cbgEquipmentAdd']);
+Route::get('/cbg-index', [App\Http\Controllers\backend\ReportController::class, 'cbgIndex'])->name('cbgIndex');
+Route::get('/cbg-training', [App\Http\Controllers\backend\ReportController::class, 'cbgTraining'])->name('cbgTraining');
+Route::get('/cbg-awards', [App\Http\Controllers\backend\ReportController::class, 'cbgAwards'])->name('cbgAwards');
+Route::get('/cbg-equipment', [App\Http\Controllers\backend\ReportController::class, 'cbgEquipment'])->name('cbgEquipment');
+Route::get('/cbg-training-add', [App\Http\Controllers\backend\ReportController::class, 'cbgTrainingAdd'])->name('cbgTrainingAdd');
+Route::get('/cbg-awards-add', [App\Http\Controllers\backend\ReportController::class, 'cbgAwardsAdd'])->name('cbgAwardsAdd');
+Route::get('/cbg-equipment-add', [App\Http\Controllers\backend\ReportController::class, 'cbgEquipmentAdd'])->name('cbgEquipmentAdd');
 
 // Researchers
-Route::get('/researcher-index', [App\Http\Controllers\backend\ResearcherController::class, 'researcherIndex'])->name('researcherIndex');;
-Route::get('/researcher-add', [App\Http\Controllers\backend\ResearcherController::class, 'researcherAdd']);
+Route::get('/researcher-index', [App\Http\Controllers\backend\ResearcherController::class, 'researcherIndex'])->name('researcherIndex');
+Route::get('/researcher-add', [App\Http\Controllers\backend\ResearcherController::class, 'researcherAdd'])->name('researcherAdd');
 Route::get('/delete-researcher/{id}', [App\Http\Controllers\backend\ResearcherController::class, 'DeleteResearcher']);
 Route::post('/add-researcher', [\App\Http\Controllers\backend\ResearcherController::class, 'AddResearcher'])->name('AddResearcher');
 
