@@ -99,7 +99,6 @@
                                                             </a>
                                                             <a href="#" class="btn btn-danger" id="delete"><i
                                                                     class="fa-solid fa-trash"></i></a>
-
                                                         </td>
                                                     </tr>
                                                     <tr>
