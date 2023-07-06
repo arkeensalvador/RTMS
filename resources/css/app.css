@@ -175,3 +175,10 @@ input#agencyAbbrev {
     font-weight: 700;
     background: none;
 }
+
+.alert-danger ul {
+    margin: auto;
+}
+.row.files {
+    justify-content: center;
+}

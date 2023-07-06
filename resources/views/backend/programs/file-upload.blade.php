@@ -77,14 +77,11 @@
 
     <div class="content-wrapper">
         <section class="content">
-            <div class="row">
-                <div class="col-lg-1">
-
-                </div>
-                <div class="col-lg-10">
+            <div class="row files">
+                <div class="col-lg-5">
 
                     {{-- card start --}}
-                    <div class="card">
+                    <div class="strategic card">
                         <div class="card-header">
                             <h5 class="card-title">
                                 Upload Files
@@ -93,7 +90,7 @@
                         {{-- card body start --}}
                         <div class="card-body">
                             <form action="{{ URL::to('/upload-file')}}" method="post" enctype="multipart/form-data">
-                                <h3 class="text-center mb-5">Upload File in Laravel</h3>
+                                <h5 class="text-center mb-3">Upload File in Laravel</h5>
                                 @csrf
                                 @if (count($errors) > 0)
                                     <div class="alert alert-danger">
@@ -105,11 +102,11 @@
                                     </div>
                                 @endif
                                 <input type="text" class="form-control" name="programID"
-                                    value="{{ $program->programID }}" placeholder="Program ID" readonly required
+                                    value="{{ $program->programID }}" placeholder="Program ID" hidden readonly required
                                     autocomplete="false">
 
                                 <div class="custom-file">
-                                    <input type="file" class="form-control" name="file" id="chooseFile">
+                                    <input type="file" class="form-control" name="file" id="chooseFile" required>
                                     <label class="custom-file-label" for="chooseFile">Select file</label>
                                 </div>
                                 <button type="submit" name="submit" class="btn btn-primary btn-block mt-4">
@@ -128,7 +125,7 @@
                                             <th>No</th>
                                             {{-- <th>Path Name</th> --}}
                                             <th>File Name</th>
-                                            <th>Date Time</th>
+                                            <th>Date & Time Uploaded</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
