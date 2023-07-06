@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\FileUpload;
 
 /*
 |--------------------------------------------------------------------------
@@ -96,6 +96,9 @@ Route::get('download/{id}', [App\Http\Controllers\backend\ProgramsController::cl
 // report
 Route::get('/report-index', [App\Http\Controllers\backend\ReportController::class, 'reportIndex'])->name('reportIndex');
 
+//upload files
+Route::get('/upload-file/{programID}', [FileUpload::class, 'createForm']);
+Route::post('/upload-file', [FileUpload::class, 'fileUpload'])->name('fileUpload');
 
 // Add Program Personnel
 

@@ -82,21 +82,21 @@
 
                                             <br>
                                             <div class="text-muted">
-                                                <p class="text-sm">Funding Agency
+                                                <p class="text-m">Funding Agency
                                                     <b class="d-block">{{ $agency->agency_name }}</b>
                                                 </p>
-                                                <p class="text-sm">Program Leader
-
+                                                <p class="text-m">Program Leader
                                                     <b class="d-block">
                                                         {{ $program->program_leader }}
                                                     </b>
+                                                </p>
+                                                <p class="text-m">Program Assistant Leader
                                                     <b class="d-block">
                                                         {{ $program->assistant_leader }}
                                                     </b>
-
                                                 </p>
 
-                                                <p class="text-sm">Program Staffs
+                                                <p class="text-m">Program Staffs
                                                     @foreach ($personnels as $personnel)
                                                         <b class="d-block">{{ $personnel->staff_name }}</b>
                                                     @endforeach
@@ -139,7 +139,7 @@
                                                 </li>
                                             </ul>
                                             <div class="text-center mt-5 mb-3">
-                                                <a href="#" class="btn btn-sm btn-primary">Add files</a>
+                                                <a href="{{ url("upload-program-files-index/$program->programID") }}" class="btn btn-sm btn-primary">Add files</a>
                                                 <a href="#" class="btn btn-sm btn-warning">Report contact</a>
                                             </div>
                                         </div>

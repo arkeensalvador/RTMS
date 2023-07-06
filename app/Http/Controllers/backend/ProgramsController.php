@@ -285,13 +285,13 @@ class ProgramsController extends Controller
                 'message' => 'Program Files Successfully Uploaded!',
                 'alert-type' => 'success'
             );
-            return redirect()->route('index')->with($notification);
+            return redirect()->route('rdmc-programs')->with($notification);
         } else {
             $notification = array(
                 'message' => 'Something is wrong, please try again!',
                 'alert-type' => 'error'
             );
-            return redirect()->route('index')->with($notification);
+            return redirect()->route('rdmc-programs')->with($notification);
         }
     }
 
