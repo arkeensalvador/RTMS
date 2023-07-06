@@ -216,6 +216,7 @@ class ProgramsController extends Controller
         $upload_files = DB::table('program_files')->where('programID', $programID)->get();
         return view('backend.programs.upload_program_files', compact('program', 'upload_files', 'title'));
     }
+    
 
     public function saveRecord(Request $request)
     {
@@ -369,6 +370,7 @@ class ProgramsController extends Controller
         ]);
 
         foreach ($request->moreFields as $key => $value) {
+            
             Personnel::create($value);
 
             $notification = array(

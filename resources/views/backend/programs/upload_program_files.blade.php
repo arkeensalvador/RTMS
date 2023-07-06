@@ -98,11 +98,11 @@
                             {{-- File 1 --}}
                             <div class="form-group row">
                                 <input type="text" class="form-control" name="programID"
-                                    value="{{ request()->route()->programID }}" placeholder="Program ID" hidden readonly
+                                    value="{{ request()->route()->programID }}" placeholder="Program ID"  readonly
                                     required autocomplete="false">
 
-                                <input type="text" class="form-control" name="agencyID" value="{{ $program->agencyID }}"
-                                    placeholder="Agency ID" hidden readonly required autocomplete="false">
+                                <input type="text" class="form-control" name="agencyID" value="{{ $program->funding_agency }}"
+                                    placeholder="Agency ID"  readonly required autocomplete="false">
 
                                 <label for="fileupload1" class="col-sm-3">Memorandum of Agreement</label>
 

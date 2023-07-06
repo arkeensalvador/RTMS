@@ -154,16 +154,16 @@
                                             </div>
                                         </div>
                                     </div>
-
+                                    
                                     <div class="row">
                                         <div class="col-sm-8">
                                             <div class="form-group">
                                                 <label>Funding Agency</label>
-                                                <select name="funding_agency" id="" class="form-control">
-                                                    <option value="">Agency 1</option>
-                                                    <option value="">Agency 2</option>
-                                                    <option value="">Agency 3</option>
-                                                    <option value="">Agency 4</option>
+                                                <select class="form-control agency" name="funding_agency" id="" required>
+                                                    <option></option>
+                                                    @foreach ($agency as $key)
+                                                        <option value="{{ $key->abbrev }}">{{ $key->agency_name }} - ({{ $key->abbrev }})</b></option>
+                                                    @endforeach
                                                 </select>
                                             </div>
                                         </div>

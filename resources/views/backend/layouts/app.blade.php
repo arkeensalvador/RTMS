@@ -550,6 +550,8 @@
     <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
     <script src="{{ asset('backend/dist/js/pages/dashboard2.js') }}"></script>
 
+    {{-- dropzone --}}
+    <script src="{{ asset('backend/plugins/dropzone/min/dropzone.min.js') }}"></script>
 
 
 

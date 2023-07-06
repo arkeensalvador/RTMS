@@ -66,7 +66,8 @@ class ReportController extends Controller
     public function rdmcCreateProgram()
     {
         $title = 'Programs | RDMC';
-        return view('backend.report.rdmc.rdmc_create_program', compact('title'));
+        $agency = DB::table('agency')->get();
+        return view('backend.report.rdmc.rdmc_create_program', compact('title', 'agency'));
     }
     // ADD PROJECTS WITHOUT PROGRAM
     public function projectsAdd()

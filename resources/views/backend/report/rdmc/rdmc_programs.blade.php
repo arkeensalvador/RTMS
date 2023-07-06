@@ -76,7 +76,7 @@
                                                     @endempty
                                                 </td>
                                                 {{-- <td>{{ $row->project_extension_date }}</td> --}}
-                                                <td>{{ $row->programID }}</td>
+                                                <td>{{ $row->funding_agency }}</td>
                                                 <td>{{ $row->program_title }}</td>
                                                 <td>{{ $row->program_description }}</td>
                                                 {{-- <td>{{ $row->amount_of_release }}</td> --}}
@@ -90,7 +90,7 @@
                                                             class="fa-solid fa-pen-to-square" style="color: white;"></i></a>
 
                                                     <a class="btn btn-secondary"
-                                                        href="{{ url("upload-program-files-index/$row->programID") }}"><i class="fa-solid fa-file-circle-plus"></i></a>
+                                                        href="{{ url("upload-file/$row->programID") }}"><i class="fa-solid fa-file-circle-plus"></i></a>
 
                                                     <a class="btn btn-warning"
                                                         href="{{ URL::to('/add-program-personnel-index/' . $row->programID) }}">
