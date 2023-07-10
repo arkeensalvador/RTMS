@@ -72,10 +72,8 @@ Route::get('/index-projects', [App\Http\Controllers\backend\AddProject::class, '
 
 // Programs Route
 Route::get('/rdmc-programs', [App\Http\Controllers\backend\ProgramsController::class, 'rdmcPrograms'])->name('rdmcPrograms');
-Route::post('add-programs', [\App\Http\Controllers\backend\ProgramsController::class, 'AddProgram'])->name('AddProgram');
-Route::post('edit-program', [\App\Http\Controllers\backend\ProgramsController::class, 'EditProgram'])->name('EditProgram');
+Route::post('update-program/{programID}', [\App\Http\Controllers\backend\ProgramsController::class, 'UpdateProgram'])->name('UpdateProgram');
 Route::get('/edit-program-index/{programID}', [\App\Http\Controllers\backend\ProgramsController::class, 'EditProgramIndex'])->name('EditProgramIndex');
-// Route::post('add-remove-multiple-input-fields', [\App\Http\Controllers\backend\ProgramsController::class, 'store'])->name('store');
 Route::get('/delete-program/{id}', [App\Http\Controllers\backend\ProgramsController::class, 'DeleteProgram'])->name('DeleteProgram');
 
 // Add Program Personnel
@@ -124,8 +122,9 @@ Route::get('/rdmc-linkages-index', [App\Http\Controllers\backend\ReportControlle
 Route::get('/rdmc-linkages-add', [App\Http\Controllers\backend\ReportController::class, 'linkagesAddIndex'])->name('linkagesAddIndex');
 Route::get('/rdmc-dbinfosys-index', [App\Http\Controllers\backend\ReportController::class, 'dbInfoSys'])->name('dbInfoSys');
 Route::get('/rdmc-dbinfosys-add', [App\Http\Controllers\backend\ReportController::class, 'dbInfoSysAdd'])->name('dbInfoSysAdd');
-// Adding projects
-Route::post('add-programs', [\App\Http\Controllers\backend\ReportController::class, 'AddProgram'])->name('AddProgram');
+
+// Adding programs/projects
+Route::post('add-programs', [\App\Http\Controllers\backend\ProgramsController::class, 'AddProgram'])->name('AddProgram');
 Route::get('/rdmc-programs', [App\Http\Controllers\backend\ReportController::class, 'rdmcProgramsIndex'])->name('rdmcProgramsIndex');
 Route::post('/add-projects', [App\Http\Controllers\backend\ReportController::class, 'AddProjects'])->name('AddProjects');
 

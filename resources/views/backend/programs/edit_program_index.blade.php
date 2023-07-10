@@ -98,7 +98,7 @@
 
                         {{-- card body start --}}
                         <div class="card-body">
-                            <form role="form" id="regiration_form" action="{{ url('edit-programs') }}" method="POST"
+                            <form role="form" id="regiration_form" action="{{ URL::to('/update-program/'.$program->programID)}}" method="POST"
                                 enctype="multipart/form-data">
                                 @csrf
                                 <fieldset>

@@ -21,10 +21,7 @@ class ProgramsController extends Controller
     {
         $title = 'Programs | RTMS';
         $agency = DB::table('agency')->get();
-        $all = DB::table('programs')
-            ->leftJoin('program_details', 'programs.programID', '=', 'program_details.programID')
-            ->select('*')
-            ->get();
+        $all = DB::table('programs')->get();
 
         return view('backend.report.rdmc.rdmc_programs', compact('all', 'agency', 'title'));
     }
@@ -247,6 +244,47 @@ class ProgramsController extends Controller
 
     public function UpdateProgram(Request $request, $programID){
 
+        date_default_timezone_set('Asia/Hong_Kong');
+
+        $data = array();
+        $data['programID'] = $request->programID;
+        $data['agencyID'] = $request->agencyID;
+        $data['fundingAgencyID'] = $request->fundingAgencyID;
+        $data['researcherID'] = $request->researcherID;
+        $data['fund_code'] = $request->fund_code;
+        $data['program_title'] = $request->program_title;
+        $data['program_status'] = $request->program_status;
+        $data['program_category'] = $request->program_category;
+        $data['funding_agency'] = $request->funding_agency;
+        $data['coordination_fund'] = $request->coordination_fund;
+        $data['start_date'] = $request->start_date;
+        $data['end_date'] = $request->end_date;
+        $data['extend_date'] = $request->extend_date;
+        $data['program_leader'] = $request->program_leader;
+        $data['assistant_leader'] = $request->assistant_leader;
+        $data['program_description'] = $request->program_description;
+        $data['approved_budget'] = $request->approved_budget;
+        $data['amount_released'] = $request->amount_released;
+        $data['budget_year'] = $request->budget_year;
+        $data['form_of_development'] = $request->form_of_development;
+        $data['edited_at'] = now();
+
+        $insert = DB::table('programs')->where('programID', $programID)->update($data);
+        if ($insert) {
+
+            $notification = array(
+                'message' => 'Program Successfully Updated!',
+                'alert-type' => 'success'
+            );
+
+            return redirect()->route('rdmcPrograms')->with($notification);
+        } else {
+            $notification = array(
+                'message' => 'Something is wrong, please try again!',
+                'alert-type' => 'error'
+            );
+            return redirect()->route('rdmcPrograms')->with($notification);
+        }
     }
     public function UploadProgramFilesIndex($programID)
     {

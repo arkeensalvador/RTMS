@@ -98,7 +98,7 @@
 
                         {{-- card body start --}}
                         <div class="card-body">
-                            <form role="form" id="regiration_form" action="{{ url('add-programs') }}" method="POST"
+                            <form role="form" id="regiration_form" action="{{ url('add-program') }}" method="POST"
                                 enctype="multipart/form-data">
                                 @csrf
                                 <fieldset>
