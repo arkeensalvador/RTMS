@@ -88,7 +88,7 @@
                     <div class="card">
                         <div class="card-header">
                             <h5 class="card-title">
-                                Add Program
+                                Edit Program
                             </h5>
                         </div>
                         <div class="progress">
@@ -126,16 +126,16 @@
                                             <div class="form-group">
                                                 <label>Status</label>
                                                 <select name="program_status" class="form-control" id="">
-                                                    <option value="Finished"
+                                                    <option value="New"
                                                         {{ 'New' == $program->program_status ? 'selected' : '' }}
                                                         class="">New</option>
-                                                    <option value="Ongoing"
+                                                    <option value="On-going"
                                                         {{ 'On-going' == $program->program_status ? 'selected' : '' }}
-                                                        class="">Ongoing</option>
-                                                    <option value="Canceled"
+                                                        class="">On-going</option>
+                                                    <option value="Terminated"
                                                         {{ 'Terminated' == $program->program_status ? 'selected' : '' }}
                                                         class="">Terminated</option>
-                                                    <option value="Finished"
+                                                    <option value="Completed"
                                                         {{ 'Completed' == $program->program_status ? 'selected' : '' }}
                                                         class="">Completed</option>
                                                 </select>
@@ -350,7 +350,7 @@
                                         value="Previous" />
 
                                     <input type="submit" name="submit" class="submit btn btn-success"
-                                        value="Submit" />
+                                        value="Update" />
                                 </fieldset>
                             </form>
                         </div>

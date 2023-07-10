@@ -8,6 +8,12 @@ td.action {
     /* display: inline-block; */
     white-space: nowrap;
 }
+td.action.btns {
+    width: 2rem;
+    overflow: hidden;
+    /* display: inline-block; */
+    white-space: nowrap;
+}
 
 .content-wrapper {
     padding-top: 1rem;

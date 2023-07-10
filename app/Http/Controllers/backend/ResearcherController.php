@@ -5,6 +5,7 @@ namespace App\Http\Controllers\backend;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use DB;
+
 class ResearcherController extends Controller
 {
     public function researcherIndex()
@@ -17,7 +18,7 @@ class ResearcherController extends Controller
     {
         $title = "Researchers | RTMS";
         $agency = DB::table('agency')->get();
-        return view('backend.researcher.researcher_add',compact('agency', 'title'));
+        return view('backend.researcher.researcher_add', compact('agency', 'title'));
     }
 
     public function AddResearcher(Request $request)
@@ -34,6 +35,41 @@ class ResearcherController extends Controller
 
             $notification = array(
                 'message' => 'Researcher Successfully Added!',
+                'alert-type' => 'success'
+            );
+
+            return redirect()->route('researcherIndex')->with($notification);
+        } else {
+            $notification = array(
+                'message' => 'Something is wrong, please try again!',
+                'alert-type' => 'error'
+            );
+            return redirect()->route('researcherIndex')->with($notification);
+        }
+    }
+
+    public function EditResearcher($id)
+    {
+        $title = "Researchers | RTMS";
+        $researcher = DB::table('researchers')->where('id', $id)->first();
+        $agency = DB::table('agency')->get();
+        return view('backend.researcher.researcher_edit', compact('agency', 'researcher', 'title'));
+    }
+
+    public function UpdateResearcher(Request $request, $id)
+    {
+        $data =  array();
+        $data['name'] = $request->name;
+        $data['gender'] = $request->gender;
+        $data['contact'] = $request->contact;
+        $data['email'] = $request->email;
+        $data['agency'] = $request->agency;
+
+        $researcher = DB::table('researchers')->where('id', $id)->update($data);
+        if ($researcher) {
+
+            $notification = array(
+                'message' => 'Researcher Successfully Updated!',
                 'alert-type' => 'success'
             );
 

@@ -87,7 +87,7 @@
                     <div class="card">
                         <div class="card-header">
                             <h5 class="card-title">
-                                Add Activities
+                                Edit Activity
                             </h5>
                         </div>
 

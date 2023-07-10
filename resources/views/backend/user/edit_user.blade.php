@@ -60,10 +60,10 @@
                                 </div>
                             </div>
 
-                            <div class="card-footer">
+                            {{-- <div class="card-footer"> --}}
                                 <a href="{{ url('all-user') }}" class="btn btn-default">Back</a>
-                                <button type="submit" class="btn btn-info">Update</button>
-                            </div>
+                                <button type="submit" class="btn btn-success">Update</button>
+                            {{-- </div> --}}
                         </form>
                     </div> {{-- card body end --}}
                 </div>{{-- card end --}}

@@ -38,7 +38,7 @@
                                 <div class="row">
                                     <div class="col-12 col-md-12">
                                         <div class="col-sm-12">
-                                            <table id="example1" class="table table-bordered table-striped">
+                                            <table id="accounts" class="table table-bordered table-striped">
                                                 <thead>
                                                     <tr>
                                                         <th>#</th>
@@ -61,7 +61,7 @@
                                                             <td>{{ $row->contact }}</td>
                                                             <td>{{ $row->email }}</td>
                                                             <td>{{ $row->agency }}</td>
-                                                            <td>
+                                                            <td class="action btns">
                                                                 <a class="btn btn-primary"
                                                                     href="{{ URL::to('/edit-researcher/' . $row->id) }}"><i
                                                                         class="fa-solid fa-pen-to-square"

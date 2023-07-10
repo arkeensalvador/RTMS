@@ -49,17 +49,17 @@
                                                 <thead>
                                                     <tr>
                                                         <th>New</th>
-                                                        <th>Ongoing</th>
+                                                        <th>On-going</th>
                                                         <th>Completed</th>
                                                         <th>Terminated</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                     <tr>
-                                                        <th>1</th>
-                                                        <th>40</th>
-                                                        <th>109</th>
-                                                        <th>26</th>
+                                                        <th>{{ $new }}</th>
+                                                        <th>{{ $ongoing }}</th>
+                                                        <th>{{ $completed }}</th>
+                                                        <th>{{ $terminated }}</th>
                                                     </tr>
                                                 </tbody>
                                             </table>
@@ -72,6 +72,7 @@
                                                     </div>
                                                 </div>
                                             </a> --}}
+                                            
                                             <a href="{{ url('rdmc-monitoring-evaluation') }}" class="btn btn-default">Back</a>
                                         </div>
                                     </div>

@@ -90,7 +90,7 @@
 
                         {{-- card body start --}}
                         <div class="card-body">
-                            <form role="form" id="regiration_form" action="{{ url('add-researcher')}}" method="POST"
+                            <form role="form" id="regiration_form" action="{{ url('update-researcher/'.$researcher->id) }}" method="POST"
                                 enctype="multipart/form-data">
                                 @csrf
 
@@ -98,11 +98,11 @@
                                     <div class="col-sm-12">
                                         <div class="form-group">
                                             <label>Researcher Name</label>
-                                            <input type="text" name="name" class="form-control">
+                                            <input type="text" name="name" value="{{ $researcher->name }}" class="form-control">
                                         </div>
                                     </div>
                                 </div>
-                                
+
 
                                 <div class="row">
                                     <div class="col-sm-12">
@@ -111,7 +111,10 @@
                                             <select name="agency" id="" class="form-control agency">
                                                 <option value=""disabled selected>Select Agency</option>
                                                 @foreach ($agency as $key)
-                                                    <option value="{{ $key->abbrev }}">{{ $key->agency_name }}</option>
+                                                    <option value="{{ $key->abbrev }}"
+                                                        {{ $key->abbrev == $researcher->agency ? 'selected' : '' }}>
+                                                        {{ $key->agency_name }}
+                                                        </b></option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -126,11 +129,11 @@
                                             <div class="form-group">
                                                 <div class="form-check">
                                                     <input class="form-check-input" type="radio" name="gender"
-                                                        value="Male" checked /> Male
+                                                        value="Male" {{ 'Male' == $researcher->gender ? 'checked' : '' }} /> Male
                                                 </div>
                                                 <div class="form-check">
                                                     <input class="form-check-input" type="radio" name="gender"
-                                                        value="Female" /> Female
+                                                        value="Female" {{ 'Female' == $researcher->gender ? 'checked' : '' }} /> Female
                                                 </div>
                                             </div>
                                         </div>
@@ -141,7 +144,7 @@
                                     <div class="col-sm-12">
                                         <div class="form-group">
                                             <label>Contact No.</label>
-                                            <input type="text" name="contact" class="form-control" placeholder="">
+                                            <input type="text" name="contact" value="{{ $researcher->contact }}" class="form-control" placeholder="">
                                         </div>
                                     </div>
                                 </div>
@@ -150,14 +153,14 @@
                                     <div class="col-sm-12">
                                         <div class="form-group">
                                             <label>Email</label>
-                                            <input type="email" name="email" class="form-control" placeholder="">
+                                            <input type="email" name="email" value="{{ $researcher->email }}" class="form-control" placeholder="">
                                         </div>
                                     </div>
                                 </div>
 
-                                
+
                                 <a href="{{ url('researcher-index') }}" class="btn btn-default">Back</a>
-                                <input type="submit" name="submit" class="submit btn btn-success" value="Submit" />
+                                <input type="submit" name="submit" class="submit btn btn-success" value="Update" />
                                 <!-- /.card-body -->
                         </div>
                         </form>

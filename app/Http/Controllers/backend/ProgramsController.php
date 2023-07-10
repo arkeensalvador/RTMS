@@ -16,16 +16,6 @@ use Illuminate\Support\Facades\DB;
 
 class ProgramsController extends Controller
 {
-
-    public function rdmcPrograms()
-    {
-        $title = 'Programs | RTMS';
-        $agency = DB::table('agency')->get();
-        $all = DB::table('programs')->get();
-
-        return view('backend.report.rdmc.rdmc_programs', compact('all', 'agency', 'title'));
-    }
-
     public function AddProgram(Request $request)
     {
         date_default_timezone_set('Asia/Hong_Kong');
@@ -277,13 +267,13 @@ class ProgramsController extends Controller
                 'alert-type' => 'success'
             );
 
-            return redirect()->route('rdmcPrograms')->with($notification);
+            return redirect()->route('rdmcProgramsIndex')->with($notification);
         } else {
             $notification = array(
                 'message' => 'Something is wrong, please try again!',
                 'alert-type' => 'error'
             );
-            return redirect()->route('rdmcPrograms')->with($notification);
+            return redirect()->route('rdmcProgramsIndex')->with($notification);
         }
     }
     public function UploadProgramFilesIndex($programID)
@@ -392,14 +382,23 @@ class ProgramsController extends Controller
 
         foreach ($request->moreFields as $key => $value) {
 
-            Personnel::create($value);
+            $staffs = Personnel::create($value);
+        }
+        if ($staffs) {
+
             $notification = array(
-                'message' => 'Staff(s) Successfully Added!',
+                'message' => 'Staff(s) Successfully Updated!',
                 'alert-type' => 'success'
             );
-        }
 
-        return back()->with($notification);
+            return redirect()->route('rdmcProgramsIndex')->with($notification);
+        } else {
+            $notification = array(
+                'message' => 'Something is wrong, please try again!',
+                'alert-type' => 'error'
+            );
+            return redirect()->route('rdmcProgramsIndex')->with($notification);
+        }
     }
 
     public function store(Request $request)

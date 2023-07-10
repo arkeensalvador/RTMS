@@ -57,10 +57,10 @@
                                 </div>
                             </div>
 
-                            <div class="card-footer">
+                           
                                 <a href="{{ url('all-user') }}" class="btn btn-default">Back</a>
-                                <button type="submit" class="btn btn-info">Submit</button>
-                            </div>
+                                <button type="submit" class="btn btn-success">Submit</button>
+                            
                         </form>
                     </div>  {{-- card body end --}}
                 </div>{{-- card end --}}

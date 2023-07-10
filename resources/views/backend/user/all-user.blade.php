@@ -55,7 +55,7 @@
                                                 <td>{{ $row->email }}</td>
                                                 <td>{{ $row->agencyID }}</td>
                                                 <td>{{ $row->role }}</td>
-                                                <td>
+                                                <td class="action btns">
                                                     <a class="btn btn-primary"
                                                         href="{{ URL::to('/edit-user/' . $row->id) }}"><i
                                                             class="fa-solid fa-pen-to-square" style="color: white;"></i></a>

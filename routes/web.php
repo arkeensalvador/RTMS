@@ -71,7 +71,6 @@ Route::get('/index-projects', [App\Http\Controllers\backend\AddProject::class, '
 // Route::post('insert-new-projects', [App\Http\Controllers\backend\UserController::class, 'InsertProjectInfo'])->name('InsertProjectInfo');
 
 // Programs Route
-Route::get('/rdmc-programs', [App\Http\Controllers\backend\ProgramsController::class, 'rdmcPrograms'])->name('rdmcPrograms');
 Route::post('update-program/{programID}', [\App\Http\Controllers\backend\ProgramsController::class, 'UpdateProgram'])->name('UpdateProgram');
 Route::get('/edit-program-index/{programID}', [\App\Http\Controllers\backend\ProgramsController::class, 'EditProgramIndex'])->name('EditProgramIndex');
 Route::get('/delete-program/{id}', [App\Http\Controllers\backend\ProgramsController::class, 'DeleteProgram'])->name('DeleteProgram');
@@ -156,6 +155,8 @@ Route::get('/researcher-index', [App\Http\Controllers\backend\ResearcherControll
 Route::get('/researcher-add', [App\Http\Controllers\backend\ResearcherController::class, 'researcherAdd'])->name('researcherAdd');
 Route::get('/delete-researcher/{id}', [App\Http\Controllers\backend\ResearcherController::class, 'DeleteResearcher']);
 Route::post('/add-researcher', [\App\Http\Controllers\backend\ResearcherController::class, 'AddResearcher'])->name('AddResearcher');
+Route::get('/edit-researcher/{id}', [App\Http\Controllers\backend\ResearcherController::class, 'EditResearcher'])->name('EditResearcher');
+Route::post('/update-researcher/{id}', [\App\Http\Controllers\backend\ResearcherController::class, 'UpdateResearcher'])->name('UpdateResearcher');
 
 // RDMC ACTIVITIES
 Route::post('/add-activities', [App\Http\Controllers\backend\ActivitiesController::class, 'AddActivities'])->name('AddActivities');

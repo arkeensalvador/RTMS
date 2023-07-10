@@ -24,7 +24,7 @@
                     <div class="col-md-12">
                         <div class="card">
                             <div class="card-header">
-                                <h3 class="card-title">List of Agency</h3>
+                                <h3 class="card-title">List of Agencies</h3>
                                 <div class="card-tools">
                                     <a href="{{ url('add-agency-index') }}"
                                         class="btn btn-success {{ Route::current()->getName() == 'add-agency-index' ? 'active' : '' }}">Add
@@ -33,7 +33,7 @@
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body">
-                                <table id="example1" class="table table-bordered table-striped">
+                                <table id="accounts" class="table table-bordered table-striped">
                                     <thead>
                                         <tr>
                                             <th>Serial</th>
@@ -54,7 +54,7 @@
                                                     {{$row->instname}}
                                             </a> --}}
                                                 </td>
-                                                <td>
+                                                <td class="action btns">
                                                     <a class="btn btn-primary"
                                                         href="{{ URL::to('/edit-agency/' . $row->id) }}"><i
                                                             class="fa-solid fa-pen-to-square" style="color: white;"></i></a>

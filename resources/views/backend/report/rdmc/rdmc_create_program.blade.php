@@ -181,8 +181,9 @@
 
                                     {{-- <a href="{{ url('rdmc-projects') }}" class="btn btn-default">Back</a>
                                     <input type="submit" name="submit" class="submit btn btn-success" value="Submit" /> --}}
+                                    <button onclick="history.go(-1);" class="btn btn-default">Back </button>
 
-                                    <a href="{{ url('rdmc-projects') }}" class="btn btn-default">Back</a>
+                                    {{-- <a href="{{ url('rdmc-projects') }}" class="btn btn-default">Back</a> --}}
                                     <input type="button" name="next" class="next btn btn-info" value="Next" />
                                     <!-- /.card-body -->
                                     {{-- Page2 --}}

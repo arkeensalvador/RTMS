@@ -26,7 +26,7 @@
                             <div class="card-header">
                                 <h3 class="card-title">List of Programs</h3>
                                 <div class="card-tools">
-                                    
+
                                     @if ($agency->isEmpty())
                                         <a href="{{ url('rdmc-create-program') }}"
                                             class="btn btn-success {{ Route::current()->getName() == 'rdmc-create-program' ? 'active' : '' }}"
@@ -81,21 +81,31 @@
                                                 <td>{{ $row->program_description }}</td>
                                                 {{-- <td>{{ $row->amount_of_release }}</td> --}}
                                                 <td class="action">
-                                                    <a class="btn btn-info"
-                                                        href="{{ url("view-program-index/$row->programID") }}"><i
-                                                            class="fa-solid fa-eye" style="color: white;"></i></a>
+                                                    <span title="View">
+                                                        <a class="btn btn-info"
+                                                            href="{{ url("view-program-index/$row->programID") }}"><i
+                                                                class="fa-solid fa-eye" style="color: white;"></i></a>
+                                                    </span>
 
-                                                    <a class="btn btn-primary"
-                                                        href="{{ url("edit-program-index/$row->programID") }}"><i
-                                                            class="fa-solid fa-pen-to-square" style="color: white;"></i></a>
+                                                    <span title="Edit">
+                                                        <a class="btn btn-primary"
+                                                            href="{{ url("edit-program-index/$row->programID") }}"><i
+                                                                class="fa-solid fa-pen-to-square"
+                                                                style="color: white;"></i></a>
+                                                    </span>
 
+                                                    <span title="Upload">
                                                     <a class="btn btn-secondary"
                                                         href="{{ url("upload-file/$row->programID") }}"><i class="fa-solid fa-file-circle-plus"></i></a>
+                                                    </span>
 
+                                                    <span title="Staffs">
                                                     <a class="btn btn-warning"
                                                         href="{{ URL::to('/add-program-personnel-index/' . $row->programID) }}">
                                                         <i class="fa-solid fa-user-plus"></i>
                                                     </a>
+                                                    </span>
+
                                                     <a href="{{ URL::to('/delete-program/' . $row->id) }}"
                                                         class="btn btn-danger" id="delete"><i
                                                             class="fa-solid fa-trash"></i></a>

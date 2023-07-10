@@ -123,7 +123,11 @@ class ReportController extends Controller
     public function aihrsIndex()
     {
         $title = 'Agency In-House Reviews (AIHRs) | RDMC';
-        return view('backend.report.rdmc.aihrs_index',compact('title'));
+        $new = DB::table('programs')->where('program_status', '=', 'new')->count();
+        $ongoing = DB::table('programs')->where('program_status', '=', 'on-going')->count();
+        $terminated = DB::table('programs')->where('program_status', '=', 'terminated')->count();
+        $completed = DB::table('programs')->where('program_status', '=', 'completed')->count();
+        return view('backend.report.rdmc.aihrs_index',compact('title', 'completed','new','ongoing','terminated'));
     }
 
     public function linkagesIndex()

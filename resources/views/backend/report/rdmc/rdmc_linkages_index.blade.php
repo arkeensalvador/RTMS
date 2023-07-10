@@ -60,7 +60,7 @@
                                                         <td>2022</td>
                                                         <td>CLSU-PCAARRD</td>
                                                         <td>Let’s Doe Business: Goats Milk-based Livelihood Opportunities to Mitogate The Effects of the Covid 19 Pandemic</td>
-                                                        <td class="action">
+                                                        <td class="action btns">
                                                             <a class="btn btn-primary" href="#"><i
                                                                     class="fa-solid fa-pen-to-square"
                                                                     style="color: white;"></i></a>
@@ -76,7 +76,7 @@
                                                         <td>2022</td>
                                                         <td>CLSU-Jollibee Foundation</td>
                                                         <td>To bring the agricultural technologies to the farmer-partner of the JGF under their Farmer Entrepreneurship Program</td>
-                                                        <td class="action">
+                                                        <td class="action btns">
                                                             <a class="btn btn-primary" href="#"><i
                                                                     class="fa-solid fa-pen-to-square"
                                                                     style="color: white;"></i></a>
