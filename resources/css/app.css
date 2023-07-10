@@ -182,3 +182,9 @@ input#agencyAbbrev {
 .row.files {
     justify-content: center;
 }
+td.counter {
+    width: .5%;
+}
+td.donor {
+    width: 1%;
+}

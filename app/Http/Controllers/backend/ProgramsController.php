@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\DB;
 
 class ProgramsController extends Controller
 {
-    
+
     public function rdmcPrograms()
     {
         $title = 'Programs | RTMS';
@@ -29,13 +29,51 @@ class ProgramsController extends Controller
         return view('backend.report.rdmc.rdmc_programs', compact('all', 'agency', 'title'));
     }
 
-    public function AddProgramIndex()
+    public function AddProgram(Request $request)
     {
-        $title = 'Programs | RTMS';
-        $all = DB::table('programs')->get();
-        $agency = DB::table('agency')->get();
-        return view('backend.programs.add_programs', compact('all', 'agency', 'title'));
+        date_default_timezone_set('Asia/Hong_Kong');
+
+        $data = array();
+        $data['programID'] = $request->programID;
+        $data['agencyID'] = $request->agencyID;
+        $data['fundingAgencyID'] = $request->fundingAgencyID;
+        $data['researcherID'] = $request->researcherID;
+        $data['fund_code'] = $request->fund_code;
+        $data['program_title'] = $request->program_title;
+        $data['program_status'] = $request->program_status;
+        $data['program_category'] = $request->program_category;
+        $data['funding_agency'] = $request->funding_agency;
+        $data['coordination_fund'] = $request->coordination_fund;
+        $data['start_date'] = $request->start_date;
+        $data['end_date'] = $request->end_date;
+        $data['extend_date'] = $request->extend_date;
+        $data['program_leader'] = $request->program_leader;
+        $data['assistant_leader'] = $request->assistant_leader;
+        $data['program_description'] = $request->program_description;
+        $data['approved_budget'] = $request->approved_budget;
+        $data['amount_released'] = $request->amount_released;
+        $data['budget_year'] = $request->budget_year;
+        $data['form_of_development'] = $request->form_of_development;
+        $data['created_at'] = now();
+
+        $insert = DB::table('programs')->insert($data);
+        if ($insert) {
+
+            $notification = array(
+                'message' => 'Program Successfully Added!',
+                'alert-type' => 'test'
+            );
+
+            return redirect()->route('rdmcProjects')->with($notification);
+        } else {
+            $notification = array(
+                'message' => 'Something is wrong, please try again!',
+                'alert-type' => 'error'
+            );
+            return redirect()->route('rdmcProjects')->with($notification);
+        }
     }
+
 
     // public function AddProgram(Request $request)
     // {
@@ -172,9 +210,6 @@ class ProgramsController extends Controller
     //     }
     // }
 
-    public function AddProgramFiles()
-    {
-    }
 
     public function ViewProgramIndex($programID)
     {
@@ -193,7 +228,7 @@ class ProgramsController extends Controller
             ->first();
 
         $documents = DB::table('program_files')->where('programID', $programID)->get();
-        
+
         return view('backend.programs.view_program_index', compact('program', 'agency', 'personnels', 'documents', 'program_leader', 'title'));
     }
 
@@ -209,6 +244,10 @@ class ProgramsController extends Controller
 
         return view('backend.programs.edit_program_index', compact('program', 'program_details', 'agency', 'personnels', 'documents', 'title'));
     }
+
+    public function UpdateProgram(Request $request, $programID){
+
+    }
     public function UploadProgramFilesIndex($programID)
     {
         $title = 'Programs | RTMS';
@@ -216,7 +255,6 @@ class ProgramsController extends Controller
         $upload_files = DB::table('program_files')->where('programID', $programID)->get();
         return view('backend.programs.upload_program_files', compact('program', 'upload_files', 'title'));
     }
-    
 
     public function saveRecord(Request $request)
     {
@@ -296,8 +334,6 @@ class ProgramsController extends Controller
         }
     }
 
-
-
     public function download($id)
     {
         $data = DB::table('program_files')->where('id', $id)->first();
@@ -328,41 +364,6 @@ class ProgramsController extends Controller
         return back()->with($notification);
     }
 
-    public function AddProgramsTest()
-    {
-        foreach ($request->email as $key => $value) {
-
-            $name = $_POST['name'];
-            $gender = $_POST['gender'];
-            $contact = $_POST['contact'];
-            $role = $_POST['role'][$key];
-            $sql = 'INSERT INTO personnel (name,gender,contact,email,role) VALUES (:name,:gender,:contact,:email,:role)';
-            $stmt = DB::insert($sql, [$name, $gender, $contact, $value, $role]);
-
-            if ($stmt) {
-                $notification = array(
-                    'message' => 'Program Successfully Added!',
-                    'alert-type' => 'success'
-                );
-                return redirect()->route('AddProgramIndex')->with($notification);
-            } else {
-                $notification = array(
-                    'message' => 'Something is wrong, please try again!',
-                    'alert-type' => 'error'
-                );
-                return redirect()->route('AddProgramIndex')->with($notification);
-            }
-        }
-
-        // foreach ($_POST['email'] as $key => $value) {
-
-
-
-        //     $query = DB::insert('INSERT INTO personnel values (?,?,?,?,?)', [$name, $gender, $contact, $value, $role]);
-
-        // }
-    }
-
     public function store(Request $request)
     {
         $request->validate([
@@ -370,7 +371,7 @@ class ProgramsController extends Controller
         ]);
 
         foreach ($request->moreFields as $key => $value) {
-            
+
             Personnel::create($value);
 
             $notification = array(

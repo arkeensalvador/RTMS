@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\backend\FileUpload;
+use Random\RandomException;
 
 /*
 |--------------------------------------------------------------------------
@@ -71,7 +72,6 @@ Route::get('/index-projects', [App\Http\Controllers\backend\AddProject::class, '
 
 // Programs Route
 Route::get('/rdmc-programs', [App\Http\Controllers\backend\ProgramsController::class, 'rdmcPrograms'])->name('rdmcPrograms');
-Route::get('/add-programs-index', [\App\Http\Controllers\backend\ProgramsController::class, 'AddProgramIndex'])->name('AddProgramIndex');
 Route::post('add-programs', [\App\Http\Controllers\backend\ProgramsController::class, 'AddProgram'])->name('AddProgram');
 Route::post('edit-program', [\App\Http\Controllers\backend\ProgramsController::class, 'EditProgram'])->name('EditProgram');
 Route::get('/edit-program-index/{programID}', [\App\Http\Controllers\backend\ProgramsController::class, 'EditProgramIndex'])->name('EditProgramIndex');
@@ -158,6 +158,11 @@ Route::get('/researcher-add', [App\Http\Controllers\backend\ResearcherController
 Route::get('/delete-researcher/{id}', [App\Http\Controllers\backend\ResearcherController::class, 'DeleteResearcher']);
 Route::post('/add-researcher', [\App\Http\Controllers\backend\ResearcherController::class, 'AddResearcher'])->name('AddResearcher');
 
+// RDMC ACTIVITIES
+Route::post('/add-activities', [App\Http\Controllers\backend\ActivitiesController::class, 'AddActivities'])->name('AddActivities');
+Route::get('/edit-activity/{id}', [App\Http\Controllers\backend\ActivitiesController::class, 'EditActivity'])->name('EditActivity');
+Route::post('/update-activity/{id}', [App\Http\Controllers\backend\ActivitiesController::class, 'UpdateActivity'])->name('UpdateActivity');
+Route::get('/delete-activity/{id}', [App\Http\Controllers\backend\ActivitiesController::class, 'DeleteActivity'])->name('DeleteActivity');
 
 
 

@@ -43,7 +43,7 @@
                                 <div class="row">
                                     <div class="col-12 col-md-12">
                                         <div class="col-sm-12">
-                                            <table id="example1" class="table table-bordered table-striped">
+                                            <table id="accounts" class="table table-bordered table-striped">
                                                 <thead>
                                                     <tr>
                                                         <th>#</th>
@@ -52,39 +52,33 @@
                                                         <th>Amount Shared</th>
                                                         <th>Remarks</th>
                                                         <th>Action</th>
+                                                        
                                                     </tr>
                                                 </thead>
                                                 <tbody>
+                                                    @foreach ($all as $key => $row)
                                                     <tr>
-                                                        <td>1</td>
-                                                        <td>DA-RFO3</td>
-                                                        <td>Analysis of the DA RFO3’s Rice Program’s Research and Development Investment towards Identification of Regional Rice R&D Agenda</td>
-                                                        <td>P 1,000,000.00</td>
-                                                        <td>The project aims to analyze the Research and Development investment on Rice Program of the DARFO3 and provide database and information for program planning and implementation</td>
+                                                        <td class="counter">
+                                                           {{$key+1}}
+                                                        </td>
+                                                        <td>
+                                                            {{$row->donor}}
+                                                        </td>
+                                                        {{-- <td>{{ $row->activity_type }}</td> --}}
+                                                        <td>{{ $row->activity_title }}</td>
+                                                        <td>{{ $row->shared_amount }}</td>
+                                                        <td>{{ $row->remarks }}</td>
                                                         <td class="action">
-                                                            <a class="btn btn-primary" href="#"><i
-                                                                    class="fa-solid fa-pen-to-square"
-                                                                    style="color: white;"></i></a>
-                                                            <a href="#" class="btn btn-danger" id="delete"><i
-                                                                    class="fa-solid fa-trash"></i></a>
+                                                            <a class="btn btn-primary"
+                                                                href="{{ url("edit-activity/$row->id") }}"><i
+                                                                    class="fa-solid fa-pen-to-square" style="color: white;"></i></a>
 
+                                                            <a href="{{ URL::to('/delete-activity/' . $row->id) }}"
+                                                                class="btn btn-danger" id="delete"><i
+                                                                    class="fa-solid fa-trash"></i></a>
                                                         </td>
                                                     </tr>
-                                                    <tr>
-                                                        <td>2</td>
-                                                        <td>PCAARRD</td>
-                                                        <td>Support to the Implementation of Collaborative Program on AANR in Region III</td>
-                                                        <td>P 3,067,452.00</td>
-                                                        <td>Implementation of consortium activities</td>
-                                                        <td class="action">
-                                                            <a class="btn btn-primary" href="#"><i
-                                                                    class="fa-solid fa-pen-to-square"
-                                                                    style="color: white;"></i></a>
-                                                            <a href="#" class="btn btn-danger" id="delete"><i
-                                                                    class="fa-solid fa-trash"></i></a>
-
-                                                        </td>
-                                                    </tr>
+                                                @endforeach
                                                 </tbody>
                                             </table>
                                             <a href="{{ url('rdmc-monitoring-evaluation') }}" class="btn btn-default">Back</a>

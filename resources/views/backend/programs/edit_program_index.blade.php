@@ -1,372 +1,454 @@
 @extends('backend.layouts.app')
 @section('content')
-<style>
-    .radio-input input {
-        display: none;
-    }
+    <style>
+        .radio-input input {
+            display: none;
+        }
 
-    .radio-input {
-        --container_width: 200px;
-        position: relative;
-        display: flex;
-        height: 2.76rem;
-        align-items: center;
-        border-radius: 10px;
-        background-color: #fff;
-        color: #000000;
-        width: var(--container_width);
-        overflow: hidden;
-        border: 1px solid rgba(53, 52, 52, 0.226);
-    }
+        .radio-input {
+            --container_width: 200px;
+            position: relative;
+            display: flex;
+            height: 2.76rem;
+            align-items: center;
+            border-radius: 10px;
+            background-color: #fff;
+            color: #000000;
+            width: var(--container_width);
+            overflow: hidden;
+            border: 1px solid rgba(53, 52, 52, 0.226);
+        }
 
 
-    .radio-input label.upl {
-        width: 100%;
-        padding: 10px;
-        cursor: pointer;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        z-index: 1;
-        font-weight: 600;
-        letter-spacing: 1.5px;
-        font-size: 14px;
-    }
+        .radio-input label.upl {
+            width: 100%;
+            padding: 10px;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1;
+            font-weight: 600;
+            letter-spacing: 1.5px;
+            font-size: 14px;
+        }
 
-    label.upl {
-        margin: 0 auto;
-    }
+        label.upl {
+            margin: 0 auto;
+        }
 
-    span.sel {
-        display: none;
-        position: absolute;
-        height: 100%;
-        width: calc(var(--container_width) / 2);
-        z-index: 0;
-        left: 0;
-        top: 0;
-        transition: .15s ease;
-    }
+        span.sel {
+            display: none;
+            position: absolute;
+            height: 100%;
+            width: calc(var(--container_width) / 2);
+            z-index: 0;
+            left: 0;
+            top: 0;
+            transition: .15s ease;
+        }
 
-    input#file-upload1,
-    input#file-upload2,
-    input#file-upload3,
-    input#file-upload4 {
-        height: auto !important;
-    }
+        input#file-upload1,
+        input#file-upload2,
+        input#file-upload3,
+        input#file-upload4 {
+            height: auto !important;
+        }
 
-    .radio-input label.upl:has(input:checked) {
-        color: #fff;
-        /* color: #28a745; */
-    }
+        .radio-input label.upl:has(input:checked) {
+            color: #fff;
+            /* color: #28a745; */
+        }
 
-    .radio-input label.upl:has(input:checked)~.sel {
-        /* background-color: rgb(11 117 223); */
-        background-color: #17a2b8;
-        display: inline-block;
-    }
+        .radio-input label.upl:has(input:checked)~.sel {
+            /* background-color: rgb(11 117 223); */
+            background-color: #17a2b8;
+            display: inline-block;
+        }
 
-    .radio-input label.upl:nth-child(1):has(input:checked)~.sel {
-        transform: translateX(calc(var(--container_width) * 0/2));
-    }
+        .radio-input label.upl:nth-child(1):has(input:checked)~.sel {
+            transform: translateX(calc(var(--container_width) * 0/2));
+        }
 
-    .radio-input label.upl:nth-child(2):has(input:checked)~.sel {
-        transform: translateX(calc(var(--container_width) * 1/2));
-    }
-</style>
-<div class="content-wrapper">
-    <section class="content">
-        <div class="row">
-            <div class="col-lg-2">
-
-            </div>
-            <div class="col-lg-8">
-
-                {{-- card start --}}
-                <div class="card">
-                    <div class="card-header">
-                        <h5 class="card-title">
-                            Add Program
-                        </h5>
-                    </div>
-                    {{-- card body start --}}
-
-                    <div class="progress">
-                        <div class="progress-bar bg-info progress-bar-striped" role="progressbar" aria-valuemin="0"
-                            aria-valuemax="100"></div>
-                    </div>
-                    <div class="card-body">
-
-                        <form role="form" id="regiration_form" action="{{ url('edit-program') }}" method="POST"
-                            enctype="multipart/form-data">
-                            @csrf
-                            <fieldset>
-                                <h2>Program Details</h2>
-                                <input type="text" hidden readonly class="form-control" name="programID"
-                                    placeholder="Program ID" value="{{ $program->programID }}" autocomplete="false">
+        .radio-input label.upl:nth-child(2):has(input:checked)~.sel {
+            transform: translateX(calc(var(--container_width) * 1/2));
+        }
+    </style>
 
 
 
-                                <div class="form-group row">
-                                    <label for="program_title" required
-                                        class="col-sm-2 col-form-label text-md-end">Program
-                                        Title</label>
-                                    <div class="col-sm-10">
-                                        <textarea class="form-control" required name="program_title"
-                                            style="font-weight: bold;" placeholder="Program Title" autocomplete="false"
-                                            id="" cols="200" rows="3">{{ $program->program_title }}</textarea>
-                                    </div>
-                                </div>
+    <div class="content-wrapper">
+        <section class="content">
 
-                                <div class="form-group row">
-                                    <label for="description"
-                                        class="col-sm-2 col-form-label text-md-end">Description</label>
-                                    <div class="col-sm-10">
-                                        <textarea class="form-control" required name="description"
-                                            style="font-weight: bold;" placeholder="Program Description"
-                                            autocomplete="false" id="" cols="200"
-                                            rows="5">{{ $program->description }}</textarea>
-                                    </div>
-                                </div>
+            <div class="strategic row">
 
-                                <div class="form-group row">
-                                    <label for="agencyID" class="col-sm-2 col-form-label">Funding Agency</label>
-                                    <div class="col-sm-8">
-                                        <select class="form-control agency" name="agencyID" id="" required>
-                                            <option></option>
-                                            @foreach($agency as $key)
-                                            <option value="{{ $key->abbrev }}" {{ $key->abbrev == $key->abbrev
-                                                ? 'selected' : '' }}>{{$key->agency_name}}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                </div>
+                <div class="col-md-6">
 
-                                <a href="{{ url('index') }}" class="btn btn-default">Back</a>
-                                <input type="button" name="next" class="next btn btn-info" value="Next" />
+                    {{-- card start --}}
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="card-title">
+                                Add Program
+                            </h5>
+                        </div>
+                        <div class="progress">
+                            <div class="progress-bar bg-success progress-bar-striped" role="progressbar" aria-valuemin="0"
+                                aria-valuemax="100"></div>
+                        </div>
 
-                            </fieldset>
-
-                            <fieldset>
-                                <h2>Approved & Released Budget</h2>
-                                <div class="form-group row">
-                                    <label for="budget" class="col-sm-2 col-form-label">Approved
-                                        Budget</label>
-                                    <div class="col-sm-4">
-                                        <input type="text" id="numin" required class="form-control" name="budget"
-                                            placeholder="Budget" value="{{ $program_details->budget }}"
-                                            autocomplete="false">
-                                    </div>
-                                </div>
-
-                                <div class="form-group row">
-                                    <label for="amount_release" class="col-sm-2 col-form-label text">Amount of
-                                        Release</label>
-                                    <div class="col-sm-4">
-                                        <input type="text" id="numin2" class="form-control" name="amount_release"
-                                            placeholder="Amount of Release"
-                                            value="{{ $program_details->amount_release }}" autocomplete="false">
-
-                                    </div>
-                                </div>
-
-                                {{-- <hr class="border border-info border-3 opacity-75">
-
-                                <h2>Official Receipt</h2>
-                                <div class="form-group row">
-                                    <label for="check_no" required class="col-sm-2 col-form-label">Check Number</label>
-                                    <div class="col-sm-3">
-                                        <input type="number" class="form-control" name="check_no"
-                                            placeholder="Check Number" value="{{ $program_details->check_no }}"
-                                            autocomplete="false">
-                                    </div>
-                                </div>
-
-                                <div class="form-group row">
-                                    <label for="or_no" required class="col-sm-2 col-form-label">O.R. Number</label>
-                                    <div class="col-sm-3">
-                                        <input type="number" class="form-control " name="or_no"
-                                            placeholder="O.R. Number" value="{{ $program_details->or_no }}"
-                                            autocomplete="false">
-                                    </div>
-                                </div>
-
-                                <div class="form-group row">
-                                    <label for="or_date" class="col-sm-2 col-form-label text">O.R. Date</label>
-                                    <div class="col-sm-3">
-                                        <input type="date" required class="form-control" name="or_date"
-                                            placeholder="O.R. Date" value="{{ $program_details->or_date }}"
-                                            utocomplete="false">
-                                    </div>
-                                </div> --}}
-
-                                <input type="button" name="previous" class="previous btn btn-default"
-                                    value="Previous" />
-                                <input type="button" name="next" class="next btn btn-info" value="Next" />
-
-                            </fieldset>
-
-                            <fieldset>
-                                <h2>Program Start and End Date</h2>
-                                <div class="form-group row">
-                                    <label for="start_date" class="col-sm-2 col-form-label">Program Start
-                                        Date</label>
-                                    <div class="col-sm-3">
-                                        <input type="date" class="form-control" name="start_date"
-                                            placeholder="Start Date" value="{{ $program_details->start_date }}" required
-                                            autocomplete="false">
+                        {{-- card body start --}}
+                        <div class="card-body">
+                            <form role="form" id="regiration_form" action="{{ url('edit-programs') }}" method="POST"
+                                enctype="multipart/form-data">
+                                @csrf
+                                <fieldset>
+                                    <div class="row">
+                                        <div class="col-sm-2">
+                                            <div class="form-group">
+                                                <label>ProgramID</label>
+                                                {{-- Route::input('name'); --}}
+                                                <input type="text" class="form-control" value="{{ $program->programID }}"
+                                                    readonly placeholder="Enter code" name="programID">
+                                            </div>
+                                        </div>
                                     </div>
 
-                                    <label for="end_date" class="col-form-label">to</label>
-                                    <div class="col-sm-3">
-                                        <input type="date" class="form-control" value="{{ $program_details->end_date }}"
-                                            name="end_date" placeholder="End Date" required autocomplete="false">
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label>Fund Code</label>
+                                                <input type="text" value="{{ $program->fund_code }}" class="form-control"
+                                                    placeholder="Enter code" name="fund_code">
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label>Status</label>
+                                                <select name="program_status" class="form-control" id="">
+                                                    <option value="Finished"
+                                                        {{ 'New' == $program->program_status ? 'selected' : '' }}
+                                                        class="">New</option>
+                                                    <option value="Ongoing"
+                                                        {{ 'On-going' == $program->program_status ? 'selected' : '' }}
+                                                        class="">Ongoing</option>
+                                                    <option value="Canceled"
+                                                        {{ 'Terminated' == $program->program_status ? 'selected' : '' }}
+                                                        class="">Terminated</option>
+                                                    <option value="Finished"
+                                                        {{ 'Completed' == $program->program_status ? 'selected' : '' }}
+                                                        class="">Completed</option>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <label>Category</label>
+                                                <select name="program_category" id="" class="form-control">
+                                                    <option value="Research Category"
+                                                        {{ 'Research Category' == $program->program_category ? 'selected' : '' }}>
+                                                        Research
+                                                        Category</option>
+                                                    <option value="Development Category"
+                                                        {{ 'Development Category' == $program->program_category ? 'selected' : '' }}>
+                                                        Development Category</option>
+                                                </select>
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
 
-                                <div class="form-group row">
-                                    @if(auth()->user()->role == 'Admin')
-
-                                    <label for="extend_date" class="col-sm-2 col-form-label">Extension Date</label>
-                                    <div class="col-sm-3">
-                                        <input type="date" class="form-control" name="extend_date"
-                                            placeholder="Extension Date" value="{{ $program_details->extend_date }}"
-                                            autocomplete="false">
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <div class="form-group">
+                                                <label>Program Title</label>
+                                                <textarea name="program_title" id="" cols="30" rows="5"
+                                                    style="resize: none;" class="form-control">{{ $program->program_title }}</textarea>
+                                            </div>
+                                        </div>
                                     </div>
-                                    @endif
-                                </div>
 
-                                <hr class="border border-info border-3 opacity-75">
-                                <h2>Program Status</h2>
-                                <div class="form-group row">
-                                    <label for="status" class="col-sm-2 col-form-label">Program Status</label>
-                                    <div class="col-sm-4">
-                                        <select name="status" class="form-control" id="">
-                                            <option value="Finished" {{ 'Finished'==$program_details->status ?
-                                                'selected' : ''}} class="">Finished</option>
-                                            <option value="Ongoing" {{ 'Ongoing'==$program_details->status ?
-                                                'selected' : ''}} class="">Ongoing</option>
-                                            <option value="Canceled" {{ 'Canceled'==$program_details->status ?
-                                                'selected' : ''}} class="">Canceled</option>
-                                        </select>
+                                    <div class="row">
+                                        <div class="col-sm-8">
+                                            <div class="form-group">
+                                                <label>Funding Agency</label>
+                                                <select class="form-control agency" value="{{ $program->funding_agency }}"
+                                                    name="funding_agency" id="" required>
+                                                    <option></option>
+                                                    @foreach ($agency as $key)
+                                                        <option value="{{ $key->abbrev }}"
+                                                            {{ $key->abbrev == $program->funding_agency ? 'selected' : '' }}>
+                                                            {{ $key->agency_name }} -
+                                                            ({{ $key->abbrev }})
+                                                            </b></option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
+
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label>Coordination Fund</label>
+                                                <input type="text" value="{{ $program->coordination_fund }}" name="coordination_fund" class="form-control"
+                                                    id="cf" placeholder="Enter ...">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    {{-- <a href="{{ url('rdmc-projects') }}" class="btn btn-default">Back</a>
+                                    <input type="submit" name="submit" class="submit btn btn-success" value="Submit" /> --}}
+
+                                    <a href="{{ url('rdmc-programs') }}" class="btn btn-default">Back</a>
+                                    <input type="button" name="next" class="next btn btn-info" value="Next" />
+                                    <!-- /.card-body -->
+                                    {{-- Page2 --}}
+                                </fieldset>
+
+                                <fieldset>
+
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label>Start Date</label>
+                                                <input type="date" value="{{ $program->start_date }}" class="form-control" name="start_date"
+                                                    autocomplete="false">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label>End Date</label>
+                                                <input type="date" value="{{ $program->end_date }}" class="form-control" name="end_date"
+                                                    autocomplete="false">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        @if (auth()->user()->role == 'Admin')
+                                            <div class="col-sm-3">
+                                                <div class="form-group">
+                                                    <label>Extend Date</label>
+                                                    <input type="date" value="{{ $program->extend_date }}" class="form-control" name="extend_date"
+                                                        autocomplete="false">
+                                                </div>
+                                            </div>
+                                        @endif
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label>Program Leader</label>
+                                                <input type="text" name="program_leader" value="{{ $program->program_leader }}" class="form-control"
+                                                    placeholder="Program Leader" list="leaderdtlist">
+                                                <datalist id="leaderdtlist">
+                                                    <option value="Leader 1"><span>Agency</span></option>
+                                                    <option value="Leader 2"></option>
+                                                    <option value="Leader 3"></option>
+                                                </datalist>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label>Assistant Leader</label>
+                                                <input type="text" name="assistant_leader" class="form-control"
+                                                    placeholder="Program Leader" value="{{ $program->assistant_leader }}" list="assisdtlist">
+                                                <datalist id="assisdtlist">
+                                                    <option value="Leader 1"><span>Agency</span></option>
+                                                    <option value="Leader 2"></option>
+                                                    <option value="Leader 3"></option>
+                                                </datalist>
+                                            </div>
+                                        </div>
+                                    </div>
 
 
-                                <input type="button" name="previous" class="previous btn btn-default"
-                                    value="Previous" />
-                                <input type="submit" name="submit" class="submit btn btn-success" value="Submit" />
+                                    <input type="button" name="previous" class="previous btn btn-default"
+                                        value="Previous" />
+                                    <input type="button" name="next" class="next btn btn-info" value="Next" />
+                                </fieldset>
 
-                            </fieldset>
-                        </form>
+                                <fieldset>
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <div class="form-group">
+                                                <label>Program Description</label>
+                                                <textarea name="program_description" id="" cols="30" rows="5" style="resize: none;"
+                                                    class="form-control">{{ $program->program_description }}</textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label>Approved Budget</label>
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text">PHP</span>
+                                                    </div>
+                                                    <input type="text" value="{{ $program->approved_budget }}" class="form-control" id="numin"
+                                                        name="approved_budget">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label>Amount of Released</label>
+                                                <select name="budget_year" id="year" class="form-control">
+                                                    <option value="Year 1" {{ 'Year 1' == $program->budget_year ? 'selected' : '' }} >Year 1</option>
+                                                    <option value="Year 2" {{ 'Year 2' == $program->budget_year ? 'selected' : '' }} >Year 2</option>
+                                                    <option value="Year 3" {{ 'Year 3' == $program->budget_year ? 'selected' : '' }} >Year 3</option>
+                                                    <option value="Year 4" {{ 'Year 4' == $program->budget_year ? 'selected' : '' }} >Year 4</option>
+                                                    <option value="Year 5" {{ 'Year 5' == $program->budget_year ? 'selected' : '' }} >Year 5</option>
+                                                    <option value="Year 6" {{ 'Year 6' == $program->budget_year ? 'selected' : '' }} >Year 6</option>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label style="visibility: hidden">Amount of Released</label>
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text">PHP</span>
+                                                    </div>
+                                                    <input type="text" value="{{ $program->amount_released }}" class="form-control" id="numin2"
+                                                        name="amount_released">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-sm-5">
+                                            <div class="form-group">
+                                                <label>Form of Development</label>
+                                                <select name="form_of_development" id="" class="form-control">
+                                                    <option value="Local"
+                                                    {{ 'Local' == $program->form_of_development ? 'selected' : '' }} >Local</option>
+                                                    <option value="National"
+                                                    {{ 'National' == $program->form_of_development ? 'selected' : '' }}>National</option>
+                                                    <option value="International"
+                                                    {{ 'International' == $program->form_of_development ? 'selected' : '' }}>International</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <input type="button" name="previous" class="previous btn btn-default"
+                                        value="Previous" />
+
+                                    <input type="submit" name="submit" class="submit btn btn-success"
+                                        value="Submit" />
+                                </fieldset>
+                            </form>
+                        </div>
                     </div> {{-- card body end --}}
                 </div>{{-- card end --}}
             </div>
             <div class="col-lg-1">
-
             </div>
-        </div>
+    </div>
 
     </section>
-</div>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
 
+    {{-- <script>
+        $(document).ready(function() {
+            $('form #btn-ok').click(function(e) {
+                let $form = $(this).closest('form');
+                Swal.fire({
+                    // title: 'Are you  sure?',
+                    icon: 'info',
+                    text: 'Are there any Project associated with this Program?',
+                    type: 'warning',
+                    showCancelButton: true,
+                    confirmButtonText: 'Yes',
+                    cancelButtonText: 'None',
+                    allowEscapeKey: false,
+                    allowOutsideClick: false,
+                    reverseButtons: true
+                }).then((result) => {
+                    if (result.value) {
 
+                        $form.submit();
+                        window.location.href = "projects-add" + "/" + $_SESSION['programID'];
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-{{-- <script type="text/javascript">
-    var i = 0;
-    $("#add-btn").click(function(){
-    ++i;
-    $("#dynamicAddRemove").append(`<tr><td><input type="text" name="moreFields['+i+'][title]" placeholder="Enter title" class="form-control" />
-        <input type="text" name="moreFields['+i+'][name]" placeholder="Enter title" class="form-control" /></td><td><button type="button" class="btn btn-danger remove-tr">Remove</button></td></tr>`);
-    });
-    $(document).on('click', '.remove-tr', function(){  
-    $(this).parents('tr').remove();
-    });  
-</script> --}}
+                    } else if (
+                        result.dismiss === Swal.DismissReason.cancel
+                    ) {
+                        $form.submit();
+                        window.location.href = 'rdmc-projects';
+                    }
+                });
 
-<script type="text/javascript">
-    var i = 0;
-    $("#add-btn").click(function(){
-    ++i;
-    $("#dynamicAddRemove").append(`
-    <tr>
-        <td>
-            <label for="name" class="col-sm-2 col-form-label text-md-end">Name</label>
-            <div class="col-sm-8">
-                <input type="text" class="form-control" name="moreFields[`+i+`][name]" value="" placeholder="Name" required autocomplete="false">
-            </div>
+            });
+        });
+    </script> --}}
 
-            <label for="gender" class="col-sm-2 col-form-label">Gender</label>
-                <div class="col-sm-4">
-                    <select name="moreFields[`+i+`][gender]" class="form-control" id="">
-                        <option value="Male">Male</option>
-                        <option value="Female">Female</option>
-                    </select>
-                </div>
+    <script>
+        var selectBox = document.getElementById("year");
+        selectBox.onchange = function() {
+            var textbox = document.getElementById("textYear");
+            textbox.value = this.value;
+        };
+    </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
-            <label for="contact" class="col-sm-4 col-form-label text-md-end">Contact</label>
-                <div class="col-sm-4 mr-4">
-                    <input type="text" class="form-control" id="contact" name="moreFields[`+i+`][contact]" value="" placeholder="Contact" required autocomplete="false">
-                </div>
+    <script>
+        function formatNumber(e) {
+            var rex = /(^\d{2})|(\d{1,3})(?=\d{1,3}|$)/g,
+                val = this.value.replace(/^0+|\.|,/g, ""),
+                res;
 
-            <label for="email" class="col-sm-1 col-form-label text-md-end">Email</label>
-                <div class="col-sm-5">
-                    <input type="email" class="form-control" name="moreFields[`+i+`][email]" value="" placeholder="Email Address" required autocomplete="false">
-                </div>
-
-            <label for="role" class="col-sm-2 col-form-label">Role</label>
-                <div class="col-sm-4">
-                    <select name="moreFields[`+i+`][role]" class="form-control" id="">
-                        <option value="Project Staff" selected>Program Staff</option>
-                        <option value="Project Leader">Program Leader</option>
-                    </select>
-                </div>
-        </td>
-        <td>
-            <button type="button" class="btn btn-danger remove-tr">Remove</button>
-        </td>
-    </tr>`);
-    });
-        $(document).on('click', '.remove-tr', function(){  
-        $(this).parents('tr').remove();
-    });  
-
-    
-    
-</script>
-
-<script>
-    function formatNumber(e){
-    var rex = /(^\d{2})|(\d{1,3})(?=\d{1,3}|$)/g,
-      val = this.value.replace(/^0+|\.|,/g,""),
-      res;
-      
-    if (val.length) {
-        res = Array.prototype.reduce.call(val, (p,c) => c + p)            // reverse the pure numbers string
-                .match(rex)                                            // get groups in array
-                .reduce((p,c,i) => i - 1 ? p + "," + c : p + "." + c); // insert (.) and (,) accordingly
-        res += /\.|,/.test(res) ? "" : ".0";                              // test if res has (.) or (,) in it
-        this.value = Array.prototype.reduce.call(res, (p,c) => c + p);    // reverse the string and display
+            if (val.length) {
+                res = Array.prototype.reduce.call(val, (p, c) => c + p) // reverse the pure numbers string
+                    .match(rex) // get groups in array
+                    .reduce((p, c, i) => i - 1 ? p + "," + c : p + "." + c); // insert (.) and (,) accordingly
+                res += /\.|,/.test(res) ? "" : ".0"; // test if res has (.) or (,) in it
+                this.value = Array.prototype.reduce.call(res, (p, c) => c + p); // reverse the string and display
+            }
         }
-    }
 
-    var ni = document.getElementById("numin");
-    var ni2 = document.getElementById("numin2");
+        var ni = document.getElementById("numin");
+        var ni2 = document.getElementById("numin2");
+        var ni3 = document.getElementById("cf");
 
-    ni.addEventListener("keyup", formatNumber);
-    ni2.addEventListener("keyup", formatNumber);
-</script>
+        ni.addEventListener("keyup", formatNumber);
+        ni2.addEventListener("keyup", formatNumber);
+        ni3.addEventListener("keyup", formatNumber);
+    </script>
 
-<script>
-    $('input.number-to-text').keydown(function(event) {
-        if ([38, 40].indexOf(event.keyCode) > -1) {
-            event.preventDefault();
-    }
-});
-</script>
+    <script type="text/javascript">
+        var i = 0;
+        $("#add-btn").click(function() {
+            ++i;
+            $("#dynamicAddRemove").append(`
+            <tr>
+                <td class="append">
+                    <input type="text" class="form-control" placeholder="Program Staffs" name="moreFields[` + i + `][staff_name]">
+                </td>
 
-{{-- Upload Files --}}
-
-
+                <td class="append">
+                    <i class="fa-solid fa-user-minus fa-lg remove-input" style="color: #dc3545;"></i>
+                </td>
+            </tr>
+            `);
+        });
+        $(document).on('click', '.remove-input', function() {
+            $(this).parents('tr').remove();
+        });
+    </script>
 @endsection

@@ -326,7 +326,7 @@
                                                         <span class="input-group-text">PHP</span>
                                                     </div>
                                                     <input type="text" class="form-control" id="numin2"
-                                                        name="amount_of_released">
+                                                        name="amount_released">
                                                 </div>
                                             </div>
                                         </div>

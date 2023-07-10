@@ -50,7 +50,7 @@
                                             <th>End Date</th>
                                             {{-- <th>Extension Date</th> --}}
                                             <th>Funding Agency</th>
-                                            <th>Project Title</th>
+                                            <th>Program Title</th>
                                             <th>Description</th>
                                             {{-- <th>Approved Budget</th>
                                         <th>Amount of Release</th> --}}

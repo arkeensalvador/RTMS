@@ -94,7 +94,7 @@
 
                         {{-- card body start --}}
                         <div class="card-body">
-                            <form role="form" id="regiration_form" action="{{ url('add-activities')}}" method="POST"
+                            <form role="form" id="regiration_form" action="{{ URL::to('/update-activity/'.$all->id)}}" method="POST"
                                 enctype="multipart/form-data">
                                 @csrf
 
@@ -102,7 +102,7 @@
                                     <div class="col-sm-7">
                                         <div class="form-group">
                                             <label>Donor/Source</label>
-                                            <input type="text" name="donor" class="form-control" list="donorList">
+                                            <input type="text" value="{{ $all->donor }}" name="donor" class="form-control" list="donorList">
                                             <datalist id="donorList">
                                                 @foreach ($agency as $key)
                                                     <option value="{{ $key->abbrev }}">{{ $key->agency_name }} -
@@ -118,7 +118,7 @@
                                     <div class="col-sm-12">
                                         <div class="form-group">
                                             <label>Activity Type</label>
-                                            <input name="activity_type" class="form-control" list="titledtlist">
+                                            <input name="activity_type" value="{{ $all->activity_type }}" class="form-control" list="titledtlist">
                                             <datalist id="titledtlist">
                                                 <option
                                                     value="Implementation of Consortium-led R&D and Technology Transfer-related Programs/Activities">
@@ -141,7 +141,7 @@
                                     <div class="col-sm-12">
                                         <div class="form-group">
                                             <label>Activity Title</label>
-                                            <textarea name="activity_title" id="" cols="5" rows="5" style="resize: none;" class="form-control"></textarea>
+                                            <textarea name="activity_title"  id="" cols="5" rows="5" style="resize: none;" class="form-control">{{ $all->activity_title }} </textarea>
                                         </div>
                                     </div>
                                 </div>
@@ -154,7 +154,7 @@
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text">PHP</span>
                                                 </div>
-                                                <input type="text" name="shared_amount" id="numin" class="form-control">
+                                                <input type="text" value="{{ $all->shared_amount }} " name="shared_amount" id="numin" class="form-control">
                                             </div>
                                         </div>
                                     </div>
@@ -164,7 +164,7 @@
                                     <div class="col-sm-12">
                                         <div class="form-group">
                                             <label>Remarks</label>
-                                            <textarea name="remarks" id="" cols="5" rows="5" style="resize: none;" class="form-control"></textarea>
+                                            <textarea name="remarks" id="" cols="5" rows="5" style="resize: none;" class="form-control">{{ $all->remarks }} </textarea>
                                         </div>
                                     </div>
                                 </div>
