@@ -144,7 +144,8 @@ class ReportController extends Controller
     public function dbInfoSys()
     {
         $title = 'DBIS | RDMC';
-        return view('backend.report.rdmc.rdmc_dbinfosys_index', compact('title'));
+        $all = DB::table('rdmc_dbinfosys')->get();
+        return view('backend.report.rdmc.rdmc_dbinfosys_index', compact('title', 'all'));
     }
     public function dbInfoSysAdd()
     {

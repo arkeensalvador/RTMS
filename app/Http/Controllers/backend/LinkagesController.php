@@ -10,12 +10,15 @@ class LinkagesController extends Controller
 {
     public function AddLinkages(Request $request)
     {
+        date_default_timezone_set('Asia/Hong_Kong');
+
         $data = array();
         $data['type'] = $request->type;
         $data['year'] = $request->year;
         $data['form_of_development'] = $request->form_of_development;
         $data['address'] = $request->address;
         $data['nature_of_assistance'] = $request->nature_of_assistance;
+        $data['created_at'] = now();
 
         $insert = DB::table('rdmc_linkages')->insert($data);
         if ($insert) {
@@ -43,12 +46,15 @@ class LinkagesController extends Controller
 
     public function UpdateLinkages(Request $request, $id)
     {
+        date_default_timezone_set('Asia/Hong_Kong');
+
         $data = array();
         $data['type'] = $request->type;
         $data['year'] = $request->year;
         $data['form_of_development'] = $request->form_of_development;
         $data['address'] = $request->address;
         $data['nature_of_assistance'] = $request->nature_of_assistance;
+        $data['edited_at'] = now();
 
         $update = DB::table('rdmc_linkages')->where('id', $id)->update($data);
         if ($update) {

@@ -123,10 +123,16 @@ Route::get('/rdmc-dbinfosys-index', [App\Http\Controllers\backend\ReportControll
 Route::get('/rdmc-dbinfosys-add', [App\Http\Controllers\backend\ReportController::class, 'dbInfoSysAdd'])->name('dbInfoSysAdd');
 
 // linkages
-Route::post('/add-linkages', [App\Http\Controllers\backend\LinkagesController::class, 'AddLinkages'])->name('AddAddLinkages');
+Route::post('/add-linkages', [App\Http\Controllers\backend\LinkagesController::class, 'AddLinkages'])->name('AddLinkages');
 Route::get('/edit-linkages/{id}', [App\Http\Controllers\backend\LinkagesController::class, 'EditLinkages'])->name('EditLinkages');
 Route::post('/update-linkages/{id}', [App\Http\Controllers\backend\LinkagesController::class, 'UpdateLinkages'])->name('UpdateLinkages');
 Route::get('/delete-linkages/{id}', [App\Http\Controllers\backend\LinkagesController::class, 'DeleteLinkages']);
+
+// DBINFOSYS
+Route::post('/add-dbinfosys', [App\Http\Controllers\backend\DbinfosysController::class, 'AddDbinfosys'])->name('AddDbinfosys');
+Route::get('/edit-dbinfosys/{id}', [App\Http\Controllers\backend\DbinfosysController::class, 'EditDbinfosys'])->name('EditDbinfosys');
+Route::post('/update-dbinfosys/{id}', [App\Http\Controllers\backend\DbinfosysController::class, 'UpdateDbinfosys'])->name('UpdateDbinfosys');
+Route::get('/delete-dbinfosys/{id}', [App\Http\Controllers\backend\DbinfosysController::class, 'DeleteDbinfosys']);
 
 // Adding programs/projects
 Route::post('add-programs', [\App\Http\Controllers\backend\ProgramsController::class, 'AddProgram'])->name('AddProgram');

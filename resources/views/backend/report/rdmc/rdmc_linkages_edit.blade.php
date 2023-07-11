@@ -84,7 +84,7 @@
                     <div class="card">
                         <div class="card-header">
                             <h5 class="card-title">
-                                Add Linkages
+                                Edit Linkages
                             </h5>
                         </div>
 

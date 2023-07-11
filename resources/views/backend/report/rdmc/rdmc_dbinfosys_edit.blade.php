@@ -84,13 +84,13 @@
                     <div class="card">
                         <div class="card-header">
                             <h5 class="card-title">
-                                Database & Information System
+                                Edit Database & Information System
                             </h5>
                         </div>
 
                         {{-- card body start --}}
                         <div class="card-body">
-                            <form role="form" id="regiration_form" action="{{ url('add-dbinfosys') }}" method="POST"
+                            <form role="form" id="regiration_form" action="{{ url('update-dbinfosys/'.$all->id) }}" method="POST"
                                 enctype="multipart/form-data">
                                 @csrf
                                 <div class="row">
@@ -100,7 +100,7 @@
                                             <label>Category</label>
                                             <div class="custom-control custom-radio">
                                                 <input class="custom-control-input" type="radio" id="customRadio1"
-                                                    name="dbinfosys_category" value="Database">
+                                                    name="dbinfosys_category" value="Database" {{ 'Database' == $all->dbinfosys_category ? 'checked' : '' }}>
                                                 <label for="customRadio1" class="custom-control-label"
                                                     style="font-weight: normal;">Database</label>
                                             </div>
@@ -113,7 +113,7 @@
                                         <div class="form-group">
                                             <div class="custom-control custom-radio">
                                                 <input class="custom-control-input" type="radio" id="customRadio2"
-                                                    name="dbinfosys_category" value="Information System">
+                                                    name="dbinfosys_category" value="Information System" {{ 'Information System' == $all->dbinfosys_category ? 'checked' : '' }}>
                                                 <label for="customRadio2" class="custom-control-label"
                                                     style="font-weight: normal;">Information System</label>
                                             </div>
@@ -129,9 +129,9 @@
                                             <label>Type</label>
                                             <select name="dbinfosys_type" id="" class="form-control"
                                                 style="padding-right:10px;">
-                                                <option value="Developed">Developed</option>
-                                                <option value="Enhanced">Enhanced</option>
-                                                <option value="Maintained">Maintained</option>
+                                                <option value="Developed" {{ 'Developed' == $all->dbinfosys_type ? 'selected' : '' }}>Developed</option>
+                                                <option value="Enhanced" {{ 'Enhanced' == $all->dbinfosys_type ? 'selected' : '' }}>Enhanced</option>
+                                                <option value="Maintained" {{ 'Maintained' == $all->dbinfosys_type ? 'selected' : '' }}>Maintained</option>
                                             </select>
                                         </div>
                                     </div>
@@ -139,7 +139,7 @@
                                     <div class="col-sm-3">
                                         <div class="form-group">
                                             <label>Date Created</label>
-                                            <input type="date" name="dbinfosys_date_created" class="form-control"
+                                            <input type="date" value="{{ $all->dbinfosys_date_created }}" name="dbinfosys_date_created" class="form-control"
                                                 placeholder="Enter ...">
                                         </div>
                                     </div>
@@ -150,7 +150,7 @@
                                         <!-- textarea -->
                                         <div class="form-group">
                                             <label>Title</label>
-                                            <input type="text" name="dbinfosys_title" class="form-control"
+                                            <input type="text" value="{{ $all->dbinfosys_title }}" name="dbinfosys_title" class="form-control"
                                                 placeholder="Enter ...">
                                         </div>
                                     </div>
@@ -161,7 +161,7 @@
                                         <!-- textarea -->
                                         <div class="form-group">
                                             <label>Purpose/Use</label>
-                                            <textarea class="form-control" name="dbinfosys_purpose" rows="2" placeholder="Enter ..." style="resize: none;"></textarea>
+                                            <textarea class="form-control" name="dbinfosys_purpose" rows="2" placeholder="Enter ..." style="resize: none;">{{ $all->dbinfosys_purpose }}</textarea>
                                         </div>
                                     </div>
                                 </div>
