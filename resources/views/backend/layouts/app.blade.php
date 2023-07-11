@@ -765,6 +765,11 @@
             "info": true,
             buttons: {
                 buttons: [{
+                    extend: 'copy',
+                    exportOptions: {
+                        columns: ':visible'
+                    }
+                },{
                     extend: 'csv',
                     exportOptions: {
                         columns: ':visible'
