@@ -53,38 +53,25 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <tr>
-                                                        <td>1</td>
-                                                        <td>Developed/New</td>
-                                                        <td>Local</td>
-                                                        <td>2022</td>
-                                                        <td>CLSU-PCAARRD</td>
-                                                        <td>Let’s Doe Business: Goats Milk-based Livelihood Opportunities to Mitogate The Effects of the Covid 19 Pandemic</td>
-                                                        <td class="action btns">
-                                                            <a class="btn btn-primary" href="#"><i
-                                                                    class="fa-solid fa-pen-to-square"
-                                                                    style="color: white;"></i></a>
-                                                            <a href="#" class="btn btn-danger" id="delete"><i
-                                                                    class="fa-solid fa-trash"></i></a>
-
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>2</td>
-                                                        <td>Developed/New</td>
-                                                        <td>Local</td>
-                                                        <td>2022</td>
-                                                        <td>CLSU-Jollibee Foundation</td>
-                                                        <td>To bring the agricultural technologies to the farmer-partner of the JGF under their Farmer Entrepreneurship Program</td>
-                                                        <td class="action btns">
-                                                            <a class="btn btn-primary" href="#"><i
-                                                                    class="fa-solid fa-pen-to-square"
-                                                                    style="color: white;"></i></a>
-                                                            <a href="#" class="btn btn-danger" id="delete"><i
-                                                                    class="fa-solid fa-trash"></i></a>
-
-                                                        </td>
-                                                    </tr>
+                                                    @foreach ($all as $key => $row)
+                                                        <tr>
+                                                            <td>{{ $key + 1 }}</td>
+                                                            <td>{{ $row->type }}</td>
+                                                            <td>{{ $row->form_of_development }}</td>
+                                                            <td>{{ $row->year }}</td>
+                                                            <td>{{ $row->address }}</td>
+                                                            <td>{{ $row->nature_of_assistance }}</td>
+                                                            <td class="action btns">
+                                                                <a class="btn btn-primary"
+                                                                    href="{{ url("edit-linkages/$row->id") }}"><i
+                                                                        class="fa-solid fa-pen-to-square"
+                                                                        style="color: white;"></i></a>
+                                                                <a href="{{ URL::to('/delete-linkages/' . $row->id) }}"
+                                                                    class="btn btn-danger" id="delete"><i
+                                                                        class="fa-solid fa-trash"></i></a>
+                                                            </td>
+                                                        </tr>
+                                                    @endforeach
                                                 </tbody>
                                             </table>
                                             <a href="{{ url('rdmc-index') }}" class="btn btn-default">Back</a>

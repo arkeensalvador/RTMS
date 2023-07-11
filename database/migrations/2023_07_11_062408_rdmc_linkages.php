@@ -11,15 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        //
-        Schema::create('additional_details', function (Blueprint $table) {
+        Schema::create('rdmc_linkages', function (Blueprint $table) {
             $table->id();
-            $table->string('no_of_publications');
-            $table->string('tech_generated');
-            $table->string('tech_adaptor');
-            $table->string('patent');
-            $table->string('scholarship_grant');
-            $table->integer('programID');
+            $table->timestamp('created_at');
+            $table->string('type');
+            $table->string('year');
+            $table->string('form_of_development');
+            $table->string('address');
+            $table->string('nature_of_assistance');
             $table->timestamp('edited_at')->useCurrent();
         });
     }
@@ -29,7 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //
-        Schema::dropIfExists('additional_details');
+        Schema::dropIfExists('rdmc_linkages');
     }
 };

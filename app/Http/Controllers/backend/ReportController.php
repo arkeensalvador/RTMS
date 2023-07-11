@@ -133,7 +133,8 @@ class ReportController extends Controller
     public function linkagesIndex()
     {
         $title = 'Linkages | RDMC';
-        return view('backend.report.rdmc.rdmc_linkages_index', compact('title'));
+        $all = DB::table('rdmc_linkages')->get();
+        return view('backend.report.rdmc.rdmc_linkages_index', compact('title', 'all'));
     }
     public function linkagesAddIndex()
     {

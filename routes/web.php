@@ -51,7 +51,7 @@ Route::post('update-agency/{id}', [App\Http\Controllers\backend\AgencyController
 Route::get('/delete-agency/{id}', [App\Http\Controllers\backend\AgencyController::class, 'DeleteAgency'])->name('DeleteAgency');
 
 // Projects
-Route::get('/all-projects', [App\Http\Controllers\backend\ProjectController::class, 'ShowAllProjects'])->name('ShowAllProjects');
+// Route::get('/all-projects', [App\Http\Controllers\backend\ProjectController::class, 'ShowAllProjects'])->name('ShowAllProjects');
 Route::get('/edit-projects/{id}', [App\Http\Controllers\backend\UserController::class, 'EditProjects'])->name('EditProjects');
 Route::post('update-projects/{id}', [App\Http\Controllers\backend\UserController::class, 'UpdateProjects'])->name('UpdateProjects');
 Route::get('/delete-projects/{id}', [App\Http\Controllers\backend\UserController::class, 'DeleteProjects'])->name('DeleteProjects');
@@ -121,6 +121,12 @@ Route::get('/rdmc-linkages-index', [App\Http\Controllers\backend\ReportControlle
 Route::get('/rdmc-linkages-add', [App\Http\Controllers\backend\ReportController::class, 'linkagesAddIndex'])->name('linkagesAddIndex');
 Route::get('/rdmc-dbinfosys-index', [App\Http\Controllers\backend\ReportController::class, 'dbInfoSys'])->name('dbInfoSys');
 Route::get('/rdmc-dbinfosys-add', [App\Http\Controllers\backend\ReportController::class, 'dbInfoSysAdd'])->name('dbInfoSysAdd');
+
+// linkages
+Route::post('/add-linkages', [App\Http\Controllers\backend\LinkagesController::class, 'AddLinkages'])->name('AddAddLinkages');
+Route::get('/edit-linkages/{id}', [App\Http\Controllers\backend\LinkagesController::class, 'EditLinkages'])->name('EditLinkages');
+Route::post('/update-linkages/{id}', [App\Http\Controllers\backend\LinkagesController::class, 'UpdateLinkages'])->name('UpdateLinkages');
+Route::get('/delete-linkages/{id}', [App\Http\Controllers\backend\LinkagesController::class, 'DeleteLinkages']);
 
 // Adding programs/projects
 Route::post('add-programs', [\App\Http\Controllers\backend\ProgramsController::class, 'AddProgram'])->name('AddProgram');

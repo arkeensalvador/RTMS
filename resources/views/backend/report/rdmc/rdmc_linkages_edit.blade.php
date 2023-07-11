@@ -90,8 +90,8 @@
 
                         {{-- card body start --}}
                         <div class="card-body">
-                            <form role="form" id="regiration_form" action="{{ url('add-linkages') }}" method="POST"
-                                enctype="multipart/form-data">
+                            <form role="form" id="regiration_form" action="{{ url('update-linkages/' . $all->id) }}"
+                                method="POST" enctype="multipart/form-data">
                                 @csrf
                                 <div class="row">
                                     <div class="col-sm-5">
@@ -99,9 +99,11 @@
                                         <div class="form-group">
                                             <label>Type</label>
                                             <div class="custom-control custom-radio">
-                                                <input class="custom-control-input" type="radio" value="Developed/New" name="type" id="customRadio1"
-                                                    name="customRadio">
-                                                <label for="customRadio1" class="custom-control-label" style="font-weight: normal;">Developed/New</label>
+                                                <input class="custom-control-input" type="radio" value="Developed/New"
+                                                    name="type" id="customRadio1" name="customRadio"
+                                                    {{ 'Developed/New' == $all->type ? 'checked' : '' }}>
+                                                <label for="customRadio1" class="custom-control-label"
+                                                    style="font-weight: normal;">Developed/New</label>
                                             </div>
                                         </div>
                                     </div>
@@ -111,10 +113,12 @@
                                     <div class="col-sm-5">
                                         <div class="form-group">
                                             <div class="custom-control custom-radio">
-                                                <input class="custom-control-input" type="radio" value="Maintained/Sustained" name="type" id="customRadio2"
-                                                    name="customRadio">
-                                                <label for="customRadio2"
-                                                    class="custom-control-label" style="font-weight: normal;">Maintained/Sustained</label>
+                                                <input class="custom-control-input" type="radio"
+                                                    value="Maintained/Sustained" name="type" id="customRadio2"
+                                                    name="customRadio"
+                                                    {{ 'Maintained/Sustained' == $all->type ? 'checked' : '' }}>
+                                                <label for="customRadio2" class="custom-control-label"
+                                                    style="font-weight: normal;">Maintained/Sustained</label>
                                             </div>
                                         </div>
                                     </div>
@@ -127,9 +131,15 @@
                                         <div class="form-group">
                                             <label>Form of Development</label>
                                             <select name="form_of_development" id="" class="form-control">
-                                                <option value="Local">Local</option>
-                                                <option value="National">National</option>
-                                                <option value="International">International</option>
+                                                <option value="Local"
+                                                    {{ 'Local' == $all->form_of_development ? 'selected' : '' }}>Local
+                                                </option>
+                                                <option value="National"
+                                                    {{ 'National' == $all->form_of_development ? 'selected' : '' }}>National
+                                                </option>
+                                                <option value="International"
+                                                    {{ 'International' == $all->form_of_development ? 'selected' : '' }}>
+                                                    International</option>
                                             </select>
                                         </div>
                                     </div>
@@ -137,8 +147,8 @@
                                     <div class="col-sm-3">
                                         <div class="form-group">
                                             <label>Year</label>
-                                            <input type="text" class="form-control" placeholder="Enter year"
-                                                name="year">
+                                            <input type="text" value="{{ $all->year }}" class="form-control"
+                                                placeholder="Enter year" name="year">
                                         </div>
                                     </div>
                                 </div>
@@ -147,7 +157,8 @@
                                     <div class="col-sm-12">
                                         <div class="form-group">
                                             <label>Address</label>
-                                            <input type="text" name="address" class="form-control" placeholder="Enter ...">
+                                            <input type="text" value="{{ $all->address }}" name="address"
+                                                class="form-control" placeholder="Enter ...">
                                         </div>
                                     </div>
                                 </div>
@@ -157,7 +168,7 @@
                                         <!-- textarea -->
                                         <div class="form-group">
                                             <label>Nature of Assistance/Linkages/Projects</label>
-                                            <textarea class="form-control" name="nature_of_assistance" rows="3" placeholder="Enter ..." style="resize: none;"></textarea>
+                                            <textarea class="form-control" name="nature_of_assistance" rows="3" placeholder="Enter ..." style="resize: none;">{{ $all->nature_of_assistance }}</textarea>
                                         </div>
                                     </div>
 
