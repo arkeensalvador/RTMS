@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{{ $title }}</title>
-    <link rel="icon" href="{{ mix('resources/img/apple-touch-icon.png') }}" type="image/x-icon"/>
+    <link rel="icon" href="{{ asset('backend/dist/img/favicon.ico') }}" type="image/x-icon"/>
 
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet"
