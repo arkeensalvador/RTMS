@@ -140,8 +140,12 @@ Route::get('/rdmc-programs', [App\Http\Controllers\backend\ReportController::cla
 Route::post('/add-projects', [App\Http\Controllers\backend\ReportController::class, 'AddProjects'])->name('AddProjects');
 
 // Strategic activities
-Route::get('/strategic-activities', [App\Http\Controllers\backend\ReportController::class, 'strategicActivities']);
+Route::get('/strategic-activities', [App\Http\Controllers\backend\ReportController::class, 'strategicActivities'])->name('strategicActivities');
 Route::get('/add-strategic-index', [App\Http\Controllers\backend\ReportController::class, 'addStrategicActivities']);
+Route::post('/add-strategic', [App\Http\Controllers\backend\StrategicController::class, 'addStrategic'])->name('addStrategic');
+Route::get('/edit-strategic/{id}', [App\Http\Controllers\backend\StrategicController::class, 'editStrategic'])->name('editStrategic');
+Route::get('/delete-strategic/{id}', [App\Http\Controllers\backend\StrategicController::class, 'DeleteStrategic'])->name('DeleteStrategic');
+
 
 // R & D Results Utilization
 Route::get('/rdru-index', [App\Http\Controllers\backend\ReportController::class, 'rdruIndex'])->name('rdruIndex');

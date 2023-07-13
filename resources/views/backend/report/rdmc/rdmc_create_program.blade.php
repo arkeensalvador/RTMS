@@ -102,8 +102,8 @@
                                 enctype="multipart/form-data">
                                 @csrf
                                 <fieldset>
-                                    <div class="row">
-                                        <div class="col-sm-2">
+                                    <div class="row" hidden>
+                                        <div class="col-sm-3">
                                             <div class="form-group">
                                                 <label>ProgramID</label>
                                                 {{-- Route::input('name'); --}}
@@ -154,15 +154,17 @@
                                             </div>
                                         </div>
                                     </div>
-                                    
+
                                     <div class="row">
                                         <div class="col-sm-8">
                                             <div class="form-group">
                                                 <label>Funding Agency</label>
-                                                <select class="form-control agency" name="funding_agency" id="" required>
+                                                <select class="form-control agency" name="funding_agency" id=""
+                                                    required>
                                                     <option></option>
                                                     @foreach ($agency as $key)
-                                                        <option value="{{ $key->abbrev }}">{{ $key->agency_name }} - ({{ $key->abbrev }})</b></option>
+                                                        <option value="{{ $key->abbrev }}">{{ $key->agency_name }} -
+                                                            ({{ $key->abbrev }})</b></option>
                                                     @endforeach
                                                 </select>
                                             </div>
@@ -173,8 +175,14 @@
                                         <div class="col-sm-6">
                                             <div class="form-group">
                                                 <label>Coordination Fund</label>
-                                                <input type="text" name="coordination_fund" class="form-control"
-                                                    id="cf" placeholder="Enter ...">
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text">PHP</span>
+                                                    </div>
+                                                    <input type="text" name="coordination_fund" class="form-control"
+                                                        id="cf" placeholder="Enter ...">
+                                                </div>
+
                                             </div>
                                         </div>
                                     </div>

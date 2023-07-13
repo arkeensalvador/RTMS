@@ -156,13 +156,16 @@ class ReportController extends Controller
     public function strategicActivities()
     {
         $title = 'Strategic R&D Activities';
-        return view('backend.report.strategic.strategic_activities', compact('title'));
+        $all = DB::table('strategic_activities')->get();
+        return view('backend.report.strategic.strategic_activities', compact('title', 'all'));
     }
 
     public function addStrategicActivities()
     {
         $title = 'Strategic R&D Activities';
-        return view('backend.report.strategic.add_strategic_activities', compact('title'));
+        $researchers = DB::table('researchers')->get();
+        $agency = DB::table('agency')->get();
+        return view('backend.report.strategic.add_strategic_activities', compact('title', 'researchers','agency'));
     }
 
     public function rdruIndex()

@@ -90,95 +90,18 @@
 
                         {{-- card body start --}}
                         <div class="card-body">
-                            <form role="form" id="regiration_form" action="#" method="POST"
+                            <form role="form" id="regiration_form" action="{{ url('add-strategic') }}" method="POST"
                                 enctype="multipart/form-data">
                                 @csrf
                                 <div class="row">
-                                    <div class="col-sm-3">
+                                    <div class="col-sm-4">
                                         <!-- text input -->
                                         <div class="form-group">
                                             <label>Programs/Projects</label>
-                                            <select name="" id="" class="form-control">
+                                            <select name="strategic_program" id="" class="form-control">
                                                 <option value="Agency-led">Agency-led</option>
                                                 <option value="Consortium-led">Consortium-led</option>
                                             </select>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-sm-2">
-                                        {{-- used for spacing --}}
-                                    </div>
-
-                                    <div class="col-sm-5">
-                                        <div class="form-group">
-                                            <label>Researcher</label>
-                                            <input type="text" class="form-control" placeholder="Enter researcher's name"
-                                                list="dtlist">
-                                            <datalist id="dtlist">
-                                                <option value="Researcher 1"></option>
-                                                <option value="Researcher 2"></option>
-                                                <option value="Researcher 3"></option>
-                                                <option value="Researcher 4"></option>
-                                            </datalist>
-                                        </div>
-                                    </div>
-                                </div>
-
-
-                                <div class="row">
-                                    <div class="col-sm-6">
-                                        <!-- textarea -->
-                                        <div class="form-group">
-                                            <label>Title</label>
-                                            <textarea class="form-control" rows="3" placeholder="Enter ..."></textarea>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="col-sm-5">
-                                        <div class="form-group">
-                                            <label>Implemeting Agency</label>
-                                            <input type="text" class="form-control" placeholder="Enter ..."
-                                                list="impdtlist">
-                                            <datalist id="impdtlist">
-                                                <option value="Implementing Agency 1"></option>
-                                                <option value="Implementing Agency 2"></option>
-                                                <option value="Implementing Agency 3"></option>
-                                                <option value="Implementing Agency 4"></option>
-                                            </datalist>
-                                        </div>
-                                    </div>
-
-
-
-                                    <div class="col-sm-5">
-                                        <div class="form-group">
-                                            <label>Funding Agency</label>
-                                            <input type="text" class="form-control" placeholder="Enter ..."
-                                                list="funddtlist">
-                                            <datalist id="funddtlist">
-                                                <option value="Funding Agency 1"></option>
-                                                <option value="Funding Agency 2"></option>
-                                                <option value="Funding Agency 3"></option>
-                                                <option value="Funding Agency 4"></option>
-                                            </datalist>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="col-sm-2">
-                                        <div class="form-group">
-                                            <label>Start Date</label>
-                                            <input type="date" class="form-control" placeholder="Enter ...">
-                                        </div>
-                                    </div>
-
-                                    <div class="col-sm-2">
-                                        <div class="form-group">
-                                            <label>End Date</label>
-                                            <input type="date" class="form-control" placeholder="Enter ...">
                                         </div>
                                     </div>
 
@@ -186,11 +109,86 @@
                                         {{-- used for spacing --}}
                                     </div>
 
-
                                     <div class="col-sm-5">
                                         <div class="form-group">
+                                            <label>Researcher</label>
+                                            <input type="text" name="strategic_researcher" class="form-control"
+                                                placeholder="Enter researcher's name" list="dtlist">
+                                            <datalist id="dtlist">
+                                                @foreach ($researchers as $researcher)
+                                                    <option value="{{ $researcher->name }}"></option>
+                                                @endforeach
+                                            </datalist>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="row">
+                                    <div class="col-sm-10">
+                                        <div class="form-group">
+                                            <label>Implementing Agency</label>
+                                            <input type="text" name="strategic_implementing_agency" class="form-control"
+                                                placeholder="Enter ..." list="impdtlist">
+                                            <datalist id="impdtlist">
+                                                @foreach ($agency as $row)
+                                                    <option value="{{ $row->agency_name }}"></option>
+                                                @endforeach
+                                            </datalist>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-10">
+                                        <!-- textarea -->
+                                        <div class="form-group">
+                                            <label>Title</label>
+                                            <textarea name="strategic_title" class="form-control" rows="4" placeholder="Enter ..." style="resize: none"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-sm-10">
+                                        <div class="form-group">
+                                            <label>Funding Agency</label>
+                                            <input type="text" name="strategic_funding_agency" class="form-control" placeholder="Enter ..."
+                                                list="funddtlist">
+                                            <datalist id="funddtlist">
+                                                @foreach ($agency as $row)
+                                                    <option value="{{ $row->agency_name }} - {{ $row->abbrev }}"></option>
+                                                @endforeach
+                                            </datalist>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <label>Start Date</label>
+                                            <input type="month" name="strategic_start" class="form-control" placeholder="Enter ...">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <label>End Date</label>
+                                            <input type="month" name="strategic_end" class="form-control" placeholder="Enter ...">
+                                        </div>
+                                    </div>
+
+                                   
+
+
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
                                             <label>Budget</label>
-                                            <input type="text" class="form-control" placeholder="Enter ...">
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">PHP</span>
+                                                </div>
+                                                <input type="text" name="strategic_budget" class="form-control" id="numin"
+                                                    placeholder="Enter ...">
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -201,16 +199,16 @@
                                         <!-- textarea -->
                                         <div class="form-group">
                                             <label>Commodities</label>
-                                            <input type="text" class="form-control" placeholder="Enter ...">
+                                            <input type="text" name="strategic_commodities" class="form-control" placeholder="Enter ...">
                                         </div>
                                     </div>
-                                
 
-                               
+
+
                                     <div class="col-sm-5">
                                         <div class="form-group">
                                             <label>Role of Consortium</label>
-                                            <input type="text" class="form-control" placeholder="Enter ...">
+                                            <input type="text" name="strategic_consortium_role" class="form-control" placeholder="Enter ...">
                                         </div>
                                     </div>
 

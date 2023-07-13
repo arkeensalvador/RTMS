@@ -42,7 +42,7 @@
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body">
-                                <table id="example1" class="table table-bordered table-striped">
+                                <table id="programs" class="table table-bordered table-striped">
                                     <thead>
                                         <tr>
                                             {{-- <th>Trust Fund</th> --}}
@@ -95,15 +95,16 @@
                                                     </span>
 
                                                     <span title="Upload">
-                                                    <a class="btn btn-secondary"
-                                                        href="{{ url("upload-file/$row->programID") }}"><i class="fa-solid fa-file-circle-plus"></i></a>
+                                                        <a class="btn btn-secondary"
+                                                            href="{{ url("upload-file/$row->programID") }}"><i
+                                                                class="fa-solid fa-file-circle-plus"></i></a>
                                                     </span>
 
                                                     <span title="Staffs">
-                                                    <a class="btn btn-warning"
-                                                        href="{{ URL::to('/add-program-personnel-index/' . $row->programID) }}">
-                                                        <i class="fa-solid fa-user-plus"></i>
-                                                    </a>
+                                                        <a class="btn btn-warning"
+                                                            href="{{ URL::to('/add-program-personnel-index/' . $row->programID) }}">
+                                                            <i class="fa-solid fa-user-plus"></i>
+                                                        </a>
                                                     </span>
 
                                                     <a href="{{ URL::to('/delete-program/' . $row->id) }}"

@@ -28,8 +28,9 @@
                                 <h2 class="card-title">List of Strategic R & D Activities</h2>
                                 <div class="card-tools">
                                     <a href="{{ url('add-strategic-index') }}"
-                                        class="btn btn-success {{ Route::current()->getName() == 'add-programs-index' ? 'active' : '' }}"><span><i class="fa-solid fa-plus"></i> Create</span></a>
-                                   
+                                        class="btn btn-success {{ Route::current()->getName() == 'add-programs-index' ? 'active' : '' }}"><span><i
+                                                class="fa-solid fa-plus"></i> Create</span></a>
+
                                     <!-- Here is a label for example -->
                                     {{-- <span class="badge badge-primary">Label</span> --}}
                                 </div>
@@ -51,21 +52,22 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <tr>
-                                                        <td>Consortium-led</td>
-                                                        <td>Title Example</td>
-                                                        <td>October 2019 - March 2022</td>
-                                                        <td>Juan Dela Cruz</td>
-                                                        <td>DOST_PCAARRD</td>
-                                                        <td class="action">
-                                                            <a class="btn btn-primary" href="#"><i
-                                                                    class="fa-solid fa-pen-to-square"
-                                                                    style="color: white;"></i></a>
-                                                            <a href="#" class="btn btn-danger" id="delete"><i
-                                                                    class="fa-solid fa-trash"></i></a>
-
-                                                        </td>
-                                                    </tr>
+                                                    @foreach ($all as $key => $row)
+                                                        <tr>
+                                                            <td>{{ $row->strategic_program }}</td>
+                                                            <td>{{ $row->strategic_title }}</td>
+                                                            <td>{{ $row->strategic_start }} to {{ $row->strategic_end }}</td>
+                                                            <td>{{ $row->strategic_researcher }}</td>
+                                                            <td>{{ $row->strategic_funding_agency }}</td>
+                                                            <td class="action btns">
+                                                                <a class="btn btn-primary" href="{{ url("edit-strategic/$row->id") }}"><i
+                                                                        class="fa-solid fa-pen-to-square"
+                                                                        style="color: white;"></i></a>
+                                                                <a href="{{ url("delete-strategic/$row->id") }}" class="btn btn-danger" id="delete"><i
+                                                                        class="fa-solid fa-trash"></i></a>
+                                                            </td>
+                                                        </tr>
+                                                    @endforeach
                                                 </tbody>
                                             </table>
                                             {{-- <a href="#">
