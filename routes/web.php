@@ -144,6 +144,7 @@ Route::get('/strategic-activities', [App\Http\Controllers\backend\ReportControll
 Route::get('/add-strategic-index', [App\Http\Controllers\backend\ReportController::class, 'addStrategicActivities']);
 Route::post('/add-strategic', [App\Http\Controllers\backend\StrategicController::class, 'addStrategic'])->name('addStrategic');
 Route::get('/edit-strategic/{id}', [App\Http\Controllers\backend\StrategicController::class, 'editStrategic'])->name('editStrategic');
+Route::post('/update-strategic/{id}', [App\Http\Controllers\backend\StrategicController::class, 'UpdateStrategic'])->name('UpdateStrategic');
 Route::get('/delete-strategic/{id}', [App\Http\Controllers\backend\StrategicController::class, 'DeleteStrategic'])->name('DeleteStrategic');
 
 

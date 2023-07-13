@@ -115,7 +115,7 @@
                                     </div>
 
                                     <div class="row">
-                                        <div class="col-sm-3">
+                                        <div class="col-sm-4">
                                             <div class="form-group">
                                                 <label>Fund Code</label>
                                                 <input type="text" class="form-control" placeholder="Enter code"
@@ -123,7 +123,7 @@
                                             </div>
                                         </div>
 
-                                        <div class="col-sm-3">
+                                        <div class="col-sm-4">
                                             <div class="form-group">
                                                 <label>Status</label>
                                                 <select name="program_status" id="" class="form-control">

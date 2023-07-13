@@ -62,17 +62,17 @@
                                             <tr>
                                                 {{-- <td>{{ $row->trust_fund_code }}</td> --}}
                                                 <td>
-                                                    @empty($row->start_date)
+                                                    @empty(date('F, Y', strtotime($row->start_date)))
                                                         <p>Not Set</p>
                                                     @else
-                                                        {{ $row->start_date }}
+                                                        {{ date('F, Y', strtotime($row->start_date)) }}
                                                     @endempty
                                                 </td>
                                                 <td>
-                                                    @empty($row->end_date)
+                                                    @empty(date('F, Y', strtotime($row->end_date)))
                                                         <p>Not Set</p>
                                                     @else
-                                                        {{ $row->end_date }}
+                                                        {{date('F, Y', strtotime($row->end_date)) }}
                                                     @endempty
                                                 </td>
                                                 {{-- <td>{{ $row->project_extension_date }}</td> --}}

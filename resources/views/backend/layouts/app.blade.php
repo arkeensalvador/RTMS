@@ -5,6 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{{ $title }}</title>
+    <link rel="icon" href="{{ mix('resources/img/apple-touch-icon.png') }}" type="image/x-icon"/>
 
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet"
@@ -45,6 +46,7 @@
 
     {{-- CSS --}}
     <link rel="stylesheet" type="text/css" href="{{ mix('resources/css/app.css') }}" />
+
 
     {{-- DropZone --}}
     <link rel="stylesheet" href="{{ asset('backend/plugins/dropzone/min/dropzone.css') }}">

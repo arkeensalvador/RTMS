@@ -183,7 +183,8 @@ class ReportController extends Controller
     public function rdruAdd()
     {
         $title = 'TTP | R&D Results Utilizations';
-        return view('backend.report.rdru.rdru_add', compact('title'));
+        $agency = DB::table('agency')->get();
+        return view('backend.report.rdru.rdru_ttp_add', compact('title', 'agency'));
     }
     public function rdruTtm()
     {

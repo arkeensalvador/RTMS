@@ -56,14 +56,17 @@
                                                         <tr>
                                                             <td>{{ $row->strategic_program }}</td>
                                                             <td>{{ $row->strategic_title }}</td>
-                                                            <td>{{ $row->strategic_start }} to {{ $row->strategic_end }}</td>
+                                                            <td>{{ date('F, Y', strtotime($row->strategic_start)) }} to
+                                                                {{ date('F, Y', strtotime($row->strategic_end)) }}</td>
                                                             <td>{{ $row->strategic_researcher }}</td>
                                                             <td>{{ $row->strategic_funding_agency }}</td>
                                                             <td class="action btns">
-                                                                <a class="btn btn-primary" href="{{ url("edit-strategic/$row->id") }}"><i
+                                                                <a class="btn btn-primary"
+                                                                    href="{{ url("edit-strategic/$row->id") }}"><i
                                                                         class="fa-solid fa-pen-to-square"
                                                                         style="color: white;"></i></a>
-                                                                <a href="{{ url("delete-strategic/$row->id") }}" class="btn btn-danger" id="delete"><i
+                                                                <a href="{{ url("delete-strategic/$row->id") }}"
+                                                                    class="btn btn-danger" id="delete"><i
                                                                         class="fa-solid fa-trash"></i></a>
                                                             </td>
                                                         </tr>
