@@ -51,13 +51,13 @@ class ProgramsController extends Controller
                 'alert-type' => 'test'
             );
 
-            return redirect()->route('rdmcProjects')->with($notification);
+            return redirect()->route('rdmcPrograms')->with($notification);
         } else {
             $notification = array(
                 'message' => 'Something is wrong, please try again!',
                 'alert-type' => 'error'
             );
-            return redirect()->route('rdmcProjects')->with($notification);
+            return redirect()->route('rdmcPrograms')->with($notification);
         }
     }
 

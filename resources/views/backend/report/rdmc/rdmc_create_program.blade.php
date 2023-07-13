@@ -82,7 +82,7 @@
 
             <div class="strategic row">
 
-                <div class="col-md-6">
+                <div class="col-md-7">
 
                     {{-- card start --}}
                     <div class="card">
@@ -98,7 +98,7 @@
 
                         {{-- card body start --}}
                         <div class="card-body">
-                            <form role="form" id="regiration_form" action="{{ url('add-program') }}" method="POST"
+                            <form role="form" id="regiration_form" action="{{ url('add-programs') }}" method="POST"
                                 enctype="multipart/form-data">
                                 @csrf
                                 <fieldset>
