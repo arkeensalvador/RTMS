@@ -11,13 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('rdmc_dbinfosys', function (Blueprint $table) {
+        Schema::create('results_tpa', function (Blueprint $table) {
             $table->id();
-            $table->string('dbinfosys_category');
-            $table->string('dbinfosys_type');
-            $table->string('dbinfosys_title');
-            $table->string('dbinfosys_date_created');
-            $table->string('dbinfosys_purpose');
+            $table->string('tpa_title');
+            $table->string('tpa_date');
+            $table->string('tpa_details');
+            $table->string('tpa_remarks');
+            $table->string('tpa_approaches');
+            $table->string('tpa_activity')->nullable();
             $table->timestamps();
         });
     }
@@ -27,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('rdmc_dbinfosys');
+        Schema::dropIfExists('results_tpa');
     }
 };

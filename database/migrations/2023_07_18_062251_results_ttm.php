@@ -11,13 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('rdmc_dbinfosys', function (Blueprint $table) {
+        Schema::create('results_ttm', function (Blueprint $table) {
             $table->id();
-            $table->string('dbinfosys_category');
-            $table->string('dbinfosys_type');
-            $table->string('dbinfosys_title');
-            $table->string('dbinfosys_date_created');
-            $table->string('dbinfosys_purpose');
+            $table->string('ttm_title');
+            $table->string('ttm_type');
+            $table->string('ttm_status');
+            $table->string('ttm_agency');
             $table->timestamps();
         });
     }
@@ -27,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('rdmc_dbinfosys');
+        Schema::dropIfExists('results_ttm');
     }
 };

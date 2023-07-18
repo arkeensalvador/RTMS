@@ -90,7 +90,7 @@
 
                         {{-- card body start --}}
                         <div class="card-body">
-                            <form role="form" id="regiration_form" action="{{ url('add-tpa') }}" method="POST"
+                            <form role="form" id="regiration_form" action="{{ url('update-tpa/'.$all->id) }}" method="POST"
                                 enctype="multipart/form-data">
                                 @csrf
 
@@ -99,7 +99,7 @@
                                         <!-- textarea -->
                                         <div class="form-group">
                                             <label>Title</label>
-                                            <textarea class="form-control" name="tpa_title" rows="3" placeholder="Enter ..."></textarea>
+                                            <textarea class="form-control" name="tpa_title" rows="3" placeholder="Enter ...">{{ $all->tpa_title }}</textarea>
                                         </div>
                                     </div>
 
@@ -108,7 +108,7 @@
                                         <div class="form-group">
                                             <label>Date</label>
                                             <input type="date" name="tpa_date" class="form-control"
-                                                placeholder="Enter ...">
+                                                placeholder="Enter ..." value="{{ $all->tpa_date }}">
                                         </div>
                                     </div>
                                 </div>
@@ -118,17 +118,21 @@
                                         <!-- textarea -->
                                         <div class="form-group">
                                             <label>Details</label>
-                                            <textarea class="form-control" name="tpa_details" rows="3" placeholder="Enter ..."></textarea>
+                                            <textarea class="form-control" name="tpa_details" rows="3" placeholder="Enter ...">{{ $all->tpa_details }}</textarea>
                                         </div>
                                     </div>
                                     <div class="col-sm-6">
                                         <!-- textarea -->
                                         <div class="form-group">
                                             <label>Remarks</label>
-                                            <textarea class="form-control" name="tpa_remarks" rows="3" placeholder="Enter ..."></textarea>
+                                            <textarea class="form-control" name="tpa_remarks" rows="3" placeholder="Enter ...">{{ $all->tpa_remarks }}</textarea>
                                         </div>
                                     </div>
                                 </div>
+
+                                @php
+                                    $approach = json_decode($all->tpa_approaches);
+                                @endphp
                                 <label>IEC Approaches</label>
                                 <div class="ttm row">
                                     <div class="col-sm-3">
@@ -136,7 +140,8 @@
                                             <div class="custom-control custom-checkbox">
                                                 <input class="custom-control-input custom-control-input-success"
                                                     type="checkbox" value="Regional FIESTA" name="tpa_approaches[]"
-                                                    id="customCheckbox1">
+                                                    id="customCheckbox1"
+                                                    {{ in_array('Regional FIESTA', $approach) ? 'checked' : '' }}>
                                                 <label for="customCheckbox1" class="custom-control-label">Regional
                                                     FIESTA</label>
                                             </div>
@@ -144,33 +149,38 @@
                                             <div class="custom-control custom-checkbox">
                                                 <input class="custom-control-input custom-control-input-success"
                                                     type="checkbox" value="Fairs" name="tpa_approaches[]"
-                                                    id="customCheckbox2">
+                                                    id="customCheckbox2"
+                                                    {{ in_array('Fairs', $approach) ? 'checked' : '' }}>
                                                 <label for="customCheckbox2" class="custom-control-label">Fairs</label>
                                             </div>
                                             <div class="custom-control custom-checkbox">
                                                 <input class="custom-control-input custom-control-input-success"
                                                     type="checkbox" value="Exhibits" name="tpa_approaches[]"
-                                                    id="customCheckbox3">
+                                                    id="customCheckbox3"
+                                                    {{ in_array('Exhibits', $approach) ? 'checked' : '' }}>
                                                 <label for="customCheckbox3" class="custom-control-label">Exhibits</label>
                                             </div>
                                             <div class="custom-control custom-checkbox">
                                                 <input class="custom-control-input custom-control-input-success"
                                                     type="checkbox" value="Media Conference" name="tpa_approaches[]"
-                                                    id="customCheckbox4">
+                                                    id="customCheckbox4"
+                                                    {{ in_array('Media Conference', $approach) ? 'checked' : '' }}>
                                                 <label for="customCheckbox4" class="custom-control-label">Media
                                                     Conference</label>
                                             </div>
                                             <div class="custom-control custom-checkbox">
                                                 <input class="custom-control-input custom-control-input-success"
                                                     type="checkbox" value="Farmers' Fora" name="tpa_approaches[]"
-                                                    id="customCheckbox5">
+                                                    id="customCheckbox5"
+                                                    {{ in_array("Farmers' Fora" , $approach) ? 'checked' : '' }}>
                                                 <label for="customCheckbox5" class="custom-control-label">Farmers'
                                                     Fora</label>
                                             </div>
                                             <div class="custom-control custom-checkbox">
                                                 <input class="custom-control-input custom-control-input-success"
                                                     type="checkbox" value="IEC Materials" name="tpa_approaches[]"
-                                                    id="customCheckbox6">
+                                                    id="customCheckbox6"
+                                                    {{ in_array('IEC Materials', $approach) ? 'checked' : '' }}>
                                                 <label for="customCheckbox6" class="custom-control-label">IEC
                                                     Materials</label>
                                             </div>
@@ -181,7 +191,8 @@
                                             <div class="custom-control custom-checkbox">
                                                 <input class="custom-control-input custom-control-input-success"
                                                     type="checkbox" value="Press Release" name="tpa_approaches[]"
-                                                    id="customCheckbox7">
+                                                    id="customCheckbox7"
+                                                    {{ in_array('Press Release', $approach) ? 'checked' : '' }}>
                                                 <label for="customCheckbox7" class="custom-control-label">Press
                                                     Release</label>
                                             </div>
@@ -189,27 +200,31 @@
                                             <div class="custom-control custom-checkbox">
                                                 <input class="custom-control-input custom-control-input-success"
                                                     type="checkbox" value="Publications in Newspaper"
-                                                    name="tpa_approaches[]" id="customCheckbox8">
+                                                    name="tpa_approaches[]" id="customCheckbox8"
+                                                    {{ in_array('Publications in Newspaper', $approach) ? 'checked' : '' }}>
                                                 <label for="customCheckbox8" class="custom-control-label">Publications in
                                                     Newspaper</label>
                                             </div>
                                             <div class="custom-control custom-checkbox">
                                                 <input class="custom-control-input custom-control-input-success"
                                                     type="checkbox" value="Magazines" name="tpa_approaches[]"
-                                                    id="customCheckbox9">
+                                                    id="customCheckbox9"
+                                                    {{ in_array('Magazines', $approach) ? 'checked' : '' }}>
                                                 <label for="customCheckbox9"
                                                     class="custom-control-label">Magazines</label>
                                             </div>
                                             <div class="custom-control custom-checkbox">
                                                 <input class="custom-control-input custom-control-input-success"
                                                     type="checkbox" value="Comics" name="tpa_approaches[]"
-                                                    id="customCheckbox10">
+                                                    id="customCheckbox10"
+                                                    {{ in_array('Comics', $approach) ? 'checked' : '' }}>
                                                 <label for="customCheckbox10" class="custom-control-label">Comics</label>
                                             </div>
                                             <div class="custom-control custom-checkbox">
                                                 <input class="custom-control-input custom-control-input-success"
                                                     type="checkbox" value="Others" name="tpa_approaches[]"
-                                                    id="customCheckbox11">
+                                                    id="customCheckbox11"
+                                                    {{ in_array('Others', $approach) ? 'checked' : '' }}>
                                                 <label for="customCheckbox11" class="custom-control-label">Others</label>
                                             </div>
 
@@ -222,7 +237,8 @@
                                             <div class="custom-control custom-checkbox">
                                                 <input class="custom-control-input custom-control-input-success"
                                                     type="checkbox" value="Broadcast Media" name="tpa_approaches[]"
-                                                    id="customCheckbox12">
+                                                    id="customCheckbox12"
+                                                    {{ in_array('Broadcast Media', $approach) ? 'checked' : '' }}>
                                                 <label for="customCheckbox12" class="custom-control-label">Broadcast
                                                     Media</label>
                                             </div>
@@ -230,34 +246,39 @@
                                             <div class="custom-control custom-checkbox">
                                                 <input class="custom-control-input custom-control-input-success"
                                                     type="checkbox" value="Radio" name="tpa_approaches[]"
-                                                    id="customCheckbox13">
+                                                    id="customCheckbox13"
+                                                    {{ in_array('Radio', $approach) ? 'checked' : '' }}>
                                                 <label for="customCheckbox13" class="custom-control-label">Radio</label>
                                             </div>
                                             <div class="custom-control custom-checkbox">
                                                 <input class="custom-control-input custom-control-input-success"
                                                     type="checkbox" value="Television" name="tpa_approaches[]"
-                                                    id="customCheckbox14">
+                                                    id="customCheckbox14"
+                                                    {{ in_array('Television', $approach) ? 'checked' : '' }}>
                                                 <label for="customCheckbox14"
                                                     class="custom-control-label">Television</label>
                                             </div>
                                             <div class="custom-control custom-checkbox">
                                                 <input class="custom-control-input custom-control-input-success"
                                                     type="checkbox" value="News Features" name="tpa_approaches[]"
-                                                    id="customCheckbox15">
+                                                    id="customCheckbox15"
+                                                    {{ in_array('News Features', $approach) ? 'checked' : '' }}>
                                                 <label for="customCheckbox15" class="custom-control-label">News
                                                     Features</label>
                                             </div>
                                             <div class="custom-control custom-checkbox">
                                                 <input class="custom-control-input custom-control-input-success"
                                                     type="checkbox" value="School on the Air" name="tpa_approaches[]"
-                                                    id="customCheckbox16">
+                                                    id="customCheckbox16"
+                                                    {{ in_array('School on the Air', $approach) ? 'checked' : '' }}>
                                                 <label for="customCheckbox16" class="custom-control-label">School on the
                                                     Air</label>
                                             </div>
                                             <div class="custom-control custom-checkbox">
                                                 <input class="custom-control-input custom-control-input-success"
                                                     type="checkbox" value="Interview Guesting" name="tpa_approaches[]"
-                                                    id="customCheckbox17">
+                                                    id="customCheckbox17"
+                                                    {{ in_array('Interview Guesting', $approach) ? 'checked' : '' }}>
                                                 <label for="customCheckbox17" class="custom-control-label">Interview
                                                     Guesting</label>
                                             </div>
@@ -269,7 +290,8 @@
                                             <div class="custom-control custom-checkbox">
                                                 <input class="custom-control-input custom-control-input-success"
                                                     type="checkbox" value="ICT-based ICT" name="tpa_approaches[]"
-                                                    id="customCheckbox18">
+                                                    id="customCheckbox18"
+                                                    {{ in_array('ICT-based ICT', $approach) ? 'checked' : '' }}>
                                                 <label for="customCheckbox18" class="custom-control-label">ICT-based
                                                     ICT</label>
                                             </div>
@@ -277,21 +299,24 @@
                                             <div class="custom-control custom-checkbox">
                                                 <input class="custom-control-input custom-control-input-success"
                                                     type="checkbox" value="CDs & Optimal Media" name="tpa_approaches[]"
-                                                    id="customCheckbox19">
+                                                    id="customCheckbox19"
+                                                    {{ in_array('CDs & Optimal Media', $approach) ? 'checked' : '' }}>
                                                 <label for="customCheckbox19" class="custom-control-label">CDs & Optimal
                                                     Media</label>
                                             </div>
                                             <div class="custom-control custom-checkbox">
                                                 <input class="custom-control-input custom-control-input-success"
                                                     type="checkbox" value="Web-based Formats" name="tpa_approaches[]"
-                                                    id="customCheckbox20">
+                                                    id="customCheckbox20"
+                                                    {{ in_array('Web-based Formats', $approach) ? 'checked' : '' }}>
                                                 <label for="customCheckbox20" class="custom-control-label">Web-based
                                                     Formats</label>
                                             </div>
                                             <div class="custom-control custom-checkbox">
                                                 <input class="custom-control-input custom-control-input-success"
                                                     type="checkbox" value="Online Promotion" name="tpa_approaches[]"
-                                                    id="customCheckbox21">
+                                                    id="customCheckbox21"
+                                                    {{ in_array('Online Promotion', $approach) ? 'checked' : '' }}>
                                                 <label for="customCheckbox21" class="custom-control-label">Online
                                                     Promotion</label>
                                             </div>

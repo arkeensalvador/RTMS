@@ -13,7 +13,6 @@ return new class extends Migration
     {
         Schema::create('projects', function (Blueprint $table) {
             $table->id();
-            $table->timestamp('created_at');
             $table->string('programID')->nullable();
             // $table->string('projectID')->nullable();
             $table->string('agencyID')->nullable();
@@ -32,7 +31,7 @@ return new class extends Migration
             $table->string('amount_released')->nullable();
             $table->string('budget_year')->nullable();
             $table->string('form_of_development')->nullable();
-            $table->timestamp('edited_at')->useCurrent();
+            $table->timestamps();
         });
     }
 

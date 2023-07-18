@@ -13,13 +13,12 @@ return new class extends Migration
     {
         Schema::create('rdmc_linkages', function (Blueprint $table) {
             $table->id();
-            $table->timestamp('created_at');
             $table->string('type');
             $table->string('year');
             $table->string('form_of_development');
             $table->string('address');
             $table->string('nature_of_assistance');
-            $table->timestamp('edited_at')->useCurrent();
+            $table->timestamps();
         });
     }
 

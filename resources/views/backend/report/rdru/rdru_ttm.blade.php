@@ -41,7 +41,7 @@
                                 <div class="row">
                                     <div class="col-12 col-md-12">
                                         <div class="col-sm-12">
-                                            <table id="example1" class="table table-bordered table-striped">
+                                            <table id="accounts" class="table table-bordered table-striped">
                                                 <thead>
                                                     <tr>
                                                         <th>#</th>
@@ -53,39 +53,24 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <tr>
-                                                        <td>1</td>
-                                                        <td>Commercialized</td>
-                                                        <td>Visualising... R&D Highlights in Agriculture and Natural
-                                                            Resources A Compilation of Scientific Posters CLSU In-House
-                                                            Review of Completed and Ongoing R&D Projects 2018-2021</td>
-                                                        <td>Copyright</td>
-                                                        <td>CLSU</td>
-                                                        <td class="action">
-                                                            <a class="btn btn-primary" href="#"><i
-                                                                    class="fa-solid fa-pen-to-square"
-                                                                    style="color: white;"></i></a>
-                                                            <a href="#" class="btn btn-danger" id="delete"><i
-                                                                    class="fa-solid fa-trash"></i></a>
-
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>2</td>
-                                                        <td>Pre-Commercialized</td>
-                                                        <td>Aromatic Herbs, Ornamental Plants, and Common Weeds as Trap and
-                                                            Companion Crops Against Onion Armyworm (Spodoptera exigua)</td>
-                                                        <td>Copyright</td>
-                                                        <td>CLSU</td>
-                                                        <td class="action">
-                                                            <a class="btn btn-primary" href="#"><i
-                                                                    class="fa-solid fa-pen-to-square"
-                                                                    style="color: white;"></i></a>
-                                                            <a href="#" class="btn btn-danger" id="delete"><i
-                                                                    class="fa-solid fa-trash"></i></a>
-
-                                                        </td>
-                                                    </tr>
+                                                    @foreach ($all as $key => $row)
+                                                        <tr>
+                                                            <td>{{ $key + 1 }}</td>
+                                                            <td>{{ $row->ttm_status }}</td>
+                                                            <td>{{ $row->ttm_title }}</td>
+                                                            <td>{{ $row->ttm_type }}</td>
+                                                            <td>{{ $row->ttm_agency }}</td>
+                                                            <td class="action btns">
+                                                                <a class="btn btn-primary"
+                                                                    href="{{ url('edit-ttm/' . $row->id) }}"><i
+                                                                        class="fa-solid fa-pen-to-square"
+                                                                        style="color: white;"></i></a>
+                                                                <a href="{{ url('delete-ttm/' . $row->id) }}"
+                                                                    class="btn btn-danger" id="delete"><i
+                                                                        class="fa-solid fa-trash"></i></a>
+                                                            </td>
+                                                        </tr>
+                                                    @endforeach
                                                 </tbody>
                                             </table>
                                             {{-- <a href="#">

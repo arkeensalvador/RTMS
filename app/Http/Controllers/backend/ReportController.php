@@ -177,7 +177,9 @@ class ReportController extends Controller
     public function rdruTtp()
     {
         $title = 'TTP | R&D Results Utilizations';
-        return view('backend.report.rdru.rdru_ttp', compact('title'));
+        $all = DB::table('results_ttp')->get();
+        $agency = DB::table('agency')->get();
+        return view('backend.report.rdru.rdru_ttp', compact('title', 'all', 'agency'));
     }
 
     public function rdruAdd()
@@ -189,17 +191,21 @@ class ReportController extends Controller
     public function rdruTtm()
     {
         $title = 'TTM | R&D Results Utilizations';
-        return view('backend.report.rdru.rdru_ttm', compact('title'));
+        $all = DB::table('results_ttm')->get();
+        $agency = DB::table('agency')->get();
+        return view('backend.report.rdru.rdru_ttm', compact('title','all', 'agency'));
     }
     public function rdruTtmAdd()
     {
         $title = 'TTM | R&D Results Utilizations';
-        return view('backend.report.rdru.rdru_ttm_add', compact('title'));
+        $agency = DB::table('agency')->get();
+        return view('backend.report.rdru.rdru_ttm_add', compact('title', 'agency'));
     }
     public function rdruTpa()
     {
         $title = 'TPA | R&D Results Utilizations';
-        return view('backend.report.rdru.rdru_tpa', compact('title'));
+        $all = DB::table('results_tpa')->get();
+        return view('backend.report.rdru.rdru_tpa', compact('title','all'));
     }
     public function rdruTpaAdd()
     {

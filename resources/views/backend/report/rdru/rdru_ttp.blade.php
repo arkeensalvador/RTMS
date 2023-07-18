@@ -29,9 +29,9 @@
                             <div class="card-header">
                                 <h2 class="card-title">List of Technology Transfer Proposals</h2>
                                 <div class="card-tools">
-                                    <a href="{{ url('rdru-add') }}"
-                                        class="btn btn-success"><span><i class="fa-solid fa-plus"></i> Create</span></a>
-                                   
+                                    <a href="{{ url('rdru-add') }}" class="btn btn-success"><span><i
+                                                class="fa-solid fa-plus"></i> Create</span></a>
+
                                     <!-- Here is a label for example -->
                                     {{-- <span class="badge badge-primary">Label</span> --}}
                                 </div>
@@ -41,7 +41,7 @@
                                 <div class="row">
                                     <div class="col-12 col-md-12">
                                         <div class="col-sm-12">
-                                            <table id="example1" class="table table-bordered table-striped">
+                                            <table id="programs" class="table table-bordered table-striped">
                                                 <thead>
                                                     <tr>
                                                         <th>Packaged/Approved/Implemented</th>
@@ -54,22 +54,25 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <tr>
-                                                        <td>Packaged</td>
-                                                        <td>Cluster FIESTA on Vegetables</td>
-                                                        <td>300,000.00</td>
-                                                        <td>PCAARRD</td>
-                                                        <td>6 Months</td>
-                                                        <td>Pinakbet Veggies</td>
-                                                        <td class="action">
-                                                            <a class="btn btn-primary" href="#"><i
-                                                                    class="fa-solid fa-pen-to-square"
-                                                                    style="color: white;"></i></a>
-                                                            <a href="#" class="btn btn-danger" id="delete"><i
-                                                                    class="fa-solid fa-trash"></i></a>
-
-                                                        </td>
-                                                    </tr>
+                                                    @foreach ($all as $key => $row)
+                                                        <tr>
+                                                            <td>{{ $row->ttp_type }}</td>
+                                                            <td>{{ $row->ttp_title }}</td>
+                                                            <td>{{ $row->ttp_budget }}</td>
+                                                            <td>{{ $row->ttp_sof }}</td>
+                                                            <td>{{ date('F, Y', strtotime($row->ttp_start_date)) ?: 'Not Set' }} - {{ date('F, Y', strtotime($row->ttp_end_date)) ? : 'Not Set' }}</td>
+                                                            <td>{{ $row->ttp_priorities }}</td>
+                                                            <td class="action btns">
+                                                                <a class="btn btn-primary"
+                                                                    href="{{ url("edit-ttp/$row->id") }}"><i
+                                                                        class="fa-solid fa-pen-to-square"
+                                                                        style="color: white;"></i></a>
+                                                                <a href="{{ url("delete-ttp/$row->id") }}"
+                                                                    class="btn btn-danger" id="delete"><i
+                                                                        class="fa-solid fa-trash"></i></a>
+                                                            </td>
+                                                        </tr>
+                                                    @endforeach
                                                 </tbody>
                                             </table>
                                             {{-- <a href="#">

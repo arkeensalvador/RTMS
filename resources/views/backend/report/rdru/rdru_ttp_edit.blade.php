@@ -90,7 +90,7 @@
 
                         {{-- card body start --}}
                         <div class="card-body">
-                            <form role="form" id="regiration_form" action="{{ url('add-ttp') }}" method="POST"
+                            <form role="form" id="regiration_form" action="{{ url('update-ttp/'.$all->id) }}" method="POST"
                                 enctype="multipart/form-data">
                                 @csrf
                                 <div class="row">
@@ -99,7 +99,8 @@
                                         <div class="form-group">
                                             <div class="custom-control custom-radio">
                                                 <input class="custom-control-input" type="radio" value="Packaged"
-                                                    id="customRadio1" name="ttp_type">
+                                                    id="customRadio1" name="ttp_type"
+                                                    {{ 'Packaged' == $all->ttp_type ? 'checked' : '' }}>
                                                 <label for="customRadio1" class="custom-control-label">Packaged</label>
                                             </div>
                                         </div>
@@ -108,7 +109,8 @@
                                         <div class="form-group">
                                             <div class="custom-control custom-radio">
                                                 <input class="custom-control-input" type="radio"
-                                                    value="Approved/Implemented" id="customRadio2" name="ttp_type">
+                                                    value="Approved/Implemented" id="customRadio2" name="ttp_type"
+                                                    {{ 'Approved/Implemented' == $all->ttp_type ? 'checked' : '' }}>
                                                 <label for="customRadio2"
                                                     class="custom-control-label">Approved/Implemented</label>
                                             </div>
@@ -123,7 +125,7 @@
                                         <!-- textarea -->
                                         <div class="form-group">
                                             <label>Title</label>
-                                            <textarea class="form-control" name="ttp_title" rows="3" placeholder="Enter ..." style="resize: none;"></textarea>
+                                            <textarea class="form-control" name="ttp_title" rows="3" placeholder="Enter ..." style="resize: none;">{{ $all->ttp_title }}</textarea>
                                         </div>
                                     </div>
                                 </div>
@@ -133,7 +135,7 @@
                                         <div class="form-group">
                                             <label>Budget</label>
                                             <input type="text" class="form-control" id="numin" name="ttp_budget"
-                                                placeholder="Enter ...">
+                                                placeholder="Enter ..." value="{{ $all->ttp_budget }}">
                                         </div>
                                     </div>
 
@@ -141,7 +143,7 @@
                                         <div class="form-group">
                                             <label>Source of Fund</label>
                                             <input type="text" class="form-control" name="ttp_sof"
-                                                placeholder="Enter ..." list="sourcedtlist">
+                                                placeholder="Enter ..." value="{{ $all->ttp_sof }}" list="sourcedtlist">
                                             <datalist id="sourcedtlist">
                                                 <option value="Source of Fund 1"></option>
                                             </datalist>
@@ -156,14 +158,14 @@
                                         <div class="form-group">
                                             <label>Start Date</label>
                                             <input type="month" name="ttp_start_date" class="form-control"
-                                                placeholder="Enter ...">
+                                                placeholder="Enter ..." value="{{ $all->ttp_start_date }}">
                                         </div>
                                     </div>
 
                                     <div class="col-sm-2">
                                         <div class="form-group">
                                             <label>End Date</label>
-                                            <input type="month" name="ttp_end_date" class="form-control"
+                                            <input type="month" name="ttp_end_date" value="{{ $all->ttp_end_date }}" class="form-control"
                                                 placeholder="Enter ...">
                                         </div>
                                     </div>
@@ -175,14 +177,14 @@
                                         <!-- textarea -->
                                         <div class="form-group">
                                             <label>Regional Priorities Addressed</label>
-                                            <textarea class="form-control" name="ttp_priorities" rows="3" placeholder="Enter ..."></textarea>
+                                            <textarea class="form-control" name="ttp_priorities" rows="3" placeholder="Enter ...">{{ $all->ttp_priorities }}</textarea>
                                         </div>
                                     </div>
                                     <!-- /.card-body -->
                                 </div>
 
                                 <a href="{{ url('rdru-ttp') }}" class="btn btn-default">Back</a>
-                                <input type="submit" name="submit" class="submit btn btn-success" value="Submit" />
+                                <input type="submit" name="submit" class="submit btn btn-success" value="Update" />
                                 <!-- /.card-body -->
                         </div>
                         </form>

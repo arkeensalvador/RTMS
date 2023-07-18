@@ -46,8 +46,8 @@
                                     <thead>
                                         <tr>
                                             {{-- <th>Trust Fund</th> --}}
-                                            <th>Start Date</th>
-                                            <th>End Date</th>
+                                            <th>Duration</th>
+                                            {{-- <th>End Date</th> --}}
                                             {{-- <th>Extension Date</th> --}}
                                             <th>Funding Agency</th>
                                             <th>Program Title</th>
@@ -62,18 +62,7 @@
                                             <tr>
                                                 {{-- <td>{{ $row->trust_fund_code }}</td> --}}
                                                 <td>
-                                                    @empty(date('F, Y', strtotime($row->start_date)))
-                                                        <p>Not Set</p>
-                                                    @else
-                                                        {{ date('F, Y', strtotime($row->start_date)) }}
-                                                    @endempty
-                                                </td>
-                                                <td>
-                                                    @empty(date('F, Y', strtotime($row->end_date)))
-                                                        <p>Not Set</p>
-                                                    @else
-                                                        {{date('F, Y', strtotime($row->end_date)) }}
-                                                    @endempty
+                                                   {{ date('F, Y', strtotime($row->start_date)) ?: 'Not Set' }} - {{ date('F, Y', strtotime($row->end_date)) ? : 'Not Set' }}
                                                 </td>
                                                 {{-- <td>{{ $row->project_extension_date }}</td> --}}
                                                 <td>{{ $row->funding_agency }}</td>
@@ -118,8 +107,7 @@
                                     <tfoot>
                                         <tr>
                                             {{-- <th>Trust Fund</th> --}}
-                                            <th>Start Date</th>
-                                            <th>End Date</th>
+                                            <th>Duration</th>
                                             {{-- <th>Extension Date</th> --}}
                                             <th>Funding Agency</th>
                                             <th>Project Title</th>

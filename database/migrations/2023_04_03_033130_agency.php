@@ -16,6 +16,7 @@ return new class extends Migration
             $table->id();
             $table->string('agency_name');
             $table->string('abbrev');
+            $table->timestamps();
         });
     }
 

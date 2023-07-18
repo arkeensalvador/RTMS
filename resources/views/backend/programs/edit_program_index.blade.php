@@ -212,7 +212,7 @@
                                         <div class="col-sm-3">
                                             <div class="form-group">
                                                 <label>Start Date</label>
-                                                <input type="date" value="{{ $program->start_date }}" class="form-control" name="start_date"
+                                                <input type="month" required value="<?= $program->start_date?>" class="form-control" name="start_date"
                                                     autocomplete="false">
                                             </div>
                                         </div>
@@ -221,7 +221,7 @@
                                         <div class="col-sm-3">
                                             <div class="form-group">
                                                 <label>End Date</label>
-                                                <input type="date" value="{{ $program->end_date }}" class="form-control" name="end_date"
+                                                <input type="month" required value="{{ $program->end_date }}" class="form-control" name="end_date"
                                                     autocomplete="false">
                                             </div>
                                         </div>
@@ -232,7 +232,7 @@
                                             <div class="col-sm-3">
                                                 <div class="form-group">
                                                     <label>Extend Date</label>
-                                                    <input type="date" value="{{ $program->extend_date }}" class="form-control" name="extend_date"
+                                                    <input type="month" value="{{ $program->extend_date }}" class="form-control" name="extend_date"
                                                         autocomplete="false">
                                                 </div>
                                             </div>

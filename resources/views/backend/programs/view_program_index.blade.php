@@ -46,10 +46,10 @@
                                                     <span class="info-box-text text-center text-muted">Approved
                                                         Budget</span>
                                                     <span class="info-box-number text-center text-muted mb-0">
-                                                        @empty($program->amount_release)
+                                                        @empty($program->approved_budget)
                                                             -
                                                         @else
-                                                            {{ $program->amount_release }}
+                                                            {{ $program->approved_budget }}
                                                         @endempty
                                                     </span>
                                                 </div>
@@ -65,9 +65,9 @@
                                                         @empty($program->extend_date)
                                                             -
                                                         @else
-                                                            {{ date('M/d/Y', strtotime($program->start_date)) }}
+                                                            {{ date('F, Y', strtotime($program->start_date)) }}
                                                             -
-                                                            {{ date('M/d/Y', strtotime($program->extend_date)) }}
+                                                            <label for="" style="color: red">{{ date('F, Y', strtotime($program->extend_date)) }}</label>
                                                         @endempty
 
                                                     </span>

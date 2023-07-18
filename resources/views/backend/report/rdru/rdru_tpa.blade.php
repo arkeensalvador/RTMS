@@ -41,7 +41,7 @@
                                 <div class="row">
                                     <div class="col-12 col-md-12">
                                         <div class="col-sm-12">
-                                            <table id="example1" class="table table-bordered table-striped">
+                                            <table id="accounts" class="table table-bordered table-striped">
                                                 <thead>
                                                     <tr>
                                                         <th>#</th>
@@ -49,43 +49,39 @@
                                                         <th>Title</th>
                                                         <th>Date</th>
                                                         <th>Details</th>
-                                                        <th>Activity</th>
+                                                        {{-- <th>Activity</th> --}}
                                                         <th>Action</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
+                                                    @foreach ($all as $key => $row)
                                                     <tr>
-                                                        <td>1</td>
-                                                        <td>Regional FIESTA</td>
-                                                        <td>Smart Farming was presented during the Veggie FIESTA on technology pitching</td>
-                                                        <td>5/26/2023</td>
-                                                        <td>Lorem Ipsum</td>
-                                                        <td>CLAARRDEC</td>
-                                                        <td class="action">
-                                                            <a class="btn btn-primary" href="#"><i
+                                                        <td>{{ $key + 1}}</td>
+                                                        <td>
+                                                            @php
+                                                                $approach = json_decode($row->tpa_approaches)
+                                                            @endphp
+
+                                                            @foreach ($approach as $app)
+                                                                    <li>
+                                                                        {{ $app }}
+                                                                    </li>
+                                                            @endforeach
+                                                        </td>
+                                                        <td>{{ $row->tpa_title }}</td>
+                                                        <td>{{ $row->tpa_date }}</td>
+                                                        <td>{{ $row->tpa_details }}</td>
+                                                        {{-- <td>{{ $row->tpa_activity }}</td> --}}
+                                                        <td class="action btns">
+                                                            <a class="btn btn-primary" href="{{ url('edit-tpa/' . $row->id) }}"><i
                                                                     class="fa-solid fa-pen-to-square"
                                                                     style="color: white;"></i></a>
-                                                            <a href="#" class="btn btn-danger" id="delete"><i
+                                                            <a href="{{ url('delete-tpa/' . $row->id) }}" class="btn btn-danger" id="delete"><i
                                                                     class="fa-solid fa-trash"></i></a>
 
                                                         </td>
                                                     </tr>
-                                                    <tr>
-                                                        <td>2</td>
-                                                        <td>IEC Materials</td>
-                                                        <td>Pakain para sa mga Alagang Kambing</td>
-                                                        <td>5/26/2023</td>
-                                                        <td>Lorem Ipsum</td>
-                                                        <td>CLAARRDEC</td>
-                                                        <td class="action">
-                                                            <a class="btn btn-primary" href="#"><i
-                                                                    class="fa-solid fa-pen-to-square"
-                                                                    style="color: white;"></i></a>
-                                                            <a href="#" class="btn btn-danger" id="delete"><i
-                                                                    class="fa-solid fa-trash"></i></a>
-
-                                                        </td>
-                                                    </tr>
+                                                    @endforeach
                                                 </tbody>
                                             </table>
                                             {{-- <a href="#">

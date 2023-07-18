@@ -90,7 +90,7 @@
 
                         {{-- card body start --}}
                         <div class="card-body">
-                            <form role="form" id="regiration_form" action="{{url('add-ttm')}}" method="POST"
+                            <form role="form" id="regiration_form" action="{{url('update-ttm/'.$all->id)}}" method="POST"
                                 enctype="multipart/form-data">
                                 @csrf
 
@@ -99,7 +99,7 @@
                                         <!-- textarea -->
                                         <div class="form-group">
                                             <label>Title</label>
-                                            <textarea class="form-control" name="ttm_title" rows="3" placeholder="Enter ..." style="resize: none;"></textarea>
+                                            <textarea class="form-control" name="ttm_title" rows="3" placeholder="Enter ..." style="resize: none;">{{ $all->ttm_title }}</textarea>
                                         </div>
                                     </div>
                                 </div>
@@ -108,7 +108,7 @@
                                     <div class="col-sm-12">
                                         <div class="form-group">
                                             <label>Type of Technology</label>
-                                            <input type="text" class="form-control" name="ttm_type" placeholder="Enter ..."
+                                            <input type="text" value="{{ $all->ttm_type }}" class="form-control" name="ttm_type" placeholder="Enter ..."
                                                 list="techdtlist">
                                             <datalist id="techdtlist">
                                                 <option value="STCBF">STCBF</option>
@@ -125,8 +125,8 @@
                                         <div class="form-group">
                                             <label>Status</label>
                                             <select name="ttm_status" id="" class="form-control">
-                                                <option value="Commercialized">Commercialized</option>
-                                                <option value="Pre-Commercialized">Pre-Commercialized</option>
+                                                <option value="Commercialized" {{ "Commercialized" == $all->ttm_status ? 'selected' : '' }}>Commercialized</option>
+                                                <option value="Pre-Commercialized" {{ "Pre-Commercialized" == $all->ttm_status ? 'selected' : '' }}>Pre-Commercialized</option>
                                             </select>
                                         </div>
                                     </div>
@@ -140,7 +140,7 @@
                                                 required>
                                                 <option></option>
                                                 @foreach ($agency as $key)
-                                                    <option value="{{ $key->abbrev }}">{{ $key->agency_name }} -
+                                                    <option value="{{ $key->abbrev }}" {{ $key->abbrev == $all->ttm_agency ? 'selected' : '' }}>{{ $key->agency_name }} -
                                                         ({{ $key->abbrev }})</b></option>
                                                 @endforeach
                                             </select>
@@ -149,7 +149,7 @@
                                 </div>
 
                                 <a href="{{ url('rdru-ttm') }}" class="btn btn-default">Back</a>
-                                <input type="submit" name="submit" class="submit btn btn-success" value="Submit" />
+                                <input type="submit" name="submit" class="submit btn btn-success" value="Update" />
                                 <!-- /.card-body -->
                         </div>
                         </form>

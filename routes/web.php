@@ -181,6 +181,26 @@ Route::get('/edit-activity/{id}', [App\Http\Controllers\backend\ActivitiesContro
 Route::post('/update-activity/{id}', [App\Http\Controllers\backend\ActivitiesController::class, 'UpdateActivity'])->name('UpdateActivity');
 Route::get('/delete-activity/{id}', [App\Http\Controllers\backend\ActivitiesController::class, 'DeleteActivity'])->name('DeleteActivity');
 
+//TTP 
+Route::post('/add-ttp', [App\Http\Controllers\backend\ResultsUtilizationController::class, 'AddTtp'])->name('AddTtp');
+Route::get('/edit-ttp/{id}', [App\Http\Controllers\backend\ResultsUtilizationController::class, 'EditTtp'])->name('EditTtp');
+Route::post('/update-ttp/{id}', [App\Http\Controllers\backend\ResultsUtilizationController::class, 'UpdateTtp'])->name('UpdateTtp');
+Route::get('/delete-ttp/{id}', [App\Http\Controllers\backend\ResultsUtilizationController::class, 'DeleteTtp'])->name('DeleteTtp');
+
+//TTM 
+Route::post('/add-ttm', [App\Http\Controllers\backend\ResultsUtilizationController::class, 'AddTtm'])->name('AddTtm');
+Route::get('/edit-ttm/{id}', [App\Http\Controllers\backend\ResultsUtilizationController::class, 'EditTtm'])->name('EditTtm');
+Route::post('/update-ttm/{id}', [App\Http\Controllers\backend\ResultsUtilizationController::class, 'UpdateTtm'])->name('UpdateTtm');
+Route::get('/delete-ttm/{id}', [App\Http\Controllers\backend\ResultsUtilizationController::class, 'DeleteTtm'])->name('DeleteTtm');
+
+//TPA
+Route::post('/add-tpa', [App\Http\Controllers\backend\ResultsUtilizationController::class, 'AddTpa'])->name('AddTpa');
+Route::get('/edit-tpa/{id}', [App\Http\Controllers\backend\ResultsUtilizationController::class, 'EditTpa'])->name('EditTpa');
+Route::post('/update-tpa/{id}', [App\Http\Controllers\backend\ResultsUtilizationController::class, 'UpdateTpa'])->name('UpdateTpa');
+Route::get('/delete-tpa/{id}', [App\Http\Controllers\backend\ResultsUtilizationController::class, 'DeleteTpa'])->name('DeleteTpa');
+
+
+
 
 
 
