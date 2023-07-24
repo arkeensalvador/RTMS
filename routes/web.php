@@ -199,7 +199,17 @@ Route::get('/edit-tpa/{id}', [App\Http\Controllers\backend\ResultsUtilizationCon
 Route::post('/update-tpa/{id}', [App\Http\Controllers\backend\ResultsUtilizationController::class, 'UpdateTpa'])->name('UpdateTpa');
 Route::get('/delete-tpa/{id}', [App\Http\Controllers\backend\ResultsUtilizationController::class, 'DeleteTpa'])->name('DeleteTpa');
 
+// CBG Trainings
+Route::post('/add-training', [App\Http\Controllers\backend\TrainingsController::class, 'AddTraining'])->name('AddTraining');
+Route::get('/edit-training/{id}', [App\Http\Controllers\backend\TrainingsController::class, 'EditTraining'])->name('EditTraining');
+Route::post('/update-training/{id}', [App\Http\Controllers\backend\TrainingsController::class, 'UpdateTraining'])->name('UpdateTraining');
+Route::get('/delete-training/{id}', [App\Http\Controllers\backend\TrainingsController::class, 'DeleteTraining'])->name('DeleteTraining');
 
+// CBG Awards
+Route::post('/add-award', [App\Http\Controllers\backend\AwardsController::class, 'AddAward'])->name('AddAward');
+Route::get('/edit-award/{id}', [App\Http\Controllers\backend\AwardsController::class, 'EditAward'])->name('EditAward');
+Route::post('/update-award/{id}', [App\Http\Controllers\backend\AwardsController::class, 'UpdatedAward'])->name('UpdateAward');
+Route::get('/delete-award/{id}', [App\Http\Controllers\backend\AwardsController::class, 'DeletedAward'])->name('DeleteAward');
 
 
 

@@ -90,16 +90,16 @@
 
                         {{-- card body start --}}
                         <div class="card-body">
-                            <form role="form" id="regiration_form" action="{{ url('add-training') }}" method="POST"
-                                enctype="multipart/form-data">
+                            <form role="form" id="regiration_form" action="{{ url('update-training/' . $all->id) }}"
+                                method="POST" enctype="multipart/form-data">
                                 @csrf
 
                                 <div class="row">
                                     <div class="col-sm-5">
                                         <div class="form-group">
                                             <label>Source of Fund</label>
-                                            <input type="text" class="form-control" name="trainings_sof"
-                                                placeholder="Enter ..." list="funddtlist">
+                                            <input type="text" class="form-control" value="{{ $all->trainings_sof }}"
+                                                name="trainings_sof" placeholder="Enter ..." list="funddtlist">
                                             <datalist id="funddtlist">
                                                 <option value="DOST-PCAARRD"></option>
                                                 <option value="Department of Agriculture - Bayanihan Act"></option>
@@ -114,7 +114,9 @@
                                             <select name="trainings_agency" id="" class="form-control agency">
                                                 <option></option>
                                                 @foreach ($agency as $key)
-                                                    <option value="{{ $key->abbrev }}">{{ $key->agency_name }} -
+                                                    <option value="{{ $key->abbrev }}"
+                                                        {{ $key->abbrev == $all->trainings_agency ? 'selected' : '' }}>
+                                                        {{ $key->agency_name }} -
                                                         ({{ $key->abbrev }})
                                                         </b></option>
                                                 @endforeach
@@ -128,7 +130,7 @@
                                         <!-- textarea -->
                                         <div class="form-group">
                                             <label>Title of Activity/Training</label>
-                                            <textarea class="form-control" name="trainings_title" rows="3" placeholder="Enter ..."></textarea>
+                                            <textarea class="form-control" name="trainings_title" rows="3" placeholder="Enter ...">{{ $all->trainings_title }}</textarea>
                                         </div>
                                     </div>
                                 </div>
@@ -137,8 +139,8 @@
                                     <div class="col-sm-5">
                                         <div class="form-group">
                                             <label>Expenditures</label>
-                                            <input type="text" name="trainings_expenditures" class="form-control"
-                                                placeholder="Enter ...">
+                                            <input type="text" value="{{ $all->trainings_expenditures }}"
+                                                name="trainings_expenditures" class="form-control" placeholder="Enter ...">
                                         </div>
                                     </div>
                                 </div>
@@ -147,30 +149,31 @@
                                     <div class="col-sm-2">
                                         <div class="form-group">
                                             <label>Start Date</label>
-                                            <input type="date" name="trainings_start" class="form-control"
-                                                placeholder="Enter ...">
+                                            <input type="date" value="{{ $all->trainings_start }}" name="trainings_start"
+                                                class="form-control" placeholder="Enter ...">
                                         </div>
                                     </div>
 
                                     <div class="col-sm-2">
                                         <div class="form-group">
                                             <label>End Date</label>
-                                            <input type="date" name="trainings_end" class="form-control"
-                                                placeholder="Enter ...">
+                                            <input type="date" value="{{ $all->trainings_end }}" name="trainings_end"
+                                                class="form-control" placeholder="Enter ...">
                                         </div>
                                     </div>
 
                                     <div class="col-sm-3">
                                         <div class="form-group">
                                             <label>No. of Participants</label>
-                                            <input type="text" name="trainings_no_participants" class="form-control"
+                                            <input type="text" value="{{ $all->trainings_no_participants }}"
+                                                name="trainings_no_participants" class="form-control"
                                                 placeholder="Enter ...">
                                         </div>
                                     </div>
                                 </div>
 
                                 <a href="{{ url('cbg-training') }}" class="btn btn-default">Back</a>
-                                <input type="submit" name="submit" class="submit btn btn-success" value="Submit" />
+                                <input type="submit" name="submit" class="submit btn btn-success" value="Update" />
                                 <!-- /.card-body -->
                         </div>
                         </form>

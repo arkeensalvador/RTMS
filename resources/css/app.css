@@ -182,6 +182,12 @@ input#agencyAbbrev {
     background: none;
 }
 
+input#dash {
+    text-align: center;
+    font-weight: 700;
+    background: none;
+}
+
 .alert-danger ul {
     margin: auto;
 }
@@ -193,4 +199,8 @@ td.counter {
 }
 td.donor {
     width: 1%;
+}
+
+.select2-container--default .select2-selection--multiple .select2-selection__choice {
+    color: black;
 }

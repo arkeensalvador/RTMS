@@ -29,9 +29,9 @@
                             <div class="card-header">
                                 <h2 class="card-title">List of Trainings</h2>
                                 <div class="card-tools">
-                                    <a href="{{ url('cbg-training-add') }}"
-                                        class="btn btn-success"><span><i class="fa-solid fa-plus"></i> Create</span></a>
-                                   
+                                    <a href="{{ url('cbg-training-add') }}" class="btn btn-success"><span><i
+                                                class="fa-solid fa-plus"></i> Create</span></a>
+
                                     <!-- Here is a label for example -->
                                     {{-- <span class="badge badge-primary">Label</span> --}}
                                 </div>
@@ -55,40 +55,35 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <tr>
-                                                        <td>1</td>
-                                                        <td>Training on Experimental Design and Data Management in Agricultural Research using STAR of CLAARRDEC CMIs</td>
-                                                        <td>November 25, 2022 - November 27, 2022</td>
-                                                        <td>30 Faculty/Teachers</td>
-                                                        <td>200,000</td>
-                                                        <td>CLAARRDEC</td>
-                                                        <td>CLSU</td>
-                                                        <td class="action">
-                                                            <a class="btn btn-primary" href="#"><i
-                                                                    class="fa-solid fa-pen-to-square"
-                                                                    style="color: white;"></i></a>
-                                                            <a href="#" class="btn btn-danger" id="delete"><i
-                                                                    class="fa-solid fa-trash"></i></a>
+                                                    @foreach ($all as $key => $row)
+                                                        <tr>
+                                                            <td>{{ $key + 1 }}</td>
+                                                            <td>{{ $row->trainings_title }}</td>
+                                                            @if ($row->trainings_end)
+                                                                <td>{{ date('F j, Y', strtotime($row->trainings_start)) ?: 'Not Set' }}
+                                                                    -
+                                                                    {{ date('F j, Y', strtotime($row->trainings_end)) ?: 'Present' }}
+                                                                </td>
+                                                            @else
+                                                                <td>{{ date('F j, Y', strtotime($row->trainings_start)) ?: 'Not Set' }}
+                                                                    -
+                                                                    {{ $row->trainings_end ?: 'Present' }}</td>
+                                                            @endif
 
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>2</td>
-                                                        <td>Bayanihan Act Program</td>
-                                                        <td>February 2021 to Present</td>
-                                                        <td>30 farmers + 10 AEWs 100 org members</td>
-                                                        <td>275,000</td>
-                                                        <td>Department of Agriculture - Bayanihan Act</td>
-                                                        <td>CLSU</td>
-                                                        <td class="action">
-                                                            <a class="btn btn-primary" href="#"><i
-                                                                    class="fa-solid fa-pen-to-square"
-                                                                    style="color: white;"></i></a>
-                                                            <a href="#" class="btn btn-danger" id="delete"><i
-                                                                    class="fa-solid fa-trash"></i></a>
-
-                                                        </td>
-                                                    </tr>
+                                                            <td>{{ $row->trainings_no_participants }}</td>
+                                                            <td>{{ $row->trainings_expenditures }}</td>
+                                                            <td>{{ $row->trainings_sof }}</td>
+                                                            <td>{{ $row->trainings_agency }}</td>
+                                                            <td class="action btns">
+                                                                <a class="btn btn-primary"
+                                                                    href="{{ url('edit-training/' . $row->id) }}"><i
+                                                                        class="fa-solid fa-pen-to-square"
+                                                                        style="color: white;"></i></a>
+                                                                <a href="{{ url('delete-training/' . $row->id) }}" class="btn btn-danger" id="delete"><i
+                                                                        class="fa-solid fa-trash"></i></a>
+                                                            </td>
+                                                        </tr>
+                                                    @endforeach
                                                 </tbody>
                                             </table>
                                             <a href="{{ url('cbg-index') }}" class="btn btn-default">Back</a>

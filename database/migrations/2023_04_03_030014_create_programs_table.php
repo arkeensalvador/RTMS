@@ -33,6 +33,8 @@ return new class extends Migration
             $table->string('amount_released')->nullable();
             $table->string('budget_year')->nullable();
             $table->string('form_of_development')->nullable();
+            /* The line `// Schema::dropIfExists('agency');` is commented out, which means it is not being
+            executed. */
             $table->timestamps();
         });
     }
@@ -41,6 +43,6 @@ return new class extends Migration
     */
     public function down(): void
     {
-        Schema::dropIfExists('programs');
+        // Schema::dropIfExists('programs');
     }
 };

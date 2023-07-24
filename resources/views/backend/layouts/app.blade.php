@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{{ $title }}</title>
-    <link rel="icon" href="{{ asset('backend/dist/img/favicon.ico') }}" type="image/x-icon"/>
+    <link rel="icon" href="{{ asset('backend/dist/img/favicon.ico') }}" type="image/x-icon" />
 
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet"
@@ -50,6 +50,9 @@
 
     {{-- DropZone --}}
     <link rel="stylesheet" href="{{ asset('backend/plugins/dropzone/min/dropzone.css') }}">
+
+    {{-- BS Tags input --}}
+    <link rel="stylesheet" href="{{ asset('backend/plugins/bs-tags-input/bootstrap-tagsinput.css') }}">
     {{-- <script>
         @if (Session::has('message'))
         var type="{{Session::get('alert-type','info')}}"
@@ -555,6 +558,9 @@
     {{-- dropzone --}}
     <script src="{{ asset('backend/plugins/dropzone/min/dropzone.min.js') }}"></script>
 
+    {{-- BS tags input --}}
+    <script src="{{ asset('backend/plugins/bs-tags-input/bootstrap-tagsinput.js') }}"></script>
+
 
 
 </body>
@@ -692,6 +698,16 @@
 </script>
 
 <script>
+    $(document).ready(function() {
+        $('.js-recipients').select2({
+            placeholder: 'Select recipients',
+            maximumSelectionLength: 2,
+            allowClear: true
+        });
+    });
+</script>
+
+<script>
     $(document).on("click", "#delete", function(e) {
         e.preventDefault();
         var link = $(this).attr("href");
@@ -749,7 +765,7 @@
             "autoWidth": false,
             "responsive": true,
         });
-        
+
         $("#aihrs").DataTable({
             "responsive": true,
             "lengthChange": false,
@@ -771,17 +787,17 @@
                     exportOptions: {
                         columns: ':visible'
                     }
-                },{
+                }, {
                     extend: 'csv',
                     exportOptions: {
                         columns: ':visible'
                     }
-                },{
+                }, {
                     extend: 'excel',
                     exportOptions: {
                         columns: ':visible'
                     }
-                },{
+                }, {
                     extend: 'pdf',
                     exportOptions: {
                         columns: ':visible'
@@ -793,10 +809,10 @@
                     }
                 }, "colvis"]
             },
-                columnDefs: [{
-                    targets: 0,
-                    visible: false
-                }]
+            columnDefs: [{
+                targets: 0,
+                visible: false
+            }]
 
             // "buttons": ["csv", "excel", "pdf", "print", "colvis"]
         }).buttons().container().appendTo('#accounts_wrapper .col-md-6:eq(0)');
@@ -813,12 +829,12 @@
                     exportOptions: {
                         columns: ':visible'
                     }
-                },{
+                }, {
                     extend: 'excel',
                     exportOptions: {
                         columns: ':visible'
                     }
-                },{
+                }, {
                     extend: 'pdf',
                     exportOptions: {
                         columns: ':visible'
@@ -830,10 +846,10 @@
                     }
                 }, "colvis"]
             },
-                columnDefs: [{
-                    targets: 0,
-                    visible: false
-                }]
+            columnDefs: [{
+                targets: 0,
+                visible: false
+            }]
 
             // "buttons": ["csv", "excel", "pdf", "print", "colvis"]
         }).buttons().container().appendTo('#projects_wrapper .col-md-6:eq(0)');
@@ -849,12 +865,12 @@
                     exportOptions: {
                         columns: ':visible'
                     }
-                },{
+                }, {
                     extend: 'excel',
                     exportOptions: {
                         columns: ':visible'
                     }
-                },{
+                }, {
                     extend: 'pdf',
                     exportOptions: {
                         columns: ':visible'
@@ -866,10 +882,10 @@
                     }
                 }, "colvis"]
             },
-                columnDefs: [{
-                    // targets: 0,
-                    visible: false
-                }]
+            columnDefs: [{
+                // targets: 0,
+                visible: false
+            }]
 
             // "buttons": ["csv", "excel", "pdf", "print", "colvis"]
         }).buttons().container().appendTo('#programs_wrapper .col-md-6:eq(0)');

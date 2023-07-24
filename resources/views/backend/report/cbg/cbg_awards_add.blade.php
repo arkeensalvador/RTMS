@@ -90,14 +90,14 @@
 
                         {{-- card body start --}}
                         <div class="card-body">
-                            <form role="form" id="regiration_form" action="#" method="POST"
+                            <form role="form" id="regiration_form" action="{{ url('add-award')}}" method="POST"
                                 enctype="multipart/form-data">
                                 @csrf
                                 <div class="row">
                                     <div class="col-sm-3">
                                         <div class="form-group">
                                             <label>Type of Award</label>
-                                            <select type="text" class="form-control" placeholder="Enter ...">
+                                            <select type="text" name="awards_type" class="form-control" placeholder="Enter ...">
                                                 <option value="Local">Local</option>
                                                 <option value="Regional">Regional</option>
                                                 <option value="National">National</option>
@@ -106,18 +106,20 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-sm-5">
+                                    <div class="col-sm-6">
                                         <div class="form-group">
                                             <label>Agency</label>
-                                            <select name="" id="" class="form-control">
-                                                <option value="">Agency 1</option>
-                                                <option value="">Agency 2</option>
-                                                <option value="">Agency 3</option>
-                                                <option value="">Agency 4</option>
+                                            <select name="awards_agency" id="" class="form-control">
+                                                <option></option>
+                                                @foreach ($agency as $key)
+                                                    <option value="{{ $key->abbrev }}">{{ $key->agency_name }} -
+                                                        ({{ $key->abbrev }})
+                                                        </b></option>
+                                                @endforeach
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="col-sm-2">
+                                    <div class="col-sm-3">
                                         <div class="form-group">
                                             <label>Date</label>
                                             <input type="date" class="form-control" placeholder="Enter ...">
@@ -126,7 +128,7 @@
                                 </div>
 
                                 <div class="row">
-                                    <div class="col-sm-10">
+                                    <div class="col-sm-12">
                                         <!-- textarea -->
                                         <div class="form-group">
                                             <label>Title of Activity/Training</label>
@@ -136,14 +138,19 @@
                                 </div>
 
                                 <div class="row">
-                                    <div class="col-sm-5">
+                                    <div class="col-sm-6">
                                         <div class="form-group">
                                             <label>Recipient(s)</label>
-                                            <input type="text" class="form-control" placeholder="Enter ...">
+                                            <select name="awards_recipients[]" id="" style="color: black;" class="form-control" multiple="multiple"> 
+                                                @foreach ($researchers as $row)
+                                                    <option value="{{ $row->name }}">{{ $row->name }}
+                                                        </option>
+                                                @endforeach
+                                            </select>
                                         </div>
                                     </div>
 
-                                    <div class="col-sm-5">
+                                    <div class="col-sm-6">
                                         <div class="form-group">
                                             <label>Sponsor</label>
                                             <input type="text" class="form-control" placeholder="Enter ..."
@@ -157,14 +164,24 @@
                                 </div>
 
                                 <div class="row">
-                                    <div class="col-sm-5">
+                                    <div class="col-sm-12">
+                                        <div class="form-group">
+                                            <label>TAGS</label>
+                                            <input type="text" class="form-control" style="color: black;" data-role="tagsinput" placeholder="Enter ...">
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="row">
+                                    <div class="col-sm-6">
                                         <div class="form-group">
                                             <label>Event/Activity</label>
                                             <input type="text" class="form-control" placeholder="Enter ...">
                                         </div>
                                     </div>
 
-                                    <div class="col-sm-5">
+                                    <div class="col-sm-6">
                                         <div class="form-group">
                                             <label>Place of Award</label>
                                             <input type="text" class="form-control" placeholder="Enter ...">
