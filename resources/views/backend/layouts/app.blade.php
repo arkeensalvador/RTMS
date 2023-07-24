@@ -587,7 +587,15 @@
 
     ni2.addEventListener("keyup", formatNumber);
 </script>
-
+<script>
+    $("form").bind("keypress", function (e) {
+    if (e.keyCode == 13) {
+        $("#submit").attr('value');
+        //add more buttons here
+        return false;
+    }
+});s
+</script>
 <script>
     $(document).ready(function() {
         $('.agency').select2({
@@ -701,7 +709,7 @@
     $(document).ready(function() {
         $('.js-recipients').select2({
             placeholder: 'Select recipients',
-            maximumSelectionLength: 2,
+            tags: true,
             allowClear: true
         });
     });

@@ -3,13 +3,13 @@
 } */
 
 td.action {
-    width: 8rem;
+    width: fit-content;
     overflow: hidden;
     /* display: inline-block; */
     white-space: nowrap;
 }
 td.action.btns {
-    width: 2rem;
+    width: 2rem !important;
     overflow: hidden;
     /* display: inline-block; */
     white-space: nowrap;
@@ -203,4 +203,29 @@ td.donor {
 
 .select2-container--default .select2-selection--multiple .select2-selection__choice {
     color: black;
+}
+
+.bootstrap-tagsinput .tag {
+    color: black !important;
+    background-color: #e4e4e4;
+    padding: 3px 7px;
+    border-radius: 5px;
+    border: 1px solid #aaa;
+    list-style: none;
+    padding: 0 5px;
+    margin-right: 5px;
+    margin-top: 5px;
+}
+.bootstrap-tagsinput {
+    width: 100%;
+}
+
+.bootstrap-tagsinput .tag [data-role="remove"] {
+    color: #999;
+    cursor: pointer;
+    font-weight: bold;
+    margin-right: 2px;
+    float: right;
+    margin-left: 5px;
+    visibility: hidden;
 }

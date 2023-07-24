@@ -90,14 +90,15 @@
 
                         {{-- card body start --}}
                         <div class="card-body">
-                            <form role="form" id="regiration_form" action="{{ url('add-award')}}" method="POST"
+                            <form role="form" id="regiration_form" action="{{ url('add-award') }}" method="POST"
                                 enctype="multipart/form-data">
                                 @csrf
                                 <div class="row">
                                     <div class="col-sm-3">
                                         <div class="form-group">
                                             <label>Type of Award</label>
-                                            <select type="text" name="awards_type" class="form-control" placeholder="Enter ...">
+                                            <select type="text" name="awards_type" class="form-control"
+                                                placeholder="Enter ...">
                                                 <option value="Local">Local</option>
                                                 <option value="Regional">Regional</option>
                                                 <option value="National">National</option>
@@ -109,7 +110,7 @@
                                     <div class="col-sm-6">
                                         <div class="form-group">
                                             <label>Agency</label>
-                                            <select name="awards_agency" id="" class="form-control">
+                                            <select name="awards_agency" id="" class="form-control agency">
                                                 <option></option>
                                                 @foreach ($agency as $key)
                                                     <option value="{{ $key->abbrev }}">{{ $key->agency_name }} -
@@ -122,7 +123,8 @@
                                     <div class="col-sm-3">
                                         <div class="form-group">
                                             <label>Date</label>
-                                            <input type="date" class="form-control" placeholder="Enter ...">
+                                            <input type="date" name="awards_date" class="form-control"
+                                                placeholder="Enter ...">
                                         </div>
                                     </div>
                                 </div>
@@ -132,7 +134,7 @@
                                         <!-- textarea -->
                                         <div class="form-group">
                                             <label>Title of Activity/Training</label>
-                                            <textarea class="form-control" rows="3" placeholder="Enter ..."></textarea>
+                                            <textarea class="form-control" name="awards_title" rows="3" placeholder="Enter ..."></textarea>
                                         </div>
                                     </div>
                                 </div>
@@ -141,20 +143,32 @@
                                     <div class="col-sm-6">
                                         <div class="form-group">
                                             <label>Recipient(s)</label>
-                                            <select name="awards_recipients[]" id="" style="color: black;" class="form-control" multiple="multiple"> 
+
+                                            <input type="text" name="awards_recipients[]" class="form-control js-recipients" data-role="tagsinput"
+                                                placeholder="Enter ..." list="funddtlist">
+                                            <datalist id="funddtlist">
                                                 @foreach ($researchers as $row)
                                                     <option value="{{ $row->name }}">{{ $row->name }}
-                                                        </option>
+                                                    </option>
                                                 @endforeach
-                                            </select>
+                                            </datalist>
+
+
+                                            {{-- <select name="awards_recipients[]" style="color: black;"
+                                                class="form-control js-recipients" multiple="multiple">
+                                                @foreach ($researchers as $row)
+                                                    <option value="{{ $row->name }}">{{ $row->name }}
+                                                    </option>
+                                                @endforeach
+                                            </select> --}}
                                         </div>
                                     </div>
 
                                     <div class="col-sm-6">
                                         <div class="form-group">
                                             <label>Sponsor</label>
-                                            <input type="text" class="form-control" placeholder="Enter ..."
-                                                list="sponsordtlist">
+                                            <input type="text" name="awards_sponsor" class="form-control"
+                                                placeholder="Enter ..." list="sponsordtlist">
                                             <datalist id="sponsordtlist">
                                                 <option value="DOST-PCAARRD"></option>
                                                 <option value="Department of Agriculture - Bayanihan Act"></option>
@@ -163,28 +177,32 @@
                                     </div>
                                 </div>
 
-                                <div class="row">
+
+                                {{-- (TAGS!) --}}
+                                {{-- <div class="row">
                                     <div class="col-sm-12">
                                         <div class="form-group">
                                             <label>TAGS</label>
-                                            <input type="text" class="form-control" style="color: black;" data-role="tagsinput" placeholder="Enter ...">
+                                            <input type="text" class="form-control" data-role="tagsinput" placeholder="Tags" >
                                         </div>
                                     </div>
-                                </div>
+                                </div> --}}
 
 
                                 <div class="row">
                                     <div class="col-sm-6">
                                         <div class="form-group">
                                             <label>Event/Activity</label>
-                                            <input type="text" class="form-control" placeholder="Enter ...">
+                                            <input type="text" name="awards_event" class="form-control"
+                                                placeholder="Enter ...">
                                         </div>
                                     </div>
 
                                     <div class="col-sm-6">
                                         <div class="form-group">
                                             <label>Place of Award</label>
-                                            <input type="text" class="form-control" placeholder="Enter ...">
+                                            <input type="text" name="awards_place" class="form-control"
+                                                placeholder="Enter ...">
                                         </div>
                                     </div>
                                 </div>

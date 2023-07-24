@@ -12,19 +12,20 @@ class AwardsController extends Controller
         date_default_timezone_set('Asia/Hong_Kong');
 
         $data = array();
-        $data['awards_sof'] = $request->awards_sof;
+        $data['awards_type'] = $request->awards_type;
         $data['awards_agency'] = $request->awards_agency;
         $data['awards_title'] = $request->awards_title;
-        $data['awards_expenditures'] = $request->awards_expenditures;
-        $data['awards_start'] = $request->awards_start;
-        $data['awards_end'] = $request->awards_end;
-        $data['awards_no_participants'] = $request->awards_no_participants;
+        $data['awards_date'] = $request->awards_date;
+        $data['awards_recipients'] = json_encode($request->awards_recipients);
+        $data['awards_sponsor'] = $request->awards_sponsor;
+        $data['awards_event'] = $request->awards_event;
+        $data['awards_place'] = $request->awards_place;
 
         $insert = DB::table('cbg_awards')->insert($data);
         if ($insert) {
 
             $notification = array(
-                'message' => 'Training/Workshop Successfully Added!',
+                'message' => 'Award Successfully Added!',
                 'alert-type' => 'success'
             );
 
@@ -51,19 +52,20 @@ class AwardsController extends Controller
         date_default_timezone_set('Asia/Hong_Kong');
 
         $data = array();
-        $data['awards_sof'] = $request->awards_sof;
+        $data['awards_type'] = $request->awards_type;
         $data['awards_agency'] = $request->awards_agency;
         $data['awards_title'] = $request->awards_title;
-        $data['awards_expenditures'] = $request->awards_expenditures;
-        $data['awards_start'] = $request->awards_start;
-        $data['awards_end'] = $request->awards_end;
-        $data['awards_no_participants'] = $request->awards_no_participants;
+        $data['awards_date'] = $request->awards_date;
+        $data['awards_recipients'] = json_encode($request->awards_recipients);
+        $data['awards_sponsor'] = $request->awards_sponsor;
+        $data['awards_event'] = $request->awards_event;
+        $data['awards_place'] = $request->awards_place;
         $data['updated_at'] = now();
 
         $update = DB::table('cbg_awards')->where('id', $id)->update($data);
         if ($update) {
             $notification = array(
-                'message' => 'Training/Workshop Successfully Updated!',
+                'message' => 'Award Successfully Updated!',
                 'alert-type' => 'success'
             );
 
@@ -82,7 +84,7 @@ class AwardsController extends Controller
         $delete = DB::table('cbg_awards')->where('id', $id)->delete();
         if ($delete) {
             $notification = array(
-                'message' => 'Training/Workshop Successfully Deleted!',
+                'message' => 'Award Successfully Deleted!',
                 'alert-type' => 'success'
             );
 

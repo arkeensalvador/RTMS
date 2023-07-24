@@ -229,7 +229,8 @@ class ReportController extends Controller
     public function cbgAwards()
     {
         $title = 'Awards | CBG';
-        return view('backend.report.cbg.cbg_awards', compact('title'));
+        $award = DB::table('cbg_awards')->get();
+        return view('backend.report.cbg.cbg_awards', compact('title','award'));
     }
 
     public function cbgEquipment()

@@ -208,8 +208,8 @@ Route::get('/delete-training/{id}', [App\Http\Controllers\backend\TrainingsContr
 // CBG Awards
 Route::post('/add-award', [App\Http\Controllers\backend\AwardsController::class, 'AddAward'])->name('AddAward');
 Route::get('/edit-award/{id}', [App\Http\Controllers\backend\AwardsController::class, 'EditAward'])->name('EditAward');
-Route::post('/update-award/{id}', [App\Http\Controllers\backend\AwardsController::class, 'UpdatedAward'])->name('UpdateAward');
-Route::get('/delete-award/{id}', [App\Http\Controllers\backend\AwardsController::class, 'DeletedAward'])->name('DeleteAward');
+Route::post('/update-award/{id}', [App\Http\Controllers\backend\AwardsController::class, 'UpdateAward'])->name('UpdateAward');
+Route::get('/delete-award/{id}', [App\Http\Controllers\backend\AwardsController::class, 'DeleteAward'])->name('DeleteAward');
 
 
 
