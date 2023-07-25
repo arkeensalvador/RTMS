@@ -90,8 +90,8 @@
 
                         {{-- card body start --}}
                         <div class="card-body">
-                            <form role="form" id="regiration_form" action="{{ url('add-award') }}" method="POST"
-                                enctype="multipart/form-data">
+                            <form role="form" id="regiration_form" action="{{ url('update-award/' . $all->id) }}"
+                                method="POST" enctype="multipart/form-data">
                                 @csrf
                                 <div class="row">
                                     <div class="col-sm-3">
@@ -99,10 +99,17 @@
                                             <label>Type of Award</label>
                                             <select type="text" name="awards_type" class="form-control"
                                                 placeholder="Enter ...">
-                                                <option value="Local">Local</option>
-                                                <option value="Regional">Regional</option>
-                                                <option value="National">National</option>
-                                                <option value="International">International</option>
+                                                <option value="Local" {{ 'Local' == $all->awards_type ? 'selected' : '' }}>
+                                                    Local</option>
+                                                <option value="Regional"
+                                                    {{ 'Regional' == $all->awards_type ? 'selected' : '' }}>Regional
+                                                </option>
+                                                <option value="National"
+                                                    {{ 'National' == $all->awards_type ? 'selected' : '' }}>National
+                                                </option>
+                                                <option value="International"
+                                                    {{ 'International' == $all->awards_type ? 'selected' : '' }}>
+                                                    International</option>
                                             </select>
                                         </div>
                                     </div>
@@ -113,7 +120,9 @@
                                             <select name="awards_agency" id="" class="form-control agency">
                                                 <option></option>
                                                 @foreach ($agency as $key)
-                                                    <option value="{{ $key->abbrev }}">{{ $key->agency_name }} -
+                                                    <option value="{{ $key->abbrev }}"
+                                                        {{ $key->abbrev == $all->awards_agency ? 'selected' : '' }}>
+                                                        {{ $key->agency_name }} -
                                                         ({{ $key->abbrev }})
                                                         </b></option>
                                                 @endforeach
@@ -123,8 +132,8 @@
                                     <div class="col-sm-3">
                                         <div class="form-group">
                                             <label>Date</label>
-                                            <input type="date" name="awards_date" class="form-control"
-                                                placeholder="Enter ...">
+                                            <input type="date" value="{{ $all->awards_date }}" name="awards_date"
+                                                class="form-control" placeholder="Enter ...">
                                         </div>
                                     </div>
                                 </div>
@@ -134,18 +143,21 @@
                                         <!-- textarea -->
                                         <div class="form-group">
                                             <label>Title of Activity/Training</label>
-                                            <textarea class="form-control" name="awards_title" rows="3" placeholder="Enter ..."></textarea>
+                                            <textarea class="form-control" name="awards_title" rows="3" placeholder="Enter ...">{{ $all->awards_title }}</textarea>
                                         </div>
                                     </div>
                                 </div>
+
+                                @php
+                                    $rec = json_decode($all->awards_recipients);
+                                @endphp
 
                                 <div class="row">
                                     <div class="col-sm-6">
                                         <div class="form-group">
                                             <label>Recipient(s)</label>
-
-                                            <input type="text" name="awards_recipients[]" class="form-control" data-role="tagsinput"
-                                                placeholder="Recipient(s)" list="funddtlist">
+                                            <input type="text" name="awards_recipients[]" class="form-control"
+                                                data-role="tagsinput" value="{{ implode(', ', $rec)  }}" placeholder="Recipient(s)" list="funddtlist">
                                             <datalist id="funddtlist">
                                                 @foreach ($researchers as $row)
                                                     <option value="{{ $row->name }}">{{ $row->name }}
@@ -168,7 +180,7 @@
                                         <div class="form-group">
                                             <label>Sponsor</label>
                                             <input type="text" name="awards_sponsor" class="form-control"
-                                                placeholder="Enter ..." list="sponsordtlist">
+                                                placeholder="Enter ..." value="{{ $all->awards_sponsor }}" list="sponsordtlist">
                                             <datalist id="sponsordtlist">
                                                 <option value="DOST-PCAARRD"></option>
                                                 <option value="Department of Agriculture - Bayanihan Act"></option>
@@ -193,7 +205,7 @@
                                     <div class="col-sm-6">
                                         <div class="form-group">
                                             <label>Event/Activity</label>
-                                            <input type="text" name="awards_event" class="form-control"
+                                            <input type="text" value="{{ $all->awards_event }}" name="awards_event" class="form-control"
                                                 placeholder="Enter ...">
                                         </div>
                                     </div>
@@ -201,14 +213,14 @@
                                     <div class="col-sm-6">
                                         <div class="form-group">
                                             <label>Place of Award</label>
-                                            <input type="text" name="awards_place" class="form-control"
+                                            <input type="text" name="awards_place" value="{{ $all->awards_place }}" class="form-control"
                                                 placeholder="Enter ...">
                                         </div>
                                     </div>
                                 </div>
 
                                 <a href="{{ url('cbg-awards') }}" class="btn btn-default">Back</a>
-                                <input type="submit" name="submit" class="submit btn btn-success" value="Submit" />
+                                <input type="submit" name="submit" class="submit btn btn-success" value="Update" />
                                 <!-- /.card-body -->
                         </div>
                         </form>

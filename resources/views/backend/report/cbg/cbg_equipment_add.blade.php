@@ -90,7 +90,7 @@
 
                         {{-- card body start --}}
                         <div class="card-body">
-                            <form role="form" id="regiration_form" action="#" method="POST"
+                            <form role="form" id="regiration_form" action="{{ url('add-equipment')}}" method="POST"
                                 enctype="multipart/form-data">
                                 @csrf
 
@@ -102,20 +102,20 @@
                                                     type="checkbox"
                                                     value="Regional
                                                     FIESTA"
-                                                    name="type[]" id="customCheckbox1">
+                                                    name="equipments_type[]" id="customCheckbox1">
                                                 <label for="customCheckbox1" class="custom-control-label">Regional
                                                     FIESTA</label>
                                             </div>
 
                                             <div class="custom-control custom-checkbox">
                                                 <input class="custom-control-input custom-control-input-success"
-                                                    type="checkbox" value="Fairs" name="type[]"
+                                                    type="checkbox" value="Fairs" name="equipments_type[]"
                                                     id="customCheckbox2">
                                                 <label for="customCheckbox2" class="custom-control-label">Fairs</label>
                                             </div>
                                             <div class="custom-control custom-checkbox">
                                                 <input class="custom-control-input custom-control-input-success"
-                                                    type="checkbox" value="Exhibits" name="type[]"
+                                                    type="checkbox" value="Exhibits" name="equipments_type[]"
                                                     id="customCheckbox3">
                                                 <label for="customCheckbox3" class="custom-control-label">Exhibits</label>
                                             </div>
@@ -125,14 +125,14 @@
                                     <div class="form-group">
                                         <div class="custom-control custom-checkbox">
                                             <input class="custom-control-input custom-control-input-success"
-                                                type="checkbox" value="Media Conference" name="type[]"
+                                                type="checkbox" value="Media Conference" name="equipments_type[]"
                                                 id="customCheckbox4">
                                             <label for="customCheckbox4" class="custom-control-label">Media
                                                 Conference</label>
                                         </div>
                                         <div class="custom-control custom-checkbox">
                                             <input class="custom-control-input custom-control-input-success"
-                                                type="checkbox" value="Farmers' Fora" name="type[]"
+                                                type="checkbox" value="Farmers' Fora" name="equipments_type[]"
                                                 id="customCheckbox5">
                                             <label for="customCheckbox5" class="custom-control-label">Farmers'
                                                 Fora</label>
@@ -141,27 +141,27 @@
                                 </div>
 
                                 <div class="row">
-                                    <div class="col-sm-5">
+                                    <div class="col-sm-6">
                                         <!-- textarea -->
                                         <div class="form-group">
                                             <label>Equipment Name</label>
-                                            <input type="text" class="form-control" placeholder="Enter ...">
+                                            <input type="text" name="equipments_name" class="form-control" placeholder="Enter ...">
                                         </div>
                                     </div>
 
-                                    <div class="col-sm-5">
+                                    <div class="col-sm-6">
                                         <div class="form-group">
                                             <label>Expenditures</label>
-                                            <input type="text" class="form-control" placeholder="Enter ...">
+                                            <input type="text" name="equipments_total" id="numin" class="form-control" placeholder="Enter ...">
                                         </div>
                                     </div>
                                 </div>
 
                                 <div class="row">
-                                    <div class="col-sm-5">
+                                    <div class="col-sm-6">
                                         <div class="form-group">
                                             <label>Source of Fund</label>
-                                            <input type="text" class="form-control" placeholder="Enter ..."
+                                            <input type="text" name="equipments_sof" class="form-control" placeholder="Enter ..."
                                                 list="funddtlist">
                                             <datalist id="funddtlist">
                                                 <option value="DOST-PCAARRD"></option>
@@ -170,15 +170,17 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-sm-5">
+                                    <div class="col-sm-6">
                                         <div class="form-group">
                                             <label>Agency</label>
-                                            <input type="text" class="form-control" placeholder="Enter ..."
-                                                list="agencydtlist">
-                                            <datalist id="sponsordtlist">
-                                                <option value="Agency 1"></option>
-                                                <option value="Agency 2"></option>
-                                            </datalist>
+                                            <select name="equipments_agency" id="" class="form-control agency">
+                                                <option></option>
+                                                @foreach ($agency as $key)
+                                                    <option value="{{ $key->abbrev }}">{{ $key->agency_name }} -
+                                                        ({{ $key->abbrev }})
+                                                        </b></option>
+                                                @endforeach
+                                            </select>
                                         </div>
                                     </div>
                                 </div>

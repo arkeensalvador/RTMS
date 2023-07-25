@@ -218,6 +218,7 @@ td.donor {
 }
 .bootstrap-tagsinput {
     width: 100%;
+    line-height: 27px !important;
 }
 
 .bootstrap-tagsinput .tag [data-role="remove"] {

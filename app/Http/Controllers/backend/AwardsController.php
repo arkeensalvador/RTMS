@@ -16,10 +16,11 @@ class AwardsController extends Controller
         $data['awards_agency'] = $request->awards_agency;
         $data['awards_title'] = $request->awards_title;
         $data['awards_date'] = $request->awards_date;
-        $data['awards_recipients'] = json_encode($request->awards_recipients);
         $data['awards_sponsor'] = $request->awards_sponsor;
         $data['awards_event'] = $request->awards_event;
         $data['awards_place'] = $request->awards_place;
+        $data['awards_recipients'] = htmlspecialchars_decode(json_encode($request->awards_recipients));
+        
 
         $insert = DB::table('cbg_awards')->insert($data);
         if ($insert) {
@@ -44,7 +45,8 @@ class AwardsController extends Controller
         $title = 'Awards | CBG';
         $all = DB::table('cbg_awards')->where('id', $id)->first();
         $agency = DB::table('agency')->get();
-        return view('backend.report.cbg.cbg_awards_edit', compact('title', 'all', 'agency'));
+        $researchers = DB::table('researchers')->get();
+        return view('backend.report.cbg.cbg_awards_edit', compact('title', 'all', 'agency','researchers'));
     }
 
     public function UpdateAward(Request $request, $id)
@@ -56,10 +58,10 @@ class AwardsController extends Controller
         $data['awards_agency'] = $request->awards_agency;
         $data['awards_title'] = $request->awards_title;
         $data['awards_date'] = $request->awards_date;
-        $data['awards_recipients'] = json_encode($request->awards_recipients);
         $data['awards_sponsor'] = $request->awards_sponsor;
         $data['awards_event'] = $request->awards_event;
         $data['awards_place'] = $request->awards_place;
+        $data['awards_recipients'] = htmlspecialchars_decode(json_encode($request->awards_recipients));
         $data['updated_at'] = now();
 
         $update = DB::table('cbg_awards')->where('id', $id)->update($data);

@@ -66,18 +66,20 @@
                                                                     $award = json_decode($row->awards_recipients);
                                                                 @endphp
                                                                 {{ implode(', ', $award) }}
-                                                                 / {{ $row->awards_agency }}
+                                                                / {{ $row->awards_agency }}
                                                             </td>
                                                             <td>{{ $row->awards_sponsor }}</td>
                                                             <td>{{ $row->awards_event }}</td>
                                                             <td>{{ $row->awards_place }}</td>
-                                                            <td>{{ date('F, Y', strtotime($row->awards_date)) ?: 'Not Set' }}</td>
+                                                            <td>{{ date('F, Y', strtotime($row->awards_date)) ?: 'Not Set' }}
+                                                            </td>
                                                             <td class="action">
                                                                 <a class="btn btn-primary"
                                                                     href="{{ url('edit-award/' . $row->id) }}"><i
                                                                         class="fa-solid fa-pen-to-square"
                                                                         style="color: white;"></i></a>
-                                                                <a href="{{ url('delete-award/' . $row->id) }}" class="btn btn-danger" id="delete"><i
+                                                                <a href="{{ url('delete-award/' . $row->id) }}"
+                                                                    class="btn btn-danger" id="delete"><i
                                                                         class="fa-solid fa-trash"></i></a>
                                                             </td>
                                                         </tr>

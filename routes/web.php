@@ -211,6 +211,11 @@ Route::get('/edit-award/{id}', [App\Http\Controllers\backend\AwardsController::c
 Route::post('/update-award/{id}', [App\Http\Controllers\backend\AwardsController::class, 'UpdateAward'])->name('UpdateAward');
 Route::get('/delete-award/{id}', [App\Http\Controllers\backend\AwardsController::class, 'DeleteAward'])->name('DeleteAward');
 
+// CBG Expenditures
+Route::post('/add-equipment', [App\Http\Controllers\backend\EquipmentController::class, 'AddEquipment'])->name('AddEquipment');
+Route::get('/edit-equipment/{id}', [App\Http\Controllers\backend\EquipmentController::class, 'EditEquipment'])->name('EditEquipment');
+Route::post('/update-equipment/{id}', [App\Http\Controllers\backend\EquipmentController::class, 'UpdateEquipment'])->name('UpdateEquipment');
+Route::get('/delete-equipment/{id}', [App\Http\Controllers\backend\EquipmentController::class, 'DeleteEquipment'])->name('DeleteEquipment');
 
 
 

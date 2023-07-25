@@ -236,7 +236,8 @@ class ReportController extends Controller
     public function cbgEquipment()
     {
         $title = 'Equipments | CBG';
-        return view('backend.report.cbg.cbg_equipment', compact('title'));
+        $equipment = DB::table('cbg_equipments')->get();
+        return view('backend.report.cbg.cbg_equipment', compact('title', 'equipment'));
     }
 
     public function cbgTrainingAdd()
@@ -257,7 +258,8 @@ class ReportController extends Controller
     public function cbgEquipmentAdd()
     {
         $title = 'Equipments | CBG';
-        return view('backend.report.cbg.cbg_equipment_add', compact('title'));
+        $agency = DB::table('agency')->get();
+        return view('backend.report.cbg.cbg_equipment_add', compact('title', 'agency'));
     }
 
 
