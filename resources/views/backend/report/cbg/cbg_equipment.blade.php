@@ -67,7 +67,7 @@
                                                             <td>{{ $row->equipments_sof }}</td>
                                                             <td>{{ $row->equipments_agency }}</td>
                                                             <td class="action btns">
-                                                                <a class="btn btn-primary" href="#"><i
+                                                                <a class="btn btn-primary" href="{{ url('edit-equipment/'.$row->id)}}"><i
                                                                         class="fa-solid fa-pen-to-square"
                                                                         style="color: white;"></i></a>
                                                                 <a href="{{ url('delete-equipment/' . $row->id) }}"

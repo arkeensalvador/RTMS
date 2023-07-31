@@ -3,7 +3,7 @@
 } */
 
 td.action {
-    width: fit-content;
+    width: 3rem !important;
     overflow: hidden;
     /* display: inline-block; */
     white-space: nowrap;

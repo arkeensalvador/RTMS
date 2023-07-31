@@ -13,7 +13,8 @@
                             <li class="breadcrumb-item"><a href="home">Home</a></li>
                             <li class="breadcrumb-item"><a href="report-index">Reports</a></li>
                             <li class="breadcrumb-item"><a href="rdmc-index">RDMC</a></li>
-                            <li class="breadcrumb-item"><a href="rdmc-monitoring-evaluation">Monitoring and Evaluation</a></li>
+                            <li class="breadcrumb-item"><a href="rdmc-monitoring-evaluation">Monitoring and Evaluation</a>
+                            </li>
                             <li class="breadcrumb-item active">Projects</li>
                         </ol>
                     </div><!-- /.col -->
@@ -70,8 +71,7 @@
                                                         <th>#</th>
                                                         <th>Fund Code</th>
                                                         <th>Project Title</th>
-                                                        <th>Start Date</th>
-                                                        <th>End Date</th>
+                                                        <th>Duration</th>
                                                         <th>Extend Date</th>
                                                         <th>Leader</th>
                                                         <th>Status</th>
@@ -79,51 +79,39 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <tr>
-                                                        <td>1</td>
-                                                        <td># 417-002</td>
-                                                        <td>Pilot Testing on the Use of Nanogold-based DNA Probe Rapid
-                                                            Detection Kit for Aeromonas hydrophila</td>
-                                                        <td>1/1/2021</td>
-                                                        <td>12/31/2022</td>
-                                                        <td>No data</td>
-                                                        <td>Maria Excelsis M. Orden</td>
-                                                        <td>New</td>
-                                                        <td class="action">
-                                                            <a class="btn btn-primary" href="#"><i
-                                                                    class="fa-solid fa-pen-to-square"
-                                                                    style="color: white;"></i></a>
-                                                            <a class="btn btn-warning"
-                                                                href="{{ URL::to('/add-program-personnel-index/') }}">
-                                                                <i class="fa-solid fa-user-plus"></i>
-                                                            </a>
-                                                            <a href="#" class="btn btn-danger" id="delete"><i
-                                                                    class="fa-solid fa-trash"></i></a>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>2</td>
-                                                        <td># 417-107</td>
-                                                        <td>Increasing Productivity and income from Crop Production in
-                                                            Marginalized Farms in Zambales through Promotion and Adoption of
-                                                            Appropriate Technologies</td>
-                                                        <td>10/1/2018</td>
-                                                        <td>11/30/2019</td>
-                                                        <td>12/31/2019</td>
-                                                        <td>Constancia C. Dacumos</td>
-                                                        <td>On-going</td>
-                                                        <td class="action">
-                                                            <a class="btn btn-primary" href="#"><i
-                                                                    class="fa-solid fa-pen-to-square"
-                                                                    style="color: white;"></i></a>
-                                                            <a href="#" class="btn btn-danger" id="delete"><i
-                                                                    class="fa-solid fa-trash"></i></a>
-
-                                                        </td>
-                                                    </tr>
+                                                    @foreach ($projects as $key => $row)
+                                                        <tr>
+                                                            <td>{{ $key + 1 }}</td>
+                                                            <td>{{ $row->project_fund_code }}</td>
+                                                            <td>{{ $row->project_title }}</td>
+                                                            <td>{{ date('F, Y', strtotime($row->project_start_date)) ?: 'Not Set' }}
+                                                                -
+                                                                @if ($row->project_extend_date)
+                                                                    {{ date('F, Y', strtotime($row->project_extend_date)) ?: 'Not Set' }}
+                                                                @else
+                                                                    {{ date('F, Y', strtotime($row->project_end_date)) ?: 'Not Set' }}
+                                                                @endif
+                                                            </td>
+                                                            <td>{{ $row->project_extend_date }}</td>
+                                                            <td>{{ $row->project_leader }}</td>
+                                                            <td>{{ $row->project_status }}</td>
+                                                            <td class="action">
+                                                                <a class="btn btn-primary" href="#"><i
+                                                                        class="fa-solid fa-pen-to-square"
+                                                                        style="color: white;"></i></a>
+                                                                <a class="btn btn-warning"
+                                                                    href="{{ URL::to('/add-program-personnel-index/') }}">
+                                                                    <i class="fa-solid fa-user-plus"></i>
+                                                                </a>
+                                                                <a href="#" class="btn btn-danger" id="delete"><i
+                                                                        class="fa-solid fa-trash"></i></a>
+                                                            </td>
+                                                        </tr>
+                                                    @endforeach
                                                 </tbody>
                                             </table>
-                                            <a href="{{ url('rdmc-monitoring-evaluation') }}" class="btn btn-default">Back</a>
+                                            <a href="{{ url('rdmc-monitoring-evaluation') }}"
+                                                class="btn btn-default">Back</a>
                                         </div>
                                     </div>
                                 </div>

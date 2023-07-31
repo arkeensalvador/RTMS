@@ -16,21 +16,23 @@ return new class extends Migration
             $table->string('programID')->nullable();
             // $table->string('projectID')->nullable();
             $table->string('agencyID')->nullable();
-            $table->string('fund_code')->nullable();
-            $table->string('category')->nullable();
+            $table->string('project_fund_code')->nullable();
+            $table->string('project_category')->nullable();
             $table->string('project_status')->nullable();
-            $table->string('agency')->nullable();
-            $table->string('funding_duration')->nullable();
-            $table->string('funding_years')->nullable();
+            $table->string('project_agency')->nullable();
+            $table->string('project_funding_duration')->nullable();
+            $table->string('project_funding_years')->nullable();
             $table->text('project_title')->nullable();
-            $table->string('start_date')->nullable();
-            $table->string('end_date')->nullable();
-            $table->string('extend_date')->nullable();
+            $table->string('project_leader')->nullable();
+            $table->string('project_assistant_leader')->nullable();
+            $table->string('project_start_date')->nullable();
+            $table->string('project_end_date')->nullable();
+            $table->string('project_extend_date')->nullable();
             $table->text('project_description')->nullable();
-            $table->string('approved_budget')->nullable();
-            $table->string('amount_released')->nullable();
-            $table->string('budget_year')->nullable();
-            $table->string('form_of_development')->nullable();
+            $table->string('project_approved_budget')->nullable();
+            $table->string('project_amount_released')->nullable();
+            $table->string('project_budget_year')->nullable();
+            $table->string('project_form_of_development')->nullable();
             $table->timestamps();
         });
     }
@@ -41,6 +43,6 @@ return new class extends Migration
     public function down(): void
     {
         //
-        // Schema::dropIfExists('projects');
+        Schema::dropIfExists('projects');
     }
 };

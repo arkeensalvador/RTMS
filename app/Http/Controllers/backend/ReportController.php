@@ -40,7 +40,8 @@ class ReportController extends Controller
     public function rdmcProjects()
     {
         $title = 'Projects | RDMC';
-        return view('backend.report.rdmc.rdmc_projects', compact('title'));
+        $projects = DB::table('projects')->get();
+        return view('backend.report.rdmc.rdmc_projects', compact('title','projects'));
     }
 
     public function rdmcProgramsIndex()
@@ -90,8 +91,9 @@ class ReportController extends Controller
     public function projectsUnderProgramAdd($programID)
     {
         $title = 'Program - projects | RDMC';
+        $agency = DB::table('agency')->get();
         $program = DB::table('programs')->where('programID', $programID)->first();
-        return view('backend.report.rdmc.rdmc_projects_under_program_add', compact('program'));
+        return view('backend.report.rdmc.rdmc_projects_under_program_add', compact('program','title','agency'));
     }
     public function subProjectsAdd()
     {
@@ -285,45 +287,5 @@ class ReportController extends Controller
             );
         }
         return back()->with($notification);
-    }
-
-    public function AddProjects(Request $request)
-    {
-        date_default_timezone_set('Asia/Hong_Kong');
-
-        $data = array();
-        $data['programID'] = $request->programID;
-        $data['agencyID'] = $request->agencyID;
-        $data['fund_code'] = $request->fund_code;
-        $data['project_title'] = $request->project_title;
-        $data['project_status'] = $request->project_status;
-        $data['category'] = $request->project_category;
-        // $data['funding_agency'] = $request->funding_agency;
-        $data['start_date'] = $request->start_date;
-        $data['end_date'] = $request->end_date;
-        $data['extend_date'] = $request->extend_date;
-        $data['project_description'] = $request->project_description;
-        $data['approved_budget'] = $request->approved_budget;
-        $data['amount_released'] = $request->amount_released;
-        $data['budget_year'] = $request->budget_year;
-        $data['form_of_development'] = $request->form_of_development;
-        $data['created_at'] = now();
-
-        $insert = DB::table('projects')->insert($data);
-        if ($insert) {
-
-            $notification = array(
-                'message' => 'Project Successfully Added!',
-                'alert-type' => 'project'
-            );
-
-            return redirect()->route('rdmcProjects')->with($notification);
-        } else {
-            $notification = array(
-                'message' => 'Something is wrong, please try again!',
-                'alert-type' => 'error'
-            );
-            return redirect()->route('rdmcProjects')->with($notification);
-        }
     }
 }

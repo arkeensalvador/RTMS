@@ -682,13 +682,26 @@
                 break;
 
             case 'project':
-                Swal.fire({
+            Swal.fire({
                     icon: 'success',
                     title: "{{ Session::get('message') }}",
-                    timerProgressBar: true,
-                    showConfirmButton: false,
-                    timer: 900
-                })
+                    text: 'Are there any studies/sub-projects associated with this Project?',
+                    // type: 'success',
+                    showCancelButton: true,
+                    confirmButtonText: 'Yes',
+                    cancelButtonText: 'None',
+                    allowEscapeKey: false,
+                    allowOutsideClick: false,
+                    reverseButtons: true
+                }).then((result) => {
+                    if (result.value) {
+                        window.location.href = 'rdmc-projects';
+                    }
+                    // else {
+                    //     window.location.href = 'projects-add';
+                    // }
+                });
+
                 // toastr.success("{{ Session::get('message') }}");
                 break;
         }

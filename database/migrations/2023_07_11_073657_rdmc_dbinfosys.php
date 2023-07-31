@@ -27,6 +27,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        // Schema::dropIfExists('rdmc_dbinfosys');
+        /* The line `// Schema::dropIfExists('rdmc_dbinfosys');` is commented out, which means it is
+        not currently being executed. */
+        Schema::dropIfExists('rdmc_dbinfosys');
     }
 };
