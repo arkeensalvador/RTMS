@@ -215,8 +215,9 @@ class ProgramsController extends Controller
             ->first();
 
         $documents = DB::table('program_files')->where('programID', $programID)->get();
+        $upload_files = DB::table('files')->where('programID', $programID)->get();
 
-        return view('backend.programs.view_program_index', compact('program', 'agency', 'personnels', 'documents', 'program_leader', 'title'));
+        return view('backend.programs.view_program_index', compact('program', 'agency', 'personnels', 'documents', 'program_leader', 'title','upload_files'));
     }
 
     public function EditProgramIndex($programID)

@@ -102,14 +102,14 @@
                                     <div class="row">
                                         <div class="col-md-12">
                                             <div class="form-group">
-                                                <label>Program Staff(s)</label>
+                                                <label>Project Staff(s)</label>
                                                 <table class="table table-append" id="dynamicAddRemove">
                                                     <tr>
                                                         <td class="append">
                                                             <input type="text" class="form-control"
-                                                                name="moreFields[0][programID]"
-                                                                value="{{ Route::input('programID') }}"
-                                                                placeholder="Program ID" hidden readonly required
+                                                                name="moreFields[0][projectID]"
+                                                                value="{{ Route::input('id') }}"
+                                                                placeholder="Project ID" hidden readonly required
                                                                 autocomplete="false">
 
                                                             <input type="text" class="form-control"
@@ -163,7 +163,7 @@
             $("#dynamicAddRemove").append(`
             <tr>
                 <td class="append">
-                    <input type="text" class="form-control" name="moreFields[` + i + `][programID]" value="{{ Route::input('programID') }}" 
+                    <input type="text" class="form-control" name="moreFields[` + i + `][projectID]" value="{{ Route::input('id') }}" 
                     placeholder="Program ID" hidden readonly required autocomplete="false">
                     <input type="text" class="form-control" placeholder="Staff" name="moreFields[` + i + `][staff_name]">
                 </td>

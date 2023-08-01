@@ -46,7 +46,6 @@ class FileUpload extends Controller
                 'file_name' => $fileName,
                 'file_path' => $filePath,
                 'programID' => $req->programID,
-                
             ];
 
             $upload_files = File::create($upload);

@@ -90,7 +90,7 @@
                         {{-- card body start --}}
                         <div class="card-body">
                             <form action="{{ URL::to('/upload-file')}}" method="post" enctype="multipart/form-data">
-                                <h5 class="text-center mb-3">Upload File in Laravel</h5>
+                                <h5 class="text-center mb-3">Upload</h5>
                                 @csrf
                                 @if (count($errors) > 0)
                                     <div class="alert alert-danger">

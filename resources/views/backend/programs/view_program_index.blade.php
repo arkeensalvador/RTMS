@@ -67,7 +67,8 @@
                                                         @else
                                                             {{ date('F, Y', strtotime($program->start_date)) }}
                                                             -
-                                                            <label for="" style="color: red">{{ date('F, Y', strtotime($program->extend_date)) }}</label>
+                                                            <label for=""
+                                                                style="color: red">{{ date('F, Y', strtotime($program->extend_date)) }}</label>
                                                         @endempty
 
                                                     </span>
@@ -95,52 +96,28 @@
                                                         {{ $program->assistant_leader }}
                                                     </b>
                                                 </p>
-
                                                 <p class="text-m">Program Staffs
                                                     @foreach ($personnels as $personnel)
                                                         <b class="d-block">{{ $personnel->staff_name }}</b>
                                                     @endforeach
                                                 </p>
                                             </div>
-
-                                            <h5 class="mt-5 text-muted">Program files</h5>
+                                            <hr>
+                                            <div class="text-m text-muted">Program files</div>
                                             <ul class="list-unstyled">
-                                                @foreach ($documents as $key => $items)
+                                                @foreach ($upload_files as $key => $items)
                                                     <li>
                                                         <a href="{{ url('download/' . $items->id) }}"
                                                             class="btn-link text-secondary"><i
                                                                 class="far fa-fw fa-file-pdf"></i>{{ $items->file_name }}</a>
                                                     </li>
                                                 @endforeach
-                                                <li>
-                                                    <a href="" class="btn-link text-secondary"><i
-                                                            class="far fa-fw fa-file-word"></i>
-                                                        Functional-requirements.docx</a>
-                                                </li>
-                                                <li>
-                                                    <a href="" class="btn-link text-secondary"><i
-                                                            class="far fa-fw fa-file-pdf"></i>
-                                                        UAT.pdf</a>
-                                                </li>
-                                                <li>
-                                                    <a href="" class="btn-link text-secondary"><i
-                                                            class="far fa-fw fa-envelope"></i>
-                                                        Email-from-flatbal.mln</a>
-                                                </li>
-                                                <li>
-                                                    <a href="" class="btn-link text-secondary"><i
-                                                            class="far fa-fw fa-image "></i>
-                                                        Logo.png</a>
-                                                </li>
-                                                <li>
-                                                    <a href="" class="btn-link text-secondary"><i
-                                                            class="far fa-fw fa-file-word"></i>
-                                                        Contract-10_12_2014.docx</a>
-                                                </li>
                                             </ul>
                                             <div class="text-center mt-5 mb-3">
-                                                <a href="{{ url("upload-program-files-index/$program->programID") }}" class="btn btn-sm btn-primary">Add files</a>
-                                                <a href="#" class="btn btn-sm btn-warning">Report contact</a>
+                                                <a href="{{ url('rdmc-programs') }}"
+                                                    class="btn btn previous btn btn-default">Back</a>
+                                                <a href="{{ url("upload-file/$program->programID") }}"
+                                                    class="btn btn btn-primary">Add files</a>
                                             </div>
                                         </div>
                                     </div>

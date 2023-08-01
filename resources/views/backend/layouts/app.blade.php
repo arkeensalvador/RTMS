@@ -588,13 +588,14 @@
     ni2.addEventListener("keyup", formatNumber);
 </script>
 <script>
-    $("form").bind("keypress", function (e) {
-    if (e.keyCode == 13) {
-        $("#submit").attr('value');
-        //add more buttons here
-        return false;
-    }
-});s
+    $("form").bind("keypress", function(e) {
+        if (e.keyCode == 13) {
+            $("#submit").attr('value');
+            //add more buttons here
+            return false;
+        }
+    });
+    s
 </script>
 <script>
     $(document).ready(function() {
@@ -682,7 +683,7 @@
                 break;
 
             case 'project':
-            Swal.fire({
+                Swal.fire({
                     icon: 'success',
                     title: "{{ Session::get('message') }}",
                     text: 'Are there any studies/sub-projects associated with this Project?',
@@ -707,7 +708,13 @@
         }
     @endif
 </script>
-
+<script>
+    $('#chooseFile').change(function() {
+        var i = $(this).prev('label').clone();
+        var file = $('#file-upload')[0].files[0].name;
+        $(this).prev('label').text(file);
+    });
+</script>
 <script>
     $(document).ready(function() {
         var stepper = new Stepper($('.bs-stepper')[0])
