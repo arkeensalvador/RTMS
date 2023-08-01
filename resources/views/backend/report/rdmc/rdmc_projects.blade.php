@@ -96,14 +96,35 @@
                                                             <td>{{ $row->project_leader }}</td>
                                                             <td>{{ $row->project_status }}</td>
                                                             <td class="action">
-                                                                <a class="btn btn-primary" href="#"><i
-                                                                        class="fa-solid fa-pen-to-square"
-                                                                        style="color: white;"></i></a>
-                                                                <a class="btn btn-warning"
-                                                                    href="{{ URL::to('/add-program-personnel-index/') }}">
-                                                                    <i class="fa-solid fa-user-plus"></i>
-                                                                </a>
-                                                                <a href="#" class="btn btn-danger" id="delete"><i
+                                                                <span title="View">
+                                                                    <a class="btn btn-info"
+                                                                        href="{{ url("view-project-index/$row->id") }}"><i
+                                                                            class="fa-solid fa-eye"
+                                                                            style="color: white;"></i></a>
+                                                                </span>
+
+                                                                <span title="Edit">
+                                                                    <a class="btn btn-primary"
+                                                                        href="{{ url("edit-project/$row->id") }}"><i
+                                                                            class="fa-solid fa-pen-to-square"
+                                                                            style="color: white;"></i></a>
+                                                                </span>
+
+                                                                <span title="Upload">
+                                                                    <a class="btn btn-secondary"
+                                                                        href="{{ url("upload-file/$row->id") }}"><i
+                                                                            class="fa-solid fa-file-circle-plus"></i></a>
+                                                                </span>
+
+                                                                <span title="Staffs">
+                                                                    <a class="btn btn-warning"
+                                                                        href="{{ URL::to('/add-project-personnel/' . $row->id) }}">
+                                                                        <i class="fa-solid fa-user-plus"></i>
+                                                                    </a>
+                                                                </span>
+
+                                                                <a href="{{ URL::to('/delete-project/' . $row->id) }}"
+                                                                    class="btn btn-danger" id="delete"><i
                                                                         class="fa-solid fa-trash"></i></a>
                                                             </td>
                                                         </tr>

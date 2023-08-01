@@ -54,6 +54,12 @@ class ProjectController extends Controller
         }
     }
 
+    public function InsertProjectsPersonnelIndex()
+    {
+        $title = 'Project Staff | RDMC';
+        return view('backend.projects.add_project_personnel', compact('title'));
+    }
+
     public function DeleteProject($id)
     {
         $delete = DB::table('projects')->where('id', $id)->delete();
