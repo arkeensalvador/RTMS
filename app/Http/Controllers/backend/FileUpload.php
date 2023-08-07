@@ -4,6 +4,7 @@ namespace App\Http\Controllers\backend;
 
 use App\Http\Controllers\Controller;
 use Carbon\Carbon;
+use Google\Service\Docs\Resource\Documents;
 use Illuminate\Http\Request;
 use App\Models\File;
 use DB;
@@ -37,7 +38,7 @@ class FileUpload extends Controller
         if ($req->file()) {
             
             $fileName = $req->file->getClientOriginalName();
-            $filePath = $req->file('file')->storeAs($folder_name . "/" . $agency_folder, $fileName);
+            $filePath = $req->file('file')->storeAs($folder_name, $fileName);
 
             $fileModel->file_name = $req->file->getClientOriginalName();
             $fileModel->file_path = '/storage/' . $filePath;
@@ -73,10 +74,34 @@ class FileUpload extends Controller
         return Response::download($file_path);
     }
     
+    // public function DeleteFile($id)
+    // {
+    //     $delete = DB::table('files')->where('id', $id)->delete();
+    //     if ($delete) {
+    //         $notification = array(
+    //             'message' => 'File Successfully Deleted!',
+    //             'alert-type' => 'success'
+    //         );
+    //         return redirect()->back()->with($notification);
+    //     } else {
+    //         $notification = array(
+    //             'message' => 'Something is wrong, please try again!',
+    //             'alert-type' => 'error'
+    //         );
+    //         return redirect()->back()->with($notification);
+    //     }
+    // }
+
     public function DeleteFile($id)
     {
         $delete = DB::table('files')->where('id', $id)->delete();
+        $deleteFile = DB::table('files')->where('id', $id)->first();
+        // $fileName = DB::table('files')->select('file_name')->where('id', $id)->first();
+
+        
         if ($delete) {
+            Storage::disk('local')->delete($deleteFile->file_name);
+
             $notification = array(
                 'message' => 'File Successfully Deleted!',
                 'alert-type' => 'success'
