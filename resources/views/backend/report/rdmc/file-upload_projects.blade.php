@@ -89,7 +89,7 @@
                         </div>
                         {{-- card body start --}}
                         <div class="card-body">
-                            <form action="{{ URL::to('/upload-file') }}" method="post" enctype="multipart/form-data">
+                            <form action="{{ URL::to('/project-upload-file') }}" method="post" enctype="multipart/form-data">
                                 <h5 class="text-center mb-3">Upload</h5>
                                 @csrf
                                 @if (count($errors) > 0)
@@ -102,8 +102,11 @@
                                     </div>
                                 @endif
                                 <input type="text" class="form-control" name="programID"
-                                    value="{{ $program->programID }}" placeholder="Program ID" hidden readonly required
+                                    value="{{ $project->programID }}" placeholder="Program ID" hidden readonly required
                                     autocomplete="false">
+
+                                <input type="text" class="form-control" name="projectID" value="{{ $project->id }}"
+                                    placeholder="Project ID" hidden readonly required autocomplete="false">
 
                                 <input type="text" class="form-control" name="uploader_agency"
                                     value="{{ auth()->user()->agencyID }}" placeholder="Program ID" hidden readonly required

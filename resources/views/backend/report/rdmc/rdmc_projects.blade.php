@@ -112,7 +112,7 @@
 
                                                                 <span title="Upload">
                                                                     <a class="btn btn-secondary"
-                                                                        href="{{ url("upload-file/$row->id") }}"><i
+                                                                        href="{{ url("project-upload-file/$row->id") }}"><i
                                                                             class="fa-solid fa-file-circle-plus"></i></a>
                                                                 </span>
 
