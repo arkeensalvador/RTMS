@@ -114,20 +114,21 @@ class FileUpload extends Controller
                 'subprojectID' => $request->subprojectID
             ];
             
-            $upload_files = File::create($upload);
-
-            if ($upload_files) {
-                $notification = array(
-                    'message' => 'File Successfully Uploaded!',
-                    'alert-type' => 'success'
-                );
-                return back()->with($notification);
-            } else {
+            if (Storage::disk('local')->exists($agency_folder."/".$fileName)) {
                 $notification = array(
                     'message' => 'Something is wrong, please try again!',
                     'alert-type' => 'error'
                 );
                 return back()->with($notification);
+            } else {
+                $upload_files = File::create($upload);
+                if ($upload_files) {
+                    $notification = array(
+                        'message' => 'File Successfully Uploaded!',
+                        'alert-type' => 'success'
+                    );
+                    return back()->with($notification);
+                } 
             }
         }
     }
