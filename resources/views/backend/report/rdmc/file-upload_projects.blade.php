@@ -78,7 +78,7 @@
     <div class="content-wrapper">
         <section class="content">
             <div class="row files">
-                <div class="col-lg-5">
+                <div class="col-lg-7">
 
                     {{-- card start --}}
                     <div class="strategic card">
@@ -110,6 +110,10 @@
 
                                 <input type="text" class="form-control" name="uploader_agency"
                                     value="{{ auth()->user()->agencyID }}" placeholder="Program ID" hidden readonly required
+                                    autocomplete="false">
+
+                                <input type="text" class="form-control" name="type"
+                                    value="project" placeholder="Type" hidden readonly required
                                     autocomplete="false">
 
                                 <div class="custom-file">

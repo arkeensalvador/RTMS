@@ -50,7 +50,7 @@ class FileUpload extends Controller
 
             $uploader_agency = $request->uploader_agency;
             $fileName = $request->file->getClientOriginalName();
-            $filePath = $request->file('file')->storeAs($folder_name . "/" . $agency_folder, $fileName);
+            $filePath = $request->file('file')->storeAs($folder_name . "/" . $agency_folder . "/" . "Program", $fileName);
 
             $fileModel->file_name = $request->file->getClientOriginalName();
             $fileModel->file_path = '/storage/' . $filePath;
@@ -60,6 +60,7 @@ class FileUpload extends Controller
                 'file_path' => $filePath,
                 'uploader_agency' => $uploader_agency,
                 'programID' => $request->programID,
+                'type' => $request->type,
                 'projectID' => $request->projectID,
                 'subprojectID' => $request->subprojectID
             ];
@@ -100,7 +101,7 @@ class FileUpload extends Controller
         if ($request->file()) {
 
             $fileName = $request->file->getClientOriginalName();
-            $filePath = $request->file('file')->storeAs($folder_name . "/" . $agency_folder, $fileName);
+            $filePath = $request->file('file')->storeAs($folder_name . "/" . $agency_folder . "/" . "Project", $fileName);
 
             $fileModel->file_name = $request->file->getClientOriginalName();
             $fileModel->file_path = '/storage/' . $filePath;
@@ -110,6 +111,7 @@ class FileUpload extends Controller
                 'file_path' => $filePath,
                 'uploader_agency' => $request->uploader_agency,
                 'programID' => $request->programID,
+                'type' => $request->type,
                 'projectID' => $request->projectID,
                 'subprojectID' => $request->subprojectID
             ];
@@ -130,7 +132,7 @@ class FileUpload extends Controller
                 }
             }
         }
-    }
+
 
     public function download($id)
     {

@@ -277,11 +277,11 @@ class ProgramsController extends Controller
             return redirect()->route('rdmcProgramsIndex')->with($notification);
         }
     }
-    public function UploadProgramFilesIndex($programID)
+    public function UploadProgramFilesIndex($id)
     {
         $title = 'Programs | RTMS';
-        $program = DB::table('programs')->where('programID', $programID)->first();
-        $upload_files = DB::table('program_files')->where('programID', $programID)->get();
+        $program = DB::table('programs')->where('id', $id)->first();
+        $upload_files = DB::table('program_files')->where('id', $id)->get();
         return view('backend.programs.upload_program_files', compact('program', 'upload_files', 'title'));
     }
 

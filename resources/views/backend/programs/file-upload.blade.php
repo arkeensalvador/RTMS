@@ -109,8 +109,11 @@
                                     value="{{ auth()->user()->agencyID }}" placeholder="Program ID" hidden readonly required
                                     autocomplete="false">
 
+                                <input type="text" class="form-control" name="type" value="program" placeholder="Type"
+                                    hidden readonly required autocomplete="false">
+
                                 <div class="custom-file">
-                                    <input type="file" class="form-control" name="file" id="chooseFile" required>
+                                    <input type="file" class="form-control" name="file" multiple id="chooseFile" required>
                                     <label class="custom-file-label" for="chooseFile">Select file</label>
                                 </div>
                                 <button type="submit" name="submit" class="btn btn-primary btn-block mt-4">
