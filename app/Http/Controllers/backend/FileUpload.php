@@ -113,22 +113,21 @@ class FileUpload extends Controller
                 'projectID' => $request->projectID,
                 'subprojectID' => $request->subprojectID
             ];
-            
-            if (Storage::disk('local')->exists($agency_folder."/".$fileName)) {
-                $notification = array(
-                    'message' => 'Something is wrong, please try again!',
-                    'alert-type' => 'error'
-                );
-                return back()->with($notification);
-            } else {
-                $upload_files = File::create($upload);
+
+            $upload_files = File::create($upload);
                 if ($upload_files) {
                     $notification = array(
                         'message' => 'File Successfully Uploaded!',
                         'alert-type' => 'success'
                     );
                     return back()->with($notification);
-                } 
+                } else {
+                    $notification = array(
+                        'message' => 'Something is wrong, please try again!',
+                        'alert-type' => 'error'
+                    );
+                    return back()->with($notification);
+                }
             }
         }
     }
@@ -164,7 +163,7 @@ class FileUpload extends Controller
         $agency_folder = auth()->user()->agencyID;
 
         if ($file) {
-            $deletefile = Storage::disk('uploads')->delete($agency_folder."/".$file->file_name);
+            $deletefile = Storage::disk('uploads')->delete($agency_folder . "/" . $file->file_name);
             if ($deletefile) {
                 DB::table('files')->where('id', $id)->delete();
             }
