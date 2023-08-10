@@ -37,9 +37,11 @@
                                         Swal.fire({
                                             icon: 'info',
                                             title: 'Is your project under a program?',
+                                            showCloseButton: true,
+                                            showDenyButton: true,
                                             confirmButtonText: 'Yes',
-                                            cancelButtonText: 'No',
-                                            showCancelButton: true,
+                                            denyButtontext: 'No',
+                                            // showCancelButton: true,
                                             reverseButtons: true,
                                             buttons: true,
                                             allowEscapeKey: false,
@@ -49,7 +51,7 @@
                                             var link= $(this).attr('href');
                                             if (result.isConfirmed) {
                                                 window.location.href = 'rdmc-choose-program';
-                                            } else if (result.isDismissed){
+                                            } else if (result.isDenied){
                                                 window.location.href = link;
                                             }
                                         }); ">
@@ -72,7 +74,7 @@
                                                         <th>Fund Code</th>
                                                         <th>Project Title</th>
                                                         <th>Duration</th>
-                                                        <th>Extend Date</th>
+                                                        {{-- <th>Extend Date</th> --}}
                                                         <th>Leader</th>
                                                         <th>Status</th>
                                                         <th>Action</th>
@@ -92,7 +94,7 @@
                                                                     {{ date('F, Y', strtotime($row->project_end_date)) ?: 'Not Set' }}
                                                                 @endif
                                                             </td>
-                                                            <td>{{ $row->project_extend_date }}</td>
+                                                            {{-- <td>{{ $row->project_extend_date }}</td> --}}
                                                             <td>{{ $row->project_leader }}</td>
                                                             <td>{{ $row->project_status }}</td>
                                                             <td class="action">
@@ -103,12 +105,21 @@
                                                                             style="color: white;"></i></a>
                                                                 </span>
 
-                                                                <span title="Edit">
-                                                                    <a class="btn btn-primary"
-                                                                        href="{{ url("edit-project/$row->id") }}"><i
-                                                                            class="fa-solid fa-pen-to-square"
-                                                                            style="color: white;"></i></a>
-                                                                </span>
+                                                                @if (empty($row->programID))
+                                                                    <span title="Edit">
+                                                                        <a class="btn btn-primary"
+                                                                            href="{{ url("edit-no-program-project/$row->id") }}"><i
+                                                                                class="fa-solid fa-pen-to-square"
+                                                                                style="color: white;"></i></a>
+                                                                    </span>
+                                                                @else
+                                                                    <span title="Edit">
+                                                                        <a class="btn btn-primary"
+                                                                            href="{{ url("edit-project/$row->id") }}"><i
+                                                                                class="fa-solid fa-pen-to-square"
+                                                                                style="color: white;"></i></a>
+                                                                    </span>
+                                                                @endif
 
                                                                 <span title="Upload">
                                                                     <a class="btn btn-secondary"

@@ -31,10 +31,10 @@
                                                 <div class="info-box-content">
                                                     <span class="info-box-text text-center text-muted">Program Budget</span>
                                                     <span class="info-box-number text-center text-muted mb-0">
-                                                        @empty($program->budget)
+                                                        @empty($program->amount_released)
                                                             -
                                                         @else
-                                                            {{ $program->budget }}
+                                                            {{ $program->amount_released }}
                                                         @endempty
                                                     </span>
                                                 </div>

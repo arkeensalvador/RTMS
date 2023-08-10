@@ -65,6 +65,7 @@ Route::post('insert-projects', [App\Http\Controllers\backend\ProjectController::
 Route::get('/add-sub-projects/{funding_agency}', [App\Http\Controllers\backend\ProjectController::class, 'InsertSubProjects'])->name('InsertSubProjects');
 // Route::get('/add-personnel-index/{id}', [App\Http\Controllers\backend\ProjectController::class, 'InsertProjectsPersonnelIndex'])->name('InsertProjectsPersonnelIndex');
 Route::post('insert-projects-personnel', [App\Http\Controllers\backend\ProjectController::class, 'InsertProjectsPersonnel'])->name('InsertProjectsPersonnel');
+Route::get('/delete-staff/{id}', [App\Http\Controllers\backend\ProjectController::class, 'DeleteStaff'])->name('DeleteStaff');
 
 // New project index
 Route::get('/index-projects', [App\Http\Controllers\backend\AddProject::class, 'AllProjectsInfo'])->name('AllProjectsInfo');
@@ -74,11 +75,12 @@ Route::get('/index-projects', [App\Http\Controllers\backend\AddProject::class, '
 Route::post('update-program/{programID}', [\App\Http\Controllers\backend\ProgramsController::class, 'UpdateProgram'])->name('UpdateProgram');
 Route::get('/edit-program-index/{programID}', [\App\Http\Controllers\backend\ProgramsController::class, 'EditProgramIndex'])->name('EditProgramIndex');
 Route::get('/delete-program/{id}', [App\Http\Controllers\backend\ProgramsController::class, 'DeleteProgram'])->name('DeleteProgram');
-
+ 
 // Add Program Personnel
 Route::post('/add-program-personnel', [\App\Http\Controllers\backend\ProgramsController::class, 'AddProgramPersonnel'])->name('AddProgramPersonnel');
 // Route::post('/add-program-personnel', [\App\Http\Controllers\backend\ReportController::class, 'AddProgramPersonnel'])->name('AddProgramPersonnel');
 Route::get('/add-program-personnel-index/{programID}', [\App\Http\Controllers\backend\ProgramsController::class, 'AddProgramPersonnelsIndex'])->name('AddProgramPersonnelsIndex');
+Route::post('/staff/multi-delete', [ProjectController::class, 'multiDelete'])->name('posts.multi-delete');
 
 // Program Details Route
 Route::get('view-program-index/{programID}', [\App\Http\Controllers\backend\ProgramsController::class, 'ViewProgramIndex'])->name('ViewProgramIndex');
@@ -120,7 +122,7 @@ Route::get('/program-projects-add', [App\Http\Controllers\backend\ReportControll
 Route::get('/projects-u-program-add/{programID}', [App\Http\Controllers\backend\ReportController::class, 'projectsUnderProgramAdd'])->name('projectsUnderProgramAdd');
 Route::get('/sub-projects-add', [App\Http\Controllers\backend\ReportController::class, 'subProjectsAdd'])->name('subProjectsAdd');
 Route::get('/rdmc-create-program', [App\Http\Controllers\backend\ReportController::class, 'rdmcCreateProgram'])->name('rdmcCreateProgram');
-Route::get('/projects-add-no-program', [App\Http\Controllers\backend\ReportController::class, 'projectsAddNoProgram'])->name('projectsAddNoProgram');
+Route::get('/edit-no-program-project/{id}', [App\Http\Controllers\backend\ProjectController::class, 'EditNoProgramProjectIndex'])->name('EditNoProgramProjectIndex');
 Route::get('/rdmc-choose-program', [App\Http\Controllers\backend\ReportController::class, 'rdmcChooseProgram'])->name('rdmcChooseProgram');
 Route::get('/aihrs', [App\Http\Controllers\backend\ReportController::class, 'aihrsIndex'])->name('aihrsIndex');
 Route::get('/rdmc-linkages-index', [App\Http\Controllers\backend\ReportController::class, 'linkagesIndex'])->name('linkagesIndex');
@@ -231,8 +233,5 @@ Route::post('/add-equipment', [App\Http\Controllers\backend\EquipmentController:
 Route::get('/edit-equipment/{id}', [App\Http\Controllers\backend\EquipmentController::class, 'EditEquipment'])->name('EditEquipment');
 Route::post('/update-equipment/{id}', [App\Http\Controllers\backend\EquipmentController::class, 'UpdateEquipment'])->name('UpdateEquipment');
 Route::get('/delete-equipment/{id}', [App\Http\Controllers\backend\EquipmentController::class, 'DeleteEquipment'])->name('DeleteEquipment');
-
-
-
 
 

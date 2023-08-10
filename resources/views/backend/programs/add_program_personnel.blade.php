@@ -112,8 +112,7 @@
                                                                 placeholder="Program ID" hidden readonly required
                                                                 autocomplete="false">
 
-                                                            <input type="text" class="form-control"
-                                                                placeholder="Staff"
+                                                            <input type="text" class="form-control" placeholder="Staff"
                                                                 name="moreFields[0][staff_name]" autocomplete="false">
                                                         </td>
 
@@ -128,8 +127,12 @@
                                     </div>
 
                                     {{-- <div class="card-footer"> --}}
+                                    @if (Route::is('AddProgramPersonnelsIndex'))
                                         <a href="{{ url('rdmc-programs') }}" class="btn btn-default">Back</a>
-                                        <button type="submit" name="submit" class="next btn btn-info">Submit</button>
+                                    @else
+                                        <a href="{{ url('rdmc-projects') }}" class="btn btn-default">Back</a>
+                                    @endif
+                                    <button type="submit" name="submit" class="next btn btn-info">Submit</button>
                                     {{-- </div> --}}
                                 </fieldset>
 
@@ -137,13 +140,14 @@
                             </form>
 
                         </div> {{-- card body end --}}
-                </div>{{-- card end --}}
-            </div>
-            <div class="col-lg-1">
-            </div>
-    </div>
 
-    </section>
+                    </div>{{-- card end --}}
+
+                </div>
+                <div class="col-lg-1">
+                </div>
+            </div>
+        </section>
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
 

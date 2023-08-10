@@ -108,12 +108,10 @@
                                                         <td class="append">
                                                             <input type="text" class="form-control"
                                                                 name="moreFields[0][projectID]"
-                                                                value="{{ Route::input('id') }}"
-                                                                placeholder="Project ID" hidden readonly required
-                                                                autocomplete="false">
+                                                                value="{{ Route::input('id') }}" placeholder="Project ID"
+                                                                hidden readonly required autocomplete="false">
 
-                                                            <input type="text" class="form-control"
-                                                                placeholder="Staff"
+                                                            <input type="text" class="form-control" placeholder="Staff"
                                                                 name="moreFields[0][staff_name]" autocomplete="false">
                                                         </td>
 
@@ -128,8 +126,12 @@
                                     </div>
 
                                     {{-- <div class="card-footer"> --}}
+                                    @if (Route::is('AddProgramPersonnelsIndex'))
                                         <a href="{{ url('rdmc-programs') }}" class="btn btn-default">Back</a>
-                                        <button type="submit" name="submit" class="next btn btn-info">Submit</button>
+                                    @else
+                                        <a href="{{ url('rdmc-projects') }}" class="btn btn-default">Back</a>
+                                    @endif
+                                    <button type="submit" name="submit" class="next btn btn-info">Submit</button>
                                     {{-- </div> --}}
                                 </fieldset>
 
@@ -137,13 +139,58 @@
                             </form>
 
                         </div> {{-- card body end --}}
-                </div>{{-- card end --}}
-            </div>
-            <div class="col-lg-1">
-            </div>
-    </div>
+                    </div>{{-- card end --}}
 
-    </section>
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="card-title">
+                                Staff(s)
+                            </h5>
+                        </div>
+
+                        {{-- card body start --}}
+                        <div class="card-body">
+                            <fieldset>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            {{-- <label>Project Staff(s)</label> --}}
+                                            <table class="table table-striped ">
+                                                <tr>
+
+                                                    <th>Name</th>
+                                                    <th>Action</th>
+                                                </tr>
+                                                @foreach ($personnel as $staff)
+                                                    <tr>
+                                                        <td>
+                                                            {{ $staff->staff_name }}
+                                                        </td>
+                                                        <td style="" class="action btns">
+                                                            <a href="{{ URL::to('/delete-staff/' . $staff->id) }}"
+                                                                class="btn btn-sm btn-danger">Delete</a>
+                                                        </td>
+                                                    </tr>
+                                                @endforeach
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                            </fieldset>
+
+
+                            </form>
+
+                        </div> {{-- card body end --}}
+                    </div>{{-- card end --}}
+                </div>
+                <div class="col-lg-1">
+                </div>
+            </div>
+
+        </section>
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
 
