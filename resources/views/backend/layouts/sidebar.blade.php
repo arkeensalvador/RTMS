@@ -144,8 +144,8 @@
                     </ul>
                 </li> --}}
                 <li class="nav-item">
-                    <a href="#"
-                        class="nav-link">
+                    <a href="{{ URL::to('report-list')}}"
+                        class="nav-link {{ Request::is('report-list') ? 'active' : '' }}">
                         <i class="nav-icon fa-solid fa-list-ul"></i>
                         <p>
                             List of Reports

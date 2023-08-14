@@ -39,6 +39,8 @@
 
     <link rel="stylesheet" href="{{ asset('backend/plugins/bs-stepper/css/bs-stepper.min.css') }}">
 
+    <link rel="stylesheet" href="{{ asset('backend/plugins/chart.js/Chart.css') }}">
+
     {{-- iCheck --}}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/icheck-bootstrap/3.0.1/icheck-bootstrap.min.css"
         integrity="sha512-8vq2g5nHE062j3xor4XxPeZiPjmRDh6wlufQlfC6pdQ/9urJkU07NM0tEREeymP++NczacJ/Q59ul+/K2eYvcg=="
@@ -545,7 +547,7 @@
 
     {{-- Dropzone --}}
     <script src="{{ asset('backend/plugins/dropzone/min/dropzone.css') }}"></script>
-
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <!-- ChartJS -->
     <script src="{{ asset('backend/plugins/chart.js/Chart.min.js') }}"></script>
@@ -560,7 +562,6 @@
 
     {{-- BS tags input --}}
     <script src="{{ asset('backend/plugins/bs-tags-input/bootstrap-tagsinput.js') }}"></script>
-
 
 
 </body>
@@ -664,9 +665,10 @@
                     title: "{{ Session::get('message') }}",
                     text: 'Are there any Project associated with this Program?',
                     // type: 'success',
-                    showCancelButton: true,
+                    showDenyButton: true,
+                    showCloseButton: true,
                     confirmButtonText: 'Yes',
-                    cancelButtonText: 'None',
+                    denyButtontext: 'No',
                     allowEscapeKey: false,
                     allowOutsideClick: false,
                     reverseButtons: true
@@ -972,7 +974,5 @@
         }
     });
 </script>
-
-
 
 </html>

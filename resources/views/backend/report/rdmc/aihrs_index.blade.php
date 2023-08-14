@@ -56,10 +56,10 @@
                                                 </thead>
                                                 <tbody>
                                                     <tr>
-                                                        <th>{{ $new }}</th>
-                                                        <th>{{ $ongoing }}</th>
-                                                        <th>{{ $completed }}</th>
-                                                        <th>{{ $terminated }}</th>
+                                                        <th>{{ $new + $new_proj}}</th>
+                                                        <th>{{ $ongoing + $ongoing_proj }}</th>
+                                                        <th>{{ $completed + $completed_proj }}</th>
+                                                        <th>{{ $terminated + $terminated_proj }}</th>
                                                     </tr>
                                                 </tbody>
                                             </table>

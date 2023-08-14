@@ -234,4 +234,7 @@ Route::get('/edit-equipment/{id}', [App\Http\Controllers\backend\EquipmentContro
 Route::post('/update-equipment/{id}', [App\Http\Controllers\backend\EquipmentController::class, 'UpdateEquipment'])->name('UpdateEquipment');
 Route::get('/delete-equipment/{id}', [App\Http\Controllers\backend\EquipmentController::class, 'DeleteEquipment'])->name('DeleteEquipment');
 
+// Report List
+Route::get('/report-list', [App\Http\Controllers\backend\ReportListController::class, 'reportListIndex'])->name('reportListIndex');
+
 
