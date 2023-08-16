@@ -23,13 +23,13 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $title = 'Home';
+        $title = 'Dashboard';
         $all = DB::table('agency')
         ->join('users', 'users.agencyID', '=', 'agency.id')
         ->select('users.*', 'agency.*')
         ->get();
 
-        $title = 'List of Reports | RTMS';
+        // $title = 'List of Reports | RTMS';
         $new = DB::table('programs')->where('program_status', '=', 'new')->pluck('program_status')->count();
         $ongoing = DB::table('programs')->where('program_status', '=', 'on-going')->pluck('program_status')->count();
         $terminated = DB::table('programs')->where('program_status', '=', 'terminated')->pluck('program_status')->count();

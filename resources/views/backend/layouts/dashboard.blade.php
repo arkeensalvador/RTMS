@@ -136,12 +136,12 @@
                                     <div class="col-md-6">
                                         <div class="card card-success" >
                                             <div class="card-header" style="background-color: #74c023;">
-                                                <h3 class="card-title">AIHRs</h3>
+                                                <h3 class="card-title">Awards</h3>
                                             </div>
                                             <div class="col-md-12">
                                                 <div class="card-body">
                                                     <div class="chart">
-                                                        <canvas id="myChart"></canvas>
+                                                        <canvas id="myChart2"></canvas>
                                                     </div>
                                                 </div>
                                             </div>
@@ -241,6 +241,7 @@
 
         new Chart(ctx, {
             type: 'bar',
+            labels: ['New', 'Ongoing', 'Terminated', 'Completed'],
             data: {
                 labels: ['New', 'Ongoing', 'Terminated', 'Completed'],
                 datasets: [{
