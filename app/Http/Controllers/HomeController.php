@@ -51,8 +51,14 @@ class HomeController extends Controller
         $total_ongoing = $ongoing + $ongoing_proj;
         $total_terminated = $terminated + $terminated_proj;
         $total_completed = $completed + $completed_proj;
+
+
+        $awards = DB::table('cbg_awards')->get();
+        $awards_count = DB::table('cbg_awards')->count();
         return view('backend.layouts.dashboard', ['total_new' => $total_new, 'total_ongoing' => $total_ongoing, 'total_terminated' => $total_terminated, 'total_completed' => $total_completed, 'list' => $list], compact('all','title'));
     }
+
+
 
     
 }
