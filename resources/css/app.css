@@ -15,6 +15,10 @@ td.action.btns {
     white-space: nowrap;
 }
 
+input.form-control.fileupload {
+    height: calc(2.6rem + 2px);
+}
+
 .content-wrapper {
     padding-top: 1rem;
 }

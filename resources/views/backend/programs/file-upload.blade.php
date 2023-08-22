@@ -1,5 +1,8 @@
 @extends('backend.layouts.app')
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
 @section('content')
+
     <style>
         .radio-input input {
             display: none;
@@ -78,7 +81,7 @@
     <div class="content-wrapper">
         <section class="content">
             <div class="row files">
-                <div class="col-lg-5">
+                <div class="col-lg-7">
 
                     {{-- card start --}}
                     <div class="strategic card">
@@ -90,7 +93,7 @@
                         {{-- card body start --}}
                         <div class="card-body">
                             <form action="{{ URL::to('/upload-file') }}" method="post" enctype="multipart/form-data">
-                                <h5 class="text-center mb-3">Upload</h5>
+                                {{-- <h5 class="text-center mb-3">Upload</h5> --}}
                                 @csrf
                                 @if (count($errors) > 0)
                                     <div class="alert alert-danger">
@@ -101,21 +104,90 @@
                                         </ul>
                                     </div>
                                 @endif
-                                <input type="text" class="form-control" name="programID"
-                                    value="{{ $program->programID }}" placeholder="Program ID" hidden readonly required
-                                    autocomplete="false">
 
-                                <input type="text" class="form-control" name="uploader_agency"
-                                    value="{{ auth()->user()->agencyID }}" placeholder="Program ID" hidden readonly required
-                                    autocomplete="false">
+                                <div class="form-group row">
+                                    <input type="text" class="form-control" name="programID"
+                                        value="{{ $program->programID }}" placeholder="Program ID" hidden readonly required
+                                        autocomplete="false">
 
-                                <input type="text" class="form-control" name="type" value="program" placeholder="Type"
-                                    hidden readonly required autocomplete="false">
+                                    <input type="text" class="form-control" name="uploader_agency"
+                                        value="{{ auth()->user()->agencyID }}" placeholder="Program ID" hidden readonly
+                                        required autocomplete="false">
 
-                                <div class="custom-file">
-                                    <input type="file" class="form-control" name="file" multiple id="chooseFile" required>
-                                    <label class="custom-file-label" for="chooseFile">Select file</label>
+                                    <input type="text" class="form-control" name="type" value="program"
+                                        placeholder="Type" hidden readonly required autocomplete="false">
+
+                                    {{-- file input 1 --}}
+                                    <label for="">Memorandum of Agreement</label>
+                                    <div class="input-group mb-3">
+                                        <input type="file" class="form-control" disabled id="file-input1"
+                                            name="file_moa">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">
+                                                <input type="checkbox" id="filecheck" onclick="enableCreateUser()">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    {{-- file input 2 --}}
+                                    <label for="">Line Item Budget</label>
+                                    <div class="input-group mb-3">
+                                        <input type="file" class="form-control" disabled id="file-input2"
+                                            name="file_lib">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">
+                                                <input type="checkbox" id="filecheck2" onclick="enableCreateUser()">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    {{-- file input 3 --}}
+                                    <label for="">Notice to Proceed</label>
+                                    <div class="input-group mb-3">
+                                        <input type="file" class="form-control" disabled id="file-input3"
+                                            name="file_ntp">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">
+                                                <input type="checkbox" id="filecheck3" onclick="enableCreateUser()">
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    {{-- file input 4 --}}
+                                    <label for="">Terminal Report</label>
+                                    <div class="input-group mb-3">
+                                        <input type="file" class="form-control" disabled id="file-input4" name="file_tr">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">
+                                                <input type="checkbox" id="filecheck4" onclick="enableCreateUser()">
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    {{-- file input 5 --}}
+                                    <div class="input-group mb-3">
+                                        <input type="file" class="form-control" multiple disabled id="file-input5"
+                                            name="files[]">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">
+                                                <input type="checkbox" id="filecheck5" onclick="enableCreateUser()">
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
+
+                                {{-- <div class="custom-file">
+                                    <label for="formFile" class="form-label">Default file input example</label>
+                                    <input class="form-control" name="file" type="file" id="formFile">
+                                </div> --}}
+
+                                {{-- <div class="custom-file">
+                                    <input type="file" class="form-control" name="file" multiple id="chooseFile"
+                                        required>
+                                    <label class="custom-file-label" for="chooseFile">Select file</label>
+                                </div> --}}
                                 <button type="submit" name="submit" class="btn btn-primary btn-block mt-4">
                                     Upload File
                                 </button>
@@ -144,15 +216,15 @@
                                                 <td><a
                                                         href="{{ url('download/' . $items->id) }}">{{ $items->file_name }}</a>
                                                 </td>
-                                                <td>{{ $items->created_at }}</td>
+
+                                                <td>{{ date('F d, Y - h:i A', strtotime($items->created_at)) }}</td>
+
                                                 <td><a href="{{ URL::to('/delete-file/' . $items->id) }}"
                                                         class="btn btn-sm btn-danger" id="delete">Delete</a></td>
                                             </tr>
                                         @endforeach
                                     </tbody>
                                 </table>
-
-
                             </div>
                         </div>
                     </div>
@@ -163,31 +235,39 @@
 
 
     <script>
-        document.getElementById('value-1').onchange = function() {
-            document.getElementById('file-upload1').disabled = !this.checked;
-        };
-        document.getElementById('value-2').onchange = function() {
-            document.getElementById('file-upload1').disabled = this.checked;
-        };
+        function enableCreateUser() {
+            // file input 1
+            if (document.getElementById("filecheck").checked) {
+                document.getElementById("file-input1").disabled = false;
+            } else {
+                document.getElementById("file-input1").disabled = true;
+            }
+            // file input 2
+            if (document.getElementById("filecheck2").checked) {
+                document.getElementById("file-input2").disabled = false;
+            } else {
+                document.getElementById("file-input2").disabled = true;
+            }
+            // file input 3
+            if (document.getElementById("filecheck3").checked) {
+                document.getElementById("file-input3").disabled = false;
+            } else {
+                document.getElementById("file-input3").disabled = true;
+            }
+            // file input 4
+            if (document.getElementById("filecheck4").checked) {
+                document.getElementById("file-input4").disabled = false;
+            } else {
+                document.getElementById("file-input4").disabled = true;
+            }
+            // file input 5
+            if (document.getElementById("filecheck5").checked) {
+                document.getElementById("file-input5").disabled = false;
+            } else {
+                document.getElementById("file-input5").disabled = true;
+            }
 
-        document.getElementById('value-3').onchange = function() {
-            document.getElementById('file-upload2').disabled = !this.checked;
-        };
-        document.getElementById('value-4').onchange = function() {
-            document.getElementById('file-upload2').disabled = this.checked;
-        };
-        document.getElementById('value-5').onchange = function() {
-            document.getElementById('file-upload3').disabled = !this.checked;
-        };
-        document.getElementById('value-6').onchange = function() {
-            document.getElementById('file-upload3').disabled = this.checked;
-        };
-        document.getElementById('value-7').onchange = function() {
-            document.getElementById('file-upload4').disabled = !this.checked;
-        };
-        document.getElementById('value-8').onchange = function() {
-            document.getElementById('file-upload4').disabled = this.checked;
-        };
+        }
     </script>
 
 

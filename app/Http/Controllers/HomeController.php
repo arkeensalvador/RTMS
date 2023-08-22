@@ -58,7 +58,8 @@ class HomeController extends Controller
         return view('backend.layouts.dashboard', ['total_new' => $total_new, 'total_ongoing' => $total_ongoing, 'total_terminated' => $total_terminated, 'total_completed' => $total_completed, 'list' => $list], compact('all','title'));
     }
 
-
+    // DASHBOARD COUNT
+    
 
     
 }

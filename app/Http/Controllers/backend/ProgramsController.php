@@ -215,7 +215,7 @@ class ProgramsController extends Controller
             ->first();
 
         $documents = DB::table('program_files')->where('programID', $programID)->get();
-        $upload_files = DB::table('files')->where('programID', $programID)->get();
+        $upload_files = DB::table('files')->where('programID', $programID)->orderByDesc("created_at")->get();
 
         return view('backend.programs.view_program_index', compact('program', 'agency', 'personnels', 'documents', 'program_leader', 'title','upload_files'));
     }
