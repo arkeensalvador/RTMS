@@ -1,8 +1,10 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use DB;
 use Illuminate\Http\Request;
+use App\Http\Controllers\UserController;
 
 class HomeController extends Controller
 {
@@ -25,14 +27,14 @@ class HomeController extends Controller
     {
         $title = 'Dashboard';
         $all = DB::table('agency')
-        ->join('users', 'users.agencyID', '=', 'agency.id')
-        ->select('users.*', 'agency.*')
-        ->get();
+            ->join('users', 'users.agencyID', '=', 'agency.id')
+            ->select('users.*', 'agency.*')
+            ->get();
 
         // $title = 'List of Reports | RTMS';
         $new = DB::table('programs')->where('program_status', '=', 'new')->pluck('program_status')->count();
         $ongoing = DB::table('programs')->where('program_status', '=', 'on-going')->pluck('program_status')->count();
-        $terminated = DB::table('programs')->where('program_status', '=', 'terminated')->pluck('program_status')->count();
+        $terminated = \Illuminate\Support\Facades\DB::table('programs')->where('program_status', '=', 'terminated')->pluck('program_status')->count();
         $completed = DB::table('programs')->where('program_status', '=', 'completed')->pluck('program_status')->count();
         // Project
         $new_proj = DB::table('projects')->where('project_status', '=', 'new')->pluck('project_status')->count();
@@ -40,10 +42,9 @@ class HomeController extends Controller
         $terminated_proj = DB::table('projects')->where('project_status', '=', 'terminated')->pluck('project_status')->count();
         $completed_proj = DB::table('projects')->where('project_status', '=', 'completed')->pluck('project_status')->count();
 
-        // $agency = DB::table('agency')->get()->pluck("abbrev");
         $data = DB::table('agency')->get();
 
-        foreach($data as $agency) {
+        foreach ($data as $agency) {
             $list[] = $agency->abbrev;
         }
 
@@ -53,13 +54,30 @@ class HomeController extends Controller
         $total_completed = $completed + $completed_proj;
 
 
-        $awards = DB::table('cbg_awards')->get();
-        $awards_count = DB::table('cbg_awards')->count();
-        return view('backend.layouts.dashboard', ['total_new' => $total_new, 'total_ongoing' => $total_ongoing, 'total_terminated' => $total_terminated, 'total_completed' => $total_completed, 'list' => $list], compact('all','title'));
+
+        // $awards_count = DB::table('cbg_awards')->count();
+
+
+        $data = DB::table('users')->select(DB::raw("COUNT(*) as count"), DB::raw("MONTHNAME(created_at) as month_name"))
+            ->whereYear('created_at', date('Y'))
+            ->groupBy('month_name')
+            ->orderBy('count')
+            ->get();
+
+        $datas = DB::table('cbg_awards')->select(DB::raw("COUNT(*) as count"),DB::raw("awards_agency as agency"))
+            ->groupBy('awards_agency')
+            ->orderBy('count')
+            ->get();
+
+
+        return view('backend.layouts.dashboard', [
+            'total_new' => $total_new, 'total_ongoing' => $total_ongoing, 'total_terminated' => $total_terminated,
+            'total_completed' => $total_completed, 'list' => $list
+        ], compact('all', 'title', 'data', 'datas'));
     }
 
     // DASHBOARD COUNT
-    
 
-    
+
+
 }

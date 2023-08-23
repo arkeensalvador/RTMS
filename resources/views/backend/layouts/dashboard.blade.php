@@ -119,7 +119,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-md-6">
-                                        <div class="card card-success" >
+                                        <div class="card card-success">
                                             <div class="card-header" style="background-color: #74c023;">
                                                 <h3 class="card-title">AIHRs</h3>
                                             </div>
@@ -134,104 +134,104 @@
                                         </div>
                                     </div>
                                     <div class="col-md-6">
-                                        <div class="card card-success" >
+                                        <div class="card card-success">
                                             <div class="card-header" style="background-color: #74c023;">
                                                 <h3 class="card-title">Awards</h3>
                                             </div>
                                             <div class="col-md-12">
                                                 <div class="card-body">
                                                     <div class="chart">
-                                                        <canvas id="myChart2"></canvas>
+                                                        <div id="data"></div>
                                                     </div>
                                                 </div>
+                                                <!-- /.card-body -->
                                             </div>
-                                            <!-- /.card-body -->
                                         </div>
                                     </div>
+
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="card card-success">
+                                                <div class="card-header" style="background-color: #74c023;">
+                                                    <h3 class="card-title">Awards</h3>
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <div class="card-body">
+                                                        <div class="chart">
+                                                            <div id="datas" style="width: 100%; height: 500px;"></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- /.card-body -->
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="card card-success">
+                                                <div class="card-header" style="background-color: #74c023;">
+                                                    <h3 class="card-title">AIHRs</h3>
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <div class="card-body">
+                                                        <div class="chart">
+                                                            <canvas id="myChart"></canvas>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- /.card-body -->
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <!-- /.row -->
                                 </div>
+                                <!-- ./card-body -->
+                                <div class="card-footer">
+                                    <div class="row">
+                                        <div class="col-sm-3 col-6">
 
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="card card-success">
-                                            <div class="card-header" style="background-color: #74c023;">
-                                                <h3 class="card-title">AIHRs</h3>
-                                            </div>
-                                            <div class="col-md-12">
-                                                <div class="card-body">
-                                                    <div class="chart">
-                                                        <canvas id="myChart"></canvas>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <!-- /.card-body -->
                                         </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="card card-success">
-                                            <div class="card-header" style="background-color: #74c023;">
-                                                <h3 class="card-title">AIHRs</h3>
-                                            </div>
-                                            <div class="col-md-12">
-                                                <div class="card-body">
-                                                    <div class="chart">
-                                                        <canvas id="myChart"></canvas>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <!-- /.card-body -->
+                                        <!-- /.col -->
+                                        <div class="col-sm-3 col-6">
+
                                         </div>
-                                    </div>
-                                </div>
+                                        <!-- /.col -->
+                                        <div class="col-sm-3 col-6">
 
-
-                                <!-- /.row -->
-                            </div>
-                            <!-- ./card-body -->
-                            <div class="card-footer">
-                                <div class="row">
-                                    <div class="col-sm-3 col-6">
-
-
-                                    </div>
-                                    <!-- /.col -->
-                                    <div class="col-sm-3 col-6">
-
-                                    </div>
-                                    <!-- /.col -->
-                                    <div class="col-sm-3 col-6">
-
-                                        <!-- /.description-block -->
-                                    </div>
-                                    <!-- /.col -->
-                                    <div class="col-sm-3 col-6">
-                                        {{-- <div class="description-block">
+                                            <!-- /.description-block -->
+                                        </div>
+                                        <!-- /.col -->
+                                        <div class="col-sm-3 col-6">
+                                            {{-- <div class="description-block">
                                         <span class="description-percentage text-danger"><i
                                                 class="fas fa-caret-down"></i> 18%</span>
                                         <h5 class="description-header">1200</h5>
                                         <span class="description-text">GOAL COMPLETIONS</span>
                                     </div> --}}
-                                        <!-- /.description-block -->
+                                            <!-- /.description-block -->
+                                        </div>
                                     </div>
+                                    <!-- /.row -->
                                 </div>
-                                <!-- /.row -->
+                                <!-- /.card-footer -->
                             </div>
-                            <!-- /.card-footer -->
+                            <!-- /.card -->
                         </div>
-                        <!-- /.card -->
+                        <!-- /.col -->
                     </div>
-                    <!-- /.col -->
+                    <!-- /.row -->
                 </div>
-                <!-- /.row -->
-            </div>
-            <!--/. container-fluid -->
+                <!--/. container-fluid -->
         </section>
         <!-- /.content -->
+
+
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
         const ctx = document.getElementById('myChart');
-        const ctxx = document.getElementById('myChart2');
+        // const ctxx = document.getElementById('myChart2');
 
         // var agencyList = {{ json_encode($list) }};
         var totalNew = {{ json_encode($total_new) }};
@@ -273,6 +273,67 @@
 
                 }
             }
+
         });
     </script>
+
+<script type="text/javascript">
+    google.charts.load('current', {'packages':['corechart']});
+    google.charts.setOnLoadCallback(drawChart);
+
+    function drawChart() {
+
+    var data = google.visualization.arrayToDataTable([
+        ['Month Name', 'Registered User Count'],
+
+            @php
+            foreach($data as $d) {
+                echo "['".$d->month_name."', ".$d->count."],";
+            }
+            @endphp
+            
+    ]);
+
+      var options = {
+        title: 'Users Detail',
+        is3D: false,
+      };
+
+      
+
+      var chart = new google.visualization.PieChart(document.getElementById('data'));
+
+      chart.draw(data, options);
+    }
+  </script>
+  
+  <script type="text/javascript">
+    google.charts.load('current', {'packages':['corechart']});
+    google.charts.setOnLoadCallback(drawChart);
+
+    function drawChart() {
+
+    var data = google.visualization.arrayToDataTable([
+        ['Month Name', 'Registered User Count'],
+
+            @php
+            foreach($datas as $d) {
+                echo "['".$d->agency."', ".$d->count."],";
+            }
+            @endphp
+            
+    ]);
+
+      var options = {
+        title: 'Agency Awards',
+        is3D: false,
+      };
+
+      
+
+      var chart = new google.visualization.ColumnChart(document.getElementById('datas'));
+
+      chart.draw(data, options);
+    }
+  </script>
 @endsection

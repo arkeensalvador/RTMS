@@ -34,24 +34,22 @@ class FileUpload extends Controller
     // program file upload
     public function fileUpload(Request $request)
     {
-        // $request->validate([
-        //     'file' => 'required|mimes:pdf'
-        // ]);
+        $request->validate([
+            'file_moa' => 'required|mimes:doc,pdf',
+            'file_lib' => 'required|mimes:doc,pdf',
+            'file_ntp' => 'required|mimes:doc,pdf',
+            'file_tr' => 'required|mimes:doc,pdf'
+        ]);
 
         date_default_timezone_set('Asia/Hong_Kong');
-        // $dt = Carbon::now();
-        // $date_time = $dt->toDayDateTimeString();
-
 
         $agency_folder = auth()->user()->agencyID;
-        // Storage::disk('local')->makeDirectory($folder_name, 0775, true); //creates directory
-        // $fileModel = new File;
 
         // upload file
         $date_time = Carbon::now();
         $folder_name = 'uploads';
         Storage::disk('local')->makeDirectory($folder_name, 0775, true); //creates directory
-        if ($request->hasFile('file_moa') or $request->hasFile('file_lib') or $request->hasFile('file_ntp') or $request->hasFile('file_tr')) {
+        if ($request->hasFile('file_moa') or $request->hasFile('file_lib') or $request->hasFile('file_ntp') or $request->hasFile('file_tr') or $request->hasFile('files')) {
             $destinationPath = $folder_name . '/' . $agency_folder . '/' . 'Program' . '/';
             // memorandum of agreement
             if ($request->hasFile('file_moa')) {
@@ -161,54 +159,147 @@ class FileUpload extends Controller
         }
     }
 
+    // PROJECT FILE UPLOAD
     public function ProjectFileUpload(Request $request)
     {
         $request->validate([
-            'file' => 'required|mimes:pdf'
-            // 'file' => 'required|mimes:pdf|max:2048'
+            'file_moa' => 'required|mimes:doc,pdf',
+            'file_lib' => 'required|mimes:doc,pdf',
+            'file_ntp' => 'required|mimes:doc,pdf',
+            'file_tr' => 'required|mimes:doc,pdf',
+            'file_fr' => 'required|mimes:doc,pdf'
         ]);
 
         date_default_timezone_set('Asia/Hong_Kong');
-        $dt = Carbon::now();
-        $date_time = $dt->toDayDateTimeString();
 
-        $folder_name = 'uploads';
         $agency_folder = auth()->user()->agencyID;
+
+        // upload file
+        $date_time = Carbon::now();
+        $folder_name = 'uploads';
         Storage::disk('local')->makeDirectory($folder_name, 0775, true); //creates directory
-        $fileModel = new File;
+        if ($request->hasFile('file_moa') or $request->hasFile('file_lib') or $request->hasFile('file_ntp') or $request->hasFile('file_tr') or $request->hasFile('file_fr')) {
+            $destinationPath = $folder_name . '/' . $agency_folder . '/' . 'Project' . '/';
+            // memorandum of agreement
+            if ($request->hasFile('file_moa')) {
+                $file_name = "Memorandum-of-Agreement" . "." . $request->file_moa->getClientOriginalExtension();
+                $upload_tbl = [
+                    'file_name' => $file_name,
+                    'file_path' => $destinationPath . $file_name,
+                    'uploader_agency' => $request->uploader_agency,
+                    'programID' => $request->programID,
+                    'type' => $request->type,
+                    'projectID' => $request->projectID,
+                    'subprojectID' => $request->subprojectID,
+                    'created_at' =>  $date_time
+                ];
 
-        if ($request->file()) {
+                $request->file('file_moa')->storeAs($folder_name . "/" . $agency_folder . "/" . "Project", $file_name);
+                DB::table('files')->insert($upload_tbl);
 
-            $fileName = $request->file->getClientOriginalName();
-            $filePath = $request->file('file')->storeAs($folder_name . "/" . $agency_folder . "/" . "Program", $fileName);
-
-            $fileModel->file_name = $request->file->getClientOriginalName();
-            $fileModel->file_path = '/storage/' . $filePath;
-
-            $upload = [
-                'file_name' => $fileName,
-                'file_path' => $filePath,
-                'uploader_agency' => $request->uploader_agency,
-                'programID' => $request->programID,
-                'type' => $request->type,
-                'projectID' => $request->projectID,
-                'subprojectID' => $request->subprojectID
-            ];
-
-            $upload_files = File::create($upload);
-            if ($upload_files) {
                 $notification = array(
                     'message' => 'File Successfully Uploaded!',
                     'alert-type' => 'success'
                 );
                 return back()->with($notification);
-            } else {
+            }
+
+            // line item budget
+            if ($request->hasFile('file_lib')) {
+                $file_name = "Line-Item-Budget" . "." . $request->file_lib->getClientOriginalExtension();
+                $upload_tbl = [
+                    'file_name' => $file_name,
+                    'file_path' => $destinationPath . $file_name,
+                    'uploader_agency' => $request->uploader_agency,
+                    'programID' => $request->programID,
+                    'type' => $request->type,
+                    'projectID' => $request->projectID,
+                    'subprojectID' => $request->subprojectID,
+                    'created_at' =>  $date_time
+                ];
+                $request->file('file_lib')->storeAs($folder_name . "/" . $agency_folder . "/" . "Project", $file_name);
+                DB::table('files')->insert($upload_tbl);
+
                 $notification = array(
-                    'message' => 'Something is wrong, please try again!',
-                    'alert-type' => 'error'
+                    'message' => 'File Successfully Uploaded!',
+                    'alert-type' => 'success'
                 );
                 return back()->with($notification);
             }
+
+            // notice to proceed
+            if ($request->hasFile('file_ntp')) {
+                $file_name = "Notice-to-Proceed" . "." . $request->file_ntp->getClientOriginalExtension();
+                $upload_tbl = [
+                    'file_name' => $file_name,
+                    'file_path' => $destinationPath . $file_name,
+                    'uploader_agency' => $request->uploader_agency,
+                    'programID' => $request->programID,
+                    'type' => $request->type,
+                    'projectID' => $request->projectID,
+                    'subprojectID' => $request->subprojectID,
+                    'created_at' =>  $date_time
+                ];
+                $request->file('file_ntp')->storeAs($folder_name . "/" . $agency_folder . "/" . "Project", $file_name);
+                DB::table('files')->insert($upload_tbl);
+
+                $notification = array(
+                    'message' => 'File Successfully Uploaded!',
+                    'alert-type' => 'success'
+                );
+                return back()->with($notification);
+            }
+            // financial report
+            // if ($request->hasFile('file_fr')) {
+            //     $file_name = "Financial-Report" . "." . $request->file_ntp->getClientOriginalExtension();
+            //     $upload_tbl = [
+            //         'file_name' => $file_name,
+            //         'file_path' => $destinationPath . $file_name,
+            //         'uploader_agency' => $request->uploader_agency,
+            //         'programID' => $request->programID,
+            //         'type' => $request->type,
+            //         'projectID' => $request->projectID,
+            //         'subprojectID' => $request->subprojectID,
+            //         'created_at' =>  $date_time
+            //     ];
+            //     $request->file('file_ntp')->storeAs($folder_name . "/" . $agency_folder . "/" . "Project", $file_name);
+            //     DB::table('files')->insert($upload_tbl);
+
+            //     $notification = array(
+            //         'message' => 'File Successfully Uploaded!',
+            //         'alert-type' => 'success'
+            //     );
+            //     return back()->with($notification);
+            // }
+
+            // Terminal report
+            if ($request->hasFile('file_tr')) {
+                $file_name = "Terminal-Report" . "." . $request->file_tr->getClientOriginalExtension();
+                $upload_tbl = [
+                    'file_name' => $file_name,
+                    'file_path' => $destinationPath . $file_name,
+                    'uploader_agency' => $request->uploader_agency,
+                    'programID' => $request->programID,
+                    'type' => $request->type,
+                    'projectID' => $request->projectID,
+                    'subprojectID' => $request->subprojectID,
+                    'created_at' =>  $date_time
+                ];
+                $request->file('file_tr')->storeAs($folder_name . "/" . $agency_folder . "/" . "Project", $file_name);
+                DB::table('files')->insert($upload_tbl);
+
+                $notification = array(
+                    'message' => 'File Successfully Uploaded!',
+                    'alert-type' => 'success'
+                );
+                return back()->with($notification);
+            }
+        } else {
+            $notification = array(
+                'message' => 'Something is wrong, please try again!',
+                'alert-type' => 'error'
+            );
+            return back()->with($notification);
         }
     }
 

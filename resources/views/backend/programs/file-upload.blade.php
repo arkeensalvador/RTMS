@@ -167,6 +167,7 @@
 
 
                                     {{-- file input 5 --}}
+                                    {{-- <label for="">Multiple Upload</label>
                                     <div class="input-group mb-3">
                                         <input type="file" class="form-control" multiple disabled id="file-input5"
                                             name="files[]">
@@ -175,7 +176,7 @@
                                                 <input type="checkbox" id="filecheck5" onclick="enableCreateUser()">
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> --}}
                                 </div>
 
                                 {{-- <div class="custom-file">

@@ -142,7 +142,7 @@
                                     <div class="col-sm-12">
                                         <!-- textarea -->
                                         <div class="form-group">
-                                            <label>Title of Activity/Training</label>
+                                            <label>Title of Award</label>
                                             <textarea class="form-control" name="awards_title" rows="3" placeholder="Enter ...">{{ $all->awards_title }}</textarea>
                                         </div>
                                     </div>

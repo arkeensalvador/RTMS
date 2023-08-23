@@ -57,6 +57,9 @@
 
     {{-- BS Tags input --}}
     <link rel="stylesheet" href="{{ asset('backend/plugins/bs-tags-input/bootstrap-tagsinput.css') }}">
+
+    {{-- GOOGLE CHARTS --}}
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     {{-- <script>
         @if (Session::has('message'))
         var type="{{Session::get('alert-type','info')}}"
@@ -564,6 +567,8 @@
 
     {{-- BS tags input --}}
     <script src="{{ asset('backend/plugins/bs-tags-input/bootstrap-tagsinput.js') }}"></script>
+
+    
 
 
 </body>

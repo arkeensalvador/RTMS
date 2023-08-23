@@ -46,7 +46,7 @@
                                                     <tr>
                                                         <th>#</th>
                                                         <th>Type of Award</th>
-                                                        <th>Title</th>
+                                                        <th>Award Title</th>
                                                         <th>Recipient/Agency</th>
                                                         <th>Sponsor</th>
                                                         <th>Event/Activity</th>
