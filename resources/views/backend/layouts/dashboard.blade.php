@@ -141,79 +141,50 @@
                                             <div class="col-md-12">
                                                 <div class="card-body">
                                                     <div class="chart">
-                                                        <div id="data"></div>
+                                                        <div id="data" style="height: 350px;"></div>
+                                                    </div>
+                                                    <!-- /.card-body -->
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- /.row -->
+                                    </div>
+
+                                    <div class="col-md-8">
+                                        <div class="card card-success">
+                                            <div class="card-header" style="background-color: #74c023;">
+                                                <h3 class="card-title">Awards</h3>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <div class="card-body">
+                                                    <div class="chart">
+                                                        <div id="datas" style="width: 900px"></div>
                                                     </div>
                                                 </div>
-                                                <!-- /.card-body -->
                                             </div>
+                                            <!-- /.card-body -->
                                         </div>
                                     </div>
 
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="card card-success">
-                                                <div class="card-header" style="background-color: #74c023;">
-                                                    <h3 class="card-title">Awards</h3>
-                                                </div>
-                                                <div class="col-md-12">
-                                                    <div class="card-body">
-                                                        <div class="chart">
-                                                            <div id="datas" style="width: 100%; height: 500px;"></div>
-                                                        </div>
+                                    <div class="col-md-4">
+                                        <div class="card card-success">
+                                            <div class="card-header" style="background-color: #74c023;">
+                                                <h3 class="card-title">Programs</h3>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <div class="card-body">
+                                                    <div class="chart">
+                                                        <canvas id="myChart"></canvas>
                                                     </div>
                                                 </div>
-                                                <!-- /.card-body -->
                                             </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="card card-success">
-                                                <div class="card-header" style="background-color: #74c023;">
-                                                    <h3 class="card-title">AIHRs</h3>
-                                                </div>
-                                                <div class="col-md-12">
-                                                    <div class="card-body">
-                                                        <div class="chart">
-                                                            <canvas id="myChart"></canvas>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <!-- /.card-body -->
-                                            </div>
+                                            <!-- /.card-body -->
                                         </div>
                                     </div>
 
-
-                                    <!-- /.row -->
                                 </div>
                                 <!-- ./card-body -->
-                                <div class="card-footer">
-                                    <div class="row">
-                                        <div class="col-sm-3 col-6">
-
-                                        </div>
-                                        <!-- /.col -->
-                                        <div class="col-sm-3 col-6">
-
-                                        </div>
-                                        <!-- /.col -->
-                                        <div class="col-sm-3 col-6">
-
-                                            <!-- /.description-block -->
-                                        </div>
-                                        <!-- /.col -->
-                                        <div class="col-sm-3 col-6">
-                                            {{-- <div class="description-block">
-                                        <span class="description-percentage text-danger"><i
-                                                class="fas fa-caret-down"></i> 18%</span>
-                                        <h5 class="description-header">1200</h5>
-                                        <span class="description-text">GOAL COMPLETIONS</span>
-                                    </div> --}}
-                                            <!-- /.description-block -->
-                                        </div>
-                                    </div>
-                                    <!-- /.row -->
-                                </div>
-                                <!-- /.card-footer -->
                             </div>
                             <!-- /.card -->
                         </div>
@@ -277,63 +248,68 @@
         });
     </script>
 
-<script type="text/javascript">
-    google.charts.load('current', {'packages':['corechart']});
-    google.charts.setOnLoadCallback(drawChart);
+    <script type="text/javascript">
+        google.charts.load('current', {
+            'packages': ['corechart']
+        });
+        google.charts.setOnLoadCallback(drawChart);
 
-    function drawChart() {
+        function drawChart() {
 
-    var data = google.visualization.arrayToDataTable([
-        ['Month Name', 'Registered User Count'],
+            var data = google.visualization.arrayToDataTable([
+                ['Month Name', 'Registered User Count'],
 
-            @php
-            foreach($data as $d) {
-                echo "['".$d->month_name."', ".$d->count."],";
-            }
-            @endphp
-            
-    ]);
+                @php
+                    foreach ($data as $d) {
+                        echo "['" . $d->month_name . "', " . $d->count . '],';
+                    }
+                @endphp
 
-      var options = {
-        title: 'Users Detail',
-        is3D: false,
-      };
+            ]);
 
-      
+            var options = {
+                title: 'Users Detail',
+                is3D: false,
+            };
 
-      var chart = new google.visualization.PieChart(document.getElementById('data'));
 
-      chart.draw(data, options);
-    }
-  </script>
-  
-  <script type="text/javascript">
-    google.charts.load('current', {'packages':['corechart']});
-    google.charts.setOnLoadCallback(drawChart);
 
-    function drawChart() {
+            var chart = new google.visualization.PieChart(document.getElementById('data'));
 
-    var data = google.visualization.arrayToDataTable([
-        ['Month Name', 'Registered User Count'],
+            chart.draw(data, options);
+        }
+    </script>
 
-            @php
-            foreach($datas as $d) {
-                echo "['".$d->agency."', ".$d->count."],";
-            }
-            @endphp
-            
-    ]);
+    <script type="text/javascript">
+        google.charts.load('current', {
+            'packages': ['corechart']
+        });
+        google.charts.setOnLoadCallback(drawChart);
 
-      var options = {
-        title: 'Agency Awards',
-        is3D: false,
-      };
+        function drawChart() {
 
-      
+            var data = google.visualization.arrayToDataTable([
+                ['Agency Name', 'Total no. of Awards Received'],
 
-      var chart = new google.visualization.ColumnChart(document.getElementById('datas'));
+                @php
+                    foreach ($datas as $d) {
+                        echo "['" . $d->agency . "', " . $d->count . '],';
+                    }
+                @endphp
 
-      chart.draw(data, options);
-    }
-  </script>
+            ]);
+
+            var options = {
+                title: 'Total Awards Received by Agency',
+                is3D: false,
+                height: 600
+            };
+
+
+
+            var chart = new google.visualization.ColumnChart(document.getElementById('datas'));
+
+            chart.draw(data, options);
+        }
+    </script>
 @endsection
