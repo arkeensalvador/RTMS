@@ -705,7 +705,31 @@
                     reverseButtons: true
                 }).then((result) => {
                     if (result.value) {
-                        window.location.href = 'rdmc-projects';
+                        window.location.href = 'sub-projects-add';
+                    }
+                    // else {
+                    //     window.location.href = 'projects-add';
+                    // }
+                });
+
+                // toastr.success("{{ Session::get('message') }}");
+                break;
+
+                case 'project':
+                Swal.fire({
+                    icon: 'success',
+                    title: "{{ Session::get('message') }}",
+                    text: 'Are there any studies/sub-projects associated with this Project?',
+                    // type: 'success',
+                    showCancelButton: true,
+                    confirmButtonText: 'Yes',
+                    cancelButtonText: 'None',
+                    allowEscapeKey: false,
+                    allowOutsideClick: false,
+                    reverseButtons: true
+                }).then((result) => {
+                    if (result.value) {
+                        window.location.href = 'sub-projects-add';
                     }
                     // else {
                     //     window.location.href = 'projects-add';
