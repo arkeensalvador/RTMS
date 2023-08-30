@@ -17,6 +17,8 @@
                 </div><!-- /.row -->
             </div><!-- /.container-fluid -->
         </div>
+
+
         <!-- Main content -->
         <section class="content">
             <div class="container-fluid">
@@ -26,6 +28,12 @@
                             <div class="card-header">
                                 <h3 class="card-title">List of Programs</h3>
                                 <div class="card-tools">
+
+                                    <button type="button" class="btn btn-info" data-bs-toggle="modal"
+                                        data-bs-target="#staticBackdrop">
+                                        <i class="fa-solid fa-cloud-arrow-up"></i>
+                                        Import
+                                    </button>
 
                                     @if ($agency->isEmpty())
                                         <a href="{{ url('rdmc-create-program') }}"
@@ -37,6 +45,7 @@
                                             class="btn btn-success {{ Route::current()->getName() == 'rdmc-create-program' ? 'active' : '' }}">Add
                                             Program</a>
                                     @endif
+
                                 </div>
                                 <!-- /.card-tools -->
                             </div>
@@ -62,7 +71,8 @@
                                             <tr>
                                                 {{-- <td>{{ $row->trust_fund_code }}</td> --}}
                                                 <td>
-                                                   {{ date('F, Y', strtotime($row->start_date)) ?: 'Not Set' }} - {{ date('F, Y', strtotime($row->end_date)) ? : 'Not Set' }}
+                                                    {{ date('F, Y', strtotime($row->start_date)) ?: 'Not Set' }} -
+                                                    {{ date('F, Y', strtotime($row->end_date)) ?: 'Not Set' }}
                                                 </td>
                                                 {{-- <td>{{ $row->project_extension_date }}</td> --}}
                                                 <td>{{ $row->funding_agency }}</td>
@@ -134,5 +144,33 @@
             <!-- /.container-fluid -->
         </section>
         <!-- /.content -->
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Import to Database
+                        <span title="Click to download format">
+                            <a href="{{url('download-template')}}" class="" download><i class="fa-solid fa-file-circle-question"></i></a>
+                        </span>
+                    </h1>
+
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form action="{{ url('import-file') }}" method="POST" enctype="multipart/form-data">
+                    @csrf
+                    <div class="modal-body">
+                        <input type="file" name="import_excel_programs" accept="application/vnd.ms-excel" class="form-control" id="import_excel">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit"  class="btn btn-success">Import</button>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
 @endsection

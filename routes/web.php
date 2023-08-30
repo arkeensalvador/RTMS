@@ -237,4 +237,11 @@ Route::get('/delete-equipment/{id}', [App\Http\Controllers\backend\EquipmentCont
 // Report List
 Route::get('/report-list', [App\Http\Controllers\backend\ReportListController::class, 'reportListIndex'])->name('reportListIndex');
 
+//Download templates
+Route::get('download-template', [App\Http\Controllers\backend\UserController::class, 'downloadTemplate']); 
+Route::get('download-template', [App\Http\Controllers\backend\ProgramsController::class, 'downloadTemplate']); 
+Route::get('download-template', [App\Http\Controllers\backend\ResearcherController::class, 'downloadTemplate']); 
+Route::get('download-template', [App\Http\Controllers\backend\AgencyController::class, 'downloadTemplate']); 
 
+// IMPORT TO DB
+Route::post('/import-file', [App\Http\Controllers\backend\ImportController::class, 'importExcel'])->name('importExcel');

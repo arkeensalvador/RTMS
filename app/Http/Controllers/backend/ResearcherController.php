@@ -5,6 +5,7 @@ namespace App\Http\Controllers\backend;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use DB;
+use Response;
 
 class ResearcherController extends Controller
 {
@@ -81,6 +82,12 @@ class ResearcherController extends Controller
             );
             return redirect()->route('researcherIndex')->with($notification);
         }
+    }
+
+    public function downloadTemplate()
+    {
+        $file_path = storage_path('app\public\import-templates\researchers-template.xlsx');
+        return Response::download($file_path);
     }
 
     public function DeleteResearcher($id)

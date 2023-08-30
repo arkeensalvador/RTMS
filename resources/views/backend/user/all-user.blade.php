@@ -28,6 +28,13 @@
                             <div class="card-header">
                                 <h3 class="card-title">List of Users</h3>
                                 <div class="card-tools">
+
+                                    <button type="button" class="btn btn-info" data-bs-toggle="modal"
+                                        data-bs-target="#staticBackdrop">
+                                        <i class="fa-solid fa-cloud-arrow-up"></i>
+                                        Import
+                                    </button>
+
                                     <a href="{{ url('add-user-index') }}"
                                         class="btn btn-success {{ Route::current()->getName() == 'add-users-index' ? 'active' : '' }}">Add
                                         User</a>
@@ -90,4 +97,32 @@
         </section>
         <!-- /.content -->
     </div>
+
+     <!-- Modal -->
+     <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+     aria-labelledby="staticBackdropLabel" aria-hidden="true">
+     <div class="modal-dialog">
+         <div class="modal-content">
+             <div class="modal-header">
+                 <h1 class="modal-title fs-5" id="staticBackdropLabel">Import to Database
+                     <span title="Click to download format">
+                         <a href="{{ url('download-template') }}" class="" download><i class="fa-solid fa-file-circle-question"></i></a>
+                     </span>
+                 </h1>
+
+                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+             </div>
+             <form action="{{ url('import-file') }}" method="POST" enctype="multipart/form-data">
+                 @csrf
+                 <div class="modal-body">
+                     <input type="file" name="import_excel_users" accept="application/vnd.ms-excel" class="form-control" id="import_excel">
+                 </div>
+                 <div class="modal-footer">
+                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                     <button type="submit"  class="btn btn-success">Import</button>
+                 </div>
+             </form>
+         </div>
+     </div>
+ </div>
 @endsection

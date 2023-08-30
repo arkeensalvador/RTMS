@@ -10,6 +10,7 @@ use Illuminate\Console\View\Components\Alert;
 use Illuminate\Database\DBAL\TimestampType;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Hash;
+use Response;
 
 class UserController extends Controller
 {
@@ -100,6 +101,12 @@ class UserController extends Controller
             );
             return redirect()->route('AllUser')->with($notification);
         }
+    }
+   
+    public function downloadTemplate()
+    {
+        $file_path = storage_path("app\public\import-templates\users-template.xlsx");
+        return Response::download($file_path);
     }
 
     public function DeleteUser($id)

@@ -224,13 +224,13 @@ class ProgramsController extends Controller
     {
         $title = 'Programs | RTMS';
         $program = DB::table('programs')->where('programID', $programID)->first();
-        $program_details = DB::table('program_details')->where('programID', $programID)->first();
+        // $program_details = DB::table('program_details')->where('programID', $programID)->first();
         $personnels = DB::table('personnels')->where('programID', $programID)->get();
         // $all = DB::table('programs')->get();
         $documents = DB::table('program_files')->where('programID', $programID)->get();
         $agency = DB::table('agency')->get();
 
-        return view('backend.programs.edit_program_index', compact('program', 'program_details', 'agency', 'personnels', 'documents', 'title'));
+        return view('backend.programs.edit_program_index', compact('program', 'agency', 'personnels', 'documents', 'title'));
     }
 
     public function UpdateProgram(Request $request, $programID){
@@ -367,6 +367,12 @@ class ProgramsController extends Controller
     {
         $data = DB::table('program_files')->where('id', $id)->first();
         $file_path = storage_path("app/{$data->path}");
+        return Response::download($file_path);
+    }
+
+    public function downloadTemplate()
+    {
+        $file_path = storage_path("app\public\import-templates\programs-template.xlsx");
         return Response::download($file_path);
     }
 

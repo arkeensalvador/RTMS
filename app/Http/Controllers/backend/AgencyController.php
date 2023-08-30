@@ -79,6 +79,11 @@ class AgencyController extends Controller
         }
     }
 
+    public function downloadTemplate()
+    {
+        $file_path = storage_path("app\public\import-templates\agency-template.xlsx");
+        return Response::download($file_path);
+    }
     public function DeleteAgency($id)
     {
         $delete = DB::table('agency')->where('id', $id)->delete();
