@@ -29,75 +29,66 @@ class ImportController extends Controller
                 'message' => 'File is missing!',
                 'alert-type' => 'error'
             );
-
-            if ($request->file('import_excel_users')) {
-                $import = Excel::import(new UsersImport, $request->file('import_excel_users'));
-                if ($import) {
-                    $notification = array(
-                        'message' => 'Data Successfully Imported!',
-                        'alert-type' => 'success'
-                    );
-                    return back()->with($notification);
-                } else {
-                    $notification = array(
-                        'message' => 'Something is wrong, please try again!',
-                        'alert-type' => 'error'
-                    );
-                    return back()->with($notification);
-                }
+        } else  if ($request->file('import_excel_users')) {
+            $import = Excel::import(new UsersImport, $request->file('import_excel_users'));
+            if ($import) {
+                $notification = array(
+                    'message' => 'Data Successfully Imported!',
+                    'alert-type' => 'success'
+                );
+                return back()->with($notification);
+            } else {
+                $notification = array(
+                    'message' => 'Something is wrong, please try again!',
+                    'alert-type' => 'error'
+                );
+                return back()->with($notification);
             }
-            if ($request->file('import_excel_programs')) {
-                $import = Excel::import(new ProgramsImport, $request->file('import_excel_programs'));
-                if ($import) {
-                    $notification = array(
-                        'message' => 'Data Successfully Imported!',
-                        'alert-type' => 'success'
-                    );
-                    return back()->with($notification);
-                } else {
-                    $notification = array(
-                        'message' => 'Something is wrong, please try again!',
-                        'alert-type' => 'error'
-                    );
-                    return back()->with($notification);
-                }
+        } else if ($request->file('import_excel_programs')) {
+            $import = Excel::import(new ProgramsImport, $request->file('import_excel_programs'));
+            if ($import) {
+                $notification = array(
+                    'message' => 'Data Successfully Imported!',
+                    'alert-type' => 'success'
+                );
+                return back()->with($notification);
+            } else {
+                $notification = array(
+                    'message' => 'Something is wrong, please try again!',
+                    'alert-type' => 'error'
+                );
+                return back()->with($notification);
             }
-
-            if ($request->file('import_excel_researchers')) {
-                $import = Excel::import(new ResearchersImport, $request->file('import_excel_researchers'));
-                if ($import) {
-                    $notification = array(
-                        'message' => 'Data Successfully Imported!',
-                        'alert-type' => 'success'
-                    );
-                    return back()->with($notification);
-                } else {
-                    $notification = array(
-                        'message' => 'Something is wrong, please try again!',
-                        'alert-type' => 'error'
-                    );
-                    return back()->with($notification);
-                }
+        } else if ($request->file('import_excel_researchers')) {
+            $import = Excel::import(new ResearchersImport, $request->file('import_excel_researchers'));
+            if ($import) {
+                $notification = array(
+                    'message' => 'Data Successfully Imported!',
+                    'alert-type' => 'success'
+                );
+                return back()->with($notification);
+            } else {
+                $notification = array(
+                    'message' => 'Something is wrong, please try again!',
+                    'alert-type' => 'error'
+                );
+                return back()->with($notification);
             }
-
-            if ($request->file('import_excel_agency')) {
-                $import = Excel::import(new AgencyImport, $request->file('import_excel_agency'));
-                if ($import) {
-                    $notification = array(
-                        'message' => 'Data Successfully Imported!',
-                        'alert-type' => 'success'
-                    );
-                    return back()->with($notification);
-                } else {
-                    $notification = array(
-                        'message' => 'Something is wrong, please try again!',
-                        'alert-type' => 'error'
-                    );
-                    return back()->with($notification);
-                }
+        } else if ($request->file('import_excel_agency')) {
+            $import = Excel::import(new AgencyImport, $request->file('import_excel_agency'));
+            if ($import) {
+                $notification = array(
+                    'message' => 'Data Successfully Imported!',
+                    'alert-type' => 'success'
+                );
+                return back()->with($notification);
+            } else {
+                $notification = array(
+                    'message' => 'Something is wrong, please try again!',
+                    'alert-type' => 'error'
+                );
+                return back()->with($notification);
             }
-
-            return back()->with($notification);
         }
     }
 }

@@ -114,7 +114,7 @@
                     @csrf
                     <div class="modal-body">
                         <input type="file" name="import_excel_agency" accept="application/vnd.ms-excel"
-                            class="form-control" id="import_excel">
+                            class="form-control" id="import_excel_agency">
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>

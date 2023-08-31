@@ -16,7 +16,7 @@ class AgencyImport implements ToModel, WithHeadingRow
     public function model(array $row)
     {
         return new Agency([
-            'agency_name' => $row['agency_name'],
+            'agency_name' => $row['agency_name'],       
             'abbrev' => $row['abbrev'],
         ]);
     }

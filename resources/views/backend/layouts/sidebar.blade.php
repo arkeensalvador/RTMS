@@ -1,7 +1,7 @@
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
     <a href="home" class="brand-link">
-        <img src="{{asset('backend/dist/img/CLAARRDEC.png')}}" alt="CLAARRDEC Logo" class="brand-image img-circle"
+        <img src="{{ asset('backend/dist/img/CLAARRDEC.png') }}" alt="CLAARRDEC Logo" class="brand-image img-circle"
             style="opacity: .8">
         <span class="brand-text font-weight-light">RTMS</span>
     </a>
@@ -11,22 +11,24 @@
         <!-- Sidebar user panel (optional) -->
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
             <div class="image">
-                @if(auth()->user()->role == 'Admin')
-                <img src="{{asset('backend/dist/img/AdminLTElogo.png')}}" class="img-circle elevation-2"
-                    alt="User Image">
+                @if (auth()->user()->role == 'Admin')
+                    <img src="{{ asset('backend/dist/img/AdminLTElogo.png') }}" class="img-circle elevation-2"
+                        alt="User Image">
                 @else
-                <img src="{{asset('backend/dist/img/avatar4.png')}}" class="img-circle elevation-2" alt="User Image">
+                    <img src="{{ asset('backend/dist/img/avatar4.png') }}" class="img-circle elevation-2"
+                        alt="User Image">
                 @endif
             </div>
             <div class="info">
-                <a href="#" class="d-block">{{auth()->user()->name}} - {{auth()->user()->role}}</a>
+                <a href="#" class="d-block">{{ auth()->user()->name }} - {{ auth()->user()->role }}</a>
             </div>
         </div>
 
         <!-- SidebarSearch Form -->
         <div class="form-inline">
             <div class="input-group" data-widget="sidebar-search">
-                <input class="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search">
+                <input class="form-control form-control-sidebar" type="search" placeholder="Search"
+                    aria-label="Search">
                 <div class="input-group-append">
                     <button class="btn btn-sidebar">
                         <i class="fas fa-search fa-fw"></i>
@@ -35,9 +37,23 @@
             </div>
         </div>
 
+        {{-- ACTIVE MENU QUERY --}}
+        @php
+            $segment1 = Request::segment(1);
+            $pages = ['report-index','rdmc-index','rdmc-monitoring-evaluation','aihrs','rdmc-projects','rdmc-activities',
+            'rdmc-linkages-index','rdmc-dbinfosys-index','strategic-activities','rdru-index','rdru-ttp','rdru-ttm','rdru-tta',
+            'cbg-index','cbg-training','cbg-awards','cbg-equipment','projects-add','edit-activity', 'edit-activity','rdmc-activities-add',
+            'edit-no-program-project', 'project-upload-file','add-project-personnel','rdmc-linkages-add','edit-linkages','rdmc-dbinfosys-add',
+            'edit-dbinfosys', 'add-strategic-index','edit-strategic', 'rdru-add','rdru-ttm-add', 'rdru-tpa-add','edit-ttp',
+            'edit-ttm','edit-tpa','cbg-training-add','cbg-awards-add','cbg-equipment-add','edit-training','edit-award','edit-equipment'];
+        @endphp
+
+
+
         <!-- Sidebar Menu -->
         <nav class="mt-2">
-            <ul class="nav nav-pills nav-sidebar flex-column nav-child-indent" data-widget="treeview" role="menu" data-accordion="false">
+            <ul class="nav nav-pills nav-sidebar flex-column nav-child-indent" data-widget="treeview" role="menu"
+                data-accordion="false">
                 <!-- Add icons to the links using the .nav-icon class
                 with font-awesome or any other icon font library -->
                 <li class="nav-item">
@@ -49,165 +65,78 @@
                     </a>
                 </li>
 
-                @if(auth()->user()->role == 'Admin')
+                @if (auth()->user()->role == 'Admin')
+                    <li class="nav-item">
 
-                <li class="nav-item">
-                    <a href="{{ URL::to('report-index') }}" class="nav-link {{ set_active(['report-index']) }}">
-                        <i class="nav-icon fa-solid fa-book-journal-whills"></i>
-                        <p>
-                            Add Report
-                        </p>
-                    </a>
-                </li>
+                        <a href="{{ URL::to('report-index') }}"
+                            class="nav-link @if (in_array($segment1, $pages)) active @endif">
+                            <i class="nav-icon fa-solid fa-book-journal-whills"></i>
+                            <p>
+                                Add Report
+                            </p>
+                        </a>
+                    </li>
 
-                <li class="nav-item">
-                    <a href="{{ URL::to('rdmc-programs') }}" class="nav-link {{ set_active(['rdmc-programs']) }}">
-                        <i class="nav-icon fas fa-diagram-project"></i>
-                        <p>
-                            Programs
-                        </p>
-                        {{-- <i class="fas fa-angle-left right"></i> --}}
-                    </a>
-                    {{-- <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="{{ URL::to('rdmc-programs') }}"
-                                class="nav-link {{ set_active(['rdmc-programs']) }}">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>View Programs</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ URL::to('/add-projects-index') }}"
-                                class="nav-link {{ Request::is('') ? 'active' : '' }}">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Projects</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{URL::to('/add-projects-index')}}"
-                                class="nav-link {{ Request::is('') ? 'active' : '' }}">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Sub Project</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{URL::to('/add-projects-index')}}"
-                                class="nav-link {{ Request::is('') ? 'active' : '' }}">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Other</p>
-                                <i class="fas fa-angle-left right"></i>
-                            </a>
-
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="{{URL::to('/all-projects')}}"
-                                        class="nav-link {{ Request::is('') ? 'active' : '' }}">
-                                        <i class="far fa-dot-circle nav-icon"></i>
-                                        <p>Awards</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="{{URL::to('/add-projects-index')}}"
-                                        class="nav-link {{ Request::is('') ? 'active' : '' }}">
-                                        <i class="far fa-dot-circle nav-icon"></i>
-                                        <p>Training</p>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                    </ul> --}}
-                </li>
-
-                {{-- <li class="nav-item">
-                    <a href="" class="nav-link {{ Request::is('all-projects','add-projects-index') ? 'active' : '' }}">
-                        <i class="nav-icon fas fa-diagram-project"></i>
-                        <p>
-                            Projects
-                            <i class="fas fa-angle-left right"></i>
-                        </p>
-                    </a>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="{{ URL::to('/all-projects') }}"
-                                class="nav-link {{ Request::is('all-projects') ? 'active' : '' }}">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>View Projects</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ URL::to('/add-projects-index') }}"
-                                class="nav-link {{ Request::is('add-projects-index') ? 'active' : '' }}">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Add Project</p>
-                            </a>
-                        </li>
-                    </ul>
-                </li> --}}
-                <li class="nav-item">
-                    <a href="{{ URL::to('report-list')}}"
-                        class="nav-link {{ Request::is('report-list') ? 'active' : '' }}">
-                        <i class="nav-icon fa-solid fa-list-ul"></i>
-                        <p>
-                            List of Reports
-                        </p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="{{ URL::to('/researcher-index') }}"
-                        class="nav-link {{ Request::is('researcher-index') ? 'active' : '' }}">
-                        <i class="nav-icon fas fa-users"></i>
-                        <p>
-                            Researchers
-                        </p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="{{ URL::to('/all-agency') }}"
-                        class="nav-link {{ Request::is('all-agency', 'edit-agency/*') ? 'active' : '' }}">
-                        <i class="nav-icon fas fa-building"></i>
-                        <p>
-                            Agency
-                        </p>
-                    </a>
-                </li>
-                {{-- <li class="nav-item">
-                    <a href="#" class="nav-link">
-                        <i class="nav-icon fas fa-cogs"></i>
-                        <p>
-                            Manage Site
-                        </p>
-                    </a>
-
-                </li> --}}
-                <li class="nav-item has-treeview">
-                    <a href="{{URL::to('/all-user')}}" class="nav-link {{ Request::is('all-user','add-user-index', 'edit-user/*') ? 'active' : '' }}">
-                        <i class="nav-icon fa-solid fa-users-gear"></i>
-                        <p>
-                            Manage Accounts
-                            {{-- <span class="right badge badge-danger">New</span> --}}
+                    <li class="nav-item">
+                        <a href="{{ URL::to('rdmc-programs') }}"
+                            class="nav-link  {{ Request::is(
+                                'rdmc-programs',
+                                'rdmc-choose-program',
+                                'rdmc-create-program',
+                                'projects-u-program-add',
+                                'view-program-index/*',
+                                'upload-file/*',
+                                'edit-program-index/*',
+                                'add-program-personnel-index/*',
+                                'projects-u-program-add/*',
+                            )
+                                ? 'active'
+                                : '' }}">
+                            <i class="nav-icon fas fa-diagram-project"></i>
+                            <p>
+                                Programs
+                            </p>
                             {{-- <i class="fas fa-angle-left right"></i> --}}
-                        </p>
-                    </a>
-                    {{-- <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href=""
-                                class="nav-link {{ Request::is('all-user') ? 'active' : '' }}">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>View Users</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{URL::to('/add-user-index')}}"
-                                class="nav-link {{ Request::is('add-user-index') ? 'active' : '' }}">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Add User</p>
+                        </a>
+                    </li>
 
-                            </a>
-                        </li>
-                    </ul> --}}
-                </li>
+                    <li class="nav-item">
+                        <a href="{{ URL::to('report-list') }}"
+                            class="nav-link {{ Request::is('report-list') ? 'active' : '' }}">
+                            <i class="nav-icon fa-solid fa-list-ul"></i>
+                            <p>
+                                List of Reports
+                            </p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ URL::to('/researcher-index') }}"
+                            class="nav-link {{ Request::is('researcher-index') ? 'active' : '' }}">
+                            <i class="nav-icon fas fa-users"></i>
+                            <p>
+                                Researchers
+                            </p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ URL::to('/all-agency') }}"
+                            class="nav-link {{ Request::is('all-agency', 'edit-agency/*') ? 'active' : '' }}">
+                            <i class="nav-icon fas fa-building"></i>
+                            <p>
+                                Agency
+                            </p>
+                        </a>
+                    </li>
 
-
+                    <li class="nav-item has-treeview">
+                        <a href="{{ URL::to('/all-user') }}"
+                            class="nav-link {{ Request::is('all-user', 'add-user-index', 'edit-user/*') ? 'active' : '' }}">
+                            <i class="nav-icon fa-solid fa-users-gear"></i>
+                            <p>
+                                Manage Accounts
+                            </p>
+                        </a>
+                    </li>
                 @endif
                 {{-- logout --}}
                 <li class="nav-item">

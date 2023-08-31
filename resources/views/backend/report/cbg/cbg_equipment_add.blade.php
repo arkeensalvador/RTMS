@@ -118,21 +118,19 @@
                                                     id="customCheckbox3">
                                                 <label for="customCheckbox3" class="custom-control-label">Exhibits</label>
                                             </div>
-                                        </div>
-                                    </div>
 
-                                    <div class="form-group">
-                                        <div class="custom-control custom-checkbox">
-                                            <input class="custom-control-input custom-control-input-success" type="checkbox"
-                                                value="Media Conference" name="equipments_type[]" id="customCheckbox4">
-                                            <label for="customCheckbox4" class="custom-control-label">Media
-                                                Conference</label>
-                                        </div>
-                                        <div class="custom-control custom-checkbox">
-                                            <input class="custom-control-input custom-control-input-success" type="checkbox"
-                                                value="Farmers' Fora" name="equipments_type[]" id="customCheckbox5">
-                                            <label for="customCheckbox5" class="custom-control-label">Farmers'
-                                                Fora</label>
+                                            <div class="custom-control custom-checkbox">
+                                                <input class="custom-control-input custom-control-input-success" type="checkbox"
+                                                    value="Media Conference" name="equipments_type[]" id="customCheckbox4">
+                                                <label for="customCheckbox4" class="custom-control-label">Media
+                                                    Conference</label>
+                                            </div>
+                                            <div class="custom-control custom-checkbox">
+                                                <input class="custom-control-input custom-control-input-success" type="checkbox"
+                                                    value="Farmers' Fora" name="equipments_type[]" id="customCheckbox5">
+                                                <label for="customCheckbox5" class="custom-control-label">Farmers'
+                                                    Fora</label>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

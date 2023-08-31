@@ -34,12 +34,7 @@ class FileUpload extends Controller
     // program file upload
     public function fileUpload(Request $request)
     {
-        $request->validate([
-            'file_moa' => 'required|mimes:doc,pdf',
-            'file_lib' => 'required|mimes:doc,pdf',
-            'file_ntp' => 'required|mimes:doc,pdf',
-            'file_tr' => 'required|mimes:doc,pdf'
-        ]);
+
 
         date_default_timezone_set('Asia/Hong_Kong');
 
@@ -53,6 +48,13 @@ class FileUpload extends Controller
             $destinationPath = $folder_name . '/' . $agency_folder . '/' . 'Program' . '/';
             // memorandum of agreement
             if ($request->hasFile('file_moa')) {
+
+
+                $request->validate([
+                    'file_moa' => 'required|mimes:doc,pdf'
+                ]);
+
+
                 $file_name = "Memorandum-of-Agreement" . "." . $request->file_moa->getClientOriginalExtension();
                 $upload_tbl = [
                     'file_name' => $file_name,
@@ -78,6 +80,11 @@ class FileUpload extends Controller
 
             // line item budget
             if ($request->hasFile('file_lib')) {
+
+                $request->validate([
+                    'file_lib' => 'required|mimes:doc,pdf'
+                ]);
+
                 $file_name = "Line-Item-Budget" . "." . $request->file_lib->getClientOriginalExtension();
                 // $file_name = $request-> file_lib->getClientOriginalName(); //Get file original name  
                 $upload_tbl = [
@@ -103,6 +110,11 @@ class FileUpload extends Controller
 
             // notice to proceed
             if ($request->hasFile('file_ntp')) {
+
+                $request->validate([
+                    'file_ntp' => 'required|mimes:doc,pdf',
+                ]);
+
                 $file_name = "Notice-to-Proceed" . "." . $request->file_ntp->getClientOriginalExtension();
                 // $file_name = $request->file_ntp->getClientOriginalName(); //Get file original name  
                 $upload_tbl = [
@@ -128,6 +140,11 @@ class FileUpload extends Controller
 
             // Terminal report
             if ($request->hasFile('file_tr')) {
+
+                $request->validate([
+                    'file_tr' => 'required|mimes:doc,pdf'
+                ]);
+
                 $file_name = "Terminal-Report" . "." . $request->file_tr->getClientOriginalExtension();
                 // $file_name = $request->file_tr->getClientOriginalName(); //Get file original name  
                 $upload_tbl = [
