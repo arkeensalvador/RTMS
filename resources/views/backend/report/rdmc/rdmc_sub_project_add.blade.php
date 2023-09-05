@@ -78,13 +78,13 @@
         <section class="content">
             <div class="strategic row">
 
-                <div class="col-md-8">
+                <div class="col-md-7">
 
                     {{-- card start --}}
                     <div class="card">
                         <div class="card-header">
                             <h5 class="card-title">
-                                Add Study/Sub-Project
+                                Add Project
                             </h5>
                         </div>
                         <div class="progress">
@@ -93,47 +93,53 @@
                         </div>
                         {{-- card body start --}}
                         <div class="card-body">
-                            <form role="form" id="regiration_form" action="#" method="POST"
+                            <form role="form" id="regiration_form" action="{{ url('add-sub-project') }}" method="POST"
                                 enctype="multipart/form-data">
                                 @csrf
                                 <fieldset>
                                     <div class="row">
-                                        <div class="col-sm-2">
+                                        <div class="col-sm-12">
                                             <div class="form-group">
-                                                <label>ProjectID</label>
+                                                <label>Project Title</label>
                                                 {{-- Route::input('name'); --}}
-                                                <input type="text" class="form-control"
-                                                    value="<?= substr(md5(microtime()), 0, 10) ?>" disabled
-                                                    placeholder="Enter code">
+                                                @foreach ($projects as $latest)
+                                                    <input type="text" name="projectID" class="form-control" value="{{ $latest->id }}"
+                                                        hidden readonly placeholder="Enter code">
+                                                    <input type="text" class="form-control"
+                                                        value="{{ $latest->project_title }}" readonly
+                                                        placeholder="Enter code">
+                                                @endforeach
+
                                             </div>
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class="col-sm-2">
+                                        <div class="col-sm-3">
                                             <div class="form-group">
                                                 <label>Fund Code</label>
-                                                <input type="text" class="form-control" placeholder="Enter ...">
+                                                <input type="text" name="sub_project_fund_code" class="form-control"
+                                                    placeholder="Enter ...">
                                             </div>
                                         </div>
 
-                                        <div class="col-sm-3">
+                                        <div class="col-sm-4">
                                             <div class="form-group">
                                                 <label>Status</label>
-                                                <select name="" id="" class="form-control">
-                                                    <option value="">New</option>
-                                                    <option value="">On-going</option>
-                                                    <option value="">Terminated</option>
-                                                    <option value="">Completed</option>
+                                                <select name="sub_project_status" id="" class="form-control">
+                                                    <option value="New">New</option>
+                                                    <option value="On-going">On-going</option>
+                                                    <option value="Terminated">Terminated</option>
+                                                    <option value="Completed">Completed</option>
                                                 </select>
                                             </div>
                                         </div>
 
-                                        <div class="col-sm-3">
+                                        <div class="col-sm-4">
                                             <div class="form-group">
                                                 <label>Category</label>
-                                                <select name="" id="" class="form-control">
-                                                    <option value="">Research Category</option>
-                                                    <option value="">Development Category</option>
+                                                <select name="sub_project_category" id="" class="form-control">
+                                                    <option value="Research Category">Research Category</option>
+                                                    <option value="Development Category">Development Category</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -142,29 +148,34 @@
                                     <div class="row">
                                         <div class="col-sm-12">
                                             <div class="form-group">
-                                                <label>Study/Sub-Project Title</label>
-                                                <textarea name="" id="" cols="30" rows="5" style="resize: none;" class="form-control"></textarea>
+                                                <label>Project Title</label>
+                                                <textarea name="sub_project_title" id="" cols="30" rows="5" style="resize: none;"
+                                                    class="form-control"></textarea>
                                             </div>
                                         </div>
                                     </div>
 
                                     <div class="row">
-                                        <div class="col-sm-6">
+                                        <div class="col-sm-7">
                                             <div class="form-group">
                                                 <label>Agency</label>
-                                                <select name="" id="agency" class="form-control">
-                                                    <option value="Agency 1">Agency 1</option>
-                                                    <option value="Agency 2">Agency 2</option>
-                                                    <option value="Agency 3">Agency 3</option>
-                                                    <option value="CLSU">Central Luzon State University</option>
+                                                <select name="sub_project_agency" id="agency"
+                                                    class="form-control agency">
+                                                    <option></option>
+                                                    @foreach ($agency as $key)
+                                                        <option value="{{ $key->abbrev }}">{{ $key->agency_name }} -
+                                                            ({{ $key->abbrev }})
+                                                            </b></option>
+                                                    @endforeach
                                                 </select>
                                             </div>
                                         </div>
 
-                                        <div class="col-sm-6">
+                                        <div class="col-sm-5">
                                             <div class="form-group">
-                                                <label for=""></label>
-                                                <input type="text" class="form-control" id="agencyAbbrev"
+                                                <label for=""
+                                                    style="visibility: hidden; background-color: white;">Agency</label>
+                                                <input type="text" readonly class="form-control" id="agencyAbbrev"
                                                     style="border: none;">
                                             </div>
                                         </div>
@@ -172,32 +183,29 @@
                                     </div>
 
                                     <div class="row">
-                                        <div class="col-sm-3">
+                                        <div class="col-sm-4">
                                             <div class="form-group">
                                                 <label>Funding Duration</label>
-                                                <select name="select1" id="select1" class="form-control">
+                                                <select name="sub_project_funding_duration" id="select1"
+                                                    class="form-control">
                                                     <option value="" selected disabled>Select type of fund</option>
-                                                    <option value="1">One-time Grant</option>
-                                                    <option value="2">Multi-year Funding</option>
-                                                    <option value="3">Both One-time and Multi-year</option>
+                                                    <option value="One-time">One-time Grant</option>
+                                                    <option value="Multi-year">Multi-year Funding</option>
+                                                    <option value="Both">Both One-time and Multi-year</option>
                                                 </select>
 
                                             </div>
                                         </div>
 
-                                        <div class="col-sm-3">
+                                        <div class="col-sm-4">
                                             <div class="form-group">
                                                 <label>&#8203;</label>
-                                                <select name="select2" id="select2" class="form-control">
+                                                <select name="sub_project_funding_years" id="select2"
+                                                    class="form-control">
                                                     <option value="" selected disabled>&shy;</option>
-                                                    <option value="1">1 Year</option>
-                                                    <option value="2">2 Years</option>
-                                                    <option value="2">3 Years</option>
-                                                    <option value="2">4 Years</option>
-                                                    <option value="2">5 Years</option>
-                                                    <option value="2">6 Years</option>
-                                                    <option value="2">7 Years</option>
-                                                    <option value="3">Both One-time and Multi-year</option>
+                                                    <option value="One-time">1 Year</option>
+                                                    <option value="Multi-year">2 - 5 Years</option>
+                                                    <option value="Both">Both One-time and Multi-year</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -213,49 +221,42 @@
                                 <fieldset>
 
                                     <div class="row">
-                                        <div class="col-sm-2">
+                                        <div class="col-sm-4">
                                             <div class="form-group">
                                                 <label>Start Date</label>
-                                                <input type="date" class="form-control" name="start_date" required
+                                                <input type="month" class="form-control" name="sub_project_start_date"
                                                     autocomplete="false">
                                             </div>
                                         </div>
-
-                                        <div class="col-sm-2">
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-4">
                                             <div class="form-group">
                                                 <label>End Date</label>
-                                                <input type="date" class="form-control" name="end_date" required
+                                                <input type="month" class="form-control" name="sub_project_end_date"
                                                     autocomplete="false">
                                             </div>
                                         </div>
+                                    </div>
 
+                                    <div class="row">
                                         @if (auth()->user()->role == 'Admin')
-                                            <div class="col-sm-2">
+                                            <div class="col-sm-4">
                                                 <div class="form-group">
                                                     <label>Extend Date</label>
-                                                    <input type="date" class="form-control" name="extend_date"
-                                                        required autocomplete="false">
+                                                    <input type="month" class="form-control"
+                                                        name="sub_project_extend_date" autocomplete="false">
                                                 </div>
                                             </div>
                                         @endif
                                     </div>
 
-
-                                    {{-- <div class="row">
-                                        <div class="col-sm-5">
-                                            <div class="form-group">
-                                                <label>Coordination Fund</label>
-                                                <input type="text" class="form-control" placeholder="Enter ...">
-                                            </div>
-                                        </div>
-                                    </div> --}}
-
                                     <div class="row">
-                                        <div class="col-sm-5">
+                                        <div class="col-sm-7">
                                             <div class="form-group">
-                                                <label>Study/Sub-Project Leader</label>
-                                                <input type="text" class="form-control" placeholder="Project Leader"
-                                                    list="leaderdtlist">
+                                                <label>Project Leader</label>
+                                                <input type="text" name="sub_project_leader" class="form-control"
+                                                    placeholder="Program Leader" list="leaderdtlist">
                                                 <datalist id="leaderdtlist">
                                                     <option value="Leader 1"><span>Agency</span></option>
                                                     <option value="Leader 2"></option>
@@ -263,12 +264,14 @@
                                                 </datalist>
                                             </div>
                                         </div>
+                                    </div>
 
-                                        <div class="col-sm-5">
+                                    <div class="row">
+                                        <div class="col-sm-7">
                                             <div class="form-group">
                                                 <label>Assistant Leader</label>
-                                                <input type="text" class="form-control" placeholder="Project Leader"
-                                                    list="assisdtlist">
+                                                <input type="text" name="sub_project_assistant_leader"
+                                                    class="form-control" placeholder="Program Leader" list="assisdtlist">
                                                 <datalist id="assisdtlist">
                                                     <option value="Leader 1"><span>Agency</span></option>
                                                     <option value="Leader 2"></option>
@@ -278,27 +281,6 @@
                                         </div>
                                     </div>
 
-                                    <div class="row">
-                                        <div class="col-sm-5">
-                                            <div class="form-group">
-                                                <label>Study/Sub-Project Staff(s)</label>
-                                                <table class="table table-append" id="dynamicAddRemove">
-                                                    <tr>
-                                                        <td class="append">
-                                                            {{-- <label>Project Staff</label> --}}
-                                                            <input type="text" class="form-control"
-                                                                placeholder="Project Staffs" name="moreFields[0][name]">
-                                                        </td>
-
-                                                        <td class="append">
-                                                            <i class="fa-solid fa-user-plus fa-lg" style="color: #28a745;"
-                                                                name="add" id="add-btn"></i>
-                                                        </td>
-                                                    </tr>
-                                                </table>
-                                            </div>
-                                        </div>
-                                    </div>
 
                                     <input type="button" name="previous" class="previous btn btn-default"
                                         value="Previous" />
@@ -309,29 +291,32 @@
                                     <div class="row">
                                         <div class="col-sm-12">
                                             <div class="form-group">
-                                                <label>Study/Sub-Project Description</label>
-                                                <textarea name="" id="" cols="30" rows="5" style="resize: none;" class="form-control"></textarea>
+                                                <label>Project Description</label>
+                                                <textarea name="sub_project_description" id="" cols="30" rows="5" style="resize: none;"
+                                                    class="form-control"></textarea>
                                             </div>
                                         </div>
                                     </div>
 
                                     <div class="row">
-                                        <div class="col-sm-4">
+                                        <div class="col-sm-5">
                                             <div class="form-group">
                                                 <label>Approved Budget</label>
                                                 <div class="input-group">
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text">PHP</span>
                                                     </div>
-                                                    <input type="text" class="form-control" id="numin">
+                                                    <input name="sub_project_approved_budget" type="text"
+                                                        class="form-control" id="numin">
                                                 </div>
                                             </div>
                                         </div>
 
-                                        <div class="col-sm-2">
+                                        <div class="col-sm-3">
                                             <div class="form-group">
                                                 <label>Amount of Released</label>
-                                                <select name="" id="year" class="form-control">
+                                                <select name="sub_project_budget_year" id="year"
+                                                    class="form-control">
                                                     <option value="Year 1">Year 1</option>
                                                     <option value="Year 2">Year 2</option>
                                                     <option value="Year 3">Year 3</option>
@@ -349,20 +334,22 @@
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text">PHP</span>
                                                     </div>
-                                                    <input type="text" class="form-control" id="numin2">
+                                                    <input name="sub_project_amount_released" type="text"
+                                                        class="form-control" id="numin2">
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
 
                                     <div class="row">
-                                        <div class="col-sm-5">
+                                        <div class="col-sm-6">
                                             <div class="form-group">
                                                 <label>Form of Development</label>
-                                                <select name="" id="" class="form-control">
-                                                    <option value="">Local</option>
-                                                    <option value="">National</option>
-                                                    <option value="">International</option>
+                                                <select name="sub_project_form_of_development" id=""
+                                                    class="form-control">
+                                                    <option value="Local">Local</option>
+                                                    <option value="National">National</option>
+                                                    <option value="International">International</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -370,8 +357,7 @@
 
                                     <input type="button" name="previous" class="previous btn btn-default"
                                         value="Previous" />
-
-                                    <input type="submit" id="btn-ok" name="submit" class="submit btn btn-success"
+                                    <input type="submit" name="submit" class="submit btn btn-success"
                                         value="Submit" />
                                 </fieldset>
                             </form>
@@ -387,8 +373,6 @@
     </section>
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
-
-   
 
     <script>
         var selectBox = document.getElementById("agency");

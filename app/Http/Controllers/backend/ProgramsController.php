@@ -62,147 +62,12 @@ class ProgramsController extends Controller
     }
 
 
-    // public function AddProgram(Request $request)
-    // {
-
-    //     date_default_timezone_set('Asia/Hong_Kong');
-
-    //     $data = array();
-    //     $data['programID'] = $request->programID;
-    //     $data['program_title'] = strtoupper($request->program_title);
-    //     // $data['trust_fund_code'] = $request->tf_code;
-    //     $data['agencyID'] = $request->agencyID;
-    //     $data['description'] = $request->description;
-    //     $data['created_at'] = now();
-
-    //     $insert = DB::table('programs')->insert($data);
-    //     if ($insert) {
-
-    //         $data2 = array();
-    //         $data2['budget'] = $request->budget;
-    //         $data2['amount_release'] = $request->amount_release;
-    //         // $data2['check_no'] = $request->check_no;
-    //         // $data2['or_no'] = $request->or_no;
-    //         // $data2['or_date'] = $request->or_date;
-    //         $data2['start_date'] = $request->start_date;
-    //         $data2['end_date'] = $request->end_date;
-    //         $data2['extend_date'] = $request->extend_date;
-    //         $data2['status'] = $request->status;
-    //         $data2['programID'] = $request->programID;
-
-    //         $insert2 = DB::table('program_details')->insert($data2);
-
-    //         if ($insert2) {
-
-    //             // upload file
-    //             $dt = Carbon::now();
-    //             $date_time = $dt->toDayDateTimeString();
-    //             if ($request->hasFile('fileupload1') or $request->hasFile('fileupload2') or $request->hasFile('fileupload3') or $request->hasFile('fileupload4')) {
-    //                 $folder_name = $request->agencyID;
-    //                 // memorandum of agreement
-    //                 if ($request->hasFile('fileupload1')) {
-    //                     $file_name = "Memorandum-of-Agreement" . "(" . $request->agencyID . ")" . "." . $request->fileupload1->getClientOriginalExtension();
-
-    //                     $destinationPath = $folder_name . '/';
-    //                     // $file_name = $request->fileupload1->getClientOriginalName(); //Get file original name   
-    //                     $upload_tbl = [
-    //                         'programID' => $request->programID,
-    //                         'file_name' => $file_name,
-    //                         'path' => $destinationPath . $file_name,
-    //                         'datetime' => $date_time,
-    //                     ];
-
-
-    //                     // $folderdrive = Storage::disk('google')->makeDirectory($request->agencyID); //creates directory
-    //                     Storage::disk('local')->put($folder_name . '/' . $file_name, file_get_contents($request->fileupload1->getRealPath()));
-    //                     // Storage::disk('google')->put($destinationPath . $file_name, file_get_contents($request->fileupload1->getRealPath()));
-    //                     DB::table('program_files')->insert($upload_tbl);
-    //                 }
-
-    //                 // line item budget
-    //                 if ($request->hasFile('fileupload2')) {
-    //                     $file_name = "Line-Item-Budget" . "(" . $request->agencyID . ")" . "." . $request->fileupload2->getClientOriginalExtension();
-    //                     // $file_name = $request->fileupload2->getClientOriginalName(); //Get file original name  
-    //                     $upload_tbl = [
-    //                         'programID' => $request->programID,
-    //                         'file_name' => $file_name,
-    //                         'path' => $destinationPath . $file_name,
-    //                         'datetime' => $date_time,
-    //                     ];
-    //                     Storage::disk('local')->put($folder_name . '/' . $file_name, file_get_contents($request->fileupload2->getRealPath()));
-    //                     DB::table('program_files')->insert($upload_tbl);
-    //                 }
-
-    //                 // notice to proceed
-    //                 if ($request->hasFile('fileupload3')) {
-    //                     $file_name = "Notice-to-Proceed" . "(" . $request->agencyID . ")" . "." . $request->fileupload3->getClientOriginalExtension();
-    //                     // $file_name = $request->fileupload3->getClientOriginalName(); //Get file original name  
-    //                     $upload_tbl = [
-    //                         'programID' => $request->programID,
-    //                         'file_name' => $file_name,
-    //                         'path' => $destinationPath . $file_name,
-    //                         'datetime' => $date_time,
-    //                     ];
-    //                     Storage::disk('local')->put($folder_name . '/' . $file_name, file_get_contents($request->fileupload3->getRealPath()));
-    //                     DB::table('program_files')->insert($upload_tbl);
-    //                 }
-
-    //                 // Terminal report
-    //                 if ($request->hasFile('fileupload4')) {
-    //                     $file_name = "Terminal-Report" . "(" . $request->agencyID . ")" . "." . $request->fileupload4->getClientOriginalExtension();
-    //                     // $file_name = $request->fileupload4->getClientOriginalName(); //Get file original name  
-    //                     $upload_tbl = [
-    //                         'programID' => $request->programID,
-    //                         'file_name' => $file_name,
-    //                         'path' => $destinationPath . $file_name,
-    //                         'datetime' => $date_time,
-    //                     ];
-    //                     Storage::disk('local')->put($folder_name . '/' . $file_name, file_get_contents($request->fileupload4->getRealPath()));
-    //                     DB::table('program_files')->insert($upload_tbl);
-    //                 }
-    //             }
-    //             $notification = array(
-    //                 'message' => 'Program Successfully Added!',
-    //                 'alert-type' => 'success'
-    //             );
-    //             return redirect()->route('index')->with($notification);
-    //         } else {
-    //             $notification = array(
-    //                 'message' => 'Something is wrong, please try again!',
-    //                 'alert-type' => 'error'
-    //             );
-    //             return redirect()->route('index')->with($notification);
-    //         }
-    //     }
-    // }
-
-    // public function createFolder()
-    // {
-    //     try {
-    //         $client = new Client();
-    //         $client->useApplicationDefaultCredentials();
-    //         $client->addScope(Drive::DRIVE);
-    //         $driveService = new Drive($client);
-    //         $fileMetadata = new Drive\DriveFile(array(
-    //             'name' => 'Invoices',
-    //             'mimeType' => 'application/vnd.google-apps.folder'
-    //         ));
-    //         $file = $driveService->files->create($fileMetadata, array(
-    //             'fields' => 'id'
-    //         ));
-    //         printf("Folder ID: %s\n", $file->id);
-    //         return $file->id;
-    //     } catch (\Exception $e) {
-    //         echo "Error Message: " . $e;
-    //     }
-    // }
-
-
     public function ViewProgramIndex($programID)
     {
         $title = 'Programs | RTMS';
         $program = DB::table('programs')->where('programID', $programID)->first();
         // $programs = DB::table('programs')->where('programID', $programID)->first();
+        $projects = DB::table('projects')->where('programID', $programID)->get();
 
         $program_leader = DB::table('personnels')->where('role', '=', "Program Leader")->where('programID', $programID)->get();
 
@@ -217,7 +82,7 @@ class ProgramsController extends Controller
         $documents = DB::table('program_files')->where('programID', $programID)->get();
         $upload_files = DB::table('files')->where('programID', $programID)->orderByDesc("created_at")->get();
 
-        return view('backend.programs.view_program_index', compact('program', 'agency', 'personnels', 'documents', 'program_leader', 'title','upload_files'));
+        return view('backend.programs.view_program_index', compact('program', 'agency', 'personnels', 'documents', 'program_leader', 'title','upload_files','projects'));
     }
 
     public function EditProgramIndex($programID)

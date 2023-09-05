@@ -1,6 +1,4 @@
 @extends('backend.layouts.app')
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
 @section('content')
     <style>
         .radio-input input {
@@ -103,11 +101,11 @@
                                     </div>
                                 @endif
                                 <input type="text" class="form-control" name="programID"
-                                    value="{{ $project->programID }}" placeholder="Program ID" hidden readonly required
+                                    value="{{ $project->programID }}" placeholder="Program ID"  readonly required
                                     autocomplete="false">
 
                                 <input type="text" class="form-control" name="projectID" value="{{ $project->id }}"
-                                    placeholder="Project ID" hidden readonly required autocomplete="false">
+                                    placeholder="Project ID"  readonly required autocomplete="false">
 
                                 <input type="text" class="form-control" name="uploader_agency"
                                     value="{{ auth()->user()->agencyID }}" placeholder="Program ID" hidden readonly required

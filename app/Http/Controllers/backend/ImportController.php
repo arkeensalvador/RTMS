@@ -95,7 +95,7 @@ class ImportController extends Controller
             if ($import) {
                 $notification = array(
                     'message' => 'Data Successfully Imported!',
-                    'alert-type' => 'success'
+                    'alert-type' => 'project'
                 );
                 return back()->with($notification);
             } else {

@@ -45,7 +45,7 @@
             'cbg-index','cbg-training','cbg-awards','cbg-equipment','projects-add','edit-activity', 'edit-activity','rdmc-activities-add',
             'edit-no-program-project', 'project-upload-file','add-project-personnel','rdmc-linkages-add','edit-linkages','rdmc-dbinfosys-add',
             'edit-dbinfosys', 'add-strategic-index','edit-strategic', 'rdru-add','rdru-ttm-add', 'rdru-tpa-add','edit-ttp',
-            'edit-ttm','edit-tpa','cbg-training-add','cbg-awards-add','cbg-equipment-add','edit-training','edit-award','edit-equipment'];
+            'edit-ttm','edit-tpa','cbg-training-add','cbg-awards-add','cbg-equipment-add','edit-training','edit-award','edit-equipment','view-project-index'];
         @endphp
 
 

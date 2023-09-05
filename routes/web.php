@@ -58,9 +58,10 @@ Route::get('/edit-projects/{id}', [App\Http\Controllers\backend\UserController::
 Route::post('update-projects/{id}', [App\Http\Controllers\backend\UserController::class, 'UpdateProjects'])->name('UpdateProjects');
 Route::get('/delete-projects/{id}', [App\Http\Controllers\backend\UserController::class, 'DeleteProjects'])->name('DeleteProjects');
 
+Route::get('view-project-index/{id}', [\App\Http\Controllers\backend\ProjectController::class, 'viewProjectIndex'])->name('viewProjectIndex');
 
 Route::get('/projects', [App\Http\Controllers\backend\ProjectController::class, ''])->name('AddProjectsIndex');
-Route::get('/view-project/{funding_agency}', [App\Http\Controllers\backend\ProjectController::class, 'ViewProjects'])->name('ViewProjects');
+Route::get('/view-project-index/{funding_agency}', [App\Http\Controllers\backend\ProjectController::class, 'ViewProjects'])->name('ViewProjects');
 Route::get('/add-projects-index', [App\Http\Controllers\backend\ProjectController::class, 'AddProjectsIndex'])->name('AddProjectsIndex');
 
 Route::post('insert-projects', [App\Http\Controllers\backend\ProjectController::class, 'InsertProjects'])->name('InsertProjects');
@@ -123,6 +124,7 @@ Route::get('/projects-add', [App\Http\Controllers\backend\ReportController::clas
 Route::get('/program-projects-add', [App\Http\Controllers\backend\ReportController::class, 'programProjectsAdd'])->name('programProjectsAdd');
 Route::get('/projects-u-program-add/{programID}', [App\Http\Controllers\backend\ReportController::class, 'projectsUnderProgramAdd'])->name('projectsUnderProgramAdd');
 Route::get('/sub-projects-add', [App\Http\Controllers\backend\ReportController::class, 'subProjectsAdd'])->name('subProjectsAdd');
+Route::get('/sub-projects-add/{id}', [App\Http\Controllers\backend\ReportController::class, 'ProjectSubProjectsAdd'])->name('ProjectSubProjectsAdd');
 Route::get('/rdmc-create-program', [App\Http\Controllers\backend\ReportController::class, 'rdmcCreateProgram'])->name('rdmcCreateProgram');
 Route::get('/edit-no-program-project/{id}', [App\Http\Controllers\backend\ProjectController::class, 'EditNoProgramProjectIndex'])->name('EditNoProgramProjectIndex');
 Route::get('/rdmc-choose-program', [App\Http\Controllers\backend\ReportController::class, 'rdmcChooseProgram'])->name('rdmcChooseProgram');
@@ -139,6 +141,16 @@ Route::post('/update-project/{id}', [App\Http\Controllers\backend\ProjectControl
 Route::get('/delete-project/{id}', [App\Http\Controllers\backend\ProjectController::class, 'DeleteProject']);
 Route::post('/add-project-personnel', [\App\Http\Controllers\backend\ProjectController::class, 'AddProjectPersonnel'])->name('AddProjectPersonnel');
 Route::get('/add-project-personnel/{id}', [App\Http\Controllers\backend\ProjectController::class, 'InsertProjectsPersonnelIndex'])->name('InsertProjectsPersonnelIndex');
+
+
+// SUB PROJECTS
+Route::post('/add-sub-project', [App\Http\Controllers\backend\ProjectController::class, 'AddProject'])->name('AddProject');
+Route::get('/edit-sub-project/{id}', [App\Http\Controllers\backend\ProjectController::class, 'EditProject'])->name('EditProject');
+Route::post('/update-sub-project/{id}', [App\Http\Controllers\backend\ProjectController::class, 'UpdateProject'])->name('UpdateProject');
+Route::get('/delete-sub-project/{id}', [App\Http\Controllers\backend\ProjectController::class, 'DeleteProject']);
+Route::post('/add-sub-project-personnel', [\App\Http\Controllers\backend\ProjectController::class, 'AddProjectPersonnel'])->name('AddProjectPersonnel');
+Route::get('/add-sub-project-personnel/{id}', [App\Http\Controllers\backend\ProjectController::class, 'InsertProjectsPersonnelIndex'])->name('InsertProjectsPersonnelIndex');
+
 
 
 // linkages

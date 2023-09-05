@@ -41,7 +41,7 @@ class ReportController extends Controller
     {
         $title = 'Projects | RDMC';
         $projects = DB::table('projects')->get();
-        return view('backend.report.rdmc.rdmc_projects', compact('title','projects'));
+        return view('backend.report.rdmc.rdmc_projects', compact('title', 'projects'));
     }
 
     public function rdmcProgramsIndex()
@@ -86,7 +86,7 @@ class ReportController extends Controller
             ->orderByDesc("id")
             ->limit(1)
             ->get();
-        return view('backend.report.rdmc.rdmc_program_projects_add',compact('programs', 'title'));
+        return view('backend.report.rdmc.rdmc_program_projects_add', compact('programs', 'title'));
     }
     // ADD PROJECTS TO PROGRAM IN NOT CONTINUOUS METHOD
     public function projectsUnderProgramAdd($programID)
@@ -94,12 +94,29 @@ class ReportController extends Controller
         $title = 'Program - projects | RDMC';
         $agency = DB::table('agency')->get();
         $program = DB::table('programs')->where('programID', $programID)->first();
-        return view('backend.report.rdmc.rdmc_projects_under_program_add', compact('program','title','agency'));
+        return view('backend.report.rdmc.rdmc_projects_under_program_add', compact('program', 'title', 'agency'));
     }
     public function subProjectsAdd()
     {
         $title = 'Sub-projects | RDMC';
-        return view('backend.report.rdmc.rdmc_sub_project_add', compact('title'));
+        $projects = DB::table('projects')
+            ->select('*')
+            ->orderByDesc("id")
+            ->limit(1)
+            ->get();
+        $agency = DB::table('agency')->get();
+        return view('backend.report.rdmc.rdmc_sub_project_add', compact('title', 'projects', 'agency'));
+    }
+    public function ProjectSubProjectsAdd($id)
+    {
+        $title = 'Sub-projects | RDMC';
+        $projects = DB::table('projects')
+            ->select('*')
+            ->orderByDesc("id")
+            ->limit(1)
+            ->get();
+        $agency = DB::table('agency')->get();
+        return view('backend.report.rdmc.rdmc_sub_project_add', compact('title', 'projects', 'agency'));
     }
 
     // public function activitiesAdd()
@@ -136,7 +153,7 @@ class ReportController extends Controller
         $ongoing_proj = DB::table('projects')->where('project_status', '=', 'on-going')->count();
         $terminated_proj = DB::table('projects')->where('project_status', '=', 'terminated')->count();
         $completed_proj = DB::table('projects')->where('project_status', '=', 'completed')->count();
-        return view('backend.report.rdmc.aihrs_index',compact('title', 'completed','new','ongoing','terminated', 'completed_proj','new_proj','ongoing_proj','terminated_proj'));
+        return view('backend.report.rdmc.aihrs_index', compact('title', 'completed', 'new', 'ongoing', 'terminated', 'completed_proj', 'new_proj', 'ongoing_proj', 'terminated_proj'));
     }
 
     public function linkagesIndex()
@@ -174,7 +191,7 @@ class ReportController extends Controller
         $title = 'Strategic R&D Activities';
         $researchers = DB::table('researchers')->get();
         $agency = DB::table('agency')->get();
-        return view('backend.report.strategic.add_strategic_activities', compact('title', 'researchers','agency'));
+        return view('backend.report.strategic.add_strategic_activities', compact('title', 'researchers', 'agency'));
     }
 
     public function rdruIndex()
@@ -202,7 +219,7 @@ class ReportController extends Controller
         $title = 'TTM | R&D Results Utilizations';
         $all = DB::table('results_ttm')->get();
         $agency = DB::table('agency')->get();
-        return view('backend.report.rdru.rdru_ttm', compact('title','all', 'agency'));
+        return view('backend.report.rdru.rdru_ttm', compact('title', 'all', 'agency'));
     }
     public function rdruTtmAdd()
     {
@@ -214,7 +231,7 @@ class ReportController extends Controller
     {
         $title = 'TPA | R&D Results Utilizations';
         $all = DB::table('results_tpa')->get();
-        return view('backend.report.rdru.rdru_tpa', compact('title','all'));
+        return view('backend.report.rdru.rdru_tpa', compact('title', 'all'));
     }
     public function rdruTpaAdd()
     {
@@ -239,7 +256,7 @@ class ReportController extends Controller
     {
         $title = 'Awards | CBG';
         $award = DB::table('cbg_awards')->get();
-        return view('backend.report.cbg.cbg_awards', compact('title','award'));
+        return view('backend.report.cbg.cbg_awards', compact('title', 'award'));
     }
 
     public function cbgEquipment()
@@ -253,7 +270,7 @@ class ReportController extends Controller
     {
         $title = 'Trainings | CBG';
         $agency = DB::table('agency')->get();
-        return view('backend.report.cbg.cbg_training_add', compact('title','agency'));
+        return view('backend.report.cbg.cbg_training_add', compact('title', 'agency'));
     }
 
     public function cbgAwardsAdd()
@@ -261,7 +278,7 @@ class ReportController extends Controller
         $title = 'Awards | CBG';
         $agency = DB::table('agency')->get();
         $researchers = DB::table('researchers')->get();
-        return view('backend.report.cbg.cbg_awards_add', compact('title','agency', 'researchers'));
+        return view('backend.report.cbg.cbg_awards_add', compact('title', 'agency', 'researchers'));
     }
 
     public function cbgEquipmentAdd()
@@ -277,7 +294,7 @@ class ReportController extends Controller
     // **************************************************** FUNCTIONALITIES ***************************************************************************
     // ************************************************************************************************************************************************
     // ************************************************************************************************************************************************
-    
+
 
     public function AddProgramPersonnel(Request $request)
     {

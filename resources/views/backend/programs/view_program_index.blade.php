@@ -113,6 +113,18 @@
                                                     </li>
                                                 @endforeach
                                             </ul>
+
+                                            <hr>
+                                            <div class="text-m text-muted">Project(s) under this program</div>
+                                            <ul class="list-unstyled">
+                                                @foreach ($projects as $key => $items)
+                                                    <li>
+                                                        <a href="{{ url('view-project-index/' . $items->id) }}"
+                                                            class="btn-link text-secondary"><i class="fa-solid fa-book mr-2"></i>{{ $items->project_title }}</a>
+                                                    </li>
+                                                @endforeach
+                                            </ul>
+
                                             <div class="text-center mt-5 mb-3">
                                                 <a href="{{ url('rdmc-programs') }}"
                                                     class="btn btn previous btn btn-default">Back</a>

@@ -64,7 +64,6 @@
                                         }); ">
 
                                         <span><i class="fa-solid fa-plus"></i> Create</span></a>
-
                                     <!-- Here is a label for example -->
                                     {{-- <span class="badge badge-primary">Label</span> --}}
                                 </div>
@@ -103,7 +102,7 @@
                                                             </td>
                                                             {{-- <td>{{ $row->project_extend_date }}</td> --}}
                                                             <td>{{ $row->project_leader }}</td>
-                                                            <td>{{ $row->project_status }}</td>
+                                                            <td>{{ $row->project_status }}<span class="right badge badge-danger">New</span></td>
                                                             <td class="action">
                                                                 <span title="View">
                                                                     <a class="btn btn-info"
@@ -128,11 +127,19 @@
                                                                     </span>
                                                                 @endif
 
+                                                                <span title="Add Sub-project">
+                                                                    <a class="btn btn-success"
+                                                                        href="{{ url("sub-projects-add/$row->id") }}"><i
+                                                                            class="fa-solid fa-plus"
+                                                                            style="color: white;"></i></a>
+                                                                </span>
+
                                                                 <span title="Upload">
                                                                     <a class="btn btn-secondary"
                                                                         href="{{ url("project-upload-file/$row->id") }}"><i
                                                                             class="fa-solid fa-file-circle-plus"></i></a>
                                                                 </span>
+                                                                
 
                                                                 <span title="Staffs">
                                                                     <a class="btn btn-warning"
