@@ -108,7 +108,7 @@
                 <div class="modal-header">
                     <h1 class="modal-title fs-5" id="staticBackdropLabel">Import to Database
                         <span title="Click to download format">
-                            <a href="{{url('download-template')}}" class="" download><i class="fa-solid fa-file-circle-question"></i></a>
+                            <a href="{{url('download-template-researcher')}}" class="" download><i class="fa-solid fa-file-circle-question"></i></a>
                         </span>
                     </h1>
 

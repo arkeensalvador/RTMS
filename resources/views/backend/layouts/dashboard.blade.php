@@ -101,7 +101,7 @@
                                     <div class="col-md-6">
                                         <div class="card card-success">
                                             <div class="card-header" style="background-color: #74c023;">
-                                                <h3 class="card-title">Awards</h3>
+                                                <h3 class="card-title">Users</h3>
                                             </div>
                                             <div class="col-md-12">
                                                 <div class="card-body">
@@ -266,6 +266,41 @@
 
             var options = {
                 title: 'Total Awards Received by Agency',
+                is3D: false,
+                height: 600
+            };
+
+
+
+            var chart = new google.visualization.ColumnChart(document.getElementById('datas'));
+
+            chart.draw(data, options);
+        }
+    </script>
+
+    // programs
+
+    <script type="text/javascript">
+        google.charts.load('current', {
+            'packages': ['corechart']
+        });
+        google.charts.setOnLoadCallback(drawChart);
+
+        function drawChart() {
+
+            var data = google.visualization.arrayToDataTable([
+                ['Agency Name', 'Total no. of Awards Received'],
+
+                @php
+                    foreach ($datas as $d) {
+                        echo "['" . $d->agency . "', " . $d->count . '],';
+                    }
+                @endphp
+
+            ]);
+
+            var options = {
+                title: 'Total Programs Received by Agency',
                 is3D: false,
                 height: 600
             };

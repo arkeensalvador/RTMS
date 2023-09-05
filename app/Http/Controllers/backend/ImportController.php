@@ -5,6 +5,7 @@ namespace App\Http\Controllers\backend;
 use App\Http\Controllers\Controller;
 use App\Imports\AgencyImport;
 use App\Imports\ProgramsImport;
+use App\Imports\ProjectsImport;
 use App\Imports\ResearchersImport;
 use App\Imports\UsersImport;
 use Illuminate\Http\Request;
@@ -76,6 +77,21 @@ class ImportController extends Controller
             }
         } else if ($request->file('import_excel_agency')) {
             $import = Excel::import(new AgencyImport, $request->file('import_excel_agency'));
+            if ($import) {
+                $notification = array(
+                    'message' => 'Data Successfully Imported!',
+                    'alert-type' => 'success'
+                );
+                return back()->with($notification);
+            } else {
+                $notification = array(
+                    'message' => 'Something is wrong, please try again!',
+                    'alert-type' => 'error'
+                );
+                return back()->with($notification);
+            }
+        } else if ($request->file('import_excel_projects')) {
+            $import = Excel::import(new ProjectsImport, $request->file('import_excel_projects'));
             if ($import) {
                 $notification = array(
                     'message' => 'Data Successfully Imported!',

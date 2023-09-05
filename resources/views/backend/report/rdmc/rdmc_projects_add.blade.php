@@ -325,7 +325,7 @@
                                         <div class="col-sm-3">
                                             <div class="form-group">
                                                 <label>Amount of Released</label>
-                                                <select name="project_amount_released" id="year" class="form-control">
+                                                <select name="project_budget_year" id="year" class="form-control">
                                                     <option value="Year 1">Year 1</option>
                                                     <option value="Year 2">Year 2</option>
                                                     <option value="Year 3">Year 3</option>
@@ -343,7 +343,7 @@
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text">PHP</span>
                                                     </div>
-                                                    <input name="project_budget_year" type="text" class="form-control" id="numin2">
+                                                    <input name="project_amount_released" type="text" class="form-control" id="numin2">
                                                 </div>
                                             </div>
                                         </div>

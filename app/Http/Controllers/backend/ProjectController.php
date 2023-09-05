@@ -7,6 +7,7 @@ use App\Models\backend\Personnel;
 use Illuminate\Http\Request;
 use DB;
 use Illuminate\Support\Facades\DB as FacadesDB;
+use Illuminate\Support\Facades\Response;
 
 class ProjectController extends Controller
 {
@@ -170,6 +171,12 @@ class ProjectController extends Controller
         $title = 'Project Staff | RDMC';
         $personnel = DB::table('personnels')->where('projectID', $id)->get();
         return view('backend.projects.add_project_personnel', compact('title', 'personnel'));
+    }
+
+    public function downloadTemplate()
+    {
+        $file_path = storage_path("app\public\import-templates\projects-template.xlsx");
+        return Response::download($file_path);
     }
 
     public function AddProjectPersonnel(Request $request)
