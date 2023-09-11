@@ -16,6 +16,7 @@
     <!-- Theme style -->
     <link rel="stylesheet" href="{{asset('backend/dist/css/adminlte.min.css')}}">
 </head>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <body class="hold-transition login-page">
     <div class="login-box">
@@ -62,16 +63,6 @@
                     </div>
                 </form>
 
-                {{-- <div class="social-auth-links text-center mt-2 mb-3">
-                    <a href="#" class="btn btn-block btn-primary">
-                        <i class="fab fa-facebook mr-2"></i> Sign in using Facebook
-                    </a>
-                    <a href="#" class="btn btn-block btn-danger">
-                        <i class="fab fa-google-plus mr-2"></i> Sign in using Google+
-                    </a>
-                </div> --}}
-                <!-- /.social-auth-links -->
-
                 <p class="mb-1">
                     @if (Route::has('password.request'))
                     <a class="text-center" href="{{ route('password.request') }}">
@@ -92,8 +83,136 @@
     <!-- jQuery -->
     <script src="{{ asset ('backend/plugins/jquery/jquery.min.js')}}"></script>
     <!-- Bootstrap 4 -->
-    <script src="{{ asset ('backend/plugins/bootstrap/js/bootstrap.bundle.min.j')}}s"></script>
+    <script src="{{ asset ('backend/plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
     <!-- AdminLTE App -->
     <script src="{{ asset ('backend/dist/js/adminlte.min.js')}}"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    
+
+    <script>
+        @if (Session::has('message'))
+            var type = "{{ Session::get('alert-type', 'info') }}"
+            switch (type) {
+                case 'info':
+                    Swal.fire({
+                        icon: 'info',
+                        title: "{{ Session::get('message') }}",
+                        timerProgressBar: true,
+                        showConfirmButton: false,
+                        timer: 900
+                    })
+                    // toastr.info("{{ Session::get('message') }}");
+                    break;
+                case 'success':
+                    Swal.fire({
+                        icon: 'success',
+                        title: "{{ Session::get('message') }}",
+                        timerProgressBar: true,
+                        showConfirmButton: false,
+                        timer: 900
+                    })
+                    // toastr.success("{{ Session::get('message') }}");
+                    break;
+                case 'warning':
+                    Swal.fire({
+                        icon: 'warning',
+                        title: "{{ Session::get('message') }}",
+                        timerProgressBar: true,
+                        showConfirmButton: false,
+                        timer: 900
+                    })
+    
+                    // toastr.warning("{{ Session::get('message') }}");
+                    break;
+                case 'error':
+                    Swal.fire({
+                        icon: 'error',
+                        title: "{{ Session::get('message') }}",
+                        timerProgressBar: true,
+                        showConfirmButton: false,
+                        timer: 900
+                    })
+    
+                    // toastr.error("{{ Session::get('message') }}");
+                    break;
+    
+                case 'test':
+                    Swal.fire({
+                        icon: 'success',
+                        title: "{{ Session::get('message') }}",
+                        text: 'Are there any Project associated with this Program?',
+                        // type: 'success',
+                        showDenyButton: true,
+                        showCloseButton: true,
+                        confirmButtonText: 'Yes',
+                        denyButtontext: 'No',
+                        allowEscapeKey: false,
+                        allowOutsideClick: false,
+                        reverseButtons: true
+                    }).then((result) => {
+                        if (result.value) {
+                            window.location.href = 'program-projects-add';
+                        }
+                        // else {
+                        //     window.location.href = 'projects-add';
+                        // }
+                    });
+    
+                    // toastr.error("{{ Session::get('message') }}");
+                    break;
+    
+                case 'project':
+                    Swal.fire({
+                        icon: 'success',
+                        title: "{{ Session::get('message') }}",
+                        text: 'Are there any studies/sub-projects associated with this Project?',
+                        // type: 'success',
+                        showCancelButton: true,
+                        confirmButtonText: 'Yes',
+                        cancelButtonText: 'None',
+                        allowEscapeKey: false,
+                        allowOutsideClick: false,
+                        reverseButtons: true
+                    }).then((result) => {
+                        if (result.value) {
+                            window.location.href = 'sub-projects-add';
+                        }
+                        // else {
+                        //     window.location.href = 'projects-add';
+                        // }
+                    });
+    
+                    // toastr.success("{{ Session::get('message') }}");
+                    break;
+    
+                case 'project':
+                    Swal.fire({
+                        icon: 'success',
+                        title: "{{ Session::get('message') }}",
+                        text: 'Are there any studies/sub-projects associated with this Project?',
+                        // type: 'success',
+                        showCancelButton: true,
+                        confirmButtonText: 'Yes',
+                        cancelButtonText: 'None',
+                        allowEscapeKey: false,
+                        allowOutsideClick: false,
+                        reverseButtons: true
+                    }).then((result) => {
+                        if (result.value) {
+                            window.location.href = 'sub-projects-add';
+                        }
+                        // else {
+                        //     window.location.href = 'projects-add';
+                        // }
+                    });
+    
+                    // toastr.success("{{ Session::get('message') }}");
+                    break;
+            }
+        @endif
+    </script>
 </body>
 </html>

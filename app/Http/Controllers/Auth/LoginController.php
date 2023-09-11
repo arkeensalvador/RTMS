@@ -19,6 +19,10 @@ class LoginController extends Controller
     |
     */
 
+    public function test(){
+        
+    }
+
     use AuthenticatesUsers;
 
     /**
@@ -26,6 +30,7 @@ class LoginController extends Controller
      *
      * @var string
      */
+    
     protected $redirectTo = RouteServiceProvider::HOME;
 
     /**
