@@ -85,7 +85,7 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="card card-success">
-                                            <div class="card-header" style="background-color: #74c023;">
+                                            <div class="card-header" style="background-color: #43a615;">
                                                 <h3 class="card-title">AIHRs</h3>
                                             </div>
                                             <div class="col-md-12">
@@ -100,7 +100,7 @@
                                     </div>
                                     <div class="col-md-6">
                                         <div class="card card-success">
-                                            <div class="card-header" style="background-color: #74c023;">
+                                            <div class="card-header" style="background-color: #43a615;">
                                                 <h3 class="card-title">Users</h3>
                                             </div>
                                             <div class="col-md-12">
@@ -118,7 +118,7 @@
 
                                     <div class="col-md-8">
                                         <div class="card card-success">
-                                            <div class="card-header" style="background-color: #74c023;">
+                                            <div class="card-header" style="background-color: #43a615;">
                                                 <h3 class="card-title">Awards</h3>
                                             </div>
                                             <div class="col-md-12">
@@ -134,7 +134,7 @@
 
                                     <div class="col-md-4">
                                         <div class="card card-success">
-                                            <div class="card-header" style="background-color: #74c023;">
+                                            <div class="card-header" style="background-color: #43a615;">
                                                 <h3 class="card-title">Programs</h3>
                                             </div>
                                             <div class="col-md-12">

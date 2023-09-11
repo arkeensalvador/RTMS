@@ -30,7 +30,7 @@
                             <div class="card-header">
                                 <h2 class="card-title">List of Projects</h2>
                                 <div class="card-tools">
-                                    
+
                                     <button type="button" class="btn btn-info" data-bs-toggle="modal"
                                         data-bs-target="#staticBackdrop">
                                         <i class="fa-solid fa-cloud-arrow-up"></i>
@@ -102,7 +102,28 @@
                                                             </td>
                                                             {{-- <td>{{ $row->project_extend_date }}</td> --}}
                                                             <td>{{ $row->project_leader }}</td>
-                                                            <td>{{ $row->project_status }}<span class="right badge badge-danger">New</span></td>
+                                                            <td>
+                                                                @if ($row->project_status == 'Terminated')
+                                                                    <span
+                                                                        class="right badge badge-danger">{{ $row->project_status }}</span>
+                                                                @else
+                                                                    @if ($row->project_status == 'Completed')
+                                                                        <span
+                                                                            class="right badge badge-success">{{ $row->project_status }}</span>
+                                                                    @else
+                                                                        @if ($row->project_status == 'On-going')
+                                                                            <span
+                                                                                class="right badge badge-info">{{ $row->project_status }}</span>
+                                                                        @else
+                                                                            @if ($row->project_status == 'New')
+                                                                                <span
+                                                                                    class="right badge badge-primary">{{ $row->project_status }}</span>
+                                                                            @endif
+                                                                        @endif
+                                                                    @endif
+                                                                @endif
+
+                                                            </td>
                                                             <td class="action">
                                                                 <span title="View">
                                                                     <a class="btn btn-info"
@@ -139,7 +160,7 @@
                                                                         href="{{ url("project-upload-file/$row->id") }}"><i
                                                                             class="fa-solid fa-file-circle-plus"></i></a>
                                                                 </span>
-                                                                
+
 
                                                                 <span title="Staffs">
                                                                     <a class="btn btn-warning"
@@ -183,7 +204,8 @@
                 <div class="modal-header">
                     <h1 class="modal-title fs-5" id="staticBackdropLabel">Import to Database
                         <span title="Click to download format">
-                            <a href="{{url('download-template-projects')}}" class="" download><i class="fa-solid fa-file-circle-question"></i></a>
+                            <a href="{{ url('download-template-projects') }}" class="" download><i
+                                    class="fa-solid fa-file-circle-question"></i></a>
                         </span>
                     </h1>
 
@@ -192,11 +214,12 @@
                 <form action="{{ url('import-file') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="modal-body">
-                        <input type="file" name="import_excel_projects" accept="application/vnd.ms-excel" class="form-control" id="import_excel_projects">
+                        <input type="file" name="import_excel_projects" accept="application/vnd.ms-excel"
+                            class="form-control" id="import_excel_projects">
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="submit"  class="btn btn-success">Import</button>
+                        <button type="submit" class="btn btn-success">Import</button>
                     </div>
                 </form>
             </div>
