@@ -282,11 +282,16 @@ td.donor {
     flex-direction: column;
     justify-content: center;
     font-family: 'Poppins', sans-serif;
-    color: black;
+    
     background-color: #43a615;
     height: 100vh;
+    font-weight: 600;
+    color: #fff;
 }
 
+.row-login{
+    justify-content: center;
+}
 .page-title-desktop{
     font-size: 4rem;
 }

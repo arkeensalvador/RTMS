@@ -144,12 +144,14 @@ Route::get('/add-project-personnel/{id}', [App\Http\Controllers\backend\ProjectC
 
 
 // SUB PROJECTS
-Route::post('/add-sub-project', [App\Http\Controllers\backend\ProjectController::class, 'AddProject'])->name('AddProject');
-Route::get('/edit-sub-project/{id}', [App\Http\Controllers\backend\ProjectController::class, 'EditProject'])->name('EditProject');
-Route::post('/update-sub-project/{id}', [App\Http\Controllers\backend\ProjectController::class, 'UpdateProject'])->name('UpdateProject');
-Route::get('/delete-sub-project/{id}', [App\Http\Controllers\backend\ProjectController::class, 'DeleteProject']);
-Route::post('/add-sub-project-personnel', [\App\Http\Controllers\backend\ProjectController::class, 'AddProjectPersonnel'])->name('AddProjectPersonnel');
-Route::get('/add-sub-project-personnel/{id}', [App\Http\Controllers\backend\ProjectController::class, 'InsertProjectsPersonnelIndex'])->name('InsertProjectsPersonnelIndex');
+
+Route::get('/view-subprojects', [App\Http\Controllers\backend\SubprojectController::class, 'viewSubProjectIndex'])->name('viewSubProjectIndex');
+Route::post('/add-sub-project', [App\Http\Controllers\backend\SubprojectController::class, 'AddSubProject'])->name('AddSubProject');
+Route::get('/edit-sub-project/{id}', [App\Http\Controllers\backend\SubprojectController::class, 'editSubProject'])->name('editSubProject');
+Route::post('/update-sub-project/{id}', [App\Http\Controllers\backend\SubprojectController::class, 'UpdateSubProject'])->name('UpdateSubProject');
+Route::get('/delete-sub-project/{id}', [App\Http\Controllers\backend\SubprojectController::class, 'DeleteSubProject']);
+Route::post('/add-sub-project-personnel', [\App\Http\Controllers\backend\SubprojectController::class, 'AddSubProjectPersonnel'])->name('AddSubProjectPersonnel');
+Route::get('/add-sub-project-personnel/{id}', [App\Http\Controllers\backend\SubprojectController::class, 'InsertSubProjectsPersonnelIndex'])->name('InsertSubProjectsPersonnelIndex');
 
 
 

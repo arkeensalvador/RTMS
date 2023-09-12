@@ -9,7 +9,7 @@ use DB;
 class SubprojectController extends Controller
 {
 
-   
+
     public function AddSubProject(Request $request)
     {
         date_default_timezone_set('Asia/Hong_Kong');
@@ -65,7 +65,7 @@ class SubprojectController extends Controller
         return view('backend.report.rdmc.rdmc_projects_under_program_edit', compact('title', 'projects', 'agency', 'program'));
     }
 
-    public function UpdateProject(Request $request, $id)
+    public function UpdateSubProject(Request $request, $id)
     {
         date_default_timezone_set('Asia/Hong_Kong');
 
@@ -108,16 +108,16 @@ class SubprojectController extends Controller
         }
     }
 
-    public function viewProjectIndex($id)
+    public function viewSubProjectIndex()
     {
         $title = 'Sub-projects | RDMC';
         // $program = DB::table('programs')->where('programID', $programID)->first();
         // $programs = DB::table('programs')->where('programID', $programID)->first();
-        $projects = DB::table('projects')->where('id', $id)->get();
+        $projects = DB::table('sub_projects')->get();
 
         // $program_leader = DB::table('personnels')->where('role', '=', "Program Leader")->where('programID', $programID)->get();
 
-        $personnels = DB::table('personnels')->orderByDesc("staff_name")->where('role', '=', "Staff")->where('projectID', $id)->get();
+        // $personnels = DB::table('personnels')->orderByDesc("staff_name")->where('role', '=', "Staff")->where('projectID', $id)->get();
         // $all = DB::table('programs')->get();
 
         $agency = DB::table('projects')
@@ -126,13 +126,13 @@ class SubprojectController extends Controller
             ->first();
 
         // $documents = DB::table('program_files')->where('projectID', $id)->get();
-        $upload_files = DB::table('files')->where('projectID', $id)->orderByDesc("created_at")->get();
-        $projects = DB::table('projects')->where('id', $id)->first();
+        // $upload_files = DB::table('files')->where('projectID', $id)->orderByDesc("created_at")->get();
+        // $projects = DB::table('projects')->where('id', $id)->first();
 
-        return view('backend.projects.view_projects', compact('title', 'projects', 'agency', 'personnels', 'upload_files'));
+        // return view('backend.projects.view_projects', compact('title', 'projects'));
     }
 
-    public function InsertProjectsPersonnelIndex($id)
+    public function InsertSubProjectsPersonnelIndex($id)
     {
         $title = 'Sub-project Staff | RDMC';
         $personnel = DB::table('personnels')->where('projectID', $id)->get();
@@ -145,5 +145,21 @@ class SubprojectController extends Controller
         return Response::download($file_path);
     }
 
-   
+    public function DeleteSubProject($id)
+    {
+        $delete = DB::table('projects')->where('id', $id)->delete();
+        if ($delete) {
+            $notification = array(
+                'message' => 'Project Successfully Deleted!',
+                'alert-type' => 'success'
+            );
+            return redirect()->back()->with($notification);
+        } else {
+            $notification = array(
+                'message' => 'Something is wrong, please try again!',
+                'alert-type' => 'error'
+            );
+            return redirect()->back()->with($notification);
+        }
+    }
 }

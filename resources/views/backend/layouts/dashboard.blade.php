@@ -140,7 +140,7 @@
                                             <div class="col-md-12">
                                                 <div class="card-body">
                                                     <div class="chart">
-                                                        <canvas id="myChart"></canvas>
+                                                        <div id="progs" style="width: 100%"></div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -289,10 +289,10 @@
         function drawChart() {
 
             var data = google.visualization.arrayToDataTable([
-                ['Agency Name', 'Total no. of Awards Received'],
+                ['Agency Name', 'Programs'],
 
                 @php
-                    foreach ($datas as $d) {
+                    foreach ($progs as $d) {
                         echo "['" . $d->agency . "', " . $d->count . '],';
                     }
                 @endphp
@@ -300,14 +300,14 @@
             ]);
 
             var options = {
-                title: 'Total Programs Received by Agency',
-                is3D: false,
+                title: 'Programs of Fuding Agencies',
+                is3D: true,
                 height: 600
             };
 
 
 
-            var chart = new google.visualization.ColumnChart(document.getElementById('datas'));
+            var chart = new google.visualization.ColumnChart(document.getElementById('progs'));
 
             chart.draw(data, options);
         }

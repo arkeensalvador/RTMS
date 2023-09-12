@@ -68,15 +68,8 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="row">
-                                    <div class="col-8">
-                                        <div class="icheck-primary">
-                                            <input type="checkbox" id="remember">
-                                            <label for="remember">
-                                                Remember Me
-                                            </label>
-                                        </div>
-                                    </div>
+                                <div class="row row-login">
+                                    
                                     <!-- /.col -->
                                     <div class="col-4">
                                         <button type="submit" id="login" class="btn btn-primary btn-block">Sign
@@ -86,16 +79,16 @@
                                 </div>
                             </form>
 
-                            <p class="mb-1">
+                            <p class="mb-0 mt-3">
                                 @if (Route::has('password.request'))
                                     <a class="text-center" href="{{ route('password.request') }}">
                                         {{ __('Forgot Your Password?') }}
                                     </a>
                                 @endif
                             </p>
-                            <p class="mb-0">
+                            {{-- <p class="mb-0">
                                 <a href="{{ route('register') }}" class="text-center">Register a new membership</a>
-                            </p>
+                            </p> --}}
                         </div>
                         <!-- /.card-body -->
                     </div>

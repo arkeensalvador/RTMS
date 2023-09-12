@@ -64,8 +64,13 @@ class HomeController extends Controller
             ->orderBy('count')
             ->get();
 
-        $datas = DB::table('cbg_awards')->select(DB::raw("COUNT(*) as count"),DB::raw("awards_agency as agency"))
+        $datas = DB::table('cbg_awards')->select(DB::raw("COUNT(*) as count"), DB::raw("awards_agency as agency"))
             ->groupBy('awards_agency')
+            ->orderBy('count')
+            ->get();
+
+        $progs = DB::table('programs')->select(DB::raw("COUNT(*) as count"), DB::raw("funding_agency as agency"))
+            ->groupBy('funding_agency')
             ->orderBy('count')
             ->get();
 
@@ -73,7 +78,7 @@ class HomeController extends Controller
         return view('backend.layouts.dashboard', [
             'total_new' => $total_new, 'total_ongoing' => $total_ongoing, 'total_terminated' => $total_terminated,
             'total_completed' => $total_completed, 'list' => $list
-        ], compact('all', 'title', 'data', 'datas'));
+        ], compact('all', 'title', 'data', 'datas', 'progs'));
     }
 
     // DASHBOARD COUNT

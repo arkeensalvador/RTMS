@@ -101,11 +101,11 @@
                                     </div>
                                 @endif
                                 <input type="text" class="form-control" name="programID"
-                                    value="{{ $project->programID }}" placeholder="Program ID"  readonly required
+                                    value="{{ $project->programID }}" placeholder="Program ID" hidden readonly required
                                     autocomplete="false">
 
                                 <input type="text" class="form-control" name="projectID" value="{{ $project->id }}"
-                                    placeholder="Project ID"  readonly required autocomplete="false">
+                                    placeholder="Project ID" hidden readonly required autocomplete="false">
 
                                 <input type="text" class="form-control" name="uploader_agency"
                                     value="{{ auth()->user()->agencyID }}" placeholder="Program ID" hidden readonly required

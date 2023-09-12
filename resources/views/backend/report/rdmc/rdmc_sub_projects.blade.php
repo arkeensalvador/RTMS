@@ -15,7 +15,7 @@
                             <li class="breadcrumb-item"><a href="rdmc-index">RDMC</a></li>
                             <li class="breadcrumb-item"><a href="rdmc-monitoring-evaluation">Monitoring and Evaluation</a>
                             </li>
-                            <li class="breadcrumb-item active">Projects</li>
+                            <li class="breadcrumb-item active">Sub-Projects</li>
                         </ol>
                     </div><!-- /.col -->
                 </div><!-- /.row -->
@@ -28,7 +28,7 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-header">
-                                <h2 class="card-title">List of Projects</h2>
+                                <h2 class="card-title">List of Sub Projects</h2>
                                 <div class="card-tools">
                                     <a href="{{ url('view-subprojects') }}" class="btn btn-primary">Sub-projects</a>
 
