@@ -39,36 +39,35 @@ class SubprojectController extends Controller
         if ($insert) {
             $notification = array(
                 'message' => 'Sub-Project Successfully Added!',
-                'alert-type' => 'project'
+                'alert-type' => 'success'
             );
 
-            return redirect()->route('rdmcProjects')->with($notification);
+            return redirect()->route('sub-projects-view/' . $data['projectID'])->with($notification);
         } else {
             $notification = array(
                 'message' => 'Something is wrong, please try again!',
                 'alert-type' => 'error'
             );
-            return redirect()->route('rdmcProjects')->with($notification);
+            return redirect()->route('sub-projects-view/' . $data['projectID'])->with($notification);
         }
     }
 
     public function editSubProject($id)
     {
         $title = 'Sub-projects | RDMC';
-        $projects = DB::table('projects')->where('id', $id)->first();
+        $projects = DB::table('sub_projects')->where('id', $id)->get();
         $agency = DB::table('agency')->get();
 
-        $program = DB::table('programs')->leftJoin('projects', 'programs.programID', '=', 'projects.programID')
-            ->select('programs.*')
+        $sub_projects = DB::table('projects')->leftJoin('sub_projects', 'projects.id', '=', 'sub_projects.projectID')
+            ->select('projects.*')
             ->where('projects.id', $id)
             ->first();
-        return view('backend.report.rdmc.rdmc_projects_under_program_edit', compact('title', 'projects', 'agency', 'program'));
+        return view('backend.report.rdmc.rdmc_sub_project_edit', compact('title', 'projects', 'agency', 'sub_projects'));
     }
 
     public function UpdateSubProject(Request $request, $id)
     {
         date_default_timezone_set('Asia/Hong_Kong');
-
         $data = array();
         $data['projectID'] = $request->projectID;
         $data['sub_project_fund_code'] = $request->sub_project_fund_code;
@@ -108,12 +107,12 @@ class SubprojectController extends Controller
         }
     }
 
-    public function viewSubProjectIndex()
+    public function viewSubProjectIndex($id)
     {
         $title = 'Sub-projects | RDMC';
         // $program = DB::table('programs')->where('programID', $programID)->first();
         // $programs = DB::table('programs')->where('programID', $programID)->first();
-        $projects = DB::table('sub_projects')->get();
+        $sub_projects = DB::table('sub_projects')->where('projectID', $id)->get();
 
         // $program_leader = DB::table('personnels')->where('role', '=', "Program Leader")->where('programID', $programID)->get();
 
@@ -130,6 +129,25 @@ class SubprojectController extends Controller
         // $projects = DB::table('projects')->where('id', $id)->first();
 
         // return view('backend.projects.view_projects', compact('title', 'projects'));
+        return view('backend.projects.view_projects', compact('title', 'sub_projects'));
+    }
+
+    public function viewSubProject($id)
+    {
+        $title = 'Sub-project | RDMC';
+        $sub_projects = DB::table('sub_projects')->where('id', $id)->first();
+        $sub_project_leader = DB::table('personnels')->where('role', '=', "Project Leader")->where('subprojectID', $id)->first();
+
+        $personnels = DB::table('personnels')->orderByDesc("staff_name")->where('role', '=', "Staff")->where('subprojectID', $id)->get();
+
+        $upload_files = DB::table('files')->where('subprojectID', $id)->orderByDesc("created_at")->get();
+
+        $agency = DB::table('sub_projects')
+            ->rightJoin('agency', 'sub_projects.sub_project_agency', '=', 'agency.abbrev')
+            ->select('agency.agency_name')
+            ->first();
+
+        return view('backend.report.rdmc.rdmc_view_sub_project', compact('title', 'sub_projects', 'agency','sub_project_leader', 'personnels','upload_files'));
     }
 
     public function InsertSubProjectsPersonnelIndex($id)
@@ -141,7 +159,7 @@ class SubprojectController extends Controller
 
     public function downloadTemplate()
     {
-        $file_path = storage_path("app\public\import-templates\projects-template.xlsx");
+        $file_path = storage_path("app\public\import-templates\subprojects-template.xlsx");
         return Response::download($file_path);
     }
 

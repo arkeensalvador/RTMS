@@ -123,7 +123,7 @@ Route::get('/rdmc-activities-add', [App\Http\Controllers\backend\ReportControlle
 Route::get('/projects-add', [App\Http\Controllers\backend\ReportController::class, 'projectsAdd'])->name('projectsAdd');
 Route::get('/program-projects-add', [App\Http\Controllers\backend\ReportController::class, 'programProjectsAdd'])->name('programProjectsAdd');
 Route::get('/projects-u-program-add/{programID}', [App\Http\Controllers\backend\ReportController::class, 'projectsUnderProgramAdd'])->name('projectsUnderProgramAdd');
-Route::get('/sub-projects-add', [App\Http\Controllers\backend\ReportController::class, 'subProjectsAdd'])->name('subProjectsAdd');
+Route::get('/sub-projects-view/{id}', [App\Http\Controllers\backend\ReportController::class, 'subProjectsView'])->name('subProjectsView');
 Route::get('/sub-projects-add/{id}', [App\Http\Controllers\backend\ReportController::class, 'ProjectSubProjectsAdd'])->name('ProjectSubProjectsAdd');
 Route::get('/rdmc-create-program', [App\Http\Controllers\backend\ReportController::class, 'rdmcCreateProgram'])->name('rdmcCreateProgram');
 Route::get('/edit-no-program-project/{id}', [App\Http\Controllers\backend\ProjectController::class, 'EditNoProgramProjectIndex'])->name('EditNoProgramProjectIndex');
@@ -146,6 +146,7 @@ Route::get('/add-project-personnel/{id}', [App\Http\Controllers\backend\ProjectC
 // SUB PROJECTS
 
 Route::get('/view-subprojects', [App\Http\Controllers\backend\SubprojectController::class, 'viewSubProjectIndex'])->name('viewSubProjectIndex');
+Route::get('/view-subprojects/{id}', [App\Http\Controllers\backend\SubprojectController::class, 'viewSubProject'])->name('viewSubProject');
 Route::post('/add-sub-project', [App\Http\Controllers\backend\SubprojectController::class, 'AddSubProject'])->name('AddSubProject');
 Route::get('/edit-sub-project/{id}', [App\Http\Controllers\backend\SubprojectController::class, 'editSubProject'])->name('editSubProject');
 Route::post('/update-sub-project/{id}', [App\Http\Controllers\backend\SubprojectController::class, 'UpdateSubProject'])->name('UpdateSubProject');
@@ -259,6 +260,7 @@ Route::get('download-template-programs', [App\Http\Controllers\backend\ProgramsC
 Route::get('download-template-researcher', [App\Http\Controllers\backend\ResearcherController::class, 'downloadTemplate']); 
 Route::get('download-template-agency', [App\Http\Controllers\backend\AgencyController::class, 'downloadTemplate']); 
 Route::get('download-template-projects', [App\Http\Controllers\backend\ProjectController::class, 'downloadTemplate']); 
+Route::get('download-template-subprojects', [App\Http\Controllers\backend\SubprojectController::class, 'downloadTemplate']); 
 
 // IMPORT TO DB
 Route::post('/import-file', [App\Http\Controllers\backend\ImportController::class, 'importExcel'])->name('importExcel');

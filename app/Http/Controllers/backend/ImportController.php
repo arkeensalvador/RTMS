@@ -7,6 +7,7 @@ use App\Imports\AgencyImport;
 use App\Imports\ProgramsImport;
 use App\Imports\ProjectsImport;
 use App\Imports\ResearchersImport;
+use App\Imports\SubProjectsImport;
 use App\Imports\UsersImport;
 use Illuminate\Http\Request;
 use DB;
@@ -92,6 +93,21 @@ class ImportController extends Controller
             }
         } else if ($request->file('import_excel_projects')) {
             $import = Excel::import(new ProjectsImport, $request->file('import_excel_projects'));
+            if ($import) {
+                $notification = array(
+                    'message' => 'Data Successfully Imported!',
+                    'alert-type' => 'project'
+                );
+                return back()->with($notification);
+            } else {
+                $notification = array(
+                    'message' => 'Something is wrong, please try again!',
+                    'alert-type' => 'error'
+                );
+                return back()->with($notification);
+            }
+        } else if ($request->file('import_excel_sub_projects')) {
+            $import = Excel::import(new SubProjectsImport, $request->file('import_excel_sub_projects'));
             if ($import) {
                 $notification = array(
                     'message' => 'Data Successfully Imported!',

@@ -110,7 +110,7 @@
                                             @foreach ($sub_projects as $key => $items)
                                                 <li>
                                                     <a href="{{ url('view-sub-project-index/' . $items->id) }}"
-                                                        class="btn-link text-secondary"><i class="fa-solid fa-book mr-2"></i>{{ $items->project_title }}</a>
+                                                        class="btn-link text-secondary"><i class="fa-solid fa-book mr-2"></i>{{ $items->sub_project_title }}</a>
                                                 </li>
                                             @endforeach
                                         </ul>
