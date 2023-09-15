@@ -30,15 +30,14 @@
                             <div class="card-header">
                                 <h2 class="card-title">List of Projects</h2>
                                 <div class="card-tools">
-                                    <a href="{{ url('view-subprojects') }}" class="btn btn-primary">Sub-projects</a>
+                                    {{-- <a href="{{ url('view-subprojects') }}" class="btn btn-primary">Sub-projects</a> --}}
 
                                     <button type="button" class="btn btn-info" data-bs-toggle="modal"
                                         data-bs-target="#staticBackdrop">
                                         <i class="fa-solid fa-cloud-arrow-up"></i>
                                         Import
                                     </button>
-
-
+                                    
                                     <a href="{{ url('projects-add') }}" class="btn btn-success"
                                         onclick="event.preventDefault();
                                         

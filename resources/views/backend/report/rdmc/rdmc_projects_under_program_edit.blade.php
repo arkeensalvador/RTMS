@@ -19,7 +19,6 @@
             border: 1px solid rgba(53, 52, 52, 0.226);
         }
 
-
         .radio-input label.upl {
             width: 100%;
             padding: 10px;

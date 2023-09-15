@@ -39,7 +39,8 @@
                                     </button>
 
 
-                                    <a href="{{ url('sub-projects-add/' . $sub_project_title->id) }}" class="btn btn-success">
+                                    <a href="{{ url('sub-projects-add/' . $sub_project_title->id) }}"
+                                        class="btn btn-success">
                                         <i class="fa-solid fa-plus"></i> Create</span></a>
                                     <!-- Here is a label for example -->
                                     {{-- <span class="badge badge-primary">Label</span> --}}
@@ -127,7 +128,7 @@
 
                                                                 <span title="Staffs">
                                                                     <a class="btn btn-warning"
-                                                                        href="{{ URL::to('/add-project-personnel/' . $row->id) }}">
+                                                                        href="{{ URL::to('/add-sub-project-personnel/' . $row->projectID . '/' . $row->id) }}">
                                                                         <i class="fa-solid fa-user-plus"></i>
                                                                     </a>
                                                                 </span>
@@ -140,8 +141,7 @@
                                                     @endforeach
                                                 </tbody>
                                             </table>
-                                            <a href="{{ url('rdmc-projects') }}"
-                                                class="btn btn-default">Back</a>
+                                            <a href="{{ url('rdmc-projects') }}" class="btn btn-default">Back</a>
                                         </div>
                                     </div>
                                 </div>

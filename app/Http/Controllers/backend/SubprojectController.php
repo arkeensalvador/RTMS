@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\backend;
 
 use App\Http\Controllers\Controller;
+use App\Models\backend\Personnel;
 use Illuminate\Http\Request;
 use DB;
+use Illuminate\Support\Facades\Response;
 
 class SubprojectController extends Controller
 {
@@ -132,11 +134,11 @@ class SubprojectController extends Controller
         return view('backend.projects.view_projects', compact('title', 'sub_projects'));
     }
 
-    public function viewSubProject($id)
+    public function viewSubProject($projectID, $id)
     {
         $title = 'Sub-project | RDMC';
         $sub_projects = DB::table('sub_projects')->where('id', $id)->first();
-        $sub_project_leader = DB::table('personnels')->where('role', '=', "Project Leader")->where('subprojectID', $id)->first();
+        $sub_project_leader = DB::table('personnels')->where('role', '=', "Project Leader")->where('projectID', $projectID)->orWhere('id', $id)->first();
 
         $personnels = DB::table('personnels')->orderByDesc("staff_name")->where('role', '=', "Staff")->where('subprojectID', $id)->get();
 
@@ -150,11 +152,39 @@ class SubprojectController extends Controller
         return view('backend.report.rdmc.rdmc_view_sub_project', compact('title', 'sub_projects', 'agency','sub_project_leader', 'personnels','upload_files'));
     }
 
-    public function InsertSubProjectsPersonnelIndex($id)
+    public function InsertSubProjectsPersonnelIndex($projectID, $id)
     {
         $title = 'Sub-project Staff | RDMC';
-        $personnel = DB::table('personnels')->where('projectID', $id)->get();
-        return view('backend.projects.add_project_personnel', compact('title', 'personnel'));
+        $personnel = DB::table('personnels')->where('projectID', $projectID)->orWhere('id', $id)->get();
+        return view('backend.report.rdmc.rdmc_sub_project_personnel_index', compact('title', 'personnel'));
+    }
+
+    public function AddSubProjectPersonnel(Request $request) 
+    {
+        $request->validate([
+            'moreFields.*.projectID' => 'required',
+            'moreFields.*.subprojectID' => 'required'
+        ]);
+
+        foreach ($request->moreFields as $key => $value) {
+
+            $staffs = Personnel::create($value);
+        }
+        if ($staffs) {
+
+            $notification = array(
+                'message' => 'Staff(s) Successfully Updated!',
+                'alert-type' => 'success'
+            );
+
+            return redirect()->back()->with($notification);
+        } else {
+            $notification = array(
+                'message' => 'Something is wrong, please try again!',
+                'alert-type' => 'error'
+            );
+            return redirect()->route('rdmcProjects')->with($notification);
+        }
     }
 
     public function downloadTemplate()
