@@ -114,25 +114,10 @@
                                             </tr>
                                         @endforeach
                                     </tbody>
-                                    <tfoot>
-                                        <tr>
-                                            {{-- <th>Trust Fund</th> --}}
-                                            <th>Duration</th>
-                                            {{-- <th>Extension Date</th> --}}
-                                            <th>Funding Agency</th>
-                                            <th>Project Title</th>
-                                            <th>Description</th>
-                                            {{-- <th>Approved Budget</th>
-                                        <th>Amount of Release</th> --}}
-                                            <th>Action</th>
-                                        </tr>
-                                    </tfoot>
                                 </table>
                             </div>
                             <!-- /.card-body -->
-                            <div class="card-footer">
-                                The footer of the card
-                            </div>
+                           
                             <!-- /.card-footer -->
                         </div>
                         <!-- /.card -->

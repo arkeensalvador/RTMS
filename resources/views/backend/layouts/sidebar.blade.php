@@ -46,7 +46,7 @@
             'edit-no-program-project', 'project-upload-file','add-project-personnel','rdmc-linkages-add','edit-linkages','rdmc-dbinfosys-add',
             'edit-dbinfosys', 'add-strategic-index','edit-strategic', 'rdru-add','rdru-ttm-add', 'rdru-tpa-add','edit-ttp',
             'edit-ttm','edit-tpa','cbg-training-add','cbg-awards-add','cbg-equipment-add','edit-training','edit-award','edit-equipment','view-project-index',
-            'sub-projects-view', 'view-subprojects', 'sub-projects-add'];
+            'sub-projects-view', 'view-subprojects', 'sub-projects-add', 'sub-project-upload-file','add-sub-project-personnel'];
         @endphp
 
 

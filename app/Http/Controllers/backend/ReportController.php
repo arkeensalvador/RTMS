@@ -96,17 +96,17 @@ class ReportController extends Controller
         $program = DB::table('programs')->where('programID', $programID)->first();
         return view('backend.report.rdmc.rdmc_projects_under_program_add', compact('program', 'title', 'agency'));
     }
-    public function subProjectsView($id)
+    public function subProjectsView($projectID)
     {
         $title = 'Sub-projects | RDMC';
         $sub_projects = DB::table('sub_projects')
             ->select('*')
-            ->where('projectID', $id)
+            ->where('projectID', $projectID)
             ->orderByDesc("id")
             ->get();
         $sub_project_title = DB::table('projects')
             ->select('*')
-            ->where('id', $id)
+            ->where('id', $projectID)
             ->first();
         $agency = DB::table('agency')->get();
         return view('backend.report.rdmc.rdmc_sub_project_view_index', compact('title', 'sub_project_title', 'sub_projects', 'agency'));

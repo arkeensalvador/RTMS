@@ -15,7 +15,8 @@
                             <li class="breadcrumb-item"><a href="rdmc-index">RDMC</a></li>
                             <li class="breadcrumb-item"><a href="rdmc-monitoring-evaluation">Monitoring and Evaluation</a>
                             </li>
-                            <li class="breadcrumb-item active">Projects</li>
+                            <li class="breadcrumb-item "><a href="rdmc-projects">Projects</a></li>
+                            <li class="breadcrumb-item active">Sub Projects</li>
                         </ol>
                     </div><!-- /.col -->
                 </div><!-- /.row -->
@@ -105,7 +106,7 @@
                                                             <td class="action">
                                                                 <span title="View">
                                                                     <a class="btn btn-info"
-                                                                        href="{{ url("view-subprojects/$row->id") }}"><i
+                                                                        href="{{ url("view-subprojects/$row->projectID/$row->id") }}"><i
                                                                             class="fa-solid fa-eye"
                                                                             style="color: white;"></i></a>
                                                                 </span>
@@ -113,7 +114,7 @@
 
                                                                 <span title="Edit">
                                                                     <a class="btn btn-primary"
-                                                                        href="{{ url("edit-sub-project/$row->id") }}"><i
+                                                                        href="{{ url("edit-sub-project/$row->projectID/$row->id") }}"><i
                                                                             class="fa-solid fa-pen-to-square"
                                                                             style="color: white;"></i></a>
                                                                 </span>
@@ -121,7 +122,7 @@
 
                                                                 <span title="Upload">
                                                                     <a class="btn btn-secondary"
-                                                                        href="{{ url("project-upload-file/$row->id") }}"><i
+                                                                        href="{{ url("sub-project-upload-file/$row->projectID/$row->id") }}"><i
                                                                             class="fa-solid fa-file-circle-plus"></i></a>
                                                                 </span>
 
@@ -133,7 +134,7 @@
                                                                     </a>
                                                                 </span>
 
-                                                                <a href="{{ URL::to('/delete-project/' . $row->id) }}"
+                                                                <a href="{{ URL::to('/delete-sub-project/' . $row->id) }}"
                                                                     class="btn btn-danger" id="delete"><i
                                                                         class="fa-solid fa-trash"></i></a>
                                                             </td>

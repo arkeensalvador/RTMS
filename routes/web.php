@@ -123,7 +123,7 @@ Route::get('/rdmc-activities-add', [App\Http\Controllers\backend\ReportControlle
 Route::get('/projects-add', [App\Http\Controllers\backend\ReportController::class, 'projectsAdd'])->name('projectsAdd');
 Route::get('/program-projects-add', [App\Http\Controllers\backend\ReportController::class, 'programProjectsAdd'])->name('programProjectsAdd');
 Route::get('/projects-u-program-add/{programID}', [App\Http\Controllers\backend\ReportController::class, 'projectsUnderProgramAdd'])->name('projectsUnderProgramAdd');
-Route::get('/sub-projects-view/{id}', [App\Http\Controllers\backend\ReportController::class, 'subProjectsView'])->name('subProjectsView');
+Route::get('/sub-projects-view/{projectID}', [App\Http\Controllers\backend\ReportController::class, 'subProjectsView'])->name('subProjectsView');
 Route::get('/sub-projects-add/{id}', [App\Http\Controllers\backend\ReportController::class, 'ProjectSubProjectsAdd'])->name('ProjectSubProjectsAdd');
 Route::get('/rdmc-create-program', [App\Http\Controllers\backend\ReportController::class, 'rdmcCreateProgram'])->name('rdmcCreateProgram');
 Route::get('/edit-no-program-project/{id}', [App\Http\Controllers\backend\ProjectController::class, 'EditNoProgramProjectIndex'])->name('EditNoProgramProjectIndex');
@@ -148,12 +148,17 @@ Route::get('/add-project-personnel/{id}', [App\Http\Controllers\backend\ProjectC
 Route::get('/view-subprojects', [App\Http\Controllers\backend\SubprojectController::class, 'viewSubProjectIndex'])->name('viewSubProjectIndex');
 Route::get('/view-subprojects/{projectID}/{id}', [App\Http\Controllers\backend\SubprojectController::class, 'viewSubProject'])->name('viewSubProject');
 Route::post('/add-sub-project', [App\Http\Controllers\backend\SubprojectController::class, 'AddSubProject'])->name('AddSubProject');
-Route::get('/edit-sub-project/{id}', [App\Http\Controllers\backend\SubprojectController::class, 'editSubProject'])->name('editSubProject');
-Route::post('/update-sub-project/{id}', [App\Http\Controllers\backend\SubprojectController::class, 'UpdateSubProject'])->name('UpdateSubProject');
+Route::get('/edit-sub-project/{projectID}/{id}', [App\Http\Controllers\backend\SubprojectController::class, 'editSubProject'])->name('editSubProject');
+Route::post('/update-sub-project/{projectID}/{id}', [App\Http\Controllers\backend\SubprojectController::class, 'UpdateSubProject'])->name('UpdateSubProject');
 Route::get('/delete-sub-project/{id}', [App\Http\Controllers\backend\SubprojectController::class, 'DeleteSubProject']);
 Route::post('/add-sub-project-personnel', [\App\Http\Controllers\backend\SubprojectController::class, 'AddSubProjectPersonnel'])->name('AddSubProjectPersonnel');
 Route::get('/add-sub-project-personnel/{projectID}/{id}', [App\Http\Controllers\backend\SubprojectController::class, 'InsertSubProjectsPersonnelIndex'])->name('InsertSubProjectsPersonnelIndex');
+Route::get('/delete-sp-staff/{id}', [App\Http\Controllers\backend\SubprojectController::class, 'DeleteSPStaff'])->name('DeleteSPStaff');
 
+// SUB PROJECT FILE UPLOAD
+Route::get('sub-project-upload-file/{projectID}/{id}', [FileUpload::class, 'createFormSubProject'])->name('uploadFileSubProject');;
+Route::post('/sub-project-upload-file', [FileUpload::class, 'SubProjectFileUpload'])->name('SubProjectFileUpload');
+Route::get('/delete-file-project/{id}', [FileUpload::class, 'DeleteFileProject'])->name('DeleteFileProject');
 
 
 // linkages

@@ -93,7 +93,6 @@
 
                         {{-- card body start --}}
                         <div class="card-body">
-
                             <form role="form" id="regiration_form" action="{{ url('add-sub-project-personnel') }}"
                                 method="POST">
                                 @csrf
@@ -134,14 +133,12 @@
                                     @if (Route::is('AddProgramPersonnelsIndex'))
                                         <a href="{{ url('rdmc-programs') }}" class="btn btn-default">Back</a>
                                     @else
-                                        <a href="{{ url('sub-projects-view/' . Route::input('id')) }}"
+                                        <a href="{{ url('sub-projects-view/' . Route::input('projectID')) }}"
                                             class="btn btn-default">Back</a>
                                     @endif
                                     <button type="submit" name="submit" class="next btn btn-info">Submit</button>
                                     {{-- </div> --}}
                                 </fieldset>
-
-
                             </form>
 
                         </div> {{-- card body end --}}
@@ -163,7 +160,6 @@
                                             {{-- <label>Project Staff(s)</label> --}}
                                             <table class="table table-striped ">
                                                 <tr>
-
                                                     <th>Name</th>
                                                     <th>Action</th>
                                                 </tr>
@@ -173,8 +169,8 @@
                                                             {{ $staff->staff_name }}
                                                         </td>
                                                         <td style="" class="action btns">
-                                                            <a href="{{ URL::to('/delete-staff/' . $staff->id) }}"
-                                                                class="btn btn-sm btn-danger">Delete</a>
+                                                            <a href="{{ URL::to('/delete-sp-staff/' . $staff->id) }}"
+                                                                class="btn btn-sm btn-danger" id="delete">Delete</a>
                                                         </td>
                                                     </tr>
                                                 @endforeach

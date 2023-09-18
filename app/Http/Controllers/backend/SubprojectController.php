@@ -7,6 +7,7 @@ use App\Models\backend\Personnel;
 use Illuminate\Http\Request;
 use DB;
 use Illuminate\Support\Facades\Response;
+use Illuminate\Routing\Redirector;
 
 class SubprojectController extends Controller
 {
@@ -54,20 +55,20 @@ class SubprojectController extends Controller
         }
     }
 
-    public function editSubProject($id)
+    public function editSubProject($projectID, $id)
     {
         $title = 'Sub-projects | RDMC';
-        $projects = DB::table('sub_projects')->where('id', $id)->get();
+        $sub_project = DB::table('sub_projects')->where('id', $id)->first();
         $agency = DB::table('agency')->get();
 
         $sub_projects = DB::table('projects')->leftJoin('sub_projects', 'projects.id', '=', 'sub_projects.projectID')
             ->select('projects.*')
-            ->where('projects.id', $id)
+            ->where('projects.id', $projectID)
             ->first();
-        return view('backend.report.rdmc.rdmc_sub_project_edit', compact('title', 'projects', 'agency', 'sub_projects'));
+        return view('backend.report.rdmc.rdmc_sub_projects_edit', compact('title', 'sub_projects', 'agency', 'sub_project'));
     }
 
-    public function UpdateSubProject(Request $request, $id)
+    public function UpdateSubProject(Request $request, $projectID, $id)
     {
         date_default_timezone_set('Asia/Hong_Kong');
         $data = array();
@@ -91,21 +92,21 @@ class SubprojectController extends Controller
         $data['sub_project_form_of_development'] = $request->sub_project_form_of_development;
         $data['updated_at'] = now();
 
-        $insert = DB::table('sub_projects')->where('id', $id)->update($data);
+        $insert = DB::table('sub_projects')->where('projectID', $projectID)->where('id', $id)->update($data);
         if ($insert) {
-
             $notification = array(
                 'message' => 'Sub-Project Successfully Updated!',
                 'alert-type' => 'success'
             );
 
-            return redirect()->route('rdmcProjects')->with($notification);
+            return redirect()->route('subProjectsView', [$projectID])->with($notification);
         } else {
             $notification = array(
                 'message' => 'Something is wrong, please try again!',
                 'alert-type' => 'error'
             );
-            return redirect()->route('rdmcProjects')->with($notification);
+            return redirect()->route('subProjectsView', [$projectID])->with($notification);
+
         }
     }
 
@@ -149,7 +150,7 @@ class SubprojectController extends Controller
             ->select('agency.agency_name')
             ->first();
 
-        return view('backend.report.rdmc.rdmc_view_sub_project', compact('title', 'sub_projects', 'agency','sub_project_leader', 'personnels','upload_files'));
+        return view('backend.report.rdmc.rdmc_view_sub_project', compact('title', 'sub_projects', 'agency', 'sub_project_leader', 'personnels', 'upload_files'));
     }
 
     public function InsertSubProjectsPersonnelIndex($projectID, $id)
@@ -159,8 +160,10 @@ class SubprojectController extends Controller
         return view('backend.report.rdmc.rdmc_sub_project_personnel_index', compact('title', 'personnel'));
     }
 
-    public function AddSubProjectPersonnel(Request $request) 
+    public function AddSubProjectPersonnel(Request $request)
     {
+        date_default_timezone_set('Asia/Manila');
+
         $request->validate([
             'moreFields.*.projectID' => 'required',
             'moreFields.*.subprojectID' => 'required'
@@ -195,10 +198,28 @@ class SubprojectController extends Controller
 
     public function DeleteSubProject($id)
     {
-        $delete = DB::table('projects')->where('id', $id)->delete();
+        $delete = DB::table('sub_projects')->where('id', $id)->delete();
         if ($delete) {
             $notification = array(
-                'message' => 'Project Successfully Deleted!',
+                'message' => 'Sub-Project Successfully Deleted!',
+                'alert-type' => 'success'
+            );
+            return redirect()->back()->with($notification);
+        } else {
+            $notification = array(
+                'message' => 'Something is wrong, please try again!',
+                'alert-type' => 'error'
+            );
+            return redirect()->back()->with($notification);
+        }
+    }
+
+    public function DeleteSPStaff($id)
+    {
+        $delete = DB::table('personnels')->where('id', $id)->delete();
+        if ($delete) {
+            $notification = array(
+                'message' => 'Staff Successfully Deleted!',
                 'alert-type' => 'success'
             );
             return redirect()->back()->with($notification);

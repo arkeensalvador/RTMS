@@ -30,11 +30,17 @@ class FileUpload extends Controller
         $upload_files = DB::table('files')->where('projectID', $id)->get();
         return view('backend.report.rdmc.file-upload_projects', compact('project', 'upload_files', 'title'));
     }
+    public function createFormSubProject($projectID, $id)
+    {
+        $title = 'Sub Project Files | RTMS';
+        $sub_project = DB::table('sub_projects')->where('projectID', $projectID)->where('id', $id)->first();
+        $upload_files = DB::table('files')->where('projectID', '=', $projectID)->where('subprojectID', '=', $id)->get();
+        return view('backend.report.rdmc.file-upload_sub_projects', compact('sub_project', 'upload_files', 'title'));
+    }
 
     // program file upload
     public function fileUpload(Request $request)
     {
-
 
         date_default_timezone_set('Asia/Hong_Kong');
 
@@ -179,7 +185,7 @@ class FileUpload extends Controller
     // PROJECT FILE UPLOAD
     public function ProjectFileUpload(Request $request)
     {
-        
+
         date_default_timezone_set('Asia/Hong_Kong');
 
         $agency_folder = auth()->user()->agencyID;
@@ -274,7 +280,7 @@ class FileUpload extends Controller
                 );
                 return back()->with($notification);
             }
-           
+
             // Terminal report
             if ($request->hasFile('file_tr')) {
 
@@ -311,6 +317,140 @@ class FileUpload extends Controller
         }
     }
 
+    // SUB PROJECT FILE UPLOAD
+    public function SubProjectFileUpload(Request $request)
+    {
+        date_default_timezone_set('Asia/Manila');
+
+        $agency_folder = auth()->user()->agencyID;
+
+        // upload file
+        $date_time = Carbon::now();
+        $folder_name = 'uploads';
+        Storage::disk('local')->makeDirectory($folder_name, 0775, true); //creates directory
+        if ($request->hasFile('file_moa') or $request->hasFile('file_lib') or $request->hasFile('file_ntp') or $request->hasFile('file_tr') or $request->hasFile('file_fr')) {
+            $destinationPath = $folder_name . '/' . $agency_folder . '/' . 'Project' . '/' . 'Sub-Projects' . '/';
+            // memorandum of agreement
+            if ($request->hasFile('file_moa')) {
+
+                $request->validate([
+                    'file_moa' => 'required|mimes:doc,pdf'
+                ]);
+
+                $file_name = "Memorandum-of-Agreement" . "." . $request->file_moa->getClientOriginalExtension();
+                $upload_tbl = [
+                    'file_name' => $file_name,
+                    'file_path' => $destinationPath . $file_name,
+                    'uploader_agency' => $request->uploader_agency,
+                    'programID' => $request->programID,
+                    'type' => $request->type,
+                    'projectID' => $request->projectID,
+                    'subprojectID' => $request->subprojectID,
+                    'created_at' =>  $date_time
+                ];
+
+                $request->file('file_moa')->storeAs($destinationPath, $file_name);
+                DB::table('files')->insert($upload_tbl);
+
+                $notification = array(
+                    'message' => 'File Successfully Uploaded!',
+                    'alert-type' => 'success'
+                );
+                return back()->with($notification);
+            }
+
+            // line item budget
+            if ($request->hasFile('file_lib')) {
+
+                $request->validate([
+                    'file_lib' => 'required|mimes:doc,pdf'
+                ]);
+
+                $file_name = "Line-Item-Budget" . "." . $request->file_lib->getClientOriginalExtension();
+                $upload_tbl = [
+                    'file_name' => $file_name,
+                    'file_path' => $destinationPath . $file_name,
+                    'uploader_agency' => $request->uploader_agency,
+                    'programID' => $request->programID,
+                    'type' => $request->type,
+                    'projectID' => $request->projectID,
+                    'subprojectID' => $request->subprojectID,
+                    'created_at' =>  $date_time
+                ];
+                $request->file('file_lib')->storeAs($destinationPath, $file_name);
+                DB::table('files')->insert($upload_tbl);
+
+                $notification = array(
+                    'message' => 'File Successfully Uploaded!',
+                    'alert-type' => 'success'
+                );
+                return back()->with($notification);
+            }
+
+            // notice to proceed
+            if ($request->hasFile('file_ntp')) {
+
+                $request->validate([
+                    'file_ntp' => 'required|mimes:doc,pdf'
+                ]);
+
+                $file_name = "Notice-to-Proceed" . "." . $request->file_ntp->getClientOriginalExtension();
+                $upload_tbl = [
+                    'file_name' => $file_name,
+                    'file_path' => $destinationPath . $file_name,
+                    'uploader_agency' => $request->uploader_agency,
+                    'programID' => $request->programID,
+                    'type' => $request->type,
+                    'projectID' => $request->projectID,
+                    'subprojectID' => $request->subprojectID,
+                    'created_at' =>  $date_time
+                ];
+                $request->file('file_ntp')->storeAs($destinationPath, $file_name);
+                DB::table('files')->insert($upload_tbl);
+
+                $notification = array(
+                    'message' => 'File Successfully Uploaded!',
+                    'alert-type' => 'success'
+                );
+                return back()->with($notification);
+            }
+
+            // Terminal report
+            if ($request->hasFile('file_tr')) {
+
+                $request->validate([
+                    'file_tr' => 'required|mimes:doc,pdf'
+                ]);
+
+                $file_name = "Terminal-Report" . "." . $request->file_tr->getClientOriginalExtension();
+                $upload_tbl = [
+                    'file_name' => $file_name,
+                    'file_path' => $destinationPath . $file_name,
+                    'uploader_agency' => $request->uploader_agency,
+                    'programID' => $request->programID,
+                    'type' => $request->type,
+                    'projectID' => $request->projectID,
+                    'subprojectID' => $request->subprojectID,
+                    'created_at' =>  $date_time
+                ];
+                $request->file('file_tr')->storeAs($destinationPath, $file_name);
+                DB::table('files')->insert($upload_tbl);
+
+                $notification = array(
+                    'message' => 'File Successfully Uploaded!',
+                    'alert-type' => 'success'
+                );
+                return back()->with($notification);
+            }
+        } else {
+            $notification = array(
+                'message' => 'Something is wrong, please try again!',
+                'alert-type' => 'error'
+            );
+            return back()->with($notification);
+        }
+    }
+
 
     public function download($id)
     {
@@ -319,23 +459,6 @@ class FileUpload extends Controller
         return Response::download($file_path);
     }
 
-    // public function DeleteFile($id)
-    // {
-    //     $delete = DB::table('files')->where('id', $id)->delete();
-    //     if ($delete) {
-    //         $notification = array(
-    //             'message' => 'File Successfully Deleted!',
-    //             'alert-type' => 'success'
-    //         );
-    //         return redirect()->back()->with($notification);
-    //     } else {
-    //         $notification = array(
-    //             'message' => 'Something is wrong, please try again!',
-    //             'alert-type' => 'error'
-    //         );
-    //         return redirect()->back()->with($notification);
-    //     }
-    // }
 
     public function DeleteFile($id)
     {
