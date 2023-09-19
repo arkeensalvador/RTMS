@@ -128,7 +128,7 @@
                                             <div class="text-center mt-5 mb-3">
                                                 <a href="{{ url('sub-projects-view/'.$sub_projects->projectID) }}"
                                                     class="btn btn previous btn btn-default">Back</a>
-                                                <a href="{{ url("upload-file/$sub_projects->id") }}"
+                                                <a href="{{ url("add-sub-project-personnel/$sub_projects->projectID/$sub_projects->id") }}"
                                                     class="btn btn btn-primary">Add files</a>
                                             </div>
                                         </div>

@@ -94,153 +94,62 @@
                             <h5 class="card-title">
                                 Report List
                             </h5>
+                            <a class="btn btn-primary float-right" href="{{ URL::to('/reports/pdf') }}">Export to PDF</a>
                         </div>
 
                         {{-- card body start --}}
                         <div class="card-body">
-                            <div class="row">
-                                <div class="col-12 col-md-12">
-                                    <div class="col-sm-7">
-                                        {{-- {{$agency}} --}}
-                                        <div>
-                                            <canvas id="myChart"></canvas>
-                                        </div>
-                                        <div>
-                                            <canvas id="myChart2"></canvas>
-                                        </div>
-
-                                        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-                                        <script>
-                                            const ctx = document.getElementById('myChart');
-                                            const ctxx = document.getElementById('myChart2');
-                                            
-                                            // var agencyList = {{ json_encode($list) }};
-                                            var totalNew = {{ json_encode($total_new) }};
-                                            var totalOngoing = {{ json_encode($total_ongoing) }};
-                                            var totalTerminated = {{ json_encode($total_terminated) }};
-                                            var totalCompleted = {{ json_encode($total_completed) }};
-
-                                            new Chart(ctx, {
-                                                type: 'bar',
-                                                data: {
-                                                    labels: ['New', 'Ongoing', 'Terminated', 'Completed'],
-                                                    datasets: [{
-                                                        label: "Total",
-                                                        data: [totalNew, totalOngoing, totalTerminated, totalCompleted],
-                                                        backgroundColor: [
-                                                            'rgba(255, 193, 7, 0.9)',
-                                                            'rgba(23, 162, 184, 0.9)',
-                                                            'rgba(179 , 0, 0, 0.9)',
-                                                            'rgba(0, 128, 0, 0.9)'
-                                                        ],
-                                                        borderWidth: 1
-                                                    }],
-
-
-                                                },
-
-                                                options: {
-                                                    scales: {
-                                                        y: {
-                                                            beginAtZero: true
-                                                        }
-                                                    },
-
-                                                    plugins: {
-                                                        legend: {
-                                                            display: false
-                                                        }
-
-                                                    }
-                                                }
-                                            });
-                                        </script>
-                                    </div>{{-- card end --}}
-
-                                </div>
-                                <div class="col-lg-1">
-                                </div>
-                            </div>
+                            <h4>Programs</h4>
+                            <table id="programs" class="table table-bordered table-striped mb-3">
+                                <thead>
+                                    <tr>
+                                        <th>Program Title</th>
+                                        <th>Description</th>
+                                        <th>Duration</th>
+                                        <th>Funding Agency</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($all_programs as $data)
+                                        <tr>
+                                            <td>{{ $data->program_title }}</td>
+                                            <td>{{ $data->program_description }}</td>
+                                            <td>
+                                                {{ date('F, Y', strtotime($data->start_date)) ?: 'Not Set' }} -
+                                                {{ date('F, Y', strtotime($data->end_date)) ?: 'Not Set' }}
+                                            </td>
+                                            <td>{{ $data->funding_agency }}</td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                            <h4>Projects</h4>
+                            <table id="programs" class="table table-bordered table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Program Title</th>
+                                        <th>Description</th>
+                                        <th>Duration</th>
+                                        <th>Funding Agency</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($all_projects as $key => $row)
+                                        <tr>
+                                            <td>{{ $row->project_title }}</td>
+                                            <td>{{ $row->project_description }}</td>
+                                            <td>
+                                                {{ date('F, Y', strtotime($row->project_start_date)) ?: 'Not Set' }} -
+                                                {{ date('F, Y', strtotime($row->project_end_date)) ?: 'Not Set' }}
+                                            </td>
+                                            <td>{{ $row->project_agency }}</td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
         </section>
     </div>
-
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
-
-    <script>
-        var selectBox = document.getElementById("year");
-        selectBox.onchange = function() {
-            var textbox = document.getElementById("textYear");
-            textbox.value = this.value;
-        };
-    </script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-
-    <script type="text/javascript">
-        var i = 0;
-        $("#add-btn").click(function() {
-            ++i;
-            $("#dynamicAddRemove").append(`
-            <tr>
-                <td class="append">
-                    <input type="text" class="form-control" name="moreFields[` + i + `][programID]" value="{{ Route::input('programID') }}" 
-                    placeholder="Program ID" hidden readonly required autocomplete="false">
-                    <input type="text" class="form-control" placeholder="Staff" name="moreFields[` + i + `][staff_name]">
-                </td>
-
-                <td class="append">
-                    <i class="fa-solid fa-user-minus fa-lg remove-input" style="color: #dc3545;"></i>
-                </td>
-            </tr>`);
-        });
-        $(document).on('click', '.remove-input', function() {
-            $(this).parents('tr').remove();
-        });
-
-        $('input.number-to-text').keydown(function(event) {
-            if ([38, 40].indexOf(event.keyCode) > -1) {
-                event.preventDefault();
-            }
-        });
-    </script>
 @endsection
 
-{{-- 
-{{ $total_new }}
-{{ $total_ongoing }}
-{{ $total_terminated }}
-{{ $total_completed }}
-
-<div id="highchart"></div>
-<script>
-    $(function() {
-        var totalNew = {{ json_encode($total_new) }};
-        var totalOngoing = {{ json_encode($total_ongoing) }};
-        var totalTerminated = {{ json_encode($total_terminated) }};
-        var totalCompleted = {{ json_encode($total_completed) }};
-
-        $('#highchart').highchart({
-            chart: {
-                type: "column"
-            },
-            title: {
-                text: "Agency In-House Reviews"
-            },
-            xAxis: {
-                categories: ['New', 'Ongoing', 'Terminated', 'Completed']
-            },
-            series: [{
-                name: 'New',
-                data: totalNew
-            }, {
-                name: 'Ongoing',
-                data: totalOngoing
-            }, {
-                name: 'Terminated',
-                data: totalTerminated
-            }, {
-                name: 'Completed',
-                data: totalCompleted
-            }]
-        });
-    });
-</script> --}}

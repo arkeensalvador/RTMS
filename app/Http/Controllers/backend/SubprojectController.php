@@ -45,13 +45,13 @@ class SubprojectController extends Controller
                 'alert-type' => 'success'
             );
 
-            return redirect()->route('sub-projects-view/' . $data['projectID'])->with($notification);
+            return redirect()->route('subProjectsView', [$data['projectID']])->with($notification);
         } else {
             $notification = array(
                 'message' => 'Something is wrong, please try again!',
                 'alert-type' => 'error'
             );
-            return redirect()->route('sub-projects-view/' . $data['projectID'])->with($notification);
+            return redirect()->route('subProjectsView', [$data['projectID']])->with($notification);
         }
     }
 
@@ -141,7 +141,7 @@ class SubprojectController extends Controller
         $sub_projects = DB::table('sub_projects')->where('id', $id)->first();
         $sub_project_leader = DB::table('personnels')->where('role', '=', "Project Leader")->where('projectID', $projectID)->orWhere('id', $id)->first();
 
-        $personnels = DB::table('personnels')->orderByDesc("staff_name")->where('role', '=', "Staff")->where('subprojectID', $id)->get();
+        $personnels = DB::table('personnels')->orderByDesc("staff_name")->where('role', '=', "Staff")->where('projectID', $projectID)->where('subprojectID', $id)->get();
 
         $upload_files = DB::table('files')->where('subprojectID', $id)->orderByDesc("created_at")->get();
 

@@ -9,7 +9,7 @@ class Programs extends Model
 {
     use HasFactory;
 
-    protected $fillable = [
+    public $fillable = [
         'programID',
         'fund_code',
         'program_title',

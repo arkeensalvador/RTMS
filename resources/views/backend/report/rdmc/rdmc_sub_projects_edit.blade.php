@@ -224,7 +224,7 @@
 
 
 
-                                    <a href="{{ url('rdmc-projects') }}" class="btn btn-default">Back</a>
+                                    <a href="{{ url('sub-projects-view/'.request()->route('projectID')) }}" class="btn btn-default">Back</a>
                                     <input type="button" name="next" class="next btn btn-info" value="Next" />
                                 </fieldset>
 

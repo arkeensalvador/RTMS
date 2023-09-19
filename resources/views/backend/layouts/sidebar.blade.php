@@ -40,13 +40,7 @@
         {{-- ACTIVE MENU QUERY --}}
         @php
             $segment1 = Request::segment(1);
-            $pages = ['report-index','rdmc-index','rdmc-monitoring-evaluation','aihrs','rdmc-projects','rdmc-activities',
-            'rdmc-linkages-index','rdmc-dbinfosys-index','strategic-activities','rdru-index','rdru-ttp','rdru-ttm','rdru-tta',
-            'cbg-index','cbg-training','cbg-awards','cbg-equipment','projects-add','edit-activity', 'edit-activity','rdmc-activities-add',
-            'edit-no-program-project', 'project-upload-file','add-project-personnel','rdmc-linkages-add','edit-linkages','rdmc-dbinfosys-add',
-            'edit-dbinfosys', 'add-strategic-index','edit-strategic', 'rdru-add','rdru-ttm-add', 'rdru-tpa-add','edit-ttp',
-            'edit-ttm','edit-tpa','cbg-training-add','cbg-awards-add','cbg-equipment-add','edit-training','edit-award','edit-equipment','view-project-index',
-            'sub-projects-view', 'view-subprojects', 'sub-projects-add', 'sub-project-upload-file','add-sub-project-personnel'];
+            $pages = ['report-index', 'rdmc-index', 'rdmc-monitoring-evaluation', 'aihrs', 'rdmc-projects', 'rdmc-activities', 'rdmc-linkages-index', 'rdmc-dbinfosys-index', 'strategic-activities', 'rdru-index', 'rdru-ttp', 'rdru-ttm', 'rdru-tta', 'cbg-index', 'cbg-training', 'cbg-awards', 'cbg-equipment', 'projects-add', 'edit-activity', 'edit-activity', 'rdmc-activities-add', 'edit-no-program-project', 'project-upload-file', 'add-project-personnel', 'rdmc-linkages-add', 'edit-linkages', 'rdmc-dbinfosys-add', 'edit-dbinfosys', 'add-strategic-index', 'edit-strategic', 'rdru-add', 'rdru-ttm-add', 'rdru-tpa-add', 'edit-ttp', 'edit-ttm', 'edit-tpa', 'cbg-training-add', 'cbg-awards-add', 'cbg-equipment-add', 'edit-training', 'edit-award', 'edit-equipment', 'view-project-index', 'sub-projects-view', 'view-subprojects', 'sub-projects-add', 'sub-project-upload-file', 'add-sub-project-personnel'];
         @endphp
 
 
@@ -66,59 +60,64 @@
                     </a>
                 </li>
 
+
+                <li class="nav-item">
+                    <a href="{{ URL::to('report-index') }}"
+                        class="nav-link @if (in_array($segment1, $pages)) active @endif">
+                        <i class="nav-icon fa-solid fa-book-journal-whills"></i>
+                        <p>
+                            Add Report
+                        </p>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="{{ URL::to('rdmc-programs') }}"
+                        class="nav-link  {{ Request::is(
+                            'rdmc-programs',
+                            'rdmc-choose-program',
+                            'rdmc-create-program',
+                            'projects-u-program-add',
+                            'view-program-index/*',
+                            'upload-file/*',
+                            'edit-program-index/*',
+                            'add-program-personnel-index/*',
+                            'projects-u-program-add/*',
+                        )
+                            ? 'active'
+                            : '' }}">
+                        <i class="nav-icon fas fa-diagram-project"></i>
+                        <p>
+                            Programs
+                        </p>
+                        {{-- <i class="fas fa-angle-left right"></i> --}}
+                    </a>
+                </li>
                 @if (auth()->user()->role == 'Admin')
-                    <li class="nav-item">
-
-                        <a href="{{ URL::to('report-index') }}"
-                            class="nav-link @if (in_array($segment1, $pages)) active @endif">
-                            <i class="nav-icon fa-solid fa-book-journal-whills"></i>
-                            <p>
-                                Add Report
-                            </p>
-                        </a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a href="{{ URL::to('rdmc-programs') }}"
-                            class="nav-link  {{ Request::is(
-                                'rdmc-programs',
-                                'rdmc-choose-program',
-                                'rdmc-create-program',
-                                'projects-u-program-add',
-                                'view-program-index/*',
-                                'upload-file/*',
-                                'edit-program-index/*',
-                                'add-program-personnel-index/*',
-                                'projects-u-program-add/*',
-                            )
-                                ? 'active'
-                                : '' }}">
-                            <i class="nav-icon fas fa-diagram-project"></i>
-                            <p>
-                                Programs
-                            </p>
-                            {{-- <i class="fas fa-angle-left right"></i> --}}
-                        </a>
-                    </li>
-
                     <li class="nav-item">
                         <a href="{{ URL::to('report-list') }}"
                             class="nav-link {{ Request::is('report-list') ? 'active' : '' }}">
                             <i class="nav-icon fa-solid fa-list-ul"></i>
                             <p>
-                                List of Reports
+                                Reports
                             </p>
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a href="{{ URL::to('/researcher-index') }}"
-                            class="nav-link {{ Request::is('researcher-index') ? 'active' : '' }}">
-                            <i class="nav-icon fas fa-users"></i>
-                            <p>
-                                Researchers
-                            </p>
-                        </a>
-                    </li>
+                @endif
+                
+                <li class="nav-item">
+                    <a href="{{ URL::to('/researcher-index') }}"
+                        class="nav-link {{ Request::is('researcher-index') ? 'active' : '' }}">
+                        <i class="nav-icon fas fa-users"></i>
+                        <p>
+                            Researchers
+                        </p>
+                    </a>
+                </li>
+
+                {{-- (auth()->user()->agencyID == 'CLSU') --}}
+                
+                @if (auth()->user()->role == 'Admin')
                     <li class="nav-item">
                         <a href="{{ URL::to('/all-agency') }}"
                             class="nav-link {{ Request::is('all-agency', 'edit-agency/*') ? 'active' : '' }}">

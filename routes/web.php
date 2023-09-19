@@ -258,6 +258,7 @@ Route::get('/delete-equipment/{id}', [App\Http\Controllers\backend\EquipmentCont
 
 // Report List
 Route::get('/report-list', [App\Http\Controllers\backend\ReportListController::class, 'reportListIndex'])->name('reportListIndex');
+Route::get('/reports/pdf', [App\Http\Controllers\backend\ReportListController::class, 'createPDF']);
 
 //Download templates
 Route::get('download-template-user', [App\Http\Controllers\backend\UserController::class, 'downloadTemplate']); 
