@@ -39,9 +39,12 @@
 
     <table id="customers">
         <tr>
+            <th>test</th>
+        </tr>
+        <tr>
             <th>Program Title</th>
             <th>Description</th>
-            <th>Duration</th>
+            <th>Duration(m/d/Y)</th>
             <th>Funding Agency</th>
         </tr>
         @foreach ($list as $data)
@@ -49,8 +52,8 @@
                 <td>{{ $data->program_title }}</td>
                 <td>{{ $data->program_description }}</td>
                 <td>
-                    {{ date('F, Y', strtotime($data->start_date)) ?: 'Not Set' }} -
-                    {{ date('F, Y', strtotime($data->end_date)) ?: 'Not Set' }}
+                    {{ date('m/d/Y', strtotime($data->start_date)) ?: 'Not Set' }} -
+                    {{ date('m/d/Y', strtotime($data->end_date)) ?: 'Not Set' }}
                 </td>
                 <td>{{ $data->funding_agency }}</td>
             </tr>
@@ -62,7 +65,7 @@
         <tr>
             <th>Project Title</th>
             <th>Description</th>
-            <th>Duration</th>
+            <th>Duration(m/d/Y)</th>
             <th>Funding Agency</th>
         </tr>
         @foreach ($plist as $pl)
@@ -70,8 +73,8 @@
                 <td>{{ $pl->project_title }}</td>
                 <td>{{ $pl->project_description }}</td>
                 <td>
-                    {{ date('F, Y', strtotime($pl->project_start_date)) ?: 'Not Set' }} -
-                    {{ date('F, Y', strtotime($pl->project_end_date)) ?: 'Not Set' }}
+                    {{ date('m/d/Y', strtotime($pl->project_start_date)) ?: 'Not Set' }} -
+                    {{ date('m/d/Y', strtotime($pl->project_end_date)) ?: 'Not Set' }}
                 </td>
                 <td>{{ $pl->project_agency }}</td>
             </tr>
@@ -83,7 +86,7 @@
         <tr>
             <th>Sub-Project Title</th>
             <th>Description</th>
-            <th>Duration</th>
+            <th>Duration(m/d/Y)</th>
             <th>Funding Agency</th>
         </tr>
         @foreach ($splist as $spl)
@@ -91,8 +94,8 @@
                 <td>{{ $spl->sub_project_title }}</td>
                 <td>{{ $spl->sub_project_description }}</td>
                 <td>
-                    {{ date('F, Y', strtotime($spl->sub_project_start_date)) ?: 'Not Set' }} -
-                    {{ date('F, Y', strtotime($spl->sub_project_end_date)) ?: 'Not Set' }}
+                    {{ date('m/d/Y', strtotime($spl->sub_project_start_date)) ?: 'Not Set' }} -
+                    {{ date('m/d/Y', strtotime($spl->sub_project_end_date)) ?: 'Not Set' }}
                 </td>
                 <td>{{ $spl->sub_project_agency }}</td>
             </tr>
@@ -100,5 +103,18 @@
     </table>
 
 </body>
+{{-- <script>
+    $(function() {
+        $('#example2').DataTable({
+            "paging": true,
+            "lengthChange": true,
+            "searching": false,
+            "ordering": true,
+            "info": true,
+            "autoWidth": true,
+            "responsive": true,
+        });
+    });
+</script> --}}
 
 </html>

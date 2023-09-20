@@ -51,34 +51,32 @@
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body">
-                                <table id="programs" class="table table-bordered table-striped">
+                                <table id="example2" class="table table-bordered table-striped text-center">
                                     <thead>
                                         <tr>
-                                            {{-- <th>Trust Fund</th> --}}
-                                            <th>Duration</th>
-                                            {{-- <th>End Date</th> --}}
-                                            {{-- <th>Extension Date</th> --}}
-                                            <th>Funding Agency</th>
-                                            <th>Program Title</th>
-                                            <th>Description</th>
-                                            {{-- <th>Approved Budget</th>
-                                        <th>Amount of Release</th> --}}
-                                            <th>Action</th>
+                                            <th rowspan="2">Program Title</th>
+                                            <th colspan="2" style="text-align:center">Duration</th>
+                                            <th rowspan="2">Funding Agency</th>
+                                            
+                                            <th rowspan="2">Description</th>
+                                            <th rowspan="2">Action</th>
+                                        </tr>
+                                        <tr>
+                                            <th>Start Date</th>
+                                            <th>End Date</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         @foreach ($all as $key => $row)
                                             <tr>
-                                                {{-- <td>{{ $row->trust_fund_code }}</td> --}}
+                                                <td>{{ $row->program_title }}</td>
+                                                <td>{{ date('F, Y', strtotime($row->start_date)) ?: 'Not Set' }}</td>
                                                 <td>
-                                                    {{ date('F, Y', strtotime($row->start_date)) ?: 'Not Set' }} -
                                                     {{ date('F, Y', strtotime($row->end_date)) ?: 'Not Set' }}
                                                 </td>
                                                 {{-- <td>{{ $row->project_extension_date }}</td> --}}
                                                 <td>{{ $row->funding_agency }}</td>
-                                                <td>{{ $row->program_title }}</td>
                                                 <td>{{ $row->program_description }}</td>
-                                                {{-- <td>{{ $row->amount_of_release }}</td> --}}
                                                 <td class="action">
                                                     <span title="View">
                                                         <a class="btn btn-info"
@@ -117,7 +115,7 @@
                                 </table>
                             </div>
                             <!-- /.card-body -->
-                           
+
                             <!-- /.card-footer -->
                         </div>
                         <!-- /.card -->
@@ -139,7 +137,8 @@
                 <div class="modal-header">
                     <h1 class="modal-title fs-5" id="staticBackdropLabel">Import to Database
                         <span title="Click to download format">
-                            <a href="{{url('download-template-programs')}}" class="" download><i class="fa-solid fa-file-circle-question"></i></a>
+                            <a href="{{ url('download-template-programs') }}" class="" download><i
+                                    class="fa-solid fa-file-circle-question"></i></a>
                         </span>
                     </h1>
 
@@ -148,11 +147,12 @@
                 <form action="{{ url('import-file') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="modal-body">
-                        <input type="file" name="import_excel_programs" accept="application/vnd.ms-excel" class="form-control" id="import_excel">
+                        <input type="file" name="import_excel_programs" accept="application/vnd.ms-excel"
+                            class="form-control" id="import_excel">
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="submit"  class="btn btn-success">Import</button>
+                        <button type="submit" class="btn btn-success">Import</button>
                     </div>
                 </form>
             </div>

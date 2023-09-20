@@ -100,7 +100,7 @@
                         {{-- card body start --}}
                         <div class="card-body">
                             <h4>Programs</h4>
-                            <table id="programs" class="table table-bordered table-striped mb-3">
+                            <table id="" class="table table-bordered table-striped mb-3">
                                 <thead>
                                     <tr>
                                         <th>Program Title</th>
@@ -124,7 +124,7 @@
                                 </tbody>
                             </table>
                             <h4>Projects</h4>
-                            <table id="programs" class="table table-bordered table-striped mb-3">
+                            <table id="" class="table table-bordered table-striped mb-3">
                                 <thead>
                                     <tr>
                                         <th>Program Title</th>
@@ -148,7 +148,7 @@
                                 </tbody>
                             </table>
                             <h4>Sub-Projects</h4>
-                            <table id="programs" class="table table-bordered table-striped">
+                            <table id="" class="table table-bordered table-striped">
                                 <thead>
                                     <tr>
                                         <th>Sub-project Title</th>

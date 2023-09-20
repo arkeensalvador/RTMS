@@ -123,7 +123,7 @@ class ProgramsController extends Controller
         $data['amount_released'] = $request->amount_released;
         $data['budget_year'] = $request->budget_year;
         $data['form_of_development'] = $request->form_of_development;
-        $data['edited_at'] = now();
+        $data['updated_at'] = now();
 
         $insert = DB::table('programs')->where('programID', $programID)->update($data);
         if ($insert) {
