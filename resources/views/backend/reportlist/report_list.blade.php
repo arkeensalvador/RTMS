@@ -124,7 +124,7 @@
                                 </tbody>
                             </table>
                             <h4>Projects</h4>
-                            <table id="programs" class="table table-bordered table-striped">
+                            <table id="programs" class="table table-bordered table-striped mb-3">
                                 <thead>
                                     <tr>
                                         <th>Program Title</th>
@@ -143,6 +143,30 @@
                                                 {{ date('F, Y', strtotime($row->project_end_date)) ?: 'Not Set' }}
                                             </td>
                                             <td>{{ $row->project_agency }}</td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                            <h4>Sub-Projects</h4>
+                            <table id="programs" class="table table-bordered table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Sub-project Title</th>
+                                        <th>Description</th>
+                                        <th>Duration</th>
+                                        <th>Funding Agency</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($all_sub_projects as $key => $row)
+                                        <tr>
+                                            <td>{{ $row->sub_project_title }}</td>
+                                            <td>{{ $row->sub_project_description }}</td>
+                                            <td>
+                                                {{ date('F, Y', strtotime($row->sub_project_start_date)) ?: 'Not Set' }} -
+                                                {{ date('F, Y', strtotime($row->sub_project_end_date)) ?: 'Not Set' }}
+                                            </td>
+                                            <td>{{ $row->sub_project_agency }}</td>
                                         </tr>
                                     @endforeach
                                 </tbody>

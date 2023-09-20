@@ -78,6 +78,27 @@
         @endforeach
     </table>
 
+    <h3>List of Sub-Projects</h3>
+    <table id="customers">
+        <tr>
+            <th>Sub-Project Title</th>
+            <th>Description</th>
+            <th>Duration</th>
+            <th>Funding Agency</th>
+        </tr>
+        @foreach ($splist as $spl)
+            <tr>
+                <td>{{ $spl->sub_project_title }}</td>
+                <td>{{ $spl->sub_project_description }}</td>
+                <td>
+                    {{ date('F, Y', strtotime($spl->sub_project_start_date)) ?: 'Not Set' }} -
+                    {{ date('F, Y', strtotime($spl->sub_project_end_date)) ?: 'Not Set' }}
+                </td>
+                <td>{{ $spl->sub_project_agency }}</td>
+            </tr>
+        @endforeach
+    </table>
+
 </body>
 
 </html>

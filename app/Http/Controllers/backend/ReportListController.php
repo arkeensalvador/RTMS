@@ -5,6 +5,7 @@ namespace App\Http\Controllers\backend;
 use App\Http\Controllers\Controller;
 use App\Models\Programs;
 use App\Models\Projects;
+use App\Models\SubProjects;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -57,9 +58,11 @@ class ReportListController extends Controller
         // retreive all records from db
         $plist = Projects::get();
         $list = Programs::get();
+        $splist = SubProjects::get();
         $pdf = Pdf::loadView('backend.reportlist.export_report', [
             'list' => $list,
-            'plist' => $plist
+            'plist' => $plist,
+            'splist' => $splist
         ]);
         return $pdf->download('reports.pdf');
     }
