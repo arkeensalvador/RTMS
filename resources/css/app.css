@@ -288,6 +288,11 @@ td.donor {
     font-weight: 600;
     color: #fff;
 }
+body.reset .col-9.card-reset {
+    display: inline-block;
+}
+
+
 
 .row-login{
     justify-content: center;
