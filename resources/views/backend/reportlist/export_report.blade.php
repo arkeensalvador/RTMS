@@ -39,9 +39,6 @@
 
     <table id="customers">
         <tr>
-            <th>test</th>
-        </tr>
-        <tr>
             <th>Program Title</th>
             <th>Description</th>
             <th>Duration(m/d/Y)</th>
@@ -101,6 +98,8 @@
             </tr>
         @endforeach
     </table>
+
+    
 
 </body>
 {{-- <script>

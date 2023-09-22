@@ -129,7 +129,7 @@
 
                                                                 <span title="Staffs">
                                                                     <a class="btn btn-warning"
-                                                                        href="{{ URL::to('/add-sub-project-personnel/' . $row->projectID . '/' . $row->id) }}">
+                                                                        href="{{ URL::to("/add-sub-project-personnel/$row->projectID/$row->id") }}">
                                                                         <i class="fa-solid fa-user-plus"></i>
                                                                     </a>
                                                                 </span>

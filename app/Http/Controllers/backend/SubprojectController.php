@@ -156,7 +156,7 @@ class SubprojectController extends Controller
     public function InsertSubProjectsPersonnelIndex($projectID, $id)
     {
         $title = 'Sub-project Staff | RDMC';
-        $personnel = DB::table('personnels')->where('projectID', $projectID)->orWhere('id', $id)->get();
+        $personnel = DB::table('personnels')->where('projectID', $projectID)->where('subprojectID', $id)->get();
         return view('backend.report.rdmc.rdmc_sub_project_personnel_index', compact('title', 'personnel'));
     }
 

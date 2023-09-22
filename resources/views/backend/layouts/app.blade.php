@@ -7,7 +7,7 @@
     <title>{{ $title }}</title>
     <link rel="icon" href="{{ asset('backend/dist/img/favicon.ico') }}" type="image/x-icon" />
     
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
+    {{-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"> --}}
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -34,6 +34,7 @@
     <link rel="stylesheet" href="{{ asset('toaster/toastr.min.css') }}">
 
     {{-- Select2 --}}
+    
     <link rel="stylesheet" href="{{ asset('backend/plugins/select2/css/select2.min.css') }}">
 
     {{-- bs stepper --}}
@@ -61,27 +62,7 @@
 
     {{-- GOOGLE CHARTS --}}
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    {{-- <script>
-        @if (Session::has('message'))
-        var type="{{Session::get('alert-type','info')}}"
-        switch(type) {
-            case 'info':
-                toastr.info("{{Session::get('message')}}");
-                break;
-            case 'success':
-                toastr.success("{{Session::get('message')}}");
-                break;
-            case 'warning':
-                toastr.warning("{{Session::get('message')}}");
-                break;
-            case 'error':
-                toastr.error("{{Session::get('message')}}");
-                break;
-        }
-        @endif
-    </script> --}}
-
-
+  
 
     <style>
         .form-control,
@@ -425,41 +406,11 @@
         }
     </style>
 
-
-
 </head>
 
 <body class="hold-transition light-mode sidebar-mini layout-fixed layout-navbar-fixed layout-footer">
     <div class="wrapper">
-        <!-- Preloader -->
-        {{-- <div class="preloader flex-column justify-content-center align-items-center" @disabled(true)>
-            <div class="loader">
-                <div class="cell d-0"></div>
-                <div class="cell d-1"></div>
-                <div class="cell d-2"></div>
-
-                <div class="cell d-1"></div>
-                <div class="cell d-2"></div>
-
-
-                <div class="cell d-2"></div>
-                <div class="cell d-3"></div>
-
-
-                <div class="cell d-3"></div>
-                <div class="cell d-4"></div>
-            </div>
-        </div> --}}
-
-
-
-        {{-- <div class="preloader flex-column justify-content-center align-items-center">
-            <img class="animation__wobble" src="{{asset('backend/dist/img/claarrdec.png')}}" alt="CLAARRDEC Logo"
-                height="150" width="150">
-        </div> --}}
-
-
-
+        
         @include('sweetalert::alert')
         <!-- Navbar -->
         @include('backend.layouts.navbar')
