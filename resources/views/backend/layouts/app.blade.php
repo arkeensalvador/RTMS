@@ -6,8 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{{ $title }}</title>
     <link rel="icon" href="{{ asset('backend/dist/img/favicon.ico') }}" type="image/x-icon" />
-    
-    {{-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"> --}}
+
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -15,6 +14,9 @@
     <link rel="stylesheet" href="{{ asset('backend/plugins/fontawesome-free/css/all.min.css') }}">
     <link rel="stylesheet" href="{{ asset('backend/plugins/fontawesome-free-6.3.0-web/css/all.min.css') }}">
     {{-- <script src="https://kit.fontawesome.com/403b4fe327.js" crossorigin="anonymous"></script> --}}
+
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- overlayScrollbars -->
     <link rel="stylesheet" href="{{ asset('backend/plugins/overlayScrollbars/css/OverlayScrollbars.min.css') }}">
@@ -25,16 +27,13 @@
     <link rel="stylesheet" href="{{ asset('backend/plugins/datatables-buttons/css/buttons.bootstrap4.min.css') }}">
     <!-- Theme style -->
     <link rel="stylesheet" href="{{ asset('backend/dist/css/adminlte.min.css') }}">
-    {{--
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous">
-    --}}
+
 
     {{-- Toastr & Sweet Alert --}}
     <link rel="stylesheet" href="{{ asset('toaster/toastr.min.css') }}">
 
     {{-- Select2 --}}
-    
+
     <link rel="stylesheet" href="{{ asset('backend/plugins/select2/css/select2.min.css') }}">
 
     {{-- bs stepper --}}
@@ -46,9 +45,7 @@
     <link rel="stylesheet" href="{{ asset('backend/plugins/chart.js/Chart.css') }}">
 
     {{-- iCheck --}}
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/icheck-bootstrap/3.0.1/icheck-bootstrap.min.css"
-        integrity="sha512-8vq2g5nHE062j3xor4XxPeZiPjmRDh6wlufQlfC6pdQ/9urJkU07NM0tEREeymP++NczacJ/Q59ul+/K2eYvcg=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/icheck-bootstrap/3.0.1/icheck-bootstrap.min.css"/>
 
     {{-- CSS --}}
     <link rel="stylesheet" type="text/css" href="{{ mix('resources/css/app.css') }}" />
@@ -62,7 +59,7 @@
 
     {{-- GOOGLE CHARTS --}}
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-  
+
 
     <style>
         .form-control,
@@ -410,7 +407,7 @@
 
 <body class="hold-transition light-mode sidebar-mini layout-fixed layout-navbar-fixed layout-footer">
     <div class="wrapper">
-        
+
         @include('sweetalert::alert')
         <!-- Navbar -->
         @include('backend.layouts.navbar')
@@ -450,7 +447,7 @@
 
     <!-- Bootstrap -->
     <script src="{{ asset('backend/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-    
+
     <!-- overlayScrollbars -->
     <script src="{{ asset('backend/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js') }}"></script>
     <!-- AdminLTE App -->
@@ -519,8 +516,7 @@
 
     {{-- BS tags input --}}
     <script src="{{ asset('backend/plugins/bs-tags-input/bootstrap-tagsinput.js') }}"></script>
-
-
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>
 <script>
