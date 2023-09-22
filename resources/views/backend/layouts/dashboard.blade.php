@@ -233,7 +233,7 @@
             ]);
 
             var options = {
-                title: 'Users Detail',
+                title: 'No. of users created',
                 is3D: false,
             };
 

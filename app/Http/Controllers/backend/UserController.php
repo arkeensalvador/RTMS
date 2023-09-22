@@ -41,10 +41,11 @@ class UserController extends Controller
         $data = array();
         $data['name'] = $request->name;
         $data['email'] = $request->email;
+        $data['role'] = $request->role;
         $data['agencyID'] = $request->agencyID;
         $data['password'] = Hash::make($request->password);
         $data['created_at'] = now();
-        $data['updated_at'] = now();
+        // $data['updated_at'] = now();
 
         $insert = DB::table('users')->insert($data);
         if ($insert) {
@@ -84,7 +85,9 @@ class UserController extends Controller
         $data = array();
         $data['name'] = $request->name;
         $data['email'] = $request->email;
+        $data['role'] = $request->role;
         $data['agencyID'] = $request->agencyID;
+        // $data['password'] = Hash::make($request->password);
         $data['updated_at'] = now();
 
         $update = DB::table('users')->where('id', $id)->update($data);
