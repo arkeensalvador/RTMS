@@ -41,6 +41,7 @@ class ProgramsController extends Controller
         $data['amount_released'] = $request->amount_released;
         $data['budget_year'] = $request->budget_year;
         $data['form_of_development'] = $request->form_of_development;
+        $data['keywords'] = htmlspecialchars_decode(json_encode($request->keywords));
         $data['created_at'] = now();
 
         $insert = DB::table('programs')->insert($data);
@@ -249,7 +250,8 @@ class ProgramsController extends Controller
     public function AddProgramPersonnel(Request $request)
     {
         $request->validate([
-            'moreFields.*.programID' => 'required'
+            'moreFields.*.programID' => 'required',
+            'moreFields.*.staff_name' => 'required'
         ]);
 
         foreach ($request->moreFields as $key => $value) {

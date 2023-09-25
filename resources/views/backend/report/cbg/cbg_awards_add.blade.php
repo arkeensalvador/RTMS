@@ -144,8 +144,8 @@
                                         <div class="form-group">
                                             <label>Recipient(s)</label>
 
-                                            <input type="text" name="awards_recipients[]" class="form-control" data-role="tagsinput"
-                                                placeholder="Recipient(s)" list="funddtlist">
+                                            <input type="text" name="awards_recipients[]" class="form-control"
+                                                data-role="tagsinput" placeholder="Recipient(s)" list="funddtlist">
                                             <datalist id="funddtlist">
                                                 @foreach ($researchers as $row)
                                                     <option value="{{ $row->name }}">{{ $row->name }}

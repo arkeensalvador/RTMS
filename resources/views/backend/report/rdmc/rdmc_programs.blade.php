@@ -54,60 +54,89 @@
                                 <table id="programs" class="table table-bordered table-striped text-center">
                                     <thead>
                                         <tr>
-                                            <th rowspan="2">Program Title</th>
-                                            <th colspan="2" style="text-align:center">Duration</th>
-                                            <th rowspan="2">Funding Agency</th>
-                                            
-                                            <th rowspan="2">Description</th>
-                                            <th rowspan="2">Action</th>
+                                            <th hidden>Program ID</th>
+                                            <th>Fund Code</th>
+                                            <th>Program Title</th>
+                                            <th>Duration</th>
+                                            <th>Funding Agency</th>
+                                            <th>Description</th>
+                                            <th>Status</th>
+                                            <th>Action</th>
                                         </tr>
-                                        <tr>
-                                            <th>Start Date</th>
-                                            <th>End Date</th>
-                                        </tr>
+
                                     </thead>
                                     <tbody>
                                         @foreach ($all as $key => $row)
                                             <tr>
+                                                <td class="prog_id" hidden>{{ $row->programID }}</td>
+                                                <td>{{ $row->fund_code }}</td>
                                                 <td>{{ $row->program_title }}</td>
-                                                <td>{{ date('F, Y', strtotime($row->start_date)) ?: 'Not Set' }}</td>
                                                 <td>
-                                                    {{ date('F, Y', strtotime($row->end_date)) ?: 'Not Set' }}
+                                                    @empty($row->extend_date)
+                                                        {{ date('F, Y', strtotime($row->start_date)) ?: 'Not Set' }} -
+                                                        {{ date('F, Y', strtotime($row->end_date)) ?: 'Not Set' }}
+                                                    @else
+                                                        {{ date('F, Y', strtotime($row->start_date)) ?: 'Not Set' }} -
+                                                        {{ date('F, Y', strtotime($row->extend_date)) ?: 'Not Set' }}
+                                                        <span class="badge text-bg-info">Extended</span>
+                                                    @endempty
                                                 </td>
-                                                {{-- <td>{{ $row->project_extension_date }}</td> --}}
                                                 <td>{{ $row->funding_agency }}</td>
                                                 <td>{{ $row->program_description }}</td>
+                                                <td>
+                                                    @if ($row->program_status == 'New')
+                                                        {{ $row->program_status }}
+                                                        <i class="fa-solid fa-database fa-xl" style="color: #28a745;"></i>
+                                                    @elseif ($row->program_status == 'On-going')
+                                                        {{ $row->program_status }}
+                                                        <i class="fa-solid fa-magnifying-glass-chart fa-xl"
+                                                            style="color: #2a6cdf;"></i>
+                                                    @elseif ($row->program_status == 'Terminated')
+                                                        {{ $row->program_status }}
+                                                        <i class="fa-solid fa-triangle-exclamation fa-xl"
+                                                            style="color: #ff0000;"></i>
+                                                    @elseif ($row->program_status == 'Completed')
+                                                        {{ $row->program_status }}
+                                                        <i class="fa-solid fa-circle-check fa-xl" style="color: #28a745;"></i>
+                                                    @endif
+
+
+                                                </td>
                                                 <td class="action">
-                                                    <span title="View">
+                                                    <span title="View Program">
                                                         <a class="btn btn-info"
                                                             href="{{ url("view-program-index/$row->programID") }}"><i
                                                                 class="fa-solid fa-eye" style="color: white;"></i></a>
                                                     </span>
 
-                                                    <span title="Edit">
+                                                    <span title="Edit Program">
                                                         <a class="btn btn-primary"
                                                             href="{{ url("edit-program-index/$row->programID") }}"><i
                                                                 class="fa-solid fa-pen-to-square"
                                                                 style="color: white;"></i></a>
                                                     </span>
 
-                                                    <span title="Upload">
+                                                    <span title="Upload Program Files">
                                                         <a class="btn btn-secondary"
                                                             href="{{ url("upload-file/$row->programID") }}"><i
                                                                 class="fa-solid fa-file-circle-plus"></i></a>
                                                     </span>
 
-                                                    <span title="Staffs">
-                                                        <a class="btn btn-warning"
+                                                    <span title="Add Program Staffs">
+                                                        <!-- Button trigger modal -->
+                                                        <a class="btn btn-warning addPersonnel" data-toggle="modal"
+                                                            data-target='#add-personnel' data-id="{{ $row->programID }}"><i
+                                                                class="fa-solid fa-user-plus"></i></a>
+
+                                                        {{-- <a class="btn btn-warning"
                                                             href="{{ URL::to('/add-program-personnel-index/' . $row->programID) }}">
                                                             <i class="fa-solid fa-user-plus"></i>
-                                                        </a>
+                                                        </a> --}}
                                                     </span>
 
                                                     <a href="{{ URL::to('/delete-program/' . $row->id) }}"
                                                         class="btn btn-danger" id="delete"><i
                                                             class="fa-solid fa-trash"></i></a>
-
                                                 </td>
                                             </tr>
                                         @endforeach
@@ -127,6 +156,58 @@
             <!-- /.container-fluid -->
         </section>
         <!-- /.content -->
+    </div>
+    <!-- Modal Personnel-->
+    <div class="modal fade" id="add-personnel" data-keyboard="false" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Add Personnels</h1>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form role="form" id="regiration_form" action="{{ url('add-program-personnel') }}" method="POST">
+                        @csrf
+                        {{-- EMPLOYEE FORM WORKING --}}
+                        <fieldset>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label>Program Staff(s)</label>
+                                        <table class="table table-append" id="dynamicAddRemove">
+                                            <tr>
+                                                <td class="append">
+                                                    <input type="text" class="form-control"
+                                                        name="moreFields[0][programID]" id="programID" value=""
+                                                        placeholder="Program ID" hidden readonly required
+                                                        autocomplete="false">
+
+                                                    <input type="text" class="form-control" placeholder="Staff"
+                                                        name="moreFields[0][staff_name]" required autocomplete="false">
+                                                </td>
+
+                                                <td class="append">
+                                                    <i class="fa-solid fa-user-plus fa-lg" style="color: #28a745;"
+                                                        name="add" id="add-btn"></i>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+
+                            {{-- <div class="card-footer"> --}}
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="submit" name="submit" class="next btn btn-info">Submit</button>
+                            </div>
+                        </fieldset>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
     <!-- Modal -->
     <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
@@ -158,26 +239,46 @@
         </div>
     </div>
 
-    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-        Launch demo modal
-      </button>
-      
-      <!-- Modal -->
-      <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-              ...
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-              <button type="button" class="btn btn-primary">Save changes</button>
-            </div>
-          </div>
-        </div>
-      </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script type="text/javascript">
+        var i = 0;
+        $("#add-btn").click(function() {
+
+            ++i;
+
+            $("#dynamicAddRemove").append(`
+            <tr>
+                <td class="append">
+                    <input type="text" class="form-control" name="moreFields[` + i + `][programID]" id="moreFields[` +
+                i + `][prog]" value="" 
+                    placeholder="Program ID" hidden readonly required autocomplete="false">
+                    <input type="text" class="form-control" placeholder="Staff" name="moreFields[` + i + `][staff_name]">
+                </td>
+
+                <td class="append">
+                    <i class="fa-solid fa-user-minus fa-lg remove-input" style="color: #dc3545;"></i>
+                </td>
+            </tr>`);
+
+            let text1 = document.getElementById('programID').value;
+            document.getElementById(`moreFields[` + i + `][prog]`).value = text1;
+        });
+        $(document).on('click', '.remove-input', function() {
+            $(this).parents('tr').remove();
+        });
+
+        $('input.number-to-text').keydown(function(event) {
+            if ([38, 40].indexOf(event.keyCode) > -1) {
+                event.preventDefault();
+            }
+        });
+
+
+        $(document).on('click', '.addPersonnel', function() {
+            var _this = $(this).parents('tr');
+            // $('#program_id').val(_this.find('.prog_id').text());
+            $('#programID').val(_this.find('.prog_id').text());
+        });
+    </script>
 @endsection

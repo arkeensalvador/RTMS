@@ -85,9 +85,9 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="card card-success">
-                                            <div class="card-header" style="background-color: #43a615;">
+                                            {{-- <div class="card-header" style="background-color: #43a615;">
                                                 <h3 class="card-title">AIHRs</h3>
-                                            </div>
+                                            </div> --}}
                                             <div class="col-md-12">
                                                 <div class="card-body">
                                                     <div class="chart">
@@ -100,9 +100,9 @@
                                     </div>
                                     <div class="col-md-6">
                                         <div class="card card-success">
-                                            <div class="card-header" style="background-color: #43a615;">
+                                            {{-- <div class="card-header" style="background-color: #43a615;">
                                                 <h3 class="card-title">Users</h3>
-                                            </div>
+                                            </div> --}}
                                             <div class="col-md-12">
                                                 <div class="card-body">
                                                     <div class="chart">
@@ -118,9 +118,9 @@
 
                                     <div class="col-md-8">
                                         <div class="card card-success">
-                                            <div class="card-header" style="background-color: #43a615;">
+                                            {{-- <div class="card-header" style="background-color: #43a615;">
                                                 <h3 class="card-title">Awards</h3>
-                                            </div>
+                                            </div> --}}
                                             <div class="col-md-12">
                                                 <div class="card-body">
                                                     <div class="chart">
@@ -128,15 +128,14 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <!-- /.card-body -->
                                         </div>
                                     </div>
 
                                     <div class="col-md-4">
                                         <div class="card card-success">
-                                            <div class="card-header" style="background-color: #43a615;">
+                                            {{-- <div class="card-header" style="background-color: #43a615;">
                                                 <h3 class="card-title">Programs</h3>
-                                            </div>
+                                            </div> --}}
                                             <div class="col-md-12">
                                                 <div class="card-body">
                                                     <div class="chart">
@@ -226,7 +225,7 @@
 
                 @php
                     foreach ($data as $d) {
-                        echo "['" . $d->month_name . "', " . $d->count . '],';
+                        echo "['" . $d->month_name . "', '" . $d->count . "'],";
                     }
                 @endphp
 

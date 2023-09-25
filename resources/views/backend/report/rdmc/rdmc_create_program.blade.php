@@ -82,7 +82,7 @@
 
             <div class="strategic row">
 
-                <div class="col-md-7">
+                <div class="col-md-12">
 
                     {{-- card start --}}
                     <div class="card">
@@ -91,10 +91,10 @@
                                 Add Program
                             </h5>
                         </div>
-                        <div class="progress">
+                        {{-- <div class="progress">
                             <div class="progress-bar bg-success progress-bar-striped" role="progressbar" aria-valuemin="0"
                                 aria-valuemax="100"></div>
-                        </div>
+                        </div> --}}
 
                         {{-- card body start --}}
                         <div class="card-body">
@@ -118,15 +118,22 @@
                                         <div class="col-sm-4">
                                             <div class="form-group">
                                                 <label>Fund Code</label>
-                                                <input type="text" class="form-control" placeholder="Enter code"
-                                                    name="fund_code">
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text">#</span>
+                                                    </div>
+                                                    <input type="text" class="form-control" id="fund_code"
+                                                        placeholder="Enter code" name="fund_code">
+                                                </div>
                                             </div>
                                         </div>
 
                                         <div class="col-sm-4">
                                             <div class="form-group">
                                                 <label>Status</label>
-                                                <select name="program_status" id="" class="form-control">
+                                                <select name="program_status" id=""
+                                                    class="form-control custom-select">
+                                                    <option value="" selected disabled>--Select Status--</option>
                                                     <option value="New">New</option>
                                                     <option value="On-going">On-going</option>
                                                     <option value="Terminated">Terminated</option>
@@ -138,7 +145,9 @@
                                         <div class="col-sm-4">
                                             <div class="form-group">
                                                 <label>Category</label>
-                                                <select name="program_category" id="" class="form-control">
+                                                <select name="program_category" id=""
+                                                    class="form-control custom-select">
+                                                    <option value="" selected disabled>--Select Category--</option>
                                                     <option value="Research Category">Research Category</option>
                                                     <option value="Development Category">Development Category</option>
                                                 </select>
@@ -159,12 +168,12 @@
                                         <div class="col-sm-8">
                                             <div class="form-group">
                                                 <label>Funding Agency</label>
-                                                <select class="form-control agency" name="funding_agency" id=""
-                                                    required>
+                                                <select class="form-control agency" name="funding_agency" id="">
                                                     <option></option>
                                                     @foreach ($agency as $key)
                                                         <option value="{{ $key->abbrev }}">{{ $key->agency_name }} -
-                                                            ({{ $key->abbrev }})</b></option>
+                                                            ({{ $key->abbrev }})
+                                                            </b></option>
                                                     @endforeach
                                                 </select>
                                             </div>
@@ -187,12 +196,23 @@
                                         </div>
                                     </div>
 
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label>Keyword(s)</label>
+                                                <input type="text" name="keywords[]" class="form-control"
+                                                    data-role="tagsinput" placeholder="Keyword(s)">
+                                            </div>
+                                        </div>
+                                    </div>
+
                                     {{-- <a href="{{ url('rdmc-projects') }}" class="btn btn-default">Back</a>
                                     <input type="submit" name="submit" class="submit btn btn-success" value="Submit" /> --}}
                                     <button onclick="history.go(-1);" class="btn btn-default">Back </button>
 
                                     {{-- <a href="{{ url('rdmc-projects') }}" class="btn btn-default">Back</a> --}}
                                     <input type="button" name="next" class="next btn btn-info" value="Next" />
+                                    <input type="submit" name="submit" class="submit btn btn-success" value="Submit" />
                                     <!-- /.card-body -->
                                     {{-- Page2 --}}
                                 </fieldset>
@@ -203,7 +223,7 @@
                                         <div class="col-sm-3">
                                             <div class="form-group">
                                                 <label>Start Date</label>
-                                                <input type="month" required class="form-control" name="start_date"
+                                                <input type="month" class="form-control" name="start_date"
                                                     autocomplete="false">
                                             </div>
                                         </div>
@@ -212,7 +232,7 @@
                                         <div class="col-sm-3">
                                             <div class="form-group">
                                                 <label>End Date</label>
-                                                <input type="month" required class="form-control" name="end_date"
+                                                <input type="month" class="form-control" name="end_date"
                                                     autocomplete="false">
                                             </div>
                                         </div>
@@ -260,26 +280,6 @@
                                         </div>
                                     </div>
 
-                                    {{-- <div class="row">
-                                        <div class="col-sm-5">
-                                            <div class="form-group">
-                                                <label>Program Staff(s)</label>
-                                                <table class="table table-append" id="dynamicAddRemove">
-                                                    <tr>
-                                                        <td class="append">
-                                                            <input type="text" class="form-control"
-                                                                placeholder="Program Staffs" name="moreFields[0][name]">
-                                                        </td>
-
-                                                        <td class="append">
-                                                            <i class="fa-solid fa-user-plus fa-lg" style="color: #28a745;"
-                                                                name="add" id="add-btn"></i>
-                                                        </td>
-                                                    </tr>
-                                                </table>
-                                            </div>
-                                        </div>
-                                    </div> --}}
 
                                     <input type="button" name="previous" class="previous btn btn-default"
                                         value="Previous" />
@@ -345,7 +345,10 @@
                                         <div class="col-sm-5">
                                             <div class="form-group">
                                                 <label>Form of Development</label>
-                                                <select name="form_of_development" id="" class="form-control">
+                                                <select name="form_of_development" id=""
+                                                    class="form-control custom-select">
+                                                    <option value="" selected disabled>--Select Form of Development--
+                                                    </option>
                                                     <option value="Local">Local</option>
                                                     <option value="National">National</option>
                                                     <option value="International">International</option>
@@ -371,7 +374,7 @@
 
     </section>
     </div>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
     {{-- <script>
         $(document).ready(function() {
