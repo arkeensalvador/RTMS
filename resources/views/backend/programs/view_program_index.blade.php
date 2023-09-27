@@ -16,7 +16,7 @@
         <!-- Main content -->
         <section class="content">
             <div class="strategic row">
-                <div class="col-md-8">
+                <div class="col-md-12">
                     <div class="card">
                         <div class="card-header">
                             <h3 class="card-title">Program Details</h3>
@@ -77,6 +77,15 @@
                                         </div>
                                     </div>
                                     <div class="row">
+                                        {{-- <div class="col-md-12">
+                                            <ul class="list-group list-group-flush">
+                                                <li class="list-group-item">An item</li>
+                                                <li class="list-group-item">A second item</li>
+                                                <li class="list-group-item">A third item</li>
+                                                <li class="list-group-item">A fourth item</li>
+                                                <li class="list-group-item">And a fifth one</li>
+                                            </ul>
+                                        </div> --}}
                                         <div class="col-12">
                                             <h3 class="text-primary">{{ $program->program_title }}</h3>
                                             <p class="text-muted">{{ $program->program_description }}</p>
@@ -110,6 +119,7 @@
                                                         <a href="{{ url('download/' . $items->id) }}"
                                                             class="btn-link text-secondary"><i
                                                                 class="far fa-fw fa-file-pdf"></i>{{ $items->file_name }}</a>
+                                                        <a href="{{ url('/'.$items->file_path) }}" target="_blank">View </a>
                                                     </li>
                                                 @endforeach
                                             </ul>
@@ -120,7 +130,8 @@
                                                 @foreach ($projects as $key => $items)
                                                     <li>
                                                         <a href="{{ url('view-project-index/' . $items->id) }}"
-                                                            class="btn-link text-secondary"><i class="fa-solid fa-book mr-2"></i>{{ $items->project_title }}</a>
+                                                            class="btn-link text-secondary"><i
+                                                                class="fa-solid fa-book mr-2"></i>{{ $items->project_title }}</a>
                                                     </li>
                                                 @endforeach
                                             </ul>

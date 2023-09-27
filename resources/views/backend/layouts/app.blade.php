@@ -15,14 +15,22 @@
     <link rel="stylesheet" href="{{ asset('backend/plugins/fontawesome-free-6.3.0-web/css/all.min.css') }}">
     {{-- <script src="https://kit.fontawesome.com/403b4fe327.js" crossorigin="anonymous"></script> --}}
 
-    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+        integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- overlayScrollbars -->
     <link rel="stylesheet" href="{{ asset('backend/plugins/overlayScrollbars/css/OverlayScrollbars.min.css') }}">
     <!-- DataTables -->
     <link rel="stylesheet" href="{{ asset('backend/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('backend/plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
+    <link rel="stylesheet"
+        href="{{ asset('backend/plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
 
     <link rel="stylesheet" href="{{ asset('backend/plugins/datatables-buttons/css/buttons.bootstrap4.min.css') }}">
     <!-- Theme style -->
@@ -45,7 +53,8 @@
     <link rel="stylesheet" href="{{ asset('backend/plugins/chart.js/Chart.css') }}">
 
     {{-- iCheck --}}
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/icheck-bootstrap/3.0.1/icheck-bootstrap.min.css"/>
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/icheck-bootstrap/3.0.1/icheck-bootstrap.min.css" />
 
     {{-- CSS --}}
     <link rel="stylesheet" type="text/css" href="{{ mix('resources/css/app.css') }}" />
@@ -443,7 +452,7 @@
     <!-- jQuery -->
     {{-- <script src="{{ asset('backend/plugins/jquery/jquery.min.js') }}"></script> --}}
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
     <!-- Bootstrap -->
     <script src="{{ asset('backend/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
 
@@ -518,81 +527,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>
-<script>
-    const form = document.getElementById('form');
-    const username = document.getElementById('username');
-    const email = document.getElementById('email');
-    const password = document.getElementById('password');
-    const password2 = document.getElementById('password2');
 
-form.addEventListener('submit', e => {
-    e.preventDefault();
-
-    validateInputs();
-});
-
-const setError = (element, message) => {
-    const inputControl = element.parentElement;
-    const errorDisplay = inputControl.querySelector('.error');
-
-    errorDisplay.innerText = message;
-    inputControl.classList.add('error');
-    inputControl.classList.remove('success')
-}
-
-const setSuccess = element => {
-    const inputControl = element.parentElement;
-    const errorDisplay = inputControl.querySelector('.error');
-
-    errorDisplay.innerText = '';
-    inputControl.classList.add('success');
-    inputControl.classList.remove('error');
-};
-
-const isValidEmail = email => {
-    const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    return re.test(String(email).toLowerCase());
-}
-
-const validateInputs = () => {
-    const usernameValue = username.value.trim();
-    const emailValue = email.value.trim();
-    const passwordValue = password.value.trim();
-    const password2Value = password2.value.trim();
-
-    if(usernameValue === '') {
-        setError(username, 'Username is required');
-    } else {
-        setSuccess(username);
-    }
-
-    if(emailValue === '') {
-        setError(email, 'Email is required');
-    } else if (!isValidEmail(emailValue)) {
-        setError(email, 'Provide a valid email address');
-    } else {
-        setSuccess(email);
-    }
-
-    if(passwordValue === '') {
-        setError(password, 'Password is required');
-    } else if (passwordValue.length < 8 ) {
-        setError(password, 'Password must be at least 8 character.')
-    } else {
-        setSuccess(password);
-    }
-
-    if(password2Value === '') {
-        setError(password2, 'Please confirm your password');
-    } else if (password2Value !== passwordValue) {
-        setError(password2, "Passwords doesn't match");
-    } else {
-        setSuccess(password2);
-    }
-
-};
-
-</script>
 <script>
     function formatNumber(e) {
         var rex = /(^\d{2})|(\d{1,3})(?=\d{1,3}|$)/g,
@@ -624,7 +559,42 @@ const validateInputs = () => {
             return false;
         }
     });
-    s
+</script>
+
+<script>
+    function enableCreateUser() {
+        // file input 1
+        if (document.getElementById("filecheck").checked) {
+            document.getElementById("file-input1").disabled = false;
+        } else {
+            document.getElementById("file-input1").disabled = true;
+        }
+        // file input 2
+        if (document.getElementById("filecheck2").checked) {
+            document.getElementById("file-input2").disabled = false;
+        } else {
+            document.getElementById("file-input2").disabled = true;
+        }
+        // file input 3
+        if (document.getElementById("filecheck3").checked) {
+            document.getElementById("file-input3").disabled = false;
+        } else {
+            document.getElementById("file-input3").disabled = true;
+        }
+        // file input 4
+        if (document.getElementById("filecheck4").checked) {
+            document.getElementById("file-input4").disabled = false;
+        } else {
+            document.getElementById("file-input4").disabled = true;
+        }
+        // file input 5
+        if (document.getElementById("filecheck5").checked) {
+            document.getElementById("file-input5").disabled = false;
+        } else {
+            document.getElementById("file-input5").disabled = true;
+        }
+
+    }
 </script>
 <script>
     $(document).ready(function() {
@@ -636,6 +606,26 @@ const validateInputs = () => {
         $('.year').select2({
             placeholder: "Select Year",
             allowClear: false
+        });
+
+        $('.program_leader').select2({
+            placeholder: "Select Program Leader",
+            allowClear: false
+        });
+
+        $('.keywords').select2({
+            placeholder: "Enter keyword(s) related to program",
+            allowClear: true,
+            tags: true,
+        });
+
+        $('.researchers').select2({
+            placeholder: "Select researchers",
+            allowClear: false,
+        });
+
+        $('.others').select2({
+            minimumResultsForSearch: -1
         });
     });
 </script>
@@ -692,7 +682,6 @@ const validateInputs = () => {
                     icon: 'success',
                     title: "{{ Session::get('message') }}",
                     text: 'Are there any Project associated with this Program?',
-                    // type: 'success',
                     showDenyButton: true,
                     showCloseButton: true,
                     confirmButtonText: 'Yes',
@@ -704,12 +693,7 @@ const validateInputs = () => {
                     if (result.value) {
                         window.location.href = 'program-projects-add';
                     }
-                    // else {
-                    //     window.location.href = 'projects-add';
-                    // }
                 });
-
-                // toastr.error("{{ Session::get('message') }}");
                 break;
 
             case 'project':

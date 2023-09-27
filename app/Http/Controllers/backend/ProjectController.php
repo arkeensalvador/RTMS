@@ -18,7 +18,6 @@ class ProjectController extends Controller
 
         $data = array();
         $data['programID'] = $request->programID;
-        $data['agencyID'] = $request->agencyID;
         $data['project_fund_code'] = $request->project_fund_code;
         $data['project_funding_years'] = $request->project_funding_years;
         $data['project_funding_duration'] = $request->project_funding_duration;
@@ -36,23 +35,14 @@ class ProjectController extends Controller
         $data['project_amount_released'] = $request->project_amount_released;
         $data['project_budget_year'] = $request->project_budget_year;
         $data['project_form_of_development'] = $request->project_form_of_development;
+        $data['keywords'] = htmlspecialchars_decode(json_encode($request->keywords));
         $data['created_at'] = now();
 
         $insert = DB::table('projects')->insert($data);
         if ($insert) {
-
-            $notification = array(
-                'message' => 'Project Successfully Added!',
-                'alert-type' => 'project'
-            );
-
-            return redirect()->route('rdmcProjects')->with($notification);
+            return response()->json(['success' => 'Project Successfully Added!']);
         } else {
-            $notification = array(
-                'message' => 'Something is wrong, please try again!',
-                'alert-type' => 'error'
-            );
-            return redirect()->route('rdmcProjects')->with($notification);
+            return response()->json(['error' => 'There is something wrong...']);
         }
     }
 
@@ -61,12 +51,12 @@ class ProjectController extends Controller
         $title = 'Projects | RDMC';
         $projects = DB::table('projects')->where('id', $id)->first();
         $agency = DB::table('agency')->get();
-
-        $program = DB::table('programs')->leftJoin('projects', 'programs.programID', '=', 'projects.programID')
+        $researchers = DB::table('researchers')->get();
+        $programs = DB::table('programs')->leftJoin('projects', 'programs.programID', '=', 'projects.programID')
             ->select('programs.*')
             ->where('projects.id', $id)
             ->first();
-        return view('backend.report.rdmc.rdmc_projects_under_program_edit', compact('title', 'projects', 'agency', 'program'));
+        return view('backend.report.rdmc.rdmc_projects_under_program_edit', compact('title', 'projects', 'agency', 'programs', 'researchers'));
     }
 
     public function UpdateProject(Request $request, $id)
@@ -75,7 +65,6 @@ class ProjectController extends Controller
 
         $data = array();
         $data['programID'] = $request->programID;
-        $data['agencyID'] = $request->agencyID;
         $data['project_fund_code'] = $request->project_fund_code;
         $data['project_funding_years'] = $request->project_funding_years;
         $data['project_funding_duration'] = $request->project_funding_duration;
@@ -93,23 +82,14 @@ class ProjectController extends Controller
         $data['project_amount_released'] = $request->project_amount_released;
         $data['project_budget_year'] = $request->project_budget_year;
         $data['project_form_of_development'] = $request->project_form_of_development;
+        $data['keywords'] = htmlspecialchars_decode(json_encode($request->keywords));
         $data['updated_at'] = now();
 
-        $insert = DB::table('projects')->where('id', $id)->update($data);
-        if ($insert) {
-
-            $notification = array(
-                'message' => 'Project Successfully Updated!',
-                'alert-type' => 'success'
-            );
-
-            return redirect()->route('rdmcProjects')->with($notification);
+        $update = DB::table('projects')->where('id', $id)->update($data);
+        if ($update) {
+            return response()->json(['success' => 'Project Successfully Added!']);
         } else {
-            $notification = array(
-                'message' => 'Something is wrong, please try again!',
-                'alert-type' => 'error'
-            );
-            return redirect()->route('rdmcProjects')->with($notification);
+            return response()->json(['error' => 'There is something wrong...']);
         }
     }
 
@@ -119,7 +99,8 @@ class ProjectController extends Controller
         $title = 'Projects | RDMC';
         $projects = DB::table('projects')->where('id', $id)->first();
         $agency = DB::table('agency')->get();
-        return view('backend.report.rdmc.rdmc_projects_edit', compact('title', 'projects', 'agency'));
+        $researchers = DB::table('researchers')->get();
+        return view('backend.report.rdmc.rdmc_projects_edit', compact('title', 'projects', 'agency', 'researchers'));
     }
 
 
@@ -145,7 +126,7 @@ class ProjectController extends Controller
         $upload_files = DB::table('files')->where('projectID', $id)->orderByDesc("created_at")->get();
         $projects = DB::table('projects')->where('id', $id)->first();
 
-        return view('backend.projects.view_projects', compact('title', 'projects', 'agency', 'personnels', 'upload_files','sub_projects'));
+        return view('backend.projects.view_projects', compact('title', 'projects', 'agency', 'personnels', 'upload_files', 'sub_projects'));
     }
 
     public function InsertProjectsPersonnelIndex($id)

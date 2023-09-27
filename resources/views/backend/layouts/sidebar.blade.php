@@ -91,7 +91,7 @@
                         </a>
                     </li>
                 @endif
-                
+
                 <li class="nav-item">
                     <a href="{{ URL::to('/researcher-index') }}"
                         class="nav-link {{ Request::is('researcher-index') ? 'active' : '' }}">
@@ -103,7 +103,7 @@
                 </li>
 
                 {{-- (auth()->user()->agencyID == 'CLSU') --}}
-                
+
                 @if (auth()->user()->role == 'Admin')
                     <li class="nav-item">
                         <a href="{{ URL::to('/all-agency') }}"

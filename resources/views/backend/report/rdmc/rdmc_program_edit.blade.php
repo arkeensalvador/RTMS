@@ -88,19 +88,29 @@
                 <div class="row">
                     <div class="col-md-12 mx-auto">
                         <div class="d-flex justify-content-center mt-3">
-                            <form id="projectForm" class="row g-3 needs-validation" novalidate>
+                            <form id="programForm" class="row g-3 needs-validation" novalidate>
                                 @csrf
-                                <div class="form-title col-12">
-                                    <h2 class="font-weight-bold">Project</h2>
-                                    <h5 class="mt-0"> Kindly fill-up the fields needed.</h5>
+                                <div class="form-title col-12 mb-3">
+                                    <h2 class="font-weight-bold">Edit Program</h2>
+                                    <h5 class="mt-0"> Kindly edit the fields needed.</h5>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-4 form-group">
+                                        <label for="fund_code" class="font-weight-bold">System Generated Program ID <span
+                                                class="text-danger">*</span></label>
+                                        <input type="text" class="form-control" value="{{ $programs->programID }}"
+                                            readonly placeholder="Enter code" name="programID">
+                                        <div class="valid-feedback"></div>
+                                        <div class="invalid-feedback">Missing fund code</div>
+                                    </div>
                                 </div>
 
                                 <div class="col-md-4 form-group">
                                     <label for="fund_code" class="font-weight-bold">Fund Code<span
                                             class="text-danger">*</span></label>
-                                    <input type="text" name="project_fund_code"
-                                        value="{{ $projects->project_fund_code }}" class="form-control" id="fund_code"
-                                        placeholder="Input Trust Fund Code" required>
+                                    <input type="text" name="fund_code" value="{{ $programs->fund_code }}"
+                                        class="form-control" id="fund_code" placeholder="Input Trust Fund Code" required>
                                     <div class="valid-feedback"></div>
                                     <div class="invalid-feedback">Missing fund code</div>
                                 </div>
@@ -108,17 +118,17 @@
                                 <div class="col-md-4 form-group">
                                     <label for="status" class="font-weight-bold">Status<span
                                             class="text-danger">*</span></label>
-                                    <select id="status" name="project_status" class="form-control others" required>
+                                    <select id="status" name="program_status" class="form-control others" required>
                                         <option selected disabled value="">Select status</option>
-                                        <option value="New" {{ 'New' == $projects->project_status ? 'selected' : '' }}>
+                                        <option value="New" {{ 'New' == $programs->program_status ? 'selected' : '' }}>
                                             New</option>
                                         <option value="Ongoing"
-                                            {{ 'Ongoing' == $projects->project_status ? 'selected' : '' }}>Ongoing</option>
+                                            {{ 'Ongoing' == $programs->program_status ? 'selected' : '' }}>Ongoing</option>
                                         <option value="Completed"
-                                            {{ 'Completed' == $projects->project_status ? 'selected' : '' }}>Completed
+                                            {{ 'Completed' == $programs->program_status ? 'selected' : '' }}>Completed
                                         </option>
                                         <option value="Terminated"
-                                            {{ 'Terminated' == $projects->project_status ? 'selected' : '' }}>Terminated
+                                            {{ 'Terminated' == $programs->program_status ? 'selected' : '' }}>Terminated
                                         </option>
                                     </select>
                                     <div class="invalid-feedback">Missing status</div>
@@ -127,40 +137,39 @@
                                 <div class="col-md-4 form-group">
                                     <label for="category" class=" font-weight-bold">Category<span
                                             class="text-danger">*</span></label>
-                                    <select id="category" name="project_category" class="form-control others" required>
-                                        <option selected disabled value="">Select the project category</option>
+                                    <select id="category" name="program_category" class="form-control others" required>
+                                        <option selected disabled value="">Select the program category</option>
                                         <option value="Research"
-                                            {{ 'Research' == $projects->project_category ? 'selected' : '' }}>Research
-                                            Category</option>
-                                        <option
-                                            value="Development"{{ 'Development' == $projects->project_category ? 'selected' : '' }}>
+                                            {{ 'Research' == $programs->program_category ? 'selected' : '' }}>
+                                            Research Category</option>
+                                        <option value="Development"
+                                            {{ 'Development' == $programs->program_category ? 'selected' : '' }}>
                                             Development Category</option>
                                     </select>
-                                    <div class="invalid-feedback">Missing project category</div>
+                                    <div class="invalid-feedback">Missing program category</div>
                                 </div>
 
                                 <div class="col-md-12 form-group">
-                                    <label for="program_title" class=" font-weight-bold">Project Title<span
+                                    <label for="program_title" class=" font-weight-bold">Program Title<span
                                             class="text-danger">*</span></label></label>
-                                    <textarea class="form-control" id="program_title" name="project_title" style="height: 100px"
-                                        placeholder="Enter project title" required>{{ $projects->project_title }}</textarea>
-                                    <div class="invalid-feedback">Missing project title</div>
+                                    <textarea class="form-control" id="program_title" name="program_title" style="height: 100px"
+                                        placeholder="Enter program title" required>{{ $programs->program_title }}</textarea>
+                                    <div class="invalid-feedback">Missing program title</div>
                                 </div>
 
                                 <div class="col-md-3 form-group">
                                     <label for="form_of_development" class=" font-weight-bold">Form of Development<span
                                             class="text-danger">*</span></label>
-                                    <select id="form_of_development" name="project_form_of_development"
-                                        class="others form-control" required>
+                                    <select id="form_of_development" name="form_of_development" class="others form-control"
+                                        required>
                                         <option selected disabled value="">Select form of development</option>
                                         <option value="Local"
-                                            {{ 'Local' == $projects->project_form_of_development ? 'selected' : '' }}>Local
-                                        </option>
+                                            {{ 'Local' == $programs->form_of_development ? 'selected' : '' }}>Local</option>
                                         <option value="National"
-                                            {{ 'National' == $projects->project_form_of_development ? 'selected' : '' }}>
-                                            National</option>
+                                            {{ 'National' == $programs->form_of_development ? 'selected' : '' }}>National
+                                        </option>
                                         <option value="International"
-                                            {{ 'International' == $projects->project_form_of_development ? 'selected' : '' }}>
+                                            {{ 'International' == $programs->form_of_development ? 'selected' : '' }}>
                                             International</option>
                                     </select>
                                     <div class="invalid-feedback">Missing form of development</div>
@@ -169,12 +178,12 @@
                                 <div class="col-md-9 form-group">
                                     <label for="funding_agency" class=" font-weight-bold">Funding Agency<span
                                             class="text-danger">*</span></label>
-                                    <select id="funding_agency" name="project_agency" class="form-control agency" required>
+                                    <select id="funding_agency" name="funding_agency" class="form-control agency" required>
                                         <option selected disabled value="">Choose Funding Agency / Source of Fund
                                         </option>
                                         @foreach ($agency as $key)
                                             <option value="{{ $key->abbrev }}"
-                                                {{ $key->abbrev == $projects->project_agency ? 'selected' : '' }}>
+                                                {{ $key->abbrev == $programs->funding_agency ? 'selected' : '' }}>
                                                 {{ $key->agency_name }} -
                                                 ({{ $key->abbrev }})
                                                 </b></option>
@@ -183,106 +192,81 @@
                                     <div class="invalid-feedback">Missing Funding Agency / Source of Fund</div>
                                 </div>
 
-                                <div class="col-md-3 form-group">
-                                    <label for="coordination_fund" class=" font-weight-bold">Funding Grant<span
+                                <div class="col-md-6 form-group">
+                                    <label for="program_leader" class=" font-weight-bold">Program Leader <span
                                             class="text-danger">*</span></label>
-                                    <select id="funding_year" name="project_funding_duration" class="others form-control"
+                                    <select id="program_leader" name="program_leader" class="form-control researchers"
                                         required>
-                                        <option selected disabled value="">Select Funding Grant</option>
-                                        <option value="One-time"
-                                            {{ 'One-time' == $projects->project_funding_duration ? 'selected' : '' }}>
-                                            One-time Grant</option>
-                                        <option value="Multi-year"
-                                            {{ 'Multi-year' == $projects->project_funding_duration ? 'selected' : '' }}>
-                                            Multi-year Grant</option>
-                                        <option value="Both"
-                                            {{ 'Both' == $projects->project_funding_duration ? 'selected' : '' }}>One-time
-                                            & Multi-year Grant</option>
+                                        <option selected disabled value="">Select Researcher</option>
+                                        @foreach ($researchers as $key)
+                                            <option value="{{ $key->name }}"
+                                                {{ $key->name == $programs->program_leader ? 'selected' : '' }}>
+                                                {{ $key->name }}</option>
+                                        @endforeach
                                     </select>
-                                    <div class="invalid-feedback">Missing funding grant</div>
+                                    <div class="invalid-feedback">Missing program leader</div>
                                 </div>
 
-                                <div class="col-md-3 form-group">
-                                    <label for="coordination_fund" class=" font-weight-bold">Funding Year(s)<span
+                                <div class="col-md-6 form-group">
+                                    <label for="assistant_leader" class=" font-weight-bold">Assistant Leader <span
                                             class="text-danger">*</span></label>
-                                    <input type="text" name="project_funding_years"
-                                        value="{{ $projects->project_funding_years }}" class="form-control"
-                                        id="coordination_fund" placeholder="E.g. 1 Year, 2 Years, etc." required>
-                                    <div class="invalid-feedback">Missing funding year(s)</div>
+                                    <select id="assistant_leader" name="assistant_leader"
+                                        class="form-control researchers" required>
+                                        <option selected disabled value="">Select Researcher</option>
+                                        @foreach ($researchers as $key)
+                                            <option value="{{ $key->name }}"
+                                                {{ $key->name == $programs->assistant_leader ? 'selected' : '' }}>
+                                                {{ $key->name }}</option>
+                                        @endforeach
+                                    </select>
+                                    <div class="invalid-feedback">Missing Assistant Leader</div>
                                 </div>
-
-                                <div class="row">
-                                    <div class="col-md-6 form-group">
-                                        <label for="program_leader" class=" font-weight-bold">Project Leader <span
-                                                class="text-danger">*</span></label>
-                                        <select id="program_leader" name="project_leader"
-                                            class="form-control researchers" required>
-                                            <option selected disabled value="">Select Researcher</option>
-                                            @foreach ($researchers as $key)
-                                                <option value="{{ $key->name }}"
-                                                    {{ $key->name == $projects->project_leader ? 'selected' : '' }}>
-                                                    {{ $key->name }}</option>
-                                            @endforeach
-                                        </select>
-                                        <div class="invalid-feedback">Missing project leader</div>
-                                    </div>
-                                    <div class="col-md-6 form-group">
-                                        <label for="assistant_leader" class=" font-weight-bold">Assistant Leader <span
-                                                class="text-danger">*</span></label>
-                                        <select id="assistant_leader" name="project_assistant_leader"
-                                            class="form-control researchers" required>
-                                            <option selected disabled value="">Select Researcher</option>
-                                            @foreach ($researchers as $key)
-                                                <option value="{{ $key->name }}"
-                                                    {{ $key->name == $projects->project_assistant_leader ? 'selected' : '' }}>
-                                                    {{ $key->name }}</option>
-                                            @endforeach
-                                        </select>
-                                        <div class="invalid-feedback">Missing assistant leader</div>
-                                    </div>
-                                </div>
-
 
                                 <div class="col-md-4 form-group">
                                     <label for="start_date" class=" font-weight-bold">Start Date <span
                                             class="text-danger">*</span></label>
-                                    <input type="date" name="project_start_date"
-                                        value="{{ $projects->project_start_date }}" class="form-control" id="start_date"
-                                        required>
-                                    <div class="invalid-feedback">Missing start date of the project</div>
+                                    <input type="date" name="start_date" class="form-control"
+                                        value="{{ $programs->start_date }}" id="start_date" required>
+                                    <div class="invalid-feedback">Missing start date of the program</div>
                                 </div>
 
                                 <div class="col-md-4 form-group">
                                     <label for="end_date" class=" font-weight-bold">End Date <span
                                             class="text-danger">*</span></label>
-                                    <input type="date" name="project_end_date"
-                                        value="{{ $projects->project_end_date }}" class="form-control" id="end_date"
-                                        required>
-                                    <div class="invalid-feedback"> Missing end of the project</div>
+                                    <input type="date" name="end_date" class="form-control"
+                                        value="{{ $programs->end_date }}" id="end_date" required>
+                                    <div class="invalid-feedback"> Missing end of the program</div>
                                 </div>
 
                                 <div class="col-md-4 form-group">
                                     <label for="extension_date" class=" font-weight-bold">Extension Date</label>
-                                    <input type="date" name="project_extend_date"
-                                        value="{{ $projects->project_extend_date }}" class="form-control"
-                                        id="extension_date">
-                                    <div class="valid-feedback">There's no inputted extension date for this project</div>
+                                    <input type="date" name="extend_date" class="form-control"
+                                        value="{{ $programs->extend_date }}" id="extension_date">
+                                    <div class="valid-feedback"> There's no inputted extension date for this program</div>
                                 </div>
 
                                 <div class="col-md-12 form-group">
-                                    <label for="program_description" class=" font-weight-bold">Project Description<span
+                                    <label for="program_description" class=" font-weight-bold">Program Description<span
                                             class="text-danger">*</span></label></label>
-                                    <textarea class="form-control" name="project_description" id="program_description" style="height: 100px"
-                                        placeholder="Project brief description" required> {{ $projects->project_description }}</textarea>
-                                    <div class="invalid-feedback">Missing project description</div>
+                                    <textarea class="form-control" name="program_description" id="program_description" style="height: 100px"
+                                        placeholder="Program brief description" required>{{ $programs->program_description }}</textarea>
+                                    <div class="invalid-feedback">Missing program description</div>
                                 </div>
 
+                                <div class="col-md-3 form-group">
+                                    <label for="coordination_fund" class=" font-weight-bold">Coordination Fund<span
+                                            class="text-danger">*</span></label>
+                                    <input type="text" name="coordination_fund"
+                                        value="{{ $programs->coordination_fund }}" class="form-control"
+                                        id="coordination_fund" placeholder="Enter exact amount" required>
+                                    <div class="invalid-feedback">Missing coordination fund</div>
+                                </div>
 
                                 <div class="col-md-3 form-group">
-                                    <label for="approved_budget" class=" font-weight-bold">Approved Budget<span
+                                    <label for="approved_budget" class="font-weight-bold">Approved Budget<span
                                             class="text-danger">*</span></label>
-                                    <input type="text" name="project_approved_budget"
-                                        value="{{ $projects->project_approved_budget }}" class="form-control"
+                                    <input type="text" name="approved_budget"
+                                        value="{{ $programs->approved_budget }}" class="form-control"
                                         id="approved_budget" placeholder="Approved budget" required>
                                     <div class="invalid-feedback">Missing approved budget</div>
                                 </div>
@@ -290,36 +274,35 @@
                                 <div class="col-md-1 form-group">
                                     <label for="#year_of_release" class=" font-weight-bold">Budget Year<span
                                             class="text-danger">*</span></label>
-                                    <input type="text" name="project_budget_year"
-                                        value="{{ $projects->project_budget_year }}" class="form-control"
-                                        id="budget_year" required placeholder="Ex. Year 1">
+                                    <input type="text" name="budget_year" value="{{ $programs->budget_year }}"
+                                        class="form-control" id="budget_year" required placeholder="Ex. Year 1">
                                     <div class="invalid-feedback"> Missing budget year</div>
                                 </div>
 
                                 <div class="col-md-3 form-group">
                                     <label for="year_of_release" class=" font-weight-bold">Amount Released<span
                                             class="text-danger">*</span></label>
-                                    <input type="text" name="project_amount_released"
-                                        value="{{ $projects->project_amount_released }}" class="form-control"
+                                    <input type="text" name="amount_released"
+                                        value="{{ $programs->amount_released }}" class="form-control"
                                         id="year_of_release" placeholder="Enter exact amount" required>
                                     <div class="invalid-feedback">Missing</div>
                                 </div>
 
                                 @php
-                                    $keywords = json_decode($projects->keywords);
+                                    $keywords = json_decode($programs->keywords);
                                     $keywords = implode($keywords);
                                 @endphp
-
+                                
                                 <div class="col-md-12 form-group">
                                     <label for="" class=" font-weight-bold">Keywords</label>
-                                    <input type="text" name="keywords[]" value="{{ $keywords }}"
-                                        class="form-control js-recipients" placeholder="Keyword(s)" data-role="tagsinput"
+                                    <input type="text" name="keywords[]" class="form-control js-recipients"
+                                        placeholder="Keyword(s)" value="{{ $keywords }}" data-role="tagsinput"
                                         required>
-                                    <div class="invalid-feedback">Missing keywords</div>
+                                    <div class="invalid-feedback">Missing Keywords</div>
                                 </div>
 
                                 <div class="col-md-4 form-group float-right">
-                                    <a href="{{ url('rdmc-projects') }}" class="btn btn-default">Back</a>
+                                    <a href="{{ url('rdmc-programs') }}" class="btn btn-default">Back</a>
                                     <button type="submit" id="submit" class="btn btn-primary btn-m ">Submit</button>
                                 </div>
                             </form>
@@ -413,24 +396,14 @@
 
     <script>
         $(document).ready(function() {
-            $('#fund_code, #status, #fund_code, #program_title, #category, #funding_agency, #coordination_fund, #program_leader, #assistant_leader, #start_date, #end_date, #extension_date, #program_description, #approved_budget, #amount_of_release, #budget_year ,#year_of_release, #form_of_development')
-                .on('input', function() {
-                    const inputField = $(this);
-                    if (inputField[0].checkValidity()) {
-                        inputField.addClass('is-valid').removeClass('is-invalid');
-                    } else {
-                        inputField.addClass('is-invalid').removeClass('is-valid');
-                    }
-                });
-
-            $('#projectForm').on('submit', function(e) {
+            $('#programForm').on('submit', function(e) {
 
                 var formData = new FormData(this);
 
                 e.preventDefault();
                 $.ajax({
                     type: 'POST',
-                    url: "{{ url('/update-project/' . $projects->id) }}",
+                    url: "{{ url('update-program/' . $programs->programID) }}",
                     data: formData,
                     cache: false,
                     contentType: false,
@@ -440,20 +413,21 @@
                         this.reset();
                         Swal.fire({
                             icon: 'success',
-                            title: 'Project Updated Successfully',
+                            title: 'Program Updated Successfully',
                             timerProgressBar: true,
                             showConfirmButton: false,
                             timer: 900
                         }).then((result) => {
                             if (result.dismiss) {
-                                window.location.href = '/rdmc-projects';
+                                window.location.href = '/rdmc-programs';
                             }
                         })
+                        
                     },
                     error: function(data) {
                         Swal.fire({
                             icon: 'warning',
-                            title: "There's something wrong...",
+                            title: 'There is something wrong...',
                             timerProgressBar: false,
                             showConfirmButton: true,
                         });

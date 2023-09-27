@@ -99,7 +99,10 @@ Route::get('download/{id}', [App\Http\Controllers\backend\ProgramsController::cl
 Route::get('/report-index', [App\Http\Controllers\backend\ReportController::class, 'reportIndex'])->name('reportIndex');
 
 //upload files
-Route::get('upload-file/{id}', [FileUpload::class, 'createFormProgram'])->name('uploadFileProgram');;
+Route::post('/files', [FileUpload::class, 'storeFiles'])->name('storeFiles');
+
+Route::post('store-multi-file-ajax', [FileUpload::class, 'storeMultiFile']);
+Route::get('upload-file/{programID}', [FileUpload::class, 'createFormProgram'])->name('uploadFileProgram');
 Route::post('/upload-file', [FileUpload::class, 'fileUpload'])->name('fileUpload');
 Route::get('/delete-file/{id}', [FileUpload::class, 'DeleteFile'])->name('DeleteFile');
 Route::get('download/{id}', [FileUpload::class, 'download']);

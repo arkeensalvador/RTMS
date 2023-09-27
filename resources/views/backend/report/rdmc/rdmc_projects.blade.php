@@ -37,7 +37,7 @@
                                         <i class="fa-solid fa-cloud-arrow-up"></i>
                                         Import
                                     </button>
-                                    
+
                                     <a href="{{ url('projects-add') }}" class="btn btn-success"
                                         onclick="event.preventDefault();
                                         
@@ -83,6 +83,7 @@
                                                         {{-- <th>Extend Date</th> --}}
                                                         <th>Leader</th>
                                                         <th>Status</th>
+                                                        <th hidden>Keywords</th>
                                                         <th>Action</th>
                                                     </tr>
                                                 </thead>
@@ -103,27 +104,25 @@
                                                             {{-- <td>{{ $row->project_extend_date }}</td> --}}
                                                             <td>{{ $row->project_leader }}</td>
                                                             <td>
-                                                                @if ($row->project_status == 'Terminated')
-                                                                    <span
-                                                                        class="right badge badge-danger">{{ $row->project_status }}</span>
-                                                                @else
-                                                                    @if ($row->project_status == 'Completed')
-                                                                        <span
-                                                                            class="right badge badge-success">{{ $row->project_status }}</span>
-                                                                    @else
-                                                                        @if ($row->project_status == 'On-going')
-                                                                            <span
-                                                                                class="right badge badge-info">{{ $row->project_status }}</span>
-                                                                        @else
-                                                                            @if ($row->project_status == 'New')
-                                                                                <span
-                                                                                    class="right badge badge-primary">{{ $row->project_status }}</span>
-                                                                            @endif
-                                                                        @endif
-                                                                    @endif
+                                                                @if ($row->project_status == 'New')
+                                                                    {{ $row->project_status }}
+                                                                    <i class="fa-solid fa-database fa-xl"
+                                                                        style="color: #28a745;"></i>
+                                                                @elseif ($row->project_status == 'Ongoing')
+                                                                    {{ $row->project_status }}
+                                                                    <i class="fa-solid fa-magnifying-glass-chart fa-xl"
+                                                                        style="color: #2a6cdf;"></i>
+                                                                @elseif ($row->project_status == 'Terminated')
+                                                                    {{ $row->project_status }}
+                                                                    <i class="fa-solid fa-triangle-exclamation fa-xl"
+                                                                        style="color: #ff0000;"></i>
+                                                                @elseif ($row->project_status == 'Completed')
+                                                                    {{ $row->project_status }}
+                                                                    <i class="fa-solid fa-circle-check fa-xl"
+                                                                        style="color: #28a745;"></i>
                                                                 @endif
-
                                                             </td>
+                                                            <td hidden>{{ $row->keywords }}</td>
                                                             <td class="action">
                                                                 <span title="View">
                                                                     <a class="btn btn-info"

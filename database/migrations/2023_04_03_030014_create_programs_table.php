@@ -14,25 +14,22 @@ return new class extends Migration
         Schema::create('programs', function (Blueprint $table) {
             $table->id();
             $table->string('programID')->unique();
-            $table->string('agencyID')->nullable();
-            $table->string('fundingAgencyID')->nullable();
-            $table->string('researcherID')->nullable();
-            $table->string('fund_code')->nullable();
-            $table->text('program_title')->nullable();
-            $table->string('program_status')->nullable();
-            $table->string('program_category')->nullable();
-            $table->string('funding_agency')->nullable();
-            $table->string('coordination_fund')->nullable();
-            $table->string('start_date')->nullable();
-            $table->string('end_date')->nullable();
+            $table->string('fund_code');
+            $table->text('program_title');
+            $table->string('program_status');
+            $table->string('program_category');
+            $table->string('funding_agency');
+            $table->string('coordination_fund');
+            $table->string('start_date');
+            $table->string('end_date');
             $table->string('extend_date')->nullable();
-            $table->string('program_leader')->nullable();
-            $table->string('assistant_leader')->nullable();
-            $table->text('program_description')->nullable();
-            $table->string('approved_budget')->nullable();
-            $table->string('amount_released')->nullable();
-            $table->string('budget_year')->nullable();
-            $table->string('form_of_development')->nullable();
+            $table->string('program_leader');
+            $table->string('assistant_leader');
+            $table->text('program_description');
+            $table->string('approved_budget');
+            $table->string('amount_released');
+            $table->string('budget_year');
+            $table->string('form_of_development');
             $table->string('keywords');
             /* The line `// Schema::dropIfExists('agency');` is commented out, which means it is not being
             executed. */

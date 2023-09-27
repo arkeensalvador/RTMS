@@ -12,7 +12,6 @@ class File extends Model
         'file_name',
         'file_path',
         'uploader_agency',
-        'type',
         'programID',
         'projectID',
         'subprojectID'

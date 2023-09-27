@@ -37,13 +37,12 @@
 
                                     @if ($agency->isEmpty())
                                         <a href="{{ url('rdmc-create-program') }}"
-                                            class="btn btn-success {{ Route::current()->getName() == 'rdmc-create-program' ? 'active' : '' }}"
-                                            hidden>Add
-                                            Program</a>
+                                            class="btn btn-success {{ Route::current()->getName() == 'rdmc-create-program' ? 'active' : '' }}"><span><i
+                                                    class="fa-solid fa-plus"></i> Create</span></a>
                                     @else
                                         <a href="{{ url('rdmc-create-program') }}"
-                                            class="btn btn-success {{ Route::current()->getName() == 'rdmc-create-program' ? 'active' : '' }}">Add
-                                            Program</a>
+                                            class="btn btn-success {{ Route::current()->getName() == 'rdmc-create-program' ? 'active' : '' }}"><span><i
+                                                    class="fa-solid fa-plus"></i> Create</span></a>
                                     @endif
 
                                 </div>
@@ -61,6 +60,7 @@
                                             <th>Funding Agency</th>
                                             <th>Description</th>
                                             <th>Status</th>
+                                            <th hidden>Keyword(s)</th>
                                             <th>Action</th>
                                         </tr>
 
@@ -87,7 +87,7 @@
                                                     @if ($row->program_status == 'New')
                                                         {{ $row->program_status }}
                                                         <i class="fa-solid fa-database fa-xl" style="color: #28a745;"></i>
-                                                    @elseif ($row->program_status == 'On-going')
+                                                    @elseif ($row->program_status == 'Ongoing')
                                                         {{ $row->program_status }}
                                                         <i class="fa-solid fa-magnifying-glass-chart fa-xl"
                                                             style="color: #2a6cdf;"></i>
@@ -97,10 +97,12 @@
                                                             style="color: #ff0000;"></i>
                                                     @elseif ($row->program_status == 'Completed')
                                                         {{ $row->program_status }}
-                                                        <i class="fa-solid fa-circle-check fa-xl" style="color: #28a745;"></i>
+                                                        <i class="fa-solid fa-circle-check fa-xl"
+                                                            style="color: #28a745;"></i>
                                                     @endif
-
-
+                                                </td>
+                                                <td hidden>
+                                                    {{ $row->keywords }}
                                                 </td>
                                                 <td class="action">
                                                     <span title="View Program">
@@ -117,8 +119,12 @@
                                                     </span>
 
                                                     <span title="Upload Program Files">
-                                                        <a class="btn btn-secondary"
+                                                        {{-- <a class="btn btn-secondary"
                                                             href="{{ url("upload-file/$row->programID") }}"><i
+                                                                class="fa-solid fa-file-circle-plus"></i></a> --}}
+
+                                                        <a class="btn btn-secondary uploadFiles" data-toggle="modal"
+                                                            data-target='#uploadfiles' data-id="{{ $row->programID }}"><i
                                                                 class="fa-solid fa-file-circle-plus"></i></a>
                                                     </span>
 
@@ -128,10 +134,7 @@
                                                             data-target='#add-personnel' data-id="{{ $row->programID }}"><i
                                                                 class="fa-solid fa-user-plus"></i></a>
 
-                                                        {{-- <a class="btn btn-warning"
-                                                            href="{{ URL::to('/add-program-personnel-index/' . $row->programID) }}">
-                                                            <i class="fa-solid fa-user-plus"></i>
-                                                        </a> --}}
+
                                                     </span>
 
                                                     <a href="{{ URL::to('/delete-program/' . $row->id) }}"
@@ -201,7 +204,7 @@
                             {{-- <div class="card-footer"> --}}
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                <button type="submit" name="submit" class="next btn btn-info">Submit</button>
+                                <button type="submit" name="submit" class="next btn btn-success">Submit</button>
                             </div>
                         </fieldset>
                     </form>
@@ -209,7 +212,61 @@
             </div>
         </div>
     </div>
-    <!-- Modal -->
+
+    <!-- Add FIles Modal -->
+    <div class="modal fade" id="uploadfiles" data-backdrop="static" data-keyboard="false" tabindex="-1"
+        aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Program Files</h1>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body row files">
+                    <div class="col-lg-12">
+                        <form id="multi-file-upload-ajax" method="POST" action="javascript:void(0)"
+                            accept-charset="utf-8" enctype="multipart/form-data">
+
+                            @csrf
+
+                            <div class="row">
+                                <div class="form-group row">
+                                    <input type="text" class="form-control" name="programID" placeholder=""
+                                        id="upload_programID" hidden readonly required autocomplete="false">
+                                    <input type="text" class="form-control" name="projectID" placeholder=""
+                                        id="projectID" hidden readonly required autocomplete="false">
+
+                                    <input type="text" class="form-control" name="subprojectID" placeholder=""
+                                        id="subprojectID" hidden readonly required autocomplete="false">
+
+                                    <input type="text" class="form-control" name="uploader_agency"
+                                        placeholder="Agency" hidden value="{{ auth()->user()->agencyID }}" readonly
+                                        required autocomplete="false">
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <input type="file" class="form-control" name="files[]" id="files"
+                                            placeholder="Choose files" multiple>
+                                    </div>
+                                </div>
+
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal"
+                                        aria-label="Close">Close</button>
+                                    <button type="submit" class="btn btn-primary" id="submit">Submit</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- IMport Modal -->
     <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
         aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -241,6 +298,64 @@
 
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function(e) {
+
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+
+            $('#multi-file-upload-ajax').submit(function(e) {
+
+                e.preventDefault();
+
+                var formData = new FormData(this);
+
+                let TotalFiles = $('#files')[0].files.length; //Total files
+                let files = $('#files')[0];
+                for (let i = 0; i < TotalFiles; i++) {
+                    formData.append('files' + i, files.files[i]);
+                }
+                formData.append('TotalFiles', TotalFiles);
+
+                $.ajax({
+                    type: 'POST',
+                    url: "{{ url('store-multi-file-ajax') }}",
+                    data: formData,
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    dataType: 'json',
+                    success: (data) => {
+                        this.reset();
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'File Uploaded Successfully',
+                            timerProgressBar: true,
+                            showConfirmButton: false,
+                            timer: 900
+                        });
+
+                        $("#uploadfiles").modal().hide();
+                        $('.modal-backdrop').remove();
+
+                    },
+                    error: function(data) {
+                        Swal.fire({
+                            icon: 'warning',
+                            title: data.responseJSON.message,
+                            timerProgressBar: false,
+                            showConfirmButton: true,
+                        });
+                    }
+                });
+            });
+        });
+    </script>
     <script type="text/javascript">
         var i = 0;
         $("#add-btn").click(function() {
@@ -279,6 +394,12 @@
             var _this = $(this).parents('tr');
             // $('#program_id').val(_this.find('.prog_id').text());
             $('#programID').val(_this.find('.prog_id').text());
+        });
+
+        $(document).on('click', '.uploadFiles', function() {
+            var _this = $(this).parents('tr');
+            // $('#program_id').val(_this.find('.prog_id').text());
+            $('#upload_programID').val(_this.find('.prog_id').text());
         });
     </script>
 @endsection

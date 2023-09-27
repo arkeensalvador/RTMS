@@ -20,7 +20,7 @@ class ReportController extends Controller
     {
         $title = 'Reports | RTMS';
         $agency = DB::table('programs')
-            ->rightJoin('agency', 'programs.agencyID', '=', 'agency.abbrev')
+            ->rightJoin('agency', 'programs.funding_agency', '=', 'agency.abbrev')
             ->select('agency.agency_name', 'agency.abbrev')
             ->first();
         return view('backend.report.report_index', compact('agency', 'title'));
@@ -52,7 +52,9 @@ class ReportController extends Controller
             ->select('*')
             ->get();
 
-        return view('backend.report.rdmc.rdmc_programs', compact('all', 'agency', 'title'));
+        $researchers = DB::table('researchers')->get();
+
+        return view('backend.report.rdmc.rdmc_programs', compact('all', 'agency', 'title', 'researchers'));
     }
 
     public function rdmcChooseProgram()
@@ -68,14 +70,16 @@ class ReportController extends Controller
     {
         $title = 'Programs | RDMC';
         $agency = DB::table('agency')->get();
-        return view('backend.report.rdmc.rdmc_create_program', compact('title', 'agency'));
+        $researchers = DB::table('researchers')->get();
+        return view('backend.report.rdmc.rdmc_create_program', compact('title', 'agency', 'researchers'));
     }
     // ADD PROJECTS WITHOUT PROGRAM
     public function projectsAdd()
     {
         $title = 'Projects | RDMC';
         $agency = DB::table('agency')->get();
-        return view('backend.report.rdmc.rdmc_projects_add', compact('title', 'agency'));
+        $researchers = DB::table('researchers')->get();
+        return view('backend.report.rdmc.rdmc_projects_add', compact('title', 'agency', 'researchers'));
     }
     // ADD PROJECTS TO PROGRAM IN CONTINUOUS METHOD
     public function programProjectsAdd()
@@ -85,16 +89,20 @@ class ReportController extends Controller
             ->select('*')
             ->orderByDesc("id")
             ->limit(1)
-            ->get();
-        return view('backend.report.rdmc.rdmc_program_projects_add', compact('programs', 'title'));
+            ->first();
+
+        $agency = DB::table('agency')->get();
+        $researchers = DB::table('researchers')->get();
+        return view('backend.report.rdmc.rdmc_program_projects_add', compact('programs', 'title', 'agency', 'researchers'));
     }
     // ADD PROJECTS TO PROGRAM IN NOT CONTINUOUS METHOD
     public function projectsUnderProgramAdd($programID)
     {
         $title = 'Program - projects | RDMC';
         $agency = DB::table('agency')->get();
-        $program = DB::table('programs')->where('programID', $programID)->first();
-        return view('backend.report.rdmc.rdmc_projects_under_program_add', compact('program', 'title', 'agency'));
+        $researchers = DB::table('researchers')->get();
+        $programs = DB::table('programs')->where('programID', $programID)->first();
+        return view('backend.report.rdmc.rdmc_projects_under_program_add', compact('programs', 'title', 'agency', 'researchers'));
     }
     public function subProjectsView($projectID)
     {
