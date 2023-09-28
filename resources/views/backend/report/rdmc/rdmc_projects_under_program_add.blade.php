@@ -189,7 +189,7 @@
                                 <div class="col-md-3 form-group">
                                     <label for="coordination_fund" class=" font-weight-bold">Funding Grant<span
                                             class="text-danger">*</span></label>
-                                    <select id="form_of_development" name="project_funding_duration"
+                                    <select id="funding_duration" name="project_funding_duration"
                                         class="others form-control" required>
                                         <option selected disabled value="">Select Funding Grant</option>
                                         <option value="One-time">One-time Grant</option>

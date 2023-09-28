@@ -18,6 +18,7 @@ class SubprojectController extends Controller
         date_default_timezone_set('Asia/Hong_Kong');
 
         $data = array();
+        $data['programID'] = $request->programID;
         $data['projectID'] = $request->projectID;
         $data['sub_project_fund_code'] = $request->sub_project_fund_code;
         $data['sub_project_funding_years'] = $request->sub_project_funding_years;
@@ -36,22 +37,14 @@ class SubprojectController extends Controller
         $data['sub_project_amount_released'] = $request->sub_project_amount_released;
         $data['sub_project_budget_year'] = $request->sub_project_budget_year;
         $data['sub_project_form_of_development'] = $request->sub_project_form_of_development;
+        $data['keywords'] = htmlspecialchars_decode(json_encode($request->keywords));
         $data['created_at'] = now();
 
         $insert = DB::table('sub_projects')->insert($data);
         if ($insert) {
-            $notification = array(
-                'message' => 'Sub-Project Successfully Added!',
-                'alert-type' => 'success'
-            );
-
-            return redirect()->route('subProjectsView', [$data['projectID']])->with($notification);
+            return response()->json(['success' => 'Sub-project Successfully Added!']);
         } else {
-            $notification = array(
-                'message' => 'Something is wrong, please try again!',
-                'alert-type' => 'error'
-            );
-            return redirect()->route('subProjectsView', [$data['projectID']])->with($notification);
+            return response()->json(['error' => 'There is something wrong...']);
         }
     }
 
@@ -60,18 +53,20 @@ class SubprojectController extends Controller
         $title = 'Sub-projects | RDMC';
         $sub_project = DB::table('sub_projects')->where('id', $id)->first();
         $agency = DB::table('agency')->get();
+        $researchers = DB::table('researchers')->get();
 
         $sub_projects = DB::table('projects')->leftJoin('sub_projects', 'projects.id', '=', 'sub_projects.projectID')
             ->select('projects.*')
             ->where('projects.id', $projectID)
             ->first();
-        return view('backend.report.rdmc.rdmc_sub_projects_edit', compact('title', 'sub_projects', 'agency', 'sub_project'));
+        return view('backend.report.rdmc.rdmc_sub_projects_edit', compact('title', 'sub_projects', 'agency', 'sub_project', 'researchers'));
     }
 
     public function UpdateSubProject(Request $request, $projectID, $id)
     {
         date_default_timezone_set('Asia/Hong_Kong');
         $data = array();
+        $data['programID'] = $request->programID;
         $data['projectID'] = $request->projectID;
         $data['sub_project_fund_code'] = $request->sub_project_fund_code;
         $data['sub_project_funding_years'] = $request->sub_project_funding_years;
@@ -90,23 +85,14 @@ class SubprojectController extends Controller
         $data['sub_project_amount_released'] = $request->sub_project_amount_released;
         $data['sub_project_budget_year'] = $request->sub_project_budget_year;
         $data['sub_project_form_of_development'] = $request->sub_project_form_of_development;
+        $data['keywords'] = htmlspecialchars_decode(json_encode($request->keywords));
         $data['updated_at'] = now();
 
-        $insert = DB::table('sub_projects')->where('projectID', $projectID)->where('id', $id)->update($data);
-        if ($insert) {
-            $notification = array(
-                'message' => 'Sub-Project Successfully Updated!',
-                'alert-type' => 'success'
-            );
-
-            return redirect()->route('subProjectsView', [$projectID])->with($notification);
+        $update = DB::table('sub_projects')->where('projectID', $projectID)->where('id', $id)->update($data);
+        if ($update) {
+            return response()->json(['success' => 'Sub-project Successfully Updated!']);
         } else {
-            $notification = array(
-                'message' => 'Something is wrong, please try again!',
-                'alert-type' => 'error'
-            );
-            return redirect()->route('subProjectsView', [$projectID])->with($notification);
-
+            return response()->json(['error' => 'There is something wrong...']);
         }
     }
 

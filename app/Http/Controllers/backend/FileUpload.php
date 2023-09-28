@@ -65,17 +65,20 @@ class FileUpload extends Controller
 
                     //programs
                     if ($programID && !$projectID  && !$subprojectID) {
-                        $path = $file->storeAs('public/files/CMI/'.$agency. '/' . 'Programs', $name);
-                        $file_path = 'storage/files/CMI/Programs/' . $agency . '/' . $name;
+                        $path = $file->storeAs('uploads' . '/' . $agency . '/' . 'Programs', $name);
+                        $file_path = 'uploads' . '/' . $agency . '/' . 'Programs' . '/' . $name;
                     } else if ($programID && $projectID  && !$subprojectID) {
-                        $path = $file->storeAs('public/files/CMI/Programs/projects' . $agency, $name);
-                        $file_path = 'storage/files/CMI/Programs/Projects' . $agency . '/' . $name;
+                        $path = $file->storeAs('uploads' . '/' . $agency . '/' . 'Programs' . '/' . 'Projects', $name);
+                        $file_path = 'uploads' . '/' . $agency . '/' . 'Programs' . '/' . 'Projects' . '/' . $name;
                     } else if (!$programID && $projectID  && !$subprojectID) {
-                        $path = $file->storeAs('public/files/CMI/Projects/' . $agency, $name);
-                        $file_path = 'storage/files/CMI/Projects/' . $agency . '/' . $name;
+                        $path = $file->storeAs('uploads' . '/' . $agency . '/' . 'Projects', $name);
+                        $file_path = 'uploads' . '/' . $agency . '/' . 'Projects' . '/' . $name;
                     } else  if (!$programID && $projectID  && $subprojectID) {
-                        $path = $file->storeAs('public/files/CMI/Projects/Sub-projects' . $agency, $name);
-                        $file_path = 'storage/files/CMI/Projects/Sub-projects' . $agency . '/' . $name;
+                        $path = $file->storeAs('uploads' . '/' . $agency . '/' . 'Projects' . '/' . 'SP', $name);
+                        $file_path = 'uploads' . '/' . $agency . '/' . 'Projects' . '/' .  'SP' . '/' . $name;
+                    } else  if ($programID && $projectID  && $subprojectID) {
+                        $path = $file->storeAs('uploads' . '/' . $agency . '/' . 'Projects' . '/' . 'SP', $name);
+                        $file_path = 'uploads' . '/' . $agency . '/' . 'Projects' . '/' .  'SP' . '/' . $name;
                     }
 
                     $insert[$x]['file_name'] = $name;
@@ -88,7 +91,7 @@ class FileUpload extends Controller
             }
 
             File::insert($insert);
-            
+
             return response()->json(['success' => 'File Successfully Uploaded!']);
         } else {
             return response()->json(['message' => "There is something wrong. Please try again."]);

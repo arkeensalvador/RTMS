@@ -795,6 +795,39 @@
             }
         })
     });
+
+    $(document).on("click", "#btn-logout", function(e) {
+        e.preventDefault();
+        var link = $(this).attr("href");
+
+        Swal.fire({
+                title: 'Are you sure you want to Logout?',
+                icon: 'warning',
+                buttons: true,
+                confirmButtonText: 'Yes',
+                showCancelButton: true,
+                dangerMode: true,
+                allowEscapeKey: false,
+                allowOutsideClick: false,
+            })
+            .then((result) => {
+                if (result.value === true) {
+                    Swal.fire({
+                        text: 'Logging out...',
+                        buttons: false,
+                        allowEscapeKey: false,
+                        allowOutsideClick: false,
+                        timer: 900,
+                        didOpen: () => {
+                            Swal.showLoading()
+                        },
+                        willClose: () => {
+                            document.getElementById('logout-form').submit();
+                        }
+                    })
+                }
+            });
+    });
 </script>
 
 <script>

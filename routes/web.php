@@ -125,7 +125,9 @@ Route::get('/rdmc-activities', [App\Http\Controllers\backend\ReportController::c
 Route::get('/rdmc-activities-add', [App\Http\Controllers\backend\ReportController::class, 'rdmcAddActivities'])->name('rdmcAddActivities');
 Route::get('/projects-add', [App\Http\Controllers\backend\ReportController::class, 'projectsAdd'])->name('projectsAdd');
 Route::get('/program-projects-add', [App\Http\Controllers\backend\ReportController::class, 'programProjectsAdd'])->name('programProjectsAdd');
+Route::get('/projects-under-program/{programID}', [App\Http\Controllers\backend\ReportController::class, 'projectsUnderProgramIndex'])->name('projectsUnderProgramIndex');
 Route::get('/projects-u-program-add/{programID}', [App\Http\Controllers\backend\ReportController::class, 'projectsUnderProgramAdd'])->name('projectsUnderProgramAdd');
+Route::get('/projects-u-program-edit/{programID}/{$id}', [App\Http\Controllers\backend\ReportController::class, 'projectsUnderProgramEdit'])->name('projectsUnderProgramEdit');
 Route::get('/sub-projects-view/{projectID}', [App\Http\Controllers\backend\ReportController::class, 'subProjectsView'])->name('subProjectsView');
 Route::get('/sub-projects-add/{id}', [App\Http\Controllers\backend\ReportController::class, 'ProjectSubProjectsAdd'])->name('ProjectSubProjectsAdd');
 Route::get('/rdmc-create-program', [App\Http\Controllers\backend\ReportController::class, 'rdmcCreateProgram'])->name('rdmcCreateProgram');

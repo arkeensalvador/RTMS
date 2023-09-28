@@ -52,54 +52,63 @@
                                 <div class="row">
                                     <div class="col-12 col-md-12">
                                         <div class="col-sm-12">
-                                            <table id="projects" class="table table-bordered table-striped">
+                                            <table id="programs" class="table table-bordered table-striped">
                                                 <thead>
                                                     <tr>
-                                                        <th>#</th>
+                                                        <th hidden>Program ID</th>
+                                                        <th hidden>Project ID</th>
+                                                        <th hidden>Sub Project ID</th>
                                                         <th>Fund Code</th>
-                                                        <th>Sub-Project Title</th>
+                                                        <th>Sub-project Title</th>
+                                                        <th>Sub-project Leader</th>
                                                         <th>Duration</th>
-                                                        {{-- <th>Extend Date</th> --}}
-                                                        <th>Leader</th>
+                                                        <th>Funding Agency</th>
+                                                        <th>Description</th>
                                                         <th>Status</th>
+                                                        <th hidden>Keyword(s)</th>
                                                         <th>Action</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                     @foreach ($sub_projects as $key => $row)
                                                         <tr>
-                                                            <td>{{ $key + 1 }}</td>
+                                                            <td class="prog_id" hidden>{{ $row->programID }}</td>
+                                                            <td class="proj_id" hidden>{{ $row->projectID }}</td>
+                                                            <td class="subproj_id" hidden>{{ $row->id }}</td>
                                                             <td>{{ $row->sub_project_fund_code }}</td>
                                                             <td>{{ $row->sub_project_title }}</td>
-                                                            <td>{{ date('F, Y', strtotime($row->sub_project_start_date)) ?: 'Not Set' }}
-                                                                -
-                                                                @if ($row->sub_project_extend_date)
-                                                                    {{ date('F, Y', strtotime($row->sub_project_extend_date)) ?: 'Not Set' }}
-                                                                @else
-                                                                    {{ date('F, Y', strtotime($row->sub_project_end_date)) ?: 'Not Set' }}
-                                                                @endif
-                                                            </td>
-                                                            {{-- <td>{{ $row->project_extend_date }}</td> --}}
                                                             <td>{{ $row->sub_project_leader }}</td>
                                                             <td>
-                                                                @if ($row->sub_project_status == 'Terminated')
-                                                                    <span
-                                                                        class="right badge badge-danger">{{ $row->sub_project_status }}</span>
+                                                                @empty($row->sub_project_extend_date)
+                                                                    {{ date('F, Y', strtotime($row->sub_project_start_date)) ?: 'Not Set' }}
+                                                                    -
+                                                                    {{ date('F, Y', strtotime($row->sub_project_end_date)) ?: 'Not Set' }}
                                                                 @else
-                                                                    @if ($row->sub_project_status == 'Completed')
-                                                                        <span
-                                                                            class="right badge badge-success">{{ $row->sub_project_status }}</span>
-                                                                    @else
-                                                                        @if ($row->sub_project_status == 'On-going')
-                                                                            <span
-                                                                                class="right badge badge-info">{{ $row->sub_project_status }}</span>
-                                                                        @else
-                                                                            @if ($row->sub_project_status == 'New')
-                                                                                <span
-                                                                                    class="right badge badge-primary">{{ $row->sub_project_status }}</span>
-                                                                            @endif
-                                                                        @endif
-                                                                    @endif
+                                                                    {{ date('F, Y', strtotime($row->sub_project_start_date)) ?: 'Not Set' }}
+                                                                    -
+                                                                    {{ date('F, Y', strtotime($row->sub_project_extend_date)) ?: 'Not Set' }}
+                                                                    <span class="badge text-bg-info">Extended</span>
+                                                                @endempty
+                                                            </td>
+                                                            <td>{{ $row->sub_project_agency }}</td>
+                                                            <td>{{ $row->sub_project_description }}</td>
+                                                            <td>
+                                                                @if ($row->sub_project_status == 'New')
+                                                                    {{ $row->sub_project_status }}
+                                                                    <i class="fa-solid fa-database fa-xl"
+                                                                        style="color: #28a745;"></i>
+                                                                @elseif ($row->sub_project_status == 'Ongoing')
+                                                                    {{ $row->sub_project_status }}
+                                                                    <i class="fa-solid fa-magnifying-glass-chart fa-xl"
+                                                                        style="color: #2a6cdf;"></i>
+                                                                @elseif ($row->sub_project_status == 'Terminated')
+                                                                    {{ $row->sub_project_status }}
+                                                                    <i class="fa-solid fa-triangle-exclamation fa-xl"
+                                                                        style="color: #ff0000;"></i>
+                                                                @elseif ($row->sub_project_status == 'Completed')
+                                                                    {{ $row->sub_project_status }}
+                                                                    <i class="fa-solid fa-circle-check fa-xl"
+                                                                        style="color: #28a745;"></i>
                                                                 @endif
 
                                                             </td>
@@ -121,17 +130,18 @@
 
 
                                                                 <span title="Upload">
-                                                                    <a class="btn btn-secondary"
-                                                                        href="{{ url("sub-project-upload-file/$row->projectID/$row->id") }}"><i
+                                                                    <a class="btn btn-secondary uploadFiles"
+                                                                        data-toggle="modal" data-target='#uploadfiles'
+                                                                        data-id="{{ $row->id }}"><i
                                                                             class="fa-solid fa-file-circle-plus"></i></a>
                                                                 </span>
 
 
                                                                 <span title="Staffs">
-                                                                    <a class="btn btn-warning"
-                                                                        href="{{ URL::to("/add-sub-project-personnel/$row->projectID/$row->id") }}">
-                                                                        <i class="fa-solid fa-user-plus"></i>
-                                                                    </a>
+                                                                    <a class="btn btn-warning addPersonnel"
+                                                                        data-toggle="modal" data-target='#add-personnel'
+                                                                        data-id="{{ $row->id }}"><i
+                                                                            class="fa-solid fa-user-plus"></i></a>
                                                                 </span>
 
                                                                 <a href="{{ URL::to('/delete-sub-project/' . $row->id) }}"
@@ -159,7 +169,119 @@
         </section>
         <!-- /.content -->
     </div>
+    <div class="modal fade" id="add-personnel" data-keyboard="false" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Add Personnels</h1>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form role="form" id="regiration_form" action="{{ url('add-program-personnel') }}" method="POST">
+                        @csrf
+                        {{-- EMPLOYEE FORM WORKING --}}
+                        <fieldset>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label>Program Staff(s)</label>
+                                        <table class="table table-append" id="dynamicAddRemove">
+                                            <tr>
+                                                <td class="append">
+                                                    <input type="text" class="form-control"
+                                                        name="moreFields[0][programID]" id="programID" value=""
+                                                        placeholder="Program ID" hidden readonly required autocomplete="false">
 
+                                                    <input type="text" class="form-control"
+                                                        name="moreFields[0][projectID]" id="projectID" value=""
+                                                        placeholder="Project ID" hidden readonly required
+                                                        autocomplete="false">
+
+                                                    <input type="text" class="form-control"
+                                                        name="moreFields[0][subprojectID]" id="subprojectID"
+                                                        value="" placeholder="Sub Project ID" hidden readonly required
+                                                        autocomplete="false">
+
+                                                    <input type="text" class="form-control" placeholder="Staff"
+                                                        name="moreFields[0][staff_name]" autocomplete="false">
+                                                </td>
+
+                                                <td class="append">
+                                                    <i class="fa-solid fa-user-plus fa-lg" style="color: #28a745;"
+                                                        name="add" id="add-btn"></i>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+
+                            {{-- <div class="card-footer"> --}}
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="submit" name="submit" class="next btn btn-success">Submit</button>
+                            </div>
+                        </fieldset>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add FIles Modal -->
+    <div class="modal fade" id="uploadfiles" data-backdrop="static" data-keyboard="false" tabindex="-1"
+        aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Program Files</h1>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body row files">
+                    <div class="col-lg-12">
+                        <form id="multi-file-upload-ajax" method="POST" action="javascript:void(0)"
+                            accept-charset="utf-8" enctype="multipart/form-data">
+
+                            @csrf
+
+                            <div class="row">
+                                <div class="form-group row">
+                                    <input type="text" class="form-control" name="programID" placeholder=""
+                                        id="upload_programID" hidden readonly required autocomplete="false">
+
+                                    <input type="text" class="form-control" name="projectID" placeholder=""
+                                        id="upload_projectID" hidden readonly required autocomplete="false">
+
+                                    <input type="text" class="form-control" name="subprojectID" placeholder=""
+                                        id="upload_subprojectID" hidden readonly required autocomplete="false">
+
+                                    <input type="text" class="form-control" name="uploader_agency"
+                                        placeholder="Agency" hidden value="{{ auth()->user()->agencyID }}" readonly
+                                        required autocomplete="false">
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <input type="file" class="form-control" name="files[]" id="files"
+                                            placeholder="Choose files" multiple>
+                                    </div>
+                                </div>
+
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal"
+                                        aria-label="Close">Close</button>
+                                    <button type="submit" class="btn btn-primary" id="submit">Submit</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <!-- Modal -->
     <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
         aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -189,4 +311,123 @@
             </div>
         </div>
     </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function(e) {
+
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+
+            $('#multi-file-upload-ajax').submit(function(e) {
+
+                e.preventDefault();
+
+                var formData = new FormData(this);
+
+                let TotalFiles = $('#files')[0].files.length; //Total files
+                let files = $('#files')[0];
+                for (let i = 0; i < TotalFiles; i++) {
+                    formData.append('files' + i, files.files[i]);
+                }
+                formData.append('TotalFiles', TotalFiles);
+
+                $.ajax({
+                    type: 'POST',
+                    url: "{{ url('store-multi-file-ajax') }}",
+                    data: formData,
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    dataType: 'json',
+                    success: (data) => {
+                        this.reset();
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'File Uploaded Successfully',
+                            timerProgressBar: true,
+                            showConfirmButton: false,
+                            timer: 900
+                        });
+
+                        $("#uploadfiles").modal().hide();
+                        $('.modal-backdrop').remove();
+
+                    },
+                    error: function(data) {
+                        Swal.fire({
+                            icon: 'warning',
+                            title: data.responseJSON.message,
+                            timerProgressBar: false,
+                            showConfirmButton: true,
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+    <script type="text/javascript">
+        var i = 0;
+        $("#add-btn").click(function() {
+
+            ++i;
+
+            $("#dynamicAddRemove").append(`
+            <tr>
+                <td class="append">
+                    <input type="text" class="form-control" name="moreFields[` + i + `][programID]" id="moreFields[` +
+                i + `][prog]" value=""placeholder="Program ID" hidden readonly required autocomplete="false">
+                    
+                    <input type="text" class="form-control" name="moreFields[` + i + `][projectID]" id="moreFields[` +
+                i + `][proj]" value="" placeholder="Project ID" hidden readonly required autocomplete="false">
+                    <input type="text" class="form-control" name="moreFields[` + i +
+                `][subprojectID]" id="moreFields[` +
+                i + `][subproj]" value=""placeholder="Project ID" hidden readonly required autocomplete="false">
+                    <input type="text" class="form-control" placeholder="Staff" name="moreFields[` + i + `][staff_name]">
+                </td>
+
+                <td class="append">
+                    <i class="fa-solid fa-user-minus fa-lg remove-input" style="color: #dc3545;"></i>
+                </td>
+            </tr>`);
+
+            let text1 = document.getElementById('programID').value;
+            let text2 = document.getElementById('projectID').value;
+            let text3 = document.getElementById('subprojectID').value;
+            document.getElementById(`moreFields[` + i + `][prog]`).value = text1;
+            document.getElementById(`moreFields[` + i + `][proj]`).value = text2;
+            document.getElementById(`moreFields[` + i + `][subproj]`).value = text3;
+        });
+        $(document).on('click', '.remove-input', function() {
+            $(this).parents('tr').remove();
+        });
+
+        $('input.number-to-text').keydown(function(event) {
+            if ([38, 40].indexOf(event.keyCode) > -1) {
+                event.preventDefault();
+            }
+        });
+
+
+        $(document).on('click', '.addPersonnel', function() {
+            var _this = $(this).parents('tr');
+            // $('#program_id').val(_this.find('.prog_id').text());
+            $('#programID').val(_this.find('.prog_id').text());
+            $('#projectID').val(_this.find('.proj_id').text());
+            $('#subprojectID').val(_this.find('.subproj_id').text());
+        });
+
+        $(document).on('click', '.uploadFiles', function() {
+            var _this = $(this).parents('tr');
+            // $('#program_id').val(_this.find('.prog_id').text());
+            $('#upload_programID').val(_this.find('.prog_id').text());
+            $('#upload_projectID').val(_this.find('.proj_id').text());
+            $('#upload_subprojectID').val(_this.find('.subproj_id').text());
+        });
+    </script>
 @endsection

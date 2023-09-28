@@ -11,63 +11,35 @@
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="home">Home</a></li>
-                            <li class="breadcrumb-item"><a href="report-index">Reports</a></li>
-                            <li class="breadcrumb-item"><a href="rdmc-index">RDMC</a></li>
-                            <li class="breadcrumb-item"><a href="rdmc-monitoring-evaluation">Monitoring and Evaluation</a>
-                            </li>
-                            <li class="breadcrumb-item active">Projects</li>
+                            <li class="breadcrumb-item active">Programs</li>
                         </ol>
                     </div><!-- /.col -->
                 </div><!-- /.row -->
             </div><!-- /.container-fluid -->
         </div>
+
+
         <!-- Main content -->
-        <section class="report">
+        <section class="content">
             <div class="container-fluid">
-                <div class="monitoring row">
+                <div class="row">
                     <div class="col-12">
                         <div class="card">
                             <div class="card-header">
-                                <h2 class="card-title">List of Projects</h2>
+                                <h3 class="card-title">{{ $program_title->program_title }}</h3>
                                 <div class="card-tools">
-                                    {{-- <a href="{{ url('view-subprojects') }}" class="btn btn-primary">Sub-projects</a> --}}
 
                                     <button type="button" class="btn btn-info" data-bs-toggle="modal"
                                         data-bs-target="#staticBackdrop">
                                         <i class="fa-solid fa-cloud-arrow-up"></i>
                                         Import
                                     </button>
-
-                                    <a href="{{ url('projects-add') }}" class="btn btn-success"
-                                        onclick="event.preventDefault();
-                                        
-                                        Swal.fire({
-                                            icon: 'info',
-                                            title: 'Is your project under a program?',
-                                            showCloseButton: true,
-                                            showDenyButton: true,
-                                            confirmButtonText: 'Yes',
-                                            denyButtontext: 'No',
-                                            // showCancelButton: true,
-                                            reverseButtons: true,
-                                            buttons: true,
-                                            allowEscapeKey: false,
-                                            allowOutsideClick: false,
-                                        })
-                                        .then((result) => { 
-                                            var link= $(this).attr('href');
-                                            if (result.isConfirmed) {
-                                                window.location.href = 'rdmc-choose-program';
-                                            } else if (result.isDenied){
-                                                window.location.href = link;
-                                            }
-                                        }); ">
-
-                                        <span><i class="fa-solid fa-plus"></i> Create</span></a>
-                                    <!-- Here is a label for example -->
-                                    {{-- <span class="badge badge-primary">Label</span> --}}
+                                    <a href="{{ url('projects-u-program-add/' . $program_title->programID) }}"
+                                        class="btn btn-success"><span><i class="fa-solid fa-plus"></i> Create</span></a>
                                 </div>
+                                <!-- /.card-tools -->
                             </div>
+                            
                             <!-- /.card-header -->
                             <div class="card-body">
                                 <table id="programs" class="table table-bordered table-striped text-center">
@@ -96,7 +68,7 @@
                                                     {{ $row->project_title }}
                                                 </td>
                                                 <td>
-                                                    @empty($row->project_extend_date)
+                                                    @empty($row->extend_date)
                                                         {{ date('F, Y', strtotime($row->project_start_date)) ?: 'Not Set' }} -
                                                         {{ date('F, Y', strtotime($row->project_end_date)) ?: 'Not Set' }}
                                                     @else
@@ -131,45 +103,34 @@
                                                 <td class="action">
                                                     <span title="View Program">
                                                         <a class="btn btn-info"
-                                                            href="{{ url("view-project-index/$row->id") }}"><i
+                                                            href="{{ url("view-program-index/$row->programID") }}"><i
                                                                 class="fa-solid fa-eye" style="color: white;"></i></a>
                                                     </span>
 
                                                     <span title="Edit Program">
-                                                        @if (empty($row->programID))
-                                                            <span title="Edit">
-                                                                <a class="btn btn-primary"
-                                                                    href="{{ url("edit-no-program-project/$row->id") }}"><i
-                                                                        class="fa-solid fa-pen-to-square"
-                                                                        style="color: white;"></i></a>
-                                                            </span>
-                                                        @else
-                                                            <span title="Edit">
-                                                                <a class="btn btn-primary"
-                                                                    href="{{ url("edit-project/$row->id") }}"><i
-                                                                        class="fa-solid fa-pen-to-square"
-                                                                        style="color: white;"></i></a>
-                                                            </span>
-                                                        @endif
-                                                    </span>
-
-                                                    <span title="View Sub-project">
-                                                        <a class="btn btn-success"
-                                                            href="{{ url("sub-projects-view/$row->id") }}"><i
-                                                                class="fa-solid fa-sitemap" style="color: white;"></i></a>
+                                                        <a class="btn btn-primary"
+                                                            href="{{ url("edit-project/$row->id") }}"><i
+                                                                class="fa-solid fa-pen-to-square"
+                                                                style="color: white;"></i></a>
                                                     </span>
 
                                                     <span title="Upload Program Files">
+                                                        {{-- <a class="btn btn-secondary"
+                                                            href="{{ url("upload-file/$row->programID") }}"><i
+                                                                class="fa-solid fa-file-circle-plus"></i></a> --}}
+
                                                         <a class="btn btn-secondary uploadFiles" data-toggle="modal"
-                                                            data-target='#uploadfiles' data-id="{{ $row->id }}"><i
+                                                            data-target='#uploadfiles' data-id="{{ $row->programID }}"><i
                                                                 class="fa-solid fa-file-circle-plus"></i></a>
                                                     </span>
 
                                                     <span title="Add Program Staffs">
                                                         <!-- Button trigger modal -->
                                                         <a class="btn btn-warning addPersonnel" data-toggle="modal"
-                                                            data-target='#add-personnel' data-id="{{ $row->id }}"><i
+                                                            data-target='#add-personnel' data-id="{{ $row->programID }}"><i
                                                                 class="fa-solid fa-user-plus"></i></a>
+
+
                                                     </span>
 
                                                     <a href="{{ URL::to('/delete-program/' . $row->id) }}"
@@ -180,9 +141,11 @@
                                         @endforeach
                                     </tbody>
                                 </table>
-                                <a href="{{ url('rdmc-monitoring-evaluation') }}" class="btn btn-default">Back</a>
+                                <a href="{{ url('rdmc-programs') }}" class="btn btn-default">Back</a>
                             </div>
                             <!-- /.card-body -->
+
+                            <!-- /.card-footer -->
                         </div>
                         <!-- /.card -->
                     </div>
@@ -194,7 +157,7 @@
         </section>
         <!-- /.content -->
     </div>
-
+    <!-- Modal Personnel-->
     <div class="modal fade" id="add-personnel" data-keyboard="false" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -205,8 +168,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form role="form" id="regiration_form" action="{{ url('add-program-personnel') }}"
-                        method="POST">
+                    <form role="form" id="regiration_form" action="{{ url('add-program-personnel') }}" method="POST">
                         @csrf
                         {{-- EMPLOYEE FORM WORKING --}}
                         <fieldset>
@@ -219,13 +181,11 @@
                                                 <td class="append">
                                                     <input type="text" class="form-control"
                                                         name="moreFields[0][programID]" id="programID" value=""
-                                                        placeholder="Program ID" hidden readonly required
-                                                        autocomplete="false">
+                                                        placeholder="Program ID" hidden readonly required autocomplete="false">
 
                                                     <input type="text" class="form-control"
                                                         name="moreFields[0][projectID]" id="projectID" value=""
-                                                        placeholder="Project ID" hidden readonly required
-                                                        autocomplete="false">
+                                                        placeholder="Project ID" hidden readonly required autocomplete="false">
 
                                                     <input type="text" class="form-control" placeholder="Staff"
                                                         name="moreFields[0][staff_name]" required autocomplete="false">
@@ -306,7 +266,8 @@
         </div>
     </div>
 
-    <!-- Modal -->
+
+    <!-- IMport Modal -->
     <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
         aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -314,7 +275,7 @@
                 <div class="modal-header">
                     <h1 class="modal-title fs-5" id="staticBackdropLabel">Import to Database
                         <span title="Click to download format">
-                            <a href="{{ url('download-template-projects') }}" class="" download><i
+                            <a href="{{ url('download-template-programs') }}" class="" download><i
                                     class="fa-solid fa-file-circle-question"></i></a>
                         </span>
                     </h1>
@@ -324,8 +285,8 @@
                 <form action="{{ url('import-file') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="modal-body">
-                        <input type="file" name="import_excel_projects" accept="application/vnd.ms-excel"
-                            class="form-control" id="import_excel_projects">
+                        <input type="file" name="import_excel_programs" accept="application/vnd.ms-excel"
+                            class="form-control" id="import_excel">
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -335,6 +296,7 @@
             </div>
         </div>
     </div>
+
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
@@ -407,7 +369,7 @@
                     <input type="text" class="form-control" name="moreFields[` + i + `][programID]" id="moreFields[` +
                 i + `][prog]" value="" 
                     placeholder="Program ID" hidden readonly required autocomplete="false">
-                    
+                    <td class="append">
                     <input type="text" class="form-control" name="moreFields[` + i + `][projectID]" id="moreFields[` +
                 i + `][proj]" value="" 
                     placeholder="Project ID" hidden  readonly required autocomplete="false">

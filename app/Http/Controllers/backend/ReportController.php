@@ -104,6 +104,29 @@ class ReportController extends Controller
         $programs = DB::table('programs')->where('programID', $programID)->first();
         return view('backend.report.rdmc.rdmc_projects_under_program_add', compact('programs', 'title', 'agency', 'researchers'));
     }
+
+    public function projectsUnderProgramEdit($programID, $id)
+    {
+        $title = 'Program - projects | RDMC';
+        $agency = DB::table('agency')->get();
+        $researchers = DB::table('researchers')->get();
+        $programs = DB::table('programs')->where('programID', $programID)->first();
+        return view('backend.report.rdmc.rdmc_projects_under_program_edit', compact('programs', 'title', 'agency', 'researchers'));
+    }
+
+    public function projectsUnderProgramIndex($programID)
+    {
+        $title = 'Program - projects | RDMC';
+        $agency = DB::table('agency')->get();
+        $researchers = DB::table('researchers')->get();
+        $projects = DB::table('projects')->where('programID', $programID)->get();
+
+        $program_title = DB::table('programs')
+            ->select('*')
+            ->where('programID', $programID)
+            ->first();
+        return view('backend.report.rdmc.rdmc_projects_under_program', compact('projects', 'title', 'agency', 'researchers', 'program_title'));
+    }
     public function subProjectsView($projectID)
     {
         $title = 'Sub-projects | RDMC';
@@ -124,19 +147,14 @@ class ReportController extends Controller
         $title = 'Sub-projects | RDMC';
         $projects = DB::table('projects')
             ->select('*')
-            ->orderByDesc("id")
+            ->where('id', $id)
             ->limit(1)
-            ->get();
+            ->first();
+        $researchers = DB::table('researchers')->get();
         $agency = DB::table('agency')->get();
-        return view('backend.report.rdmc.rdmc_sub_project_add', compact('title', 'projects', 'agency'));
+        return view('backend.report.rdmc.rdmc_sub_project_add', compact('title', 'projects', 'agency', 'researchers'));
     }
 
-    // public function activitiesAdd()
-    // {
-    //     $title = 'Activities | RDMC';
-    //     $agency = DB::table('agency')->get();
-    //     return view('backend.report.rdmc.rdmc_activities_add', compact('title', 'agency'));
-    // }
 
     public function rdmcActivities()
     {

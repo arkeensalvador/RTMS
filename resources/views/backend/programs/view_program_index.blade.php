@@ -119,11 +119,9 @@
                                                         <a href="{{ url('download/' . $items->id) }}"
                                                             class="btn-link text-secondary"><i
                                                                 class="far fa-fw fa-file-pdf"></i>{{ $items->file_name }}</a>
-                                                        <a href="{{ url('/'.$items->file_path) }}" target="_blank">View </a>
                                                     </li>
                                                 @endforeach
                                             </ul>
-
                                             <hr>
                                             <div class="text-m text-muted">Project(s) under this program</div>
                                             <ul class="list-unstyled">

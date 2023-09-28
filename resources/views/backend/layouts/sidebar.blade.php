@@ -27,7 +27,7 @@
         {{-- ACTIVE MENU QUERY --}}
         @php
             $segment1 = Request::segment(1);
-            $pages = ['report-index', 'rdmc-index', 'rdmc-monitoring-evaluation', 'aihrs', 'rdmc-projects', 'rdmc-activities', 'rdmc-linkages-index', 'rdmc-dbinfosys-index', 'strategic-activities', 'rdru-index', 'rdru-ttp', 'rdru-ttm', 'rdru-tta', 'cbg-index', 'cbg-training', 'cbg-awards', 'cbg-equipment', 'projects-add', 'edit-activity', 'edit-activity', 'rdmc-activities-add', 'edit-no-program-project', 'project-upload-file', 'add-project-personnel', 'rdmc-linkages-add', 'edit-linkages', 'rdmc-dbinfosys-add', 'edit-dbinfosys', 'add-strategic-index', 'edit-strategic', 'rdru-add', 'rdru-ttm-add', 'rdru-tpa-add', 'edit-ttp', 'edit-ttm', 'edit-tpa', 'cbg-training-add', 'cbg-awards-add', 'cbg-equipment-add', 'edit-training', 'edit-award', 'edit-equipment', 'view-project-index', 'sub-projects-view', 'view-subprojects', 'sub-projects-add', 'sub-project-upload-file', 'add-sub-project-personnel'];
+            $pages = ['report-index', 'rdmc-index', 'rdmc-monitoring-evaluation', 'aihrs', 'rdmc-projects', 'rdmc-activities', 'rdmc-linkages-index', 'rdmc-dbinfosys-index', 'strategic-activities', 'rdru-index', 'rdru-ttp', 'rdru-ttm', 'rdru-tta', 'cbg-index', 'cbg-training', 'cbg-awards', 'cbg-equipment', 'projects-add', 'edit-activity', 'edit-activity', 'rdmc-activities-add', 'edit-no-program-project', 'project-upload-file', 'add-project-personnel', 'rdmc-linkages-add', 'edit-linkages', 'rdmc-dbinfosys-add', 'edit-dbinfosys', 'add-strategic-index', 'edit-strategic', 'rdru-add', 'rdru-ttm-add', 'rdru-tpa-add', 'edit-ttp', 'edit-ttm', 'edit-tpa', 'cbg-training-add', 'cbg-awards-add', 'cbg-equipment-add', 'edit-training', 'edit-award', 'edit-equipment', 'view-project-index', 'sub-projects-view', 'view-subprojects', 'sub-projects-add', 'sub-project-upload-file', 'add-sub-project-personnel', 'projects-under-program'];
         @endphp
 
 
@@ -126,51 +126,17 @@
                     </li>
                 @endif
                 {{-- logout --}}
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('logout') }}"
-                        onclick="event.preventDefault();
-                         Swal.fire({
-                            title: 'Are you sure you want to Logout?',
-                            icon: 'warning',
-                            buttons: true,
-                            confirmButtonText: 'Yes',
-                            showCancelButton: true,
-                            dangerMode: true,
-                            allowEscapeKey: false,
-                            allowOutsideClick: false,
-                            })
-                            .then((result) => {
-                            if (result.value===true) {
-                                Swal.fire({
-                                    text: 'Logging out...',
-                                    buttons: false,      
-                                    allowEscapeKey: false,
-                                    allowOutsideClick: false,
-                                    timer: 1000,
-                                    didOpen: () => {
-                                    Swal.showLoading()
-                                },
-                                willClose: () => {
-                                    document.getElementById('logout-form').submit();
-                                }
-                                })
-                                
-                            }
-                        });">
-
+                <li class="nav-item has-treeview">
+                    <a class="nav-link" href="{{ route('logout') }}" id="btn-logout">
                         <i class="nav-icon fas fa-solid fa-right-from-bracket"></i>
-                        {{ __('Logout') }}
+                        <p>
+                            Logout
+                        </p>
                     </a>
-
-                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none" hidden>
                         @csrf
 
                     </form>
-                </li>
-                <li class="nav-item">
-
-
-
                 </li>
             </ul>
         </nav>

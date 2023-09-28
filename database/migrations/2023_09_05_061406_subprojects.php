@@ -13,24 +13,26 @@ return new class extends Migration
     {
         Schema::create('sub_projects', function (Blueprint $table) {
             $table->id();
-            $table->string('projectID')->nullable();
-            $table->string('sub_project_fund_code')->nullable();
-            $table->string('sub_project_category')->nullable();
-            $table->string('sub_project_status')->nullable();
-            $table->string('sub_project_agency')->nullable();
-            $table->string('sub_project_funding_duration')->nullable();
-            $table->string('sub_project_funding_years')->nullable();
-            $table->text('sub_project_title')->nullable();
-            $table->string('sub_project_leader')->nullable();
-            $table->string('sub_project_assistant_leader')->nullable();
-            $table->string('sub_project_start_date')->nullable();
-            $table->string('sub_project_end_date')->nullable();
+            $table->string('programID')->nullable();
+            $table->string('projectID');
+            $table->string('sub_project_fund_code');
+            $table->string('sub_project_category');
+            $table->string('sub_project_status');
+            $table->string('sub_project_agency');
+            $table->string('sub_project_funding_duration');
+            $table->string('sub_project_funding_years');
+            $table->text('sub_project_title');
+            $table->string('sub_project_leader');
+            $table->string('sub_project_assistant_leader');
+            $table->string('sub_project_start_date');
+            $table->string('sub_project_end_date');
             $table->string('sub_project_extend_date')->nullable();
-            $table->text('sub_project_description')->nullable();
-            $table->string('sub_project_approved_budget')->nullable();
-            $table->string('sub_project_amount_released')->nullable();
-            $table->string('sub_project_budget_year')->nullable();
-            $table->string('sub_project_form_of_development')->nullable();
+            $table->text('sub_project_description');
+            $table->string('sub_project_approved_budget');
+            $table->string('sub_project_amount_released');
+            $table->string('sub_project_budget_year');
+            $table->string('sub_project_form_of_development');
+            $table->string('keywords');
             $table->timestamps();
         });
     }
