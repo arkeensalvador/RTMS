@@ -1,6 +1,5 @@
 @extends('backend.layouts.app')
 @section('content')
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <div class="content-wrapper">
         <div class="content-header">
             <div class="container-fluid">
@@ -29,7 +28,7 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-header">
-                                <h2 class="card-title">{{ $sub_project_title->project_title }}(Sub-projects)</h2>
+                                <h2 class="card-title">{{ $project_title->project_title }}(Sub-projects)</h2>
                                 <div class="card-tools">
                                     {{-- <a href="{{ url('view-subprojects') }}" class="btn btn-primary">Sub-projects</a> --}}
 
@@ -40,122 +39,111 @@
                                     </button>
 
 
-                                    <a href="{{ url('sub-projects-add/' . $sub_project_title->id) }}"
-                                        class="btn btn-success">
+                                    <a href="{{ url('sub-projects-add/'.$project_title->id) }}" class="btn btn-success">
                                         <i class="fa-solid fa-plus"></i> Create</span></a>
-                                    <!-- Here is a label for example -->
-                                    {{-- <span class="badge badge-primary">Label</span> --}}
                                 </div>
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body">
-                                <div class="row">
-                                    <div class="col-12 col-md-12">
-                                        <div class="col-sm-12">
-                                            <table id="programs" class="table table-bordered table-striped">
-                                                <thead>
-                                                    <tr>
-                                                        <th hidden>Program ID</th>
-                                                        <th hidden>Project ID</th>
-                                                        <th hidden>Sub Project ID</th>
-                                                        <th>Fund Code</th>
-                                                        <th>Sub-project Title</th>
-                                                        <th>Sub-project Leader</th>
-                                                        <th>Duration</th>
-                                                        <th>Funding Agency</th>
-                                                        <th>Description</th>
-                                                        <th>Status</th>
-                                                        <th hidden>Keyword(s)</th>
-                                                        <th>Action</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    @foreach ($sub_projects as $key => $row)
-                                                        <tr>
-                                                            <td class="prog_id" hidden>{{ $row->programID }}</td>
-                                                            <td class="proj_id" hidden>{{ $row->projectID }}</td>
-                                                            <td class="subproj_id" hidden>{{ $row->id }}</td>
-                                                            <td>{{ $row->sub_project_fund_code }}</td>
-                                                            <td>{{ $row->sub_project_title }}</td>
-                                                            <td>{{ $row->sub_project_leader }}</td>
-                                                            <td>
-                                                                @empty($row->sub_project_extend_date)
-                                                                    {{ date('F, Y', strtotime($row->sub_project_start_date)) ?: 'Not Set' }}
-                                                                    -
-                                                                    {{ date('F, Y', strtotime($row->sub_project_end_date)) ?: 'Not Set' }}
-                                                                @else
-                                                                    {{ date('F, Y', strtotime($row->sub_project_start_date)) ?: 'Not Set' }}
-                                                                    -
-                                                                    {{ date('F, Y', strtotime($row->sub_project_extend_date)) ?: 'Not Set' }}
-                                                                    <span class="badge text-bg-info">Extended</span>
-                                                                @endempty
-                                                            </td>
-                                                            <td>{{ $row->sub_project_agency }}</td>
-                                                            <td>{{ $row->sub_project_description }}</td>
-                                                            <td>
-                                                                @if ($row->sub_project_status == 'New')
-                                                                    {{ $row->sub_project_status }}
-                                                                    <i class="fa-solid fa-database fa-xl"
-                                                                        style="color: #28a745;"></i>
-                                                                @elseif ($row->sub_project_status == 'Ongoing')
-                                                                    {{ $row->sub_project_status }}
-                                                                    <i class="fa-solid fa-magnifying-glass-chart fa-xl"
-                                                                        style="color: #2a6cdf;"></i>
-                                                                @elseif ($row->sub_project_status == 'Terminated')
-                                                                    {{ $row->sub_project_status }}
-                                                                    <i class="fa-solid fa-triangle-exclamation fa-xl"
-                                                                        style="color: #ff0000;"></i>
-                                                                @elseif ($row->sub_project_status == 'Completed')
-                                                                    {{ $row->sub_project_status }}
-                                                                    <i class="fa-solid fa-circle-check fa-xl"
-                                                                        style="color: #28a745;"></i>
-                                                                @endif
+                                <table id="programs" class="table table-bordered table-striped text-center">
+                                    <thead>
+                                        <tr>
+                                            <th hidden>Sub Project ID</th>
+                                            <th>Fund Code</th>
+                                            <th>Project Title</th>
+                                            <th>Project Leader</th>
+                                            <th>Duration</th>
+                                            <th>Funding Agency</th>
+                                            <th>Description</th>
+                                            <th>Status</th>
+                                            <th hidden>Keyword(s)</th>
+                                            <th>Action</th>
+                                        </tr>
 
-                                                            </td>
-                                                            <td class="action">
-                                                                <span title="View">
-                                                                    <a class="btn btn-info"
-                                                                        href="{{ url("view-subprojects/$row->projectID/$row->id") }}"><i
-                                                                            class="fa-solid fa-eye"
-                                                                            style="color: white;"></i></a>
-                                                                </span>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($sub_projects as $row)
+                                            <tr>
+                                                <td class="subproj_id" hidden>{{ $row->id }}</td>
+                                                <td><span class="hashtag text-bg-primary">#</span>
+                                                    {{ $row->sub_project_fund_code }} </td>
+                                                <td>
+                                                    {{ $row->sub_project_title }}
+                                                </td>
+                                                <td>{{ $row->sub_project_leader }}</td>
+                                                <td>
+                                                    @empty($row->project_extend_date)
+                                                        {{ date('F, Y', strtotime($row->sub_project_start_date)) ?: 'Not Set' }}
+                                                        -
+                                                        {{ date('F, Y', strtotime($row->sub_project_end_date)) ?: 'Not Set' }}
+                                                    @else
+                                                        {{ date('F, Y', strtotime($row->sub_project_start_date)) ?: 'Not Set' }}
+                                                        -
+                                                        {{ date('F, Y', strtotime($row->sub_project_extend_date)) ?: 'Not Set' }}
+                                                        <span class="badge text-bg-info">Extended</span>
+                                                    @endempty
+                                                </td>
+                                                <td>{{ $row->sub_project_agency }}</td>
+                                                <td>{{ $row->sub_project_description }}</td>
+                                                <td>
+                                                    @if ($row->sub_project_status == 'New')
+                                                        {{ $row->sub_project_status }}
+                                                        <i class="fa-solid fa-database fa-xl" style="color: #28a745;"></i>
+                                                    @elseif ($row->sub_project_status == 'Ongoing')
+                                                        {{ $row->sub_project_status }}
+                                                        <i class="fa-solid fa-magnifying-glass-chart fa-xl"
+                                                            style="color: #2a6cdf;"></i>
+                                                    @elseif ($row->sub_project_status == 'Terminated')
+                                                        {{ $row->sub_project_status }}
+                                                        <i class="fa-solid fa-triangle-exclamation fa-xl"
+                                                            style="color: #ff0000;"></i>
+                                                    @elseif ($row->sub_project_status == 'Completed')
+                                                        {{ $row->sub_project_status }}
+                                                        <i class="fa-solid fa-circle-check fa-xl"
+                                                            style="color: #28a745;"></i>
+                                                    @endif
+                                                </td>
+                                                <td hidden>
+                                                    {{ $row->keywords }}
+                                                </td>
+                                                <td class="action">
+                                                    <span title="View">
+                                                        <a class="btn btn-info"
+                                                            href="{{ url("view-subprojects/$row->projectID/$row->id") }}"><i
+                                                                class="fa-solid fa-eye" style="color: white;"></i></a>
+                                                    </span>
 
 
-                                                                <span title="Edit">
-                                                                    <a class="btn btn-primary"
-                                                                        href="{{ url("edit-sub-project/$row->projectID/$row->id") }}"><i
-                                                                            class="fa-solid fa-pen-to-square"
-                                                                            style="color: white;"></i></a>
-                                                                </span>
+                                                    <span title="Edit">
+                                                        <a class="btn btn-primary"
+                                                            href="{{ url("edit-sub-project/$row->projectID/$row->id") }}"><i
+                                                                class="fa-solid fa-pen-to-square"
+                                                                style="color: white;"></i></a>
+                                                    </span>
 
 
-                                                                <span title="Upload">
-                                                                    <a class="btn btn-secondary uploadFiles"
-                                                                        data-toggle="modal" data-target='#uploadfiles'
-                                                                        data-id="{{ $row->id }}"><i
-                                                                            class="fa-solid fa-file-circle-plus"></i></a>
-                                                                </span>
+                                                    <span title="Upload">
+                                                        <a class="btn btn-secondary uploadFiles" data-toggle="modal"
+                                                            data-target='#uploadfiles' data-id="{{ $row->id }}"><i
+                                                                class="fa-solid fa-file-circle-plus"></i></a>
+                                                    </span>
 
 
-                                                                <span title="Staffs">
-                                                                    <a class="btn btn-warning addPersonnel"
-                                                                        data-toggle="modal" data-target='#add-personnel'
-                                                                        data-id="{{ $row->id }}"><i
-                                                                            class="fa-solid fa-user-plus"></i></a>
-                                                                </span>
+                                                    <span title="Staffs">
+                                                        <a class="btn btn-warning addPersonnel" data-toggle="modal"
+                                                            data-target='#add-personnel' data-id="{{ $row->id }}"><i
+                                                                class="fa-solid fa-user-plus"></i></a>
+                                                    </span>
 
-                                                                <a href="{{ URL::to('/delete-sub-project/' . $row->id) }}"
-                                                                    class="btn btn-danger" id="delete"><i
-                                                                        class="fa-solid fa-trash"></i></a>
-                                                            </td>
-                                                        </tr>
-                                                    @endforeach
-                                                </tbody>
-                                            </table>
-                                            <a href="{{ url('rdmc-projects') }}" class="btn btn-default">Back</a>
-                                        </div>
-                                    </div>
-                                </div>
+                                                    <a href="{{ URL::to('/delete-sub-project/' . $row->id) }}"
+                                                        class="btn btn-danger" id="delete"><i
+                                                            class="fa-solid fa-trash"></i></a>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                                <a href="{{ url('rdmc-projects') }}" class="btn btn-default">Back</a>
                             </div>
                             <!-- /.card-body -->
                         </div>
@@ -169,6 +157,7 @@
         </section>
         <!-- /.content -->
     </div>
+
     <div class="modal fade" id="add-personnel" data-keyboard="false" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -179,29 +168,30 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form role="form" id="regiration_form" action="{{ url('add-program-personnel') }}" method="POST">
+                    <form role="form" id="regiration_form" action="{{ url('add-sub-project-personnel') }}"
+                        method="POST">
                         @csrf
                         {{-- EMPLOYEE FORM WORKING --}}
                         <fieldset>
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label>Program Staff(s)</label>
+                                        <label>Sub-project Staff(s)</label>
                                         <table class="table table-append" id="dynamicAddRemove">
                                             <tr>
                                                 <td class="append">
-                                                    <input type="text" class="form-control"
+                                                    {{-- <input type="text" class="form-control"
                                                         name="moreFields[0][programID]" id="programID" value=""
-                                                        placeholder="Program ID" hidden readonly required autocomplete="false">
+                                                        placeholder="Program ID" hidden readonly required autocomplete="false"> --}}
 
-                                                    <input type="text" class="form-control"
+                                                    {{-- <input type="text" class="form-control"
                                                         name="moreFields[0][projectID]" id="projectID" value=""
                                                         placeholder="Project ID" hidden readonly required
-                                                        autocomplete="false">
+                                                        autocomplete="false"> --}}
 
                                                     <input type="text" class="form-control"
                                                         name="moreFields[0][subprojectID]" id="subprojectID"
-                                                        value="" placeholder="Sub Project ID" hidden readonly required
+                                                        value="" placeholder="Sub Project ID" readonly required
                                                         autocomplete="false">
 
                                                     <input type="text" class="form-control" placeholder="Staff"
@@ -250,14 +240,14 @@
 
                             <div class="row">
                                 <div class="form-group row">
-                                    <input type="text" class="form-control" name="programID" placeholder=""
+                                    {{-- <input type="text" class="form-control" name="programID" placeholder=""
                                         id="upload_programID" hidden readonly required autocomplete="false">
 
                                     <input type="text" class="form-control" name="projectID" placeholder=""
-                                        id="upload_projectID" hidden readonly required autocomplete="false">
+                                        id="upload_projectID" hidden readonly required autocomplete="false"> --}}
 
                                     <input type="text" class="form-control" name="subprojectID" placeholder=""
-                                        id="upload_subprojectID" hidden readonly required autocomplete="false">
+                                        id="upload_subprojectID" readonly required autocomplete="false">
 
                                     <input type="text" class="form-control" name="uploader_agency"
                                         placeholder="Agency" hidden value="{{ auth()->user()->agencyID }}" readonly
@@ -311,7 +301,6 @@
             </div>
         </div>
     </div>
-
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
     <script type="text/javascript">
@@ -380,14 +369,9 @@
             $("#dynamicAddRemove").append(`
             <tr>
                 <td class="append">
-                    <input type="text" class="form-control" name="moreFields[` + i + `][programID]" id="moreFields[` +
-                i + `][prog]" value=""placeholder="Program ID" hidden readonly required autocomplete="false">
-                    
-                    <input type="text" class="form-control" name="moreFields[` + i + `][projectID]" id="moreFields[` +
-                i + `][proj]" value="" placeholder="Project ID" hidden readonly required autocomplete="false">
                     <input type="text" class="form-control" name="moreFields[` + i +
                 `][subprojectID]" id="moreFields[` +
-                i + `][subproj]" value=""placeholder="Project ID" hidden readonly required autocomplete="false">
+                i + `][subproj]" value=""placeholder="Project ID"  readonly required autocomplete="false">
                     <input type="text" class="form-control" placeholder="Staff" name="moreFields[` + i + `][staff_name]">
                 </td>
 
@@ -396,11 +380,11 @@
                 </td>
             </tr>`);
 
-            let text1 = document.getElementById('programID').value;
-            let text2 = document.getElementById('projectID').value;
+            // let text1 = document.getElementById('programID').value;
+            // let text2 = document.getElementById('projectID').value;
             let text3 = document.getElementById('subprojectID').value;
-            document.getElementById(`moreFields[` + i + `][prog]`).value = text1;
-            document.getElementById(`moreFields[` + i + `][proj]`).value = text2;
+            // document.getElementById(`moreFields[` + i + `][prog]`).value = text1;
+            // document.getElementById(`moreFields[` + i + `][proj]`).value = text2;
             document.getElementById(`moreFields[` + i + `][subproj]`).value = text3;
         });
         $(document).on('click', '.remove-input', function() {
@@ -417,16 +401,16 @@
         $(document).on('click', '.addPersonnel', function() {
             var _this = $(this).parents('tr');
             // $('#program_id').val(_this.find('.prog_id').text());
-            $('#programID').val(_this.find('.prog_id').text());
-            $('#projectID').val(_this.find('.proj_id').text());
+            // $('#programID').val(_this.find('.prog_id').text());
+            // $('#projectID').val(_this.find('.proj_id').text());
             $('#subprojectID').val(_this.find('.subproj_id').text());
         });
 
         $(document).on('click', '.uploadFiles', function() {
             var _this = $(this).parents('tr');
             // $('#program_id').val(_this.find('.prog_id').text());
-            $('#upload_programID').val(_this.find('.prog_id').text());
-            $('#upload_projectID').val(_this.find('.proj_id').text());
+            // $('#upload_programID').val(_this.find('.prog_id').text());
+            // $('#upload_projectID').val(_this.find('.proj_id').text());
             $('#upload_subprojectID').val(_this.find('.subproj_id').text());
         });
     </script>

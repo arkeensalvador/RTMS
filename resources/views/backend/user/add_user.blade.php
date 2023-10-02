@@ -6,7 +6,7 @@
                 <div class="col-lg-1">
 
                 </div>
-                <div class="col-lg-10">
+                <div class="col-lg-12">
 
                     {{-- card start --}}
                     <div class="card">

@@ -6,7 +6,7 @@
         <section class="content report">
             <div class="container-fluid">
                 <div class="monitoring row">
-                    <div class="col-8">
+                    <div class="col-12">
                         <div class="card">
                             <div class="card-body">
                                 <div class="row">
@@ -16,7 +16,7 @@
                                                 <div class="form-group" style="text-align:center">
                                                     <h2>Choose Program</h2>
                                                     <div class="col-sm-12">
-                                                        <select class="form-control"
+                                                        <select class="form-control chooser"
                                                             onchange="window.location.assign(this.value)"
                                                             style="text-align: center">
                                                             <option class="opt" value="#" selected disabled>Choose
@@ -24,7 +24,8 @@
                                                             <option class="opt" value="rdmc-create-program">Create New
                                                                 Program</option>
                                                             @foreach ($programs as $program)
-                                                                <option class="opt" value="projects-u-program-add/{{ $program->programID }}">
+                                                                <option class="opt"
+                                                                    value="projects-u-program-add/{{ $program->programID }}">
                                                                     {{ $program->program_title }}</option>
                                                             @endforeach
                                                         </select>

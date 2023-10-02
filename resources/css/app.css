@@ -28,6 +28,15 @@ input.form-control.fileupload {
     border-radius: 0.25rem !important;
 }
 
+.table-striped > tbody > tr:nth-of-type(odd) > * {
+    --bs-table-accent-bg: #ececec00;
+    color: var(--bs-table-striped-color);
+}
+span.hashtag.text-bg-primary {
+    border-radius: 3px;
+    padding: 1px 1px 1px 1px;
+}
+
 .form-floating > .form-control-plaintext:focus,
 .form-floating > .form-control-plaintext:not(:placeholder-shown),
 .form-floating > .form-control:focus,
@@ -153,6 +162,10 @@ nav.main-header.navbar.navbar-expand {
 option.opt {
     font-size: 1.2rem;
     /* font-weight: 500; */
+}
+
+ul#select2-tec0-results {
+    text-align: center;
 }
 
 option.opt::-webkit-option-placeholder {
@@ -340,4 +353,61 @@ body.reset .col-9.card-reset {
 }
 .page-description-desktop {
     font-size: 2rem;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+}
+
+.h_line {
+    border-bottom: 6px solid #0da603;
+    width: 70%;
+    margin: auto;
+    padding-bottom: 1rem;
+}
+
+.card-counter {
+    box-shadow: 2px 2px 10px #dadada;
+    margin: 1px;
+    padding: 20px 10px;
+    background-color: #fff;
+    height: 110px;
+    border-radius: 5px;
+    transition: 0.3s linear all;
+}
+
+.card-counter i {
+    font-size: 5em;
+    opacity: 0.2;
+}
+
+.card-counter .count-numbers {
+    position: absolute;
+    right: 35px;
+    top: 20px;
+    display: block;
+}
+
+.list-group-flush > .list-group-item {
+    background: #f4f6f9;
+}
+
+th.thwidth {
+    width: 25%;
+}
+.card-counter .count-duration {
+    position: absolute;
+    right: 35px;
+    top: 20px;
+    display: block;
+}
+
+.card-counter .card-title {
+    position: absolute;
+    right: 35px;
+    top: 65px;
+    text-transform: capitalize;
+    opacity: 0.5;
+    display: block;
+    font-size: 18px;
 }

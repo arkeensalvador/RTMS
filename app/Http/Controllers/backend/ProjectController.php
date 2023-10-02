@@ -126,7 +126,7 @@ class ProjectController extends Controller
         $upload_files = DB::table('files')->where('projectID', $id)->orderByDesc("created_at")->get();
         $projects = DB::table('projects')->where('id', $id)->first();
 
-        return view('backend.projects.view_projects', compact('title', 'projects', 'agency', 'personnels', 'upload_files', 'sub_projects'));
+        return view('backend.report.rdmc.rdmc_view_project', compact('title', 'projects', 'agency', 'personnels', 'upload_files', 'sub_projects'));
     }
 
     public function InsertProjectsPersonnelIndex($id)
@@ -145,7 +145,8 @@ class ProjectController extends Controller
     public function AddProjectPersonnel(Request $request)
     {
         $request->validate([
-            'moreFields.*.projectID' => 'required'
+            'moreFields.*.projectID' => 'required',
+            'moreFields.*.staff_name' => 'required'
         ]);
 
         foreach ($request->moreFields as $key => $value) {
@@ -155,11 +156,11 @@ class ProjectController extends Controller
         if ($staffs) {
 
             $notification = array(
-                'message' => 'Staff(s) Successfully Updated!',
+                'message' => 'Staff(s) Successfully Added!',
                 'alert-type' => 'success'
             );
 
-            return redirect()->back()->with($notification);
+            return redirect()->route('rdmcProjects')->with($notification);
         } else {
             $notification = array(
                 'message' => 'Something is wrong, please try again!',

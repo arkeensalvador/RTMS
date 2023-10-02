@@ -135,12 +135,13 @@ class ReportController extends Controller
             ->where('projectID', $projectID)
             ->orderByDesc("id")
             ->get();
-        $sub_project_title = DB::table('projects')
+
+        $project_title = DB::table('projects')
             ->select('*')
             ->where('id', $projectID)
             ->first();
         $agency = DB::table('agency')->get();
-        return view('backend.report.rdmc.rdmc_sub_project_view_index', compact('title', 'sub_project_title', 'sub_projects', 'agency'));
+        return view('backend.report.rdmc.rdmc_sub_project_view_index', compact('title', 'project_title', 'sub_projects', 'agency'));
     }
     public function ProjectSubProjectsAdd($id)
     {
@@ -150,6 +151,21 @@ class ReportController extends Controller
             ->where('id', $id)
             ->limit(1)
             ->first();
+
+        $researchers = DB::table('researchers')->get();
+        $agency = DB::table('agency')->get();
+        return view('backend.report.rdmc.rdmc_sub_project_add', compact('title', 'projects', 'agency', 'researchers'));
+    }
+
+    public function ProjectSubProjectsAdd2()
+    {
+        $title = 'Sub-projects | RDMC';
+        $projects = DB::table('projects')
+            ->select('*')
+            ->orderByDesc("id")
+            ->limit(1)
+            ->first();
+
         $researchers = DB::table('researchers')->get();
         $agency = DB::table('agency')->get();
         return view('backend.report.rdmc.rdmc_sub_project_add', compact('title', 'projects', 'agency', 'researchers'));

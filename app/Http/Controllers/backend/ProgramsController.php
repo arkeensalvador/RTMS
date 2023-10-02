@@ -30,7 +30,7 @@ class ProgramsController extends Controller
         $data['program_status'] = $request->program_status;
         $data['program_category'] = $request->program_category;
         $data['funding_agency'] = $request->funding_agency;
-        $data['coordination_fund'] = $request->coordination_fund;
+        // $data['coordination_fund'] = $request->coordination_fund;
         $data['start_date'] = $request->start_date;
         $data['end_date'] = $request->end_date;
         $data['extend_date'] = $request->extend_date;
@@ -73,7 +73,7 @@ class ProgramsController extends Controller
         $documents = DB::table('program_files')->where('programID', $programID)->get();
         $upload_files = DB::table('files')->where('programID', $programID)->orderByDesc("created_at")->get();
 
-        return view('backend.programs.view_program_index', compact('program', 'agency', 'personnels', 'documents', 'program_leader', 'title','upload_files','projects'));
+        return view('backend.report.rdmc.rdmc_view_program', compact('program', 'agency', 'personnels', 'documents', 'program_leader', 'title','upload_files','projects'));
     }
 
     public function EditProgramIndex($programID)
@@ -101,7 +101,7 @@ class ProgramsController extends Controller
         $data['program_status'] = $request->program_status;
         $data['program_category'] = $request->program_category;
         $data['funding_agency'] = $request->funding_agency;
-        $data['coordination_fund'] = $request->coordination_fund;
+        // $data['coordination_fund'] = $request->coordination_fund;
         $data['start_date'] = $request->start_date;
         $data['end_date'] = $request->end_date;
         $data['extend_date'] = $request->extend_date;
@@ -223,11 +223,6 @@ class ProgramsController extends Controller
         return Response::download($file_path);
     }
 
-    // ->leftjoin('projects', 'institution.instname', '=', 'projects.funding_agency')
-    // ->select('projects.*')
-    // ->where('id', $id)
-    // ->get();
-
     public function AddProgramPersonnel(Request $request)
     {
         $request->validate([
@@ -242,7 +237,7 @@ class ProgramsController extends Controller
         if ($staffs) {
 
             $notification = array(
-                'message' => 'Staff(s) Successfully Updated!',
+                'message' => 'Staff(s) Successfully Added!',
                 'alert-type' => 'success'
             );
 

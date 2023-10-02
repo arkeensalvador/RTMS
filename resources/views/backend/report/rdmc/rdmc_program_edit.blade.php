@@ -253,14 +253,14 @@
                                     <div class="invalid-feedback">Missing program description</div>
                                 </div>
 
-                                <div class="col-md-3 form-group">
+                                {{-- <div class="col-md-3 form-group">
                                     <label for="coordination_fund" class=" font-weight-bold">Coordination Fund<span
                                             class="text-danger">*</span></label>
                                     <input type="text" name="coordination_fund"
                                         value="{{ $programs->coordination_fund }}" class="form-control"
                                         id="coordination_fund" placeholder="Enter exact amount" required>
                                     <div class="invalid-feedback">Missing coordination fund</div>
-                                </div>
+                                </div> --}}
 
                                 <div class="col-md-3 form-group">
                                     <label for="approved_budget" class="font-weight-bold">Approved Budget<span

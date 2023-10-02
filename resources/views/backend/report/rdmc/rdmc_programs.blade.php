@@ -56,6 +56,7 @@
                                             <th hidden>Program ID</th>
                                             <th>Fund Code</th>
                                             <th>Program Title</th>
+                                            <th>Program Leader</th>
                                             <th>Duration</th>
                                             <th>Funding Agency</th>
                                             <th>Description</th>
@@ -69,10 +70,11 @@
                                         @foreach ($all as $key => $row)
                                             <tr>
                                                 <td class="prog_id" hidden>{{ $row->programID }}</td>
-                                                <td>{{ $row->fund_code }}</td>
+                                                <td><span class="hashtag text-bg-primary">#</span>{{ $row->fund_code }}</td>
                                                 <td>
                                                     <a href="{{url("projects-under-program/$row->programID")}}">{{ $row->program_title }}</a>
                                                 </td>
+                                                <td>{{ $row->program_leader }}</td>
                                                 <td>
                                                     @empty($row->extend_date)
                                                         {{ date('F, Y', strtotime($row->start_date)) ?: 'Not Set' }} -

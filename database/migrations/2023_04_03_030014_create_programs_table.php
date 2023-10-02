@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('program_status');
             $table->string('program_category');
             $table->string('funding_agency');
-            $table->string('coordination_fund');
+            // $table->string('coordination_fund');
             $table->string('start_date');
             $table->string('end_date');
             $table->string('extend_date')->nullable();
@@ -31,8 +31,6 @@ return new class extends Migration
             $table->string('budget_year');
             $table->string('form_of_development');
             $table->string('keywords');
-            /* The line `// Schema::dropIfExists('agency');` is commented out, which means it is not being
-            executed. */
             $table->timestamps();
         });
     }

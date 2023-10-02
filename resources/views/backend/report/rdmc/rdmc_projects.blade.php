@@ -77,6 +77,7 @@
                                             <th hidden>Project ID</th>
                                             <th>Fund Code</th>
                                             <th>Project Title</th>
+                                            <th>Project Leader</th>
                                             <th>Duration</th>
                                             <th>Funding Agency</th>
                                             <th>Description</th>
@@ -91,10 +92,12 @@
                                             <tr>
                                                 <td class="prog_id" hidden>{{ $row->programID }}</td>
                                                 <td class="proj_id" hidden>{{ $row->id }}</td>
-                                                <td>{{ $row->project_fund_code }}</td>
+                                                <td><span class="hashtag text-bg-primary">#</span>
+                                                    {{ $row->project_fund_code }} </td>
                                                 <td>
-                                                    {{ $row->project_title }}
+                                                    <a href="{{ url("sub-projects-view/$row->id") }}">{{ $row->project_title }}</a>
                                                 </td>
+                                                <td>{{ $row->project_leader }}</td>
                                                 <td>
                                                     @empty($row->project_extend_date)
                                                         {{ date('F, Y', strtotime($row->project_start_date)) ?: 'Not Set' }} -
@@ -153,11 +156,11 @@
                                                         @endif
                                                     </span>
 
-                                                    <span title="View Sub-project">
+                                                    {{-- <span title="View Sub-project">
                                                         <a class="btn btn-success"
                                                             href="{{ url("sub-projects-view/$row->id") }}"><i
                                                                 class="fa-solid fa-sitemap" style="color: white;"></i></a>
-                                                    </span>
+                                                    </span> --}}
 
                                                     <span title="Upload Program Files">
                                                         <a class="btn btn-secondary uploadFiles" data-toggle="modal"
@@ -172,7 +175,7 @@
                                                                 class="fa-solid fa-user-plus"></i></a>
                                                     </span>
 
-                                                    <a href="{{ URL::to('/delete-program/' . $row->id) }}"
+                                                    <a href="{{ URL::to('/delete-project/' . $row->id) }}"
                                                         class="btn btn-danger" id="delete"><i
                                                             class="fa-solid fa-trash"></i></a>
                                                 </td>

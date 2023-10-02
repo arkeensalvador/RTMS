@@ -152,8 +152,7 @@
                                 <div class="col-md-9 form-group">
                                     <label for="funding_agency" class=" font-weight-bold">Funding Agency<span
                                             class="text-danger">*</span></label>
-                                    <select id="funding_agency" name="project_agency" class="form-control agency"
-                                        required>
+                                    <select id="funding_agency" name="project_agency" class="form-control agency" required>
                                         <option selected disabled value="">Choose Funding Agency / Source of Fund
                                         </option>
                                         @foreach ($agency as $key)
@@ -168,8 +167,8 @@
                                 <div class="col-md-3 form-group">
                                     <label for="coordination_fund" class=" font-weight-bold">Funding Grant<span
                                             class="text-danger">*</span></label>
-                                    <select id="funding_grant" name="project_funding_duration"
-                                        class="others form-control" required>
+                                    <select id="funding_grant" name="project_funding_duration" class="others form-control"
+                                        required>
                                         <option selected disabled value="">Select Funding Grant</option>
                                         <option value="One-time">One-time Grant</option>
                                         <option value="Multi-year">Multi-year Grant</option>
@@ -400,15 +399,22 @@
                         this.reset();
                         Swal.fire({
                             icon: 'success',
-                            title: 'Project Added Successfully',
-                            timerProgressBar: true,
-                            showConfirmButton: false,
-                            timer: 900
+                            title: "Project added successfully!",
+                            text: 'Are there any studies/sub-projects associated with this Project?',
+                            showDenyButton: true,
+                            showCloseButton: true,
+                            confirmButtonText: 'Yes',
+                            denyButtontext: 'No',
+                            allowEscapeKey: false,
+                            allowOutsideClick: false,
+                            reverseButtons: true
                         }).then((result) => {
-                            if (result.dismiss) {
-                                window.location.href = '/rdmc-projects';
+                            if (result.value) {
+                                window.location.href = 'sub-projects-add';
+                            } else {
+                                window.location.href = 'rdmc-projects';
                             }
-                        })
+                        });
                     },
                     error: function(data) {
                         Swal.fire({

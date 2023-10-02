@@ -139,10 +139,10 @@ class SubprojectController extends Controller
         return view('backend.report.rdmc.rdmc_view_sub_project', compact('title', 'sub_projects', 'agency', 'sub_project_leader', 'personnels', 'upload_files'));
     }
 
-    public function InsertSubProjectsPersonnelIndex($projectID, $id)
+    public function InsertSubProjectsPersonnelIndex($id)
     {
         $title = 'Sub-project Staff | RDMC';
-        $personnel = DB::table('personnels')->where('projectID', $projectID)->where('subprojectID', $id)->get();
+        $personnel = DB::table('personnels')->where('subprojectID', $id)->get();
         return view('backend.report.rdmc.rdmc_sub_project_personnel_index', compact('title', 'personnel'));
     }
 
@@ -151,8 +151,8 @@ class SubprojectController extends Controller
         date_default_timezone_set('Asia/Manila');
 
         $request->validate([
-            'moreFields.*.projectID' => 'required',
-            'moreFields.*.subprojectID' => 'required'
+            'moreFields.*.subprojectID' => 'required',
+            'moreFields.*.staff_name' => 'required'
         ]);
 
         foreach ($request->moreFields as $key => $value) {
@@ -162,7 +162,7 @@ class SubprojectController extends Controller
         if ($staffs) {
 
             $notification = array(
-                'message' => 'Staff(s) Successfully Updated!',
+                'message' => 'Staff(s) Successfully Added!',
                 'alert-type' => 'success'
             );
 

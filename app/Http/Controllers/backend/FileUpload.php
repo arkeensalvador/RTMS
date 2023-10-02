@@ -64,22 +64,16 @@ class FileUpload extends Controller
                     $agency = $request->uploader_agency;
 
                     //programs
-                    if ($programID && !$projectID  && !$subprojectID) {
+                    if ($programID) {
                         $path = $file->storeAs('uploads' . '/' . $agency . '/' . 'Programs', $name);
                         $file_path = 'uploads' . '/' . $agency . '/' . 'Programs' . '/' . $name;
-                    } else if ($programID && $projectID  && !$subprojectID) {
-                        $path = $file->storeAs('uploads' . '/' . $agency . '/' . 'Programs' . '/' . 'Projects', $name);
-                        $file_path = 'uploads' . '/' . $agency . '/' . 'Programs' . '/' . 'Projects' . '/' . $name;
-                    } else if (!$programID && $projectID  && !$subprojectID) {
+                    } else if ($projectID) {
                         $path = $file->storeAs('uploads' . '/' . $agency . '/' . 'Projects', $name);
                         $file_path = 'uploads' . '/' . $agency . '/' . 'Projects' . '/' . $name;
-                    } else  if (!$programID && $projectID  && $subprojectID) {
+                    } else  if ($subprojectID) {
                         $path = $file->storeAs('uploads' . '/' . $agency . '/' . 'Projects' . '/' . 'SP', $name);
                         $file_path = 'uploads' . '/' . $agency . '/' . 'Projects' . '/' .  'SP' . '/' . $name;
-                    } else  if ($programID && $projectID  && $subprojectID) {
-                        $path = $file->storeAs('uploads' . '/' . $agency . '/' . 'Projects' . '/' . 'SP', $name);
-                        $file_path = 'uploads' . '/' . $agency . '/' . 'Projects' . '/' .  'SP' . '/' . $name;
-                    }
+                    } 
 
                     $insert[$x]['file_name'] = $name;
                     $insert[$x]['file_path'] = $file_path;
