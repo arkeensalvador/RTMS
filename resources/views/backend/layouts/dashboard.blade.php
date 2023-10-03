@@ -19,144 +19,153 @@
             </div><!-- /.container-fluid -->
         </div>
         <!-- /.content-header -->
-        <div class="container col-md-12 text-start">
-            <div class="row align-items-start mx-0">
-                <div class="col-3">
-                    <div class="info-box">
-                        <span class="info-box-icon bg-info elevation-1"><i class="fas fa-cog"></i></span>
+        <section class="content">
+            <div class="container-fluid">
+                <!-- Small boxes (Stat box) -->
+                <div class="row">
+                    <div class="col-lg-3 col-6">
+                        <!-- small box -->
+                        <div class="small-box bg-info">
+                            <div class="inner">
+                                <h3>
+                                    {{ $total_programs }}
+                                </h3>
 
-                        <div class="info-box-content">
-                            <span class="info-box-text">CPU Traffic</span>
-                            <span class="info-box-number">
-                                10
-                                <small>%</small>
-                            </span>
+                                <p>Total Programs</p>
+                            </div>
+                            <div class="icon">
+                                <i class="fa-regular fa-circle"></i>
+                            </div>
+                            <a href="{{ url('rdmc-programs') }}" class="small-box-footer">More info <i
+                                    class="fas fa-arrow-circle-right"></i></a>
                         </div>
-                        <!-- /.info-box-content -->
                     </div>
-                </div>
-                <div class="col-3">
-                    <div class="info-box mb-3">
-                        <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-thumbs-up"></i></span>
-                        <div class="info-box-content">
-                            <span class="info-box-text">Likes</span>
-                            <span class="info-box-number">41,410</span>
+                    <!-- ./col -->
+                    <div class="col-lg-3 col-6">
+                        <!-- small box -->
+                        <div class="small-box bg-success">
+                            <div class="inner">
+                                <h3>
+                                    {{ $total_projects }}
+                                </h3>
+                                <p>Total Projects</p>
+                            </div>
+                            <div class="icon">
+                                <i class="fa-solid fa-diagram-project"></i>
+                            </div>
+                            <a href="{{ url('rdmc-projects') }}" class="small-box-footer">More info <i
+                                    class="fas fa-arrow-circle-right"></i></a>
                         </div>
-                        <!-- /.info-box-content -->
                     </div>
-                </div>
-                <div class="col-3">
-                    <div class="info-box mb-3">
-                        <span class="info-box-icon bg-success elevation-1"><i class="fas fa-shopping-cart"></i></span>
-                        <div class="info-box-content">
-                            <span class="info-box-text">Sales</span>
-                            <span class="info-box-number">760</span>
-                        </div>
-                        <!-- /.info-box-content -->
-                    </div>
-                </div>
-                <div class="col-3">
-                    <div class="info-box mb-3">
-                        <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-users"></i></span>
+                    <!-- ./col -->
+                    <div class="col-lg-3 col-6">
+                        <!-- small box -->
+                        <div class="small-box bg-warning">
+                            <div class="inner">
+                                <h3>
+                                    {{ $total_sub_projects }}
+                                </h3>
 
-                        <div class="info-box-content">
-                            <span class="info-box-text">New Members</span>
-                            <span class="info-box-number">2,000</span>
+                                <p>Total Sub-projects</p>
+                            </div>
+                            <div class="icon">
+                                <i class="fa-solid fa-list-check"></i>
+                            </div>
+                            <a href="{{ url('rdmc-projects') }}" class="small-box-footer">More info <i
+                                    class="fas fa-arrow-circle-right"></i></a>
                         </div>
-                        <!-- /.info-box-content -->
                     </div>
+                    <!-- ./col -->
+                    <div class="col-lg-3 col-6">
+                        <!-- small box -->
+                        <div class="small-box bg-danger">
+                            <div class="inner">
+                                <h3>
+                                    {{ $total_researchers }}
+                                </h3>
+
+                                <p>Total Researchers</p>
+                            </div>
+                            <div class="icon">
+                                <i class="fa-solid fa-book-open-reader"></i>
+                            </div>
+                            <a href="{{ url('researcher-index') }}" class="small-box-footer">More info <i
+                                    class="fas fa-arrow-circle-right"></i></a>
+                        </div>
+                    </div>
+                    <!-- ./col -->
                 </div>
-            </div>
-        </div>
+
+
+            </div><!-- /.container-fluid -->
+        </section>
         <!-- Main content -->
         <section class="content">
             <div class="container-fluid">
 
                 <div class="row">
                     <div class="col-md-12">
-                        <div class="card">
-                            <div class="card-body">
-                                <div class="row">
-                                    {{-- <div class="col-md-8">
-                                        Welcome to {{ auth()->user()->role }} - Dashboard
-                                    </div> --}}
-                                    <!-- /.col -->
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="card card-success">
-                                            {{-- <div class="card-header" style="background-color: #43a615;">
-                                                <h3 class="card-title">AIHRs</h3>
-                                            </div> --}}
-                                            <div class="col-md-12">
-                                                <div class="card-body">
-                                                    <div class="chart">
-                                                        <canvas id="myChart"></canvas>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <!-- /.card-body -->
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="card card-success">
-                                            {{-- <div class="card-header" style="background-color: #43a615;">
-                                                <h3 class="card-title">Users</h3>
-                                            </div> --}}
-                                            <div class="col-md-12">
-                                                <div class="card-body">
-                                                    <div class="chart">
-                                                        <div id="data" style="height: 350px;"></div>
-                                                    </div>
-                                                    <!-- /.card-body -->
-                                                </div>
-                                            </div>
-                                        </div>
 
-                                        <!-- /.row -->
-                                    </div>
+                        <div class="row">
 
-                                    <div class="col-md-8">
-                                        <div class="card card-success">
-                                            {{-- <div class="card-header" style="background-color: #43a615;">
-                                                <h3 class="card-title">Awards</h3>
-                                            </div> --}}
-                                            <div class="col-md-12">
-                                                <div class="card-body">
-                                                    <div class="chart">
-                                                        <div id="datas" style="width: 900px"></div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-4">
-                                        <div class="card card-success">
-                                            {{-- <div class="card-header" style="background-color: #43a615;">
-                                                <h3 class="card-title">Programs</h3>
-                                            </div> --}}
-                                            <div class="col-md-12">
-                                                <div class="card-body">
-                                                    <div class="chart">
-                                                        <div id="progs" style="width: 100%"></div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <!-- /.card-body -->
-                                        </div>
-                                    </div>
-
-                                </div>
-                                <!-- ./card-body -->
-                            </div>
-                            <!-- /.card -->
                         </div>
-                        <!-- /.col -->
+                        {{-- Programs --}}
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="card card-success">
+                                    <div class="col-md-12">
+                                        <div class="card-body">
+                                            <div class="chart">
+                                                <div id="myChart1"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {{-- AIHRS --}}
+                            <div class="col-md-6">
+                                <div class="card card-success">
+                                    <div class="col-md-12">
+                                        <div class="card-body">
+                                            <div class="chart">
+                                                <div id="myChart2"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {{-- Awards --}}
+                            <div class="col-md-12">
+                                <div class="card card-success">
+                                    <div class="col-md-12">
+                                        <div class="card-body">
+                                            <div class="chart">
+                                                <div id="myChart3"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            {{-- Researcher --}}
+                            <div class="col-md-5">
+                                <div class="card card-success">
+                                    <div class="col-md-12">
+                                        <div class="card-body">
+                                            <div class="chart">
+                                                <div id="myChart4"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- ./card-body -->
                     </div>
-                    <!-- /.row -->
+
                 </div>
-                <!--/. container-fluid -->
+            </div>
+            <!--/. container-fluid -->
         </section>
         <!-- /.content -->
 
@@ -164,151 +173,212 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script>
-        const ctx = document.getElementById('myChart');
-        // const ctxx = document.getElementById('myChart2');
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 
-        // var agencyList = {{ json_encode($list) }};
+
+    <script>
+        // const ctxx = document.getElementById('myChart2');
         var totalNew = {{ json_encode($total_new) }};
         var totalOngoing = {{ json_encode($total_ongoing) }};
         var totalTerminated = {{ json_encode($total_terminated) }};
         var totalCompleted = {{ json_encode($total_completed) }};
 
-        new Chart(ctx, {
-            type: 'bar',
-            labels: ['New', 'Ongoing', 'Terminated', 'Completed'],
-            data: {
-                labels: ['New', 'Ongoing', 'Terminated', 'Completed'],
-                datasets: [{
-                    label: "Total",
-                    data: [totalNew, totalOngoing, totalTerminated, totalCompleted],
-                    backgroundColor: [
-                        'rgba(255, 193, 7, 0.9)',
-                        'rgba(23, 162, 184, 0.9)',
-                        'rgba(179 , 0, 0, 0.9)',
-                        'rgba(0, 128, 0, 0.9)'
-                    ],
-                    borderWidth: 1
-                }],
-
-
+        var options = {
+            chart: {
+                type: 'bar'
             },
 
-            options: {
-                scales: {
-                    y: {
-                        beginAtZero: true
-                    }
+            series: [{
+
+                name: 'total',
+                data: {{ json_encode($count_p) }}
+            }],
+            xaxis: {
+                categories: [
+                    @php
+                        foreach ($progs as $p) {
+                            echo "'" . $p->program_agency . "',";
+                        }
+                    @endphp
+                ],
+            },
+            legend: {
+                show: true,
+                position: 'top'
+            },
+            title: {
+                text: 'Programs',
+                align: 'center',
+                floating: true
+            },
+            subtitle: {
+                text: 'Total # of programs per consortium',
+                align: 'center',
+            }
+        }
+
+        var chart1 = new ApexCharts(document.querySelector("#myChart1"), options);
+
+        chart1.render();
+
+        // NEW CHARTS APEXCHARTs
+        var options = {
+            chart: {
+                type: 'bar'
+            },
+
+            series: [{
+                name: 'total',
+                data: [totalNew, totalOngoing, totalTerminated, totalCompleted],
+
+            }],
+            colors: ['#2b908f'],
+            xaxis: {
+                categories: ['New', 'Ongoing', 'Terminated', 'Completed']
+            },
+            legend: {
+                show: true,
+                position: 'top'
+            },
+            title: {
+                text: 'AIHRs',
+                align: 'center',
+                floating: true
+            },
+            subtitle: {
+                text: 'Agency In-house Reviews',
+                align: 'center',
+            },
+        }
+
+        var chart2 = new ApexCharts(document.querySelector("#myChart2"), options);
+
+        chart2.render();
+
+        // AWARDS
+
+        var options = {
+            series: [{
+                data: {{ json_encode($count) }}
+            }],
+            chart: {
+                type: 'bar',
+                height: 380
+            },
+            plotOptions: {
+                bar: {
+                    borderRadius: 4,
+                    barHeight: '100%',
+                    distributed: true,
+                    horizontal: true,
+                    dataLabels: {
+                        position: 'bottom'
+                    },
+                }
+            },
+            colors: ['#546E7A', '#33b2df', '#d4526e', '#13d8aa', '#A5978B', '#2b908f', '#f9a3a4', '#90ee7e',
+                '#f48024', '#69d2e7', '#A300D6', '#7D02EB', '#5653FE', '#2983FF', '#00B1F2'
+            ],
+            dataLabels: {
+                enabled: true,
+                textAnchor: 'start',
+                style: {
+                    colors: ['#fff']
                 },
+                formatter: function(val, opt) {
+                    return opt.w.globals.labels[opt.dataPointIndex] + ":  " + val
+                },
+                offsetX: 0,
+                dropShadow: {
+                    enabled: true
+                }
+            },
+            stroke: {
+                width: 1,
+                colors: ['#fff']
+            },
+            xaxis: {
+                categories: [
 
-                plugins: {
-                    legend: {
-                        display: false
+                    @php
+                        foreach ($datas as $d) {
+                            echo "'" . $d->agency_awards . "',";
+                            // echo json_encode($agency_awards);
+                        }
+                    @endphp
+                ],
+            },
+            yaxis: {
+                labels: {
+                    show: false
+                }
+            },
+            title: {
+                text: 'Awards',
+                align: 'center',
+                floating: true
+            },
+            subtitle: {
+                text: 'Total awards count',
+                align: 'center',
+            },
+            tooltip: {
+                theme: 'dark',
+                x: {
+                    show: false
+                },
+                y: {
+                    title: {
+                        formatter: function() {
+                            return ''
+                        }
                     }
-
                 }
             }
+        };
 
-        });
-    </script>
+        var chart3 = new ApexCharts(document.querySelector("#myChart3"), options);
+        chart3.render();
 
-    <script type="text/javascript">
-        google.charts.load('current', {
-            'packages': ['corechart']
-        });
-        google.charts.setOnLoadCallback(drawChart);
+        // Researchers
+        var options = {
+            chart: {
+                type: 'bar'
+            },
 
-        function drawChart() {
+            series: [{
+                name: 'total',
+                data: {{ json_encode($count_res) }},
 
-            var data = google.visualization.arrayToDataTable([
-                ['Month Name', 'Registered User Count'],
-
-                @php
-                    foreach ($data as $d) {
-                        echo "['" . $d->month_name . "', '" . $d->count . "'],";
-                    }
-                @endphp
-
-            ]);
-
-            var options = {
-                title: 'No. of users created',
-                is3D: false,
-            };
-
-
-
-            var chart = new google.visualization.PieChart(document.getElementById('data'));
-
-            chart.draw(data, options);
+            }],
+            colors: ['#2b908f'],
+            xaxis: {
+                categories: [
+                    @php
+                        foreach ($researchers as $res) {
+                            echo "'" . $res->abbrev . "',";
+                            // echo json_encode($agency_awards);
+                        }
+                    @endphp
+                ]
+            },
+            legend: {
+                show: true,
+                position: 'top'
+            },
+            title: {
+                text: 'Researchers',
+                align: 'center',
+                floating: true
+            },
+            subtitle: {
+                text: 'Total # of researchers per consortium',
+                align: 'center',
+            },
         }
-    </script>
 
-    <script type="text/javascript">
-        google.charts.load('current', {
-            'packages': ['corechart']
-        });
-        google.charts.setOnLoadCallback(drawChart);
+        var chart4 = new ApexCharts(document.querySelector("#myChart4"), options);
 
-        function drawChart() {
-
-            var data = google.visualization.arrayToDataTable([
-                ['Agency Name', 'Total no. of Awards Received'],
-
-                @php
-                    foreach ($datas as $d) {
-                        echo "['" . $d->agency . "', " . $d->count . '],';
-                    }
-                @endphp
-
-            ]);
-
-            var options = {
-                title: 'Total Awards Received by Agency',
-                is3D: false,
-                height: 600
-            };
-
-
-
-            var chart = new google.visualization.ColumnChart(document.getElementById('datas'));
-
-            chart.draw(data, options);
-        }
-    </script>
-
-    // programs
-
-    <script type="text/javascript">
-        google.charts.load('current', {
-            'packages': ['corechart']
-        });
-        google.charts.setOnLoadCallback(drawChart);
-
-        function drawChart() {
-
-            var data = google.visualization.arrayToDataTable([
-                ['Agency Name', 'Programs'],
-
-                @php
-                    foreach ($progs as $d) {
-                        echo "['" . $d->agency . "', " . $d->count . '],';
-                    }
-                @endphp
-
-            ]);
-
-            var options = {
-                title: 'Programs of Fuding Agencies',
-                is3D: true,
-                height: 600
-            };
-
-
-
-            var chart = new google.visualization.ColumnChart(document.getElementById('progs'));
-
-            chart.draw(data, options);
-        }
+        chart4.render();
     </script>
 @endsection
