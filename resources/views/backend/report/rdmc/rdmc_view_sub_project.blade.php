@@ -1,142 +1,128 @@
 @extends('backend.layouts.app')
 @section('content')
-    <style>
-        input.number-to-text::-webkit-outer-spin-button,
-        input.number-to-text::-webkit-inner-spin-button {
-            -webkit-appearance: none;
-            margin: 0;
-        }
-
-        input[type=number].number-to-text {
-            -moz-appearance: textfield;
-        }
-    </style>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <div class="content-wrapper">
         <!-- Main content -->
         <section class="content">
             <div class="strategic row">
-                <div class="col-md-8">
-                    <div class="card">
-                        <div class="card-header">
-                            <h3 class="card-title">Sub-Project Details</h3>
+                <div class="col-md-12">
+                    <div class="container">
+                        <div class="row pt-2 ">
+                            <div class="col-md-4 ">
+                                <div class="card-counter bg-primary text-white">
+                                    <i class="fa fa-area-chart"></i>
+                                    <span class="count-numbers h2"><span class="font-weight-bold">₱</span>
+                                        @empty($sub_projects->sub_project_approved_budget)
+                                            -
+                                        @else
+                                            {{ $sub_projects->sub_project_approved_budget }}
+                                        @endempty
+                                    </span>
+                                    <span class="card-title font-italic ">Budget</span>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="card-counter bg-info text-white">
+                                    <i class="fa fa-bar-chart"></i>
+                                    <span class="count-numbers h2"><span class="font-weight-bold">₱</span>
+                                        @empty($sub_projects->sub_project_approved_budget)
+                                            -
+                                        @else
+                                            {{ $sub_projects->sub_project_approved_budget }}
+                                        @endempty
+                                    </span>
+                                    <span class="card-title font-italic">Approved Budget</span>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="card-counter bg-success text-white">
+                                    <i class="fa fa-calendar-o"></i>
+                                    <span class="count-duration h5">
+                                        @empty($sub_projects->extend_date)
+                                            {{ date('F, Y', strtotime($sub_projects->sub_project_start_date)) }}
+                                            -
+                                            {{ date('F, Y', strtotime($sub_projects->sub_project_end_date)) }}
+                                        @else
+                                            {{ date('F, Y', strtotime($sub_projects->sub_project_start_date)) }}
+                                            -
+                                            {{ date('F, Y', strtotime($sub_projects->sub_project_extend_date)) }}
+                                        @endempty
+                                    </span>
+                                    <span class="card-title font-italic">Duration</span>
+                                </div>
+                            </div>
                         </div>
+                    </div>
 
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-12 col-md-12 col-lg-12 order-2 order-md-1">
-                                    <div class="row">
-                                        <div class="col-12 col-sm-4">
-                                            <div class="info-box bg-light">
-                                                <div class="info-box-content">
-                                                    <span class="info-box-text text-center text-muted">Sub-Project Budget</span>
-                                                    <span class="info-box-number text-center text-muted mb-0">
-                                                        @empty($sub_projects->sub_project_amount_released)
-                                                            -
-                                                        @else
-                                                            {{ $sub_projects->sub_project_amount_released }}
-                                                        @endempty
-                                                    </span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-12 col-sm-4">
-                                            <div class="info-box bg-light">
-                                                <div class="info-box-content">
-                                                    <span class="info-box-text text-center text-muted">Sub-Project Approved
-                                                        Budget</span>
-                                                    <span class="info-box-number text-center text-muted mb-0">
-                                                        @empty($sub_projects->sub_project_approved_budget)
-                                                            -
-                                                        @else
-                                                            {{ $sub_projects->sub_project_approved_budget }}
-                                                        @endempty
-                                                    </span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-12 col-sm-4">
-                                            <div class="info-box bg-light">
-                                                <div class="info-box-content">
-                                                    <span class="info-box-text text-center text-muted">Sub-Project Duration
-                                                    </span>
-                                                    <span class="info-box-number text-center text-muted mb-0">
+                    <div class="container">
+                        <div class="row pt-5">
+                            <h2 class="font-weight-bold text-center">{{ $sub_projects->sub_project_title }}</h2>
+                            <div class="h_line"></div>
+                            <p class="font-italic text-center my-3 px-5">
+                                {{ $sub_projects->sub_project_description }}
+                            </p>
+                        </div>
+                    </div>
 
-                                                        @empty($sub_projects->sub_project_extend_date)
-                                                            -
-                                                        @else
-                                                            {{ date('F, Y', strtotime($sub_projects->sub_project_start_date)) }}
-                                                            -
-                                                            <label for=""
-                                                                style="color: red">{{ date('F, Y', strtotime($sub_projects->sub_project_extend_date)) }}</label>
-                                                        @endempty
+                    <div class="container">
+                        <div class="row pt-5">
+                            <table class="table">
+                                <tbody>
+                                    <tr>
+                                        <th scope="row" class="thwidth">Funding Agency</th>
+                                        <td>{{ $agency->agency_name }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row" class="thwidth">Sub-Project Leader</th>
+                                        <td>{{ $sub_projects->sub_project_leader }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row" class="thwidth">Sub-Project Assistant Leader</th>
+                                        <td>{{ $sub_projects->sub_project_assistant_leader }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row" class="thwidth">Sub-Project Staff(s)</th>
+                                        <td>
+                                            <ul class="list-group list-group-flush">
 
-                                                    </span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-12">
-                                            <h3 class="text-primary">{{ $sub_projects->sub_project_title }}</h3>
-                                            <p class="text-muted">{{ $sub_projects->sub_project_description }}</p>
+                                                @foreach ($personnels as $personnel)
+                                                    <li class="list-group-item">
+                                                        {{ $personnel->staff_name }}
+                                                    </li>
+                                                @endforeach
 
-                                            <br>
-                                            <div class="text-muted">
-                                                <p class="text-m">Funding Agency
-                                                    <b class="d-block">{{ $agency->agency_name }}</b>
-                                                </p>
-                                                <p class="text-m">Leader
-                                                    <b class="d-block">
-                                                        {{ $sub_projects->sub_project_leader }}
-                                                    </b>
-                                                </p>
-                                                <p class="text-m">Assistant Leader
-                                                    <b class="d-block">
-                                                        {{ $sub_projects->sub_project_assistant_leader }}
-                                                    </b>
-                                                </p>
-                                                <p class="text-m">Staffs
-                                                    @foreach ($personnels as $personnel)
-                                                        <b class="d-block">{{ $personnel->staff_name }}</b>
-                                                    @endforeach
-                                                </p>
-                                            </div>
-                                            <hr>
-                                            <div class="text-m text-muted">Files</div>
-                                            <ul class="list-unstyled">
+                                            </ul>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row" class="thwidth">Sub-Project Files</th>
+
+                                        <td>
+                                            <ul class="list-group list-group-flush">
                                                 @foreach ($upload_files as $key => $items)
-                                                    <li>
+                                                    <li class="list-group-item">
+                                                        <a href="{{ url('delete-file/' . $items->id) }}"
+                                                            class="btn btn-danger float-right">
+                                                            <i class="fa-solid fa-trash"></i>
+                                                        </a>
+                                                        &nbsp;
                                                         <a href="{{ url('download/' . $items->id) }}"
-                                                            class="btn-link text-secondary"><i
-                                                                class="far fa-fw fa-file-pdf"></i>{{ $items->file_name }}</a>
+                                                            class="btn btn-info float-right">
+                                                            <i class="fa-solid fa-download"></i>
+                                                        </a>
+
+                                                        {{ $items->file_name }}
                                                     </li>
                                                 @endforeach
                                             </ul>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
 
-                                            <hr>
-                                            {{-- <div class="text-m text-muted">Project(s) under this program</div>
-                                            <ul class="list-unstyled">
-                                                @foreach ($projects as $key => $items)
-                                                    <li>
-                                                        <a href="{{ url('view-project-index/' . $items->id) }}"
-                                                            class="btn-link text-secondary"><i class="fa-solid fa-book mr-2"></i>{{ $items->project_title }}</a>
-                                                    </li>
-                                                @endforeach
-                                            </ul> --}}
-
-                                            <div class="text-center mt-5 mb-3">
-                                                <a href="{{ url('sub-projects-view/'.$sub_projects->projectID) }}"
-                                                    class="btn btn previous btn btn-default">Back</a>
-                                                <a href="{{ url("add-sub-project-personnel/$sub_projects->projectID/$sub_projects->id") }}"
-                                                    class="btn btn btn-primary">Add files</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-12 col-md-12 col-lg-4 order-1 order-md-2">
-
-                                </div>
+                            <div class="text-center mt-5 mb-3">
+                                <a href="javascript:history.back()" class="btn btn previous btn btn-default">Go back</a>
                             </div>
                         </div>
                     </div>

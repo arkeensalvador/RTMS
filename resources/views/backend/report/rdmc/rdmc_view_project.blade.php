@@ -17,7 +17,7 @@
                                             {{ $projects->project_approved_budget }}
                                         @endempty
                                     </span>
-                                    <span class="card-title font-italic ">Program Budget</span>
+                                    <span class="card-title font-italic ">Project Budget</span>
                                 </div>
                             </div>
 
