@@ -12,7 +12,7 @@
         #customers td,
         #customers th {
             border: 1px solid #ddd;
-            padding: 8px;
+            padding: 5px;
         }
 
         #customers tr:nth-child(even) {
@@ -24,8 +24,8 @@
         }
 
         #customers th {
-            padding-top: 12px;
-            padding-bottom: 12px;
+            padding-top: 5px;
+            padding-bottom: 5px;
             text-align: left;
             background-color: #04AA6D;
             color: white;
@@ -120,7 +120,7 @@
         @endforeach
     </table> --}}
 
-    
+
 
 </body>
 {{-- <script>

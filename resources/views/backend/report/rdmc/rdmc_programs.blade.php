@@ -66,88 +66,171 @@
                                         </tr>
 
                                     </thead>
-                                    <tbody>
-                                        @foreach ($all as $key => $row)
-                                            <tr>
-                                                <td class="prog_id" hidden>{{ $row->programID }}</td>
-                                                <td><span class="hashtag text-bg-primary">#</span>{{ $row->fund_code }}</td>
-                                                <td>
-                                                    <a href="{{url("projects-under-program/$row->programID")}}">{{ $row->program_title }}</a>
-                                                </td>
-                                                <td>{{ $row->program_leader }}</td>
-                                                <td>
-                                                    @empty($row->extend_date)
-                                                        {{ date('F, Y', strtotime($row->start_date)) ?: 'Not Set' }} -
-                                                        {{ date('F, Y', strtotime($row->end_date)) ?: 'Not Set' }}
-                                                    @else
-                                                        {{ date('F, Y', strtotime($row->start_date)) ?: 'Not Set' }} -
-                                                        {{ date('F, Y', strtotime($row->extend_date)) ?: 'Not Set' }}
-                                                        <span class="badge text-bg-info">Extended</span>
-                                                    @endempty
-                                                </td>
-                                                <td>{{ $row->funding_agency }}</td>
-                                                <td>{{ $row->program_description }}</td>
-                                                <td>
-                                                    @if ($row->program_status == 'New')
-                                                        {{ $row->program_status }}
-                                                        <i class="fa-solid fa-database fa-xl" style="color: #28a745;"></i>
-                                                    @elseif ($row->program_status == 'Ongoing')
-                                                        {{ $row->program_status }}
-                                                        <i class="fa-solid fa-magnifying-glass-chart fa-xl"
-                                                            style="color: #2a6cdf;"></i>
-                                                    @elseif ($row->program_status == 'Terminated')
-                                                        {{ $row->program_status }}
-                                                        <i class="fa-solid fa-triangle-exclamation fa-xl"
-                                                            style="color: #ff0000;"></i>
-                                                    @elseif ($row->program_status == 'Completed')
-                                                        {{ $row->program_status }}
-                                                        <i class="fa-solid fa-circle-check fa-xl"
-                                                            style="color: #28a745;"></i>
-                                                    @endif
-                                                </td>
-                                                <td hidden>
-                                                    {{ $row->keywords }}
-                                                </td>
-                                                <td class="action">
-                                                    <span title="View Program">
-                                                        <a class="btn btn-info"
-                                                            href="{{ url("view-program-index/$row->programID") }}"><i
-                                                                class="fa-solid fa-eye" style="color: white;"></i></a>
-                                                    </span>
+                                    @if (auth()->user()->role == 'Admin')
+                                        <tbody>
+                                            @foreach ($all as $key => $row)
+                                                <tr>
+                                                    <td class="prog_id" hidden>{{ $row->programID }}</td>
+                                                    <td><span class="hashtag text-bg-primary">#</span>{{ $row->fund_code }}
+                                                    </td>
+                                                    <td>
+                                                        <a
+                                                            href="{{ url("projects-under-program/$row->programID") }}">{{ $row->program_title }}</a>
+                                                    </td>
+                                                    <td>{{ $row->program_leader }}</td>
+                                                    <td>
+                                                        @empty($row->extend_date)
+                                                            {{ date('F, Y', strtotime($row->start_date)) ?: 'Not Set' }} -
+                                                            {{ date('F, Y', strtotime($row->end_date)) ?: 'Not Set' }}
+                                                        @else
+                                                            {{ date('F, Y', strtotime($row->start_date)) ?: 'Not Set' }} -
+                                                            {{ date('F, Y', strtotime($row->extend_date)) ?: 'Not Set' }}
+                                                            <span class="badge text-bg-info">Extended</span>
+                                                        @endempty
+                                                    </td>
+                                                    <td>{{ $row->funding_agency }}</td>
+                                                    <td>{{ $row->program_description }}</td>
+                                                    <td>
+                                                        @if ($row->program_status == 'New')
+                                                            {{ $row->program_status }}
+                                                            <i class="fa-solid fa-database fa-xl"
+                                                                style="color: #28a745;"></i>
+                                                        @elseif ($row->program_status == 'Ongoing')
+                                                            {{ $row->program_status }}
+                                                            <i class="fa-solid fa-magnifying-glass-chart fa-xl"
+                                                                style="color: #2a6cdf;"></i>
+                                                        @elseif ($row->program_status == 'Terminated')
+                                                            {{ $row->program_status }}
+                                                            <i class="fa-solid fa-triangle-exclamation fa-xl"
+                                                                style="color: #ff0000;"></i>
+                                                        @elseif ($row->program_status == 'Completed')
+                                                            {{ $row->program_status }}
+                                                            <i class="fa-solid fa-circle-check fa-xl"
+                                                                style="color: #28a745;"></i>
+                                                        @endif
+                                                    </td>
+                                                    <td hidden>
+                                                        {{ $row->keywords }}
+                                                    </td>
+                                                    <td class="action">
+                                                        <span title="View Program">
+                                                            <a class="btn btn-info"
+                                                                href="{{ url("view-program-index/$row->programID") }}"><i
+                                                                    class="fa-solid fa-eye" style="color: white;"></i></a>
+                                                        </span>
 
-                                                    <span title="Edit Program">
-                                                        <a class="btn btn-primary"
-                                                            href="{{ url("edit-program-index/$row->programID") }}"><i
-                                                                class="fa-solid fa-pen-to-square"
-                                                                style="color: white;"></i></a>
-                                                    </span>
+                                                        <span title="Edit Program">
+                                                            <a class="btn btn-primary"
+                                                                href="{{ url("edit-program-index/$row->programID") }}"><i
+                                                                    class="fa-solid fa-pen-to-square"
+                                                                    style="color: white;"></i></a>
+                                                        </span>
 
-                                                    <span title="Upload Program Files">
-                                                        {{-- <a class="btn btn-secondary"
-                                                            href="{{ url("upload-file/$row->programID") }}"><i
-                                                                class="fa-solid fa-file-circle-plus"></i></a> --}}
+                                                        <span title="Upload Program Files">
+                                                            <a class="btn btn-secondary uploadFiles" data-toggle="modal"
+                                                                data-target='#uploadfiles'
+                                                                data-id="{{ $row->programID }}"><i
+                                                                    class="fa-solid fa-file-circle-plus"></i></a>
+                                                        </span>
 
-                                                        <a class="btn btn-secondary uploadFiles" data-toggle="modal"
-                                                            data-target='#uploadfiles' data-id="{{ $row->programID }}"><i
-                                                                class="fa-solid fa-file-circle-plus"></i></a>
-                                                    </span>
+                                                        <span title="Add Program Staffs">
+                                                            <a class="btn btn-warning addPersonnel" data-toggle="modal"
+                                                                data-target='#add-personnel'
+                                                                data-id="{{ $row->programID }}"><i
+                                                                    class="fa-solid fa-user-plus"></i></a>
+                                                        </span>
 
-                                                    <span title="Add Program Staffs">
-                                                        <!-- Button trigger modal -->
-                                                        <a class="btn btn-warning addPersonnel" data-toggle="modal"
-                                                            data-target='#add-personnel' data-id="{{ $row->programID }}"><i
-                                                                class="fa-solid fa-user-plus"></i></a>
+                                                        <a href="{{ URL::to('/delete-program/' . $row->id) }}"
+                                                            class="btn btn-danger" id="delete"><i
+                                                                class="fa-solid fa-trash"></i></a>
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+                                        </tbody>
+                                    @else
+                                        <tbody>
+                                            @foreach ($all_filter as $key => $row)
+                                                <tr>
+                                                    <td class="prog_id" hidden>{{ $row->programID }}</td>
+                                                    <td><span class="hashtag text-bg-primary">#</span>{{ $row->fund_code }}
+                                                    </td>
+                                                    <td>
+                                                        <a href="{{ url("projects-under-program/$row->programID") }}">
+                                                            {{ $row->program_title }}
+                                                        </a>
+                                                    </td>
+                                                    <td>{{ $row->program_leader }}</td>
+                                                    <td>
+                                                        @empty($row->extend_date)
+                                                            {{ date('F, Y', strtotime($row->start_date)) ?: 'Not Set' }} -
+                                                            {{ date('F, Y', strtotime($row->end_date)) ?: 'Not Set' }}
+                                                        @else
+                                                            {{ date('F, Y', strtotime($row->start_date)) ?: 'Not Set' }} -
+                                                            {{ date('F, Y', strtotime($row->extend_date)) ?: 'Not Set' }}
+                                                            <span class="badge text-bg-info">Extended</span>
+                                                        @endempty
+                                                    </td>
+                                                    <td>{{ $row->funding_agency }}</td>
+                                                    <td>{{ $row->program_description }}</td>
+                                                    <td>
+                                                        @if ($row->program_status == 'New')
+                                                            {{ $row->program_status }}
+                                                            <i class="fa-solid fa-database fa-xl"
+                                                                style="color: #28a745;"></i>
+                                                        @elseif ($row->program_status == 'Ongoing')
+                                                            {{ $row->program_status }}
+                                                            <i class="fa-solid fa-magnifying-glass-chart fa-xl"
+                                                                style="color: #2a6cdf;"></i>
+                                                        @elseif ($row->program_status == 'Terminated')
+                                                            {{ $row->program_status }}
+                                                            <i class="fa-solid fa-triangle-exclamation fa-xl"
+                                                                style="color: #ff0000;"></i>
+                                                        @elseif ($row->program_status == 'Completed')
+                                                            {{ $row->program_status }}
+                                                            <i class="fa-solid fa-circle-check fa-xl"
+                                                                style="color: #28a745;"></i>
+                                                        @endif
+                                                    </td>
+                                                    <td hidden>
+                                                        {{ $row->keywords }}
+                                                    </td>
+                                                    <td class="action">
+                                                        <span title="View Program">
+                                                            <a class="btn btn-info"
+                                                                href="{{ url("view-program-index/$row->programID") }}"><i
+                                                                    class="fa-solid fa-eye" style="color: white;"></i></a>
+                                                        </span>
 
+                                                        <span title="Edit Program">
+                                                            <a class="btn btn-primary"
+                                                                href="{{ url("edit-program-index/$row->programID") }}"><i
+                                                                    class="fa-solid fa-pen-to-square"
+                                                                    style="color: white;"></i></a>
+                                                        </span>
 
-                                                    </span>
+                                                        <span title="Upload Program Files">
+                                                            <a class="btn btn-secondary uploadFiles" data-toggle="modal"
+                                                                data-target='#uploadfiles'
+                                                                data-id="{{ $row->programID }}"><i
+                                                                    class="fa-solid fa-file-circle-plus"></i></a>
+                                                        </span>
 
-                                                    <a href="{{ URL::to('/delete-program/' . $row->id) }}"
-                                                        class="btn btn-danger" id="delete"><i
-                                                            class="fa-solid fa-trash"></i></a>
-                                                </td>
-                                            </tr>
-                                        @endforeach
-                                    </tbody>
+                                                        <span title="Add Program Staffs">
+                                                            <a class="btn btn-warning addPersonnel" data-toggle="modal"
+                                                                data-target='#add-personnel'
+                                                                data-id="{{ $row->programID }}"><i
+                                                                    class="fa-solid fa-user-plus"></i></a>
+                                                        </span>
+
+                                                        <a href="{{ URL::to('/delete-program/' . $row->id) }}"
+                                                            class="btn btn-danger" id="delete"><i
+                                                                class="fa-solid fa-trash"></i></a>
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+                                        </tbody>
+                                    @endif
+
                                 </table>
                             </div>
                             <!-- /.card-body -->
@@ -175,7 +258,8 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form role="form" id="regiration_form" action="{{ url('add-program-personnel') }}" method="POST">
+                    <form role="form" id="regiration_form" action="{{ url('add-program-personnel') }}"
+                        method="POST">
                         @csrf
                         {{-- EMPLOYEE FORM WORKING --}}
                         <fieldset>

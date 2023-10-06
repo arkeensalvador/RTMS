@@ -28,7 +28,11 @@
                         <div class="small-box bg-info">
                             <div class="inner">
                                 <h3>
-                                    {{ $total_programs_count }}
+                                    @if (auth()->user()->role == 'Admin')
+                                        {{ $total_programs_count }}
+                                    @else
+                                        {{ $total_programs_count_filter }}
+                                    @endif
                                 </h3>
 
                                 <p>Total Programs</p>
@@ -46,7 +50,12 @@
                         <div class="small-box bg-success">
                             <div class="inner">
                                 <h3>
-                                    {{ $total_projects }}
+                                    @if (auth()->user()->role == 'Admin')
+                                        {{ $total_projects }}
+                                    @else
+                                        {{ $total_projects_filter }}
+                                    @endif
+
                                 </h3>
                                 <p>Total Projects</p>
                             </div>
@@ -63,7 +72,12 @@
                         <div class="small-box bg-warning">
                             <div class="inner">
                                 <h3>
-                                    {{ $total_sub_projects }}
+                                    @if (auth()->user()->role == 'Admin')
+                                        {{ $total_sub_projects }}
+                                    @else
+                                        {{ $total_sub_projects_filter }}
+                                    @endif
+
                                 </h3>
 
                                 <p>Total Sub-projects</p>
@@ -81,7 +95,12 @@
                         <div class="small-box bg-danger">
                             <div class="inner">
                                 <h3>
-                                    {{ $total_researchers }}
+                                    @if (auth()->user()->role == 'Admin')
+                                        {{ $total_researchers }}
+                                    @else
+                                        {{ $total_researchers_filter }}
+                                    @endif
+
                                 </h3>
 
                                 <p>Total Researchers</p>
@@ -100,9 +119,9 @@
             </div><!-- /.container-fluid -->
         </section>
         <!-- Main content -->
+        <?php if(auth()->user()->role == "Admin") { ?>
         <section class="content">
             <div class="container-fluid">
-
                 <div class="row">
                     <div class="col-md-12">
                         {{-- CHARTS --}}
@@ -213,6 +232,7 @@
                 </div>
             </div>
         </section>
+        <?php } ?>
         <!-- /.content -->
     </div>
 

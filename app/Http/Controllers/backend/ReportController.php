@@ -54,7 +54,15 @@ class ReportController extends Controller
 
         $researchers = DB::table('researchers')->get();
 
-        return view('backend.report.rdmc.rdmc_programs', compact('all', 'agency', 'title', 'researchers'));
+        // CMI
+        $all_filter = DB::table('programs')
+            ->select('*')
+            ->where('funding_agency', auth()->user()->agencyID)
+            ->get();
+        $researchers_filter = DB::table('researchers')->get();
+        $user_agency = DB::table('users')->where('agencyID', auth()->user()->agencyID)->first();
+
+        return view('backend.report.rdmc.rdmc_programs', compact('all', 'agency', 'title', 'researchers', 'researchers_filter', 'all_filter', 'user_agency'));
     }
 
     public function rdmcChooseProgram()

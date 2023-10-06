@@ -32,7 +32,15 @@ class HomeController extends Controller
             ->select('users.*', 'agency.*')
             ->get();
 
-        // $title = 'List of Reports | RTMS';
+        // CMI DASHBOARD 
+        $user_agency = DB::table('users')->where('agencyID', auth()->user()->agencyID)->first();
+        $total_programs_count_filter = DB::table('programs')->where('funding_agency', auth()->user()->agencyID)->count();
+        $total_projects_filter = DB::table('projects')->where('project_agency', auth()->user()->agencyID)->count();
+        $total_sub_projects_filter = DB::table('sub_projects')->where('sub_project_agency', auth()->user()->agencyID)->count();
+        $total_researchers_filter = DB::table('researchers')->where('agency', auth()->user()->agencyID)->count();
+        // END CMI DASHBOARD
+
+        // Programs
         $new = DB::table('programs')->where('program_status', '=', 'new')->pluck('program_status')->count();
         $ongoing = DB::table('programs')->where('program_status', '=', 'ongoing')->pluck('program_status')->count();
         $terminated = DB::table('programs')->where('program_status', '=', 'terminated')->pluck('program_status')->count();
@@ -80,7 +88,7 @@ class HomeController extends Controller
 
         $progs = DB::table('programs')->join('agency', 'agency.abbrev', '=', 'programs.funding_agency')
             ->select(DB::raw("COUNT(*) as count_p"), DB::raw("agency.abbrev as abbrev"), DB::raw("approved_budget as budget"), DB::raw("program_title as title"))
-            ->groupBy('abbrev', 'budget','title')
+            ->groupBy('abbrev', 'budget', 'title')
             ->orderBy('count_p')
             ->get();
 
@@ -101,8 +109,13 @@ class HomeController extends Controller
             ->orderBy('total_count_proj')
             ->get();
 
-        $projs = DB::table('projects')->select(DB::raw("COUNT(*) as count_proj"), DB::raw("project_agency as project_agency"), 
-        DB::raw("project_approved_budget as project_budget"), DB::raw("project_budget_year as project_year"), DB::raw("project_title as project_title"))
+        $projs = DB::table('projects')->select(
+            DB::raw("COUNT(*) as count_proj"),
+            DB::raw("project_agency as project_agency"),
+            DB::raw("project_approved_budget as project_budget"),
+            DB::raw("project_budget_year as project_year"),
+            DB::raw("project_title as project_title")
+        )
             ->groupBy('project_agency', 'project_budget', 'project_year', 'project_title')
             ->orderBy('count_proj')
             ->get();
@@ -185,6 +198,12 @@ class HomeController extends Controller
             'agencyData',
             'total_programs',
             'agenciesDataBudget',
+            'user_agency',
+            'total_programs_count_filter',
+            'total_projects_filter',
+            'total_sub_projects_filter',
+            'total_researchers_filter'
+
         ));
     }
 }
