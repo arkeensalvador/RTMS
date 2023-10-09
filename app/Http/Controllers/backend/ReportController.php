@@ -290,7 +290,8 @@ class ReportController extends Controller
     public function rdruTpaAdd()
     {
         $title = 'TPA | R&D Results Utilizations';
-        return view('backend.report.rdru.rdru_tpa_add', compact('title'));
+        $iec = DB::table('iec_approaches')->get();
+        return view('backend.report.rdru.rdru_tpa_add', compact('title', 'iec'));
     }
 
     public function cbgIndex()

@@ -33,8 +33,8 @@ class SubprojectController extends Controller
         $data['sub_project_assistant_leader'] = $request->sub_project_assistant_leader;
         $data['sub_project_extend_date'] = $request->sub_project_extend_date;
         $data['sub_project_description'] = $request->sub_project_description;
-        $data['sub_project_approved_budget'] = $request->sub_project_approved_budget;
-        $data['sub_project_amount_released'] = $request->sub_project_amount_released;
+        $data['sub_project_approved_budget'] =  str_replace(',', '', $request->sub_project_approved_budget);
+        $data['sub_project_amount_released'] = str_replace(',', '', $request->sub_project_amount_released);
         $data['sub_project_budget_year'] = $request->sub_project_budget_year;
         $data['sub_project_form_of_development'] = $request->sub_project_form_of_development;
         $data['keywords'] = htmlspecialchars_decode(json_encode($request->keywords));
@@ -81,8 +81,8 @@ class SubprojectController extends Controller
         $data['sub_project_assistant_leader'] = $request->sub_project_assistant_leader;
         $data['sub_project_extend_date'] = $request->sub_project_extend_date;
         $data['sub_project_description'] = $request->sub_project_description;
-        $data['sub_project_approved_budget'] = $request->sub_project_approved_budget;
-        $data['sub_project_amount_released'] = $request->sub_project_amount_released;
+        $data['sub_project_approved_budget'] = str_replace(',', '', $request->sub_project_approved_budget);
+        $data['sub_project_amount_released'] =  str_replace(',', '', $request->sub_project_amount_released);
         $data['sub_project_budget_year'] = $request->sub_project_budget_year;
         $data['sub_project_form_of_development'] = $request->sub_project_form_of_development;
         $data['keywords'] = htmlspecialchars_decode(json_encode($request->keywords));

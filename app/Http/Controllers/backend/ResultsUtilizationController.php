@@ -16,27 +16,18 @@ class ResultsUtilizationController extends Controller
         $data = array();
         $data['ttp_type'] = $request->ttp_type;
         $data['ttp_title'] = $request->ttp_title;
-        $data['ttp_budget'] = $request->ttp_budget;
+        $data['ttp_budget'] = str_replace(',', '', $request->ttp_budget);
         $data['ttp_sof'] = $request->ttp_sof;
         $data['ttp_start_date'] = $request->ttp_start_date;
         $data['ttp_end_date'] = $request->ttp_end_date;
         $data['ttp_priorities'] = $request->ttp_priorities;
+        $data['created_at'] = now();
 
         $insert = DB::table('results_ttp')->insert($data);
         if ($insert) {
-
-            $notification = array(
-                'message' => 'Transfer Proposal Successfully Added!',
-                'alert-type' => 'success'
-            );
-
-            return redirect()->route('rdruTtp')->with($notification);
+            return response()->json(['success' => 'TTP Added Successfully!']);
         } else {
-            $notification = array(
-                'message' => 'Something is wrong, please try again!',
-                'alert-type' => 'error'
-            );
-            return redirect()->route('rdruTtp')->with($notification);
+            return response()->json(['error' => 'There is something wrong...']);
         }
     }
 
@@ -55,7 +46,7 @@ class ResultsUtilizationController extends Controller
         $data = array();
         $data['ttp_type'] = $request->ttp_type;
         $data['ttp_title'] = $request->ttp_title;
-        $data['ttp_budget'] = $request->ttp_budget;
+        $data['ttp_budget'] = str_replace(',', '', $request->ttp_budget);
         $data['ttp_sof'] = $request->ttp_sof;
         $data['ttp_start_date'] = $request->ttp_start_date;
         $data['ttp_end_date'] = $request->ttp_end_date;
@@ -64,18 +55,9 @@ class ResultsUtilizationController extends Controller
 
         $update = DB::table('results_ttp')->where('id', $id)->update($data);
         if ($update) {
-            $notification = array(
-                'message' => 'Transfer Proposal Successfully Updated!',
-                'alert-type' => 'success'
-            );
-
-            return redirect()->route('rdruTtp')->with($notification);
+            return response()->json(['success' => 'TTP Updated Successfully!']);
         } else {
-            $notification = array(
-                'message' => 'Something is wrong, please try again!',
-                'alert-type' => 'error'
-            );
-            return redirect()->route('rdruTtp')->with($notification);
+            return response()->json(['error' => 'There is something wrong...']);
         }
     }
 
@@ -109,22 +91,13 @@ class ResultsUtilizationController extends Controller
         $data['ttm_title'] = $request->ttm_title;
         $data['ttm_status'] = $request->ttm_status;
         $data['ttm_agency'] = $request->ttm_agency;
+        $data['created_at'] = now();
 
         $insert = DB::table('results_ttm')->insert($data);
         if ($insert) {
-
-            $notification = array(
-                'message' => 'Transfer Modality Successfully Added!',
-                'alert-type' => 'success'
-            );
-
-            return redirect()->route('rdruTtm')->with($notification);
+            return response()->json(['success' => 'TTM Added Successfully!']);
         } else {
-            $notification = array(
-                'message' => 'Something is wrong, please try again!',
-                'alert-type' => 'error'
-            );
-            return redirect()->route('rdruTtm')->with($notification);
+            return response()->json(['error' => 'There is something wrong...']);
         }
     }
 
@@ -149,18 +122,9 @@ class ResultsUtilizationController extends Controller
 
         $update = DB::table('results_ttm')->where('id', $id)->update($data);
         if ($update) {
-            $notification = array(
-                'message' => 'Transfer Modality Successfully Updated!',
-                'alert-type' => 'success'
-            );
-
-            return redirect()->route('rdruTtm')->with($notification);
+            return response()->json(['success' => 'TTM Updated Successfully!']);
         } else {
-            $notification = array(
-                'message' => 'Something is wrong, please try again!',
-                'alert-type' => 'error'
-            );
-            return redirect()->route('rdruTtm')->with($notification);
+            return response()->json(['error' => 'There is something wrong...']);
         }
     }
 
@@ -184,7 +148,7 @@ class ResultsUtilizationController extends Controller
     }
 
     // TPA
-    
+
     public function AddTpa(Request $request)
     {
         date_default_timezone_set('Asia/Hong_Kong');
@@ -195,7 +159,7 @@ class ResultsUtilizationController extends Controller
         $data['tpa_details'] = $request->tpa_details;
         $data['tpa_remarks'] = $request->tpa_remarks;
         $data['tpa_approaches'] = json_encode($request->tpa_approaches);
-        
+
 
         $insert = DB::table('results_tpa')->insert($data);
         if ($insert) {

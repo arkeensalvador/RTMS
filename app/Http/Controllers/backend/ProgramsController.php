@@ -37,8 +37,8 @@ class ProgramsController extends Controller
         $data['program_leader'] = $request->program_leader;
         $data['assistant_leader'] = $request->assistant_leader;
         $data['program_description'] = $request->program_description;
-        $data['approved_budget'] = $request->approved_budget;
-        $data['amount_released'] = $request->amount_released;
+        $data['approved_budget'] = str_replace(',', '', $request->approved_budget);
+        $data['amount_released'] = str_replace(',', '', $request->amount_released);
         $data['budget_year'] = $request->budget_year;
         $data['form_of_development'] = $request->form_of_development;
         $data['keywords'] = htmlspecialchars_decode(json_encode($request->keywords));
@@ -73,7 +73,7 @@ class ProgramsController extends Controller
         $documents = DB::table('program_files')->where('programID', $programID)->get();
         $upload_files = DB::table('files')->where('programID', $programID)->orderByDesc("created_at")->get();
 
-        return view('backend.report.rdmc.rdmc_view_program', compact('program', 'agency', 'personnels', 'documents', 'program_leader', 'title','upload_files','projects'));
+        return view('backend.report.rdmc.rdmc_view_program', compact('program', 'agency', 'personnels', 'documents', 'program_leader', 'title', 'upload_files', 'projects'));
     }
 
     public function EditProgramIndex($programID)
@@ -90,7 +90,8 @@ class ProgramsController extends Controller
         return view('backend.report.rdmc.rdmc_program_edit', compact('programs', 'agency', 'personnels', 'documents', 'title', 'researchers'));
     }
 
-    public function UpdateProgram(Request $request, $programID){
+    public function UpdateProgram(Request $request, $programID)
+    {
 
         date_default_timezone_set('Asia/Hong_Kong');
 
@@ -108,8 +109,8 @@ class ProgramsController extends Controller
         $data['program_leader'] = $request->program_leader;
         $data['assistant_leader'] = $request->assistant_leader;
         $data['program_description'] = $request->program_description;
-        $data['approved_budget'] = $request->approved_budget;
-        $data['amount_released'] = $request->amount_released;
+        $data['approved_budget'] = str_replace(',', '', $request->approved_budget);
+        $data['amount_released'] =  str_replace(',', '', $request->amount_released);
         $data['budget_year'] = $request->budget_year;
         $data['form_of_development'] = $request->form_of_development;
         $data['keywords'] = htmlspecialchars_decode(json_encode($request->keywords));

@@ -76,194 +76,228 @@
     </style>
     <div class="content-wrapper">
         <section class="content">
-            <div class="strategic row">
-
-                <div class="col-md-8">
-
-                    {{-- card start --}}
-                    <div class="card">
-                        <div class="card-header">
-                            <h5 class="card-title">
-                                Strategic R & D Activities
-                            </h5>
-                        </div>
-
-                        {{-- card body start --}}
-                        <div class="card-body">
-                            <form role="form" id="regiration_form" action="{{ url('add-strategic') }}" method="POST"
-                                enctype="multipart/form-data">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12 mx-auto">
+                        <div class="d-flex justify-content-center mt-3">
+                            <form id="activityForm" class="row g-3 needs-validation" novalidate>
                                 @csrf
-                                <div class="row">
-                                    <div class="col-sm-4">
-                                        <!-- text input -->
-                                        <div class="form-group">
-                                            <label>Programs/Projects</label>
-                                            <select name="strategic_program" id="" class="form-control">
-                                                <option value="Agency-led">Agency-led</option>
-                                                <option value="Consortium-led">Consortium-led</option>
-                                            </select>
-                                        </div>
-                                    </div>
+                                <div class="form-title col-12">
+                                    <h2 class="font-weight-bold">Strategic R & D Activities</h2>
+                                    <h5 class="mt-0"> Kindly fill-up the fields needed.</h5>
+                                </div>
 
-                                    <div class="col-sm-1">
-                                        {{-- used for spacing --}}
-                                    </div>
+                                <div class="col-md-6 form-group">
+                                    <label for="strategic_program" class="font-weight-bold">Program/Project Type<span
+                                            class="text-danger">*</span></label>
+                                    <select name="strategic_program" id="strategic_program" class="form-control type"
+                                        required>
+                                        <option value="" selected disabled>--Select Type--</option>
+                                        <option value="Agency-led">Agency-led</option>
+                                        <option value="Consortium-led">Consortium-led</option>
+                                    </select>
+                                    <div class="valid-feedback"></div>
+                                    <div class="invalid-feedback">Missing program/project type</div>
+                                </div>
 
-                                    <div class="col-sm-5">
-                                        <div class="form-group">
-                                            <label>Researcher</label>
-                                            <input type="text" name="strategic_researcher" class="form-control"
-                                                placeholder="Enter researcher's name" list="dtlist">
-                                            <datalist id="dtlist">
-                                                @foreach ($researchers as $researcher)
-                                                    <option value="{{ $researcher->name }}"></option>
-                                                @endforeach
-                                            </datalist>
-                                        </div>
-                                    </div>
+                                <div class="col-md-6 form-group">
+                                    <label for="Researcher" class="font-weight-bold">Researcher<span
+                                            class="text-danger">*</span></label>
+                                    <select id="strategic_researcher" name="strategic_researcher"
+                                        class="form-control researchers" required>
+
+                                        <option value="" disabled selected>--Select Researcher--</option>
+                                        @foreach ($researchers as $researcher)
+                                            <option value="{{ $researcher->name }}">{{ $researcher->name }}</option>
+                                        @endforeach
+                                    </select>
+                                    <div class="valid-feedback"></div>
+                                    <div class="invalid-feedback">Missing researcher</div>
+                                </div>
+
+                                <div class="col-md-6 form-group">
+                                    <label for="strategic_implementing_agency" class=" font-weight-bold">Implementing
+                                        Agency<span class="text-danger">*</span></label>
+                                    <select id="strategic_implementing_agency" name="strategic_implementing_agency"
+                                        class="form-control agency" required>
+                                        <option value=""></option>
+                                        @foreach ($agency as $row)
+                                            <option value="{{ $row->abbrev }}"> {{ $row->agency_name }} </option>
+                                        @endforeach
+                                    </select>
+                                    <div class="invalid-feedback">Missing implementing agency</div>
                                 </div>
 
 
-                                <div class="row">
-                                    <div class="col-sm-10">
-                                        <div class="form-group">
-                                            <label>Implementing Agency</label>
-                                            <input type="text" name="strategic_implementing_agency" class="form-control"
-                                                placeholder="Enter ..." list="impdtlist">
-                                            <datalist id="impdtlist">
-                                                @foreach ($agency as $row)
-                                                    <option value="{{ $row->agency_name }}"></option>
-                                                @endforeach
-                                            </datalist>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-10">
-                                        <!-- textarea -->
-                                        <div class="form-group">
-                                            <label>Title</label>
-                                            <textarea name="strategic_title" class="form-control" rows="4" placeholder="Enter ..." style="resize: none"></textarea>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="col-sm-10">
-                                        <div class="form-group">
-                                            <label>Funding Agency</label>
-                                            <input type="text" name="strategic_funding_agency" class="form-control" placeholder="Enter ..."
-                                                list="funddtlist">
-                                            <datalist id="funddtlist">
-                                                @foreach ($agency as $row)
-                                                    <option value="{{ $row->agency_name }} - {{ $row->abbrev }}"></option>
-                                                @endforeach
-                                            </datalist>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="col-sm-3">
-                                        <div class="form-group">
-                                            <label>Start Date</label>
-                                            <input type="month" name="strategic_start" class="form-control" placeholder="Enter ...">
-                                        </div>
-                                    </div>
-
-                                    <div class="col-sm-3">
-                                        <div class="form-group">
-                                            <label>End Date</label>
-                                            <input type="month" name="strategic_end" class="form-control" placeholder="Enter ...">
-                                        </div>
-                                    </div>
-
-                                   
-
-
-                                    <div class="col-sm-4">
-                                        <div class="form-group">
-                                            <label>Budget</label>
-                                            <div class="input-group">
-                                                <div class="input-group-prepend">
-                                                    <span class="input-group-text">PHP</span>
-                                                </div>
-                                                <input type="text" name="strategic_budget" class="form-control" id="numin"
-                                                    placeholder="Enter ...">
-                                            </div>
-                                        </div>
-                                    </div>
+                                <div class="col-md-6 form-group">
+                                    <label for="strategic_funding_agency" class=" font-weight-bold">Funding
+                                        Agency<span class="text-danger">*</span></label>
+                                    <select id="strategic_funding_agency" name="strategic_funding_agency"
+                                        class="form-control agency" required>
+                                        <option value=""></option>
+                                        @foreach ($agency as $row)
+                                            <option value="{{ $row->abbrev }}"> {{ $row->agency_name }} </option>
+                                        @endforeach
+                                    </select>
+                                    <div class="invalid-feedback">Missing funding agency</div>
                                 </div>
 
 
-                                <div class="row">
-                                    <div class="col-sm-5">
-                                        <!-- textarea -->
-                                        <div class="form-group">
-                                            <label>Commodities</label>
-                                            <input type="text" name="strategic_commodities" class="form-control" placeholder="Enter ...">
-                                        </div>
-                                    </div>
-
-
-
-                                    <div class="col-sm-5">
-                                        <div class="form-group">
-                                            <label>Role of Consortium</label>
-                                            <input type="text" name="strategic_consortium_role" class="form-control" placeholder="Enter ...">
-                                        </div>
-                                    </div>
-
-                                    <!-- /.card-body -->
+                                <div class="col-md-12 form-group">
+                                    <label for="strategic_implementing_agency" class=" font-weight-bold">Title<span
+                                            class="text-danger">*</span></label>
+                                    <textarea name="strategic_title" id="strategic_title" class="form-control" rows="4" style="resize: none" required></textarea>
+                                    <div class="invalid-feedback">Missing title</div>
                                 </div>
 
-                                <a href="{{ url('strategic-activities') }}" class="btn btn-default">Back</a>
-                                <input type="submit" name="submit" class="submit btn btn-success" value="Submit" />
-                                <!-- /.card-body -->
+
+                                <div class="col-md-3 form-group">
+                                    <label for="start_date" class=" font-weight-bold">Start Date<span
+                                            class="text-danger">*</span></label>
+
+                                    <input type="number" name="strategic_start" id="strategic_start"
+                                        class="form-control date" placeholder="Enter start date" required>
+                                    <div class="invalid-feedback">Missing start date</div>
+                                </div>
+
+                                <div class="col-md-3 form-group">
+                                    <label for="end_date" class="font-weight-bold">End Date <span
+                                            class="text-danger">*</span></label>
+                                    <input type="text" name="strategic_end" class="form-control date" id="strategic_end"
+                                        placeholder="Enter end date" required>
+                                    <div class="invalid-feedback">Missing end date</div>
+                                </div>
+
+
+                                <div class="col-md-6 form-group">
+                                    <label for="strategic_budget" class=" font-weight-bold">Budget</label>
+                                    <input type="text" name="strategic_budget" class="form-control" id="strategic_budget"
+                                        placeholder="Budget" required>
+                                    <div class="invalid-feedback">Missing budget</div>
+                                </div>
+
+
+                                <div class="col-md-6 form-group">
+                                    <label for="strategic_commodities" class=" font-weight-bold">Commodities<span
+                                            class="text-danger">*</span></label>
+                                    <input type="text" name="strategic_commodities" class="form-control"
+                                        id="strategic_commodities" placeholder="Commodities" required>
+                                    <div class="invalid-feedback"> Missing commodities</div>
+                                </div>
+
+                                <div class="col-md-6 form-group">
+                                    <label for="strategic_consortium_role" class=" font-weight-bold">Role of
+                                        Consortium</label>
+                                    <input type="text" name="strategic_consortium_role" class="form-control"
+                                        id="strategic_consortium_role" placeholder="Enter consortium role" required>
+                                    <div class="invalid-feedback">Missing consortium role</div>
+                                </div>
+                                <div class="col-md-12 form-group buttons">
+                                    <a href="{{ url('strategic-activities') }}" class="btn btn-default">Back</a>
+                                    <button type="submit" id="submit" class="btn btn-primary btn-m ">Submit</button>
+                                </div>
+                            </form>
                         </div>
-                        </form>
-                    </div> {{-- card body end --}}
-                </div>{{-- card end --}}
+                    </div>
+                </div>
             </div>
-            <div class="col-lg-1">
-
-            </div>
+        </section>
     </div>
-
-    </section>
-    </div>
-
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-
-
     <script>
-        function formatNumber(e) {
-            var rex = /(^\d{2})|(\d{1,3})(?=\d{1,3}|$)/g,
-                val = this.value.replace(/^0+|\.|,/g, ""),
-                res;
+        $(document).ready(function() {
+            $('#strategic_program, #strategic_researcher, #strategic_implementing_agency, #strategic_funding_agency, #strategic_budget, #strategic_end, #strategic_start, #strategic_title')
+                .on('input', function() {
+                    const inputField = $(this);
+                    if (inputField[0].checkValidity()) {
+                        inputField.addClass('is-valid').removeClass('is-invalid');
+                    } else {
+                        inputField.addClass('is-invalid').removeClass('is-valid');
+                    }
+                });
+        });
 
-            if (val.length) {
-                res = Array.prototype.reduce.call(val, (p, c) => c + p) // reverse the pure numbers string
-                    .match(rex) // get groups in array
-                    .reduce((p, c, i) => i - 1 ? p + "," + c : p + "." + c); // insert (.) and (,) accordingly
-                res += /\.|,/.test(res) ? "" : ".0"; // test if res has (.) or (,) in it
-                this.value = Array.prototype.reduce.call(res, (p, c) => c + p); // reverse the string and display
-            }
-        }
 
-        var ni = document.getElementById("numin");
-        var ni2 = document.getElementById("numin2");
+        (function() {
+            'use strict';
+            window.addEventListener('load', function() {
+                var forms = document.getElementsByClassName('needs-validation');
+                var validation = Array.prototype.filter.call(forms, function(form) {
+                    form.addEventListener('submit', function(event) {
+                        if (form.checkValidity() === false) {
+                            event.preventDefault();
+                            event.stopPropagation();
+                            Swal.fire({
+                                icon: 'info',
+                                title: 'All fields are required',
+                                timerProgressBar: false,
+                                showConfirmButton: true,
+                            });
+                        }
+                        form.classList.add('was-validated');
+                    }, false);
+                });
+            }, false);
+        })();
 
-        ni.addEventListener("keyup", formatNumber);
-        ni2.addEventListener("keyup", formatNumber);
-    </script>
-
-    <script>
-        $('input.number-to-text').keydown(function(event) {
-            if ([38, 40].indexOf(event.keyCode) > -1) {
+        document.getElementById('activityForm').addEventListener('submit', function(event) {
+            const startDate = document.getElementById('strategic_start').value;
+            const endDate = document.getElementById('strategic_end').value;
+            if (!endDate) {
                 event.preventDefault();
+                document.getElementById('strategic_end').classList.add('is-invalid');
+            }
+            if (!startDate) {
+                event.preventDefault();
+                document.getElementById('strategic_start').classList.add('is-invalid');
+            }
+            if (!startDate && !endDate) {
+                event.preventDefault();
+                document.getElementById('strategic_start').classList.add('is-invalid');
+                document.getElementById('strategic_end').classList.add('is-invalid');
             }
         });
-    </script>
 
-    {{-- Upload Files --}}
+        $(document).ready(function() {
+            $('#activityForm').on('submit', function(e) {
+
+                var formData = new FormData(this);
+
+                e.preventDefault();
+                $.ajax({
+                    type: 'POST',
+                    url: "{{ url('add-strategic') }}",
+                    data: formData,
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    dataType: 'json',
+                    success: (data) => {
+                        this.reset();
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'R & D Activity Added Successfully',
+                            timerProgressBar: true,
+                            showConfirmButton: false,
+                            timer: 900
+                        }).then((result) => {
+                            if (result.dismiss) {
+                                window.location.href = '/strategic-activities';
+                            }
+                        })
+                    },
+                    error: function(data) {
+                        // Swal.fire({
+                        //     icon: 'warning',
+                        //     title: data.responseJSON.message,
+                        //     title: 'There is something wrong...',
+                        //     timerProgressBar: false,
+                        //     showConfirmButton: true,
+                        // });
+                    }
+                });
+            });
+        });
+    </script>
 @endsection

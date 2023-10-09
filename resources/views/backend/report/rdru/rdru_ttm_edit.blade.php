@@ -76,94 +76,166 @@
     </style>
     <div class="content-wrapper">
         <section class="content">
-            <div class="strategic row">
-
-                <div class="col-md-7">
-
-                    {{-- card start --}}
-                    <div class="card">
-                        <div class="card-header">
-                            <h5 class="card-title">
-                                Technology Transfer Modalities
-                            </h5>
-                        </div>
-
-                        {{-- card body start --}}
-                        <div class="card-body">
-                            <form role="form" id="regiration_form" action="{{url('update-ttm/'.$all->id)}}" method="POST"
-                                enctype="multipart/form-data">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12 mx-auto">
+                        <div class="d-flex justify-content-center mt-3">
+                            <form id="techForm" class="row g-3 needs-validation" novalidate>
                                 @csrf
-
-                                <div class="row">
-                                    <div class="col-sm-12">
-                                        <!-- textarea -->
-                                        <div class="form-group">
-                                            <label>Title</label>
-                                            <textarea class="form-control" name="ttm_title" rows="3" placeholder="Enter ..." style="resize: none;">{{ $all->ttm_title }}</textarea>
-                                        </div>
-                                    </div>
+                                <div class="form-title col-12">
+                                    <h2 class="font-weight-bold">Technology Transfer Modalities</h2>
+                                    <h5 class="mt-0"> Kindly fill-up the fields needed.</h5>
                                 </div>
 
-                                <div class="row">
-                                    <div class="col-sm-12">
-                                        <div class="form-group">
-                                            <label>Type of Technology</label>
-                                            <input type="text" value="{{ $all->ttm_type }}" class="form-control" name="ttm_type" placeholder="Enter ..."
-                                                list="techdtlist">
-                                            <datalist id="techdtlist">
-                                                <option value="STCBF">STCBF</option>
-                                                <option value="STMF">STMF</option>
-                                                <option value="STMP">STMP</option>
-                                                <option value="Techno Demo">Techno Demo</option>
-                                            </datalist>
-                                        </div>
-                                    </div>
+                                <div class="col-md-12 form-group">
+                                    <label for="ttm_title" class="font-weight-bold">Title<span
+                                            class="text-danger">*</span></label>
+                                    <textarea class="form-control" name="ttm_title" id="ttm_title" rows="3" placeholder="Title" style="resize: none;"
+                                        required></textarea>
+                                    <div class="invalid-feedback">Missing title</div>
                                 </div>
 
-                                <div class="row">
-                                    <div class="col-sm-12">
-                                        <div class="form-group">
-                                            <label>Status</label>
-                                            <select name="ttm_status" id="" class="form-control">
-                                                <option value="Commercialized" {{ "Commercialized" == $all->ttm_status ? 'selected' : '' }}>Commercialized</option>
-                                                <option value="Pre-Commercialized" {{ "Pre-Commercialized" == $all->ttm_status ? 'selected' : '' }}>Pre-Commercialized</option>
-                                            </select>
-                                        </div>
-                                    </div>
+                                <div class="col-md-6 form-group">
+                                    <label for="ttm_type" class=" font-weight-bold">Type of Technology</label>
+                                    <select name="ttm_type" class="form-control others" id="ttm_type" required>
+                                        <option value="" selected disabled></option>
+                                        <option value="STCBF">STCBF</option>
+                                        <option value="STMF">STMF</option>
+                                        <option value="STMP">STMP</option>
+                                        <option value="Techno Demo">Techno Demo</option>
+                                    </select>
+                                    <div class="invalid-feedback">Missing type of technology</div>
                                 </div>
 
-                                <div class="row">
-                                    <div class="col-sm-8">
-                                        <div class="form-group">
-                                            <label>Agency</label>
-                                            <select class="form-control agency" name="ttm_agency" id=""
-                                                required>
-                                                <option></option>
-                                                @foreach ($agency as $key)
-                                                    <option value="{{ $key->abbrev }}" {{ $key->abbrev == $all->ttm_agency ? 'selected' : '' }}>{{ $key->agency_name }} -
-                                                        ({{ $key->abbrev }})</b></option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                    </div>
+                                <div class="col-md-6 form-group">
+                                    <label for="ttm_status" class="font-weight-bold">Status<span
+                                            class="text-danger">*</span></label>
+                                    <select name="ttm_status" id="ttm_status" class="form-control others" required>
+                                        <option value="" selected disabled></option>
+                                        <option value="Commercialized">Commercialized</option>
+                                        <option value="Pre-Commercialized">Pre-Commercialized</option>
+                                    </select>
+                                    <div class="invalid-feedback">Missing status</div>
                                 </div>
 
-                                <a href="{{ url('rdru-ttm') }}" class="btn btn-default">Back</a>
-                                <input type="submit" name="submit" class="submit btn btn-success" value="Update" />
-                                <!-- /.card-body -->
+                                <div class="col-md-12 form-group">
+                                    <label for="ttm_agency" class=" font-weight-bold">Source of Fund<span
+                                            class="text-danger">*</span></label>
+                                    <select id="ttm_agency" name="ttm_agency" class="form-control agency" required>
+                                        <option value=""></option>
+                                        @foreach ($agency as $row)
+                                            <option value="{{ $row->abbrev }}"> {{ $row->agency_name }} </option>
+                                        @endforeach
+                                    </select>
+                                    <div class="invalid-feedback">Missing agency</div>
+                                </div>
+
+                                <div class="col-md-12 form-group buttons">
+                                    <a href="{{ url('rdru-ttm') }}" class="btn btn-default">Back</a>
+                                    <button type="submit" id="submit" class="btn btn-primary btn-m ">Submit</button>
+                                </div>
+                            </form>
                         </div>
-                        </form>
-                    </div> {{-- card body end --}}
-                </div>{{-- card end --}}
+                    </div>
+                </div>
             </div>
-            <div class="col-lg-1">
-
-            </div>
+        </section>
     </div>
-
-    </section>
-    </div>
-
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#ttm_title, #ttm_agency, #ttm_status, #ttm_type, #ttp_end_date, #ttp_priorities')
+                .on('input', function() {
+                    const inputField = $(this);
+                    if (inputField[0].checkValidity()) {
+                        inputField.addClass('is-valid').removeClass('is-invalid');
+                    } else {
+                        inputField.addClass('is-invalid').removeClass('is-valid');
+                    }
+                });
+        });
+
+
+        (function() {
+            'use strict';
+            window.addEventListener('load', function() {
+                var forms = document.getElementsByClassName('needs-validation');
+                var validation = Array.prototype.filter.call(forms, function(form) {
+                    form.addEventListener('submit', function(event) {
+                        if (form.checkValidity() === false) {
+                            event.preventDefault();
+                            event.stopPropagation();
+                            Swal.fire({
+                                icon: 'info',
+                                title: 'All fields are required',
+                                timerProgressBar: false,
+                                showConfirmButton: true,
+                            });
+                        }
+                        form.classList.add('was-validated');
+                    }, false);
+                });
+            }, false);
+        })();
+
+        document.getElementById('techForm').addEventListener('submit', function(event) {
+            const ttm_type = document.getElementById('ttm_type').value;
+            const ttm_status = document.getElementById('ttm_status').value;
+            if (!ttm_status) {
+                event.preventDefault();
+                document.getElementById('ttm_status').classList.add('is-invalid');
+            }
+            if (!ttm_type) {
+                event.preventDefault();
+                document.getElementById('ttm_type').classList.add('is-invalid');
+            }
+            if (!ttm_type && !ttm_status) {
+                event.preventDefault();
+                document.getElementById('ttm_type').classList.add('is-invalid');
+                document.getElementById('ttm_status').classList.add('is-invalid');
+            }
+        });
+
+        $(document).ready(function() {
+            $('#techForm').on('submit', function(e) {
+
+                var formData = new FormData(this);
+
+                e.preventDefault();
+                $.ajax({
+                    type: 'POST',
+                    url: "{{ url('add-tpa') }}",
+                    data: formData,
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    dataType: 'json',
+                    success: (data) => {
+                        this.reset();
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'TTM Added Successfully',
+                            timerProgressBar: true,
+                            showConfirmButton: false,
+                            timer: 900
+                        }).then((result) => {
+                            if (result.dismiss) {
+                                window.location.href = '/rdru-ttm';
+                            }
+                        })
+                    },
+                    error: function(data) {
+                        //   Swal.fire({
+                        //     icon: 'warning',
+                        //     title: data.responseJSON.message,
+                        //     // title: 'There is something wrong...',
+                        //     timerProgressBar: false,
+                        //     showConfirmButton: true,
+                        // });
+                    }
+                });
+            });
+        });
+    </script>
 @endsection

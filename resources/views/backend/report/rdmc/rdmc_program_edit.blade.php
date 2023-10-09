@@ -292,7 +292,7 @@
                                     $keywords = json_decode($programs->keywords);
                                     $keywords = implode($keywords);
                                 @endphp
-                                
+
                                 <div class="col-md-12 form-group">
                                     <label for="" class=" font-weight-bold">Keywords</label>
                                     <input type="text" name="keywords[]" class="form-control js-recipients"
@@ -386,6 +386,13 @@
                         if (form.checkValidity() === false) {
                             event.preventDefault();
                             event.stopPropagation();
+
+                            Swal.fire({
+                                icon: 'info',
+                                title: 'All fields are required',
+                                timerProgressBar: false,
+                                showConfirmButton: true,
+                            });
                         }
                         form.classList.add('was-validated');
                     }, false);
@@ -422,7 +429,7 @@
                                 window.location.href = '/rdmc-programs';
                             }
                         })
-                        
+
                     },
                     error: function(data) {
                         Swal.fire({

@@ -302,7 +302,7 @@
                 data: [totalNew, totalOngoing, totalTerminated, totalCompleted],
 
             }],
-            colors: ['#2b908f'],
+            colors: ['#5653FE'],
             xaxis: {
                 categories: ['New', 'Ongoing', 'Terminated', 'Completed']
             },
@@ -453,7 +453,7 @@
             plotOptions: {
                 bar: {
                     borderRadius: 4,
-                    barHeight: '70%',
+                    barHeight: '100%',
                     distributed: true,
                     horizontal: true,
                     dataLabels: {

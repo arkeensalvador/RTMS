@@ -31,8 +31,8 @@ class ProjectController extends Controller
         $data['project_assistant_leader'] = $request->project_assistant_leader;
         $data['project_extend_date'] = $request->project_extend_date;
         $data['project_description'] = $request->project_description;
-        $data['project_approved_budget'] = $request->project_approved_budget;
-        $data['project_amount_released'] = $request->project_amount_released;
+        $data['project_approved_budget'] = str_replace(',', '', $request->project_approved_budget);
+        $data['project_amount_released'] =  str_replace(',', '', $request->project_amount_released);
         $data['project_budget_year'] = $request->project_budget_year;
         $data['project_form_of_development'] = $request->project_form_of_development;
         $data['keywords'] = htmlspecialchars_decode(json_encode($request->keywords));
@@ -78,8 +78,8 @@ class ProjectController extends Controller
         $data['project_assistant_leader'] = $request->project_assistant_leader;
         $data['project_extend_date'] = $request->project_extend_date;
         $data['project_description'] = $request->project_description;
-        $data['project_approved_budget'] = $request->project_approved_budget;
-        $data['project_amount_released'] = $request->project_amount_released;
+        $data['project_approved_budget'] = str_replace(',', '', $request->project_approved_budget);
+        $data['project_amount_released'] = str_replace(',', '', $request->project_amount_released);
         $data['project_budget_year'] = $request->project_budget_year;
         $data['project_form_of_development'] = $request->project_form_of_development;
         $data['keywords'] = htmlspecialchars_decode(json_encode($request->keywords));

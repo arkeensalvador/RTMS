@@ -312,7 +312,8 @@
                                 <div class="col-md-3 form-group">
                                     <label for="approved_budget" class=" font-weight-bold">Approved Budget<span
                                             class="text-danger">*</span></label>
-                                    <input type="text" name="sub_project_approved_budget" value="{{ $sub_project->sub_project_approved_budget }}" class="form-control"
+                                    <input type="text" name="sub_project_approved_budget"
+                                        value="{{ $sub_project->sub_project_approved_budget }}" class="form-control"
                                         id="approved_budget" placeholder="Approved budget" required>
                                     <div class="invalid-feedback">Missing approved budget</div>
                                 </div>
@@ -343,8 +344,9 @@
 
                                 <div class="col-md-12 form-group">
                                     <label for="" class=" font-weight-bold">Keywords</label>
-                                    <input type="text" name="keywords[]" value="{{ $keywords }}" class="form-control js-recipients"
-                                        placeholder="Keyword(s)" data-role="tagsinput" required>
+                                    <input type="text" name="keywords[]" value="{{ $keywords }}"
+                                        class="form-control js-recipients" placeholder="Keyword(s)" data-role="tagsinput"
+                                        required>
                                     <div class="invalid-feedback">Missing keywords</div>
                                 </div>
 
@@ -434,6 +436,12 @@
                         if (form.checkValidity() === false) {
                             event.preventDefault();
                             event.stopPropagation();
+                            Swal.fire({
+                                icon: 'info',
+                                title: 'All fields are required',
+                                timerProgressBar: false,
+                                showConfirmButton: true,
+                            });
                         }
                         form.classList.add('was-validated');
                     }, false);
@@ -461,7 +469,7 @@
                 e.preventDefault();
                 $.ajax({
                     type: 'POST',
-                    url: "{{ url('update-sub-project/'. $sub_project->projectID . '/' . $sub_project->id) }}",
+                    url: "{{ url('update-sub-project/' . $sub_project->projectID . '/' . $sub_project->id) }}",
                     data: formData,
                     cache: false,
                     contentType: false,

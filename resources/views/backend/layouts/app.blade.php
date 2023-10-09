@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="{{ asset('backend/plugins/fontawesome-free/css/all.min.css') }}">
     <link rel="stylesheet" href="{{ asset('backend/plugins/fontawesome-free-6.3.0-web/css/all.min.css') }}">
 
-    
+
     {{-- <script src="https://kit.fontawesome.com/403b4fe327.js" crossorigin="anonymous"></script> --}}
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
@@ -70,8 +70,10 @@
     {{-- BS Tags input --}}
     <link rel="stylesheet" href="{{ asset('backend/plugins/bs-tags-input/bootstrap-tagsinput.css') }}">
 
-    {{-- GOOGLE CHARTS --}}
-    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    {{-- Flat Pickr --}}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
 
     <style>
         .form-control,
@@ -537,6 +539,17 @@
 </body>
 
 <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        flatpickr('.date', {
+            dateFormat: 'Y-m-d',
+            altInput: true,
+            altFormat: "F j, Y"
+        });
+    });
+</script>
+
+
+<script>
     function formatNumber(e) {
         var rex = /(^\d{2})|(\d{1,3})(?=\d{1,3}|$)/g,
             val = this.value.replace(/^0+|\.|,/g, ""),
@@ -628,11 +641,16 @@
         });
 
         $('.researchers').select2({
-            placeholder: "Select researchers",
+            placeholder: "Select researcher",
             allowClear: false,
         });
 
         $('.others').select2({
+            placeholder: "Select type",
+            minimumResultsForSearch: -1
+        });
+
+        $('.type').select2({
             minimumResultsForSearch: -1
         });
         $('.chooser').select2({

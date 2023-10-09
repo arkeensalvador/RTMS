@@ -48,6 +48,7 @@
                                                         <th>Duration</th>
                                                         <th>Researcher</th>
                                                         <th>Funding Agency</th>
+                                                        <th>Implementing Agency</th>
                                                         <th>Action</th>
                                                     </tr>
                                                 </thead>
@@ -60,6 +61,7 @@
                                                                 {{ date('F, Y', strtotime($row->strategic_end)) }}</td>
                                                             <td>{{ $row->strategic_researcher }}</td>
                                                             <td>{{ $row->strategic_funding_agency }}</td>
+                                                            <td>{{ $row->strategic_implementing_agency }}</td>
                                                             <td class="action btns">
                                                                 <a class="btn btn-primary"
                                                                     href="{{ url("edit-strategic/$row->id") }}"><i

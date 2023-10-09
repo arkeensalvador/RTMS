@@ -76,160 +76,197 @@
     </style>
     <div class="content-wrapper">
         <section class="content">
-            <div class="strategic row">
-
-                <div class="col-md-8">
-
-                    {{-- card start --}}
-                    <div class="card">
-                        <div class="card-header">
-                            <h5 class="card-title">
-                                Technology Transfer Proposals
-                            </h5>
-                        </div>
-
-                        {{-- card body start --}}
-                        <div class="card-body">
-                            <form role="form" id="regiration_form" action="{{ url('add-ttp') }}" method="POST"
-                                enctype="multipart/form-data">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12 mx-auto">
+                        <div class="d-flex justify-content-center mt-3">
+                            <form id="techForm" class="row g-3 needs-validation" novalidate>
                                 @csrf
-                                <div class="row">
-                                    <div class="col-sm-3">
-                                        <!-- text input -->
-                                        <div class="form-group">
-                                            <div class="custom-control custom-radio">
-                                                <input class="custom-control-input" type="radio" value="Packaged"
-                                                    id="customRadio1" name="ttp_type">
-                                                <label for="customRadio1" class="custom-control-label">Packaged</label>
-                                            </div>
-                                        </div>
+                                <div class="form-title col-12">
+                                    <h2 class="font-weight-bold">Technology Transfer Proposals</h2>
+                                    <h5 class="mt-0"> Kindly fill-up the fields needed.</h5>
+                                </div>
+
+                                <div class="col-md-4 form-group">
+                                    <label for="customRadio1" class="font-weight-bold">Technology Classification<span
+                                            class="text-danger">*</span></label>
+                                    <div class="custom-control custom-radio">
+                                        <input class="custom-control-input" type="radio" value="Packaged"
+                                            id="customRadio1" name="ttp_type">
+                                        <label for="customRadio1" class="custom-control-label">Packaged</label>
                                     </div>
-                                    <div class="col-sm-3">
-                                        <div class="form-group">
-                                            <div class="custom-control custom-radio">
-                                                <input class="custom-control-input" type="radio"
-                                                    value="Approved/Implemented" id="customRadio2" name="ttp_type">
-                                                <label for="customRadio2"
-                                                    class="custom-control-label">Approved/Implemented</label>
-                                            </div>
-                                        </div>
+                                    <div class="invalid-feedback">Missing classification</div>
+                                </div>
+
+                                <div class="col-md-3 form-group">
+                                    <label for="customRadio2" class="font-weight-bold"></label>
+                                    <div class="custom-control custom-radio">
+                                        <input class="custom-control-input" type="radio" value="Approved"
+                                            id="customRadio2" name="ttp_type">
+                                        <label for="customRadio2" class="custom-control-label">Approved/Implemented</label>
                                     </div>
+                                    <div class="invalid-feedback">Missing classification</div>
+                                </div>
+
+                                <div class="col-md-12 form-group">
+                                    <label for="ttp_title" class=" font-weight-bold">Title<span
+                                            class="text-danger">*</span></label>
+                                    <textarea class="form-control" name="ttp_title" id="ttp_title" rows="3" placeholder="Enter ..."
+                                        style="resize: none;" required></textarea>
+                                    <div class="invalid-feedback">Missing title</div>
+                                </div>
+
+                                <div class="col-md-6 form-group">
+                                    <label for="ttp_budget" class=" font-weight-bold">Budget</label>
+                                    <input type="text" class="form-control" name="ttp_budget" id="ttp_budget"
+                                        placeholder="Enter ..." required>
+                                    <div class="invalid-feedback">Missing budget</div>
+                                </div>
+
+                                <div class="col-md-6 form-group">
+                                    <label for="ttp_sof" class=" font-weight-bold">Source of Fund<span
+                                            class="text-danger">*</span></label>
+                                    <select id="ttp_sof" name="ttp_sof" class="form-control agency" required>
+                                        <option value=""></option>
+                                        @foreach ($agency as $row)
+                                            <option value="{{ $row->abbrev }}"> {{ $row->agency_name }} </option>
+                                        @endforeach
+                                    </select>
+                                    <div class="invalid-feedback">Missing source of fund</div>
                                 </div>
 
 
+                                <div class="col-md-3 form-group">
+                                    <label for="ttp_start_date" class=" font-weight-bold">Start Date<span
+                                            class="text-danger">*</span></label>
 
-                                <div class="row">
-                                    <div class="col-sm-6">
-                                        <!-- textarea -->
-                                        <div class="form-group">
-                                            <label>Title</label>
-                                            <textarea class="form-control" name="ttp_title" rows="3" placeholder="Enter ..." style="resize: none;"></textarea>
-                                        </div>
-                                    </div>
+                                    <input type="number" name="ttp_start_date" id="ttp_start_date"
+                                        class="form-control date" placeholder="Enter start date" required>
+                                    <div class="invalid-feedback">Missing start date</div>
                                 </div>
 
-                                <div class="row">
-                                    <div class="col-sm-5">
-                                        <div class="form-group">
-                                            <label>Budget</label>
-                                            <input type="text" class="form-control" id="numin" name="ttp_budget"
-                                                placeholder="Enter ...">
-                                        </div>
-                                    </div>
-
-                                    <div class="col-sm-5">
-                                        <div class="form-group">
-                                            <label>Source of Fund</label>
-                                            <input type="text" class="form-control" name="ttp_sof"
-                                                placeholder="Enter ..." list="sourcedtlist">
-                                            <datalist id="sourcedtlist">
-                                                <option value="Source of Fund 1"></option>
-                                            </datalist>
-                                        </div>
-                                    </div>
-
-
+                                <div class="col-md-3 form-group">
+                                    <label for="ttp_end_date" class="font-weight-bold">End Date <span
+                                            class="text-danger">*</span></label>
+                                    <input type="text" name="ttp_end_date" class="form-control date" id="ttp_end_date"
+                                        placeholder="Enter end date" required>
+                                    <div class="invalid-feedback">Missing end date</div>
                                 </div>
 
-                                <div class="row">
-                                    <div class="col-sm-2">
-                                        <div class="form-group">
-                                            <label>Start Date</label>
-                                            <input type="month" name="ttp_start_date" class="form-control"
-                                                placeholder="Enter ...">
-                                        </div>
-                                    </div>
-
-                                    <div class="col-sm-2">
-                                        <div class="form-group">
-                                            <label>End Date</label>
-                                            <input type="month" name="ttp_end_date" class="form-control"
-                                                placeholder="Enter ...">
-                                        </div>
-                                    </div>
+                                <div class="col-md-12 form-group">
+                                    <label for="ttp_priorities" class=" font-weight-bold">Regional Priorities
+                                        Addressed<span class="text-danger">*</span></label>
+                                    <textarea class="form-control" name="ttp_priorities" id="ttp_priorities" rows="3" placeholder="Enter ..."
+                                        required></textarea>
+                                    <div class="invalid-feedback"> Missing regional priorities addressed</div>
                                 </div>
 
-
-                                <div class="row">
-                                    <div class="col-sm-5">
-                                        <!-- textarea -->
-                                        <div class="form-group">
-                                            <label>Regional Priorities Addressed</label>
-                                            <textarea class="form-control" name="ttp_priorities" rows="3" placeholder="Enter ..."></textarea>
-                                        </div>
-                                    </div>
-                                    <!-- /.card-body -->
+                                <div class="col-md-12 form-group buttons">
+                                    <a href="{{ url('rdru-ttp') }}" class="btn btn-default">Back</a>
+                                    <button type="submit" id="submit" class="btn btn-primary btn-m ">Submit</button>
                                 </div>
-
-                                <a href="{{ url('rdru-ttp') }}" class="btn btn-default">Back</a>
-                                <input type="submit" name="submit" class="submit btn btn-success" value="Submit" />
-                                <!-- /.card-body -->
+                            </form>
                         </div>
-                        </form>
-                    </div> {{-- card body end --}}
-                </div>{{-- card end --}}
+                    </div>
+                </div>
             </div>
-            <div class="col-lg-1">
-
-            </div>
+        </section>
     </div>
-
-    </section>
-    </div>
-
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-
-
     <script>
-        function formatNumber(e) {
-            var rex = /(^\d{2})|(\d{1,3})(?=\d{1,3}|$)/g,
-                val = this.value.replace(/^0+|\.|,/g, ""),
-                res;
+        $(document).ready(function() {
+            $('#ttp_title, #ttp_budget, #ttp_sof, #ttp_start_date, #ttp_end_date, #ttp_priorities')
+                .on('input', function() {
+                    const inputField = $(this);
+                    if (inputField[0].checkValidity()) {
+                        inputField.addClass('is-valid').removeClass('is-invalid');
+                    } else {
+                        inputField.addClass('is-invalid').removeClass('is-valid');
+                    }
+                });
+        });
 
-            if (val.length) {
-                res = Array.prototype.reduce.call(val, (p, c) => c + p) // reverse the pure numbers string
-                    .match(rex) // get groups in array
-                    .reduce((p, c, i) => i - 1 ? p + "," + c : p + "." + c); // insert (.) and (,) accordingly
-                res += /\.|,/.test(res) ? "" : ".0"; // test if res has (.) or (,) in it
-                this.value = Array.prototype.reduce.call(res, (p, c) => c + p); // reverse the string and display
-            }
-        }
 
-        var ni = document.getElementById("numin");
-        var ni2 = document.getElementById("numin2");
+        (function() {
+            'use strict';
+            window.addEventListener('load', function() {
+                var forms = document.getElementsByClassName('needs-validation');
+                var validation = Array.prototype.filter.call(forms, function(form) {
+                    form.addEventListener('submit', function(event) {
+                        if (form.checkValidity() === false) {
+                            event.preventDefault();
+                            event.stopPropagation();
+                            Swal.fire({
+                                icon: 'info',
+                                title: 'All fields are required',
+                                timerProgressBar: false,
+                                showConfirmButton: true,
+                            });
+                        }
+                        form.classList.add('was-validated');
+                    }, false);
+                });
+            }, false);
+        })();
 
-        ni.addEventListener("keyup", formatNumber);
-        ni2.addEventListener("keyup", formatNumber);
-    </script>
-
-    <script>
-        $('input.number-to-text').keydown(function(event) {
-            if ([38, 40].indexOf(event.keyCode) > -1) {
+        document.getElementById('techForm').addEventListener('submit', function(event) {
+            const startDate = document.getElementById('ttp_start_date').value;
+            const endDate = document.getElementById('ttp_end_date').value;
+            if (!endDate) {
                 event.preventDefault();
+                document.getElementById('ttp_end_date').classList.add('is-invalid');
+            }
+            if (!startDate) {
+                event.preventDefault();
+                document.getElementById('ttp_start_date').classList.add('is-invalid');
+            }
+            if (!startDate && !endDate) {
+                event.preventDefault();
+                document.getElementById('ttp_start_date').classList.add('is-invalid');
+                document.getElementById('ttp_end_date').classList.add('is-invalid');
             }
         });
-    </script>
 
-    {{-- Upload Files --}}
+        $(document).ready(function() {
+            $('#techForm').on('submit', function(e) {
+
+                var formData = new FormData(this);
+
+                e.preventDefault();
+                $.ajax({
+                    type: 'POST',
+                    url: "{{ url('add-ttp') }}",
+                    data: formData,
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    dataType: 'json',
+                    success: (data) => {
+                        this.reset();
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'TTP Added Successfully',
+                            timerProgressBar: true,
+                            showConfirmButton: false,
+                            timer: 900
+                        }).then((result) => {
+                            if (result.dismiss) {
+                                window.location.href = '/rdru-ttp';
+                            }
+                        })
+                    },
+                    error: function(data) {
+                        //   Swal.fire({
+                        //     icon: 'warning',
+                        //     title: data.responseJSON.message,
+                        //     // title: 'There is something wrong...',
+                        //     timerProgressBar: false,
+                        //     showConfirmButton: true,
+                        // });
+                    }
+                });
+            });
+        });
+    </script>
 @endsection

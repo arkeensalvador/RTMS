@@ -39,7 +39,7 @@
                                     </button>
 
 
-                                    <a href="{{ url('sub-projects-add/'.$project_title->id) }}" class="btn btn-success">
+                                    <a href="{{ url('sub-projects-add/' . $project_title->id) }}" class="btn btn-success">
                                         <i class="fa-solid fa-plus"></i> Create</span></a>
                                 </div>
                             </div>
@@ -191,8 +191,8 @@
 
                                                     <input type="text" class="form-control"
                                                         name="moreFields[0][subprojectID]" id="subprojectID"
-                                                        value="" placeholder="Sub Project ID" readonly required
-                                                        autocomplete="false">
+                                                        value="" placeholder="Sub Project ID" hidden readonly
+                                                        required autocomplete="false">
 
                                                     <input type="text" class="form-control" placeholder="Staff"
                                                         name="moreFields[0][staff_name]" autocomplete="false">
@@ -246,7 +246,7 @@
                                     <input type="text" class="form-control" name="projectID" placeholder=""
                                         id="upload_projectID" hidden readonly required autocomplete="false"> --}}
 
-                                    <input type="text" class="form-control" name="subprojectID" placeholder=""
+                                    <input type="text" class="form-control" hidden name="subprojectID" placeholder=""
                                         id="upload_subprojectID" readonly required autocomplete="false">
 
                                     <input type="text" class="form-control" name="uploader_agency"
@@ -371,7 +371,7 @@
                 <td class="append">
                     <input type="text" class="form-control" name="moreFields[` + i +
                 `][subprojectID]" id="moreFields[` +
-                i + `][subproj]" value=""placeholder="Project ID"  readonly required autocomplete="false">
+                i + `][subproj]" value=""placeholder="Project ID" hidden readonly required autocomplete="false">
                     <input type="text" class="form-control" placeholder="Staff" name="moreFields[` + i + `][staff_name]">
                 </td>
 

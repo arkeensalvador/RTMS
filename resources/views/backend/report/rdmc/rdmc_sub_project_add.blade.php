@@ -98,8 +98,9 @@
                                 <div class="col-md-4 form-group" hidden>
                                     <label for="fund_code" class="font-weight-bold">Program ID<span
                                             class="text-danger">*</span></label>
-                                    <input type="text" name="programID" value="{{ $projects->programID }}" class="form-control"
-                                        id="fund_code" placeholder="Input Trust Fund Code" readonly required>
+                                    <input type="text" name="programID" value="{{ $projects->programID }}"
+                                        class="form-control" id="fund_code" placeholder="Input Trust Fund Code" readonly
+                                        required>
                                     <div class="valid-feedback"></div>
                                     <div class="invalid-feedback">Missing fund code</div>
                                 </div>
@@ -391,6 +392,12 @@
                         if (form.checkValidity() === false) {
                             event.preventDefault();
                             event.stopPropagation();
+                            Swal.fire({
+                                icon: 'info',
+                                title: 'All fields are required',
+                                timerProgressBar: false,
+                                showConfirmButton: true,
+                            });
                         }
                         form.classList.add('was-validated');
                     }, false);
