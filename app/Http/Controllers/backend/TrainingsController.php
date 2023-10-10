@@ -20,22 +20,13 @@ class TrainingsController extends Controller
         $data['trainings_start'] = $request->trainings_start;
         $data['trainings_end'] = $request->trainings_end;
         $data['trainings_no_participants'] = $request->trainings_no_participants;
+        $data['created_at'] = now();
 
         $insert = DB::table('cbg_trainings')->insert($data);
         if ($insert) {
-
-            $notification = array(
-                'message' => 'Training/Workshop Successfully Added!',
-                'alert-type' => 'success'
-            );
-
-            return redirect()->route('cbgTraining')->with($notification);
+            return response()->json(['success' => 'Training Added Successfully!']);
         } else {
-            $notification = array(
-                'message' => 'Something is wrong, please try again!',
-                'alert-type' => 'error'
-            );
-            return redirect()->route('cbgTraining')->with($notification);
+            return response()->json(['error' => 'There is something wrong...']);
         }
     }
 
@@ -63,18 +54,9 @@ class TrainingsController extends Controller
 
         $update = DB::table('cbg_trainings')->where('id', $id)->update($data);
         if ($update) {
-            $notification = array(
-                'message' => 'Training/Workshop Successfully Updated!',
-                'alert-type' => 'success'
-            );
-
-            return redirect()->route('cbgTraining')->with($notification);
+            return response()->json(['success' => 'Training Updated Successfully!']);
         } else {
-            $notification = array(
-                'message' => 'Something is wrong, please try again!',
-                'alert-type' => 'error'
-            );
-            return redirect()->route('cbgTraining')->with($notification);
+            return response()->json(['error' => 'There is something wrong...']);
         }
     }
 

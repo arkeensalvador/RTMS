@@ -29,9 +29,9 @@
                             <div class="card-header">
                                 <h2 class="card-title">List of Technology Promotion Approaches</h2>
                                 <div class="card-tools">
-                                    <a href="{{ url('rdru-tpa-add') }}"
-                                        class="btn btn-success"><span><i class="fa-solid fa-plus"></i> Create</span></a>
-                                   
+                                    <a href="{{ url('rdru-tpa-add') }}" class="btn btn-success"><span><i
+                                                class="fa-solid fa-plus"></i> Create</span></a>
+
                                     <!-- Here is a label for example -->
                                     {{-- <span class="badge badge-primary">Label</span> --}}
                                 </div>
@@ -55,32 +55,29 @@
                                                 </thead>
                                                 <tbody>
                                                     @foreach ($all as $key => $row)
-                                                    <tr>
-                                                        <td>{{ $key + 1}}</td>
-                                                        <td>
-                                                            @php
-                                                                $approach = json_decode($row->tpa_approaches)
-                                                            @endphp
+                                                        <tr>
+                                                            <td>{{ $key + 1 }}</td>
+                                                            <td>
+                                                                @php
+                                                                    $approach = json_decode($row->tpa_approaches);
+                                                                @endphp
+                                                                {{ implode(', ', $approach) }}
+                                                            </td>
+                                                            <td>{{ $row->tpa_title }}</td>
+                                                            <td>{{ $row->tpa_date }}</td>
+                                                            <td>{{ $row->tpa_details }}</td>
+                                                            {{-- <td>{{ $row->tpa_activity }}</td> --}}
+                                                            <td class="action btns">
+                                                                <a class="btn btn-primary"
+                                                                    href="{{ url('edit-tpa/' . $row->id) }}"><i
+                                                                        class="fa-solid fa-pen-to-square"
+                                                                        style="color: white;"></i></a>
+                                                                <a href="{{ url('delete-tpa/' . $row->id) }}"
+                                                                    class="btn btn-danger" id="delete"><i
+                                                                        class="fa-solid fa-trash"></i></a>
 
-                                                            @foreach ($approach as $app)
-                                                                    <li>
-                                                                        {{ $app }}
-                                                                    </li>
-                                                            @endforeach
-                                                        </td>
-                                                        <td>{{ $row->tpa_title }}</td>
-                                                        <td>{{ $row->tpa_date }}</td>
-                                                        <td>{{ $row->tpa_details }}</td>
-                                                        {{-- <td>{{ $row->tpa_activity }}</td> --}}
-                                                        <td class="action btns">
-                                                            <a class="btn btn-primary" href="{{ url('edit-tpa/' . $row->id) }}"><i
-                                                                    class="fa-solid fa-pen-to-square"
-                                                                    style="color: white;"></i></a>
-                                                            <a href="{{ url('delete-tpa/' . $row->id) }}" class="btn btn-danger" id="delete"><i
-                                                                    class="fa-solid fa-trash"></i></a>
-
-                                                        </td>
-                                                    </tr>
+                                                            </td>
+                                                        </tr>
                                                     @endforeach
                                                 </tbody>
                                             </table>

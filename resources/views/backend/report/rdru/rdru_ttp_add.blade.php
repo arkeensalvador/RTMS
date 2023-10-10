@@ -117,7 +117,8 @@
                                 </div>
 
                                 <div class="col-md-6 form-group">
-                                    <label for="ttp_budget" class=" font-weight-bold">Budget</label>
+                                    <label for="ttp_budget" class=" font-weight-bold">Budget<span
+                                            class="text-danger">*</span></label>
                                     <input type="text" class="form-control" name="ttp_budget" id="ttp_budget"
                                         placeholder="Enter ..." required>
                                     <div class="invalid-feedback">Missing budget</div>

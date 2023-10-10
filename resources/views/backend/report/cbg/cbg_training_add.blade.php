@@ -76,115 +76,190 @@
     </style>
     <div class="content-wrapper">
         <section class="content">
-            <div class="strategic row">
-
-                <div class="col-md-8">
-
-                    {{-- card start --}}
-                    <div class="card">
-                        <div class="card-header">
-                            <h5 class="card-title">
-                                Training - Workshops
-                            </h5>
-                        </div>
-
-                        {{-- card body start --}}
-                        <div class="card-body">
-                            <form role="form" id="regiration_form" action="{{ url('add-training') }}" method="POST"
-                                enctype="multipart/form-data">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12 mx-auto">
+                        <div class="d-flex justify-content-center mt-3">
+                            <form id="techForm" class="row g-3 needs-validation" novalidate>
                                 @csrf
-
-                                <div class="row">
-                                    <div class="col-sm-5">
-                                        <div class="form-group">
-                                            <label>Source of Fund</label>
-                                            <input type="text" class="form-control" name="trainings_sof"
-                                                placeholder="Enter ..." list="funddtlist">
-                                            <datalist id="funddtlist">
-                                                <option value="DOST-PCAARRD"></option>
-                                                <option value="Department of Agriculture - Bayanihan Act"></option>
-                                                <option value="STMP"></option>
-                                            </datalist>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-sm-5">
-                                        <div class="form-group">
-                                            <label>Agency</label>
-                                            <select name="trainings_agency" id="" class="form-control agency">
-                                                <option></option>
-                                                @foreach ($agency as $key)
-                                                    <option value="{{ $key->abbrev }}">{{ $key->agency_name }} -
-                                                        ({{ $key->abbrev }})
-                                                        </b></option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                    </div>
+                                <div class="form-title col-12">
+                                    <h2 class="font-weight-bold">Trainings / Workshops</h2>
+                                    <h5 class="mt-0"> Kindly fill-up the fields needed.</h5>
                                 </div>
 
-                                <div class="row">
-                                    <div class="col-sm-10">
-                                        <!-- textarea -->
-                                        <div class="form-group">
-                                            <label>Title of Activity/Training</label>
-                                            <textarea class="form-control" name="trainings_title" rows="3" placeholder="Enter ..."></textarea>
-                                        </div>
-                                    </div>
+                                <div class="col-md-6 form-group">
+                                    <label for="trainings_sof" class=" font-weight-bold">Source of Funds<span
+                                            class="text-danger">*</span></label>
+                                    <select id="trainings_sof" name="trainings_sof" class="form-control agency" required>
+                                        <option value=""></option>
+                                        @foreach ($agency as $row)
+                                            <option value="{{ $row->abbrev }}"> {{ $row->agency_name }} </option>
+                                        @endforeach
+                                    </select>
+                                    <div class="invalid-feedback">Missing source of funds</div>
                                 </div>
 
-                                <div class="row">
-                                    <div class="col-sm-5">
-                                        <div class="form-group">
-                                            <label>Expenditures</label>
-                                            <input type="text" name="trainings_expenditures" class="form-control"
-                                                placeholder="Enter ...">
-                                        </div>
-                                    </div>
+                                <div class="col-md-6 form-group">
+                                    <label for="trainings_agency" class=" font-weight-bold">Agency<span
+                                            class="text-danger">*</span></label>
+                                    <select id="trainings_agency" name="trainings_agency" class="form-control agency"
+                                        required>
+                                        <option value=""></option>
+                                        @foreach ($agency as $row)
+                                            <option value="{{ $row->abbrev }}"> {{ $row->agency_name }} </option>
+                                        @endforeach
+                                    </select>
+                                    <div class="invalid-feedback">Missing agency</div>
                                 </div>
 
-                                <div class="row">
-                                    <div class="col-sm-2">
-                                        <div class="form-group">
-                                            <label>Start Date</label>
-                                            <input type="date" name="trainings_start" class="form-control"
-                                                placeholder="Enter ...">
-                                        </div>
-                                    </div>
-
-                                    <div class="col-sm-2">
-                                        <div class="form-group">
-                                            <label>End Date</label>
-                                            <input type="date" name="trainings_end" class="form-control"
-                                                placeholder="Enter ...">
-                                        </div>
-                                    </div>
-
-                                    <div class="col-sm-3">
-                                        <div class="form-group">
-                                            <label>No. of Participants</label>
-                                            <input type="text" name="trainings_no_participants" class="form-control"
-                                                placeholder="Enter ...">
-                                        </div>
-                                    </div>
+                                <div class="col-md-12 form-group">
+                                    <label for="trainings_title" class=" font-weight-bold">Title of Activity/Training<span
+                                            class="text-danger">*</span></label>
+                                    <textarea class="form-control" name="trainings_title" id="trainings_title" rows="3" placeholder="Enter ..."
+                                        style="resize: none;" required></textarea>
+                                    <div class="invalid-feedback">Missing title</div>
                                 </div>
 
-                                <a href="{{ url('cbg-training') }}" class="btn btn-default">Back</a>
-                                <input type="submit" name="submit" class="submit btn btn-success" value="Submit" />
-                                <!-- /.card-body -->
+                                <div class="col-md-6 form-group">
+                                    <label for="trainings_expenditures" class=" font-weight-bold">Expenditures<span
+                                            class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" name="trainings_expenditures"
+                                        id="trainings_expenditures" placeholder="Enter ..." required>
+                                    <div class="invalid-feedback">Missing expenditures</div>
+                                </div>
+
+
+                                <div class="col-md-3 form-group">
+                                    <label for="trainings_start" class=" font-weight-bold">Start Date<span
+                                            class="text-danger">*</span></label>
+
+                                    <input type="number" name="trainings_start" id="trainings_start"
+                                        class="form-control date" placeholder="Enter start date" required>
+                                    <div class="invalid-feedback">Missing start date</div>
+                                </div>
+
+                                <div class="col-md-3 form-group">
+                                    <label for="trainings_end" class="font-weight-bold">End Date <span
+                                            class="text-danger">*</span></label>
+                                    <input type="text" name="trainings_end" class="form-control date" id="trainings_end"
+                                        placeholder="Enter end date" required>
+                                    <div class="invalid-feedback">Missing end date</div>
+                                </div>
+
+                                <div class="col-md-6 form-group">
+                                    <label for="trainings_no_participants" class=" font-weight-bold">No. of
+                                        Participants<span class="text-danger">*</span></label>
+                                    <input type="number" name="trainings_no_participants" class="form-control"
+                                        id="trainings_no_participants" placeholder="# of participants" required>
+                                    <div class="invalid-feedback"> Missing # of participants</div>
+                                </div>
+
+                                <div class="col-md-12 form-group buttons">
+                                    <a href="{{ url('cbg-training') }}" class="btn btn-default">Back</a>
+                                    <button type="submit" id="submit" class="btn btn-primary btn-m ">Submit</button>
+                                </div>
+                            </form>
                         </div>
-                        </form>
-                    </div> {{-- card body end --}}
-                </div>{{-- card end --}}
+                    </div>
+                </div>
             </div>
-            <div class="col-lg-1">
-
-            </div>
+        </section>
     </div>
-
-    </section>
-    </div>
-
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#trainings_sof, #trainings_agency, #trainings_title, #trainings_start, #trainings_end, #trainings_title')
+                .on('input', function() {
+                    const inputField = $(this);
+                    if (inputField[0].checkValidity()) {
+                        inputField.addClass('is-valid').removeClass('is-invalid');
+                    } else {
+                        inputField.addClass('is-invalid').removeClass('is-valid');
+                    }
+                });
+        });
+
+
+        (function() {
+            'use strict';
+            window.addEventListener('load', function() {
+                var forms = document.getElementsByClassName('needs-validation');
+                var validation = Array.prototype.filter.call(forms, function(form) {
+                    form.addEventListener('submit', function(event) {
+                        if (form.checkValidity() === false) {
+                            event.preventDefault();
+                            event.stopPropagation();
+                            Swal.fire({
+                                icon: 'info',
+                                title: 'All fields are required',
+                                timerProgressBar: false,
+                                showConfirmButton: true,
+                            });
+                        }
+                        form.classList.add('was-validated');
+                    }, false);
+                });
+            }, false);
+        })();
+
+        document.getElementById('techForm').addEventListener('submit', function(event) {
+            const startDate = document.getElementById('trainings_start').value;
+            const endDate = document.getElementById('trainings_end').value;
+            if (!endDate) {
+                event.preventDefault();
+                document.getElementById('trainings_end').classList.add('is-invalid');
+            }
+            if (!startDate) {
+                event.preventDefault();
+                document.getElementById('trainings_start').classList.add('is-invalid');
+            }
+            if (!startDate && !endDate) {
+                event.preventDefault();
+                document.getElementById('trainings_start').classList.add('is-invalid');
+                document.getElementById('trainings_end').classList.add('is-invalid');
+            }
+        });
+
+        $(document).ready(function() {
+            $('#techForm').on('submit', function(e) {
+
+                var formData = new FormData(this);
+
+                e.preventDefault();
+                $.ajax({
+                    type: 'POST',
+                    url: "{{ url('add-training') }}",
+                    data: formData,
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    dataType: 'json',
+                    success: (data) => {
+                        this.reset();
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Training Added Successfully',
+                            timerProgressBar: true,
+                            showConfirmButton: false,
+                            timer: 900
+                        }).then((result) => {
+                            if (result.dismiss) {
+                                window.location.href = '/cbg-training';
+                            }
+                        })
+                    },
+                    error: function(data) {
+                        // Swal.fire({
+                        //     icon: 'warning',
+                        //     title: data.responseJSON.message,
+                        //     // title: 'There is something wrong...',
+                        //     timerProgressBar: false,
+                        //     showConfirmButton: true,
+                        // });
+                    }
+                });
+            });
+        });
+    </script>
 @endsection

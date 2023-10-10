@@ -96,7 +96,8 @@
                                 </div>
 
                                 <div class="col-md-6 form-group">
-                                    <label for="ttm_type" class=" font-weight-bold">Type of Technology</label>
+                                    <label for="ttm_type" class=" font-weight-bold">Type of Technology<span
+                                            class="text-danger">*</span></label>
                                     <select name="ttm_type" class="form-control others" id="ttm_type" required>
                                         <option value="" selected disabled></option>
                                         <option value="STCBF">STCBF</option>

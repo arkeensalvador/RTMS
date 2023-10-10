@@ -159,23 +159,13 @@ class ResultsUtilizationController extends Controller
         $data['tpa_details'] = $request->tpa_details;
         $data['tpa_remarks'] = $request->tpa_remarks;
         $data['tpa_approaches'] = json_encode($request->tpa_approaches);
-
+        $data['created_at'] = now();
 
         $insert = DB::table('results_tpa')->insert($data);
         if ($insert) {
-
-            $notification = array(
-                'message' => 'Transfer Modality Successfully Added!',
-                'alert-type' => 'success'
-            );
-
-            return redirect()->route('rdruTpa')->with($notification);
+            return response()->json(['success' => 'TPA Added Successfully!']);
         } else {
-            $notification = array(
-                'message' => 'Something is wrong, please try again!',
-                'alert-type' => 'error'
-            );
-            return redirect()->route('rdruTpa')->with($notification);
+            return response()->json(['error' => 'There is something wrong...']);
         }
     }
 
@@ -201,18 +191,9 @@ class ResultsUtilizationController extends Controller
 
         $update = DB::table('results_tpa')->where('id', $id)->update($data);
         if ($update) {
-            $notification = array(
-                'message' => 'Transfer Modality Successfully Updated!',
-                'alert-type' => 'success'
-            );
-
-            return redirect()->route('rdruTpa')->with($notification);
+            return response()->json(['success' => 'TPA Added Successfully!']);
         } else {
-            $notification = array(
-                'message' => 'Something is wrong, please try again!',
-                'alert-type' => 'error'
-            );
-            return redirect()->route('rdruTpa')->with($notification);
+            return response()->json(['error' => 'There is something wrong...']);
         }
     }
 

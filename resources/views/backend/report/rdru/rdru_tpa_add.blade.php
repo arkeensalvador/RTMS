@@ -95,11 +95,11 @@
                                     <div class="invalid-feedback">Missing title</div>
                                 </div>
 
-                                <div class="col-md-3 form-group">
+                                <div class="col-md-3">
                                     <label for="tpa_date" class=" font-weight-bold">Date<span
                                             class="text-danger">*</span></label>
                                     <input type="number" name="tpa_date" id="tpa_date" class="form-control date"
-                                        placeholder="Enter start date" required>
+                                        placeholder="Enter date" required>
                                     <div class="invalid-feedback">Missing date</div>
                                 </div>
 
@@ -121,9 +121,9 @@
 
 
                                 <div class="col-md-12 form-group">
+                                    <label for="tpa_remarks" class="font-weight-bold">IEC Approaches<span
+                                            class="text-danger">*</span></label>
                                     <div class="ttm row">
-                                        <label for="tpa_remarks" class="font-weight-bold">IEC Approaches<span
-                                                class="text-danger">*</span></label>
                                         <div class="col-sm-3">
                                             <div class="form-group">
                                                 <div class="custom-control custom-checkbox">
@@ -315,7 +315,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script>
         $(document).ready(function() {
-            $('#ttm_title, #ttm_agency, #ttm_status, #ttm_type, #ttp_end_date, #ttp_priorities')
+            $('#ttm_title, #ttm_agency, #ttm_status, #ttm_type, #tpa_date , #ttp_end_date')
                 .on('input', function() {
                     const inputField = $(this);
                     if (inputField[0].checkValidity()) {
@@ -325,8 +325,6 @@
                     }
                 });
         });
-
-
         (function() {
             'use strict';
             window.addEventListener('load', function() {
@@ -356,6 +354,10 @@
                 event.preventDefault();
                 document.getElementById('tpa_date').classList.add('is-invalid');
             }
+            if (date) {
+                event.preventDefault();
+                document.getElementById('tpa_date').classList.add('is-valid');
+            }
 
         });
 
@@ -367,7 +369,7 @@
                 e.preventDefault();
                 $.ajax({
                     type: 'POST',
-                    url: "{{ url('add-ttm') }}",
+                    url: "{{ url('add-tpa') }}",
                     data: formData,
                     cache: false,
                     contentType: false,
@@ -377,23 +379,23 @@
                         this.reset();
                         Swal.fire({
                             icon: 'success',
-                            title: 'TTM Added Successfully',
+                            title: 'TPA Added Successfully',
                             timerProgressBar: true,
                             showConfirmButton: false,
                             timer: 900
                         }).then((result) => {
                             if (result.dismiss) {
-                                window.location.href = '/rdru-ttm';
+                                window.location.href = '/rdru-tpa';
                             }
                         })
                     },
                     error: function(data) {
-                        //   Swal.fire({
-                        //     icon: 'warning',
-                        //     title: data.responseJSON.message,
-                        //     // title: 'There is something wrong...',
-                        //     timerProgressBar: false,
-                        //     showConfirmButton: true,
+                        // Swal.fire({
+                        //     // icon: 'warning',
+                        //     // title: data.responseJSON.message,
+                        //     // // title: 'There is something wrong...',
+                        //     // timerProgressBar: false,
+                        //     // showConfirmButton: true,
                         // });
                     }
                 });

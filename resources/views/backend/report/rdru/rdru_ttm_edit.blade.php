@@ -91,18 +91,23 @@
                                     <label for="ttm_title" class="font-weight-bold">Title<span
                                             class="text-danger">*</span></label>
                                     <textarea class="form-control" name="ttm_title" id="ttm_title" rows="3" placeholder="Title" style="resize: none;"
-                                        required></textarea>
+                                        required>{{ $all->ttm_title }}</textarea>
                                     <div class="invalid-feedback">Missing title</div>
                                 </div>
 
                                 <div class="col-md-6 form-group">
-                                    <label for="ttm_type" class=" font-weight-bold">Type of Technology</label>
+                                    <label for="ttm_type" class=" font-weight-bold">Type of Technology<span
+                                            class="text-danger">*</span></label>
                                     <select name="ttm_type" class="form-control others" id="ttm_type" required>
                                         <option value="" selected disabled></option>
-                                        <option value="STCBF">STCBF</option>
-                                        <option value="STMF">STMF</option>
-                                        <option value="STMP">STMP</option>
-                                        <option value="Techno Demo">Techno Demo</option>
+                                        <option value="STCBF" {{ 'STCBF' == $all->ttm_type ? 'selected' : '' }}>STCBF
+                                        </option>
+                                        <option value="STMF" {{ 'STMF' == $all->ttm_type ? 'selected' : '' }}>STMF
+                                        </option>
+                                        <option value="STMP" {{ 'STMP' == $all->ttm_type ? 'selected' : '' }}>STMP
+                                        </option>
+                                        <option value="Techno Demo" {{ 'Techno Demo' == $all->ttm_type ? 'selected' : '' }}>
+                                            Techno Demo</option>
                                     </select>
                                     <div class="invalid-feedback">Missing type of technology</div>
                                 </div>
@@ -112,8 +117,12 @@
                                             class="text-danger">*</span></label>
                                     <select name="ttm_status" id="ttm_status" class="form-control others" required>
                                         <option value="" selected disabled></option>
-                                        <option value="Commercialized">Commercialized</option>
-                                        <option value="Pre-Commercialized">Pre-Commercialized</option>
+                                        <option value="Commercialized"
+                                            {{ 'Commercialized' == $all->ttm_status ? 'selected' : '' }}>Commercialized
+                                        </option>
+                                        <option value="Pre-Commercialized"
+                                            {{ 'Pre-Commercialized' == $all->ttm_status ? 'selected' : '' }}>
+                                            Pre-Commercialized</option>
                                     </select>
                                     <div class="invalid-feedback">Missing status</div>
                                 </div>
@@ -124,7 +133,9 @@
                                     <select id="ttm_agency" name="ttm_agency" class="form-control agency" required>
                                         <option value=""></option>
                                         @foreach ($agency as $row)
-                                            <option value="{{ $row->abbrev }}"> {{ $row->agency_name }} </option>
+                                            <option value="{{ $row->abbrev }}"
+                                                {{ $row->abbrev == $all->ttm_agency ? 'selected' : '' }}>
+                                                {{ $row->agency_name }} </option>
                                         @endforeach
                                     </select>
                                     <div class="invalid-feedback">Missing agency</div>
@@ -205,7 +216,7 @@
                 e.preventDefault();
                 $.ajax({
                     type: 'POST',
-                    url: "{{ url('add-tpa') }}",
+                    url: "{{ url('update-ttm/' . $all->id) }}",
                     data: formData,
                     cache: false,
                     contentType: false,
@@ -215,7 +226,7 @@
                         this.reset();
                         Swal.fire({
                             icon: 'success',
-                            title: 'TTM Added Successfully',
+                            title: 'TTM Updated Successfully',
                             timerProgressBar: true,
                             showConfirmButton: false,
                             timer: 900
