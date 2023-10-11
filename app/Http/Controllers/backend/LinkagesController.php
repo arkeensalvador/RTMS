@@ -22,19 +22,9 @@ class LinkagesController extends Controller
 
         $insert = DB::table('rdmc_linkages')->insert($data);
         if ($insert) {
-
-            $notification = array(
-                'message' => 'Linkages Successfully Added!',
-                'alert-type' => 'success'
-            );
-
-            return redirect()->route('linkagesIndex')->with($notification);
+            return response()->json(['success' => 'Linkages Added Successfully!']);
         } else {
-            $notification = array(
-                'message' => 'Something is wrong, please try again!',
-                'alert-type' => 'error'
-            );
-            return redirect()->route('linkagesIndex')->with($notification);
+            return response()->json(['error' => 'There is something wrong...']);
         }
     }
     public function EditLinkages($id)
@@ -54,23 +44,13 @@ class LinkagesController extends Controller
         $data['form_of_development'] = $request->form_of_development;
         $data['address'] = $request->address;
         $data['nature_of_assistance'] = $request->nature_of_assistance;
-        $data['edited_at'] = now();
+        $data['updated_at'] = now();
 
         $update = DB::table('rdmc_linkages')->where('id', $id)->update($data);
         if ($update) {
-
-            $notification = array(
-                'message' => 'Linkages Successfully Updated!',
-                'alert-type' => 'success'
-            );
-
-            return redirect()->route('linkagesIndex')->with($notification);
+            return response()->json(['success' => 'Linkages Updated Successfully!']);
         } else {
-            $notification = array(
-                'message' => 'Something is wrong, please try again!',
-                'alert-type' => 'error'
-            );
-            return redirect()->route('linkagesIndex')->with($notification);
+            return response()->json(['error' => 'There is something wrong...']);
         }
     }
 

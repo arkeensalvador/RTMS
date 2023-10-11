@@ -545,6 +545,13 @@
             altInput: true,
             altFormat: "F j, Y"
         });
+
+        flatpickr(".year", {
+            enableTime: false,
+            dateFormat: "Y",
+            minDate: "1900",
+            maxDate: "2100",
+        });
     });
 </script>
 
@@ -624,6 +631,12 @@
             allowClear: false
         });
 
+        $('.formtype').select2({
+            placeholder: "Select",
+            allowClear: false,
+            minimumResultsForSearch: -1
+        });
+
         $('.year').select2({
             placeholder: "Select Year",
             allowClear: false
@@ -651,6 +664,7 @@
         });
 
         $('.type').select2({
+            placeholder: "Select",
             minimumResultsForSearch: -1
         });
         $('.chooser').select2({
@@ -799,6 +813,12 @@
             placeholder: 'Select recipients',
             tags: true,
             allowClear: true
+        });
+    });
+    $(document).ready(function() {
+        $('.js-example-basic-single').select2({
+            tags: true,
+            tokenSeparators: [',', ' ']
         });
     });
 </script>

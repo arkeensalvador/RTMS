@@ -76,154 +76,189 @@
     </style>
     <div class="content-wrapper">
         <section class="content">
-            <div class="strategic row">
-
-                <div class="col-md-5">
-
-                    {{-- card start --}}
-                    <div class="card">
-                        <div class="card-header">
-                            <h5 class="card-title">
-                                Edit Linkages
-                            </h5>
-                        </div>
-
-                        {{-- card body start --}}
-                        <div class="card-body">
-                            <form role="form" id="regiration_form" action="{{ url('update-linkages/' . $all->id) }}"
-                                method="POST" enctype="multipart/form-data">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12 mx-auto">
+                        <div class="d-flex justify-content-center mt-3">
+                            <form id="techForm" class="row g-3 needs-validation" novalidate>
                                 @csrf
-                                <div class="row">
-                                    <div class="col-sm-5">
-                                        <!-- text input -->
-                                        <div class="form-group">
-                                            <label>Type</label>
-                                            <div class="custom-control custom-radio">
-                                                <input class="custom-control-input" type="radio" value="Developed/New"
-                                                    name="type" id="customRadio1" name="customRadio"
-                                                    {{ 'Developed/New' == $all->type ? 'checked' : '' }}>
-                                                <label for="customRadio1" class="custom-control-label"
-                                                    style="font-weight: normal;">Developed/New</label>
-                                            </div>
-                                        </div>
+                                <div class="form-title col-12">
+                                    <h2 class="font-weight-bold">Linkages</h2>
+                                    <h5 class="mt-0"> Kindly fill-up the fields needed.</h5>
+                                </div>
+
+                                <div class="col-md-12 form-group">
+                                    <label for="awards_type" class=" font-weight-bold">Type<span
+                                            class="text-danger">*</span></label>
+
+                                    <div class="custom-control custom-radio">
+                                        <input class="custom-control-input" type="radio" value="Developed" name="type"
+                                            value="Developed" id="customRadio1"
+                                            {{ 'Developed' == $all->type ? 'checked' : '' }}>
+                                        <label for="customRadio1" class="custom-control-label"
+                                            style="font-weight: bold;">Developed</label>
+                                    </div>
+
+                                    <div class="custom-control custom-radio">
+                                        <input class="custom-control-input" type="radio" value="Maintained" name="type"
+                                            id="customRadio2" {{ 'Maintained' == $all->type ? 'checked' : '' }}>
+                                        <label for="customRadio2" class="custom-control-label"
+                                            style="font-weight: bold;">Maintained/Sustained</label>
                                     </div>
                                 </div>
 
-                                <div class="row">
-                                    <div class="col-sm-5">
-                                        <div class="form-group">
-                                            <div class="custom-control custom-radio">
-                                                <input class="custom-control-input" type="radio"
-                                                    value="Maintained/Sustained" name="type" id="customRadio2"
-                                                    name="customRadio"
-                                                    {{ 'Maintained/Sustained' == $all->type ? 'checked' : '' }}>
-                                                <label for="customRadio2" class="custom-control-label"
-                                                    style="font-weight: normal;">Maintained/Sustained</label>
-                                            </div>
-                                        </div>
-                                    </div>
+                                <div class="col-md-3 form-group">
+                                    <label for="form_of_development" class=" font-weight-bold">Form of Development<span
+                                            class="text-danger">*</span></label>
+                                    <select id="form_of_development" name="form_of_development"
+                                        class="form-control formtype" required>
+                                        <option value=""></option>
+                                        <option value="Local" {{ 'Local' == $all->form_of_development ? 'selected' : '' }}>
+                                            Local
+                                        </option>
+                                        <option value="National"
+                                            {{ 'National' == $all->form_of_development ? 'selected' : '' }}>National
+                                        </option>
+                                        <option value="International"
+                                            {{ 'International' == $all->form_of_development ? 'selected' : '' }}>
+                                            International</option>
+                                    </select>
+                                    <div class="invalid-feedback">Missing form of development</div>
+                                </div>
+
+                                <div class="col-md-2 form-group">
+                                    <label for="year" class=" font-weight-bold">Year<span
+                                            class="text-danger">*</span></label>
+
+                                    <input type="text" name="year" id="year" value="{{ $all->year }}"
+                                        class="form-control year" placeholder="Year" required>
+                                    <div class="invalid-feedback">Missing year</div>
                                 </div>
 
 
-                                <div class="row">
-                                    <div class="col-sm-5">
-                                        <!-- textarea -->
-                                        <div class="form-group">
-                                            <label>Form of Development</label>
-                                            <select name="form_of_development" id="" class="form-control">
-                                                <option value="Local"
-                                                    {{ 'Local' == $all->form_of_development ? 'selected' : '' }}>Local
-                                                </option>
-                                                <option value="National"
-                                                    {{ 'National' == $all->form_of_development ? 'selected' : '' }}>National
-                                                </option>
-                                                <option value="International"
-                                                    {{ 'International' == $all->form_of_development ? 'selected' : '' }}>
-                                                    International</option>
-                                            </select>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-sm-3">
-                                        <div class="form-group">
-                                            <label>Year</label>
-                                            <input type="text" value="{{ $all->year }}" class="form-control"
-                                                placeholder="Enter year" name="year">
-                                        </div>
-                                    </div>
+                                <div class="col-md-7 form-group">
+                                    <label for="address" class=" font-weight-bold">Address<span
+                                            class="text-danger">*</span></label>
+                                    <input type="text" id="address" name="address" value="{{ $all->address }}"
+                                        class="form-control" placeholder="Source of fund" required>
+                                    <div class="invalid-feedback">Missing address</div>
                                 </div>
 
-                                <div class="row">
-                                    <div class="col-sm-12">
-                                        <div class="form-group">
-                                            <label>Address</label>
-                                            <input type="text" value="{{ $all->address }}" name="address"
-                                                class="form-control" placeholder="Enter ...">
-                                        </div>
-                                    </div>
+                                <div class="col-md-12 form-group">
+                                    <label for="nature_of_assistance" class=" font-weight-bold">Nature of
+                                        Assistance/Linkages/Projects<span class="text-danger">*</span></label>
+                                    <textarea class="form-control" name="nature_of_assistance" rows="3" placeholder="Enter ..." style="resize: none;"
+                                        required>{{ $all->nature_of_assistance }}</textarea>
+                                    <div class="invalid-feedback">Missing nature of assistance</div>
                                 </div>
 
-                                <div class="row">
-                                    <div class="col-sm-12">
-                                        <!-- textarea -->
-                                        <div class="form-group">
-                                            <label>Nature of Assistance/Linkages/Projects</label>
-                                            <textarea class="form-control" name="nature_of_assistance" rows="3" placeholder="Enter ..." style="resize: none;">{{ $all->nature_of_assistance }}</textarea>
-                                        </div>
-                                    </div>
 
-                                    <!-- /.card-body -->
+                                <div class="col-md-12 form-group buttons">
+                                    <a href="{{ url('rdmc-linkages-index') }}" class="btn btn-default">Back</a>
+                                    <button type="submit" id="submit" class="btn btn-primary btn-m ">Submit</button>
                                 </div>
-
-                                <a href="{{ url('rdmc-linkages-index') }}" class="btn btn-default">Back</a>
-                                <input type="submit" name="submit" class="submit btn btn-success" value="Submit" />
-                                <!-- /.card-body -->
                             </form>
                         </div>
-                    </div> {{-- card body end --}}
-                </div>{{-- card end --}}
+                    </div>
+                </div>
             </div>
-            <div class="col-lg-1">
-
-            </div>
+        </section>
     </div>
-
-    </section>
-    </div>
-
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-
-
     <script>
-        function formatNumber(e) {
-            var rex = /(^\d{2})|(\d{1,3})(?=\d{1,3}|$)/g,
-                val = this.value.replace(/^0+|\.|,/g, ""),
-                res;
+        $(document).ready(function() {
+            $('#form_of_development, #address, #year')
+                .on('input', function() {
+                    const inputField = $(this);
+                    if (inputField[0].checkValidity()) {
+                        inputField.addClass('is-valid').removeClass('is-invalid');
+                    } else {
+                        inputField.addClass('is-invalid').removeClass('is-valid');
+                    }
+                });
+        });
 
-            if (val.length) {
-                res = Array.prototype.reduce.call(val, (p, c) => c + p) // reverse the pure numbers string
-                    .match(rex) // get groups in array
-                    .reduce((p, c, i) => i - 1 ? p + "," + c : p + "." + c); // insert (.) and (,) accordingly
-                res += /\.|,/.test(res) ? "" : ".0"; // test if res has (.) or (,) in it
-                this.value = Array.prototype.reduce.call(res, (p, c) => c + p); // reverse the string and display
-            }
-        }
 
-        var ni = document.getElementById("numin");
-        var ni2 = document.getElementById("numin2");
+        (function() {
+            'use strict';
+            window.addEventListener('load', function() {
+                var forms = document.getElementsByClassName('needs-validation');
+                var validation = Array.prototype.filter.call(forms, function(form) {
+                    form.addEventListener('submit', function(event) {
+                        if (form.checkValidity() === false) {
+                            event.preventDefault();
+                            event.stopPropagation();
+                            Swal.fire({
+                                icon: 'info',
+                                title: 'All fields are required',
+                                timerProgressBar: false,
+                                showConfirmButton: true,
+                            });
+                        }
+                        form.classList.add('was-validated');
+                    }, false);
+                });
+            }, false);
+        })();
 
-        ni.addEventListener("keyup", formatNumber);
-        ni2.addEventListener("keyup", formatNumber);
-    </script>
-
-    <script>
-        $('input.number-to-text').keydown(function(event) {
-            if ([38, 40].indexOf(event.keyCode) > -1) {
+        document.getElementById('techForm').addEventListener('submit', function(event) {
+            const startDate = document.getElementById('year').value;
+            const endDate = document.getElementById('year').value;
+            if (!endDate) {
                 event.preventDefault();
+                document.getElementById('form_of_development').classList.add('is-invalid');
+            }
+            if (!startDate) {
+                event.preventDefault();
+                document.getElementById('year').classList.add('is-invalid');
+            }
+            if (!startDate && !endDate) {
+                event.preventDefault();
+                document.getElementById('year').classList.add('is-invalid');
+                document.getElementById('form_of_development').classList.add('is-invalid');
             }
         });
-    </script>
 
-    {{-- Upload Files --}}
+        $(document).ready(function() {
+            $('#techForm').on('submit', function(e) {
+
+                var formData = new FormData(this);
+
+                e.preventDefault();
+                $.ajax({
+                    type: 'POST',
+                    url: "{{ url('update-linkages/' . $all->id) }}",
+                    data: formData,
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    dataType: 'json',
+                    success: (data) => {
+                        this.reset();
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Linkages Updated Successfully',
+                            timerProgressBar: true,
+                            showConfirmButton: false,
+                            timer: 900
+                        }).then((result) => {
+                            if (result.dismiss) {
+                                window.location.href = '/rdmc-linkages-index';
+                            }
+                        })
+                    },
+                    error: function(data) {
+                        Swal.fire({
+                            icon: 'warning',
+                            title: data.responseJSON.message,
+                            // title: 'There is something wrong...',
+                            timerProgressBar: false,
+                            showConfirmButton: true,
+                        });
+                    }
+                });
+            });
+        });
+    </script>
 @endsection

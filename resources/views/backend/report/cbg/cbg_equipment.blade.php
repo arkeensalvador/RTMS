@@ -58,16 +58,14 @@
                                                     @foreach ($equipment as $key => $row)
                                                         <tr>
                                                             <td>{{ $key + 1 }}</td>
-                                                            @php
-                                                                $types = json_decode($row->equipments_type);
-                                                            @endphp
-                                                            <td>{{ implode(', ', $types) }}</td>
+                                                            <td>{{ $row->equipments_type }}</td>
                                                             <td>{{ $row->equipments_name }}</td>
                                                             <td>{{ $row->equipments_total }}</td>
                                                             <td>{{ $row->equipments_sof }}</td>
                                                             <td>{{ $row->equipments_agency }}</td>
                                                             <td class="action btns">
-                                                                <a class="btn btn-primary" href="{{ url('edit-equipment/'.$row->id)}}"><i
+                                                                <a class="btn btn-primary"
+                                                                    href="{{ url('edit-equipment/' . $row->id) }}"><i
                                                                         class="fa-solid fa-pen-to-square"
                                                                         style="color: white;"></i></a>
                                                                 <a href="{{ url('delete-equipment/' . $row->id) }}"

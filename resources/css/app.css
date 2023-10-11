@@ -219,6 +219,11 @@ td.append {
     cursor: pointer;
 }
 
+input.form-control.date.input,
+input#year {
+    background: white;
+}
+
 input#agencyAbbrev {
     text-align: center;
     font-weight: 700;

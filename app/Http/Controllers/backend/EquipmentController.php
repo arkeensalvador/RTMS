@@ -13,28 +13,19 @@ class EquipmentController extends Controller
         date_default_timezone_set('Asia/Hong_Kong');
 
         $data = array();
-        $data['equipments_type'] = json_encode($request->equipments_type);
+        $data['equipments_type'] = $request->equipments_type;
         $data['equipments_agency'] = $request->equipments_agency;
         $data['equipments_name'] = $request->equipments_name;
         $data['equipments_total'] = $request->equipments_total;
         $data['equipments_sof'] = $request->equipments_sof;
+        $data['created_at'] = now();
 
 
         $insert = DB::table('cbg_equipments')->insert($data);
         if ($insert) {
-
-            $notification = array(
-                'message' => 'Equipment Successfully Added!',
-                'alert-type' => 'success'
-            );
-
-            return redirect()->route('cbgEquipment')->with($notification);
+            return response()->json(['success' => 'Equipment Added Successfully!']);
         } else {
-            $notification = array(
-                'message' => 'Something is wrong, please try again!',
-                'alert-type' => 'error'
-            );
-            return redirect()->route('cbgEquipment')->with($notification);
+            return response()->json(['error' => 'There is something wrong...']);
         }
     }
 
@@ -52,7 +43,7 @@ class EquipmentController extends Controller
         date_default_timezone_set('Asia/Hong_Kong');
 
         $data = array();
-        $data['equipments_type'] = json_encode($request->equipments_type);
+        $data['equipments_type'] = $request->equipments_type;
         $data['equipments_agency'] = $request->equipments_agency;
         $data['equipments_name'] = $request->equipments_name;
         $data['equipments_total'] = $request->equipments_total;
@@ -61,18 +52,9 @@ class EquipmentController extends Controller
 
         $update = DB::table('cbg_equipments')->where('id', $id)->update($data);
         if ($update) {
-            $notification = array(
-                'message' => 'Equipment Successfully Updated!',
-                'alert-type' => 'success'
-            );
-
-            return redirect()->route('cbgEquipment')->with($notification);
+            return response()->json(['success' => 'Equipment Updated Successfully!']);
         } else {
-            $notification = array(
-                'message' => 'Something is wrong, please try again!',
-                'alert-type' => 'error'
-            );
-            return redirect()->route('cbgEquipment')->with($notification);
+            return response()->json(['error' => 'There is something wrong...']);
         }
     }
 
