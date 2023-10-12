@@ -24,19 +24,9 @@ class DbinfosysController extends Controller
 
         $insert = DB::table('rdmc_dbinfosys')->insert($data);
         if ($insert) {
-
-            $notification = array(
-                'message' => $data['dbinfosys_category'] . ' Successfully Added!',
-                'alert-type' => 'success'
-            );
-
-            return redirect()->route('dbInfoSys')->with($notification);
+            return response()->json(['success' => 'DBIS Added Successfully!']);
         } else {
-            $notification = array(
-                'message' => 'Something is wrong, please try again!',
-                'alert-type' => 'error'
-            );
-            return redirect()->route('dbInfoSys')->with($notification);
+            return response()->json(['error' => 'There is something wrong...']);
         }
     }
 
@@ -62,19 +52,9 @@ class DbinfosysController extends Controller
 
         $update = DB::table('rdmc_dbinfosys')->where('id', $id)->update($data);
         if ($update) {
-
-            $notification = array(
-                'message' => $data['dbinfosys_category'] . ' Successfully Updated!',
-                'alert-type' => 'success'
-            );
-
-            return redirect()->route('dbInfoSys')->with($notification);
+            return response()->json(['success' => 'DBIS Added Successfully!']);
         } else {
-            $notification = array(
-                'message' => 'Something is wrong, please try again!',
-                'alert-type' => 'error'
-            );
-            return redirect()->route('dbInfoSys')->with($notification);
+            return response()->json(['error' => 'There is something wrong...']);
         }
     }
 

@@ -169,7 +169,7 @@
 
 
                                 <div class="col-md-12 form-group buttons">
-                                    <a href="{{ url('cbg-awards') }}" class="btn btn-default">Back</a>
+                                    <a href="{{ url('cbg-equipment') }}" class="btn btn-default">Back</a>
                                     <button type="submit" id="submit" class="btn btn-primary btn-m ">Submit</button>
                                 </div>
                             </form>

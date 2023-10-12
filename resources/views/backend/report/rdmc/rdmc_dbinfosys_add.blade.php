@@ -76,145 +76,178 @@
     </style>
     <div class="content-wrapper">
         <section class="content">
-            <div class="strategic row">
-
-                <div class="col-md-5">
-
-                    {{-- card start --}}
-                    <div class="card">
-                        <div class="card-header">
-                            <h5 class="card-title">
-                                Database & Information System
-                            </h5>
-                        </div>
-
-                        {{-- card body start --}}
-                        <div class="card-body">
-                            <form role="form" id="regiration_form" action="{{ url('add-dbinfosys') }}" method="POST"
-                                enctype="multipart/form-data">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12 mx-auto">
+                        <div class="d-flex justify-content-center mt-3">
+                            <form id="techForm" class="row g-3 needs-validation" novalidate>
                                 @csrf
-                                <div class="row">
-                                    <div class="col-sm-4">
-                                        <!-- text input -->
-                                        <div class="form-group">
-                                            <label>Category</label>
-                                            <div class="custom-control custom-radio">
-                                                <input class="custom-control-input" type="radio" id="customRadio1"
-                                                    name="dbinfosys_category" value="Database">
-                                                <label for="customRadio1" class="custom-control-label"
-                                                    style="font-weight: normal;">Database</label>
-                                            </div>
-                                        </div>
+                                <div class="form-title col-12">
+                                    <h2 class="font-weight-bold">Database & Information System</h2>
+                                    <h5 class="mt-0"> Kindly fill-up the fields needed.</h5>
+                                </div>
+
+                                <div class="col-md-12 form-group">
+                                    <label for="awards_type" class=" font-weight-bold">Category<span
+                                            class="text-danger">*</span></label>
+
+                                    <div class="custom-control custom-radio">
+                                        <input class="custom-control-input" type="radio" value="Database"
+                                            name="dbinfosys_category" id="customRadio1">
+                                        <label for="customRadio1" class="custom-control-label"
+                                            style="font-weight: bold;">Database</label>
+                                    </div>
+
+                                    <div class="custom-control custom-radio">
+                                        <input class="custom-control-input" type="radio" value="Information System"
+                                            name="dbinfosys_category" id="customRadio2">
+                                        <label for="customRadio2" class="custom-control-label"
+                                            style="font-weight: bold;">Information System</label>
                                     </div>
                                 </div>
 
-                                <div class="row">
-                                    <div class="col-sm-4">
-                                        <div class="form-group">
-                                            <div class="custom-control custom-radio">
-                                                <input class="custom-control-input" type="radio" id="customRadio2"
-                                                    name="dbinfosys_category" value="Information System">
-                                                <label for="customRadio2" class="custom-control-label"
-                                                    style="font-weight: normal;">Information System</label>
-                                            </div>
-                                        </div>
-                                    </div>
+                                <div class="col-md-3 form-group">
+                                    <label for="equipments_sof" class=" font-weight-bold">Type<span
+                                            class="text-danger">*</span></label>
+                                    <select name="dbinfosys_type" id="dbinfosys_type" class="form-control type" required>
+                                        <option value=""></option>
+                                        <option value="Developed">Developed</option>
+                                        <option value="Enhanced">Enhanced</option>
+                                        <option value="Maintained">Maintained</option>
+                                    </select>
+                                    <div class="invalid-feedback">Missing type</div>
                                 </div>
 
-
-                                <div class="row">
-                                    <div class="col-sm-3">
-                                        <!-- textarea -->
-                                        <div class="form-group">
-                                            <label>Type</label>
-                                            <select name="dbinfosys_type" id="" class="form-control"
-                                                style="padding-right:10px;">
-                                                <option value="Developed">Developed</option>
-                                                <option value="Enhanced">Enhanced</option>
-                                                <option value="Maintained">Maintained</option>
-                                            </select>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-sm-3">
-                                        <div class="form-group">
-                                            <label>Date Created</label>
-                                            <input type="date" name="dbinfosys_date_created" class="form-control"
-                                                placeholder="Enter ...">
-                                        </div>
-                                    </div>
+                                <div class="col-md-3 form-group">
+                                    <label for="dbinfosys_date_created" class="font-weight-bold">Date<span
+                                            class="text-danger">*</span></label>
+                                    <input type="text" name="dbinfosys_date_created" id="dbinfosys_date_created"
+                                        class="form-control date" placeholder="Enter" required>
+                                    <div class="invalid-feedback">Missing date</div>
                                 </div>
 
-                                <div class="row">
-                                    <div class="col-sm-12">
-                                        <!-- textarea -->
-                                        <div class="form-group">
-                                            <label>Title</label>
-                                            <input type="text" name="dbinfosys_title" class="form-control"
-                                                placeholder="Enter ...">
-                                        </div>
-                                    </div>
+                                <div class="col-md-12 form-group">
+                                    <label for="dbinfosys_title" class=" font-weight-bold">Title<span
+                                            class="text-danger">*</span></label>
+                                    <input type="text" name="dbinfosys_title" id="dbinfosys_title" class="form-control"
+                                        placeholder="Enter title" required>
+                                    <div class="invalid-feedback">Missing title</div>
                                 </div>
 
-                                <div class="row">
-                                    <div class="col-sm-12">
-                                        <!-- textarea -->
-                                        <div class="form-group">
-                                            <label>Purpose/Use</label>
-                                            <textarea class="form-control" name="dbinfosys_purpose" rows="2" placeholder="Enter ..." style="resize: none;"></textarea>
-                                        </div>
-                                    </div>
+                                <div class="col-md-12 form-group">
+                                    <label for="dbinfosys_purpose" class=" font-weight-bold">Purpose<span
+                                            class="text-danger">*</span></label>
+                                    <textarea class="form-control" name="dbinfosys_purpose" id="dbinfosys_purpose" rows="2" placeholder="Enter ..."
+                                        style="resize: none;" required></textarea>
+                                    <div class="invalid-feedback">Missing purpose</div>
                                 </div>
 
-                                <a href="{{ url('rdmc-dbinfosys-index') }}" class="btn btn-default">Back</a>
-                                <input type="submit" name="submit" class="submit btn btn-success" value="Submit" />
-                                <!-- /.card-body -->
+                                <div class="col-md-12 form-group buttons">
+                                    <a href="{{ url('rdmc-dbinfosys-index') }}" class="btn btn-default">Back</a>
+                                    <button type="submit" id="submit" class="btn btn-primary btn-m ">Submit</button>
+                                </div>
                             </form>
                         </div>
-                    </div> {{-- card body end --}}
-                </div>{{-- card end --}}
+                    </div>
+                </div>
             </div>
-            <div class="col-lg-1">
-
-            </div>
+        </section>
     </div>
-
-    </section>
-    </div>
-
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-
-
     <script>
-        function formatNumber(e) {
-            var rex = /(^\d{2})|(\d{1,3})(?=\d{1,3}|$)/g,
-                val = this.value.replace(/^0+|\.|,/g, ""),
-                res;
+        $(document).ready(function() {
+            $('#equipments_agency, #equipments_sof, #dbinfosys_title, #dbinfosys_date_created, #dbinfosys_purpose')
+                .on('input', function() {
+                    const inputField = $(this);
+                    if (inputField[0].checkValidity()) {
+                        inputField.addClass('is-valid').removeClass('is-invalid');
+                    } else {
+                        inputField.addClass('is-invalid').removeClass('is-valid');
+                    }
+                });
+        });
 
-            if (val.length) {
-                res = Array.prototype.reduce.call(val, (p, c) => c + p) // reverse the pure numbers string
-                    .match(rex) // get groups in array
-                    .reduce((p, c, i) => i - 1 ? p + "," + c : p + "." + c); // insert (.) and (,) accordingly
-                res += /\.|,/.test(res) ? "" : ".0"; // test if res has (.) or (,) in it
-                this.value = Array.prototype.reduce.call(res, (p, c) => c + p); // reverse the string and display
-            }
-        }
 
-        var ni = document.getElementById("numin");
-        var ni2 = document.getElementById("numin2");
+        (function() {
+            'use strict';
+            window.addEventListener('load', function() {
+                var forms = document.getElementsByClassName('needs-validation');
+                var validation = Array.prototype.filter.call(forms, function(form) {
+                    form.addEventListener('submit', function(event) {
+                        if (form.checkValidity() === false) {
+                            event.preventDefault();
+                            event.stopPropagation();
+                            Swal.fire({
+                                icon: 'info',
+                                title: 'All fields are required',
+                                timerProgressBar: false,
+                                showConfirmButton: true,
+                            });
+                        }
+                        form.classList.add('was-validated');
+                    }, false);
+                });
+            }, false);
+        })();
 
-        ni.addEventListener("keyup", formatNumber);
-        ni2.addEventListener("keyup", formatNumber);
-    </script>
-
-    <script>
-        $('input.number-to-text').keydown(function(event) {
-            if ([38, 40].indexOf(event.keyCode) > -1) {
+        document.getElementById('techForm').addEventListener('submit', function(event) {
+            const startDate = document.getElementById('dbinfosys_date_created').value;
+            const endDate = document.getElementById('dbinfosys_date_created').value;
+            if (!endDate) {
                 event.preventDefault();
+                document.getElementById('dbinfosys_date_created').classList.add('is-invalid');
+            }
+            if (!startDate) {
+                event.preventDefault();
+                document.getElementById('dbinfosys_date_created').classList.add('is-invalid');
+            }
+            if (!startDate && !endDate) {
+                event.preventDefault();
+                document.getElementById('dbinfosys_date_created').classList.add('is-invalid');
+                document.getElementById('dbinfosys_date_created').classList.add('is-invalid');
             }
         });
-    </script>
 
-    {{-- Upload Files --}}
+        $(document).ready(function() {
+            $('#techForm').on('submit', function(e) {
+
+                var formData = new FormData(this);
+
+                e.preventDefault();
+                $.ajax({
+                    type: 'POST',
+                    url: "{{ url('add-dbinfosys') }}",
+                    data: formData,
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    dataType: 'json',
+                    success: (data) => {
+                        this.reset();
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'DBIS Added Successfully',
+                            timerProgressBar: true,
+                            showConfirmButton: false,
+                            timer: 900
+                        }).then((result) => {
+                            if (result.dismiss) {
+                                window.location.href = '/rdmc-dbinfosys-index';
+                            }
+                        })
+                    },
+                    error: function(data) {
+                        Swal.fire({
+                            icon: 'warning',
+                            title: data.responseJSON.message,
+                            // title: 'There is something wrong...',
+                            timerProgressBar: false,
+                            showConfirmButton: true,
+                        });
+                    }
+                });
+            });
+        });
+    </script>
 @endsection
