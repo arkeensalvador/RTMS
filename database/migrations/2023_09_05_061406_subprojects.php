@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('sub_project_category');
             $table->string('sub_project_status');
             $table->string('sub_project_agency');
+            $table->string('sub_project_implementing_agency');
             $table->string('sub_project_funding_duration');
             $table->string('sub_project_funding_years');
             $table->text('sub_project_title');

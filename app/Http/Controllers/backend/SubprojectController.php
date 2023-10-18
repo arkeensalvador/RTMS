@@ -27,6 +27,7 @@ class SubprojectController extends Controller
         $data['sub_project_status'] = $request->sub_project_status;
         $data['sub_project_category'] = $request->sub_project_category;
         $data['sub_project_agency'] = $request->sub_project_agency;
+        $data['sub_project_implementing_agency'] = json_encode($request->sub_project_implementing_agency);
         $data['sub_project_start_date'] = $request->sub_project_start_date;
         $data['sub_project_end_date'] = $request->sub_project_end_date;
         $data['sub_project_leader'] = $request->sub_project_leader;
@@ -75,6 +76,7 @@ class SubprojectController extends Controller
         $data['sub_project_status'] = $request->sub_project_status;
         $data['sub_project_category'] = $request->sub_project_category;
         $data['sub_project_agency'] = $request->sub_project_agency;
+        $data['sub_project_implementing_agency'] = json_encode($request->sub_project_implementing_agency);
         $data['sub_project_start_date'] = $request->sub_project_start_date;
         $data['sub_project_end_date'] = $request->sub_project_end_date;
         $data['sub_project_leader'] = $request->sub_project_leader;
@@ -127,13 +129,14 @@ class SubprojectController extends Controller
         $sub_projects = DB::table('sub_projects')->where('id', $id)->first();
         $sub_project_leader = DB::table('personnels')->where('role', '=', "Project Leader")->where('projectID', $projectID)->orWhere('id', $id)->first();
 
-        $personnels = DB::table('personnels')->orderByDesc("staff_name")->where('role', '=', "Staff")->where('projectID', $projectID)->where('subprojectID', $id)->get();
+        $personnels = DB::table('personnels')->orderByDesc("staff_name")->where('role', '=', "Staff")->where('subprojectID', $id)->get();
 
         $upload_files = DB::table('files')->where('subprojectID', $id)->orderByDesc("created_at")->get();
 
         $agency = DB::table('sub_projects')
             ->rightJoin('agency', 'sub_projects.sub_project_agency', '=', 'agency.abbrev')
-            ->select('agency.agency_name')
+            ->select('agency.*')
+            ->where('sub_projects.id', $id)
             ->first();
 
         return view('backend.report.rdmc.rdmc_view_sub_project', compact('title', 'sub_projects', 'agency', 'sub_project_leader', 'personnels', 'upload_files'));
@@ -178,7 +181,7 @@ class SubprojectController extends Controller
 
     public function downloadTemplate()
     {
-        $file_path = storage_path("app\public\import-templates\subprojects-template.xlsx");
+        $file_path = storage_path("import-templates/subprojects-template.xlsx");
         return Response::download($file_path);
     }
 

@@ -667,10 +667,36 @@
             placeholder: "Select",
             minimumResultsForSearch: -1
         });
+        $('.status').select2({
+            placeholder: "Select status",
+            minimumResultsForSearch: -1
+        });
         $('.chooser').select2({
             // minimumResultsForSearch: -1
         });
 
+        $(document).ready(function() {
+            $('.js-recipients').select2({
+                placeholder: 'Select recipients',
+                tags: true,
+                allowClear: true
+            });
+        });
+
+        $(document).ready(function() {
+            $('.js-example-basic-single').select2({
+                tags: true,
+                tokenSeparators: [',', ' '],
+
+            });
+        });
+        $(document).ready(function() {
+            $('.implementing_agency').select2({
+                tags: true,
+                tokenSeparators: [',', ' '],
+                placeholder: "Select implementing agency"
+            });
+        });
     });
 </script>
 
@@ -804,22 +830,6 @@
 
     $("#repeater").createRepeater({
         showFirstItemToDefault: true,
-    });
-</script>
-
-<script>
-    $(document).ready(function() {
-        $('.js-recipients').select2({
-            placeholder: 'Select recipients',
-            tags: true,
-            allowClear: true
-        });
-    });
-    $(document).ready(function() {
-        $('.js-example-basic-single').select2({
-            tags: true,
-            tokenSeparators: [',', ' ']
-        });
     });
 </script>
 

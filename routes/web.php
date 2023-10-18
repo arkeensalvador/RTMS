@@ -17,7 +17,8 @@ use Random\RandomException;
 |
 */
 
-function set_active($route) {
+function set_active($route)
+{
     if (is_array($route)) {
         return in_array(Request::path(), $route) ? 'active' : '';
     }
@@ -78,7 +79,7 @@ Route::get('/index-projects', [App\Http\Controllers\backend\AddProject::class, '
 Route::post('update-program/{programID}', [\App\Http\Controllers\backend\ProgramsController::class, 'UpdateProgram'])->name('UpdateProgram');
 Route::get('/edit-program-index/{programID}', [\App\Http\Controllers\backend\ProgramsController::class, 'EditProgramIndex'])->name('EditProgramIndex');
 Route::get('/delete-program/{id}', [App\Http\Controllers\backend\ProgramsController::class, 'DeleteProgram'])->name('DeleteProgram');
- 
+
 // Add Program Personnel
 Route::post('/add-program-personnel', [\App\Http\Controllers\backend\ProgramsController::class, 'AddProgramPersonnel'])->name('AddProgramPersonnel');
 // Route::post('/add-program-personnel', [\App\Http\Controllers\backend\ReportController::class, 'AddProgramPersonnel'])->name('AddProgramPersonnel');
@@ -218,6 +219,7 @@ Route::get('/researcher-add', [App\Http\Controllers\backend\ResearcherController
 Route::get('/delete-researcher/{id}', [App\Http\Controllers\backend\ResearcherController::class, 'DeleteResearcher']);
 Route::post('/add-researcher', [\App\Http\Controllers\backend\ResearcherController::class, 'AddResearcher'])->name('AddResearcher');
 Route::get('/edit-researcher/{id}', [App\Http\Controllers\backend\ResearcherController::class, 'EditResearcher'])->name('EditResearcher');
+Route::get('/view-researcher/{id}', [App\Http\Controllers\backend\ResearcherController::class, 'ViewResearcher'])->name('ViewResearcher');
 Route::post('/update-researcher/{id}', [\App\Http\Controllers\backend\ResearcherController::class, 'UpdateResearcher'])->name('UpdateResearcher');
 
 // RDMC ACTIVITIES
@@ -267,12 +269,12 @@ Route::get('/report-list', [App\Http\Controllers\backend\ReportListController::c
 Route::get('/reports/pdf', [App\Http\Controllers\backend\ReportListController::class, 'createPDF']);
 
 //Download templates
-Route::get('download-template-user', [App\Http\Controllers\backend\UserController::class, 'downloadTemplate']); 
-Route::get('download-template-programs', [App\Http\Controllers\backend\ProgramsController::class, 'downloadTemplate']); 
-Route::get('download-template-researcher', [App\Http\Controllers\backend\ResearcherController::class, 'downloadTemplate']); 
-Route::get('download-template-agency', [App\Http\Controllers\backend\AgencyController::class, 'downloadTemplate']); 
-Route::get('download-template-projects', [App\Http\Controllers\backend\ProjectController::class, 'downloadTemplate']); 
-Route::get('download-template-subprojects', [App\Http\Controllers\backend\SubprojectController::class, 'downloadTemplate']); 
+Route::get('download-template-user', [App\Http\Controllers\backend\UserController::class, 'downloadTemplate']);
+Route::get('download-template-programs', [App\Http\Controllers\backend\ProgramsController::class, 'downloadTemplate']);
+Route::get('download-template-researcher', [App\Http\Controllers\backend\ResearcherController::class, 'downloadTemplate']);
+Route::get('download-template-agency', [App\Http\Controllers\backend\AgencyController::class, 'downloadTemplate']);
+Route::get('download-template-projects', [App\Http\Controllers\backend\ProjectController::class, 'downloadTemplate']);
+Route::get('download-template-subprojects', [App\Http\Controllers\backend\SubprojectController::class, 'downloadTemplate']);
 
 // IMPORT TO DB
 Route::post('/import-file', [App\Http\Controllers\backend\ImportController::class, 'importExcel'])->name('importExcel');

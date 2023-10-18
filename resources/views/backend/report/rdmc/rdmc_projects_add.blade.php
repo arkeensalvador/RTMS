@@ -107,7 +107,7 @@
                                 <div class="col-md-4 form-group">
                                     <label for="status" class="font-weight-bold">Status<span
                                             class="text-danger">*</span></label>
-                                    <select id="status" name="project_status" class="form-control others" required>
+                                    <select id="status" name="project_status" class="form-control status" required>
                                         <option selected disabled value="">Select status</option>
                                         <option value="New">New</option>
                                         <option value="Ongoing">Ongoing</option>
@@ -136,7 +136,7 @@
                                     <div class="invalid-feedback">Missing project title</div>
                                 </div>
 
-                                <div class="col-md-3 form-group">
+                                <div class="col-md-2 form-group">
                                     <label for="form_of_development" class=" font-weight-bold">Form of Development<span
                                             class="text-danger">*</span></label>
                                     <select id="form_of_development" name="project_form_of_development"
@@ -149,7 +149,7 @@
                                     <div class="invalid-feedback">Missing form of development</div>
                                 </div>
 
-                                <div class="col-md-9 form-group">
+                                <div class="col-md-8 form-group">
                                     <label for="funding_agency" class=" font-weight-bold">Funding Agency<span
                                             class="text-danger">*</span></label>
                                     <select id="funding_agency" name="project_agency" class="form-control agency" required>
@@ -164,11 +164,25 @@
                                     <div class="invalid-feedback">Missing Funding Agency / Source of Fund</div>
                                 </div>
 
+                                <div class="col-md-12 form-group">
+                                    <label for="awards_recipients" class=" font-weight-bold">Implementing Agency<span
+                                            class="text-danger">*</span></label>
+                                    <select class="form-control implementing_agency" id="awards_recipients"
+                                        name="project_implementing_agency[]" multiple="multiple" required>
+                                        @foreach ($agency as $key)
+                                            <option value="{{ $key->abbrev }}">{{ $key->agency_name }} -
+                                                ({{ $key->abbrev }})
+                                                </b></option>
+                                        @endforeach
+                                    </select>
+                                    <div class="invalid-feedback">Missing implementing agency</div>
+                                </div>
+
                                 <div class="col-md-3 form-group">
                                     <label for="coordination_fund" class=" font-weight-bold">Funding Grant<span
                                             class="text-danger">*</span></label>
-                                    <select id="funding_grant" name="project_funding_duration" class="others form-control"
-                                        required>
+                                    <select id="funding_grant" name="project_funding_duration"
+                                        class="others form-control" required>
                                         <option selected disabled value="">Select Funding Grant</option>
                                         <option value="One-time">One-time Grant</option>
                                         <option value="Multi-year">Multi-year Grant</option>

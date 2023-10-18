@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('contact');
             $table->string('email')->unique();
             $table->string('agency');
+            $table->string('image');
             $table->timestamps();
         });
     }

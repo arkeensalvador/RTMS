@@ -54,6 +54,7 @@
                                             <th>Project Leader</th>
                                             <th>Duration</th>
                                             <th>Funding Agency</th>
+                                            <th>Implementing Agency</th>
                                             <th>Description</th>
                                             <th>Status</th>
                                             <th hidden>Keyword(s)</th>
@@ -84,6 +85,11 @@
                                                     @endempty
                                                 </td>
                                                 <td>{{ $row->sub_project_agency }}</td>
+                                                @php
+                                                    $imp = json_decode($row->sub_project_implementing_agency);
+                                                    $agencies = implode(' / ', $imp);
+                                                @endphp
+                                                <td>{{ $agencies }}</td>
                                                 <td>{{ $row->sub_project_description }}</td>
                                                 <td>
                                                     @if ($row->sub_project_status == 'New')

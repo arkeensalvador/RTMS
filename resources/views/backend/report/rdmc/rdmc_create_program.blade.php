@@ -87,7 +87,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-md-12 mx-auto">
-                        <div class="d-flex justify-content-center mt-3">
+                        <div class="d-flex mt-3">
                             <form id="programForm" class="row g-3 needs-validation" novalidate>
                                 @csrf
                                 <div class="form-title col-12">
@@ -117,7 +117,7 @@
                                 <div class="col-md-4 form-group">
                                     <label for="status" class="font-weight-bold">Status<span
                                             class="text-danger">*</span></label>
-                                    <select id="status" name="program_status" class="form-control others" required>
+                                    <select id="status" name="program_status" class="form-control status" required>
                                         <option selected disabled value="">Select status</option>
                                         <option value="New">New</option>
                                         <option value="Ongoing">Ongoing</option>
@@ -146,7 +146,7 @@
                                     <div class="invalid-feedback">Missing program title</div>
                                 </div>
 
-                                <div class="col-md-3 form-group">
+                                <div class="col-md-2 form-group">
                                     <label for="form_of_development" class=" font-weight-bold">Form of Development<span
                                             class="text-danger">*</span></label>
                                     <select id="form_of_development" name="form_of_development" class="others form-control"
@@ -159,7 +159,7 @@
                                     <div class="invalid-feedback">Missing form of development</div>
                                 </div>
 
-                                <div class="col-md-9 form-group">
+                                <div class="col-md-8 form-group">
                                     <label for="funding_agency" class=" font-weight-bold">Funding Agency<span
                                             class="text-danger">*</span></label>
                                     <select id="funding_agency" name="funding_agency" class="form-control agency" required>
@@ -171,7 +171,21 @@
                                                 </b></option>
                                         @endforeach
                                     </select>
-                                    <div class="invalid-feedback">Missing Funding Agency / Source of Fund</div>
+                                    <div class="invalid-feedback">Missing funding fgency / source of fund</div>
+                                </div>
+
+                                <div class="col-md-12 form-group">
+                                    <label for="awards_recipients" class=" font-weight-bold">Implementing Agency<span
+                                            class="text-danger">*</span></label>
+                                    <select class="form-control implementing_agency" id="awards_recipients"
+                                        name="implementing_agency[]" multiple="multiple" required>
+                                        @foreach ($agency as $key)
+                                            <option value="{{ $key->abbrev }}">{{ $key->agency_name }} -
+                                                ({{ $key->abbrev }})
+                                                </b></option>
+                                        @endforeach
+                                    </select>
+                                    <div class="invalid-feedback">Missing implementing agency</div>
                                 </div>
 
                                 <div class="col-md-6 form-group">
@@ -273,10 +287,6 @@
                 </div>
             </div>
         </section>
-    </div>
-
-
-    </section>
     </div>
 
 

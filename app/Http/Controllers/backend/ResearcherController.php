@@ -24,6 +24,9 @@ class ResearcherController extends Controller
 
     public function AddResearcher(Request $request)
     {
+        $file = $request->file('image');
+        $name = $request->name . '_IMAGE' . '.' . $file->getClientOriginalExtension();
+
         $data =  array();
         $data['name'] = $request->name;
         $data['gender'] = $request->gender;
@@ -31,18 +34,28 @@ class ResearcherController extends Controller
         $data['email'] = $request->email;
         $data['agency'] = $request->agency;
 
-        $researcher = DB::table('researchers')->insert($data);
-        if ($researcher) {
+        if (request()->hasFile('image')) {
+            $path =  $file->storeAs('profile-pic', $name);
+            $data['image'] = $path;
+            $researcher = DB::table('researchers')->insert($data);
+            if ($researcher) {
 
-            $notification = array(
-                'message' => 'Researcher Successfully Added!',
-                'alert-type' => 'success'
-            );
+                $notification = array(
+                    'message' => 'Researcher Successfully Added!',
+                    'alert-type' => 'success'
+                );
 
-            return redirect()->route('researcherIndex')->with($notification);
+                return redirect()->route('researcherIndex')->with($notification);
+            } else {
+                $notification = array(
+                    'message' => 'Something is wrong, please try again!',
+                    'alert-type' => 'error'
+                );
+                return redirect()->route('researcherIndex')->with($notification);
+            }
         } else {
             $notification = array(
-                'message' => 'Something is wrong, please try again!',
+                'message' => 'Image is required!',
                 'alert-type' => 'error'
             );
             return redirect()->route('researcherIndex')->with($notification);
@@ -55,6 +68,16 @@ class ResearcherController extends Controller
         $researcher = DB::table('researchers')->where('id', $id)->first();
         $agency = DB::table('agency')->get();
         return view('backend.researcher.researcher_edit', compact('agency', 'researcher', 'title'));
+    }
+
+    public function ViewResearcher($id)
+    {
+        $title = "Researchers | RTMS";
+        $researcher = DB::table('researchers')
+            ->join('agency', 'agency.abbrev', '=', 'researchers.agency')
+            ->select('agency.*', 'researchers.*')
+            ->where('researchers.id', $id)->first();
+        return view('backend.researcher.researcher_view', compact('researcher', 'title'));
     }
 
     public function UpdateResearcher(Request $request, $id)
@@ -86,7 +109,7 @@ class ResearcherController extends Controller
 
     public function downloadTemplate()
     {
-        $file_path = storage_path('app\public\import-templates\researchers-template.xlsx');
+        $file_path = storage_path('import-templates\researchers-template.xlsx');
         return Response::download($file_path);
     }
 

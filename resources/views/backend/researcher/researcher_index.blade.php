@@ -69,6 +69,11 @@
                                                             <td>{{ $row->email }}</td>
                                                             <td>{{ $row->agency }}</td>
                                                             <td class="action btns">
+                                                                <a class="btn btn-info"
+                                                                    href="{{ URL::to('/view-researcher/' . $row->id) }}"><i
+                                                                        class="fa-solid fa-eye"
+                                                                        style="color: white;"></i></a>
+
                                                                 <a class="btn btn-primary"
                                                                     href="{{ URL::to('/edit-researcher/' . $row->id) }}"><i
                                                                         class="fa-solid fa-pen-to-square"
@@ -79,7 +84,7 @@
                                                                         class="fa-solid fa-trash"></i></a>
                                                             </td>
                                                         </tr>
-                                                    @endforeach     
+                                                    @endforeach
                                                 </tbody>
                                             </table>
 
@@ -108,7 +113,8 @@
                 <div class="modal-header">
                     <h1 class="modal-title fs-5" id="staticBackdropLabel">Import to Database
                         <span title="Click to download format">
-                            <a href="{{url('download-template-researcher')}}" class="" download><i class="fa-solid fa-file-circle-question"></i></a>
+                            <a href="{{ url('download-template-researcher') }}" class="" download><i
+                                    class="fa-solid fa-file-circle-question"></i></a>
                         </span>
                     </h1>
 
@@ -117,11 +123,12 @@
                 <form action="{{ url('import-file') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="modal-body">
-                        <input type="file" name="import_excel_researchers" accept="application/vnd.ms-excel" class="form-control" id="import_excel">
+                        <input type="file" name="import_excel_researchers" accept="application/vnd.ms-excel"
+                            class="form-control" id="import_excel">
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="submit"  class="btn btn-success">Import</button>
+                        <button type="submit" class="btn btn-success">Import</button>
                     </div>
                 </form>
             </div>

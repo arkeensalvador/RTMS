@@ -94,7 +94,7 @@
 
                 <li class="nav-item">
                     <a href="{{ URL::to('/researcher-index') }}"
-                        class="nav-link {{ Request::is('researcher-index') ? 'active' : '' }}">
+                        class="nav-link {{ Request::is('researcher-index', 'edit-researcher/*', 'view-researcher/*', 'researcher-add') ? 'active' : '' }}">
                         <i class="nav-icon fas fa-users"></i>
                         <p>
                             Researchers

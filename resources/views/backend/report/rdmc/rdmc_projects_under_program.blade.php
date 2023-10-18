@@ -39,7 +39,7 @@
                                 </div>
                                 <!-- /.card-tools -->
                             </div>
-                            
+
                             <!-- /.card-header -->
                             <div class="card-body">
                                 <table id="programs" class="table table-bordered table-striped text-center">
@@ -52,6 +52,7 @@
                                             <th>Project Leader</th>
                                             <th>Duration</th>
                                             <th>Funding Agency</th>
+                                            <th>Implementing Agency</th>
                                             <th>Description</th>
                                             <th>Status</th>
                                             <th hidden>Keyword(s)</th>
@@ -64,11 +65,14 @@
                                             <tr>
                                                 <td class="prog_id" hidden>{{ $row->programID }}</td>
                                                 <td class="proj_id" hidden>{{ $row->id }}</td>
-                                                <td>{{ $row->project_fund_code }}</td>
-                                                <td>
-                                                    <a href="{{ url("sub-projects-view/$row->id") }}">{{ $row->project_title }}</a>
+                                                <td><span class="hashtag text-bg-primary">#</span>
+                                                    {{ $row->project_fund_code }}
                                                 </td>
-                                                <td>{{$row->project_leader}}</td>
+                                                <td>
+                                                    <a
+                                                        href="{{ url("sub-projects-view/$row->id") }}">{{ $row->project_title }}</a>
+                                                </td>
+                                                <td>{{ $row->project_leader }}</td>
                                                 <td>
                                                     @empty($row->extend_date)
                                                         {{ date('F, Y', strtotime($row->project_start_date)) ?: 'Not Set' }} -
@@ -80,6 +84,11 @@
                                                     @endempty
                                                 </td>
                                                 <td>{{ $row->project_agency }}</td>
+                                                @php
+                                                    $imp = json_decode($row->project_implementing_agency);
+                                                    $agencies = implode(' / ', $imp);
+                                                @endphp
+                                                <td>{{ $agencies }}</td>
                                                 <td>{{ $row->project_description }}</td>
                                                 <td>
                                                     @if ($row->project_status == 'New')
@@ -187,7 +196,8 @@
 
                                                     <input type="text" class="form-control"
                                                         name="moreFields[0][projectID]" id="projectID" value=""
-                                                        placeholder="Project ID" hidden readonly required autocomplete="false">
+                                                        placeholder="Project ID" hidden readonly required
+                                                        autocomplete="false">
 
                                                     <input type="text" class="form-control" placeholder="Staff"
                                                         name="moreFields[0][staff_name]" required autocomplete="false">

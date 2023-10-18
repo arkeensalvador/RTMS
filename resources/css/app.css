@@ -19,13 +19,13 @@ body.login {
     height: 100vh;
 }
 
-h1,
+/* h1,
 h2,
 h3 {
     text-shadow: 1px 1px 1.5px rgba(97, 97, 97, 0.875);
-}
+} */
 
-.container {
+.container.login {
     background-color: #fff;
     border-radius: 30px;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.35);
@@ -36,26 +36,26 @@ h3 {
     min-height: 580px;
 }
 
-.container p {
+.container.login p {
     font-size: 14px;
     line-height: 20px;
     letter-spacing: 0.3px;
     margin: 20px 0;
 }
 
-.container span {
+.container.login span {
     font-size: 15px;
     margin: 0 3px;
 }
 
-.container a {
+.container.login a {
     color: #333;
     font-size: 13px;
     text-decoration: none;
     margin: 15px 0 10px;
 }
 
-.container button {
+.container.login button {
     background-color: #0da603;
     color: #fff;
     font-size: 12px;
@@ -69,12 +69,12 @@ h3 {
     cursor: pointer;
 }
 
-.container button.hidden {
+.container.login button.hidden {
     background-color: transparent;
     border-color: #fff;
 }
 
-.container form {
+.container.login form {
     background-color: #fff;
     display: flex;
     align-items: center;
@@ -84,7 +84,7 @@ h3 {
     height: 100%;
 }
 
-.container input {
+.container.login input {
     background-color: #eee;
     border: none;
     margin: 8px 0;
@@ -108,7 +108,7 @@ h3 {
     z-index: 2;
 }
 
-.container.active .sign-in {
+.container.login.active .sign-in {
     transform: translateX(100%);
 }
 
@@ -119,7 +119,7 @@ h3 {
     z-index: 1;
 }
 
-.container.active .forgot {
+.container.login.active .forgot {
     transform: translateX(100%);
     opacity: 1;
     z-index: 5;
@@ -151,7 +151,7 @@ h3 {
     z-index: 1000;
 }
 
-.container.active .toggle-container {
+.container.login.active .toggle-container {
     transform: translateX(-100%);
     border-radius: 0 150px 100px 0;
 }
@@ -169,7 +169,7 @@ h3 {
     transition: all 0.6s ease-in-out;
 }
 
-.container.active .toggle {
+.container.login.active .toggle {
     transform: translateX(50%);
 }
 
@@ -192,7 +192,7 @@ h3 {
     transform: translateX(-200%);
 }
 
-.container.active .toggle-left {
+.container.login.active .toggle-left {
     transform: translateX(0);
 }
 
@@ -201,7 +201,7 @@ h3 {
     transform: translateX(0);
 }
 
-.container.active .toggle-right {
+.container.login.active .toggle-right {
     transform: translateX(200%);
 }
 
@@ -537,10 +537,10 @@ td.donor {
     border-top: 3px solid #43a615;
 }
 
-.login {
+/* .login {
     height: 100vh;
     overflow: auto;
-}
+} */
 .col-6.card-login {
     display: inline-block;
 }

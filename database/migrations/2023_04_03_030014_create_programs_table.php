@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('program_status');
             $table->string('program_category');
             $table->string('funding_agency');
+            $table->string('implementing_agency');
             // $table->string('coordination_fund');
             $table->string('start_date');
             $table->string('end_date');
@@ -36,7 +37,7 @@ return new class extends Migration
     }
     /**
      * Reverse the migrations.
-    */
+     */
     public function down(): void
     {
         Schema::dropIfExists('programs');

@@ -90,9 +90,18 @@
 
                         {{-- card body start --}}
                         <div class="card-body">
-                            <form role="form" id="regiration_form" action="{{ url('add-researcher')}}" method="POST"
+                            <form role="form" id="regiration_form" action="{{ url('add-researcher') }}" method="POST"
                                 enctype="multipart/form-data">
                                 @csrf
+
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="form-group">
+                                            <label>Upload Photo</label>
+                                            <input type="file" name="image" class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
 
                                 <div class="row">
                                     <div class="col-sm-12">
@@ -102,7 +111,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                
+
 
                                 <div class="row">
                                     <div class="col-sm-12">
@@ -155,7 +164,7 @@
                                     </div>
                                 </div>
 
-                                
+
                                 <a href="{{ url('researcher-index') }}" class="btn btn-default">Back</a>
                                 <input type="submit" name="submit" class="submit btn btn-success" value="Submit" />
                                 <!-- /.card-body -->

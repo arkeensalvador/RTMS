@@ -80,6 +80,7 @@
                                             <th>Project Leader</th>
                                             <th>Duration</th>
                                             <th>Funding Agency</th>
+                                            <th>Implementing Agency</th>
                                             <th>Description</th>
                                             <th>Status</th>
                                             <th hidden>Keyword(s)</th>
@@ -93,9 +94,10 @@
                                                 <td class="prog_id" hidden>{{ $row->programID }}</td>
                                                 <td class="proj_id" hidden>{{ $row->id }}</td>
                                                 <td><span class="hashtag text-bg-primary">#</span>
-                                                    {{ $row->project_fund_code }} </td>
+                                                    {{ $row->project_fund_code }}</td>
                                                 <td>
-                                                    <a href="{{ url("sub-projects-view/$row->id") }}">{{ $row->project_title }}</a>
+                                                    <a
+                                                        href="{{ url("sub-projects-view/$row->id") }}">{{ $row->project_title }}</a>
                                                 </td>
                                                 <td>{{ $row->project_leader }}</td>
                                                 <td>
@@ -109,6 +111,11 @@
                                                     @endempty
                                                 </td>
                                                 <td>{{ $row->project_agency }}</td>
+                                                @php
+                                                    $imp = json_decode($row->project_implementing_agency);
+                                                    $agencies = implode(' / ', $imp);
+                                                @endphp
+                                                <td>{{ $agencies }}</td>
                                                 <td>{{ $row->project_description }}</td>
                                                 <td>
                                                     @if ($row->project_status == 'New')
@@ -155,12 +162,6 @@
                                                             </span>
                                                         @endif
                                                     </span>
-
-                                                    {{-- <span title="View Sub-project">
-                                                        <a class="btn btn-success"
-                                                            href="{{ url("sub-projects-view/$row->id") }}"><i
-                                                                class="fa-solid fa-sitemap" style="color: white;"></i></a>
-                                                    </span> --}}
 
                                                     <span title="Upload Program Files">
                                                         <a class="btn btn-secondary uploadFiles" data-toggle="modal"

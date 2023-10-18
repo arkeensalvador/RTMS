@@ -71,7 +71,14 @@
                                 <tbody>
                                     <tr>
                                         <th scope="row" class="thwidth">Funding Agency</th>
-                                        <td>{{ $agency->agency_name }}</td>
+                                        <td>{{ $agency->agency_name }} ({{ $program->funding_agency }})</td>
+                                    </tr>
+                                    @php
+                                        $imp = json_decode($program->implementing_agency);
+                                    @endphp
+                                    <tr>
+                                        <th scope="row" class="thwidth">Implementing Agency</th>
+                                        <td>{{ implode(' / ', $imp) }}</td>
                                     </tr>
                                     <tr>
                                         <th scope="row" class="thwidth">Program Leader</th>

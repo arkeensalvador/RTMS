@@ -59,6 +59,7 @@
                                             <th>Program Leader</th>
                                             <th>Duration</th>
                                             <th>Funding Agency</th>
+                                            <th>Implementing Agency</th>
                                             <th>Description</th>
                                             <th>Status</th>
                                             <th hidden>Keyword(s)</th>
@@ -71,7 +72,7 @@
                                             @foreach ($all as $key => $row)
                                                 <tr>
                                                     <td class="prog_id" hidden>{{ $row->programID }}</td>
-                                                    <td><span class="hashtag text-bg-primary">#</span>{{ $row->fund_code }}
+                                                    <td><span class="hashtag text-bg-primary">#</span> {{ $row->fund_code }}
                                                     </td>
                                                     <td>
                                                         <a
@@ -89,6 +90,11 @@
                                                         @endempty
                                                     </td>
                                                     <td>{{ $row->funding_agency }}</td>
+                                                    @php
+                                                        $imp = json_decode($row->implementing_agency);
+                                                        $agencies = implode(' / ', $imp);
+                                                    @endphp
+                                                    <td>{{ $agencies }}</td>
                                                     <td>{{ $row->program_description }}</td>
                                                     <td>
                                                         @if ($row->program_status == 'New')
@@ -362,7 +368,7 @@
                 <div class="modal-header">
                     <h1 class="modal-title fs-5" id="staticBackdropLabel">Import to Database
                         <span title="Click to download format">
-                            <a href="{{ url('download-template-programs') }}" class="" download><i
+                            <a href="{{ Storage::url('programs-template.xlsx') }}" download=""><i
                                     class="fa-solid fa-file-circle-question"></i></a>
                         </span>
                     </h1>

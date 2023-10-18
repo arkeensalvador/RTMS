@@ -39,7 +39,7 @@
                                 <div class="card-counter bg-success text-white">
                                     <i class="fa fa-calendar-o"></i>
                                     <span class="count-duration h5">
-                                        @empty($projects->extend_date)
+                                        @empty($projects->project_extend_date)
                                             {{ date('F, Y', strtotime($projects->project_start_date)) }}
                                             -
                                             {{ date('F, Y', strtotime($projects->project_end_date)) }}
@@ -71,18 +71,25 @@
                                 <tbody>
                                     <tr>
                                         <th scope="row" class="thwidth">Funding Agency</th>
-                                        <td>{{ $agency->agency_name }}</td>
+                                        <td>{{ $agency->agency_name }} ({{ $agency->abbrev }})</td>
+                                    </tr>
+                                    @php
+                                        $imp = json_decode($projects->project_implementing_agency);
+                                    @endphp
+                                    <tr>
+                                        <th scope="row" class="thwidth">Implementing Agency</th>
+                                        <td>{{ implode(' / ', $imp) }}</td>
                                     </tr>
                                     <tr>
-                                        <th scope="row" class="thwidth">Program Leader</th>
+                                        <th scope="row" class="thwidth">Project Leader</th>
                                         <td>{{ $projects->project_leader }}</td>
                                     </tr>
                                     <tr>
-                                        <th scope="row" class="thwidth">Program Assistant Leader</th>
+                                        <th scope="row" class="thwidth">Project Assistant Leader</th>
                                         <td>{{ $projects->project_assistant_leader }}</td>
                                     </tr>
                                     <tr>
-                                        <th scope="row" class="thwidth">Program Staff(s)</th>
+                                        <th scope="row" class="thwidth">Project Staff(s)</th>
                                         <td>
                                             <ul class="list-group list-group-flush">
 
@@ -124,7 +131,7 @@
                                             <ul class="list-group list-group-flush">
                                                 @foreach ($sub_projects as $key => $items)
                                                     <li class="list-group-item">
-                                                        <a href="{{ url('view-project-index/' . $items->id) }}"
+                                                        <a href="{{ url('view-subprojects/' . $projects->id . '/' . $items->id) }}"
                                                             class="btn-link text-secondary"><i
                                                                 class="fa-solid fa-book mr-2"></i>{{ $items->sub_project_title }}</a>
                                                     </li>
@@ -136,8 +143,7 @@
                             </table>
 
                             <div class="text-center mt-5 mb-3">
-                                <a href="javascript:history.back()"
-                                    class="btn btn previous btn btn-default">Go back</a>
+                                <a href="javascript:history.back()" class="btn btn previous btn btn-default">Go back</a>
                             </div>
                         </div>
                     </div>

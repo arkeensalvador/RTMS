@@ -25,6 +25,7 @@ class ProjectController extends Controller
         $data['project_status'] = $request->project_status;
         $data['project_category'] = $request->project_category;
         $data['project_agency'] = $request->project_agency;
+        $data['project_implementing_agency'] = json_encode($request->project_implementing_agency);
         $data['project_start_date'] = $request->project_start_date;
         $data['project_end_date'] = $request->project_end_date;
         $data['project_leader'] = $request->project_leader;
@@ -72,6 +73,7 @@ class ProjectController extends Controller
         $data['project_status'] = $request->project_status;
         $data['project_category'] = $request->project_category;
         $data['project_agency'] = $request->project_agency;
+        $data['project_implementing_agency'] = json_encode($request->project_implementing_agency);
         $data['project_start_date'] = $request->project_start_date;
         $data['project_end_date'] = $request->project_end_date;
         $data['project_leader'] = $request->project_leader;
@@ -118,8 +120,9 @@ class ProjectController extends Controller
         // $all = DB::table('programs')->get();
 
         $agency = DB::table('projects')
-            ->rightJoin('agency', 'projects.project_agency', '=', 'agency.abbrev')
-            ->select('agency.agency_name')
+            ->join('agency', 'projects.project_agency', '=', 'agency.abbrev')
+            ->select('agency.*')
+            ->where('projects.id', $id)
             ->first();
 
         // $documents = DB::table('program_files')->where('projectID', $id)->get();
@@ -138,7 +141,7 @@ class ProjectController extends Controller
 
     public function downloadTemplate()
     {
-        $file_path = storage_path("app\public\import-templates\projects-template.xlsx");
+        $file_path = storage_path("import-templates\projects-template.xlsx");
         return Response::download($file_path);
     }
 

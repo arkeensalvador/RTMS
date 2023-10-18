@@ -15,7 +15,7 @@
 
 <body class="login">
 
-    <div class="container" id="container">
+    <div class="container login" id="container">
         <div class="form-container forgot">
             <form action="{{ route('password.email') }}" method="POST">
                 @csrf

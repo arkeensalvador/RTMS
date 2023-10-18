@@ -82,7 +82,7 @@ class AgencyController extends Controller
 
     public function downloadTemplate()
     {
-        $file_path = storage_path("app\public\import-templates\agency-template.xlsx");
+        $file_path = storage_path("import-templates\agency-template.xlsx");
         return Response::download($file_path);
     }
     public function DeleteAgency($id)
@@ -102,5 +102,4 @@ class AgencyController extends Controller
             return redirect()->route('AllAgency')->with($notification);
         }
     }
-
 }

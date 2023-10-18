@@ -39,7 +39,7 @@
                                 <div class="card-counter bg-success text-white">
                                     <i class="fa fa-calendar-o"></i>
                                     <span class="count-duration h5">
-                                        @empty($sub_projects->extend_date)
+                                        @empty($sub_projects->sub_project_extend_date)
                                             {{ date('F, Y', strtotime($sub_projects->sub_project_start_date)) }}
                                             -
                                             {{ date('F, Y', strtotime($sub_projects->sub_project_end_date)) }}
@@ -71,7 +71,14 @@
                                 <tbody>
                                     <tr>
                                         <th scope="row" class="thwidth">Funding Agency</th>
-                                        <td>{{ $agency->agency_name }}</td>
+                                        <td>{{ $agency->agency_name }} ({{ $sub_projects->sub_project_agency }})</td>
+                                    </tr>
+                                    @php
+                                        $imp = json_decode($sub_projects->sub_project_implementing_agency);
+                                    @endphp
+                                    <tr>
+                                        <th scope="row" class="thwidth">Implementing Agency</th>
+                                        <td>{{ implode(' / ', $imp) }}</td>
                                     </tr>
                                     <tr>
                                         <th scope="row" class="thwidth">Sub-Project Leader</th>
@@ -85,7 +92,6 @@
                                         <th scope="row" class="thwidth">Sub-Project Staff(s)</th>
                                         <td>
                                             <ul class="list-group list-group-flush">
-
                                                 @foreach ($personnels as $personnel)
                                                     <li class="list-group-item">
                                                         {{ $personnel->staff_name }}
@@ -111,7 +117,6 @@
                                                             class="btn btn-info float-right">
                                                             <i class="fa-solid fa-download"></i>
                                                         </a>
-
                                                         {{ $items->file_name }}
                                                     </li>
                                                 @endforeach
@@ -122,7 +127,8 @@
                             </table>
 
                             <div class="text-center mt-5 mb-3">
-                                <a href="javascript:history.back()" class="btn btn previous btn btn-default">Go back</a>
+                                <a href="{{ url('sub-projects-view/' . $sub_projects->projectID) }}"
+                                    class="btn btn previous btn btn-default">Go back</a>
                             </div>
                         </div>
                     </div>
