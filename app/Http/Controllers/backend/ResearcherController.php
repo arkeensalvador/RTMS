@@ -13,13 +13,31 @@ class ResearcherController extends Controller
     {
         $title = "Researchers | RTMS";
         $all = DB::table('researchers')->get();
-        return view('backend.researcher.researcher_index', compact('all', 'title'));
+
+        // CMI
+        $all_filter = DB::table('researchers')
+            ->select('*')
+            ->where('agency', auth()->user()->agencyID)
+            ->get();
+
+        $user_agency = DB::table('users')
+            ->where('agencyID', auth()->user()->agencyID)
+            ->first();
+
+        return view('backend.researcher.researcher_index', compact('all', 'title', 'all_filter', 'user_agency'));
     }
     public function researcherAdd()
     {
         $title = "Researchers | RTMS";
         $agency = DB::table('agency')->get();
-        return view('backend.researcher.researcher_add', compact('agency', 'title'));
+
+        // CMI
+        $user_agency = DB::table('users')
+            ->join('agency', 'agency.abbrev', '=', 'users.agencyID')
+            ->where('agencyID', auth()->user()->agencyID)
+            ->first();
+
+        return view('backend.researcher.researcher_add', compact('agency', 'title', 'user_agency'));
     }
 
     public function AddResearcher(Request $request)
@@ -35,8 +53,8 @@ class ResearcherController extends Controller
         $data['agency'] = $request->agency;
 
         if (request()->hasFile('image')) {
-            $path =  $file->storeAs('profile-pic', $name);
-            $data['image'] = $path;
+            $path =  $file->storeAs("public" . "/" . "profile-pic", $name);
+            $data['image'] = "profile-pic/" . $name;
             $researcher = DB::table('researchers')->insert($data);
             if ($researcher) {
 
@@ -67,7 +85,13 @@ class ResearcherController extends Controller
         $title = "Researchers | RTMS";
         $researcher = DB::table('researchers')->where('id', $id)->first();
         $agency = DB::table('agency')->get();
-        return view('backend.researcher.researcher_edit', compact('agency', 'researcher', 'title'));
+
+        $user_agency = DB::table('users')
+            ->join('agency', 'agency.abbrev', '=', 'users.agencyID')
+            ->where('agencyID', auth()->user()->agencyID)
+            ->first();
+
+        return view('backend.researcher.researcher_edit', compact('agency', 'researcher', 'title', 'user_agency'));
     }
 
     public function ViewResearcher($id)

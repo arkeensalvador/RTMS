@@ -119,9 +119,14 @@
                                             <label>Agency</label>
                                             <select name="agency" id="" class="form-control agency">
                                                 <option value=""disabled selected>Select Agency</option>
-                                                @foreach ($agency as $key)
-                                                    <option value="{{ $key->abbrev }}">{{ $key->agency_name }}</option>
-                                                @endforeach
+                                                @if (auth()->user()->role == 'Admin')
+                                                    @foreach ($agency as $key)
+                                                        <option value="{{ $key->abbrev }}">{{ $key->agency_name }}</option>
+                                                    @endforeach
+                                                @else
+                                                    <option value="{{ $user_agency->abbrev }}" selected>
+                                                        {{ $user_agency->agency_name }}</option>
+                                                @endif
                                             </select>
                                         </div>
                                     </div>

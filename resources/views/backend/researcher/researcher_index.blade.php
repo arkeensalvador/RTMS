@@ -45,48 +45,93 @@
                                 <div class="row">
                                     <div class="col-12 col-md-12">
                                         <div class="col-sm-12">
-                                            <table id="example1" class="table table-bordered table-striped">
-                                                <thead>
-                                                    <tr>
-                                                        <th>#</th>
-                                                        <th>Researcher's Name</th>
-                                                        <th>Gender</th>
-                                                        <th>Contact No.</th>
-                                                        <th>Email</th>
-                                                        <th>Institution/Agency</th>
-                                                        <th>Action</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    @foreach ($all as $key => $row)
+                                            @if (auth()->user()->role == 'Admin')
+                                                <table id="example1" class="table table-bordered table-striped">
+                                                    <thead>
                                                         <tr>
-                                                            <input type="hidden" class="delete_val_id"
-                                                                value="{{ $row->id }}">
-                                                            <td>{{ $key + 1 }}</td>
-                                                            <td>{{ $row->name }}</td>
-                                                            <td>{{ $row->gender }}</td>
-                                                            <td>{{ $row->contact }}</td>
-                                                            <td>{{ $row->email }}</td>
-                                                            <td>{{ $row->agency }}</td>
-                                                            <td class="action btns">
-                                                                <a class="btn btn-info"
-                                                                    href="{{ URL::to('/view-researcher/' . $row->id) }}"><i
-                                                                        class="fa-solid fa-eye"
-                                                                        style="color: white;"></i></a>
-
-                                                                <a class="btn btn-primary"
-                                                                    href="{{ URL::to('/edit-researcher/' . $row->id) }}"><i
-                                                                        class="fa-solid fa-pen-to-square"
-                                                                        style="color: white;"></i></a>
-
-                                                                <a href="{{ URL::to('/delete-researcher/' . $row->id) }}"
-                                                                    class="btn btn-danger" id="delete"><i
-                                                                        class="fa-solid fa-trash"></i></a>
-                                                            </td>
+                                                            <th>#</th>
+                                                            <th>Researcher's Name</th>
+                                                            <th>Gender</th>
+                                                            <th>Contact No.</th>
+                                                            <th>Email</th>
+                                                            <th>Institution/Agency</th>
+                                                            <th>Action</th>
                                                         </tr>
-                                                    @endforeach
-                                                </tbody>
-                                            </table>
+                                                    </thead>
+                                                    <tbody>
+                                                        @foreach ($all as $key => $row)
+                                                            <tr>
+                                                                <input type="hidden" class="delete_val_id"
+                                                                    value="{{ $row->id }}">
+                                                                <td>{{ $key + 1 }}</td>
+                                                                <td>{{ $row->name }}</td>
+                                                                <td>{{ $row->gender }}</td>
+                                                                <td>{{ $row->contact }}</td>
+                                                                <td>{{ $row->email }}</td>
+                                                                <td>{{ $row->agency }}</td>
+                                                                <td class="action btns">
+                                                                    <a class="btn btn-info"
+                                                                        href="{{ URL::to('/view-researcher/' . $row->id) }}"><i
+                                                                            class="fa-solid fa-eye"
+                                                                            style="color: white;"></i></a>
+
+                                                                    <a class="btn btn-primary"
+                                                                        href="{{ URL::to('/edit-researcher/' . $row->id) }}"><i
+                                                                            class="fa-solid fa-pen-to-square"
+                                                                            style="color: white;"></i></a>
+
+                                                                    <a href="{{ URL::to('/delete-researcher/' . $row->id) }}"
+                                                                        class="btn btn-danger" id="delete"><i
+                                                                            class="fa-solid fa-trash"></i></a>
+                                                                </td>
+                                                            </tr>
+                                                        @endforeach
+                                                    </tbody>
+                                                </table>
+                                            @else
+                                                <table id="example1" class="table table-bordered table-striped">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>#</th>
+                                                            <th>Researcher's Name</th>
+                                                            <th>Gender</th>
+                                                            <th>Contact No.</th>
+                                                            <th>Email</th>
+                                                            <th>Institution/Agency</th>
+                                                            <th>Action</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        @foreach ($all_filter as $key => $row)
+                                                            <tr>
+                                                                <input type="hidden" class="delete_val_id"
+                                                                    value="{{ $row->id }}">
+                                                                <td>{{ $key + 1 }}</td>
+                                                                <td>{{ $row->name }}</td>
+                                                                <td>{{ $row->gender }}</td>
+                                                                <td>{{ $row->contact }}</td>
+                                                                <td>{{ $row->email }}</td>
+                                                                <td>{{ $row->agency }}</td>
+                                                                <td class="action btns">
+                                                                    <a class="btn btn-info"
+                                                                        href="{{ URL::to('/view-researcher/' . $row->id) }}"><i
+                                                                            class="fa-solid fa-eye"
+                                                                            style="color: white;"></i></a>
+
+                                                                    <a class="btn btn-primary"
+                                                                        href="{{ URL::to('/edit-researcher/' . $row->id) }}"><i
+                                                                            class="fa-solid fa-pen-to-square"
+                                                                            style="color: white;"></i></a>
+
+                                                                    <a href="{{ URL::to('/delete-researcher/' . $row->id) }}"
+                                                                        class="btn btn-danger" id="delete"><i
+                                                                            class="fa-solid fa-trash"></i></a>
+                                                                </td>
+                                                            </tr>
+                                                        @endforeach
+                                                    </tbody>
+                                                </table>
+                                            @endif
 
                                         </div>
                                     </div>

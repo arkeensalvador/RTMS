@@ -169,11 +169,18 @@
                                             class="text-danger">*</span></label>
                                     <select class="form-control implementing_agency" id="awards_recipients"
                                         name="project_implementing_agency[]" multiple="multiple" required>
-                                        @foreach ($agency as $key)
-                                            <option value="{{ $key->abbrev }}">{{ $key->agency_name }} -
-                                                ({{ $key->abbrev }})
+                                        @if (auth()->user()->role == 'Admin')
+                                            @foreach ($agency as $key)
+                                                <option value="{{ $key->abbrev }}">{{ $key->agency_name }} -
+                                                    ({{ $key->abbrev }})
+                                                    </b></option>
+                                            @endforeach
+                                        @else
+                                            <option value="{{ $user_agency->abbrev }}" selected>
+                                                {{ $user_agency->agency_name }} -
+                                                ({{ $user_agency->abbrev }})
                                                 </b></option>
-                                        @endforeach
+                                        @endif
                                     </select>
                                     <div class="invalid-feedback">Missing implementing agency</div>
                                 </div>
@@ -199,6 +206,7 @@
                                     <div class="invalid-feedback">Missing funding year(s)</div>
                                 </div>
 
+
                                 <div class="row">
                                     <div class="col-md-6 form-group">
                                         <label for="program_leader" class=" font-weight-bold">Project Leader <span
@@ -206,9 +214,15 @@
                                         <select id="program_leader" name="project_leader"
                                             class="form-control researchers" required>
                                             <option selected disabled value="">Select Researcher</option>
-                                            @foreach ($researchers as $key)
-                                                <option value="{{ $key->name }}">{{ $key->name }}</option>
-                                            @endforeach
+                                            @if (auth()->user()->role == 'Admin')
+                                                @foreach ($researchers as $key)
+                                                    <option value="{{ $key->name }}">{{ $key->name }}</option>
+                                                @endforeach
+                                            @else
+                                                @foreach ($researchers_filter as $key)
+                                                    <option value="{{ $key->name }}">{{ $key->name }}</option>
+                                                @endforeach
+                                            @endif
                                         </select>
                                         <div class="invalid-feedback">Missing project leader</div>
                                     </div>
@@ -218,13 +232,21 @@
                                         <select id="assistant_leader" name="project_assistant_leader"
                                             class="form-control researchers" required>
                                             <option selected disabled value="">Select Researcher</option>
-                                            @foreach ($researchers as $key)
-                                                <option value="{{ $key->name }}">{{ $key->name }}</option>
-                                            @endforeach
+                                            @if (auth()->user()->role == 'Admin')
+                                                @foreach ($researchers as $key)
+                                                    <option value="{{ $key->name }}">{{ $key->name }}</option>
+                                                @endforeach
+                                            @else
+                                                @foreach ($researchers_filter as $key)
+                                                    <option value="{{ $key->name }}">{{ $key->name }}</option>
+                                                @endforeach
+                                            @endif
                                         </select>
                                         <div class="invalid-feedback">Missing assistant leader</div>
                                     </div>
                                 </div>
+
+
 
 
                                 <div class="col-md-4 form-group">

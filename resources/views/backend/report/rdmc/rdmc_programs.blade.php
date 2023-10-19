@@ -177,6 +177,11 @@
                                                         @endempty
                                                     </td>
                                                     <td>{{ $row->funding_agency }}</td>
+                                                    @php
+                                                        $imp = json_decode($row->implementing_agency);
+                                                        $agencies = implode(' / ', $imp);
+                                                    @endphp
+                                                    <td>{{ $agencies }}</td>
                                                     <td>{{ $row->program_description }}</td>
                                                     <td>
                                                         @if ($row->program_status == 'New')

@@ -238,11 +238,18 @@
                                         <select id="program_leader" name="project_leader"
                                             class="form-control researchers" required>
                                             <option selected disabled value="">Select Researcher</option>
-                                            @foreach ($researchers as $key)
-                                                <option value="{{ $key->name }}"
-                                                    {{ $key->name == $projects->project_leader ? 'selected' : '' }}>
-                                                    {{ $key->name }}</option>
-                                            @endforeach
+                                            @if (auth()->user()->role == 'Admin')
+                                                @foreach ($researchers as $key)
+                                                    <option value="{{ $key->name }}"
+                                                        {{ $key->name == $projects->project_leader ? 'selected' : '' }}>
+                                                        {{ $key->name }}</option>
+                                                @endforeach
+                                            @else
+                                                @foreach ($researchers_filter as $key)
+                                                    <option value="{{ $key->name }}" selected>{{ $key->name }}
+                                                    </option>
+                                                @endforeach
+                                            @endif
                                         </select>
                                         <div class="invalid-feedback">Missing project leader</div>
                                     </div>

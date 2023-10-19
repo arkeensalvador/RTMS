@@ -89,7 +89,29 @@ class ProgramsController extends Controller
         $agency = DB::table('agency')->get();
         $researchers = DB::table('researchers')->get();
 
-        return view('backend.report.rdmc.rdmc_program_edit', compact('programs', 'agency', 'personnels', 'documents', 'title', 'researchers'));
+        $researchers_filter = DB::table('researchers')
+            ->where('agency',  auth()->user()->agencyID)
+            ->get();
+
+        $user_agency = DB::table('users')
+            ->join('agency', 'agency.abbrev', '=', 'users.agencyID')
+            ->where('agencyID', auth()->user()->agencyID)
+            ->get();
+
+
+        return view(
+            'backend.report.rdmc.rdmc_program_edit',
+            compact(
+                'programs',
+                'agency',
+                'personnels',
+                'documents',
+                'title',
+                'researchers',
+                'researchers_filter',
+                'user_agency'
+            )
+        );
     }
 
     public function UpdateProgram(Request $request, $programID)

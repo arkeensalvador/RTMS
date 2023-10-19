@@ -188,10 +188,11 @@
                                                 ({{ $key->abbrev }})
                                                 </b></option>
                                         @endforeach
+
+
                                     </select>
                                     <div class="invalid-feedback">Missing Funding Agency / Source of Fund</div>
                                 </div>
-
                                 @php
                                     $imp = json_decode($programs->implementing_agency);
                                 @endphp
@@ -219,11 +220,19 @@
                                     <select id="program_leader" name="program_leader" class="form-control researchers"
                                         required>
                                         <option selected disabled value="">Select Researcher</option>
-                                        @foreach ($researchers as $key)
-                                            <option value="{{ $key->name }}"
-                                                {{ $key->name == $programs->program_leader ? 'selected' : '' }}>
-                                                {{ $key->name }}</option>
-                                        @endforeach
+                                        @if (auth()->user()->role == 'Admin')
+                                            @foreach ($researchers as $key)
+                                                <option value="{{ $key->name }}"
+                                                    {{ $key->name == $programs->program_leader ? 'selected' : '' }}>
+                                                    {{ $key->name }}</option>
+                                            @endforeach
+                                        @else
+                                            @foreach ($researchers_filter as $key)
+                                                <option value="{{ $key->name }}"
+                                                    {{ $key->name == $programs->program_leader ? 'selected' : '' }}>
+                                                    {{ $key->name }}</option>
+                                            @endforeach
+                                        @endif
                                     </select>
                                     <div class="invalid-feedback">Missing program leader</div>
                                 </div>
@@ -234,11 +243,19 @@
                                     <select id="assistant_leader" name="assistant_leader"
                                         class="form-control researchers" required>
                                         <option selected disabled value="">Select Researcher</option>
-                                        @foreach ($researchers as $key)
-                                            <option value="{{ $key->name }}"
-                                                {{ $key->name == $programs->assistant_leader ? 'selected' : '' }}>
-                                                {{ $key->name }}</option>
-                                        @endforeach
+                                        @if (auth()->user()->role == 'Admin')
+                                            @foreach ($researchers as $key)
+                                                <option value="{{ $key->name }}"
+                                                    {{ $key->name == $programs->assistant_leader ? 'selected' : '' }}>
+                                                    {{ $key->name }}</option>
+                                            @endforeach
+                                        @else
+                                            @foreach ($researchers_filter as $key)
+                                                <option value="{{ $key->name }}"
+                                                    {{ $key->name == $programs->assistant_leader ? 'selected' : '' }}>
+                                                    {{ $key->name }}</option>
+                                            @endforeach
+                                        @endif
                                     </select>
                                     <div class="invalid-feedback">Missing Assistant Leader</div>
                                 </div>

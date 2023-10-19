@@ -23,7 +23,14 @@ class UserController extends Controller
     {
         $title = 'Manage Accounts | RTMS';
         $all = DB::table('users')->get();
-        return view('backend.user.all-user', compact('all', 'title'));
+
+        // CMI
+        $all_filter = DB::table('users')
+            ->select('*')
+            ->where('agencyID', auth()->user()->agencyID)
+            ->get();
+
+        return view('backend.user.all-user', compact('all', 'title', 'all_filter'));
     }
 
     // AddUser & InsertUser
@@ -40,7 +47,6 @@ class UserController extends Controller
 
         $data = array();
         $data['name'] = $request->name;
-
         $data['email'] = $request->email;
         $data['role'] = $request->role;
         $data['agencyID'] = $request->agencyID;
