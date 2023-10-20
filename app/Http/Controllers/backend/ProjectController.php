@@ -26,6 +26,7 @@ class ProjectController extends Controller
         $data['project_category'] = $request->project_category;
         $data['project_agency'] = $request->project_agency;
         $data['project_implementing_agency'] = json_encode($request->project_implementing_agency);
+        $data['project_research_center'] = htmlspecialchars_decode(json_encode($request->project_research_center));
         $data['project_start_date'] = $request->project_start_date;
         $data['project_end_date'] = $request->project_end_date;
         $data['project_leader'] = $request->project_leader;
@@ -57,7 +58,29 @@ class ProjectController extends Controller
             ->select('programs.*')
             ->where('projects.id', $id)
             ->first();
-        return view('backend.report.rdmc.rdmc_projects_under_program_edit', compact('title', 'projects', 'agency', 'programs', 'researchers'));
+
+        $user_agency = DB::table('users')
+            ->join('agency', 'agency.abbrev', '=', 'users.agencyID')
+            ->where('agencyID', auth()->user()->agencyID)
+            ->get();
+
+        $researchers_filter = DB::table('researchers')
+            ->where('agency',  auth()->user()->agencyID)
+            ->get();
+
+
+        return view(
+            'backend.report.rdmc.rdmc_projects_under_program_edit',
+            compact(
+                'title',
+                'projects',
+                'agency',
+                'programs',
+                'researchers',
+                'researchers_filter',
+                'user_agency'
+            )
+        );
     }
 
     public function UpdateProject(Request $request, $id)
@@ -74,6 +97,7 @@ class ProjectController extends Controller
         $data['project_category'] = $request->project_category;
         $data['project_agency'] = $request->project_agency;
         $data['project_implementing_agency'] = json_encode($request->project_implementing_agency);
+        $data['project_research_center'] = htmlspecialchars_decode(json_encode($request->project_research_center));
         $data['project_start_date'] = $request->project_start_date;
         $data['project_end_date'] = $request->project_end_date;
         $data['project_leader'] = $request->project_leader;
@@ -102,7 +126,28 @@ class ProjectController extends Controller
         $projects = DB::table('projects')->where('id', $id)->first();
         $agency = DB::table('agency')->get();
         $researchers = DB::table('researchers')->get();
-        return view('backend.report.rdmc.rdmc_projects_edit', compact('title', 'projects', 'agency', 'researchers'));
+
+        // CMI
+        $user_agency = DB::table('users')
+            ->join('agency', 'agency.abbrev', '=', 'users.agencyID')
+            ->where('agencyID', auth()->user()->agencyID)
+            ->get();
+
+        $researchers_filter = DB::table('researchers')
+            ->where('agency',  auth()->user()->agencyID)
+            ->get();
+
+        return view(
+            'backend.report.rdmc.rdmc_projects_edit',
+            compact(
+                'title',
+                'projects',
+                'agency',
+                'researchers',
+                'researchers_filter',
+                'user_agency'
+            )
+        );
     }
 
 

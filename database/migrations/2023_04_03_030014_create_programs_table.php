@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('program_category');
             $table->string('funding_agency');
             $table->string('implementing_agency');
+            $table->string('research_center');
             // $table->string('coordination_fund');
             $table->string('start_date');
             $table->string('end_date');

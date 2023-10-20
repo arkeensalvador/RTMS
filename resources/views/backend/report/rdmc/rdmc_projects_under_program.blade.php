@@ -52,7 +52,7 @@
                                             <th>Project Leader</th>
                                             <th>Duration</th>
                                             <th>Funding Agency</th>
-                                            <th>Implementing Agency</th>
+                                            <th>Implementing Agency/Research Center</th>
                                             <th>Description</th>
                                             <th>Status</th>
                                             <th hidden>Keyword(s)</th>
@@ -87,8 +87,10 @@
                                                 @php
                                                     $imp = json_decode($row->project_implementing_agency);
                                                     $agencies = implode(' / ', $imp);
+                                                    $rc = $row->project_research_center;
+                                                    $rc = str_replace(['[', '"', ']'], '', $rc);
                                                 @endphp
-                                                <td>{{ $agencies }}</td>
+                                                <td>{{ $agencies }} / {{ $rc }}</td>
                                                 <td>{{ $row->project_description }}</td>
                                                 <td>
                                                     @if ($row->project_status == 'New')

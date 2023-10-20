@@ -45,7 +45,7 @@ class ReportController extends Controller
         // CMI
         $all_filter = DB::table('projects')
             ->select('*')
-            ->where('project_agency', auth()->user()->agencyID)
+            ->where('project_implementing_agency', 'LIKE', "%" . auth()->user()->agencyID . "%")
             ->get();
 
         $researchers_filter = DB::table('researchers')
@@ -179,7 +179,7 @@ class ReportController extends Controller
         $user_agency = DB::table('users')
             ->join('agency', 'agency.abbrev', '=', 'users.agencyID')
             ->where('agencyID', auth()->user()->agencyID)
-            ->first();
+            ->get();
 
         $researchers_filter = DB::table('researchers')
             ->where('agency',  auth()->user()->agencyID)
@@ -284,7 +284,28 @@ class ReportController extends Controller
 
         $researchers = DB::table('researchers')->get();
         $agency = DB::table('agency')->get();
-        return view('backend.report.rdmc.rdmc_sub_project_add', compact('title', 'projects', 'agency', 'researchers'));
+
+        // CMI
+        $user_agency = DB::table('users')
+            ->join('agency', 'agency.abbrev', '=', 'users.agencyID')
+            ->where('agencyID', auth()->user()->agencyID)
+            ->first();
+
+        $researchers_filter = DB::table('researchers')
+            ->where('agency',  auth()->user()->agencyID)
+            ->get();
+
+        return view(
+            'backend.report.rdmc.rdmc_sub_project_add',
+            compact(
+                'title',
+                'projects',
+                'agency',
+                'researchers',
+                'user_agency',
+                'researchers_filter'
+            )
+        );
     }
 
     public function ProjectSubProjectsAdd2()
@@ -336,7 +357,6 @@ class ReportController extends Controller
         $completed_subproj = DB::table('sub_projects')->where('sub_project_status', '=', 'completed')->count();
 
         // CMI
-
         // Program
         $cmi_new = DB::table('programs')
             ->where('implementing_agency',  'LIKE', "%" . auth()->user()->agencyID . "%")

@@ -59,7 +59,7 @@
                                             <th>Program Leader</th>
                                             <th>Duration</th>
                                             <th>Funding Agency</th>
-                                            <th>Implementing Agency</th>
+                                            <th>Implementing Agency/Research Center</th>
                                             <th>Description</th>
                                             <th>Status</th>
                                             <th hidden>Keyword(s)</th>
@@ -93,8 +93,12 @@
                                                     @php
                                                         $imp = json_decode($row->implementing_agency);
                                                         $agencies = implode(' / ', $imp);
+
+                                                        $rc = $row->research_center;
+                                                        $rc = str_replace(['[', '"', ']'], '', $rc);
                                                     @endphp
-                                                    <td>{{ $agencies }}</td>
+                                                    <td>{{ $agencies }} /
+                                                        {{ $rc }}</td>
                                                     <td>{{ $row->program_description }}</td>
                                                     <td>
                                                         @if ($row->program_status == 'New')
@@ -180,8 +184,15 @@
                                                     @php
                                                         $imp = json_decode($row->implementing_agency);
                                                         $agencies = implode(' / ', $imp);
+
+                                                        $rc = $row->research_center;
+                                                        $rc = str_replace(['[', '"', ']'], '', $rc);
                                                     @endphp
-                                                    <td>{{ $agencies }}</td>
+
+
+                                                    <td>{{ $agencies }} /
+                                                        {{ $rc }}
+                                                    </td>
                                                     <td>{{ $row->program_description }}</td>
                                                     <td>
                                                         @if ($row->program_status == 'New')

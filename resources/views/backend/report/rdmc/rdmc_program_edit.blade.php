@@ -188,30 +188,53 @@
                                                 ({{ $key->abbrev }})
                                                 </b></option>
                                         @endforeach
-
-
                                     </select>
                                     <div class="invalid-feedback">Missing Funding Agency / Source of Fund</div>
                                 </div>
+
                                 @php
                                     $imp = json_decode($programs->implementing_agency);
                                 @endphp
+
 
                                 <div class="col-md-12 form-group">
                                     <label for="awards_recipients" class=" font-weight-bold">Implementing Agency<span
                                             class="text-danger">*</span></label>
                                     <select class="form-control implementing_agency" id="awards_recipients"
-                                        name="implementing_agency[]" multiple="multiple" required>
-                                        @foreach ($agency as $key)
-                                            <option value="{{ $key->abbrev }}"
-                                                {{ in_array($key->abbrev, $imp) ? 'selected' : '' }}>
-                                                {{ $key->agency_name }}
-                                                -
-                                                ({{ $key->abbrev }})
-                                                </b></option>
-                                        @endforeach
+                                        name="implementing_agency[]" multiple="multiple" required readonly>
+                                        @if (auth()->user()->role == 'Admin')
+                                            @foreach ($agency as $key)
+                                                <option value="{{ $key->abbrev }}"
+                                                    {{ in_array($key->abbrev, $imp) ? 'selected' : '' }}>
+                                                    {{ $key->agency_name }} -
+                                                    ({{ $key->abbrev }})
+                                                    </b></option>
+                                            @endforeach
+                                        @else
+                                            @foreach ($user_agency as $key)
+                                                <option value="{{ $key->abbrev }}"
+                                                    {{ in_array($key->abbrev, $imp) ? 'selected' : '' }}>
+                                                    {{ $key->agency_name }} -
+                                                    ({{ $key->abbrev }})
+                                                    </b></option>
+                                            @endforeach
+                                        @endif
                                     </select>
                                     <div class="invalid-feedback">Missing implementing agency</div>
+                                </div>
+
+                                @php
+                                    $rc = json_decode($programs->research_center);
+                                    $rc = implode($rc);
+                                @endphp
+
+                                <div class="col-md-12 form-group">
+                                    <label for="" class=" font-weight-bold">Research Center<span
+                                            class="text-danger">*</span></label>
+                                    <input type="text" name="research_center[]" id="rc"
+                                        class="form-control research-center" placeholder="Research Center(s)"
+                                        value="{{ $rc }}" data-role="tagsinput" require d>
+                                    <div class="invalid-feedback">Missing research center</div>
                                 </div>
 
                                 <div class="col-md-6 form-group">
@@ -263,7 +286,7 @@
                                 <div class="col-md-4 form-group">
                                     <label for="start_date" class=" font-weight-bold">Start Date <span
                                             class="text-danger">*</span></label>
-                                    <input type="date" name="start_date" class="form-control"
+                                    <input type="text" name="start_date" class="form-control date"
                                         value="{{ $programs->start_date }}" id="start_date" required>
                                     <div class="invalid-feedback">Missing start date of the program</div>
                                 </div>
@@ -271,14 +294,14 @@
                                 <div class="col-md-4 form-group">
                                     <label for="end_date" class=" font-weight-bold">End Date <span
                                             class="text-danger">*</span></label>
-                                    <input type="date" name="end_date" class="form-control"
+                                    <input type="text" name="end_date" class="form-control date"
                                         value="{{ $programs->end_date }}" id="end_date" required>
                                     <div class="invalid-feedback"> Missing end of the program</div>
                                 </div>
 
                                 <div class="col-md-4 form-group">
                                     <label for="extension_date" class=" font-weight-bold">Extension Date</label>
-                                    <input type="date" name="extend_date" class="form-control"
+                                    <input type="text" name="extend_date" class="form-control date"
                                         value="{{ $programs->extend_date }}" id="extension_date">
                                     <div class="valid-feedback"> There's no inputted extension date for this program</div>
                                 </div>
@@ -290,15 +313,6 @@
                                         placeholder="Program brief description" required>{{ $programs->program_description }}</textarea>
                                     <div class="invalid-feedback">Missing program description</div>
                                 </div>
-
-                                {{-- <div class="col-md-3 form-group">
-                                    <label for="coordination_fund" class=" font-weight-bold">Coordination Fund<span
-                                            class="text-danger">*</span></label>
-                                    <input type="text" name="coordination_fund"
-                                        value="{{ $programs->coordination_fund }}" class="form-control"
-                                        id="coordination_fund" placeholder="Enter exact amount" required>
-                                    <div class="invalid-feedback">Missing coordination fund</div>
-                                </div> --}}
 
                                 <div class="col-md-3 form-group">
                                     <label for="approved_budget" class="font-weight-bold">Approved Budget<span
@@ -332,7 +346,8 @@
                                 @endphp
 
                                 <div class="col-md-12 form-group">
-                                    <label for="" class=" font-weight-bold">Keywords</label>
+                                    <label for="" class=" font-weight-bold">Keywords<span
+                                            class="text-danger">*</span></label>
                                     <input type="text" name="keywords[]" class="form-control js-recipients"
                                         placeholder="Keyword(s)" value="{{ $keywords }}" data-role="tagsinput"
                                         required>

@@ -684,6 +684,13 @@
         });
 
         $(document).ready(function() {
+            $('.research-center').select2({
+                tags: true,
+                allowClear: true,
+            });
+        });
+
+        $(document).ready(function() {
             $('.js-example-basic-single').select2({
                 tags: true,
                 tokenSeparators: [',', ' '],

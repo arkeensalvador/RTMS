@@ -185,6 +185,15 @@
                                     <div class="invalid-feedback">Missing implementing agency</div>
                                 </div>
 
+                                <div class="col-md-12 form-group">
+                                    <label for="" class=" font-weight-bold">Research Center<span
+                                            class="text-danger">*</span></label>
+                                    <input type="text" name="project_research_center[]" id="rc"
+                                        class="form-control research-center" placeholder="Research Center(s)"
+                                        value="" data-role="tagsinput" required>
+                                    <div class="invalid-feedback">Missing research center</div>
+                                </div>
+
                                 <div class="col-md-3 form-group">
                                     <label for="coordination_fund" class=" font-weight-bold">Funding Grant<span
                                             class="text-danger">*</span></label>
@@ -246,28 +255,25 @@
                                     </div>
                                 </div>
 
-
-
-
                                 <div class="col-md-4 form-group">
                                     <label for="start_date" class=" font-weight-bold">Start Date <span
                                             class="text-danger">*</span></label>
-                                    <input type="date" name="project_start_date" class="form-control" id="start_date"
-                                        required>
+                                    <input type="text" name="project_start_date" class="form-control date"
+                                        id="start_date" required>
                                     <div class="invalid-feedback">Missing start date of the project</div>
                                 </div>
 
                                 <div class="col-md-4 form-group">
                                     <label for="end_date" class=" font-weight-bold">End Date <span
                                             class="text-danger">*</span></label>
-                                    <input type="date" name="project_end_date" class="form-control" id="end_date"
-                                        required>
+                                    <input type="text" name="project_end_date" class="form-control date"
+                                        id="end_date" required>
                                     <div class="invalid-feedback"> Missing end of the project</div>
                                 </div>
 
                                 <div class="col-md-4 form-group">
                                     <label for="extension_date" class=" font-weight-bold">Extension Date</label>
-                                    <input type="date" name="project_extend_date" class="form-control"
+                                    <input type="text" name="project_extend_date" class="form-control date"
                                         id="extension_date">
                                     <div class="valid-feedback">There's no inputted extension date for this project</div>
                                 </div>
@@ -279,7 +285,6 @@
                                         placeholder="Project brief description" required></textarea>
                                     <div class="invalid-feedback">Missing project description</div>
                                 </div>
-
 
                                 <div class="col-md-3 form-group">
                                     <label for="approved_budget" class=" font-weight-bold">Approved Budget<span
@@ -314,7 +319,7 @@
                                 </div>
 
                                 <div class="col-md-4 form-group float-right">
-                                    <a href="{{ url('rdmc-programs') }}" class="btn btn-default">Back</a>
+                                    <a href="{{ url('rdmc-projects') }}" class="btn btn-default">Back</a>
                                     <button type="submit" id="submit" class="btn btn-primary btn-m ">Submit</button>
                                 </div>
                             </form>

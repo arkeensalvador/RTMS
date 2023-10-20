@@ -213,16 +213,43 @@
                                             class="text-danger">*</span></label>
                                     <select class="form-control implementing_agency" id="awards_recipients"
                                         name="project_implementing_agency[]" multiple="multiple" required>
-                                        @foreach ($agency as $key)
-                                            <option value="{{ $key->abbrev }}"
-                                                {{ in_array($key->abbrev, $imp) ? 'selected' : '' }}>
-                                                {{ $key->agency_name }} -
-                                                ({{ $key->abbrev }})
-                                                </b></option>
-                                        @endforeach
+                                        @if (auth()->user()->role == 'Admin')
+                                            @foreach ($agency as $key)
+                                                <option value="{{ $key->abbrev }}"
+                                                    {{ in_array($key->abbrev, $imp) ? 'selected' : '' }}>
+                                                    {{ $key->agency_name }} -
+                                                    ({{ $key->abbrev }})
+                                                    </b></option>
+                                            @endforeach
+                                        @else
+                                            @foreach ($user_agency as $key)
+                                                <option value="{{ $key->abbrev }}"
+                                                    {{ in_array($key->abbrev, $imp) ? 'selected' : '' }}>
+                                                    {{ $key->agency_name }} -
+                                                    ({{ $key->abbrev }})
+                                                    </b></option>
+                                            @endforeach
+                                        @endif
                                     </select>
                                     <div class="invalid-feedback">Missing implementing agency</div>
                                 </div>
+
+
+                                @php
+                                    $rc = json_decode($projects->project_research_center);
+                                    $rc = implode($rc);
+                                @endphp
+
+
+                                <div class="col-md-12 form-group">
+                                    <label for="" class=" font-weight-bold">Research Center<span
+                                            class="text-danger">*</span></label>
+                                    <input type="text" name="project_research_center[]" id="rc"
+                                        class="form-control research-center" placeholder="Research Center(s)"
+                                        value="{{ $rc }}" data-role="tagsinput" required>
+                                    <div class="invalid-feedback">Missing research center</div>
+                                </div>
+
 
                                 <div class="col-md-3 form-group">
                                     <label for="coordination_fund" class=" font-weight-bold">Funding Grant<span

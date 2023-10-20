@@ -191,13 +191,29 @@
                                             class="text-danger">*</span></label>
                                     <select class="form-control implementing_agency" id="awards_recipients"
                                         name="project_implementing_agency[]" multiple="multiple" required>
-                                        @foreach ($agency as $key)
-                                            <option value="{{ $key->abbrev }}">{{ $key->agency_name }} -
-                                                ({{ $key->abbrev }})
+                                        @if (auth()->user()->role == 'Admin')
+                                            @foreach ($agency as $key)
+                                                <option value="{{ $key->abbrev }}">{{ $key->agency_name }} -
+                                                    ({{ $key->abbrev }})
+                                                    </b></option>
+                                            @endforeach
+                                        @else
+                                            <option value="{{ $user_agency->abbrev }}" selected>
+                                                {{ $user_agency->agency_name }} -
+                                                ({{ $user_agency->abbrev }})
                                                 </b></option>
-                                        @endforeach
+                                        @endif
                                     </select>
                                     <div class="invalid-feedback">Missing implementing agency</div>
+                                </div>
+
+                                <div class="col-md-12 form-group">
+                                    <label for="" class=" font-weight-bold">Research Center<span
+                                            class="text-danger">*</span></label>
+                                    <input type="text" name="project_research_center[]" id="rc"
+                                        class="form-control research-center" placeholder="Research Center(s)"
+                                        value="" data-role="tagsinput" required>
+                                    <div class="invalid-feedback">Missing research center</div>
                                 </div>
 
                                 <div class="col-md-3 form-group">
@@ -228,7 +244,7 @@
                                         <select id="program_leader" name="project_leader"
                                             class="form-control researchers" required>
                                             <option selected disabled value="">Select Researcher</option>
-                                            @foreach ($researchers as $key)
+                                            @foreach ($researchers_filter as $key)
                                                 <option value="{{ $key->name }}">{{ $key->name }}</option>
                                             @endforeach
                                         </select>
@@ -240,7 +256,7 @@
                                         <select id="assistant_leader" name="project_assistant_leader"
                                             class="form-control researchers" required>
                                             <option selected disabled value="">Select Researcher</option>
-                                            @foreach ($researchers as $key)
+                                            @foreach ($researchers_filter as $key)
                                                 <option value="{{ $key->name }}">{{ $key->name }}</option>
                                             @endforeach
                                         </select>
@@ -252,23 +268,23 @@
                                 <div class="col-md-4 form-group">
                                     <label for="start_date" class=" font-weight-bold">Start Date <span
                                             class="text-danger">*</span></label>
-                                    <input type="date" name="project_start_date" class="form-control" id="start_date"
-                                        required>
+                                    <input type="text" placeholder="Start date" name="project_start_date"
+                                        class="form-control date" id="start_date" required>
                                     <div class="invalid-feedback">Missing start date of the project</div>
                                 </div>
 
                                 <div class="col-md-4 form-group">
                                     <label for="end_date" class=" font-weight-bold">End Date <span
                                             class="text-danger">*</span></label>
-                                    <input type="date" name="project_end_date" class="form-control" id="end_date"
-                                        required>
+                                    <input type="text" placeholder="End date" name="project_end_date"
+                                        class="form-control date" id="end_date" required>
                                     <div class="invalid-feedback"> Missing end of the project</div>
                                 </div>
 
                                 <div class="col-md-4 form-group">
                                     <label for="extension_date" class=" font-weight-bold">Extension Date</label>
-                                    <input type="date" name="project_extend_date" class="form-control"
-                                        id="extension_date">
+                                    <input type="text" placeholder="Extension date" name="project_extend_date"
+                                        class="form-control date" id="extension_date">
                                     <div class="valid-feedback">There's no inputted extension date for this project</div>
                                 </div>
 

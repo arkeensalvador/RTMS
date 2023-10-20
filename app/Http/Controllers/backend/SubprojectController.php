@@ -28,6 +28,7 @@ class SubprojectController extends Controller
         $data['sub_project_category'] = $request->sub_project_category;
         $data['sub_project_agency'] = $request->sub_project_agency;
         $data['sub_project_implementing_agency'] = json_encode($request->sub_project_implementing_agency);
+        $data['sub_project_research_center'] = htmlspecialchars_decode(json_encode($request->sub_project_research_center));
         $data['sub_project_start_date'] = $request->sub_project_start_date;
         $data['sub_project_end_date'] = $request->sub_project_end_date;
         $data['sub_project_leader'] = $request->sub_project_leader;
@@ -60,7 +61,22 @@ class SubprojectController extends Controller
             ->select('projects.*')
             ->where('projects.id', $projectID)
             ->first();
-        return view('backend.report.rdmc.rdmc_sub_projects_edit', compact('title', 'sub_projects', 'agency', 'sub_project', 'researchers'));
+
+        $user_agency = DB::table('users')
+            ->join('agency', 'agency.abbrev', '=', 'users.agencyID')
+            ->where('agencyID', auth()->user()->agencyID)
+            ->get();
+        return view(
+            'backend.report.rdmc.rdmc_sub_projects_edit',
+            compact(
+                'title',
+                'sub_projects',
+                'agency',
+                'sub_project',
+                'researchers',
+                'user_agency'
+            )
+        );
     }
 
     public function UpdateSubProject(Request $request, $projectID, $id)
@@ -77,6 +93,7 @@ class SubprojectController extends Controller
         $data['sub_project_category'] = $request->sub_project_category;
         $data['sub_project_agency'] = $request->sub_project_agency;
         $data['sub_project_implementing_agency'] = json_encode($request->sub_project_implementing_agency);
+        $data['sub_project_research_center'] = htmlspecialchars_decode(json_encode($request->sub_project_research_center));
         $data['sub_project_start_date'] = $request->sub_project_start_date;
         $data['sub_project_end_date'] = $request->sub_project_end_date;
         $data['sub_project_leader'] = $request->sub_project_leader;

@@ -69,26 +69,27 @@
                                 </div>
                             </div>
                             <!-- /.card-header -->
-                            @if (auth()->user()->role == 'Admin')
-                                <div class="card-body">
-                                    <table id="programs" class="table table-bordered table-striped text-center">
-                                        <thead>
-                                            <tr>
-                                                <th hidden>Program ID</th>
-                                                <th hidden>Project ID</th>
-                                                <th>Fund Code</th>
-                                                <th>Project Title</th>
-                                                <th>Project Leader</th>
-                                                <th>Duration</th>
-                                                <th>Funding Agency</th>
-                                                <th>Implementing Agency</th>
-                                                <th>Description</th>
-                                                <th>Status</th>
-                                                <th hidden>Keyword(s)</th>
-                                                <th>Action</th>
-                                            </tr>
 
-                                        </thead>
+                            <div class="card-body">
+                                <table id="programs" class="table table-bordered table-striped text-center">
+                                    <thead>
+                                        <tr>
+                                            <th hidden>Program ID</th>
+                                            <th hidden>Project ID</th>
+                                            <th>Fund Code</th>
+                                            <th>Project Title</th>
+                                            <th>Project Leader</th>
+                                            <th>Duration</th>
+                                            <th>Funding Agency</th>
+                                            <th>Implementing Agency/Research Center</th>
+                                            <th>Description</th>
+                                            <th>Status</th>
+                                            <th hidden>Keyword(s)</th>
+                                            <th>Action</th>
+                                        </tr>
+
+                                    </thead>
+                                    @if (auth()->user()->role == 'Admin')
                                         <tbody>
                                             @foreach ($projects as $row)
                                                 <tr>
@@ -117,8 +118,10 @@
                                                     @php
                                                         $imp = json_decode($row->project_implementing_agency);
                                                         $agencies = implode(' / ', $imp);
+                                                        $rc = $row->project_research_center;
+                                                        $rc = str_replace(['[', '"', ']'], '', $rc);
                                                     @endphp
-                                                    <td>{{ $agencies }}</td>
+                                                    <td>{{ $agencies }} / {{ $rc }}</td>
                                                     <td>{{ $row->project_description }}</td>
                                                     <td>
                                                         @if ($row->project_status == 'New')
@@ -188,29 +191,7 @@
                                                 </tr>
                                             @endforeach
                                         </tbody>
-                                    </table>
-                                    <a href="{{ url('rdmc-monitoring-evaluation') }}" class="btn btn-default">Back</a>
-                                </div>
-                            @else
-                                <div class="card-body">
-                                    <table id="programs" class="table table-bordered table-striped text-center">
-                                        <thead>
-                                            <tr>
-                                                <th hidden>Program ID</th>
-                                                <th hidden>Project ID</th>
-                                                <th>Fund Code</th>
-                                                <th>Project Title</th>
-                                                <th>Project Leader</th>
-                                                <th>Duration</th>
-                                                <th>Funding Agency</th>
-                                                <th>Implementing Agency</th>
-                                                <th>Description</th>
-                                                <th>Status</th>
-                                                <th hidden>Keyword(s)</th>
-                                                <th>Action</th>
-                                            </tr>
-
-                                        </thead>
+                                    @else
                                         <tbody>
                                             @foreach ($all_filter as $row)
                                                 <tr>
@@ -239,8 +220,10 @@
                                                     @php
                                                         $imp = json_decode($row->project_implementing_agency);
                                                         $agencies = implode(' / ', $imp);
+                                                        $rc = $row->project_research_center;
+                                                        $rc = str_replace(['[', '"', ']'], '', $rc);
                                                     @endphp
-                                                    <td>{{ $agencies }}</td>
+                                                    <td>{{ $agencies }} / {{ $rc }}</td>
                                                     <td>{{ $row->project_description }}</td>
                                                     <td>
                                                         @if ($row->project_status == 'New')
@@ -311,10 +294,10 @@
                                                 </tr>
                                             @endforeach
                                         </tbody>
-                                    </table>
-                                    <a href="{{ url('rdmc-monitoring-evaluation') }}" class="btn btn-default">Back</a>
-                                </div>
-                            @endif
+                                    @endif
+                                </table>
+                                <a href="{{ url('rdmc-monitoring-evaluation') }}" class="btn btn-default">Back</a>
+                            </div>
                             <!-- /.card-body -->
                         </div>
                         <!-- /.card -->

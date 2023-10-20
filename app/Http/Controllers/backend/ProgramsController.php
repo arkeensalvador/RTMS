@@ -22,16 +22,13 @@ class ProgramsController extends Controller
 
         $data = array();
         $data['programID'] = $request->programID;
-        // $data['agencyID'] = $request->agencyID;
-        // $data['fundingAgencyID'] = $request->fundingAgencyID;
-        // $data['researcherID'] = $request->researcherID;
         $data['fund_code'] = $request->fund_code;
         $data['program_title'] = $request->program_title;
         $data['program_status'] = $request->program_status;
         $data['program_category'] = $request->program_category;
         $data['funding_agency'] = $request->funding_agency;
         $data['implementing_agency'] = json_encode($request->implementing_agency);
-        // $data['coordination_fund'] = $request->coordination_fund;
+        $data['research_center'] = htmlspecialchars_decode(json_encode($request->research_center));
         $data['start_date'] = $request->start_date;
         $data['end_date'] = $request->end_date;
         $data['extend_date'] = $request->extend_date;
@@ -98,7 +95,6 @@ class ProgramsController extends Controller
             ->where('agencyID', auth()->user()->agencyID)
             ->get();
 
-
         return view(
             'backend.report.rdmc.rdmc_program_edit',
             compact(
@@ -127,7 +123,7 @@ class ProgramsController extends Controller
         $data['program_category'] = $request->program_category;
         $data['funding_agency'] = $request->funding_agency;
         $data['implementing_agency'] = json_encode($request->implementing_agency);
-        // $data['coordination_fund'] = $request->coordination_fund;
+        $data['research_center'] = htmlspecialchars_decode(json_encode($request->research_center));
         $data['start_date'] = $request->start_date;
         $data['end_date'] = $request->end_date;
         $data['extend_date'] = $request->extend_date;

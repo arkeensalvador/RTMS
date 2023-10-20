@@ -15,7 +15,7 @@
 
 <body class="login">
 
-    <div class="container" id="container">
+    <div class="container login" id="container">
         <div class="form-container sign-in">
             <form method="POST" action="{{ route('password.update') }}">
                 @csrf

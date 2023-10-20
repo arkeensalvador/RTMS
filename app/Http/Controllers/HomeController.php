@@ -34,34 +34,34 @@ class HomeController extends Controller
 
         // CMI DASHBOARD 
         $user_agency = DB::table('users')->where('agencyID', auth()->user()->agencyID)->first();
-        $total_programs_count_filter = DB::table('programs')->where('funding_agency', auth()->user()->agencyID)->count();
-        $total_projects_filter = DB::table('projects')->where('project_agency', auth()->user()->agencyID)->count();
-        $total_sub_projects_filter = DB::table('sub_projects')->where('sub_project_agency', auth()->user()->agencyID)->count();
+        $total_programs_count_filter = DB::table('programs')->where('implementing_agency', 'LIKE', '%' . auth()->user()->agencyID . '%')->count();
+        $total_projects_filter = DB::table('projects')->where('project_implementing_agency', 'LIKE', '%' . auth()->user()->agencyID . '%')->count();
+        $total_sub_projects_filter = DB::table('sub_projects')->where('sub_project_implementing_agency', 'LIKE', '%' . auth()->user()->agencyID . '%')->count();
         $total_researchers_filter = DB::table('researchers')->where('agency', auth()->user()->agencyID)->count();
         // END CMI DASHBOARD
 
-        // Programs
-        $new = DB::table('programs')->where('program_status', '=', 'new')->pluck('program_status')->count();
-        $ongoing = DB::table('programs')->where('program_status', '=', 'ongoing')->pluck('program_status')->count();
-        $terminated = DB::table('programs')->where('program_status', '=', 'terminated')->pluck('program_status')->count();
-        $completed = DB::table('programs')->where('program_status', '=', 'completed')->pluck('program_status')->count();
+        // Program
+        $new = DB::table('programs')->where('program_status', '=', 'new')->count();
+        $ongoing = DB::table('programs')->where('program_status', '=', 'ongoing')->count();
+        $terminated = DB::table('programs')->where('program_status', '=', 'terminated')->count();
+        $completed = DB::table('programs')->where('program_status', '=', 'completed')->count();
         // Project
-        $new_proj = DB::table('projects')->where('project_status', '=', 'new')->pluck('project_status')->count();
-        $ongoing_proj = DB::table('projects')->where('project_status', '=', 'ongoing')->pluck('project_status')->count();
-        $terminated_proj = DB::table('projects')->where('project_status', '=', 'terminated')->pluck('project_status')->count();
-        $completed_proj = DB::table('projects')->where('project_status', '=', 'completed')->pluck('project_status')->count();
+        $new_proj = DB::table('projects')->where('project_status', '=', 'new')->count();
+        $ongoing_proj = DB::table('projects')->where('project_status', '=', 'ongoing')->count();
+        $terminated_proj = DB::table('projects')->where('project_status', '=', 'terminated')->count();
+        $completed_proj = DB::table('projects')->where('project_status', '=', 'completed')->count();
+        // Sub-Project
+        $new_subproj = DB::table('sub_projects')->where('sub_project_status', '=', 'new')->count();
+        $ongoing_subproj = DB::table('sub_projects')->where('sub_project_status', '=', 'ongoing')->count();
+        $terminated_subproj = DB::table('sub_projects')->where('sub_project_status', '=', 'terminated')->count();
+        $completed_subproj = DB::table('sub_projects')->where('sub_project_status', '=', 'completed')->count();
 
         $data_agency = DB::table('agency')->get();
 
-        // foreach ($data_agency as $agency) {
-        //     $list[] = $agency->abbrev;
-        // }
-        // $agency = $list;
-
-        $total_new = $new + $new_proj;
-        $total_ongoing = $ongoing + $ongoing_proj;
-        $total_terminated = $terminated + $terminated_proj;
-        $total_completed = $completed + $completed_proj;
+        $total_new = $new + $new_proj + $new_subproj;
+        $total_ongoing = $ongoing + $ongoing_proj + $ongoing_subproj;
+        $total_terminated = $terminated + $terminated_proj + $terminated_subproj;
+        $total_completed = $completed + $completed_proj + $completed_subproj;
 
         // $awards_count = DB::table('cbg_awards')->count();
 

@@ -157,7 +157,7 @@
                                 </div>
 
                                 <div class="col-md-12 form-group">
-                                    <label for="program_title" class=" font-weight-bold">Project Title<span
+                                    <label for="program_title" class=" font-weight-bold">Sub Project Title<span
                                             class="text-danger">*</span></label></label>
                                     <textarea class="form-control" id="program_title" name="sub_project_title" style="height: 100px"
                                         placeholder="Enter project title" required></textarea>
@@ -198,13 +198,29 @@
                                             class="text-danger">*</span></label>
                                     <select class="form-control implementing_agency" id="awards_recipients"
                                         name="sub_project_implementing_agency[]" multiple="multiple" required>
-                                        @foreach ($agency as $key)
-                                            <option value="{{ $key->abbrev }}">{{ $key->agency_name }} -
-                                                ({{ $key->abbrev }})
+                                        @if (auth()->user()->role == 'Admin')
+                                            @foreach ($agency as $key)
+                                                <option value="{{ $key->abbrev }}">{{ $key->agency_name }} -
+                                                    ({{ $key->abbrev }})
+                                                    </b></option>
+                                            @endforeach
+                                        @else
+                                            <option value="{{ $user_agency->abbrev }}" selected>
+                                                {{ $user_agency->agency_name }} -
+                                                ({{ $user_agency->abbrev }})
                                                 </b></option>
-                                        @endforeach
+                                        @endif
                                     </select>
                                     <div class="invalid-feedback">Missing implementing agency</div>
+                                </div>
+
+                                <div class="col-md-12 form-group">
+                                    <label for="" class=" font-weight-bold">Research Center<span
+                                            class="text-danger">*</span></label>
+                                    <input type="text" name="sub_project_research_center[]" id="rc"
+                                        class="form-control research-center" placeholder="Research Center(s)"
+                                        value="" data-role="tagsinput" required>
+                                    <div class="invalid-feedback">Missing research center</div>
                                 </div>
 
                                 <div class="col-md-3 form-group">
@@ -230,26 +246,38 @@
 
                                 <div class="row">
                                     <div class="col-md-6 form-group">
-                                        <label for="program_leader" class=" font-weight-bold">Project Leader <span
+                                        <label for="program_leader" class=" font-weight-bold">Sub Project Leader <span
                                                 class="text-danger">*</span></label>
                                         <select id="program_leader" name="sub_project_leader"
                                             class="form-control researchers" required>
                                             <option selected disabled value="">Select Researcher</option>
-                                            @foreach ($researchers as $key)
-                                                <option value="{{ $key->name }}">{{ $key->name }}</option>
-                                            @endforeach
+                                            @if (auth()->user()->role == 'Admin')
+                                                @foreach ($researchers as $key)
+                                                    <option value="{{ $key->name }}">{{ $key->name }}</option>
+                                                @endforeach
+                                            @else
+                                                @foreach ($researchers_filter as $key)
+                                                    <option value="{{ $key->name }}">{{ $key->name }}</option>
+                                                @endforeach
+                                            @endif
                                         </select>
                                         <div class="invalid-feedback">Missing project leader</div>
                                     </div>
                                     <div class="col-md-6 form-group">
-                                        <label for="assistant_leader" class=" font-weight-bold">Assistant Leader <span
-                                                class="text-danger">*</span></label>
+                                        <label for="assistant_leader" class=" font-weight-bold">Sub Project Assistant
+                                            Leader <span class="text-danger">*</span></label>
                                         <select id="assistant_leader" name="sub_project_assistant_leader"
                                             class="form-control researchers" required>
                                             <option selected disabled value="">Select Researcher</option>
-                                            @foreach ($researchers as $key)
-                                                <option value="{{ $key->name }}">{{ $key->name }}</option>
-                                            @endforeach
+                                            @if (auth()->user()->role == 'Admin')
+                                                @foreach ($researchers as $key)
+                                                    <option value="{{ $key->name }}">{{ $key->name }}</option>
+                                                @endforeach
+                                            @else
+                                                @foreach ($researchers_filter as $key)
+                                                    <option value="{{ $key->name }}">{{ $key->name }}</option>
+                                                @endforeach
+                                            @endif
                                         </select>
                                         <div class="invalid-feedback">Missing assistant leader</div>
                                     </div>
@@ -259,29 +287,29 @@
                                 <div class="col-md-4 form-group">
                                     <label for="start_date" class=" font-weight-bold">Start Date <span
                                             class="text-danger">*</span></label>
-                                    <input type="date" name="sub_project_start_date" class="form-control"
-                                        id="start_date" required>
+                                    <input type="text" name="sub_project_start_date" class="form-control date"
+                                        id="start_date" placeholder="Start Date" required>
                                     <div class="invalid-feedback">Missing start date of the project</div>
                                 </div>
 
                                 <div class="col-md-4 form-group">
                                     <label for="end_date" class=" font-weight-bold">End Date <span
                                             class="text-danger">*</span></label>
-                                    <input type="date" name="sub_project_end_date" class="form-control"
-                                        id="end_date" required>
+                                    <input type="text" name="sub_project_end_date" class="form-control date"
+                                        id="end_date" placeholder="End Date" required>
                                     <div class="invalid-feedback"> Missing end of the project</div>
                                 </div>
 
                                 <div class="col-md-4 form-group">
                                     <label for="extension_date" class=" font-weight-bold">Extension Date</label>
-                                    <input type="date" name="sub_project_extend_date" class="form-control"
-                                        id="extension_date">
+                                    <input type="text" name="sub_project_extend_date" class="form-control date"
+                                        placeholder="Extension Date" id="extension_date">
                                     <div class="valid-feedback">There's no inputted extension date for this project</div>
                                 </div>
 
                                 <div class="col-md-12 form-group">
-                                    <label for="program_description" class=" font-weight-bold">Project Description<span
-                                            class="text-danger">*</span></label></label>
+                                    <label for="program_description" class=" font-weight-bold">Sub Project
+                                        Description<span class="text-danger">*</span></label></label>
                                     <textarea class="form-control" name="sub_project_description" id="program_description" style="height: 100px"
                                         placeholder="Project brief description" required></textarea>
                                     <div class="invalid-feedback">Missing project description</div>
@@ -463,8 +491,8 @@
                     error: function(data) {
                         Swal.fire({
                             icon: 'warning',
-                            // title: data.responseJSON.message,
-                            title: "There is something wrong...",
+                            title: data.responseJSON.message,
+                            // title: "There is something wrong...",
                             timerProgressBar: false,
                             showConfirmButton: true,
                         });
