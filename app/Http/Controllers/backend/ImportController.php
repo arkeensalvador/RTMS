@@ -18,6 +18,12 @@ class ImportController extends Controller
 {
     public function importExcel(Request $request)
     {
+        // $route = request()->route()->getName();
+
+        // $request->validate([
+        //     'import_excel_users' => 'required|mimes:xls,xlsx',
+        //     'import_excel_programs' => 'required|mimes:xls,xlsx',
+        // ]);
 
         // CHECK IF EMPTY
         if (empty($request->file())) {
@@ -27,7 +33,6 @@ class ImportController extends Controller
             );
         } else  if ($request->file('import_excel_users')) {
             $import = Excel::import(new UsersImport, $request->file('import_excel_users'));
-
             if ($import) {
                 $notification = array(
                     'message' => 'Data Successfully Imported!',
