@@ -75,113 +75,93 @@
         }
     </style>
 
-
-
     <div class="content-wrapper">
         <section class="content">
-
-            <div class="strategic row">
-
-                <div class="col-md-5">
-                    {{-- card start --}}
-                    <div class="card">
-                        <div class="card-header">
-                            <h5 class="card-title">
-                                Edit Activity
-                            </h5>
-                        </div>
-
-
-                        {{-- card body start --}}
-                        <div class="card-body">
-                            <form role="form" id="regiration_form" action="{{ URL::to('/update-activity/'.$all->id)}}" method="POST"
-                                enctype="multipart/form-data">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12 mx-auto">
+                        <div class="d-flex mt-3">
+                            <form id="techForm" class="row g-3 needs-validation" novalidate>
                                 @csrf
-
-                                <div class="row">
-                                    <div class="col-sm-7">
-                                        <div class="form-group">
-                                            <label>Donor/Source</label>
-                                            <input type="text" value="{{ $all->donor }}" name="donor" class="form-control" list="donorList">
-                                            <datalist id="donorList">
-                                                @foreach ($agency as $key)
-                                                    <option value="{{ $key->abbrev }}">{{ $key->agency_name }} -
-                                                        ({{ $key->abbrev }})
-                                                        </b></option>
-                                                @endforeach
-                                            </datalist>
-                                        </div>
-                                    </div>
+                                <div class="form-title col-12">
+                                    <h2 class="font-weight-bold">RDMC Activities</h2>
+                                    <h5 class="mt-0"> Kindly fill-up the fields needed.</h5>
                                 </div>
 
-                                <div class="row">
-                                    <div class="col-sm-12">
-                                        <div class="form-group">
-                                            <label>Activity Type</label>
-                                            <input name="activity_type" value="{{ $all->activity_type }}" class="form-control" list="titledtlist">
-                                            <datalist id="titledtlist">
-                                                <option
-                                                    value="Implementation of Consortium-led R&D and Technology Transfer-related Programs/Activities">
-                                                </option>
-                                                <option value="HRD Activities"></option>
-                                                <option
-                                                    value="Improvement of Consortium's or Member-institution's Facilities">
-                                                </option>
-                                                <option value="Planning/Consultation Activities"></option>
-                                                <option value="AIHRS/Sectoral Reviews"></option>
-                                                <option value="RSRDH"></option>
-                                                <option value="Regional Fairs/Exhibits(e.g. Fiesta, etc)"></option>
-                                                <option value="Annual Contribution"></option>
-                                            </datalist>
-                                        </div>
-                                    </div>
+                                <div class="col-md-8 form-group">
+                                    <label for="funding_agency" class=" font-weight-bold">Donor/Source<span
+                                            class="text-danger">*</span></label>
+                                    <input type="text" name="donor" value="{{ $all->donor }}" class="form-control"
+                                        list="donorList" required placeholder="Enter donor/source">
+                                    <datalist id="donorList">
+                                        @foreach ($agency as $key)
+                                            <option value="{{ $key->abbrev }}">{{ $key->agency_name }} -
+                                                ({{ $key->abbrev }})
+                                                </b></option>
+                                        @endforeach
+                                    </datalist>
+                                    <div class="invalid-feedback">Missing donor/source</div>
                                 </div>
 
-                                <div class="row">
-                                    <div class="col-sm-12">
-                                        <div class="form-group">
-                                            <label>Activity Title</label>
-                                            <textarea name="activity_title"  id="" cols="5" rows="5" style="resize: none;" class="form-control">{{ $all->activity_title }} </textarea>
-                                        </div>
-                                    </div>
+                                <div class="col-md-4 form-group">
+                                    <label for="fund_code" class="font-weight-bold">Activity type<span
+                                            class="text-danger">*</span></label>
+                                    <input name="activity_type" value="{{ $all->activity_type }}" class="form-control"
+                                        list="titledtlist" required placeholder="Activity type">
+                                    <datalist id="titledtlist">
+                                        <option
+                                            value="Implementation of Consortium-led R&D and Technology Transfer-related Programs/Activities">
+                                        </option>
+                                        <option value="HRD Activities"></option>
+                                        <option value="Improvement of Consortium's or Member-institution's Facilities">
+                                        </option>
+                                        <option value="Planning/Consultation Activities"></option>
+                                        <option value="AIHRS/Sectoral Reviews"></option>
+                                        <option value="RSRDH"></option>
+                                        <option value="Regional Fairs/Exhibits(e.g. Fiesta, etc)"></option>
+                                        <option value="Annual Contribution"></option>
+                                    </datalist>
+                                    <div class="invalid-feedback">Missing activity type</div>
                                 </div>
 
-                                <div class="row">
-                                    <div class="col-sm-7">
-                                        <div class="form-group">
-                                            <label>Shared Amount</label>
-                                            <div class="input-group">
-                                                <div class="input-group-prepend">
-                                                    <span class="input-group-text">PHP</span>
-                                                </div>
-                                                <input type="text" value="{{ $all->shared_amount }} " name="shared_amount" id="numin" class="form-control">
-                                            </div>
-                                        </div>
-                                    </div>
+
+                                <div class="col-md-12 form-group">
+                                    <label for="program_title" class=" font-weight-bold">Activity Title<span
+                                            class="text-danger">*</span></label></label>
+                                    <textarea class="form-control" id="program_title" name="activity_title" style="height: 100px"
+                                        placeholder="Enter activity title" required>{{ $all->activity_title }}</textarea>
+                                    <div class="invalid-feedback">Missing title</div>
                                 </div>
 
-                                <div class="row">
-                                    <div class="col-sm-12">
-                                        <div class="form-group">
-                                            <label>Remarks</label>
-                                            <textarea name="remarks" id="" cols="5" rows="5" style="resize: none;" class="form-control">{{ $all->remarks }} </textarea>
-                                        </div>
-                                    </div>
+
+                                <div class="col-md-4 form-group">
+                                    <label for="approved_budget" class=" font-weight-bold">Shared Amount<span
+                                            class="text-danger">*</span></label>
+                                    <input type="text" name="shared_amount" value="{{ $all->shared_amount }}"
+                                        id="shared_amount" class="form-control" placeholder="Amount" required>
+                                    <div class="invalid-feedback">Missing shared amount</div>
                                 </div>
 
-                                <a href="{{ url('rdmc-activities') }}" class="btn btn-default">Back</a>
-                                <input type="submit" name="submit" class="submit btn btn-success" value="Submit" />
+
+                                <div class="col-md-12 form-group">
+                                    <label for="program_title" class=" font-weight-bold">Remarks<span
+                                            class="text-danger">*</span></label></label>
+                                    <textarea class="form-control" id="program_title" name="remarks" style="height: 100px" placeholder="Enter N/A if none."
+                                        required>{{ $all->remarks }}</textarea>
+                                    <div class="invalid-feedback">Missing remarks</div>
+                                </div>
+
+
+                                <div class="col-md-4 form-group float-right">
+                                    <a href="{{ url('rdmc-activities') }}" class="btn btn-default">Back</a>
+                                    <button type="submit" id="submit" class="btn btn-primary btn-m ">Submit</button>
+                                </div>
                             </form>
                         </div>
-                    </div> {{-- card body end --}}
-                </div>{{-- card end --}}
+                    </div>
+                </div>
             </div>
-            <div class="col-lg-1">
-
-            </div>
-    </div>
-
-    </section>
+        </section>
     </div>
 
     <script>
@@ -216,23 +196,98 @@
     </script>
 
     <script type="text/javascript">
-        var i = 0;
-        $("#add-btn").click(function() {
-            ++i;
-            $("#dynamicAddRemove").append(`
-            <tr>
-                <td class="append">
-                    <input type="text" class="form-control" placeholder="Program Staffs" name="moreFields[0][name]">
-                </td>
-
-                <td class="append">
-                    <i class="fa-solid fa-user-minus fa-lg remove-input" style="color: #dc3545;"></i>
-                </td>
-            </tr>
-            `);
+        $(document).ready(function() {
+            $('#form_of_development, #address, #year')
+                .on('input', function() {
+                    const inputField = $(this);
+                    if (inputField[0].checkValidity()) {
+                        inputField.addClass('is-valid').removeClass('is-invalid');
+                    } else {
+                        inputField.addClass('is-invalid').removeClass('is-valid');
+                    }
+                });
         });
-        $(document).on('click', '.remove-input', function() {
-            $(this).parents('tr').remove();
+
+
+        (function() {
+            'use strict';
+            window.addEventListener('load', function() {
+                var forms = document.getElementsByClassName('needs-validation');
+                var validation = Array.prototype.filter.call(forms, function(form) {
+                    form.addEventListener('submit', function(event) {
+                        if (form.checkValidity() === false) {
+                            event.preventDefault();
+                            event.stopPropagation();
+                            Swal.fire({
+                                icon: 'info',
+                                title: 'All fields are required',
+                                timerProgressBar: false,
+                                showConfirmButton: true,
+                            });
+                        }
+                        form.classList.add('was-validated');
+                    }, false);
+                });
+            }, false);
+        })();
+
+        document.getElementById('techForm').addEventListener('submit', function(event) {
+            const startDate = document.getElementById('year').value;
+            const endDate = document.getElementById('year').value;
+            if (!endDate) {
+                event.preventDefault();
+                document.getElementById('form_of_development').classList.add('is-invalid');
+            }
+            if (!startDate) {
+                event.preventDefault();
+                document.getElementById('year').classList.add('is-invalid');
+            }
+            if (!startDate && !endDate) {
+                event.preventDefault();
+                document.getElementById('year').classList.add('is-invalid');
+                document.getElementById('form_of_development').classList.add('is-invalid');
+            }
+        });
+
+        $(document).ready(function() {
+            $('#techForm').on('submit', function(e) {
+
+                var formData = new FormData(this);
+
+                e.preventDefault();
+                $.ajax({
+                    type: 'POST',
+                    url: "{{ url('update-activity/' . $all->id) }}",
+                    data: formData,
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    dataType: 'json',
+                    success: (data) => {
+                        this.reset();
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Activity Updated Successfully',
+                            timerProgressBar: true,
+                            showConfirmButton: false,
+                            timer: 900
+                        }).then((result) => {
+                            if (result.dismiss) {
+                                window.location.href = '/rdmc-activities';
+                            }
+                        })
+                    },
+                    error: function(data) {
+                        Swal.fire({
+                            icon: 'warning',
+                            title: data.responseJSON.message,
+                            // title: 'There is something wrong...',
+                            timerProgressBar: false,
+                            showConfirmButton: true,
+                        });
+                    }
+                });
+            });
         });
     </script>
 @endsection

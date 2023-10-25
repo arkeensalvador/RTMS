@@ -13,7 +13,8 @@
                             <li class="breadcrumb-item"><a href="home">Home</a></li>
                             <li class="breadcrumb-item"><a href="report-index">Reports</a></li>
                             <li class="breadcrumb-item"><a href="rdmc-index">RDMC</a></li>
-                            <li class="breadcrumb-item"><a href="rdmc-monitoring-evaluation">Monitoring and Evaluation</a></li>
+                            <li class="breadcrumb-item"><a href="rdmc-monitoring-evaluation">Monitoring and Evaluation</a>
+                            </li>
                             <li class="breadcrumb-item active">Activities</li>
                         </ol>
                     </div><!-- /.col -->
@@ -31,9 +32,7 @@
                                 <div class="card-tools">
 
                                     <a href="{{ url('rdmc-activities-add') }}" class="btn btn-success">
-
                                         <span><i class="fa-solid fa-plus"></i> Create</span></a>
-
                                     <!-- Here is a label for example -->
                                     {{-- <span class="badge badge-primary">Label</span> --}}
                                 </div>
@@ -52,36 +51,38 @@
                                                         <th>Amount Shared</th>
                                                         <th>Remarks</th>
                                                         <th>Action</th>
-                                                        
+
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                     @foreach ($all as $key => $row)
-                                                    <tr>
-                                                        <td class="counter">
-                                                           {{$key+1}}
-                                                        </td>
-                                                        <td>
-                                                            {{$row->donor}}
-                                                        </td>
-                                                        {{-- <td>{{ $row->activity_type }}</td> --}}
-                                                        <td>{{ $row->activity_title }}</td>
-                                                        <td>{{ $row->shared_amount }}</td>
-                                                        <td>{{ $row->remarks }}</td>
-                                                        <td class="action">
-                                                            <a class="btn btn-primary"
-                                                                href="{{ url("edit-activity/$row->id") }}"><i
-                                                                    class="fa-solid fa-pen-to-square" style="color: white;"></i></a>
+                                                        <tr>
+                                                            <td class="counter">
+                                                                {{ $key + 1 }}
+                                                            </td>
+                                                            <td>
+                                                                {{ $row->donor }}
+                                                            </td>
+                                                            {{-- <td>{{ $row->activity_type }}</td> --}}
+                                                            <td>{{ $row->activity_title }}</td>
+                                                            <td>{{ $row->shared_amount }}</td>
+                                                            <td>{{ $row->remarks }}</td>
+                                                            <td class="action">
+                                                                <a class="btn btn-primary"
+                                                                    href="{{ url("edit-activity/$row->id") }}"><i
+                                                                        class="fa-solid fa-pen-to-square"
+                                                                        style="color: white;"></i></a>
 
-                                                            <a href="{{ URL::to('/delete-activity/' . $row->id) }}"
-                                                                class="btn btn-danger" id="delete"><i
-                                                                    class="fa-solid fa-trash"></i></a>
-                                                        </td>
-                                                    </tr>
-                                                @endforeach
+                                                                <a href="{{ URL::to('/delete-activity/' . $row->id) }}"
+                                                                    class="btn btn-danger" id="delete"><i
+                                                                        class="fa-solid fa-trash"></i></a>
+                                                            </td>
+                                                        </tr>
+                                                    @endforeach
                                                 </tbody>
                                             </table>
-                                            <a href="{{ url('rdmc-monitoring-evaluation') }}" class="btn btn-default">Back</a>
+                                            <a href="{{ url('rdmc-monitoring-evaluation') }}"
+                                                class="btn btn-default">Back</a>
                                         </div>
                                     </div>
                                 </div>

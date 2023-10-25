@@ -11,6 +11,7 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="{{ mix('resources/css/app.css') }}" />
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
     <title>RTMS | Login</title>
 </head>
 
@@ -80,37 +81,6 @@
         @if (Session::has('message'))
             var type = "{{ Session::get('alert-type', 'info') }}"
             switch (type) {
-                case 'info':
-                    Swal.fire({
-                        icon: 'info',
-                        title: "{{ Session::get('message') }}",
-                        timerProgressBar: true,
-                        showConfirmButton: false,
-                        timer: 900
-                    })
-                    // toastr.info("{{ Session::get('message') }}");
-                    break;
-                case 'success':
-                    Swal.fire({
-                        icon: 'success',
-                        title: "{{ Session::get('message') }}",
-                        timerProgressBar: true,
-                        showConfirmButton: false,
-                        timer: 900
-                    })
-                    // toastr.success("{{ Session::get('message') }}");
-                    break;
-                case 'warning':
-                    Swal.fire({
-                        icon: 'warning',
-                        title: "{{ Session::get('message') }}",
-                        timerProgressBar: true,
-                        showConfirmButton: false,
-                        timer: 900
-                    })
-
-                    // toastr.warning("{{ Session::get('message') }}");
-                    break;
                 case 'error':
                     Swal.fire({
                         icon: 'error',
@@ -118,77 +88,10 @@
                         timerProgressBar: true,
                         toast: true,
                         showConfirmButton: false,
-                        timer: 900
+                        timer: 1500
                     })
 
                     // toastr.error("{{ Session::get('message') }}");
-                    break;
-
-                case 'test':
-                    Swal.fire({
-                        icon: 'success',
-                        title: "{{ Session::get('message') }}",
-                        text: 'Are there any Project associated with this Program?',
-                        showDenyButton: true,
-                        showCloseButton: true,
-                        confirmButtonText: 'Yes',
-                        denyButtontext: 'No',
-                        allowEscapeKey: false,
-                        allowOutsideClick: false,
-                        reverseButtons: true
-                    }).then((result) => {
-                        if (result.value) {
-                            window.location.href = 'program-projects-add';
-                        }
-                    });
-                    break;
-
-                case 'project':
-                    Swal.fire({
-                        icon: 'success',
-                        title: "{{ Session::get('message') }}",
-                        text: 'Are there any studies/sub-projects associated with this Project?',
-                        // type: 'success',
-                        showCancelButton: true,
-                        confirmButtonText: 'Yes',
-                        cancelButtonText: 'None',
-                        allowEscapeKey: false,
-                        allowOutsideClick: false,
-                        reverseButtons: true
-                    }).then((result) => {
-                        if (result.value) {
-                            window.location.href = 'sub-projects-add';
-                        }
-                        // else {
-                        //     window.location.href = 'projects-add';
-                        // }
-                    });
-
-                    // toastr.success("{{ Session::get('message') }}");
-                    break;
-
-                case 'project':
-                    Swal.fire({
-                        icon: 'success',
-                        title: "{{ Session::get('message') }}",
-                        text: 'Are there any studies/sub-projects associated with this Project?',
-                        // type: 'success',
-                        showCancelButton: true,
-                        confirmButtonText: 'Yes',
-                        cancelButtonText: 'None',
-                        allowEscapeKey: false,
-                        allowOutsideClick: false,
-                        reverseButtons: true
-                    }).then((result) => {
-                        if (result.value) {
-                            window.location.href = 'sub-projects-add';
-                        }
-                        // else {
-                        //     window.location.href = 'projects-add';
-                        // }
-                    });
-
-                    // toastr.success("{{ Session::get('message') }}");
                     break;
             }
         @endif

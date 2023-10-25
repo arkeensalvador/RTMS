@@ -126,43 +126,6 @@
                     <div class="col-md-12">
                         {{-- CHARTS --}}
                         <div class="row">
-                            {{-- Programs --}}
-                            <div class="col-md-4">
-                                <div class="card card-success">
-                                    <div class="col-md-12">
-                                        <div class="card-body">
-                                            <div class="chart">
-                                                <div id="myChart1"></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            {{-- Projects --}}
-                            <div class="col-md-4">
-                                <div class="card card-success">
-                                    <div class="col-md-12">
-                                        <div class="card-body">
-                                            <div class="chart">
-                                                <div id="myChart6"></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            {{-- Sub Projects --}}
-                            <div class="col-md-4">
-                                <div class="card card-success">
-                                    <div class="col-md-12">
-                                        <div class="card-body">
-                                            <div class="chart">
-                                                <div id="myChart9"></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
 
                             {{-- ALL PROGRAMS, PROJECTS, SUB PROJECTS --}}
                             <div class="col-md-12">
@@ -213,20 +176,31 @@
                                 </div>
                             </div>
 
-
-                            {{-- Budget per Consortium --}}
+                            {{-- PROGRAMS, PROJECTS, SUB PROJECTS BUDGETS --}}
                             <div class="col-md-12">
                                 <div class="card card-success">
                                     <div class="col-md-12">
                                         <div class="card-body">
                                             <div class="chart">
-                                                <div id="myChart5"></div>
+                                                <div id="myChart12"></div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
 
+                            {{-- RESEARCHERS INVOLVEMENT --}}
+                            {{-- <div class="col-md-6">
+                                <div class="card card-success">
+                                    <div class="col-md-12">
+                                        <div class="card-body">
+                                            <div class="chart">
+                                                <div id="myChart13"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> --}}
                         </div>
                     </div>
                 </div>
@@ -251,9 +225,7 @@
             chart: {
                 type: 'bar'
             },
-
             series: [{
-
                 name: 'total',
                 data: [
                     @php
@@ -271,6 +243,9 @@
                         }
                     @endphp
                 ],
+            },
+            noData: {
+                text: "Loading...",
             },
             legend: {
                 show: true,
@@ -294,7 +269,8 @@
         // NEW CHARTS APEXCHARTs
         var options = {
             chart: {
-                type: 'bar'
+                type: 'bar',
+                height: 285
             },
 
             series: [{
@@ -309,6 +285,9 @@
             legend: {
                 show: true,
                 position: 'top'
+            },
+            noData: {
+                text: "Loading...",
             },
             title: {
                 text: 'AIHRs',
@@ -382,13 +361,16 @@
                     vertical: -5
                 }
             },
+            noData: {
+                text: "Loading...",
+            },
             title: {
                 text: 'Researchers',
                 align: 'center',
                 floating: true
             },
             subtitle: {
-                text: 'Total # of researchers per consortium',
+                text: 'Total # of researchers',
                 align: 'center',
             },
             responsive: [{
@@ -400,52 +382,22 @@
                 }
             }]
         };
-        // var options = {
-        //     chart: {
-        //         type: 'bar'
-        //     },
-
-        //     series: [{
-        //         name: 'total',
-        //         data: {{ json_encode($count_res) }},
-
-        //     }],
-        //     colors: ['#5653FE'],
-        //     xaxis: {
-        //         categories: [
-        //             @php
-            //                 foreach ($researchers as $res) {
-            //                     echo "'" . $res->abbrev . "',";
-            //                 }
-            //
-        @endphp
-        //         ]
-        //     },
-        //     legend: {
-        //         show: true,
-        //         position: 'top'
-        //     },
-        //     title: {
-        //         text: 'Researchers',
-        //         align: 'center',
-        //         floating: true
-        //     },
-        //     subtitle: {
-        //         text: 'Total # of researchers per consortium',
-        //         align: 'center',
-        //     },
-        // }
 
         var chart3 = new ApexCharts(document.querySelector("#myChart3"), options);
-
         chart3.render();
 
         // AWARDS
 
+        let awardData = @json($datas);
+        var categories = awardData.map(function(item) {
+            return item.agency;
+        });
+
+        var awardsCount = awardData.map(function(item) {
+            return item.awards_count;
+        });
+
         var options = {
-            series: [{
-                data: {{ json_encode($count) }}
-            }],
             chart: {
                 type: 'bar',
                 height: 285
@@ -461,46 +413,37 @@
                     },
                 }
             },
+            dataLabels: {
+                enabled: false,
+            },
+            series: [{
+                name: 'Awards Count',
+                data: awardsCount,
+            }],
+            xaxis: {
+                categories: categories,
+            },
+            yaxis: {
+                title: {
+                    text: 'Agency',
+                },
+            },
+            fill: {
+                opacity: 1,
+            },
             colors: ['#546E7A', '#33b2df', '#d4526e', '#13d8aa', '#A5978B', '#2b908f', '#f9a3a4', '#90ee7e',
                 '#f48024', '#69d2e7', '#A300D6', '#7D02EB', '#5653FE', '#2983FF', '#00B1F2'
             ],
-            // dataLabels: {
-            //     enabled: true,
-            //     textAnchor: 'start',
-            //     style: {
-            //         colors: ['#fff']
-            //     },
-            //     formatter: function(val, opt) {
-            //         return opt.w.globals.labels[opt.dataPointIndex] + ":  " + val
-            //     },
-            //     offsetX: 0,
-            //     dropShadow: {
-            //         enabled: true
-            //     }
-            // },
             stroke: {
                 width: 1,
                 colors: ['#fff']
             },
-            xaxis: {
-                categories: [
-
-                    @php
-                        foreach ($datas as $d) {
-                            echo "'" . $d->agency_awards . "',";
-                        }
-                    @endphp
-                ],
-            },
-            yaxis: {
-                labels: {
-                    show: true
-                }
+            noData: {
+                text: "Loading...",
             },
             title: {
                 text: 'Awards',
                 align: 'center',
-                floating: true
             },
             subtitle: {
                 text: 'Total awards count per consortium',
@@ -524,112 +467,10 @@
         var chart4 = new ApexCharts(document.querySelector("#myChart4"), options);
         chart4.render();
 
-        // BUDGET
-        var options = {
-            series: [{
-                name: "Budget",
-                data: [
-                    @php
-                        foreach ($progs as $p) {
-                            $budget = str_replace(',', '', $p->budget);
-                            echo "'" . $budget . "',";
-                        }
-                    @endphp
-                ]
-            }],
-            chart: {
-                height: 350,
-                type: 'area',
-                zoom: {
-                    enabled: false
-                }
-            },
-            dataLabels: {
-                enabled: false
-            },
-            stroke: {
-                curve: 'smooth'
-            },
-            title: {
-                text: 'Budgets',
-                align: 'center'
-            },
-            subtitle: {
-                text: 'Approved program budgets per consortium',
-                align: 'center'
-            },
-            grid: {
-                row: {
-                    colors: ['#f3f3f3', 'transparent'],
-                    opacity: 0.5
-                },
-            },
-            xaxis: {
-                categories: [
-                    @php
-                        foreach ($progs as $p) {
-                            echo "'" . $p->title . '(' . $p->abbrev . ")',";
-                        }
-                    @endphp
-                ],
-            },
-
-        };
-
-        var chart5 = new ApexCharts(document.querySelector("#myChart5"), options);
-        chart5.render();
-
-
-        // PROJECTS
-        var options = {
-            chart: {
-                type: 'bar'
-            },
-
-            series: [{
-                name: 'total',
-                data: [
-                    @php
-                        foreach ($total_projs as $proj) {
-                            echo "'" . $proj->total_count_proj . "',";
-                        }
-                    @endphp
-                ],
-
-            }],
-            colors: ['#2b908f'],
-            xaxis: {
-                categories: [
-                    @php
-                        foreach ($total_projs as $proj) {
-                            echo "'" . $proj->total_project_agency . "',";
-                        }
-                    @endphp
-                ]
-            },
-            legend: {
-                show: true,
-                position: 'top'
-            },
-            title: {
-                text: 'Projects',
-                align: 'center',
-                floating: true
-            },
-            subtitle: {
-                text: 'Total # of projects per consortium',
-                align: 'center',
-            },
-        }
-
-        var chart6 = new ApexCharts(document.querySelector("#myChart6"), options);
-
-        chart6.render();
-
-
         // PROGRAMS, PROJECTS, SUB_PROJECT
         // Prepare the data for ApexCharts
         let agencyData = @json($agencyData);
+        let minValueAgencyData = @json($minValueAgencyData);
 
         // Extract data for chart labels and series
         let labels = [];
@@ -648,12 +489,20 @@
         var options = {
             chart: {
                 type: 'bar',
-                height: 350,
+                height: 450,
             },
             xaxis: {
                 categories: labels,
             },
-
+            plotOptions: {
+                bar: {
+                    borderRadius: 1,
+                    columnWidth: '100%',
+                    dataLabels: {
+                        position: 'bottom'
+                    },
+                }
+            },
             series: [{
                     name: 'Programs',
                     data: programsData,
@@ -667,18 +516,22 @@
                     data: subProjectsData,
                 },
             ],
+            noData: {
+                text: "Loading...",
+            },
             yaxis: {
                 title: {
                     text: 'Total #'
-                }
+                },
+                min: minValueAgencyData,
             },
             title: {
-                text: 'Programs, Projects, and Sub-projects per consortium',
+                text: 'Funded Research',
                 align: 'center',
                 floating: true
             },
             subtitle: {
-                text: 'Total # of Programs, Projects, and Sub-projects per consortium',
+                text: 'Total # of Programs, Projects, and Sub-projects funded per consortium',
                 align: 'center',
             },
         };
@@ -729,7 +582,124 @@
         }
 
         var chart9 = new ApexCharts(document.querySelector("#myChart9"), options);
-
         chart9.render();
+
+        // BUDGET PER PROGRAM, PROJECT, SUB PROJECT
+        var data = @json($data);
+
+        var categories = data.map(function(item) {
+            return `${item.title}(${item.agency})`;
+        });
+
+        var budgetData = data.map(function(item) {
+            return item.program_budget || item.project_budget || item.sub_project_budget;
+        });
+
+        var minAxisValue = @json($minValue);
+        var options = {
+            chart: {
+                type: 'line',
+                height: 350,
+            },
+            dataLabels: {
+                enabled: true,
+            },
+            yaxis: {
+                labels: {
+                    formatter: (val) => {
+                        if (val >= 1000000000) {
+                            return (val / 1000000000).toFixed(2) + 'B';
+                        } else if (val >= 1000000) {
+                            return (val / 1000000).toFixed(2) + 'M';
+                        } else if (val => 100000) {
+                            return (val / 1000) + 'K';
+                        }
+                        return val;
+                    },
+                },
+                title: {
+                    text: 'PHP'
+                },
+                min: minAxisValue,
+            },
+            stroke: {
+                curve: 'straight',
+                dashArray: [0, 10],
+            },
+            noData: {
+                text: "Loading...",
+            },
+            series: [{
+                name: 'Budget',
+                data: budgetData,
+            }],
+            xaxis: {
+                type: 'category',
+                categories: categories,
+                tooltip: {
+                    enabled: false
+                },
+                labels: {
+                    style: {
+                        fontSize: '10px',
+                        fontWeight: 500,
+                    },
+                    show: true,
+                },
+                title: {
+                    text: 'Program, Project, or Sub-project title and Funding Agency'
+                }
+            },
+            legend: {
+                position: 'top',
+            },
+            title: {
+                text: 'Budget',
+                align: 'center',
+                floating: true
+            },
+            subtitle: {
+                text: 'Total budget per Programs, Projects, and Sub-projects granted',
+                align: 'center',
+            },
+            dataLabels: {
+                enabled: false,
+                style: {
+                    fontSize: "12px",
+                    fontFamily: "Helvetica, Arial, sans-serif",
+                    fontWeight: "bold"
+                }
+            },
+        };
+
+        var chart12 = new ApexCharts(document.querySelector("#myChart12"), options);
+        chart12.render();
+
+        // Researchers Involvement
+
+        var options = {
+            chart: {
+                type: 'donut',
+            },
+            labels: [
+                @foreach ($researcherCounts as $researcher)
+                    '{{ $researcher->name }}',
+                @endforeach
+            ],
+            series: [
+                @foreach ($researcherCounts as $researcher)
+                    {{ $researcher->programs_count + $researcher->projects_count + $researcher->sub_projects_count }},
+                @endforeach
+            ],
+
+            title: {
+                text: 'Researchers Involvement',
+                align: 'center',
+                floating: false
+            },
+        }
+
+        var chart13 = new ApexCharts(document.querySelector('#myChart13'), options);
+        chart13.render();
     </script>
 @endsection

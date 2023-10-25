@@ -196,16 +196,16 @@
                                 </div>
 
                                 <div class="col-md-12 form-group">
-                                    <label for="" class=" font-weight-bold">Research Center<span
+                                    <label for="" class=" font-weight-bold">Research and Development Center<span
                                             class="text-danger">*</span></label>
                                     <input type="text" name="research_center[]" id="rc"
-                                        class="form-control research-center" placeholder="Research Center(s)"
-                                        data-role="tagsinput" required>
+                                        class="form-control research-center"
+                                        placeholder="Research and Development Center(s)" data-role="tagsinput" required>
                                     <div class="invalid-feedback">Missing research center</div>
                                 </div>
 
                                 <div class="col-md-6 form-group">
-                                    <label for="program_leader" class=" font-weight-bold">Program Leader <span
+                                    <label for="program_leader" class=" font-weight-bold">Program Leader<span
                                             class="text-danger">*</span></label>
                                     <select id="program_leader" name="program_leader" class="form-control researchers"
                                         required>
@@ -457,12 +457,12 @@
                         });
                     },
                     error: function(data) {
-                        // Swal.fire({
-                        //     icon: 'warning',
-                        //     title: 'There is something wrong...',
-                        //     timerProgressBar: false,
-                        //     showConfirmButton: true,
-                        // });
+                        Swal.fire({
+                            icon: 'warning',
+                            title: 'There is something wrong...',
+                            timerProgressBar: false,
+                            showConfirmButton: true,
+                        });
                     }
                 });
             });

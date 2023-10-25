@@ -16,10 +16,11 @@ class TrainingsController extends Controller
         $data['trainings_sof'] = $request->trainings_sof;
         $data['trainings_agency'] = $request->trainings_agency;
         $data['trainings_title'] = $request->trainings_title;
-        $data['trainings_expenditures'] = $request->trainings_expenditures;
+        $data['trainings_expenditures'] = str_replace(',', '', $request->trainings_expenditures);
         $data['trainings_start'] = $request->trainings_start;
         $data['trainings_end'] = $request->trainings_end;
         $data['trainings_no_participants'] = $request->trainings_no_participants;
+        $data['trainings_venue'] = $request->trainings_venue;
         $data['created_at'] = now();
 
         $insert = DB::table('cbg_trainings')->insert($data);
@@ -46,10 +47,11 @@ class TrainingsController extends Controller
         $data['trainings_sof'] = $request->trainings_sof;
         $data['trainings_agency'] = $request->trainings_agency;
         $data['trainings_title'] = $request->trainings_title;
-        $data['trainings_expenditures'] = $request->trainings_expenditures;
+        $data['trainings_expenditures'] = str_replace(',', '', $request->trainings_expenditures);
         $data['trainings_start'] = $request->trainings_start;
         $data['trainings_end'] = $request->trainings_end;
         $data['trainings_no_participants'] = $request->trainings_no_participants;
+        $data['trainings_venue'] = $request->trainings_venue;
         $data['updated_at'] = now();
 
         $update = DB::table('cbg_trainings')->where('id', $id)->update($data);

@@ -42,11 +42,38 @@
                                                 <tr>
                                                     <th scope="row">Research Involvement</th>
                                                     <td>
-                                                        <ul>
-                                                            <li>12</li>
-                                                            <li>23</li>
-                                                            <li>23</li>
-                                                        </ul>
+                                                        <span><i>Programs</i></span>
+                                                        <ol class="">
+                                                            @foreach ($prog_involvement as $res)
+                                                                <li>
+                                                                    <a
+                                                                        href="{{ url('view-program-index/' . $res->programID) }}">
+                                                                        {{ $res->program_title }}
+                                                                    </a>
+                                                                </li>
+                                                            @endforeach
+                                                        </ol>
+
+                                                        <span><i>Projects</i></span>
+                                                        <ol>
+                                                            @foreach ($proj_involvement as $proj_res)
+                                                                <li>
+                                                                    <a
+                                                                        href="{{ url('view-project-index/' . $proj_res->id) }}">{{ $proj_res->project_title }}
+                                                                    </a>
+                                                                </li>
+                                                            @endforeach
+                                                        </ol>
+                                                        <span><i>Sub-Projects</i></span>
+                                                        <ol>
+                                                            @foreach ($sub_proj_involvement as $res)
+                                                                @if (!$res)
+                                                                    <li>None</li>
+                                                                @else
+                                                                    <li>{{ $res->sub_project_title }}</li>
+                                                                @endif
+                                                            @endforeach
+                                                        </ol>
                                                     </td>
                                                 </tr>
                                             </tbody>
@@ -55,7 +82,8 @@
                                 </div>
                             </div>
                             <div class="text-center mt-3 mb-3">
-                                <a href="{{ url('researcher-index') }}" class="btn btn previous btn btn-default">Go back</a>
+                                <a href="{{ url('researcher-index') }}" class="btn btn previous btn btn-default">Go
+                                    back</a>
                             </div>
                         </div>
                     </div>

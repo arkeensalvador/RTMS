@@ -59,7 +59,7 @@
                                             <th>Program Leader</th>
                                             <th>Duration</th>
                                             <th>Funding Agency</th>
-                                            <th>Implementing Agency/Research Center</th>
+                                            <th>Implementing Agency/Research and Development Center</th>
                                             <th>Description</th>
                                             <th>Status</th>
                                             <th hidden>Keyword(s)</th>

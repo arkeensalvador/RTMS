@@ -162,6 +162,14 @@
                                     <div class="invalid-feedback"> Missing # of participants</div>
                                 </div>
 
+                                <div class="col-md-6 form-group">
+                                    <label for="trainings_no_participants" class=" font-weight-bold">Venue<span
+                                            class="text-danger">*</span></label>
+                                    <input type="text" name="trainings_venue" value="{{ $all->trainings_venue }}"
+                                        class="form-control" id="training_venue" placeholder="Venue" required>
+                                    <div class="invalid-feedback"> Missing venue</div>
+                                </div>
+
                                 <div class="col-md-12 form-group buttons">
                                     <a href="{{ url('cbg-training') }}" class="btn btn-default">Back</a>
                                     <button type="submit" id="submit" class="btn btn-primary btn-m ">Submit</button>

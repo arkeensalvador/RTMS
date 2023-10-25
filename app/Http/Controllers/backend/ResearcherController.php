@@ -101,7 +101,22 @@ class ResearcherController extends Controller
             ->join('agency', 'agency.abbrev', '=', 'researchers.agency')
             ->select('agency.*', 'researchers.*')
             ->where('researchers.id', $id)->first();
-        return view('backend.researcher.researcher_view', compact('researcher', 'title'));
+
+        $prog_involvement = DB::table('researchers')
+            ->join('programs', 'programs.program_leader', '=', 'researchers.name')
+            ->select('programs.*', 'researchers.name')
+            ->where('researchers.id', $id)->get();
+
+        $proj_involvement = DB::table('researchers')
+            ->join('projects', 'projects.project_leader', '=', 'researchers.name')
+            ->select('projects.*', 'researchers.name')
+            ->where('researchers.id', $id)->get();
+
+        $sub_proj_involvement = DB::table('researchers')
+            ->join('sub_projects', 'sub_projects.sub_project_leader', '=', 'researchers.name')
+            ->select('sub_projects.*', 'researchers.name')
+            ->where('researchers.id', $id)->get();
+        return view('backend.researcher.researcher_view', compact('researcher', 'title', 'prog_involvement', 'proj_involvement', 'sub_proj_involvement'));
     }
 
     public function UpdateResearcher(Request $request, $id)
@@ -136,6 +151,8 @@ class ResearcherController extends Controller
         $file_path = storage_path('import-templates\researchers-template.xlsx');
         return Response::download($file_path);
     }
+
+
 
     public function DeleteResearcher($id)
     {

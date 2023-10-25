@@ -242,11 +242,12 @@
 
 
                                 <div class="col-md-12 form-group">
-                                    <label for="" class=" font-weight-bold">Research Center<span
+                                    <label for="" class=" font-weight-bold">Research and Development Center<span
                                             class="text-danger">*</span></label>
                                     <input type="text" name="project_research_center[]" id="rc"
-                                        class="form-control research-center" placeholder="Research Center(s)"
-                                        value="{{ $rc }}" data-role="tagsinput" required>
+                                        class="form-control research-center"
+                                        placeholder="Research and Development Center(s)" value="{{ $rc }}"
+                                        data-role="tagsinput" required>
                                     <div class="invalid-feedback">Missing research center</div>
                                 </div>
 

@@ -137,8 +137,31 @@
                                 </div>
 
 
+                                <div class="col-md-6 form-group">
+                                    <label for="ttp_sof" class=" font-weight-bold">Proponent<span
+                                            class="text-danger">*</span></label>
+                                    <select id="agencySelect" name="ttp_proponent" class="form-control r-agency" required>
+                                        <option value=""></option>
+                                        @foreach ($agency as $row)
+                                            <option value="{{ $row->abbrev }}"> {{ $row->agency_name }} </option>
+                                        @endforeach
+                                    </select>
+                                    <div class="invalid-feedback">Missing proponent</div>
+                                </div>
+
+
+                                <div class="col-md-6 form-group">
+                                    <label for="ttp_sof" class=" font-weight-bold">Researchers<span
+                                            class="text-danger">*</span></label>
+                                    <select id="researcherSelect" name="ttp_researchers[]" class="form-control researchers"
+                                        multiple="multiple" required>
+                                        <option value=""></option>
+                                    </select>
+                                    <div class="invalid-feedback">Missing researchers</div>
+                                </div>
+
                                 <div class="col-md-3 form-group">
-                                    <label for="ttp_start_date" class=" font-weight-bold">Start Date<span
+                                    <label for="ttp_start_date" class="font-weight-bold">Start Date<span
                                             class="text-danger">*</span></label>
 
                                     <input type="number" name="ttp_start_date" id="ttp_start_date"
@@ -149,8 +172,8 @@
                                 <div class="col-md-3 form-group">
                                     <label for="ttp_end_date" class="font-weight-bold">End Date <span
                                             class="text-danger">*</span></label>
-                                    <input type="text" name="ttp_end_date" class="form-control date" id="ttp_end_date"
-                                        placeholder="Enter end date" required>
+                                    <input type="text" name="ttp_end_date" class="form-control date"
+                                        id="ttp_end_date" placeholder="Enter end date" required>
                                     <div class="invalid-feedback">Missing end date</div>
                                 </div>
 
@@ -175,6 +198,47 @@
     </div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.1.0-rc0/js/select2.min.js"></script> --}}
+    <script>
+        $(document).ready(function() {
+            $('.r-agency').select2({
+                placeholder: 'Select Agency'
+            });
+
+            $('#agencySelect').on('change', function() {
+                var agencyId = $(this).val();
+                if (agencyId) {
+                    $.ajax({
+                        url: '/get-researchers',
+                        type: 'GET',
+                        data: {
+                            agency_id: agencyId
+                        },
+                        success: function(data) {
+                            $('#researcherSelect').empty();
+                            $('#researcherSelect').append(
+                                '<option value="">Select a Researcher</option>'
+                            );
+                            data.forEach(function(researcher) {
+                                $('#researcherSelect').append($('<option>', {
+                                    value: researcher.name,
+                                    text: researcher.name
+                                }));
+                            });
+                            $('#researcherSelect').select2({
+                                placeholder: "Select researchers"
+                            });
+                        }
+                    });
+                } else {
+                    $('#researcherSelect').empty();
+                    $('#researcherSelect').append(
+                        '<option value="">Select a Researcher</option>');
+                    $('#researcherSelect').select2();
+                }
+            });
+        });
+    </script>
     <script>
         $(document).ready(function() {
             $('#ttp_title, #ttp_budget, #ttp_sof, #ttp_start_date, #ttp_end_date, #ttp_priorities')
@@ -258,13 +322,13 @@
                         })
                     },
                     error: function(data) {
-                        //   Swal.fire({
-                        //     icon: 'warning',
-                        //     title: data.responseJSON.message,
-                        //     // title: 'There is something wrong...',
-                        //     timerProgressBar: false,
-                        //     showConfirmButton: true,
-                        // });
+                        Swal.fire({
+                            icon: 'warning',
+                            // title: data.responseJSON.message,
+                            title: 'There is something wrong...',
+                            timerProgressBar: false,
+                            showConfirmButton: true,
+                        });
                     }
                 });
             });

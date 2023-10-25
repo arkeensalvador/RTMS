@@ -48,6 +48,7 @@
                                                         <th>Title of Activity/Training</th>
                                                         <th>Date</th>
                                                         <th>No. of Participants</th>
+                                                        <th>Venue</th>
                                                         <th>Expenditures</th>
                                                         <th>Source of Fund</th>
                                                         <th>Implementing Agency</th>
@@ -71,6 +72,7 @@
                                                             @endif
 
                                                             <td>{{ $row->trainings_no_participants }}</td>
+                                                            <td>{{ $row->trainings_venue }}</td>
                                                             <td>{{ $row->trainings_expenditures }}</td>
                                                             <td>{{ $row->trainings_sof }}</td>
                                                             <td>{{ $row->trainings_agency }}</td>
@@ -79,7 +81,8 @@
                                                                     href="{{ url('edit-training/' . $row->id) }}"><i
                                                                         class="fa-solid fa-pen-to-square"
                                                                         style="color: white;"></i></a>
-                                                                <a href="{{ url('delete-training/' . $row->id) }}" class="btn btn-danger" id="delete"><i
+                                                                <a href="{{ url('delete-training/' . $row->id) }}"
+                                                                    class="btn btn-danger" id="delete"><i
                                                                         class="fa-solid fa-trash"></i></a>
                                                             </td>
                                                         </tr>

@@ -278,3 +278,6 @@ Route::get('download-template-subprojects', [App\Http\Controllers\backend\Subpro
 
 // IMPORT TO DB
 Route::post('/import-file', [App\Http\Controllers\backend\ImportController::class, 'importExcel'])->name('importExcel');
+
+// AJAX REQUEST
+Route::get('/get-researchers', [App\Http\Controllers\backend\ResultsUtilizationController::class, 'getResearchers'])->name('getResearchers');

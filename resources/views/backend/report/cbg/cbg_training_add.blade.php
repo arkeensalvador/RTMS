@@ -100,7 +100,7 @@
                                 </div>
 
                                 <div class="col-md-6 form-group">
-                                    <label for="trainings_agency" class=" font-weight-bold">Agency<span
+                                    <label for="trainings_agency" class=" font-weight-bold">Implementing Agency<span
                                             class="text-danger">*</span></label>
                                     <select id="trainings_agency" name="trainings_agency" class="form-control agency"
                                         required>
@@ -109,7 +109,7 @@
                                             <option value="{{ $row->abbrev }}"> {{ $row->agency_name }} </option>
                                         @endforeach
                                     </select>
-                                    <div class="invalid-feedback">Missing agency</div>
+                                    <div class="invalid-feedback">Missing implementing agency</div>
                                 </div>
 
                                 <div class="col-md-12 form-group">
@@ -154,6 +154,14 @@
                                     <div class="invalid-feedback"> Missing # of participants</div>
                                 </div>
 
+                                <div class="col-md-6 form-group">
+                                    <label for="trainings_no_participants" class=" font-weight-bold">Venue<span
+                                            class="text-danger">*</span></label>
+                                    <input type="text" name="trainings_venue" class="form-control" id="trainings_venue"
+                                        placeholder="Venue" required>
+                                    <div class="invalid-feedback"> Missing venue</div>
+                                </div>
+
                                 <div class="col-md-12 form-group buttons">
                                     <a href="{{ url('cbg-training') }}" class="btn btn-default">Back</a>
                                     <button type="submit" id="submit" class="btn btn-primary btn-m ">Submit</button>
@@ -169,7 +177,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script>
         $(document).ready(function() {
-            $('#trainings_sof, #trainings_agency, #trainings_title, #trainings_start, #trainings_end, #trainings_title')
+            $('#trainings_sof, #trainings_agency, #trainings_title, #trainings_start, #trainings_end, #trainings_title, #trainings_venue')
                 .on('input', function() {
                     const inputField = $(this);
                     if (inputField[0].checkValidity()) {

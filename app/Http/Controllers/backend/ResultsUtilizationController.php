@@ -18,6 +18,8 @@ class ResultsUtilizationController extends Controller
         $data['ttp_title'] = $request->ttp_title;
         $data['ttp_budget'] = str_replace(',', '', $request->ttp_budget);
         $data['ttp_sof'] = $request->ttp_sof;
+        $data['ttp_proponent'] = $request->ttp_proponent;
+        $data['ttp_researchers'] = json_encode($request->ttp_researchers);
         $data['ttp_start_date'] = $request->ttp_start_date;
         $data['ttp_end_date'] = $request->ttp_end_date;
         $data['ttp_priorities'] = $request->ttp_priorities;
@@ -36,7 +38,8 @@ class ResultsUtilizationController extends Controller
         $title = 'TTP | R&D Results Utilizations';
         $all = DB::table('results_ttp')->where('id', $id)->first();
         $agency = DB::table('agency')->get();
-        return view('backend.report.rdru.rdru_ttp_edit', compact('title', 'all', 'agency'));
+        $researchers = DB::table('researchers')->get();
+        return view('backend.report.rdru.rdru_ttp_edit', compact('title', 'all', 'agency', 'researchers'));
     }
 
     public function UpdateTtp(Request $request, $id)
@@ -48,6 +51,8 @@ class ResultsUtilizationController extends Controller
         $data['ttp_title'] = $request->ttp_title;
         $data['ttp_budget'] = str_replace(',', '', $request->ttp_budget);
         $data['ttp_sof'] = $request->ttp_sof;
+        $data['ttp_proponent'] = $request->ttp_proponent;
+        $data['ttp_researchers'] = json_encode($request->ttp_researchers);
         $data['ttp_start_date'] = $request->ttp_start_date;
         $data['ttp_end_date'] = $request->ttp_end_date;
         $data['ttp_priorities'] = $request->ttp_priorities;
@@ -214,5 +219,17 @@ class ResultsUtilizationController extends Controller
             );
             return redirect()->route('rdruTpa')->with($notification);
         }
+    }
+
+
+    // AJAX REQUEST
+    public function getResearchers(Request $request)
+    {
+        $agencyId = $request->input('agency_id');
+        $researchers = DB::table('researchers')
+            ->where('agency', $agencyId)
+            ->get();
+
+        return response()->json($researchers);
     }
 }

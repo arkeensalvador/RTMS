@@ -48,6 +48,7 @@
                                                         <th>Title</th>
                                                         <th>Budget</th>
                                                         <th>Source of Fund</th>
+                                                        <th>Proponents/Researchers</th>
                                                         <th>Duration</th>
                                                         <th>Regional Priority/Commodities Addressed</th>
                                                         <th>Action</th>
@@ -60,7 +61,16 @@
                                                             <td>{{ $row->ttp_title }}</td>
                                                             <td>{{ $row->ttp_budget }}</td>
                                                             <td>{{ $row->ttp_sof }}</td>
-                                                            <td>{{ date('F, Y', strtotime($row->ttp_start_date)) ?: 'Not Set' }} - {{ date('F, Y', strtotime($row->ttp_end_date)) ? : 'Not Set' }}</td>
+                                                            @php
+                                                                $res = json_decode($row->ttp_researchers);
+
+                                                                $res = implode(', ', $res);
+                                                            @endphp
+                                                            <td>{{ $row->ttp_proponent }} / {{ $res }}</td>
+                                                            <td>{{ date('F, Y', strtotime($row->ttp_start_date)) ?: 'Not Set' }}
+                                                                -
+                                                                {{ date('F, Y', strtotime($row->ttp_end_date)) ?: 'Not Set' }}
+                                                            </td>
                                                             <td>{{ $row->ttp_priorities }}</td>
                                                             <td class="action btns">
                                                                 <a class="btn btn-primary"
