@@ -16,7 +16,8 @@ class Programs extends Model
         'program_status',
         'program_category',
         'funding_agency',
-        'coordination_fund',
+        'implementing_agency',
+        'research_center',
         'start_date',
         'end_date',
         'extend_date',
@@ -26,6 +27,7 @@ class Programs extends Model
         'approved_budget',
         'amount_released',
         'budget_year',
-        'form_of_development'
+        'form_of_development',
+        'keywords',
     ];
 }

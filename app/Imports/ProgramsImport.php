@@ -9,10 +9,10 @@ use Maatwebsite\Excel\Concerns\WithHeadingRow;
 class ProgramsImport implements ToModel, WithHeadingRow
 {
     /**
-    * @param array $row
-    *
-    * @return \Illuminate\Database\Eloquent\Model|null
-    */
+     * @param array $row
+     *
+     * @return \Illuminate\Database\Eloquent\Model|null
+     */
     public function model(array $row)
     {
         return new Programs([
@@ -22,7 +22,9 @@ class ProgramsImport implements ToModel, WithHeadingRow
             'program_status' => $row['program_status'],
             'program_category' => $row['program_category'],
             'funding_agency' => $row['funding_agency'],
-            'coordination_fund' => $row['coordination_fund'],
+            'implementing_agency' => $row['implementing_agency'],
+            'research_center' => $row['research_center'],
+            // 'coordination_fund' => $row['coordination_fund'],
             'start_date' => $row['start_date'],
             'end_date' => $row['end_date'],
             'extend_date' => $row['extend_date'],
@@ -33,6 +35,7 @@ class ProgramsImport implements ToModel, WithHeadingRow
             'amount_released' => $row['amount_released'],
             'budget_year' => $row['budget_year'],
             'form_of_development' => $row['form_of_development'],
+            'keywords' => $row['keywords'],
         ]);
     }
 }
