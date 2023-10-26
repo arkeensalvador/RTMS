@@ -542,6 +542,7 @@ class ReportController extends Controller
     {
         $title = 'Awards | CBG';
         $award = DB::table('cbg_awards')->get();
+
         return view('backend.report.cbg.cbg_awards', compact('title', 'award'));
     }
 
@@ -564,7 +565,8 @@ class ReportController extends Controller
         $title = 'Awards | CBG';
         $agency = DB::table('agency')->get();
         $researchers = DB::table('researchers')->get();
-        return view('backend.report.cbg.cbg_awards_add', compact('title', 'agency', 'researchers'));
+        $programs = DB::table('programs')->get();
+        return view('backend.report.cbg.cbg_awards_add', compact('title', 'agency', 'researchers', 'programs'));
     }
 
     public function cbgEquipmentAdd()

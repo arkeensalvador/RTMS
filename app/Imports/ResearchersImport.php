@@ -9,10 +9,10 @@ use Maatwebsite\Excel\Concerns\WithHeadingRow;
 class ResearchersImport implements ToModel, WithHeadingRow
 {
     /**
-    * @param array $row
-    *
-    * @return \Illuminate\Database\Eloquent\Model|null
-    */
+     * @param array $row
+     *
+     * @return \Illuminate\Database\Eloquent\Model|null
+     */
     public function model(array $row)
     {
         return new Researchers([
@@ -20,7 +20,7 @@ class ResearchersImport implements ToModel, WithHeadingRow
             'gender' => $row['gender'],
             'contact' => $row['contact'],
             'email' => $row['email'],
-            'agency' => $row['agency'],
+            'agency' => $row['agency']
         ]);
     }
 }

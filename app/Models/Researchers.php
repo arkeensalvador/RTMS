@@ -14,7 +14,6 @@ class Researchers extends Model
         'gender',
         'contact',
         'email',
-        'agency',
-        'image'
+        'agency'
     ];
 }

@@ -139,6 +139,10 @@
                                             <option value="{{ $row->abbrev }}">{{ $row->agency_name }}
                                             </option>
                                         @endforeach
+                                        @foreach ($programs as $row)
+                                            <option value="{{ $row->programID }}">{{ $row->program_title }}
+                                            </option>
+                                        @endforeach
                                         @foreach ($researchers as $row)
                                             <option value="{{ $row->name }}">{{ $row->name }}
                                             </option>

@@ -32,7 +32,7 @@
         .table th {
             text-align: center;
             vertical-align: middle;
-            font-size: 14px;
+            font-size: 9px;
         }
 
         .report-footer {
