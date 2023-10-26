@@ -16,16 +16,18 @@ class Programs extends Model
         'program_status',
         'program_category',
         'funding_agency',
-        'coordination_fund',
+        'implementing_agency',
+        'research_center',
         'start_date',
         'end_date',
-        'extend_date',
+        // 'extend_date',
         'program_leader',
         'assistant_leader',
         'program_description',
         'approved_budget',
         'amount_released',
         'budget_year',
-        'form_of_development'
+        'form_of_development',
+        'keywords',
     ];
 }
