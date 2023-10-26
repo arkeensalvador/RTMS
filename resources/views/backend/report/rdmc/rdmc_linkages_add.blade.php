@@ -92,8 +92,8 @@
                                             class="text-danger">*</span></label>
 
                                     <div class="custom-control custom-radio">
-                                        <input class="custom-control-input" type="radio" value="Endorsed" name="type"
-                                            value="Developed" id="customRadio1">
+                                        <input class="custom-control-input" type="radio" name="type" value="Developed"
+                                            id="customRadio1">
                                         <label for="customRadio1" class="custom-control-label"
                                             style="font-weight: bold;">Developed</label>
                                     </div>
@@ -107,7 +107,7 @@
                                 </div>
 
                                 <div class="col-md-3 form-group">
-                                    <label for="form_of_development" class=" font-weight-bold">Form of Development<span
+                                    <label for="form_of_development" class=" font-weight-bold">Agency/Institution<span
                                             class="text-danger">*</span></label>
                                     <select id="form_of_development" name="form_of_development"
                                         class="form-control formtype" required>
@@ -116,7 +116,7 @@
                                         <option value="National">National</option>
                                         <option value="International">International</option>
                                     </select>
-                                    <div class="invalid-feedback">Missing form of development</div>
+                                    <div class="invalid-feedback">Missing Agency/Institution type</div>
                                 </div>
 
                                 <div class="col-md-2 form-group">
@@ -244,8 +244,8 @@
                     error: function(data) {
                         Swal.fire({
                             icon: 'warning',
-                            title: data.responseJSON.message,
-                            // title: 'There is something wrong...',
+                            // title: data.responseJSON.message,
+                            title: 'There is something wrong...',
                             timerProgressBar: false,
                             showConfirmButton: true,
                         });

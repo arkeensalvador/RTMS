@@ -190,6 +190,12 @@ class ProjectController extends Controller
         return Response::download($file_path);
     }
 
+    // public function downloadTemplate2()
+    // {
+    //     $file_path = storage_path("import-templates\under-program-projects-template.xlsx");
+    //     return Response::download($file_path);
+    // }
+
     public function AddProjectPersonnel(Request $request)
     {
         $request->validate([

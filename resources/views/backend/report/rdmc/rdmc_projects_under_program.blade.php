@@ -289,7 +289,7 @@
                 <div class="modal-header">
                     <h1 class="modal-title fs-5" id="staticBackdropLabel">Import to Database
                         <span title="Click to download format">
-                            <a href="{{ url('download-template-programs') }}" class="" download><i
+                            <a href="{{ url('download-template-projects') }}" class="" download><i
                                     class="fa-solid fa-file-circle-question"></i></a>
                         </span>
                     </h1>
@@ -299,7 +299,7 @@
                 <form action="{{ url('import-file') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="modal-body">
-                        <input type="file" name="import_excel_programs" accept="application/vnd.ms-excel"
+                        <input type="file" name="import_excel_projects" accept="application/vnd.ms-excel"
                             class="form-control" id="import_excel">
                     </div>
                     <div class="modal-footer">

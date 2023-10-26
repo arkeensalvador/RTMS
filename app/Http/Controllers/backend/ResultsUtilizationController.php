@@ -20,6 +20,7 @@ class ResultsUtilizationController extends Controller
         $data['ttp_sof'] = $request->ttp_sof;
         $data['ttp_proponent'] = $request->ttp_proponent;
         $data['ttp_researchers'] = json_encode($request->ttp_researchers);
+        $data['ttp_implementing_agency'] = json_encode($request->ttp_implementing_agency);
         $data['ttp_start_date'] = $request->ttp_start_date;
         $data['ttp_end_date'] = $request->ttp_end_date;
         $data['ttp_priorities'] = $request->ttp_priorities;
@@ -53,6 +54,7 @@ class ResultsUtilizationController extends Controller
         $data['ttp_sof'] = $request->ttp_sof;
         $data['ttp_proponent'] = $request->ttp_proponent;
         $data['ttp_researchers'] = json_encode($request->ttp_researchers);
+        $data['ttp_implementing_agency'] = json_encode($request->ttp_implementing_agency);
         $data['ttp_start_date'] = $request->ttp_start_date;
         $data['ttp_end_date'] = $request->ttp_end_date;
         $data['ttp_priorities'] = $request->ttp_priorities;

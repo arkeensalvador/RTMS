@@ -9,10 +9,10 @@ use Maatwebsite\Excel\Concerns\WithHeadingRow;
 class SubProjectsImport implements ToModel, WithHeadingRow
 {
     /**
-    * @param array $row
-    *
-    * @return \Illuminate\Database\Eloquent\Model|null
-    */
+     * @param array $row
+     *
+     * @return \Illuminate\Database\Eloquent\Model|null
+     */
     public function model(array $row)
     {
         return new SubProjects([
@@ -21,19 +21,22 @@ class SubProjectsImport implements ToModel, WithHeadingRow
             'sub_project_category' => $row['sub_project_category'],
             'sub_project_status' => $row['sub_project_status'],
             'sub_project_agency' => $row['sub_project_agency'],
+            'sub_project_implementing_agency' => $row['sub_project_implementing_agency'],
+            'sub_project_research_center' => $row['sub_project_research_center'],
             'sub_project_funding_duration' => $row['sub_project_funding_duration'],
             'sub_project_funding_years' => $row['sub_project_funding_years'],
             'sub_project_title' => $row['sub_project_title'],
             'sub_project_leader' => $row['sub_project_leader'],
             'sub_project_assistant_leader' => $row['sub_project_assistant_leader'],
-            'sub_project_start_date' => $row['sub_project_start_date'],
-            'sub_project_end_date' => $row['sub_project_end_date'],
-            'sub_project_extend_date' => $row['sub_project_extend_date'],
+            'sub_project_start_date' => \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($row['sub_project_start_date'])->format('Y-m-d'),
+            'sub_project_end_date' => \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($row['sub_project_start_date'])->format('Y-m-d'),
+            // 'sub_project_extend_date' => $row['sub_project_extend_date'],
             'sub_project_description' => $row['sub_project_description'],
             'sub_project_approved_budget' => $row['sub_project_approved_budget'],
             'sub_project_amount_released' => $row['sub_project_amount_released'],
             'sub_project_budget_year' => $row['sub_project_budget_year'],
             'sub_project_form_of_development' => $row['sub_project_form_of_development'],
+            'keywords' => $row['keywords'],
         ]);
     }
 }

@@ -15,6 +15,8 @@ class SubProjects extends Model
         'sub_project_category',
         'sub_project_status',
         'sub_project_agency',
+        'sub_project_implementing_agency',
+        'sub_project_research_center',
         'sub_project_funding_duration',
         'sub_project_funding_years',
         'sub_project_title',
@@ -22,11 +24,12 @@ class SubProjects extends Model
         'sub_project_assistant_leader',
         'sub_project_start_date',
         'sub_project_end_date',
-        'sub_project_extend_date',
+        // 'sub_project_extend_date',
         'sub_project_description',
         'sub_project_approved_budget',
         'sub_project_amount_released',
         'sub_project_budget_year',
-        'sub_project_form_of_development'
+        'sub_project_form_of_development',
+        'keywords',
     ];
 }

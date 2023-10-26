@@ -108,7 +108,7 @@
                                 </div>
 
                                 <div class="col-md-3 form-group">
-                                    <label for="form_of_development" class=" font-weight-bold">Form of Development<span
+                                    <label for="form_of_development" class=" font-weight-bold">Agency/Institution<span
                                             class="text-danger">*</span></label>
                                     <select id="form_of_development" name="form_of_development"
                                         class="form-control formtype" required>
@@ -123,7 +123,7 @@
                                             {{ 'International' == $all->form_of_development ? 'selected' : '' }}>
                                             International</option>
                                     </select>
-                                    <div class="invalid-feedback">Missing form of development</div>
+                                    <div class="invalid-feedback">Missing Agency/Institution type</div>
                                 </div>
 
                                 <div class="col-md-2 form-group">

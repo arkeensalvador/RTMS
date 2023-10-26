@@ -266,6 +266,7 @@ Route::get('/delete-equipment/{id}', [App\Http\Controllers\backend\EquipmentCont
 
 // Report List
 Route::get('/report-list', [App\Http\Controllers\backend\ReportListController::class, 'reportListIndex'])->name('reportListIndex');
+Route::get('/report-test', [App\Http\Controllers\backend\ReportListController::class, 'reportTest'])->name('reportTest');
 Route::get('/reports/pdf', [App\Http\Controllers\backend\ReportListController::class, 'createPDF']);
 
 //Download templates
@@ -274,6 +275,7 @@ Route::get('download-template-programs', [App\Http\Controllers\backend\ProgramsC
 Route::get('download-template-researcher', [App\Http\Controllers\backend\ResearcherController::class, 'downloadTemplate']);
 Route::get('download-template-agency', [App\Http\Controllers\backend\AgencyController::class, 'downloadTemplate']);
 Route::get('download-template-projects', [App\Http\Controllers\backend\ProjectController::class, 'downloadTemplate']);
+Route::get('download-template-under-program-projects', [App\Http\Controllers\backend\ProjectController::class, 'downloadTemplate2']);
 Route::get('download-template-subprojects', [App\Http\Controllers\backend\SubprojectController::class, 'downloadTemplate']);
 
 // IMPORT TO DB

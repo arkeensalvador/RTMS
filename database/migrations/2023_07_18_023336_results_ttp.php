@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('ttp_sof');
             $table->string('ttp_proponent');
             $table->string('ttp_researchers');
+            $table->string('ttp_implementing_agency');
             $table->string('ttp_start_date');
             $table->string('ttp_end_date');
             $table->string('ttp_priorities');

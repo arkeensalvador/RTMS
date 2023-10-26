@@ -176,7 +176,36 @@
                                     <div class="invalid-feedback">Missing researchers</div>
                                 </div>
 
+                                @php
+                                    $imp = json_decode($all->ttp_implementing_agency);
+                                @endphp
 
+
+                                <div class="col-md-12 form-group">
+                                    <label for="awards_recipients" class=" font-weight-bold">Implementing Agency<span
+                                            class="text-danger">*</span></label>
+                                    <select class="form-control implementing_agency" id="awards_recipients"
+                                        name="implementing_agency[]" multiple="multiple" required readonly>
+                                        @if (auth()->user()->role == 'Admin')
+                                            @foreach ($agency as $key)
+                                                <option value="{{ $key->abbrev }}"
+                                                    {{ in_array($key->abbrev, $imp) ? 'selected' : '' }}>
+                                                    {{ $key->agency_name }} -
+                                                    ({{ $key->abbrev }})
+                                                    </b></option>
+                                            @endforeach
+                                        @else
+                                            @foreach ($user_agency as $key)
+                                                <option value="{{ $key->abbrev }}"
+                                                    {{ in_array($key->abbrev, $imp) ? 'selected' : '' }}>
+                                                    {{ $key->agency_name }} -
+                                                    ({{ $key->abbrev }})
+                                                    </b></option>
+                                            @endforeach
+                                        @endif
+                                    </select>
+                                    <div class="invalid-feedback">Missing implementing agency</div>
+                                </div>
                                 <div class="col-md-3 form-group">
                                     <label for="ttp_start_date" class=" font-weight-bold">Start Date<span
                                             class="text-danger">*</span></label>

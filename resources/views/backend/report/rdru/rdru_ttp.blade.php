@@ -49,6 +49,7 @@
                                                         <th>Budget</th>
                                                         <th>Source of Fund</th>
                                                         <th>Proponents/Researchers</th>
+                                                        <th>Implementing Agency</th>
                                                         <th>Duration</th>
                                                         <th>Regional Priority/Commodities Addressed</th>
                                                         <th>Action</th>
@@ -67,6 +68,11 @@
                                                                 $res = implode(', ', $res);
                                                             @endphp
                                                             <td>{{ $row->ttp_proponent }} / {{ $res }}</td>
+                                                            @php
+                                                                $imp = json_decode($row->ttp_implementing_agency);
+                                                                $agencies = implode(', ', $imp);
+                                                            @endphp
+                                                            <td>{{ $agencies }}</td>
                                                             <td>{{ date('F, Y', strtotime($row->ttp_start_date)) ?: 'Not Set' }}
                                                                 -
                                                                 {{ date('F, Y', strtotime($row->ttp_end_date)) ?: 'Not Set' }}

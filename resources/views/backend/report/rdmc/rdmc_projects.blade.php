@@ -220,6 +220,7 @@
                                                     @php
                                                         $imp = json_decode($row->project_implementing_agency);
                                                         $agencies = implode(' / ', $imp);
+
                                                         $rc = $row->project_research_center;
                                                         $rc = str_replace(['[', '"', ']'], '', $rc);
                                                     @endphp
