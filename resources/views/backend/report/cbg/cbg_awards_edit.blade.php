@@ -145,6 +145,12 @@
 
                                     <select class="form-control js-example-basic-single" id="awards_recipients"
                                         name="awards_recipients[]" multiple="multiple" required>
+                                        @foreach ($agency as $row)
+                                            <option value="{{ $row->abbrev }}"
+                                                {{ in_array($row->abbrev, $rec) ? 'selected' : '' }}>
+                                                {{ $row->agency_name }}
+                                            </option>
+                                        @endforeach
                                         @foreach ($researchers as $row)
                                             <option value="{{ $row->name }}"
                                                 {{ in_array($row->name, $rec) ? 'selected' : '' }}>
