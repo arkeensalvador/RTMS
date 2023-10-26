@@ -135,6 +135,10 @@
                                             class="text-danger">*</span></label>
                                     <select class="form-control js-example-basic-single" id="awards_recipients"
                                         name="awards_recipients[]" multiple="multiple" required>
+                                        @foreach ($agency as $row)
+                                            <option value="{{ $row->abbrev }}">{{ $row->agency_name }}
+                                            </option>
+                                        @endforeach
                                         @foreach ($researchers as $row)
                                             <option value="{{ $row->name }}">{{ $row->name }}
                                             </option>
