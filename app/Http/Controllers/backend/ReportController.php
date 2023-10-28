@@ -538,6 +538,20 @@ class ReportController extends Controller
         return view('backend.report.cbg.cbg_training', compact('title', 'all'));
     }
 
+    public function cbgMeetings()
+    {
+        $title = 'Meetings | CBG';
+        $all = DB::table('cbg_meetings')->get();
+        return view('backend.report.cbg.cbg_meetings', compact('title', 'all'));
+    }
+
+    public function cbgMeetingsAdd()
+    {
+        $title = 'Meetings | CBG';
+        $agency = DB::table('agency')->get();
+        return view('backend.report.cbg.cbg_meetings_add', compact('title', 'agency'));
+    }
+
     public function cbgAwards()
     {
         $title = 'Awards | CBG';

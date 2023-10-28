@@ -207,11 +207,20 @@ Route::get('/rdru-tpa-add', [App\Http\Controllers\backend\ReportController::clas
 // Cabability Building and Governance
 Route::get('/cbg-index', [App\Http\Controllers\backend\ReportController::class, 'cbgIndex'])->name('cbgIndex');
 Route::get('/cbg-training', [App\Http\Controllers\backend\ReportController::class, 'cbgTraining'])->name('cbgTraining');
+Route::get('/cbg-meetings', [App\Http\Controllers\backend\ReportController::class, 'cbgMeetings'])->name('cbgMeetings');
 Route::get('/cbg-awards', [App\Http\Controllers\backend\ReportController::class, 'cbgAwards'])->name('cbgAwards');
 Route::get('/cbg-equipment', [App\Http\Controllers\backend\ReportController::class, 'cbgEquipment'])->name('cbgEquipment');
+Route::get('/cbg-meetings-add', [App\Http\Controllers\backend\ReportController::class, 'cbgMeetingsAdd'])->name('cbgMeetingsAdd');
 Route::get('/cbg-training-add', [App\Http\Controllers\backend\ReportController::class, 'cbgTrainingAdd'])->name('cbgTrainingAdd');
 Route::get('/cbg-awards-add', [App\Http\Controllers\backend\ReportController::class, 'cbgAwardsAdd'])->name('cbgAwardsAdd');
 Route::get('/cbg-equipment-add', [App\Http\Controllers\backend\ReportController::class, 'cbgEquipmentAdd'])->name('cbgEquipmentAdd');
+
+// Meetings
+Route::post('/add-meetings', [App\Http\Controllers\backend\MeetingController::class, 'meeting_add'])->name('meeting_add');
+Route::get('/delete-meeting/{id}', [App\Http\Controllers\backend\MeetingController::class, 'meeting_delete']);
+Route::get('/edit-meeting/{id}', [App\Http\Controllers\backend\MeetingController::class, 'meeting_edit'])->name('meeting_edit');
+Route::post('/update-meetings/{id}', [App\Http\Controllers\backend\MeetingController::class, 'meeting_update'])->name('meeting_update');
+
 
 // Researchers
 Route::get('/researcher-index', [App\Http\Controllers\backend\ResearcherController::class, 'researcherIndex'])->name('researcherIndex');
