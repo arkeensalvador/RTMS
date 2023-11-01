@@ -84,7 +84,7 @@
                                 @csrf
                                 <div class="form-title col-12">
                                     <h2 class="font-weight-bold">Technology Promotion Approaches</h2>
-                                    <h5 class="mt-0"> Kindly fill-up the fields needed.</h5>
+                                    <h5 class="mt-0"> Kindly fill-out the fields needed.</h5>
                                 </div>
 
                                 <div class="col-md-12 form-group">
@@ -106,7 +106,7 @@
                                 <div class="col-md-12 form-group">
                                     <label for="tpa_details" class="font-weight-bold">Details<span
                                             class="text-danger">*</span></label>
-                                    <textarea class="form-control" name="tpa_details" id="tpa_details" rows="3" placeholder="Title"
+                                    <textarea class="form-control" name="tpa_details" id="tpa_details" rows="3" placeholder="Details"
                                         style="resize: none;" required></textarea>
                                     <div class="invalid-feedback">Missing details</div>
                                 </div>
@@ -114,14 +114,14 @@
                                 <div class="col-md-12 form-group">
                                     <label for="tpa_remarks" class="font-weight-bold">Remarks<span
                                             class="text-danger">*</span></label>
-                                    <textarea class="form-control" name="tpa_remarks" id="tpa_remarks" rows="3" placeholder="Title"
+                                    <textarea class="form-control" name="tpa_remarks" id="tpa_remarks" rows="3" placeholder="Remarks"
                                         style="resize: none;" required></textarea>
                                     <div class="invalid-feedback">Missing remarks</div>
                                 </div>
 
 
                                 <div class="col-md-12 form-group">
-                                    <label for="tpa_remarks" class="font-weight-bold">IEC Approaches<span
+                                    <label for="tpa_remarks" class="font-weight-bold">Information, Education and Communication (IEC) Approaches<span
                                             class="text-danger">*</span></label>
                                     <div class="ttm row">
                                         <div class="col-sm-3">
@@ -202,20 +202,14 @@
                                                     <label for="customCheckbox10"
                                                         class="custom-control-label">Comics</label>
                                                 </div>
-                                                <div class="custom-control custom-checkbox">
+                                                {{-- <div class="custom-control custom-checkbox">
                                                     <input class="custom-control-input custom-control-input-success"
-                                                        type="checkbox" value="Others" name="tpa_approaches[]"
+                                                        type="checkbox" value="Others" id="is_others" name="tpa_approaches[]"
                                                         id="customCheckbox11">
                                                     <label for="customCheckbox11"
                                                         class="custom-control-label">Others</label>
-                                                </div>
+                                                </div> --}}
 
-                                            </div>
-
-                                        </div>
-
-                                        <div class="col-sm-3">
-                                            <div class="form-group">
                                                 <div class="custom-control custom-checkbox">
                                                     <input class="custom-control-input custom-control-input-success"
                                                         type="checkbox" value="Broadcast Media" name="tpa_approaches[]"
@@ -231,6 +225,14 @@
                                                     <label for="customCheckbox13"
                                                         class="custom-control-label">Radio</label>
                                                 </div>
+
+                                            </div>
+
+                                        </div>
+
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                
                                                 <div class="custom-control custom-checkbox">
                                                     <input class="custom-control-input custom-control-input-success"
                                                         type="checkbox" value="Television" name="tpa_approaches[]"
@@ -260,11 +262,7 @@
                                                     <label for="customCheckbox17" class="custom-control-label">Interview
                                                         Guesting</label>
                                                 </div>
-                                            </div>
-                                        </div>
 
-                                        <div class="col-sm-3">
-                                            <div class="form-group">
                                                 <div class="custom-control custom-checkbox">
                                                     <input class="custom-control-input custom-control-input-success"
                                                         type="checkbox" value="ICT-based ICT" name="tpa_approaches[]"
@@ -272,7 +270,7 @@
                                                     <label for="customCheckbox18" class="custom-control-label">ICT-based
                                                         ICT</label>
                                                 </div>
-
+ 
                                                 <div class="custom-control custom-checkbox">
                                                     <input class="custom-control-input custom-control-input-success"
                                                         type="checkbox" value="CDs & Optimal Media"
@@ -281,6 +279,12 @@
                                                         Optimal
                                                         Media</label>
                                                 </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                
                                                 <div class="custom-control custom-checkbox">
                                                     <input class="custom-control-input custom-control-input-success"
                                                         type="checkbox" value="Web-based Formats" name="tpa_approaches[]"
@@ -294,6 +298,14 @@
                                                         id="customCheckbox21">
                                                     <label for="customCheckbox21" class="custom-control-label">Online
                                                         Promotion</label>
+                                                </div>
+                                                <div class="custom-control custom-checkbox form-check">
+                                                    <input type="checkbox" id="is_others" name="tpa_approaches[]" value="Others" class="custom-control-input custom-control-input-success">
+                                                    <label for="is_others" class="custom-control-label">Others</label>
+                                                </div>
+                                                <div class="form-group" style="display: none;" id="others-input">
+                                                    <label for="others">Specify Others</label>
+                                                    <input type="text" id="others" name="is_others" class="form-control">
                                                 </div>
                                             </div>
                                         </div>
@@ -400,6 +412,13 @@
                     }
                 });
             });
+        });
+    </script>
+
+    <script>
+        document.getElementById('is_others').addEventListener('change', function() {
+            const othersInput = document.getElementById('others-input');
+            othersInput.style.display = this.checked ? 'block' : 'none';
         });
     </script>
 @endsection

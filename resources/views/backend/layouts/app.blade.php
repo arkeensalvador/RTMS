@@ -545,7 +545,8 @@
         flatpickr('.date', {
             dateFormat: 'Y-m-d',
             altInput: true,
-            altFormat: "F j, Y"
+            altFormat: "F j, Y",
+            allowInput: true,
         });
 
         flatpickr(".year", {
@@ -658,6 +659,7 @@
         $('.researchers').select2({
             placeholder: "Select researcher",
             allowClear: false,
+            minimumResultsForSearch: 1
         });
 
         $('.others').select2({
@@ -685,6 +687,8 @@
             });
         });
 
+        
+
         $(document).ready(function() {
             $('.research-center').select2({
                 tags: true,
@@ -694,6 +698,13 @@
 
         $(document).ready(function() {
             $('.js-example-basic-single').select2({
+                tags: true,
+                tokenSeparators: [',', ' '],
+                placeholder: 'Enter recipients'
+
+            });
+
+            $('.regional-researchers').select2({
                 tags: true,
                 tokenSeparators: [',', ' '],
                 placeholder: 'Enter recipients'

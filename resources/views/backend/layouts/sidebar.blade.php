@@ -20,7 +20,7 @@
                 @endif
             </div>
             <div class="info">
-                <a href="#" class="d-block">{{ auth()->user()->name }} - {{ auth()->user()->role }}</a>
+                <a href="#" class="d-block">{{ auth()->user()->name }}</a>
             </div>
         </div>
 

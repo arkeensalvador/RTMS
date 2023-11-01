@@ -60,6 +60,15 @@
                                                             <td>
                                                                 @php
                                                                     $approach = json_decode($row->tpa_approaches);
+                                                                    $forbidden_words = ['Others'];
+                                                                    $approach = array_filter($approach, function ($approach) use ($forbidden_words) {
+                                                                        return !in_array($approach, $forbidden_words);
+                                                                    });
+                                                                    $others = $row->is_others;
+                                                                    if (!empty($others)) {
+                                                                        array_push($approach, $others);
+                                                                    }
+                                                                    
                                                                 @endphp
                                                                 {{ implode(', ', $approach) }}
                                                             </td>

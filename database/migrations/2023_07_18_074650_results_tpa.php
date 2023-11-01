@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('tpa_details');
             $table->string('tpa_remarks');
             $table->string('tpa_approaches');
+            $table->string('is_others')->nullable();
             $table->string('tpa_activity')->nullable();
             $table->timestamps();
         });

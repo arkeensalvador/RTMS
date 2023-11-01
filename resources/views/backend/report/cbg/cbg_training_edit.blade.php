@@ -84,7 +84,7 @@
                                 @csrf
                                 <div class="form-title col-12">
                                     <h2 class="font-weight-bold">Trainings / Workshops</h2>
-                                    <h5 class="mt-0"> Kindly fill-up the fields needed.</h5>
+                                    <h5 class="mt-0"> Kindly fill-out the fields needed.</h5>
                                 </div>
 
                                 <div class="col-md-6 form-group">

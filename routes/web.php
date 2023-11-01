@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\backend\ContributionsController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Route;
@@ -140,6 +141,9 @@ Route::get('/rdmc-linkages-index', [App\Http\Controllers\backend\ReportControlle
 Route::get('/rdmc-linkages-add', [App\Http\Controllers\backend\ReportController::class, 'linkagesAddIndex'])->name('linkagesAddIndex');
 Route::get('/rdmc-dbinfosys-index', [App\Http\Controllers\backend\ReportController::class, 'dbInfoSys'])->name('dbInfoSys');
 Route::get('/rdmc-dbinfosys-add', [App\Http\Controllers\backend\ReportController::class, 'dbInfoSysAdd'])->name('dbInfoSysAdd');
+Route::get('/rdmc-regional', [App\Http\Controllers\backend\ReportController::class, 'regional_index'])->name('regional_index');
+Route::get('/rdmc-regional-add', [App\Http\Controllers\backend\ReportController::class, 'regional_add_index'])->name('regional_add_index');
+
 
 // Projects Under Program
 Route::post('/add-project', [App\Http\Controllers\backend\ProjectController::class, 'AddProject'])->name('AddProject');
@@ -207,7 +211,9 @@ Route::get('/rdru-tpa-add', [App\Http\Controllers\backend\ReportController::clas
 // Cabability Building and Governance
 Route::get('/cbg-index', [App\Http\Controllers\backend\ReportController::class, 'cbgIndex'])->name('cbgIndex');
 Route::get('/cbg-training', [App\Http\Controllers\backend\ReportController::class, 'cbgTraining'])->name('cbgTraining');
+Route::get('/cbg-contributions', [App\Http\Controllers\backend\ReportController::class, 'cbgContributions'])->name('cbgContributions');
 Route::get('/cbg-meetings', [App\Http\Controllers\backend\ReportController::class, 'cbgMeetings'])->name('cbgMeetings');
+Route::get('/cbg-initiatives', [App\Http\Controllers\backend\ReportController::class, 'cbgInitiatives'])->name('cbgInitiatives');
 Route::get('/cbg-awards', [App\Http\Controllers\backend\ReportController::class, 'cbgAwards'])->name('cbgAwards');
 Route::get('/cbg-equipment', [App\Http\Controllers\backend\ReportController::class, 'cbgEquipment'])->name('cbgEquipment');
 Route::get('/cbg-meetings-add', [App\Http\Controllers\backend\ReportController::class, 'cbgMeetingsAdd'])->name('cbgMeetingsAdd');
@@ -215,12 +221,46 @@ Route::get('/cbg-training-add', [App\Http\Controllers\backend\ReportController::
 Route::get('/cbg-awards-add', [App\Http\Controllers\backend\ReportController::class, 'cbgAwardsAdd'])->name('cbgAwardsAdd');
 Route::get('/cbg-equipment-add', [App\Http\Controllers\backend\ReportController::class, 'cbgEquipmentAdd'])->name('cbgEquipmentAdd');
 
+// Contributions
+Route::post('/add-contributions', [App\Http\Controllers\backend\ContributionsController::class, 'con_add'])->name('con_add');
+Route::get('/delete-contributions/{id}', [App\Http\Controllers\backend\ContributionsController::class, 'con_delete']);
+Route::get('/edit-contributions/{id}', [App\Http\Controllers\backend\ContributionsController::class, 'con_edit'])->name('con_edit');
+Route::post('/update-contributions/{id}', [App\Http\Controllers\backend\ContributionsController::class, 'con_update'])->name('con_update');
+
+//Initiatives 
+Route::post('/add-initiatives', [App\Http\Controllers\backend\InitiativesController::class, 'ini_add'])->name('ini_add');
+Route::get('/delete-initiatives/{id}', [App\Http\Controllers\backend\InitiativesController::class, 'ini_delete']);
+Route::get('/edit-initiatives/{id}', [App\Http\Controllers\backend\InitiativesController::class, 'ini_edit'])->name('ini_edit');
+Route::post('/update-initiatives/{id}', [App\Http\Controllers\backend\InitiativesController::class, 'ini_update'])->name('ini_update');
+
 // Meetings
 Route::post('/add-meetings', [App\Http\Controllers\backend\MeetingController::class, 'meeting_add'])->name('meeting_add');
 Route::get('/delete-meeting/{id}', [App\Http\Controllers\backend\MeetingController::class, 'meeting_delete']);
 Route::get('/edit-meeting/{id}', [App\Http\Controllers\backend\MeetingController::class, 'meeting_edit'])->name('meeting_edit');
 Route::post('/update-meetings/{id}', [App\Http\Controllers\backend\MeetingController::class, 'meeting_update'])->name('meeting_update');
 
+// Policy
+Route::get('/policy-index', [App\Http\Controllers\backend\ReportController::class, 'policyIndex'])->name('policyIndex');
+Route::get('/policy-prc', [App\Http\Controllers\backend\ReportController::class, 'policyPrc'])->name('policyPrc');
+Route::get('/policy-prc-add', [App\Http\Controllers\backend\PolicyController::class, 'prc_add_index'])->name('prc_add_index');
+Route::get('/policy-formulated-add', [App\Http\Controllers\backend\PolicyController::class, 'formulated_add_index'])->name('formulated_add_index');
+Route::get('/policy-formulated', [App\Http\Controllers\backend\ReportController::class, 'policyFormulated'])->name('policyFormulated');
+
+// Best paper
+Route::post('/add-best-paper', [App\Http\Controllers\backend\ReportController::class, 'best_paper_add'])->name('best_paper_add');
+Route::post('/update-best-paper/{id}', [App\Http\Controllers\backend\ReportController::class, 'best_paper_update'])->name('best_paper_update');
+Route::get('/delete-best-paper/{id}', [App\Http\Controllers\backend\ReportController::class, 'best_paper_delete']);
+// POLICY PRC
+Route::post('/add-prc', [App\Http\Controllers\backend\PolicyController::class, 'prc_add'])->name('prc_add');
+Route::get('/delete-prc/{id}', [App\Http\Controllers\backend\PolicyController::class, 'prc_delete']);
+Route::get('/edit-prc/{id}', [App\Http\Controllers\backend\PolicyController::class, 'prc_edit'])->name('prc_edit');
+Route::post('/update-prc/{id}', [App\Http\Controllers\backend\PolicyController::class, 'prc_update'])->name('prc_update');
+
+// POLICY FORMULATED
+Route::post('/add-formulated', [App\Http\Controllers\backend\PolicyController::class, 'formulated_add'])->name('formulated_add');
+Route::get('/delete-formulated/{id}', [App\Http\Controllers\backend\PolicyController::class, 'formulated_delete']);
+Route::get('/edit-formulated/{id}', [App\Http\Controllers\backend\PolicyController::class, 'formulated_edit'])->name('formulated_edit');
+Route::post('/update-formulated/{id}', [App\Http\Controllers\backend\PolicyController::class, 'formulated_update'])->name('formulated_update');
 
 // Researchers
 Route::get('/researcher-index', [App\Http\Controllers\backend\ResearcherController::class, 'researcherIndex'])->name('researcherIndex');

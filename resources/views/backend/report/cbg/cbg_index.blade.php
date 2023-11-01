@@ -18,7 +18,6 @@
                         </a>
                     </div>
                     <div class="card">
-
                         <!-- /.card-header -->
                         <div class="card-body">
                             <div class="row">
@@ -50,6 +49,27 @@
                                                 <div class="monitoring info-box-content">
                                                     <span class="monitoring info-box-number text-center text-muted">Awards
                                                     </span>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+
+                                    <div class="col-sm-12">
+                                        <a href="cbg-contributions">
+                                            <div class="monitoring info-box bg-light">
+                                                <div class="monitoring info-box-content">
+                                                    <span class="monitoring info-box-number text-center text-muted">CMI's Contributions
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+
+                                    <div class="col-sm-12">
+                                        <a href="cbg-initiatives">
+                                            <div class="monitoring info-box bg-light">
+                                                <div class="monitoring info-box-content">
+                                                    <span class="monitoring info-box-number text-center text-muted">New Initiatives on Governance</span>
                                                 </div>
                                             </div>
                                         </a>
