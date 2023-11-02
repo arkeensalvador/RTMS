@@ -53,6 +53,7 @@ class MeetingController extends Controller
 
     public function meeting_delete($id)
     {
+        $id = Crypt::decryptString($id);
         $delete = DB::table('cbg_meetings')->where('id', $id)->delete();
         if ($delete) {
             $notification = array(

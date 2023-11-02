@@ -13,6 +13,7 @@ class TrainingsController extends Controller
         date_default_timezone_set('Asia/Hong_Kong');
 
         $data = array();
+        $data['trainings_type'] = $request->trainings_type;
         $data['trainings_sof'] = $request->trainings_sof;
         $data['trainings_agency'] = $request->trainings_agency;
         $data['trainings_title'] = $request->trainings_title;
@@ -21,6 +22,7 @@ class TrainingsController extends Controller
         $data['trainings_end'] = $request->trainings_end;
         $data['trainings_no_participants'] = $request->trainings_no_participants;
         $data['trainings_venue'] = $request->trainings_venue;
+        
         $data['created_at'] = now();
 
         $insert = DB::table('cbg_trainings')->insert($data);
@@ -44,6 +46,7 @@ class TrainingsController extends Controller
         date_default_timezone_set('Asia/Hong_Kong');
 
         $data = array();
+        $data['trainings_type'] = $request->trainings_type;
         $data['trainings_sof'] = $request->trainings_sof;
         $data['trainings_agency'] = $request->trainings_agency;
         $data['trainings_title'] = $request->trainings_title;
@@ -52,6 +55,7 @@ class TrainingsController extends Controller
         $data['trainings_end'] = $request->trainings_end;
         $data['trainings_no_participants'] = $request->trainings_no_participants;
         $data['trainings_venue'] = $request->trainings_venue;
+        $data['trainings_remarks'] = $request->trainings_remarks;
         $data['updated_at'] = now();
 
         $update = DB::table('cbg_trainings')->where('id', $id)->update($data);

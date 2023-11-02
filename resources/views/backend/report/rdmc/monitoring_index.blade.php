@@ -43,6 +43,17 @@
                                                 <div class="monitoring info-box bg-light">
                                                     <div class="monitoring info-box-content">
                                                         <span
+                                                            class="monitoring info-box-number text-center text-muted">Regional Symposium on R&D Highlights</span>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </div>
+
+                                        <div class="col-sm-12">
+                                            <a href="rdmc-regional-participants">
+                                                <div class="monitoring info-box bg-light">
+                                                    <div class="monitoring info-box-content">
+                                                        <span
                                                             class="monitoring info-box-number text-center text-muted">Participants
                                                             of Regional Symposium on R&D Highlights</span>
                                                     </div>
@@ -67,7 +78,7 @@
                                                 <div class="monitoring info-box bg-light">
                                                     <div class="monitoring info-box-content">
                                                         <span
-                                                            class="monitoring info-box-number text-center text-muted">Activities</span>
+                                                            class="monitoring info-box-number text-center text-muted">Resources / Generation / Sharing</span>
                                                     </div>
                                                 </div>
                                             </a>

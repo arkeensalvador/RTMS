@@ -12,9 +12,10 @@
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="home">Home</a></li>
                             <li class="breadcrumb-item"><a href="report-index">Reports</a></li>
-                            <li class="breadcrumb-item"><a href="rdru-index">RDRU</a></li>
-                            <li class="breadcrumb-item active">Technology Promotion Approaches
+                            <li class="breadcrumb-item"><a href="rdmc-index">RDMC</a></li>
+                            <li class="breadcrumb-item"><a href="rdmc-monitoring-evaluation">Monitoring and Evaluation</a>
                             </li>
+                            <li class="breadcrumb-item active">Participants of Regional Symposium Highlights</li>
                         </ol>
                     </div><!-- /.col -->
                 </div><!-- /.row -->
@@ -27,11 +28,11 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-header">
-                                <h2 class="card-title">List of Technology Promotion Approaches</h2>
+                                <h2 class="card-title">List of Regional Symposium Highlights Participants</h2>
                                 <div class="card-tools">
-                                    <a href="{{ url('rdru-tpa-add') }}" class="btn btn-success"><span><i
-                                                class="fa-solid fa-plus"></i> Create</span></a>
 
+                                    <a href="{{ url('rdmc-regional-participants-add') }}" class="btn btn-success">
+                                        <span><i class="fa-solid fa-plus"></i> Create</span></a>
                                     <!-- Here is a label for example -->
                                     {{-- <span class="badge badge-primary">Label</span> --}}
                                 </div>
@@ -45,10 +46,9 @@
                                                 <thead>
                                                     <tr>
                                                         <th>#</th>
-                                                        <th>IEC Approaches</th>
-                                                        <th>Title</th>
-                                                        <th>Date</th>
-                                                        <th>Details</th>
+                                                        <th>Type of participants</th>
+                                                        <th>Agency / Association</th>
+                                                        <th>No. of participants</th>
                                                         <th>Remarks</th>
                                                         <th>Action</th>
                                                     </tr>
@@ -56,51 +56,43 @@
                                                 <tbody>
                                                     @foreach ($all as $key => $row)
                                                         <tr>
-                                                            <td>{{ $key + 1 }}</td>
-                                                            <td>
-                                                                @php
-                                                                    $approach = json_decode($row->tpa_approaches);
-                                                                    $forbidden_words = ['Others'];
-                                                                    $approach = array_filter($approach, function ($approach) use ($forbidden_words) {
-                                                                        return !in_array($approach, $forbidden_words);
-                                                                    });
-                                                                    $others = $row->is_others;
-                                                                    if (!empty($others)) {
-                                                                        array_push($approach, $others);
-                                                                    }
-                                                                    
-                                                                @endphp
-                                                                {{ implode(', ', $approach) }}
+                                                            <td class="counter">
+                                                                {{ $key + 1 }}
                                                             </td>
-                                                            <td>{{ $row->tpa_title }}</td>
-                                                            <td>{{ $row->tpa_date }}</td>
-                                                            <td>{{ $row->tpa_details }}</td>
-                                                            <td>{{ $row->tpa_remarks }}</td>
-                                                            {{-- <td>{{ $row->tpa_activity }}</td> --}}
-                                                            <td class="action btns">
+                                                            <td>
+                                                                {{ $row->rp_type }}
+                                                            </td>
+                                                            {{-- <td>{{ $row->activity_type }}</td> --}}
+                                                            <td>{{ $row->rp_agency }}</td>
+                                                            {{-- <td>
+                                                                @php
+                                                                    $imp = json_decode($row->regional_implementing_agency);
+                                                                    $imp = implode(', ', $imp);
+
+                                                                    $researchers = json_decode($row->regional_researchers);
+                                                                    $researchers = implode(', ', $researchers);
+                                                                @endphp
+                                                                {{ $imp }}
+                                                            </td>
+                                                            <td>{{ $researchers }}</td> --}}
+                                                            <td>{{ $row->rp_no }}</td>
+                                                            <td>{{ $row->rp_remarks }}</td>
+                                                            <td class="action">
                                                                 <a class="btn btn-primary"
-                                                                    href="{{ url('edit-tpa/' . $row->id) }}"><i
+                                                                    href="{{ url('edit-regional-participants/' . Crypt::encryptString($row->id)) }}"><i
                                                                         class="fa-solid fa-pen-to-square"
                                                                         style="color: white;"></i></a>
-                                                                <a href="{{ url('delete-tpa/' . $row->id) }}"
+
+                                                                <a href="{{ URL::to('/delete-regional-participants/' . Crypt::encryptString($row->id)) }}"
                                                                     class="btn btn-danger" id="delete"><i
                                                                         class="fa-solid fa-trash"></i></a>
-
                                                             </td>
                                                         </tr>
                                                     @endforeach
                                                 </tbody>
                                             </table>
-                                            {{-- <a href="#">
-                                                <div class="monitoring info-box bg-light">
-                                                    <div class="monitoring info-box-content">
-                                                        <span class="info-box-number text-center text-muted">Agency In-House
-                                                            Reviews (AIHRs)
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                            </a> --}}
-                                            <a href="{{ url('rdru-index') }}" class="btn btn-default">Back</a>
+                                            <a href="{{ url('rdmc-monitoring-evaluation') }}"
+                                                class="btn btn-default">Back</a>
                                         </div>
                                     </div>
                                 </div>

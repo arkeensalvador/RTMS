@@ -95,11 +95,11 @@
                                     <div class="invalid-feedback">Missing title</div>
                                 </div>
 
-                                <div class="col-md-3 form-group">
+                                <div class="col-md-5 form-group">
                                     <label for="tpa_date" class=" font-weight-bold">Date<span
                                             class="text-danger">*</span></label>
                                     <input type="number" name="tpa_date" id="tpa_date" value="{{ $all->tpa_date }}"
-                                        class="form-control date" placeholder="Enter start date" required>
+                                        class="form-control date-range" placeholder="Enter date" required>
                                     <div class="invalid-feedback">Missing date</div>
                                 </div>
 
@@ -415,7 +415,7 @@
                     processData: false,
                     dataType: 'json',
                     success: (data) => {
-                        // this.reset();
+                        // // this.reset();
                         Swal.fire({
                             icon: 'success',
                             title: 'TPA Updated Successfully',

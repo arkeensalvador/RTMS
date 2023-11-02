@@ -28,7 +28,7 @@
                                 <div class="col-md-12 form-group">
                                     <label for="category" class=" font-weight-bold">Title<span
                                             class="text-danger">*</span></label>
-                                    <input type="text" class="form-control" name="regional_title" required>
+                                    <input type="text" class="form-control" name="regional_title" placeholder="Enter title" required>
                                     <div class="invalid-feedback">Missing title</div>
                                 </div>
 
@@ -36,7 +36,7 @@
                                     <label for="awards_recipients" class=" font-weight-bold">Implementing Agency<span
                                             class="text-danger">*</span></label>
                                     <select class="form-control implementing_agency" id="awards_recipients"
-                                        name="project_implementing_agency[]" multiple="multiple" required>
+                                        name="regional_implementing_agency[]" multiple="multiple" required>
                                         @if (auth()->user()->role == 'Admin')
                                             @foreach ($agency as $key)
                                                 <option value="{{ $key->abbrev }}">{{ $key->agency_name }} -
@@ -77,7 +77,7 @@
                                 <div class="col-md-12 form-group">
                                     <label for="program_title" class=" font-weight-bold">Winners<span
                                             class="text-danger">*</span></label></label>
-                                    <input type="text" class="form-control" name="regional_winners" required>
+                                    <input type="text" class="form-control" name="regional_winners" placeholder="Enter winners" required>
                                     <div class="invalid-feedback">Missing recommendations</div>
                                 </div>
 
@@ -190,23 +190,23 @@
                 e.preventDefault();
                 $.ajax({
                     type: 'POST',
-                    url: "{{ url('add-activities') }}",
+                    url: "{{ url('add-regional') }}",
                     data: formData,
                     cache: false,
                     contentType: false,
                     processData: false,
                     dataType: 'json',
                     success: (data) => {
-                        this.reset();
+                        // // this.reset();
                         Swal.fire({
                             icon: 'success',
-                            title: 'Activity Added Successfully',
+                            title: 'Data Added Successfully',
                             timerProgressBar: true,
                             showConfirmButton: false,
                             timer: 900
                         }).then((result) => {
                             if (result.dismiss) {
-                                window.location.href = '/rdmc-activities';
+                                window.location.href = '/rdmc-regional';
                             }
                         })
                     },

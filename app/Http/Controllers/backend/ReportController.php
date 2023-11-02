@@ -535,16 +535,29 @@ class ReportController extends Controller
     }
 
     public function regional_index() {
-        $title = 'Participants of Regional Symposium on R&D Highlights';
+        $title = 'Regional Symposium on R&D Highlights';
         $all = DB::table('rdmc_regional')->get();
         return view('backend.report.rdmc.rdmc_regional', compact('title', 'all'));
     }
 
     public function regional_add_index() {
-        $title = 'Participants of Regional Symposium on R&D Highlights';
+        $title = 'Regional Symposium on R&D Highlights';
         $agency = DB::table('agency')->get();
         $researchers = DB::table('researchers')->get();
         return view('backend.report.rdmc.rdmc_regional_add', compact('title', 'agency','researchers'));
+    }
+
+    public function regional_participants_index() {
+        $title = 'Participants of Regional Symposium on R&D Highlights';
+        $all = DB::table('rdmc_regional_participants')->get();
+        return view('backend.report.rdmc.rdmc_regional_participants', compact('title', 'all'));
+    }
+
+    public function regional_participants_add_index() {
+        $title = 'Participants of Regional Symposium on R&D Highlights';
+        $agency = DB::table('agency')->get();
+        $researchers = DB::table('researchers')->get();
+        return view('backend.report.rdmc.rdmc_regional_participants_add', compact('title', 'agency','researchers'));
     }
 
     public function strategicActivities()
@@ -721,7 +734,11 @@ class ReportController extends Controller
     {
         $title = 'Equipments | CBG';
         $agency = DB::table('agency')->get();
-        return view('backend.report.cbg.cbg_equipment_add', compact('title', 'agency'));
+        
+        $user_agency = DB::table('users')
+            ->where('agencyID', auth()->user()->agencyID)
+            ->first();
+        return view('backend.report.cbg.cbg_equipment_add', compact('title', 'agency', 'user_agency'));
     }
 
 

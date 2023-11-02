@@ -202,7 +202,7 @@
                     processData: false,
                     dataType: 'json',
                     success: (data) => {
-                        this.reset();
+                        // this.reset();
                         Swal.fire({
                             icon: 'success',
                             title: 'Meeting Added Successfully',

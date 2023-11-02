@@ -549,6 +549,14 @@
             allowInput: true,
         });
 
+        flatpickr('.date-range', {
+            dateFormat: 'm/d/Y',
+            altInput: true,
+            altFormat: "F j, Y",
+            allowInput: true,
+            mode: "range"
+        });
+
         flatpickr(".year", {
             enableTime: false,
             dateFormat: "Y",

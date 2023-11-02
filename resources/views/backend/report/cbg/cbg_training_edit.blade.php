@@ -87,7 +87,25 @@
                                     <h5 class="mt-0"> Kindly fill-out the fields needed.</h5>
                                 </div>
 
-                                <div class="col-md-6 form-group">
+                                <div class="col-md-3 form-group">
+                                    <label for="category" class=" font-weight-bold">Type of participants<span
+                                            class="text-danger">*</span></label>
+                                    <select id="category" name="trainings_type" class="form-control others" required>
+                                        <option selected disabled value="">Select type</option>
+                                        <option value="GO" {{ 'GO' == $all->trainings_type ? 'selected' : '' }}>GO
+                                        </option>
+                                        <option value="NGO" {{ 'NGO' == $all->trainings_type ? 'selected' : '' }}>NGO
+                                        </option>
+                                        <option
+                                            value="Private Sector"{{ 'Private Sector' == $all->trainings_type ? 'selected' : '' }}>
+                                            Private Sector</option>
+                                        <option value="LGU" {{ 'LGU' == $all->trainings_type ? 'selected' : '' }}>LGU
+                                        </option>
+                                    </select>
+                                    <div class="invalid-feedback">Missing type</div>
+                                </div>
+
+                                <div class="col-md-9 form-group">
                                     <label for="trainings_sof" class=" font-weight-bold">Source of Funds<span
                                             class="text-danger">*</span></label>
                                     <select id="trainings_sof" name="trainings_sof" class="form-control agency" required>
@@ -101,8 +119,8 @@
                                     <div class="invalid-feedback">Missing source of funds</div>
                                 </div>
 
-                                <div class="col-md-6 form-group">
-                                    <label for="trainings_agency" class=" font-weight-bold">Agency<span
+                                <div class="col-md-7 form-group">
+                                    <label for="trainings_agency" class=" font-weight-bold">Implementing Agency<span
                                             class="text-danger">*</span></label>
                                     <select id="trainings_agency" name="trainings_agency" class="form-control agency"
                                         required>
@@ -168,6 +186,16 @@
                                     <input type="text" name="trainings_venue" value="{{ $all->trainings_venue }}"
                                         class="form-control" id="training_venue" placeholder="Venue" required>
                                     <div class="invalid-feedback"> Missing venue</div>
+                                </div>
+
+
+                                <div class="col-md-12 form-group">
+                                    <label for="trainings_no_participants" class=" font-weight-bold">Remarks<span
+                                            class="text-danger">*</span></label>
+                                    <textarea name="trainings_remarks" class="form-control" id="training_venue" cols="30" rows="5"
+                                        placeholder="Remarks" required>{{ $all->trainings_remarks }}</textarea>
+
+                                    <div class="invalid-feedback">Missing remarks</div>
                                 </div>
 
                                 <div class="col-md-12 form-group buttons">
@@ -252,7 +280,7 @@
                     processData: false,
                     dataType: 'json',
                     success: (data) => {
-                        this.reset();
+                        // this.reset();
                         Swal.fire({
                             icon: 'success',
                             title: 'Training Updated Successfully',

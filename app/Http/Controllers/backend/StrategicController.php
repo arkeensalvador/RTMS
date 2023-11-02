@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\backend;
 
 use App\Http\Controllers\Controller;
+use Crypt;
 use Illuminate\Http\Request;
 use DB;
 
@@ -15,7 +16,7 @@ class StrategicController extends Controller
         $data['strategic_title'] = $request->strategic_title;
         $data['strategic_start'] = $request->strategic_start;
         $data['strategic_end'] = $request->strategic_end;
-        $data['strategic_researcher'] = $request->strategic_researcher;
+        $data['strategic_researcher'] = json_encode($request->strategic_researcher);
         $data['strategic_implementing_agency'] = $request->strategic_implementing_agency;
         $data['strategic_funding_agency'] = $request->strategic_funding_agency;
         $data['strategic_budget'] = str_replace(',', '', $request->strategic_budget);
@@ -33,6 +34,7 @@ class StrategicController extends Controller
 
     public function EditStrategic($id)
     {
+        $id = Crypt::decryptString($id);
         $title = 'Strategic R&D Activities';
         $all = DB::table('strategic_activities')->where('id', $id)->first();
         $researchers = DB::table('researchers')->get();
@@ -49,7 +51,7 @@ class StrategicController extends Controller
         $data['strategic_title'] = $request->strategic_title;
         $data['strategic_start'] = $request->strategic_start;
         $data['strategic_end'] = $request->strategic_end;
-        $data['strategic_researcher'] = $request->strategic_researcher;
+        $data['strategic_researcher'] = json_encode($request->strategic_researcher);
         $data['strategic_implementing_agency'] = $request->strategic_implementing_agency;
         $data['strategic_funding_agency'] = $request->strategic_funding_agency;
         $data['strategic_budget'] =  str_replace(',', '', $request->strategic_budget);
@@ -67,6 +69,7 @@ class StrategicController extends Controller
 
     public function DeleteStrategic($id)
     {
+        $id = Crypt::decryptString($id);
         $delete = DB::table('strategic_activities')->where('id', $id)->delete();
         if ($delete) {
             $notification = array(

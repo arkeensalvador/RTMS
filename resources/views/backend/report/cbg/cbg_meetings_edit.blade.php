@@ -212,7 +212,7 @@
                             timer: 900
                         }).then((result) => {
                             if (result.dismiss) {
-                                this.reset();
+                                // this.reset();
                                 window.location.href = '/cbg-meetings';
                             }
                         })

@@ -66,17 +66,26 @@
                                                             </td>
                                                             {{-- <td>{{ $row->activity_type }}</td> --}}
                                                             <td>{{ $row->regional_title }}</td>
-                                                            <td>{{ $row->regional_implementing_agency}}</td>
-                                                            <td>{{ $row->regional_researchers }}</td>
+                                                            <td>
+                                                                @php
+                                                                    $imp = json_decode($row->regional_implementing_agency);
+                                                                    $imp = implode(', ', $imp);
+
+                                                                    $researchers = json_decode($row->regional_researchers);
+                                                                    $researchers = implode(', ', $researchers);
+                                                                @endphp
+                                                                {{ $imp }}
+                                                            </td>
+                                                            <td>{{ $researchers }}</td>
                                                             <td>{{ $row->regional_recommendations }}</td>
                                                             <td>{{ $row->regional_winners }}</td>
                                                             <td class="action">
                                                                 <a class="btn btn-primary"
-                                                                    href="{{ url("edit-activity/$row->id") }}"><i
+                                                                    href="{{ url('edit-regional/' . Crypt::encryptString($row->id)) }}"><i
                                                                         class="fa-solid fa-pen-to-square"
                                                                         style="color: white;"></i></a>
 
-                                                                <a href="{{ URL::to('/delete-activity/' . $row->id) }}"
+                                                                <a href="{{ URL::to('/delete-regional/' . Crypt::encryptString($row->id)) }}"
                                                                     class="btn btn-danger" id="delete"><i
                                                                         class="fa-solid fa-trash"></i></a>
                                                             </td>

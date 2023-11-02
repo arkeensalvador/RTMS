@@ -84,22 +84,25 @@
                             <form id="techForm" class="row g-3 needs-validation" novalidate>
                                 @csrf
                                 <div class="form-title col-12">
-                                    <h2 class="font-weight-bold">RDMC Activities</h2>
+                                    <h2 class="font-weight-bold">RDMC Resources / Generation / Sharing</h2>
                                     <h5 class="mt-0"> Kindly fill-out the fields needed.</h5>
                                 </div>
 
                                 <div class="col-md-8 form-group">
                                     <label for="funding_agency" class=" font-weight-bold">Donor/Source<span
                                             class="text-danger">*</span></label>
-                                    <input type="text" name="donor" value="{{ $all->donor }}" class="form-control"
-                                        list="donorList" required placeholder="Enter donor/source">
-                                    <datalist id="donorList">
+                                    <select class="form-control agency" id="awards_recipients" name="donor" required>
+                                        <option value=""></option>
+
                                         @foreach ($agency as $key)
-                                            <option value="{{ $key->abbrev }}">{{ $key->agency_name }} -
+                                            <option value="{{ $key->abbrev }}"
+                                                {{ $key->abbrev == $all->donor ? 'selected' : '' }}>{{ $key->agency_name }}
+                                                -
                                                 ({{ $key->abbrev }})
                                                 </b></option>
                                         @endforeach
-                                    </datalist>
+
+                                    </select>
                                     <div class="invalid-feedback">Missing donor/source</div>
                                 </div>
 
@@ -264,7 +267,7 @@
                     processData: false,
                     dataType: 'json',
                     success: (data) => {
-                        this.reset();
+                        // this.reset();
                         Swal.fire({
                             icon: 'success',
                             title: 'Activity Updated Successfully',

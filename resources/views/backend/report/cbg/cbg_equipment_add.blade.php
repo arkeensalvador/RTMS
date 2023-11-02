@@ -83,12 +83,12 @@
                             <form id="techForm" class="row g-3 needs-validation" novalidate>
                                 @csrf
                                 <div class="form-title col-12">
-                                    <h2 class="font-weight-bold">Equipment and Facilities</h2>
+                                    <h2 class="font-weight-bold">Equipment/Facilities</h2>
                                     <h5 class="mt-0"> Kindly fill-out the fields needed.</h5>
                                 </div>
 
                                 <div class="col-md-12 form-group">
-                                    <label for="awards_type" class=" font-weight-bold">Equipment Type<span
+                                    <label for="awards_type" class=" font-weight-bold">Equipment/Facilities Type<span
                                             class="text-danger">*</span></label>
 
                                     <div class="custom-control custom-radio">
@@ -109,26 +109,40 @@
                                         <input class="custom-control-input" type="radio" value="Upgraded"
                                             name="equipments_type" id="customRadio3">
                                         <label for="customRadio3" class="custom-control-label"
-                                            style="font-weight: bold;">Facilities Upgraded</label>
+                                            style="font-weight: bold;">Equipment Upgraded</label>
                                     </div>
 
                                     <div class="custom-control custom-radio">
                                         <input class="custom-control-input" type="radio" value="Established"
                                             name="equipments_type" id="customRadio4">
                                         <label for="customRadio4" class="custom-control-label"
-                                            style="font-weight: bold;">Facilities Established</label>
+                                            style="font-weight: bold;">Equipment Established</label>
                                     </div>
 
                                     <div class="custom-control custom-radio">
                                         <input class="custom-control-input" type="radio" value="Purchased"
                                             name="equipments_type" id="customRadio5">
                                         <label for="customRadio5" class="custom-control-label"
-                                            style="font-weight: bold;">Facilities Purchased</label>
+                                            style="font-weight: bold;">Equipment Purchased</label>
+                                    </div>
+
+                                    <div class="custom-control custom-radio">
+                                        <input class="custom-control-input" type="radio" value="F-Purchased"
+                                            name="equipments_type" id="customRadio6">
+                                        <label for="customRadio6" class="custom-control-label"
+                                            style="font-weight: bold;">Facilities Upgraded</label>
+                                    </div>
+
+                                    <div class="custom-control custom-radio">
+                                        <input class="custom-control-input" type="radio" value="F-Established"
+                                            name="equipments_type" id="customRadio7">
+                                        <label for="customRadio7" class="custom-control-label"
+                                            style="font-weight: bold;">Facilities Established</label>
                                     </div>
                                 </div>
 
                                 <div class="col-md-12 form-group">
-                                    <label for="equipments_name" class=" font-weight-bold">Equipment Name<span
+                                    <label for="equipments_name" class=" font-weight-bold">Equipment/Facilities Name<span
                                             class="text-danger">*</span></label>
 
                                     <input type="text" name="equipments_name" id="equipments_name" class="form-control"
@@ -160,9 +174,13 @@
                                     <select id="equipments_agency" name="equipments_agency" class="form-control agency"
                                         required>
                                         <option value=""></option>
-                                        @foreach ($agency as $row)
-                                            <option value="{{ $row->abbrev }}"> {{ $row->agency_name }} </option>
-                                        @endforeach
+                                        @if (auth()->user()->role == 'Admin')
+                                            @foreach ($agency as $row)
+                                                <option value="{{ $row->abbrev }}"> {{ $row->agency_name }} </option>
+                                            @endforeach
+                                        @else
+                                            <option value="{{ $user_agency->agencyID }}" selected> {{ $user_agency->agencyID }} </option>
+                                        @endif
                                     </select>
                                     <div class="invalid-feedback">Missing agency</div>
                                 </div>
@@ -250,7 +268,7 @@
                     processData: false,
                     dataType: 'json',
                     success: (data) => {
-                        this.reset();
+                        // this.reset();
                         Swal.fire({
                             icon: 'success',
                             title: 'Equipment Added Successfully',

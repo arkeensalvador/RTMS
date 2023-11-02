@@ -143,7 +143,20 @@ Route::get('/rdmc-dbinfosys-index', [App\Http\Controllers\backend\ReportControll
 Route::get('/rdmc-dbinfosys-add', [App\Http\Controllers\backend\ReportController::class, 'dbInfoSysAdd'])->name('dbInfoSysAdd');
 Route::get('/rdmc-regional', [App\Http\Controllers\backend\ReportController::class, 'regional_index'])->name('regional_index');
 Route::get('/rdmc-regional-add', [App\Http\Controllers\backend\ReportController::class, 'regional_add_index'])->name('regional_add_index');
+Route::get('/rdmc-regional-participants', [App\Http\Controllers\backend\ReportController::class, 'regional_participants_index'])->name('regional_participants_index');
+Route::get('/rdmc-regional-participants-add', [App\Http\Controllers\backend\ReportController::class, 'regional_participants_add_index'])->name('regional_participants_add_index');
 
+// Regional
+Route::post('/add-regional', [App\Http\Controllers\backend\RegionalController::class, 'regional_add'])->name('regional_add');
+Route::get('/delete-regional/{id}', [App\Http\Controllers\backend\RegionalController::class, 'regional_delete']);
+Route::get('/edit-regional/{id}', [App\Http\Controllers\backend\RegionalController::class, 'regional_edit'])->name('regional_edit');
+Route::post('/update-regional/{id}', [App\Http\Controllers\backend\RegionalController::class, 'regional_update'])->name('regional_update');
+
+// Regional Participants
+Route::post('/add-regional-participants', [App\Http\Controllers\backend\RegionalController::class, 'regional_participants_add'])->name('regional_participants_add');
+Route::get('/delete-regional-participants/{id}', [App\Http\Controllers\backend\RegionalController::class, 'regional_participants_delete']);
+Route::get('/edit-regional-participants/{id}', [App\Http\Controllers\backend\RegionalController::class, 'regional_participants_edit'])->name('regional_participants_edit');
+Route::post('/update-regional-participants/{id}', [App\Http\Controllers\backend\RegionalController::class, 'regional_participants_update'])->name('regional_participants_update');
 
 // Projects Under Program
 Route::post('/add-project', [App\Http\Controllers\backend\ProjectController::class, 'AddProject'])->name('AddProject');

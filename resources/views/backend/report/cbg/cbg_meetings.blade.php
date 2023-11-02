@@ -62,7 +62,7 @@
                                                                     href="{{ url('edit-meeting/' . Crypt::encryptString($row->id)) }}"><i
                                                                         class="fa-solid fa-pen-to-square"
                                                                         style="color: white;"></i></a>
-                                                                <a href="{{ url('delete-meeting/' . $row->id) }}"
+                                                                <a href="{{ url('delete-meeting/' . Crypt::encryptString($row->id)) }}"
                                                                     class="btn btn-danger" id="delete"><i
                                                                         class="fa-solid fa-trash"></i></a>
                                                             </td>
