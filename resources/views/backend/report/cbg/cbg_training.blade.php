@@ -45,13 +45,14 @@
                                                 <thead>
                                                     <tr>
                                                         <th>#</th>
-                                                        <th>Title of Activity/Training</th>
+                                                        <th>Title</th>
                                                         <th>Date</th>
                                                         <th>No. of Participants</th>
                                                         <th>Venue</th>
                                                         <th>Expenditures</th>
                                                         <th>Source of Fund</th>
                                                         <th>Implementing Agency</th>
+                                                        <th>Remarks</th>
                                                         <th>Action</th>
                                                     </tr>
                                                 </thead>
@@ -61,13 +62,13 @@
                                                             <td>{{ $key + 1 }}</td>
                                                             <td>{{ $row->trainings_title }}</td>
                                                             @if ($row->trainings_end)
-                                                                <td>{{ date('F j, Y', strtotime($row->trainings_start)) ?: 'Not Set' }}
-                                                                    -
-                                                                    {{ date('F j, Y', strtotime($row->trainings_end)) ?: 'Present' }}
+                                                                <td>{{ date('m/d/Y', strtotime($row->trainings_start)) ?: 'Not Set' }}
+                                                                    to
+                                                                    {{ date('m/d/Y', strtotime($row->trainings_end)) ?: 'Present' }}
                                                                 </td>
                                                             @else
-                                                                <td>{{ date('F j, Y', strtotime($row->trainings_start)) ?: 'Not Set' }}
-                                                                    -
+                                                                <td>{{ date('m/d/Y', strtotime($row->trainings_start)) ?: 'Not Set' }}
+                                                                    to
                                                                     {{ $row->trainings_end ?: 'Present' }}</td>
                                                             @endif
 
@@ -76,6 +77,9 @@
                                                             <td>{{ $row->trainings_expenditures }}</td>
                                                             <td>{{ $row->trainings_sof }}</td>
                                                             <td>{{ $row->trainings_agency }}</td>
+                                                            <td>
+                                                               {{ $row->trainings_remarks ?: 'N/A'}}
+                                                            </td>
                                                             <td class="action btns">
                                                                 <a class="btn btn-primary"
                                                                     href="{{ url('edit-training/' . $row->id) }}"><i

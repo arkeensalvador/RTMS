@@ -84,7 +84,7 @@
                                 @csrf
                                 <div class="form-title col-12">
                                     <h2 class="font-weight-bold">Technology Promotion Approaches</h2>
-                                    <h5 class="mt-0"> Kindly fill-up the fields needed.</h5>
+                                    <h5 class="mt-0"> Kindly fill-out the fields needed.</h5>
                                 </div>
 
                                 <div class="col-md-12 form-group">
@@ -95,18 +95,18 @@
                                     <div class="invalid-feedback">Missing title</div>
                                 </div>
 
-                                <div class="col-md-3 form-group">
+                                <div class="col-md-5 form-group">
                                     <label for="tpa_date" class=" font-weight-bold">Date<span
                                             class="text-danger">*</span></label>
                                     <input type="number" name="tpa_date" id="tpa_date" value="{{ $all->tpa_date }}"
-                                        class="form-control date" placeholder="Enter start date" required>
+                                        class="form-control date-range" placeholder="Enter date" required>
                                     <div class="invalid-feedback">Missing date</div>
                                 </div>
 
                                 <div class="col-md-12 form-group">
                                     <label for="tpa_details" class="font-weight-bold">Details<span
                                             class="text-danger">*</span></label>
-                                    <textarea class="form-control" name="tpa_details" id="tpa_details" rows="3" placeholder="Title"
+                                    <textarea class="form-control" name="tpa_details" id="tpa_details" rows="3" placeholder="Details"
                                         style="resize: none;" required>{{ $all->tpa_details }}</textarea>
                                     <div class="invalid-feedback">Missing details</div>
                                 </div>
@@ -114,13 +114,14 @@
                                 <div class="col-md-12 form-group">
                                     <label for="tpa_remarks" class="font-weight-bold">Remarks<span
                                             class="text-danger">*</span></label>
-                                    <textarea class="form-control" name="tpa_remarks" id="tpa_remarks" rows="3" placeholder="Title"
+                                    <textarea class="form-control" name="tpa_remarks" id="tpa_remarks" rows="3" placeholder="Remarks"
                                         style="resize: none;" required>{{ $all->tpa_remarks }}</textarea>
                                     <div class="invalid-feedback">Missing remarks</div>
                                 </div>
 
                                 @php
                                     $approach = json_decode($all->tpa_approaches);
+                                    $others = json_decode($all->tpa_approaches);
                                 @endphp
                                 <div class="col-md-12 form-group">
                                     <label for="tpa_remarks" class="font-weight-bold">IEC Approaches<span
@@ -216,21 +217,6 @@
                                                 </div>
                                                 <div class="custom-control custom-checkbox">
                                                     <input class="custom-control-input custom-control-input-success"
-                                                        type="checkbox" value="Others" name="tpa_approaches[]"
-                                                        id="customCheckbox11"
-                                                        {{ in_array('Others', $approach) ? 'checked' : '' }}>
-                                                    <label for="customCheckbox11"
-                                                        class="custom-control-label">Others</label>
-                                                </div>
-
-                                            </div>
-
-                                        </div>
-
-                                        <div class="col-sm-3">
-                                            <div class="form-group">
-                                                <div class="custom-control custom-checkbox">
-                                                    <input class="custom-control-input custom-control-input-success"
                                                         type="checkbox" value="Broadcast Media" name="tpa_approaches[]"
                                                         id="customCheckbox12"
                                                         {{ in_array('Broadcast Media', $approach) ? 'checked' : '' }}>
@@ -246,6 +232,13 @@
                                                     <label for="customCheckbox13"
                                                         class="custom-control-label">Radio</label>
                                                 </div>
+                                            </div>
+
+                                        </div>
+
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+
                                                 <div class="custom-control custom-checkbox">
                                                     <input class="custom-control-input custom-control-input-success"
                                                         type="checkbox" value="Television" name="tpa_approaches[]"
@@ -279,11 +272,6 @@
                                                     <label for="customCheckbox17" class="custom-control-label">Interview
                                                         Guesting</label>
                                                 </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-sm-3">
-                                            <div class="form-group">
                                                 <div class="custom-control custom-checkbox">
                                                     <input class="custom-control-input custom-control-input-success"
                                                         type="checkbox" value="ICT-based ICT" name="tpa_approaches[]"
@@ -302,6 +290,12 @@
                                                         Optimal
                                                         Media</label>
                                                 </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+
                                                 <div class="custom-control custom-checkbox">
                                                     <input class="custom-control-input custom-control-input-success"
                                                         type="checkbox" value="Web-based Formats" name="tpa_approaches[]"
@@ -317,6 +311,32 @@
                                                         {{ in_array('Online Promotion', $approach) ? 'checked' : '' }}>
                                                     <label for="customCheckbox21" class="custom-control-label">Online
                                                         Promotion</label>
+                                                </div>
+
+                                                {{-- <div class="custom-control custom-checkbox">
+                                                    <input class="custom-control-input custom-control-input-success"
+                                                        type="checkbox" value="Others" name="tpa_approaches[]"
+                                                        id="customCheckbox11"
+                                                        {{ in_array('Others', $approach) ? 'checked' : '' }}>
+                                                    <label for="customCheckbox11"
+                                                        class="custom-control-label">Others</label>
+                                                </div> --}}
+                                                <div class="custom-control custom-checkbox form-check">
+                                                    <input type="checkbox" id="is_others" name="tpa_approaches[]"
+                                                        value="Others"
+                                                        class="custom-control-input custom-control-input-success"
+                                                        {{ in_array('Others', $approach) ? 'checked' : '' }}>
+                                                    <label for="is_others" class="custom-control-label">Others</label>
+                                                </div>
+                                                {{-- <div class="form-group" style="display: none;" id="others-input">
+                                                    <label for="others">Specify Others</label>
+                                                    <input type="text" id="others" value="{{ $all->is_others }}"
+                                                        name="is_others" class="form-control">
+                                                </div> --}}
+
+                                                <div class="form-group" id="others">
+                                                    <label for="others">Specify Others</label>
+                                                    <input type="text" id="" name="is_others" value="{{ $all->is_others }}" class="form-control">
                                                 </div>
                                             </div>
                                         </div>
@@ -395,7 +415,7 @@
                     processData: false,
                     dataType: 'json',
                     success: (data) => {
-                        this.reset();
+                        // // this.reset();
                         Swal.fire({
                             icon: 'success',
                             title: 'TPA Updated Successfully',
@@ -420,5 +440,29 @@
                 });
             });
         });
+    </script>
+
+    <script>
+        function toggleOthersInput() {
+            const isOthersCheckbox = document.getElementById('is_others');
+            const othersInput = document.getElementById('others');
+
+            if (isOthersCheckbox.checked) {
+                othersInput.style.display = 'block';
+                othersInput.disabled = false; // Enable the input
+            } else {
+                othersInput.style.display = 'none';
+                othersInput.disabled = true; // Optionally, disable the input
+            }
+        }
+
+
+        // Add an event listener to the checkbox to toggle the input field
+        document.getElementById('is_others').addEventListener('change', toggleOthersInput);
+
+
+
+        // Initial call to set the input field state based on the checkbox
+        toggleOthersInput();
     </script>
 @endsection

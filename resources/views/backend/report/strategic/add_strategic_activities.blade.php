@@ -84,7 +84,7 @@
                                 @csrf
                                 <div class="form-title col-12">
                                     <h2 class="font-weight-bold">Strategic R & D Activities</h2>
-                                    <h5 class="mt-0"> Kindly fill-up the fields needed.</h5>
+                                    <h5 class="mt-0"> Kindly fill-out the fields needed.</h5>
                                 </div>
 
                                 <div class="col-md-6 form-group">
@@ -101,24 +101,9 @@
                                 </div>
 
                                 <div class="col-md-6 form-group">
-                                    <label for="Researcher" class="font-weight-bold">Researcher<span
-                                            class="text-danger">*</span></label>
-                                    <select id="strategic_researcher" name="strategic_researcher"
-                                        class="form-control researchers" required>
-
-                                        <option value="" disabled selected>--Select Researcher--</option>
-                                        @foreach ($researchers as $researcher)
-                                            <option value="{{ $researcher->name }}">{{ $researcher->name }}</option>
-                                        @endforeach
-                                    </select>
-                                    <div class="valid-feedback"></div>
-                                    <div class="invalid-feedback">Missing researcher</div>
-                                </div>
-
-                                <div class="col-md-6 form-group">
-                                    <label for="strategic_implementing_agency" class=" font-weight-bold">Implementing
+                                    <label for="agencySelect" class=" font-weight-bold">Implementing
                                         Agency<span class="text-danger">*</span></label>
-                                    <select id="strategic_implementing_agency" name="strategic_implementing_agency"
+                                    <select id="agencySelect" name="strategic_implementing_agency"
                                         class="form-control agency" required>
                                         <option value=""></option>
                                         @foreach ($agency as $row)
@@ -127,6 +112,17 @@
                                     </select>
                                     <div class="invalid-feedback">Missing implementing agency</div>
                                 </div>
+
+                                <div class="col-md-6 form-group">
+                                    <label for="ttp_sof" class=" font-weight-bold">Researchers<span
+                                            class="text-danger">*</span></label>
+                                    <select id="researcherSelect" name="strategic_researcher[]"
+                                        class="form-control researchers" multiple="multiple" required>
+                                        <option value=""></option>
+                                    </select>
+                                    <div class="invalid-feedback">Missing researchers</div>
+                                </div>
+
 
 
                                 <div class="col-md-6 form-group">
@@ -207,6 +203,46 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script>
         $(document).ready(function() {
+            $('.r-agency').select2({
+                placeholder: 'Select Agency'
+            });
+
+            $('#agencySelect').on('change', function() {
+                var agencyId = $(this).val();
+                if (agencyId) {
+                    $.ajax({
+                        url: '/get-researchers',
+                        type: 'GET',
+                        data: {
+                            agency_id: agencyId
+                        },
+                        success: function(data) {
+                            $('#researcherSelect').empty();
+                            $('#researcherSelect').append(
+                                '<option value="">Select a Researcher</option>'
+                            );
+                            data.forEach(function(researcher) {
+                                $('#researcherSelect').append($('<option>', {
+                                    value: researcher.name,
+                                    text: researcher.name
+                                }));
+                            });
+                            $('#researcherSelect').select2({
+                                placeholder: "Select researchers"
+                            });
+                        }
+                    });
+                } else {
+                    $('#researcherSelect').empty();
+                    $('#researcherSelect').append(
+                        '<option value="">Select a Researcher</option>');
+                    $('#researcherSelect').select2();
+                }
+            });
+        });
+    </script>
+    <script>
+        $(document).ready(function() {
             $('#strategic_program, #strategic_researcher, #strategic_implementing_agency, #strategic_funding_agency, #strategic_budget, #strategic_end, #strategic_start, #strategic_title')
                 .on('input', function() {
                     const inputField = $(this);
@@ -274,7 +310,7 @@
                     processData: false,
                     dataType: 'json',
                     success: (data) => {
-                        this.reset();
+                        // // this.reset();
                         Swal.fire({
                             icon: 'success',
                             title: 'R & D Activity Added Successfully',

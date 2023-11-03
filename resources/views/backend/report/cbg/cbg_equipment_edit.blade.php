@@ -83,12 +83,12 @@
                             <form id="techForm" class="row g-3 needs-validation" novalidate>
                                 @csrf
                                 <div class="form-title col-12">
-                                    <h2 class="font-weight-bold">Equipment and Facilities</h2>
-                                    <h5 class="mt-0"> Kindly fill-up the fields needed.</h5>
+                                    <h2 class="font-weight-bold">Equipment/Facilities</h2>
+                                    <h5 class="mt-0"> Kindly fill-out the fields needed.</h5>
                                 </div>
 
                                 <div class="col-md-12 form-group">
-                                    <label for="awards_type" class=" font-weight-bold">Equipment Type<span
+                                    <label for="awards_type" class=" font-weight-bold">Equipment/Facilities Type<span
                                             class="text-danger">*</span></label>
 
                                     <div class="custom-control custom-radio">
@@ -107,28 +107,45 @@
                                             style="font-weight: bold;">Approved</label>
                                     </div>
 
+
                                     <div class="custom-control custom-radio">
-                                        <input class="custom-control-input" type="radio" value="Upgraded"
+                                        <input class="custom-control-input" type="radio" value="E_Upgraded"
                                             name="equipments_type" id="customRadio3"
-                                            {{ 'Upgraded' == $all->equipments_type ? 'checked' : '' }}>
+                                            {{ 'E_Upgraded' == $all->equipments_type ? 'checked' : '' }}>
                                         <label for="customRadio3" class="custom-control-label"
+                                            style="font-weight: bold;">Equipment Upgraded</label>
+                                    </div>
+
+                                    <div class="custom-control custom-radio">
+                                        <input class="custom-control-input" type="radio" value="E_Established"
+                                            name="equipments_type" id="customRadio4"
+                                            {{ 'E_Established' == $all->equipments_type ? 'checked' : '' }}>
+                                        <label for="customRadio4" class="custom-control-label"
+                                            style="font-weight: bold;">Equipment Established</label>
+                                    </div>
+
+                                    <div class="custom-control custom-radio">
+                                        <input class="custom-control-input" type="radio" value="E_Purchased"
+                                            name="equipments_type" id="customRadio5"
+                                            {{ 'E_Purchased' == $all->equipments_type ? 'checked' : '' }}>
+                                        <label for="customRadio5" class="custom-control-label"
+                                            style="font-weight: bold;">Equipment Purchased</label>
+                                    </div>
+
+                                    <div class="custom-control custom-radio">
+                                        <input class="custom-control-input" type="radio" value="F_Purchased"
+                                            name="equipments_type" id="customRadio6"
+                                            {{ 'F_Purchased' == $all->equipments_type ? 'checked' : '' }}>
+                                        <label for="customRadio6" class="custom-control-label"
                                             style="font-weight: bold;">Facilities Upgraded</label>
                                     </div>
 
                                     <div class="custom-control custom-radio">
-                                        <input class="custom-control-input" type="radio" value="Established"
-                                            name="equipments_type" id="customRadio4"
-                                            {{ 'Established' == $all->equipments_type ? 'checked' : '' }}>
-                                        <label for="customRadio4" class="custom-control-label"
+                                        <input class="custom-control-input" type="radio" value="F_Established"
+                                            name="equipments_type" id="customRadio7"
+                                            {{ 'F_Established' == $all->equipments_type ? 'checked' : '' }}>
+                                        <label for="customRadio7" class="custom-control-label"
                                             style="font-weight: bold;">Facilities Established</label>
-                                    </div>
-
-                                    <div class="custom-control custom-radio">
-                                        <input class="custom-control-input" type="radio" value="Purchased"
-                                            name="equipments_type" id="customRadio5"
-                                            {{ 'Purchased' == $all->equipments_type ? 'checked' : '' }}>
-                                        <label for="customRadio5" class="custom-control-label"
-                                            style="font-weight: bold;">Facilities Purchased</label>
                                     </div>
                                 </div>
 
@@ -257,7 +274,7 @@
                     processData: false,
                     dataType: 'json',
                     success: (data) => {
-                        this.reset();
+                        // this.reset();
                         Swal.fire({
                             icon: 'success',
                             title: 'Equipment Updated Successfully',

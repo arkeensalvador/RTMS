@@ -44,14 +44,14 @@
                                             <table id="programs" class="table table-bordered table-striped">
                                                 <thead>
                                                     <tr>
-                                                        <th>Packaged/Approved/Implemented</th>
+                                                        <th>Classification</th>
                                                         <th>Title</th>
                                                         <th>Budget</th>
                                                         <th>Source of Fund</th>
-                                                        <th>Proponents/Researchers</th>
+                                                        <th>Proponents</th>
                                                         <th>Implementing Agency</th>
                                                         <th>Duration</th>
-                                                        <th>Regional Priority/Commodities Addressed</th>
+                                                        <th>Commodities Addressed</th>
                                                         <th>Action</th>
                                                     </tr>
                                                 </thead>
@@ -73,9 +73,9 @@
                                                                 $agencies = implode(', ', $imp);
                                                             @endphp
                                                             <td>{{ $agencies }}</td>
-                                                            <td>{{ date('F, Y', strtotime($row->ttp_start_date)) ?: 'Not Set' }}
+                                                            <td>{{ date('m/d/Y', strtotime($row->ttp_start_date)) ?: 'Not Set' }}
                                                                 -
-                                                                {{ date('F, Y', strtotime($row->ttp_end_date)) ?: 'Not Set' }}
+                                                                {{ date('m/d/Y', strtotime($row->ttp_end_date)) ?: 'Not Set' }}
                                                             </td>
                                                             <td>{{ $row->ttp_priorities }}</td>
                                                             <td class="action btns">

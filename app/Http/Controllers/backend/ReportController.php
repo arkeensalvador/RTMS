@@ -4,6 +4,9 @@ namespace App\Http\Controllers\backend;
 
 use App\Http\Controllers\Controller;
 use App\Models\backend\Personnel;
+use App\Models\Contributions;
+use App\Models\Initiatives;
+use Crypt;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -340,6 +343,8 @@ class ReportController extends Controller
     public function aihrsIndex()
     {
         $title = 'Agency In-House Reviews (AIHRs) | RDMC';
+        // Best Paper
+        $best_paper = DB::table('best_paper')->get();
         // Program
         $new = DB::table('programs')->where('program_status', '=', 'new')->count();
         $ongoing = DB::table('programs')->where('program_status', '=', 'ongoing')->count();
@@ -413,6 +418,7 @@ class ReportController extends Controller
             'backend.report.rdmc.aihrs_index',
             compact(
                 'title',
+                'best_paper',
                 'completed',
                 'new',
                 'ongoing',
@@ -441,6 +447,70 @@ class ReportController extends Controller
         );
     }
 
+    public function best_paper_add(Request $request)
+    {
+        $data = array();
+        $data['best_paper'] = $request->best_paper;
+        $insert = DB::table('best_paper')->insert($data);
+
+        if ($insert) {
+
+            $notification = array(
+                'message' => 'Item Successfully Added!',
+                'alert-type' => 'success'
+            );
+
+            return redirect()->route('aihrsIndex')->with($notification);
+        } else {
+            $notification = array(
+                'message' => 'Something is wrong, please try again!',
+                'alert-type' => 'error'
+            );
+            return redirect()->route('aihrsIndex')->with($notification);
+        }
+    }
+
+    public function best_paper_update(Request $request, $id)
+    {
+        $data = array();
+        $data['best_paper'] = $request->best_paper;
+        $insert = DB::table('best_paper')->where('id', $id)->update($data);
+
+        if ($insert) {
+
+            $notification = array(
+                'message' => 'Item Successfully Updated!',
+                'alert-type' => 'success'
+            );
+
+            return redirect()->route('aihrsIndex')->with($notification);
+        } else {
+            $notification = array(
+                'message' => 'Something is wrong, please try again!',
+                'alert-type' => 'error'
+            );
+            return redirect()->route('aihrsIndex')->with($notification);
+        }
+    }
+
+    public function best_paper_delete($id)
+    {
+        $id = Crypt::decryptString($id);
+        $delete = DB::table('best_paper')->where('id', $id)->delete();
+        if ($delete) {
+            $notification = array(
+                'message' => 'Item Successfully Deleted!',
+                'alert-type' => 'success'
+            );
+            return redirect()->back()->with($notification);
+        } else {
+            $notification = array(
+                'message' => 'Something is wrong, please try again!',
+                'alert-type' => 'error'
+            );
+            return redirect()->back()->with($notification);
+        }
+    }
     public function linkagesIndex()
     {
         $title = 'Linkages | RDMC';
@@ -462,6 +532,32 @@ class ReportController extends Controller
     {
         $title = 'DBIS | RDMC';
         return view('backend.report.rdmc.rdmc_dbinfosys_add', compact('title'));
+    }
+
+    public function regional_index() {
+        $title = 'Regional Symposium on R&D Highlights';
+        $all = DB::table('rdmc_regional')->get();
+        return view('backend.report.rdmc.rdmc_regional', compact('title', 'all'));
+    }
+
+    public function regional_add_index() {
+        $title = 'Regional Symposium on R&D Highlights';
+        $agency = DB::table('agency')->get();
+        $researchers = DB::table('researchers')->get();
+        return view('backend.report.rdmc.rdmc_regional_add', compact('title', 'agency','researchers'));
+    }
+
+    public function regional_participants_index() {
+        $title = 'Participants of Regional Symposium on R&D Highlights';
+        $all = DB::table('rdmc_regional_participants')->get();
+        return view('backend.report.rdmc.rdmc_regional_participants', compact('title', 'all'));
+    }
+
+    public function regional_participants_add_index() {
+        $title = 'Participants of Regional Symposium on R&D Highlights';
+        $agency = DB::table('agency')->get();
+        $researchers = DB::table('researchers')->get();
+        return view('backend.report.rdmc.rdmc_regional_participants_add', compact('title', 'agency','researchers'));
     }
 
     public function strategicActivities()
@@ -525,6 +621,42 @@ class ReportController extends Controller
         return view('backend.report.rdru.rdru_tpa_add', compact('title', 'iec'));
     }
 
+    public function policyIndex()
+    {
+        $title = 'Policy';
+        return view('backend.report.policy.policy_index', compact('title'));
+    }
+
+    public function policyPrc()
+    {
+        $title = 'Policy';
+        $all = DB::table('policy_prc')->get();
+        $agency = DB::table('agency')->get();
+
+        // CMI
+
+        $user_agency = DB::table('users')
+            ->join('agency', 'agency.abbrev', '=', 'users.agencyID')
+            ->where('agencyID', auth()->user()->agencyID)
+            ->get();
+        return view('backend.report.policy.policy_prc_index', compact('title', 'all', 'agency', 'user_agency'));
+    }
+
+    public function policyFormulated()
+    {
+        $title = 'Policy';
+        $all = DB::table('policy_formulated')->get();
+        $agency = DB::table('agency')->get();
+
+        // CMI
+
+        $user_agency = DB::table('users')
+            ->join('agency', 'agency.abbrev', '=', 'users.agencyID')
+            ->where('agencyID', auth()->user()->agencyID)
+            ->get();
+        return view('backend.report.policy.policy_formulated_index', compact('title', 'all', 'agency', 'user_agency'));
+    }
+
     public function cbgIndex()
     {
         $title = 'CBG';
@@ -536,6 +668,35 @@ class ReportController extends Controller
         $title = 'Trainings | CBG';
         $all = DB::table('cbg_trainings')->get();
         return view('backend.report.cbg.cbg_training', compact('title', 'all'));
+    }
+    public function cbgContributions()
+    {
+        $title = 'Contributions | CBG';
+        $contributions = Contributions::all();
+        // $all = DB::table('cbg_contributions')->get();
+        return view('backend.report.cbg.cbg_contributions', compact('title', 'contributions'));
+    }
+
+    public function cbgInitiatives()
+    {
+        $title = 'Contributions | CBG';
+        $initiatives = Initiatives::all();
+        // $all = DB::table('cbg_contributions')->get();
+        return view('backend.report.cbg.cbg_initiatives', compact('title', 'initiatives'));
+    }
+
+    public function cbgMeetings()
+    {
+        $title = 'Meetings | CBG';
+        $all = DB::table('cbg_meetings')->get();
+        return view('backend.report.cbg.cbg_meetings', compact('title', 'all'));
+    }
+
+    public function cbgMeetingsAdd()
+    {
+        $title = 'Meetings | CBG';
+        $agency = DB::table('agency')->get();
+        return view('backend.report.cbg.cbg_meetings_add', compact('title', 'agency'));
     }
 
     public function cbgAwards()
@@ -573,7 +734,11 @@ class ReportController extends Controller
     {
         $title = 'Equipments | CBG';
         $agency = DB::table('agency')->get();
-        return view('backend.report.cbg.cbg_equipment_add', compact('title', 'agency'));
+        
+        $user_agency = DB::table('users')
+            ->where('agencyID', auth()->user()->agencyID)
+            ->first();
+        return view('backend.report.cbg.cbg_equipment_add', compact('title', 'agency', 'user_agency'));
     }
 
 

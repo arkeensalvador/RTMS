@@ -84,7 +84,7 @@
                                 @csrf
                                 <div class="form-title col-12">
                                     <h2 class="font-weight-bold">Awards</h2>
-                                    <h5 class="mt-0"> Kindly fill-up the fields needed.</h5>
+                                    <h5 class="mt-0"> Kindly fill-out the fields needed.</h5>
                                 </div>
 
                                 <div class="col-md-4 form-group">
@@ -275,7 +275,7 @@
                     processData: false,
                     dataType: 'json',
                     success: (data) => {
-                        this.reset();
+                        // this.reset();
                         Swal.fire({
                             icon: 'success',
                             title: 'Award Updated Successfully',

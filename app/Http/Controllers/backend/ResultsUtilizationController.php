@@ -166,6 +166,7 @@ class ResultsUtilizationController extends Controller
         $data['tpa_details'] = $request->tpa_details;
         $data['tpa_remarks'] = $request->tpa_remarks;
         $data['tpa_approaches'] = json_encode($request->tpa_approaches);
+        $data['is_others'] = $request->is_others;
         $data['created_at'] = now();
 
         $insert = DB::table('results_tpa')->insert($data);
@@ -194,11 +195,12 @@ class ResultsUtilizationController extends Controller
         $data['tpa_details'] = $request->tpa_details;
         $data['tpa_remarks'] = $request->tpa_remarks;
         $data['tpa_approaches'] = json_encode($request->tpa_approaches);
+        $data['is_others'] = $request->is_others;
         $data['updated_at'] = now();
 
         $update = DB::table('results_tpa')->where('id', $id)->update($data);
         if ($update) {
-            return response()->json(['success' => 'TPA Added Successfully!']);
+            return response()->json(['success' => 'TPA Updated Successfully!']);
         } else {
             return response()->json(['error' => 'There is something wrong...']);
         }

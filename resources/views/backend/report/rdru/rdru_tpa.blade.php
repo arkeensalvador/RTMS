@@ -49,7 +49,7 @@
                                                         <th>Title</th>
                                                         <th>Date</th>
                                                         <th>Details</th>
-                                                        {{-- <th>Activity</th> --}}
+                                                        <th>Remarks</th>
                                                         <th>Action</th>
                                                     </tr>
                                                 </thead>
@@ -60,12 +60,22 @@
                                                             <td>
                                                                 @php
                                                                     $approach = json_decode($row->tpa_approaches);
+                                                                    $forbidden_words = ['Others'];
+                                                                    $approach = array_filter($approach, function ($approach) use ($forbidden_words) {
+                                                                        return !in_array($approach, $forbidden_words);
+                                                                    });
+                                                                    $others = $row->is_others;
+                                                                    if (!empty($others)) {
+                                                                        array_push($approach, $others);
+                                                                    }
+                                                                    
                                                                 @endphp
                                                                 {{ implode(', ', $approach) }}
                                                             </td>
                                                             <td>{{ $row->tpa_title }}</td>
                                                             <td>{{ $row->tpa_date }}</td>
                                                             <td>{{ $row->tpa_details }}</td>
+                                                            <td>{{ $row->tpa_remarks }}</td>
                                                             {{-- <td>{{ $row->tpa_activity }}</td> --}}
                                                             <td class="action btns">
                                                                 <a class="btn btn-primary"

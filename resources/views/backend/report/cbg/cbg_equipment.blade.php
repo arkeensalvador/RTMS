@@ -13,7 +13,7 @@
                             <li class="breadcrumb-item"><a href="home">Home</a></li>
                             <li class="breadcrumb-item"><a href="report-index">Reports</a></li>
                             <li class="breadcrumb-item"><a href="cbg-index">CBG</a></li>
-                            <li class="breadcrumb-item active">Expenditures and Facilities
+                            <li class="breadcrumb-item active">Equipments/Facilities
                             </li>
                         </ol>
                     </div><!-- /.col -->
@@ -27,11 +27,10 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-header">
-                                <h2 class="card-title">List of Expenditure and Facilities</h2>
+                                <h2 class="card-title">List of Equipments/Facilities</h2>
                                 <div class="card-tools">
                                     <a href="{{ url('cbg-equipment-add') }}" class="btn btn-success"><span><i
                                                 class="fa-solid fa-plus"></i> Create</span></a>
-
                                     <!-- Here is a label for example -->
                                     {{-- <span class="badge badge-primary">Label</span> --}}
                                 </div>

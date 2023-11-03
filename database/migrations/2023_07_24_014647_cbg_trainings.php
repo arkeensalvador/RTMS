@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('cbg_trainings', function (Blueprint $table) {
             $table->id();
+            $table->string('trainings_type');
             $table->string('trainings_sof');
             $table->string('trainings_agency');
             $table->string('trainings_title');
@@ -21,6 +22,7 @@ return new class extends Migration
             $table->string('trainings_end')->nullable();
             $table->string('trainings_no_participants');
             $table->string('trainings_venue');
+            $table->string('trainings_remarks')->nullable();
             $table->timestamps();
         });
     }
