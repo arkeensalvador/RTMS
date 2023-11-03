@@ -39,8 +39,6 @@
     <link rel="stylesheet" href="{{ asset('backend/plugins/datatables-buttons/css/buttons.bootstrap4.min.css') }}">
     <!-- Theme style -->
     <link rel="stylesheet" href="{{ asset('backend/dist/css/adminlte.min.css') }}">
-
-    <script defer src="{{ mix('resources/js/validations.js') }}"></script>
     {{-- Toastr & Sweet Alert --}}
     <link rel="stylesheet" href="{{ asset('toaster/toastr.min.css') }}">
 
@@ -61,7 +59,7 @@
         href="https://cdnjs.cloudflare.com/ajax/libs/icheck-bootstrap/3.0.1/icheck-bootstrap.min.css" />
 
     {{-- CSS --}}
-    <link rel="stylesheet" type="text/css" href="{{ mix('resources/css/app.css') }}" />
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/app.css') }}" />
 
 
     {{-- DropZone --}}
@@ -695,7 +693,7 @@
             });
         });
 
-        
+
 
         $(document).ready(function() {
             $('.research-center').select2({
