@@ -345,3 +345,6 @@ Route::post('/import-file', [App\Http\Controllers\backend\ImportController::clas
 
 // AJAX REQUEST
 Route::get('/get-researchers', [App\Http\Controllers\backend\ResultsUtilizationController::class, 'getResearchers'])->name('getResearchers');
+
+// register email
+Route::post('/register', [App\Http\Controllers\backend\UserController::class, 'register']);

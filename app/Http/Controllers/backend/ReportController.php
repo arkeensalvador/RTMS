@@ -48,11 +48,11 @@ class ReportController extends Controller
         // CMI
         $all_filter = DB::table('projects')
             ->select('*')
-            ->where('project_implementing_agency', 'LIKE', "%" . auth()->user()->agencyID . "%")
+            ->where('project_implementing_agency', 'LIKE', '%' . auth()->user()->agencyID . '%')
             ->get();
 
         $researchers_filter = DB::table('researchers')
-            ->where('agency',  auth()->user()->agencyID)
+            ->where('agency', auth()->user()->agencyID)
             ->get();
 
         $user_agency = DB::table('users')
@@ -75,11 +75,11 @@ class ReportController extends Controller
         // CMI (fetch program implementing agency even data in db is in array)
         $all_filter = DB::table('programs')
             ->select('*')
-            ->where('implementing_agency', 'LIKE', "%" . auth()->user()->agencyID . "%")
+            ->where('implementing_agency', 'LIKE', '%' . auth()->user()->agencyID . '%')
             ->get();
 
         $researchers_filter = DB::table('researchers')
-            ->where('agency',  auth()->user()->programID)
+            ->where('agency', auth()->user()->programID)
             ->get();
 
         $user_agency = DB::table('users')
@@ -94,8 +94,9 @@ class ReportController extends Controller
         $title = 'Programs | RDMC';
         $programs = DB::table('programs')
             ->select('*')
-            ->orderByDesc("id")
+            ->orderByDesc('id')
             ->get();
+
         return view('backend.report.rdmc.rdmc_program_chooser', compact('programs', 'title'));
     }
     public function rdmcCreateProgram()
@@ -110,7 +111,7 @@ class ReportController extends Controller
             ->first();
 
         $researchers_filter = DB::table('researchers')
-            ->where('agency',  auth()->user()->agencyID)
+            ->where('agency', auth()->user()->agencyID)
             ->get();
 
         return view('backend.report.rdmc.rdmc_create_program', compact('title', 'agency', 'researchers', 'user_agency', 'researchers_filter'));
@@ -130,7 +131,7 @@ class ReportController extends Controller
             ->first();
 
         $researchers_filter = DB::table('researchers')
-            ->where('agency',  auth()->user()->agencyID)
+            ->where('agency', auth()->user()->agencyID)
             ->get();
 
         return view('backend.report.rdmc.rdmc_projects_add', compact('title', 'agency', 'researchers', 'researchers_filter', 'user_agency'));
@@ -141,7 +142,7 @@ class ReportController extends Controller
         $title = 'Program - projects | RDMC';
         $programs = DB::table('programs')
             ->select('*')
-            ->orderByDesc("id")
+            ->orderByDesc('id')
             ->limit(1)
             ->first();
 
@@ -155,19 +156,9 @@ class ReportController extends Controller
             ->first();
 
         $researchers_filter = DB::table('researchers')
-            ->where('agency',  auth()->user()->agencyID)
+            ->where('agency', auth()->user()->agencyID)
             ->get();
-        return view(
-            'backend.report.rdmc.rdmc_program_projects_add',
-            compact(
-                'programs',
-                'title',
-                'agency',
-                'researchers',
-                'user_agency',
-                'researchers_filter'
-            )
-        );
+        return view('backend.report.rdmc.rdmc_program_projects_add', compact('programs', 'title', 'agency', 'researchers', 'user_agency', 'researchers_filter'));
     }
     // ADD PROJECTS TO PROGRAM IN NOT CONTINUOUS METHOD
     public function projectsUnderProgramAdd($programID)
@@ -175,8 +166,9 @@ class ReportController extends Controller
         $title = 'Program - projects | RDMC';
         $agency = DB::table('agency')->get();
         $researchers = DB::table('researchers')->get();
-        $programs = DB::table('programs')->where('programID', $programID)->first();
-
+        $programs = DB::table('programs')
+            ->where('programID', $programID)
+            ->first();
 
         // CMI
         $user_agency = DB::table('users')
@@ -185,20 +177,10 @@ class ReportController extends Controller
             ->get();
 
         $researchers_filter = DB::table('researchers')
-            ->where('agency',  auth()->user()->agencyID)
+            ->where('agency', auth()->user()->agencyID)
             ->get();
 
-        return view(
-            'backend.report.rdmc.rdmc_projects_under_program_add',
-            compact(
-                'programs',
-                'title',
-                'agency',
-                'researchers',
-                'user_agency',
-                'researchers_filter'
-            )
-        );
+        return view('backend.report.rdmc.rdmc_projects_under_program_add', compact('programs', 'title', 'agency', 'researchers', 'user_agency', 'researchers_filter'));
     }
 
     public function projectsUnderProgramEdit($programID, $id)
@@ -206,7 +188,9 @@ class ReportController extends Controller
         $title = 'Program - projects | RDMC';
         $agency = DB::table('agency')->get();
         $researchers = DB::table('researchers')->get();
-        $programs = DB::table('programs')->where('programID', $programID)->first();
+        $programs = DB::table('programs')
+            ->where('programID', $programID)
+            ->first();
 
         // CMI
         $user_agency = DB::table('users')
@@ -215,20 +199,10 @@ class ReportController extends Controller
             ->first();
 
         $researchers_filter = DB::table('researchers')
-            ->where('agency',  auth()->user()->agencyID)
+            ->where('agency', auth()->user()->agencyID)
             ->get();
 
-        return view(
-            'backend.report.rdmc.rdmc_projects_under_program_edit',
-            compact(
-                'programs',
-                'title',
-                'agency',
-                'researchers',
-                'user_agency',
-                'researchers_filter'
-            )
-        );
+        return view('backend.report.rdmc.rdmc_projects_under_program_edit', compact('programs', 'title', 'agency', 'researchers', 'user_agency', 'researchers_filter'));
     }
 
     public function projectsUnderProgramIndex($programID)
@@ -236,7 +210,9 @@ class ReportController extends Controller
         $title = 'Program - projects | RDMC';
         $agency = DB::table('agency')->get();
         $researchers = DB::table('researchers')->get();
-        $projects = DB::table('projects')->where('programID', $programID)->get();
+        $projects = DB::table('projects')
+            ->where('programID', $programID)
+            ->get();
 
         $program_title = DB::table('programs')
             ->select('*')
@@ -248,17 +224,7 @@ class ReportController extends Controller
             ->where('funding_agency', auth()->user()->agencyID)
             ->get();
 
-        return view(
-            'backend.report.rdmc.rdmc_projects_under_program',
-            compact(
-                'projects',
-                'title',
-                'agency',
-                'researchers',
-                'program_title',
-                'all_filter'
-            )
-        );
+        return view('backend.report.rdmc.rdmc_projects_under_program', compact('projects', 'title', 'agency', 'researchers', 'program_title', 'all_filter'));
     }
     public function subProjectsView($projectID)
     {
@@ -266,7 +232,7 @@ class ReportController extends Controller
         $sub_projects = DB::table('sub_projects')
             ->select('*')
             ->where('projectID', $projectID)
-            ->orderByDesc("id")
+            ->orderByDesc('id')
             ->get();
 
         $project_title = DB::table('projects')
@@ -295,20 +261,10 @@ class ReportController extends Controller
             ->first();
 
         $researchers_filter = DB::table('researchers')
-            ->where('agency',  auth()->user()->agencyID)
+            ->where('agency', auth()->user()->agencyID)
             ->get();
 
-        return view(
-            'backend.report.rdmc.rdmc_sub_project_add',
-            compact(
-                'title',
-                'projects',
-                'agency',
-                'researchers',
-                'user_agency',
-                'researchers_filter'
-            )
-        );
+        return view('backend.report.rdmc.rdmc_sub_project_add', compact('title', 'projects', 'agency', 'researchers', 'user_agency', 'researchers_filter'));
     }
 
     public function ProjectSubProjectsAdd2()
@@ -316,7 +272,7 @@ class ReportController extends Controller
         $title = 'Sub-projects | RDMC';
         $projects = DB::table('projects')
             ->select('*')
-            ->orderByDesc("id")
+            ->orderByDesc('id')
             ->limit(1)
             ->first();
 
@@ -324,7 +280,6 @@ class ReportController extends Controller
         $agency = DB::table('agency')->get();
         return view('backend.report.rdmc.rdmc_sub_project_add', compact('title', 'projects', 'agency', 'researchers'));
     }
-
 
     public function rdmcActivities()
     {
@@ -346,169 +301,188 @@ class ReportController extends Controller
         // Best Paper
         $best_paper = DB::table('best_paper')->get();
         // Program
-        $new = DB::table('programs')->where('program_status', '=', 'new')->count();
-        $ongoing = DB::table('programs')->where('program_status', '=', 'ongoing')->count();
-        $terminated = DB::table('programs')->where('program_status', '=', 'terminated')->count();
-        $completed = DB::table('programs')->where('program_status', '=', 'completed')->count();
+        $new = DB::table('programs')
+            ->where('program_status', '=', 'new')
+            ->count();
+        $ongoing = DB::table('programs')
+            ->where('program_status', '=', 'ongoing')
+            ->count();
+        $terminated = DB::table('programs')
+            ->where('program_status', '=', 'terminated')
+            ->count();
+        $completed = DB::table('programs')
+            ->where('program_status', '=', 'completed')
+            ->count();
         // Project
-        $new_proj = DB::table('projects')->where('project_status', '=', 'new')->count();
-        $ongoing_proj = DB::table('projects')->where('project_status', '=', 'ongoing')->count();
-        $terminated_proj = DB::table('projects')->where('project_status', '=', 'terminated')->count();
-        $completed_proj = DB::table('projects')->where('project_status', '=', 'completed')->count();
+        $new_proj = DB::table('projects')
+            ->where('project_status', '=', 'new')
+            ->count();
+        $ongoing_proj = DB::table('projects')
+            ->where('project_status', '=', 'ongoing')
+            ->count();
+        $terminated_proj = DB::table('projects')
+            ->where('project_status', '=', 'terminated')
+            ->count();
+        $completed_proj = DB::table('projects')
+            ->where('project_status', '=', 'completed')
+            ->count();
         // Sub-Project
-        $new_subproj = DB::table('sub_projects')->where('sub_project_status', '=', 'new')->count();
-        $ongoing_subproj = DB::table('sub_projects')->where('sub_project_status', '=', 'ongoing')->count();
-        $terminated_subproj = DB::table('sub_projects')->where('sub_project_status', '=', 'terminated')->count();
-        $completed_subproj = DB::table('sub_projects')->where('sub_project_status', '=', 'completed')->count();
+        $new_subproj = DB::table('sub_projects')
+            ->where('sub_project_status', '=', 'new')
+            ->count();
+        $ongoing_subproj = DB::table('sub_projects')
+            ->where('sub_project_status', '=', 'ongoing')
+            ->count();
+        $terminated_subproj = DB::table('sub_projects')
+            ->where('sub_project_status', '=', 'terminated')
+            ->count();
+        $completed_subproj = DB::table('sub_projects')
+            ->where('sub_project_status', '=', 'completed')
+            ->count();
 
         // CMI
         // Program
         $cmi_new = DB::table('programs')
-            ->where('implementing_agency',  'LIKE', "%" . auth()->user()->agencyID . "%")
-            ->where('program_status', '=', 'new')->count();
+            ->where('implementing_agency', 'LIKE', '%' . auth()->user()->agencyID . '%')
+            ->where('program_status', '=', 'new')
+            ->count();
 
         $cmi_ongoing = DB::table('programs')
-            ->where('implementing_agency',  'LIKE', "%" . auth()->user()->agencyID . "%")
-            ->where('program_status', '=', 'ongoing')->count();
+            ->where('implementing_agency', 'LIKE', '%' . auth()->user()->agencyID . '%')
+            ->where('program_status', '=', 'ongoing')
+            ->count();
 
         $cmi_terminated = DB::table('programs')
-            ->where('implementing_agency',  'LIKE', "%" . auth()->user()->agencyID . "%")
-            ->where('program_status', '=', 'terminated')->count();
+            ->where('implementing_agency', 'LIKE', '%' . auth()->user()->agencyID . '%')
+            ->where('program_status', '=', 'terminated')
+            ->count();
 
         $cmi_completed = DB::table('programs')
-            ->where('implementing_agency',  'LIKE', "%" . auth()->user()->agencyID . "%")
-            ->where('program_status', '=', 'completed')->count();
+            ->where('implementing_agency', 'LIKE', '%' . auth()->user()->agencyID . '%')
+            ->where('program_status', '=', 'completed')
+            ->count();
 
         // Project
         $cmi_new_proj = DB::table('projects')
-            ->where('project_implementing_agency',  'LIKE', "%" . auth()->user()->agencyID . "%")
-            ->where('project_status', '=', 'new')->count();
+            ->where('project_implementing_agency', 'LIKE', '%' . auth()->user()->agencyID . '%')
+            ->where('project_status', '=', 'new')
+            ->count();
 
         $cmi_ongoing_proj = DB::table('projects')
-            ->where('project_implementing_agency',  'LIKE', "%" . auth()->user()->agencyID . "%")
-            ->where('project_status', '=', 'ongoing')->count();
+            ->where('project_implementing_agency', 'LIKE', '%' . auth()->user()->agencyID . '%')
+            ->where('project_status', '=', 'ongoing')
+            ->count();
 
         $cmi_terminated_proj = DB::table('projects')
-            ->where('project_implementing_agency',  'LIKE', "%" . auth()->user()->agencyID . "%")
-            ->where('project_status', '=', 'terminated')->count();
+            ->where('project_implementing_agency', 'LIKE', '%' . auth()->user()->agencyID . '%')
+            ->where('project_status', '=', 'terminated')
+            ->count();
 
         $cmi_completed_proj = DB::table('projects')
-            ->where('project_implementing_agency',  'LIKE', "%" . auth()->user()->agencyID . "%")
-            ->where('project_status', '=', 'completed')->count();
+            ->where('project_implementing_agency', 'LIKE', '%' . auth()->user()->agencyID . '%')
+            ->where('project_status', '=', 'completed')
+            ->count();
 
         // Sub-Project
         $cmi_new_subproj = DB::table('sub_projects')
             ->where('sub_project_implementing_agency', auth()->user()->agencyID)
-            ->where('sub_project_status', '=', 'new')->count();
+            ->where('sub_project_status', '=', 'new')
+            ->count();
 
         $cmi_ongoing_subproj = DB::table('sub_projects')
             ->where('sub_project_implementing_agency', auth()->user()->agencyID)
-            ->where('sub_project_status', '=', 'ongoing')->count();
+            ->where('sub_project_status', '=', 'ongoing')
+            ->count();
 
         $cmi_terminated_subproj = DB::table('sub_projects')
             ->where('sub_project_implementing_agency', auth()->user()->agencyID)
-            ->where('sub_project_status', '=', 'terminated')->count();
+            ->where('sub_project_status', '=', 'terminated')
+            ->count();
 
         $cmi_completed_subproj = DB::table('sub_projects')
             ->where('sub_project_implementing_agency', auth()->user()->agencyID)
-            ->where('sub_project_status', '=', 'completed')->count();
+            ->where('sub_project_status', '=', 'completed')
+            ->count();
 
-
-        return view(
-            'backend.report.rdmc.aihrs_index',
-            compact(
-                'title',
-                'best_paper',
-                'completed',
-                'new',
-                'ongoing',
-                'terminated',
-                'completed_proj',
-                'new_proj',
-                'ongoing_proj',
-                'terminated_proj',
-                'completed_subproj',
-                'new_subproj',
-                'ongoing_subproj',
-                'terminated_subproj',
-                'cmi_completed',
-                'cmi_new',
-                'cmi_ongoing',
-                'cmi_terminated',
-                'cmi_completed_proj',
-                'cmi_new_proj',
-                'cmi_ongoing_proj',
-                'cmi_terminated_proj',
-                'cmi_completed_subproj',
-                'cmi_new_subproj',
-                'cmi_ongoing_subproj',
-                'cmi_terminated_subproj'
-            )
-        );
+        return view('backend.report.rdmc.aihrs_index', compact('title', 'best_paper', 'completed', 'new', 'ongoing', 'terminated', 'completed_proj', 'new_proj', 'ongoing_proj', 'terminated_proj', 'completed_subproj', 'new_subproj', 'ongoing_subproj', 'terminated_subproj', 'cmi_completed', 'cmi_new', 'cmi_ongoing', 'cmi_terminated', 'cmi_completed_proj', 'cmi_new_proj', 'cmi_ongoing_proj', 'cmi_terminated_proj', 'cmi_completed_subproj', 'cmi_new_subproj', 'cmi_ongoing_subproj', 'cmi_terminated_subproj'));
     }
 
     public function best_paper_add(Request $request)
     {
-        $data = array();
+        $data = [];
         $data['best_paper'] = $request->best_paper;
         $insert = DB::table('best_paper')->insert($data);
 
         if ($insert) {
-
-            $notification = array(
+            $notification = [
                 'message' => 'Item Successfully Added!',
-                'alert-type' => 'success'
-            );
+                'alert-type' => 'success',
+            ];
 
-            return redirect()->route('aihrsIndex')->with($notification);
+            return redirect()
+                ->route('aihrsIndex')
+                ->with($notification);
         } else {
-            $notification = array(
+            $notification = [
                 'message' => 'Something is wrong, please try again!',
-                'alert-type' => 'error'
-            );
-            return redirect()->route('aihrsIndex')->with($notification);
+                'alert-type' => 'error',
+            ];
+            return redirect()
+                ->route('aihrsIndex')
+                ->with($notification);
         }
     }
 
     public function best_paper_update(Request $request, $id)
     {
-        $data = array();
+        $data = [];
         $data['best_paper'] = $request->best_paper;
-        $insert = DB::table('best_paper')->where('id', $id)->update($data);
+        $insert = DB::table('best_paper')
+            ->where('id', $id)
+            ->update($data);
 
         if ($insert) {
-
-            $notification = array(
+            $notification = [
                 'message' => 'Item Successfully Updated!',
-                'alert-type' => 'success'
-            );
+                'alert-type' => 'success',
+            ];
 
-            return redirect()->route('aihrsIndex')->with($notification);
+            return redirect()
+                ->route('aihrsIndex')
+                ->with($notification);
         } else {
-            $notification = array(
+            $notification = [
                 'message' => 'Something is wrong, please try again!',
-                'alert-type' => 'error'
-            );
-            return redirect()->route('aihrsIndex')->with($notification);
+                'alert-type' => 'error',
+            ];
+            return redirect()
+                ->route('aihrsIndex')
+                ->with($notification);
         }
     }
 
     public function best_paper_delete($id)
     {
         $id = Crypt::decryptString($id);
-        $delete = DB::table('best_paper')->where('id', $id)->delete();
+        $delete = DB::table('best_paper')
+            ->where('id', $id)
+            ->delete();
         if ($delete) {
-            $notification = array(
+            $notification = [
                 'message' => 'Item Successfully Deleted!',
-                'alert-type' => 'success'
-            );
-            return redirect()->back()->with($notification);
+                'alert-type' => 'success',
+            ];
+            return redirect()
+                ->back()
+                ->with($notification);
         } else {
-            $notification = array(
+            $notification = [
                 'message' => 'Something is wrong, please try again!',
-                'alert-type' => 'error'
-            );
-            return redirect()->back()->with($notification);
+                'alert-type' => 'error',
+            ];
+            return redirect()
+                ->back()
+                ->with($notification);
         }
     }
     public function linkagesIndex()
@@ -534,30 +508,34 @@ class ReportController extends Controller
         return view('backend.report.rdmc.rdmc_dbinfosys_add', compact('title'));
     }
 
-    public function regional_index() {
+    public function regional_index()
+    {
         $title = 'Regional Symposium on R&D Highlights';
         $all = DB::table('rdmc_regional')->get();
         return view('backend.report.rdmc.rdmc_regional', compact('title', 'all'));
     }
 
-    public function regional_add_index() {
+    public function regional_add_index()
+    {
         $title = 'Regional Symposium on R&D Highlights';
         $agency = DB::table('agency')->get();
         $researchers = DB::table('researchers')->get();
-        return view('backend.report.rdmc.rdmc_regional_add', compact('title', 'agency','researchers'));
+        return view('backend.report.rdmc.rdmc_regional_add', compact('title', 'agency', 'researchers'));
     }
 
-    public function regional_participants_index() {
+    public function regional_participants_index()
+    {
         $title = 'Participants of Regional Symposium on R&D Highlights';
         $all = DB::table('rdmc_regional_participants')->get();
         return view('backend.report.rdmc.rdmc_regional_participants', compact('title', 'all'));
     }
 
-    public function regional_participants_add_index() {
+    public function regional_participants_add_index()
+    {
         $title = 'Participants of Regional Symposium on R&D Highlights';
         $agency = DB::table('agency')->get();
         $researchers = DB::table('researchers')->get();
-        return view('backend.report.rdmc.rdmc_regional_participants_add', compact('title', 'agency','researchers'));
+        return view('backend.report.rdmc.rdmc_regional_participants_add', compact('title', 'agency', 'researchers'));
     }
 
     public function strategicActivities()
@@ -617,8 +595,8 @@ class ReportController extends Controller
     public function rdruTpaAdd()
     {
         $title = 'TPA | R&D Results Utilizations';
-        $iec = DB::table('iec_approaches')->get();
-        return view('backend.report.rdru.rdru_tpa_add', compact('title', 'iec'));
+        // $iec = DB::table('iec_approaches')->get();
+        return view('backend.report.rdru.rdru_tpa_add', compact('title'));
     }
 
     public function policyIndex()
@@ -734,13 +712,12 @@ class ReportController extends Controller
     {
         $title = 'Equipments | CBG';
         $agency = DB::table('agency')->get();
-        
+
         $user_agency = DB::table('users')
             ->where('agencyID', auth()->user()->agencyID)
             ->first();
         return view('backend.report.cbg.cbg_equipment_add', compact('title', 'agency', 'user_agency'));
     }
-
 
     // ************************************************************************************************************************************************
     // ************************************************************************************************************************************************
@@ -748,20 +725,18 @@ class ReportController extends Controller
     // ************************************************************************************************************************************************
     // ************************************************************************************************************************************************
 
-
     public function AddProgramPersonnel(Request $request)
     {
         $request->validate([
-            'moreFields.*.programID' => 'required'
+            'moreFields.*.programID' => 'required',
         ]);
 
         foreach ($request->moreFields as $key => $value) {
-
             Personnel::create($value);
-            $notification = array(
+            $notification = [
                 'message' => 'Personnel(s) Successfully Added!',
-                'alert-type' => 'success'
-            );
+                'alert-type' => 'success',
+            ];
         }
         return back()->with($notification);
     }

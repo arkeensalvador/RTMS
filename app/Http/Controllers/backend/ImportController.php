@@ -9,8 +9,11 @@ use App\Imports\ProjectsImport;
 use App\Imports\ResearchersImport;
 use App\Imports\SubProjectsImport;
 use App\Imports\UsersImport;
+use App\Mail\NewUserWelcomeMail;
+use App\Models\User;
 use Illuminate\Http\Request;
 use DB;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -34,17 +37,21 @@ class ImportController extends Controller
         } else  if ($request->file('import_excel_users')) {
             $import = Excel::import(new UsersImport, $request->file('import_excel_users'));
             if ($import) {
+                $users = User::all(); // Retrieve all imported users
+                foreach ($users as $user) {
+                    Mail::to($user->email)->send(new NewUserWelcomeMail($user));
+                }
                 $notification = array(
                     'message' => 'Data Successfully Imported!',
                     'alert-type' => 'success'
                 );
-                return back()->with($notification);
+                return redirect()->route('AllUser')->with($notification);
             } else {
                 $notification = array(
                     'message' => 'Something is wrong, please try again!',
                     'alert-type' => 'error'
                 );
-                return back()->with($notification);
+                return redirect()->route('AllUser')->with($notification);
             }
         } else if ($request->file('import_excel_programs')) {
             $import = Excel::import(new ProgramsImport, $request->file('import_excel_programs'));

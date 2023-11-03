@@ -11,7 +11,7 @@ class ResearcherController extends Controller
 {
     public function researcherIndex()
     {
-        $title = "Researchers | RTMS";
+        $title = 'Researchers | RTMS';
         $all = DB::table('researchers')->get();
 
         // CMI
@@ -28,7 +28,7 @@ class ResearcherController extends Controller
     }
     public function researcherAdd()
     {
-        $title = "Researchers | RTMS";
+        $title = 'Researchers | RTMS';
         $agency = DB::table('agency')->get();
 
         // CMI
@@ -45,7 +45,7 @@ class ResearcherController extends Controller
         $file = $request->file('image');
         $name = $request->name . '_IMAGE' . '.' . $file->getClientOriginalExtension();
 
-        $data =  array();
+        $data = [];
         $data['name'] = $request->name;
         $data['gender'] = $request->gender;
         $data['contact'] = $request->contact;
@@ -53,37 +53,44 @@ class ResearcherController extends Controller
         $data['agency'] = $request->agency;
 
         if (request()->hasFile('image')) {
-            $path =  $file->storeAs("public" . "/" . "profile-pic", $name);
-            $data['image'] = "profile-pic/" . $name;
+            $path = $file->storeAs('public' . '/' . 'profile-pic', $name);
+            $data['image'] = 'profile-pic/' . $name;
             $researcher = DB::table('researchers')->insert($data);
             if ($researcher) {
-
-                $notification = array(
+                $notification = [
                     'message' => 'Researcher Successfully Added!',
-                    'alert-type' => 'success'
-                );
+                    'alert-type' => 'success',
+                ];
 
-                return redirect()->route('researcherIndex')->with($notification);
+                return redirect()
+                    ->route('researcherIndex')
+                    ->with($notification);
             } else {
-                $notification = array(
+                $notification = [
                     'message' => 'Something is wrong, please try again!',
-                    'alert-type' => 'error'
-                );
-                return redirect()->route('researcherIndex')->with($notification);
+                    'alert-type' => 'error',
+                ];
+                return redirect()
+                    ->route('researcherIndex')
+                    ->with($notification);
             }
         } else {
-            $notification = array(
+            $notification = [
                 'message' => 'Image is required!',
-                'alert-type' => 'error'
-            );
-            return redirect()->route('researcherIndex')->with($notification);
+                'alert-type' => 'error',
+            ];
+            return redirect()
+                ->route('researcherIndex')
+                ->with($notification);
         }
     }
 
     public function EditResearcher($id)
     {
-        $title = "Researchers | RTMS";
-        $researcher = DB::table('researchers')->where('id', $id)->first();
+        $title = 'Researchers | RTMS';
+        $researcher = DB::table('researchers')
+            ->where('id', $id)
+            ->first();
         $agency = DB::table('agency')->get();
 
         $user_agency = DB::table('users')
@@ -96,53 +103,62 @@ class ResearcherController extends Controller
 
     public function ViewResearcher($id)
     {
-        $title = "Researchers | RTMS";
+        $title = 'Researchers | RTMS';
         $researcher = DB::table('researchers')
             ->join('agency', 'agency.abbrev', '=', 'researchers.agency')
             ->select('agency.*', 'researchers.*')
-            ->where('researchers.id', $id)->first();
+            ->where('researchers.id', $id)
+            ->first();
 
         $prog_involvement = DB::table('researchers')
             ->join('programs', 'programs.program_leader', '=', 'researchers.name')
             ->select('programs.*', 'researchers.name')
-            ->where('researchers.id', $id)->get();
+            ->where('researchers.id', $id)
+            ->get();
 
         $proj_involvement = DB::table('researchers')
             ->join('projects', 'projects.project_leader', '=', 'researchers.name')
             ->select('projects.*', 'researchers.name')
-            ->where('researchers.id', $id)->get();
+            ->where('researchers.id', $id)
+            ->get();
 
         $sub_proj_involvement = DB::table('researchers')
             ->join('sub_projects', 'sub_projects.sub_project_leader', '=', 'researchers.name')
             ->select('sub_projects.*', 'researchers.name')
-            ->where('researchers.id', $id)->get();
+            ->where('researchers.id', $id)
+            ->get();
         return view('backend.researcher.researcher_view', compact('researcher', 'title', 'prog_involvement', 'proj_involvement', 'sub_proj_involvement'));
     }
 
     public function UpdateResearcher(Request $request, $id)
     {
-        $data =  array();
+        $data = [];
         $data['name'] = $request->name;
         $data['gender'] = $request->gender;
         $data['contact'] = $request->contact;
         $data['email'] = $request->email;
         $data['agency'] = $request->agency;
 
-        $researcher = DB::table('researchers')->where('id', $id)->update($data);
+        $researcher = DB::table('researchers')
+            ->where('id', $id)
+            ->update($data);
         if ($researcher) {
-
-            $notification = array(
+            $notification = [
                 'message' => 'Researcher Successfully Updated!',
-                'alert-type' => 'success'
-            );
+                'alert-type' => 'success',
+            ];
 
-            return redirect()->route('researcherIndex')->with($notification);
+            return redirect()
+                ->route('researcherIndex')
+                ->with($notification);
         } else {
-            $notification = array(
+            $notification = [
                 'message' => 'Something is wrong, please try again!',
-                'alert-type' => 'error'
-            );
-            return redirect()->route('researcherIndex')->with($notification);
+                'alert-type' => 'error',
+            ];
+            return redirect()
+                ->route('researcherIndex')
+                ->with($notification);
         }
     }
 
@@ -152,23 +168,27 @@ class ResearcherController extends Controller
         return Response::download($file_path);
     }
 
-
-
     public function DeleteResearcher($id)
     {
-        $delete = DB::table('researchers')->where('id', $id)->delete();
+        $delete = DB::table('researchers')
+            ->where('id', $id)
+            ->delete();
         if ($delete) {
-            $notification = array(
+            $notification = [
                 'message' => 'Researcher Successfully Deleted!',
-                'alert-type' => 'success'
-            );
-            return redirect()->back()->with($notification);
+                'alert-type' => 'success',
+            ];
+            return redirect()
+                ->back()
+                ->with($notification);
         } else {
-            $notification = array(
+            $notification = [
                 'message' => 'Something is wrong, please try again!',
-                'alert-type' => 'error'
-            );
-            return redirect()->back()->with($notification);
+                'alert-type' => 'error',
+            ];
+            return redirect()
+                ->back()
+                ->with($notification);
         }
     }
 }

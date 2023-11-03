@@ -169,7 +169,7 @@
                                 </div>
 
                                 <div class="col-md-6 form-group">
-                                    <label for="equipments_agency" class=" font-weight-bold">Agency<span
+                                    <label for="equipments_agency" class=" font-weight-bold">Location/Agency<span
                                             class="text-danger">*</span></label>
                                     <select id="equipments_agency" name="equipments_agency" class="form-control agency"
                                         required>
@@ -179,7 +179,8 @@
                                                 <option value="{{ $row->abbrev }}"> {{ $row->agency_name }} </option>
                                             @endforeach
                                         @else
-                                            <option value="{{ $user_agency->agencyID }}" selected> {{ $user_agency->agencyID }} </option>
+                                            <option value="{{ $user_agency->agencyID }}" selected>
+                                                {{ $user_agency->agencyID }} </option>
                                         @endif
                                     </select>
                                     <div class="invalid-feedback">Missing agency</div>

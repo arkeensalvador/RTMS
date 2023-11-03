@@ -170,8 +170,8 @@
                                 <div class="col-md-6 form-group">
                                     <label for="trainings_no_participants" class=" font-weight-bold">Venue<span
                                             class="text-danger">*</span></label>
-                                    <input type="text" name="trainings_venue" class="form-control" id="trainings_venue"
-                                        placeholder="Venue" required>
+                                    <input type="text" name="trainings_venue" class="form-control"
+                                        id="trainings_venue" placeholder="Venue" required>
                                     <div class="invalid-feedback"> Missing venue</div>
                                 </div>
 

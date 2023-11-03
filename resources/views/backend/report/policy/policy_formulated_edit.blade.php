@@ -109,7 +109,8 @@
                                         <option value="Implemented"
                                             {{ 'Implemented' == $all->policy_type ? 'selected' : '' }}>Implemented</option>
                                         <option value="Institutionalized"
-                                            {{ 'Institutionalized' == $all->policy_type ? 'selected' : '' }}>Institutionalized
+                                            {{ 'Institutionalized' == $all->policy_type ? 'selected' : '' }}>
+                                            Institutionalized
                                         </option>
 
                                     </select>
@@ -151,7 +152,7 @@
                                 </div>
 
                                 <div class="col-md-4 form-group float-right">
-                                    <a href="{{ url('policy-prc') }}" class="btn btn-default">Back</a>
+                                    <a href="{{ url('policy-formulated') }}" class="btn btn-default">Back</a>
                                     <button type="submit" id="submit" class="btn btn-primary btn-m ">Submit</button>
                                 </div>
                             </form>

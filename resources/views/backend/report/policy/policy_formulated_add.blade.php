@@ -100,8 +100,7 @@
                                     <label for="ini_initiates" class="font-weight-bold">Type<span
                                             class="text-danger">*</span></label>
                                     <br>
-                                    <select id="policy_type" name="policy_type" class="others form-control"
-                                        required>
+                                    <select id="policy_type" name="policy_type" class="others form-control" required>
                                         <option selected disabled value="">Select Type</option>
                                         <option value="Formulated">Formulated</option>
                                         <option value="Advocated">Advocated</option>
@@ -145,7 +144,7 @@
                                 </div>
 
                                 <div class="col-md-4 form-group float-right">
-                                    <a href="{{ url('policy-prc') }}" class="btn btn-default">Back</a>
+                                    <a href="{{ url('policy-formulated') }}" class="btn btn-default">Back</a>
                                     <button type="submit" id="submit" class="btn btn-primary btn-m ">Submit</button>
                                 </div>
                             </form>

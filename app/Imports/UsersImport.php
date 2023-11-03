@@ -18,7 +18,7 @@ class UsersImport implements ToModel, WithHeadingRow
      * @return \Illuminate\Database\Eloquent\Model|null
      */
 
-     
+
     public function model(array $row)
     {
 
@@ -27,9 +27,9 @@ class UsersImport implements ToModel, WithHeadingRow
             "email"   => $row['email'],
             "agencyID" => $row['agency_id'],
             "role" => $row['role'],
-            "password" => Hash::make('password'),
+            "password" => Hash::make($row['password']),
         ]);
-        
+
         return $user;
     }
 }
