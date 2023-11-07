@@ -25,41 +25,43 @@
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-12 col-md-12">
+                                        @if (auth()->user()->role == 'Admin')
+                                            <div class="col-sm-12">
+                                                <a href="aihrs">
+                                                    <div class="monitoring info-box bg-light">
+                                                        <div class="monitoring info-box-content">
+                                                            <span
+                                                                class="monitoring info-box-number text-center text-muted">Agency
+                                                                In-House Reviews (AIHRs)
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </a>
+                                            </div>
+                                            <div class="col-sm-12">
+                                                <a href="rdmc-regional">
+                                                    <div class="monitoring info-box bg-light">
+                                                        <div class="monitoring info-box-content">
+                                                            <span
+                                                                class="monitoring info-box-number text-center text-muted">Regional
+                                                                Symposium on R&D Highlights</span>
+                                                        </div>
+                                                    </div>
+                                                </a>
+                                            </div>
 
-                                        <div class="col-sm-12">
-                                            <a href="aihrs">
-                                                <div class="monitoring info-box bg-light">
-                                                    <div class="monitoring info-box-content">
-                                                        <span
-                                                            class="monitoring info-box-number text-center text-muted">Agency
-                                                            In-House Reviews (AIHRs)
-                                                        </span>
+                                            <div class="col-sm-12">
+                                                <a href="rdmc-regional-participants">
+                                                    <div class="monitoring info-box bg-light">
+                                                        <div class="monitoring info-box-content">
+                                                            <span
+                                                                class="monitoring info-box-number text-center text-muted">Participants
+                                                                of Regional Symposium on R&D Highlights</span>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                            </a>
-                                        </div>
-                                        <div class="col-sm-12">
-                                            <a href="rdmc-regional">
-                                                <div class="monitoring info-box bg-light">
-                                                    <div class="monitoring info-box-content">
-                                                        <span
-                                                            class="monitoring info-box-number text-center text-muted">Regional Symposium on R&D Highlights</span>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                        </div>
-
-                                        <div class="col-sm-12">
-                                            <a href="rdmc-regional-participants">
-                                                <div class="monitoring info-box bg-light">
-                                                    <div class="monitoring info-box-content">
-                                                        <span
-                                                            class="monitoring info-box-number text-center text-muted">Participants
-                                                            of Regional Symposium on R&D Highlights</span>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                        </div>
+                                                </a>
+                                            </div>
+                                        @endif
 
                                         <div class="col-sm-12">
                                             <a href="rdmc-projects">
@@ -78,7 +80,8 @@
                                                 <div class="monitoring info-box bg-light">
                                                     <div class="monitoring info-box-content">
                                                         <span
-                                                            class="monitoring info-box-number text-center text-muted">Resources / Generation / Sharing</span>
+                                                            class="monitoring info-box-number text-center text-muted">Resources
+                                                            / Generation / Sharing</span>
                                                     </div>
                                                 </div>
                                             </a>

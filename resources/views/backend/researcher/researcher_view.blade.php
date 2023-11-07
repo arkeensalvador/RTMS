@@ -7,21 +7,25 @@
                 <div class="col-md-12">
                     <div class="container rounded bg-white mt-5 mb-5">
                         <div class="row">
-                            <div class="col-md-4 border-right">
+                            {{-- <div class="col-md-4 border-right">
                                 <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img
                                         class="rounded-circle mt-5" width="250"
                                         src="{{ asset('storage/' . $researcher->image) }}">
-                                    <span class="font-weight-bold h4">{{ $researcher->name }}</span>
+                                    <span class="font-weight-bold h4"></span>
                                 </div>
-                            </div>
-                            <div class="col-md-8 border-right">
+                            </div> --}}
+                            <div class="col-md-12 border-right">
                                 <div class="p-3 py-5">
                                     <div class="d-flex justify-content-between align-items-center mb-3">
-                                        <h4 class="text-right">User Profile</h4>
+                                        <h4 class="text-right">Reseacher Profile</h4>
                                     </div>
                                     <div class="row mt-3">
                                         <table class="table">
                                             <tbody>
+                                                <tr>
+                                                    <th scope="row">Name</th>
+                                                    <td> {{ $researcher->name }} </td>
+                                                </tr>
                                                 <tr>
                                                     <th scope="row">Gender</th>
                                                     <td>{{ $researcher->gender }}</td>

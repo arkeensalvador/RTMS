@@ -1,8 +1,7 @@
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
     <a href="home" class="brand-link">
-        <img src="{{ asset('backend/dist/img/CLAARRDEC.png') }}" alt="CLAARRDEC Logo" class="brand-image img-circle"
-            style="opacity: .8">
+        <img src="{{ asset('img/CLAARRDEC.png') }}" alt="CLAARRDEC Logo" class="brand-image img-circle" style="opacity: .8">
         <span class="brand-text font-weight-light">RTMS</span>
     </a>
 
@@ -12,11 +11,9 @@
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
             <div class="image">
                 @if (auth()->user()->role == 'Admin')
-                    <img src="{{ asset('backend/dist/img/AdminLTElogo.png') }}" class="img-circle elevation-2"
-                        alt="User Image">
+                    <img src="{{ asset('img/AdminLTElogo.png') }}" class="img-circle elevation-2" alt="User Image">
                 @else
-                    <img src="{{ asset('backend/dist/img/avatar4.png') }}" class="img-circle elevation-2"
-                        alt="User Image">
+                    <img src="{{ asset('img/avatar4.png') }}" class="img-circle elevation-2" alt="User Image">
                 @endif
             </div>
             <div class="info">
@@ -92,8 +89,6 @@
                 'cbg-initiatives',
             ];
         @endphp
-
-
 
         <!-- Sidebar Menu -->
         <nav class="mt-2">
