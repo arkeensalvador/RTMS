@@ -70,7 +70,6 @@
 
         <!-- R&D Management and Coordination -->
         <section class="table-area mt-4 page-break">
-
             <div class="table-title col-12 py-1"
                 style="background-image: url('https://i.ibb.co/Jp0tJxt/sec1.webp'); background-size:cover;;">
                 <h1 class="text-center text-capitalized font-weight-bold"
@@ -90,7 +89,7 @@
                     <thead style="background-color: #0DA603;">
                         <tr>
                             <td rowspan="2">Agency</td>
-                            <td colspan="4">Number of Project Presented</td>
+                            <td colspan="3">Number of Project Presented</td>
 
                         </tr>
                         <tr>
@@ -312,8 +311,6 @@
 
         <!-- Strategic Research & Development Activities -->
         <section class="table-area mt-4 page-break">
-
-
             <div class="table-title col-12 py-1"
                 style="background-image: url('https://i.ibb.co/MpcC8d4/sec2.webp'); background-size:cover;">
                 <h1 class="text-center text-capitalized font-weight-bold"
@@ -434,7 +431,7 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <td colspan="6" style="background: #ddffff; color: black;" class="font-weight-bold">
+                            <td colspan="4" style="background: #ddffff; color: black;" class="font-weight-bold">
                                 RESEARCH</td>
                         </tr>
                         <tr>
@@ -459,7 +456,7 @@
                             </td>
                         </tr>
                         <tr>
-                            <td colspan="6" style="background: #ddffff; color: black;" class="font-weight-bold">
+                            <td colspan="4" style="background: #ddffff; color: black;" class="font-weight-bold">
                                 DEVELOPMENT</td>
                         </tr>
                         <tr>
