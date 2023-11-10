@@ -12,17 +12,18 @@ class TrainingsController extends Controller
     {
         date_default_timezone_set('Asia/Hong_Kong');
 
-        $data = array();
+        $data = [];
         $data['trainings_type'] = $request->trainings_type;
         $data['trainings_sof'] = $request->trainings_sof;
         $data['trainings_agency'] = $request->trainings_agency;
         $data['trainings_title'] = $request->trainings_title;
+        $data['trainings_research_center'] = htmlspecialchars_decode(json_encode($request->trainings_research_center));
         $data['trainings_expenditures'] = str_replace(',', '', $request->trainings_expenditures);
         $data['trainings_start'] = $request->trainings_start;
         $data['trainings_end'] = $request->trainings_end;
         $data['trainings_no_participants'] = $request->trainings_no_participants;
         $data['trainings_venue'] = $request->trainings_venue;
-        
+
         $data['created_at'] = now();
 
         $insert = DB::table('cbg_trainings')->insert($data);
@@ -36,7 +37,9 @@ class TrainingsController extends Controller
     public function editTraining($id)
     {
         $title = 'Trainings | CBG';
-        $all = DB::table('cbg_trainings')->where('id', $id)->first();
+        $all = DB::table('cbg_trainings')
+            ->where('id', $id)
+            ->first();
         $agency = DB::table('agency')->get();
         return view('backend.report.cbg.cbg_training_edit', compact('title', 'all', 'agency'));
     }
@@ -45,11 +48,12 @@ class TrainingsController extends Controller
     {
         date_default_timezone_set('Asia/Hong_Kong');
 
-        $data = array();
+        $data = [];
         $data['trainings_type'] = $request->trainings_type;
         $data['trainings_sof'] = $request->trainings_sof;
         $data['trainings_agency'] = $request->trainings_agency;
         $data['trainings_title'] = $request->trainings_title;
+        $data['trainings_research_center'] = htmlspecialchars_decode(json_encode($request->trainings_research_center));
         $data['trainings_expenditures'] = str_replace(',', '', $request->trainings_expenditures);
         $data['trainings_start'] = $request->trainings_start;
         $data['trainings_end'] = $request->trainings_end;
@@ -58,7 +62,9 @@ class TrainingsController extends Controller
         $data['trainings_remarks'] = $request->trainings_remarks;
         $data['updated_at'] = now();
 
-        $update = DB::table('cbg_trainings')->where('id', $id)->update($data);
+        $update = DB::table('cbg_trainings')
+            ->where('id', $id)
+            ->update($data);
         if ($update) {
             return response()->json(['success' => 'Training Updated Successfully!']);
         } else {
@@ -68,20 +74,26 @@ class TrainingsController extends Controller
 
     public function DeleteTraining($id)
     {
-        $delete = DB::table('cbg_trainings')->where('id', $id)->delete();
+        $delete = DB::table('cbg_trainings')
+            ->where('id', $id)
+            ->delete();
         if ($delete) {
-            $notification = array(
+            $notification = [
                 'message' => 'Training/Workshop Successfully Deleted!',
-                'alert-type' => 'success'
-            );
+                'alert-type' => 'success',
+            ];
 
-            return redirect()->route('cbgTraining')->with($notification);
+            return redirect()
+                ->route('cbgTraining')
+                ->with($notification);
         } else {
-            $notification = array(
+            $notification = [
                 'message' => 'Something is wrong, please try again!',
-                'alert-type' => 'error'
-            );
-            return redirect()->route('cbgTraining')->with($notification);
+                'alert-type' => 'error',
+            ];
+            return redirect()
+                ->route('cbgTraining')
+                ->with($notification);
         }
     }
 }

@@ -596,7 +596,8 @@ class ReportController extends Controller
     {
         $title = 'TPA | R&D Results Utilizations';
         // $iec = DB::table('iec_approaches')->get();
-        return view('backend.report.rdru.rdru_tpa_add', compact('title'));
+        $agency = DB::table('agency')->get();
+        return view('backend.report.rdru.rdru_tpa_add', compact('title', 'agency'));
     }
 
     public function policyIndex()

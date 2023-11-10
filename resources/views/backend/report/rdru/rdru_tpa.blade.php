@@ -47,6 +47,8 @@
                                                         <th>#</th>
                                                         <th>IEC Approaches</th>
                                                         <th>Title</th>
+                                                        <th>Agency</th>
+                                                        <th>Researchers</th>
                                                         <th>Date</th>
                                                         <th>Details</th>
                                                         <th>Remarks</th>
@@ -68,11 +70,17 @@
                                                                     if (!empty($others)) {
                                                                         array_push($approach, $others);
                                                                     }
-                                                                    
+                                                                    $researchers = json_decode($row->tpa_researchers);
+                                                                    $researchers = implode(', ', $researchers);
+
+                                                                    $agency = $row->tpa_agency;
+
                                                                 @endphp
                                                                 {{ implode(', ', $approach) }}
                                                             </td>
                                                             <td>{{ $row->tpa_title }}</td>
+                                                            <td>{{ $agency }}</td>
+                                                            <td>{{ $researchers }}</td>
                                                             <td>{{ $row->tpa_date }}</td>
                                                             <td>{{ $row->tpa_details }}</td>
                                                             <td>{{ $row->tpa_remarks }}</td>

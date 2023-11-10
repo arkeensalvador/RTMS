@@ -87,6 +87,29 @@
                                     <h5 class="mt-0"> Kindly fill-out the fields needed.</h5>
                                 </div>
 
+                                <div class="col-md-6 form-group">
+                                    <label for="ttp_sof" class=" font-weight-bold">Agency<span
+                                            class="text-danger">*</span></label>
+                                    <select id="agencySelect" name="tpa_agency" class="form-control r-agency" required>
+                                        <option value=""></option>
+                                        @foreach ($agency as $row)
+                                            <option value="{{ $row->abbrev }}"> {{ $row->agency_name }} </option>
+                                        @endforeach
+                                    </select>
+                                    <div class="invalid-feedback">Missing proponent</div>
+                                </div>
+
+
+                                <div class="col-md-6 form-group">
+                                    <label for="ttp_sof" class=" font-weight-bold">Researchers<span
+                                            class="text-danger">*</span></label>
+                                    <select id="researcherSelect" name="tpa_researchers[]" class="form-control researchers"
+                                        multiple="multiple" required>
+                                        <option value=""></option>
+                                    </select>
+                                    <div class="invalid-feedback">Missing researchers</div>
+                                </div>
+
                                 <div class="col-md-12 form-group">
                                     <label for="ttm_title" class="font-weight-bold">Title<span
                                             class="text-danger">*</span></label>
@@ -121,8 +144,8 @@
 
 
                                 <div class="col-md-12 form-group">
-                                    <label for="tpa_remarks" class="font-weight-bold">Information, Education and Communication (IEC) Approaches<span
-                                            class="text-danger">*</span></label>
+                                    <label for="tpa_remarks" class="font-weight-bold">Information, Education and
+                                        Communication (IEC) Approaches<span class="text-danger">*</span></label>
                                     <div class="ttm row">
                                         <div class="col-sm-3">
                                             <div class="form-group">
@@ -232,7 +255,7 @@
 
                                         <div class="col-sm-3">
                                             <div class="form-group">
-                                                
+
                                                 <div class="custom-control custom-checkbox">
                                                     <input class="custom-control-input custom-control-input-success"
                                                         type="checkbox" value="Television" name="tpa_approaches[]"
@@ -270,7 +293,7 @@
                                                     <label for="customCheckbox18" class="custom-control-label">ICT-based
                                                         ICT</label>
                                                 </div>
- 
+
                                                 <div class="custom-control custom-checkbox">
                                                     <input class="custom-control-input custom-control-input-success"
                                                         type="checkbox" value="CDs & Optimal Media"
@@ -284,7 +307,7 @@
 
                                         <div class="col-sm-3">
                                             <div class="form-group">
-                                                
+
                                                 <div class="custom-control custom-checkbox">
                                                     <input class="custom-control-input custom-control-input-success"
                                                         type="checkbox" value="Web-based Formats" name="tpa_approaches[]"
@@ -300,12 +323,15 @@
                                                         Promotion</label>
                                                 </div>
                                                 <div class="custom-control custom-checkbox form-check">
-                                                    <input type="checkbox" id="is_others" name="tpa_approaches[]" value="Others" class="custom-control-input custom-control-input-success">
+                                                    <input type="checkbox" id="is_others" name="tpa_approaches[]"
+                                                        value="Others"
+                                                        class="custom-control-input custom-control-input-success">
                                                     <label for="is_others" class="custom-control-label">Others</label>
                                                 </div>
                                                 <div class="form-group" style="display: none;" id="others-input">
                                                     <label for="others">Specify Others</label>
-                                                    <input type="text" id="others" name="is_others" class="form-control">
+                                                    <input type="text" id="others" name="is_others"
+                                                        class="form-control">
                                                 </div>
                                             </div>
                                         </div>
@@ -325,6 +351,46 @@
     </div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('.r-agency').select2({
+                placeholder: 'Select Agency'
+            });
+
+            $('#agencySelect').on('change', function() {
+                var agencyId = $(this).val();
+                if (agencyId) {
+                    $.ajax({
+                        url: '/get-researchers',
+                        type: 'GET',
+                        data: {
+                            agency_id: agencyId
+                        },
+                        success: function(data) {
+                            $('#researcherSelect').empty();
+                            $('#researcherSelect').append(
+                                '<option value="">Select a Researcher</option>'
+                            );
+                            data.forEach(function(researcher) {
+                                $('#researcherSelect').append($('<option>', {
+                                    value: researcher.name,
+                                    text: researcher.name
+                                }));
+                            });
+                            $('#researcherSelect').select2({
+                                placeholder: "Select researchers"
+                            });
+                        }
+                    });
+                } else {
+                    $('#researcherSelect').empty();
+                    $('#researcherSelect').append(
+                        '<option value="">Select a Researcher</option>');
+                    $('#researcherSelect').select2();
+                }
+            });
+        });
+    </script>
     <script>
         $(document).ready(function() {
             $('#ttm_title, #ttm_agency, #ttm_status, #ttm_type, #tpa_date , #ttp_end_date')

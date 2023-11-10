@@ -13,7 +13,7 @@ class ResultsUtilizationController extends Controller
     {
         date_default_timezone_set('Asia/Hong_Kong');
 
-        $data = array();
+        $data = [];
         $data['ttp_type'] = $request->ttp_type;
         $data['ttp_title'] = $request->ttp_title;
         $data['ttp_budget'] = str_replace(',', '', $request->ttp_budget);
@@ -37,7 +37,9 @@ class ResultsUtilizationController extends Controller
     public function editTtp($id)
     {
         $title = 'TTP | R&D Results Utilizations';
-        $all = DB::table('results_ttp')->where('id', $id)->first();
+        $all = DB::table('results_ttp')
+            ->where('id', $id)
+            ->first();
         $agency = DB::table('agency')->get();
         $researchers = DB::table('researchers')->get();
         return view('backend.report.rdru.rdru_ttp_edit', compact('title', 'all', 'agency', 'researchers'));
@@ -47,7 +49,7 @@ class ResultsUtilizationController extends Controller
     {
         date_default_timezone_set('Asia/Hong_Kong');
 
-        $data = array();
+        $data = [];
         $data['ttp_type'] = $request->ttp_type;
         $data['ttp_title'] = $request->ttp_title;
         $data['ttp_budget'] = str_replace(',', '', $request->ttp_budget);
@@ -60,7 +62,9 @@ class ResultsUtilizationController extends Controller
         $data['ttp_priorities'] = $request->ttp_priorities;
         $data['updated_at'] = now();
 
-        $update = DB::table('results_ttp')->where('id', $id)->update($data);
+        $update = DB::table('results_ttp')
+            ->where('id', $id)
+            ->update($data);
         if ($update) {
             return response()->json(['success' => 'TTP Updated Successfully!']);
         } else {
@@ -70,20 +74,26 @@ class ResultsUtilizationController extends Controller
 
     public function DeleteTtp($id)
     {
-        $delete = DB::table('results_ttp')->where('id', $id)->delete();
+        $delete = DB::table('results_ttp')
+            ->where('id', $id)
+            ->delete();
         if ($delete) {
-            $notification = array(
+            $notification = [
                 'message' => 'Transfer Proposal Successfully Deleted!',
-                'alert-type' => 'success'
-            );
+                'alert-type' => 'success',
+            ];
 
-            return redirect()->route('rdruTtp')->with($notification);
+            return redirect()
+                ->route('rdruTtp')
+                ->with($notification);
         } else {
-            $notification = array(
+            $notification = [
                 'message' => 'Something is wrong, please try again!',
-                'alert-type' => 'error'
-            );
-            return redirect()->route('rdruTtp')->with($notification);
+                'alert-type' => 'error',
+            ];
+            return redirect()
+                ->route('rdruTtp')
+                ->with($notification);
         }
     }
 
@@ -93,7 +103,7 @@ class ResultsUtilizationController extends Controller
     {
         date_default_timezone_set('Asia/Hong_Kong');
 
-        $data = array();
+        $data = [];
         $data['ttm_type'] = $request->ttm_type;
         $data['ttm_title'] = $request->ttm_title;
         $data['ttm_status'] = $request->ttm_status;
@@ -111,7 +121,9 @@ class ResultsUtilizationController extends Controller
     public function editTtm($id)
     {
         $title = 'TTM | R&D Results Utilizations';
-        $all = DB::table('results_ttm')->where('id', $id)->first();
+        $all = DB::table('results_ttm')
+            ->where('id', $id)
+            ->first();
         $agency = DB::table('agency')->get();
         return view('backend.report.rdru.rdru_ttm_edit', compact('title', 'all', 'agency'));
     }
@@ -120,14 +132,16 @@ class ResultsUtilizationController extends Controller
     {
         date_default_timezone_set('Asia/Hong_Kong');
 
-        $data = array();
+        $data = [];
         $data['ttm_type'] = $request->ttm_type;
         $data['ttm_title'] = $request->ttm_title;
         $data['ttm_status'] = $request->ttm_status;
         $data['ttm_agency'] = $request->ttm_agency;
         $data['updated_at'] = now();
 
-        $update = DB::table('results_ttm')->where('id', $id)->update($data);
+        $update = DB::table('results_ttm')
+            ->where('id', $id)
+            ->update($data);
         if ($update) {
             return response()->json(['success' => 'TTM Updated Successfully!']);
         } else {
@@ -137,20 +151,26 @@ class ResultsUtilizationController extends Controller
 
     public function DeleteTtm($id)
     {
-        $delete = DB::table('results_ttm')->where('id', $id)->delete();
+        $delete = DB::table('results_ttm')
+            ->where('id', $id)
+            ->delete();
         if ($delete) {
-            $notification = array(
+            $notification = [
                 'message' => 'Transfer Modality Successfully Deleted!',
-                'alert-type' => 'success'
-            );
+                'alert-type' => 'success',
+            ];
 
-            return redirect()->route('rdruTtm')->with($notification);
+            return redirect()
+                ->route('rdruTtm')
+                ->with($notification);
         } else {
-            $notification = array(
+            $notification = [
                 'message' => 'Something is wrong, please try again!',
-                'alert-type' => 'error'
-            );
-            return redirect()->route('rdruTtm')->with($notification);
+                'alert-type' => 'error',
+            ];
+            return redirect()
+                ->route('rdruTtm')
+                ->with($notification);
         }
     }
 
@@ -160,11 +180,13 @@ class ResultsUtilizationController extends Controller
     {
         date_default_timezone_set('Asia/Hong_Kong');
 
-        $data = array();
+        $data = [];
         $data['tpa_title'] = $request->tpa_title;
         $data['tpa_date'] = $request->tpa_date;
         $data['tpa_details'] = $request->tpa_details;
         $data['tpa_remarks'] = $request->tpa_remarks;
+        $data['tpa_researchers'] = json_encode($request->tpa_researchers);
+        $data['tpa_agency'] = $request->tpa_agency;
         $data['tpa_approaches'] = json_encode($request->tpa_approaches);
         $data['is_others'] = $request->is_others;
         $data['created_at'] = now();
@@ -180,25 +202,32 @@ class ResultsUtilizationController extends Controller
     public function editTpa($id)
     {
         $title = 'TPA | R&D Results Utilizations';
-        $all = DB::table('results_tpa')->where('id', $id)->first();
+        $all = DB::table('results_tpa')
+            ->where('id', $id)
+            ->first();
         $agency = DB::table('agency')->get();
-        return view('backend.report.rdru.rdru_tpa_edit', compact('title', 'all', 'agency'));
+        $researchers = DB::table('researchers')->get();
+        return view('backend.report.rdru.rdru_tpa_edit', compact('title', 'all', 'agency', 'researchers'));
     }
 
     public function UpdateTpa(Request $request, $id)
     {
         date_default_timezone_set('Asia/Hong_Kong');
 
-        $data = array();
+        $data = [];
         $data['tpa_title'] = $request->tpa_title;
         $data['tpa_date'] = $request->tpa_date;
         $data['tpa_details'] = $request->tpa_details;
         $data['tpa_remarks'] = $request->tpa_remarks;
+        $data['tpa_researchers'] = json_encode($request->tpa_researchers);
+        $data['tpa_agency'] = $request->tpa_agency;
         $data['tpa_approaches'] = json_encode($request->tpa_approaches);
         $data['is_others'] = $request->is_others;
         $data['updated_at'] = now();
 
-        $update = DB::table('results_tpa')->where('id', $id)->update($data);
+        $update = DB::table('results_tpa')
+            ->where('id', $id)
+            ->update($data);
         if ($update) {
             return response()->json(['success' => 'TPA Updated Successfully!']);
         } else {
@@ -208,23 +237,28 @@ class ResultsUtilizationController extends Controller
 
     public function DeleteTpa($id)
     {
-        $delete = DB::table('results_tpa')->where('id', $id)->delete();
+        $delete = DB::table('results_tpa')
+            ->where('id', $id)
+            ->delete();
         if ($delete) {
-            $notification = array(
+            $notification = [
                 'message' => 'Transfer Modality Successfully Deleted!',
-                'alert-type' => 'success'
-            );
+                'alert-type' => 'success',
+            ];
 
-            return redirect()->route('rdruTpa')->with($notification);
+            return redirect()
+                ->route('rdruTpa')
+                ->with($notification);
         } else {
-            $notification = array(
+            $notification = [
                 'message' => 'Something is wrong, please try again!',
-                'alert-type' => 'error'
-            );
-            return redirect()->route('rdruTpa')->with($notification);
+                'alert-type' => 'error',
+            ];
+            return redirect()
+                ->route('rdruTpa')
+                ->with($notification);
         }
     }
-
 
     // AJAX REQUEST
     public function getResearchers(Request $request)

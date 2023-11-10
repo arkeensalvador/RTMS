@@ -42,12 +42,11 @@ class PolicyController extends Controller
 
     public function prc_add(Request $request)
     {
-
-        $data = array();
-        $data["prc_title"] = $request->prc_title;
-        $data["prc_agency"] = $request->prc_agency;
-        $data["prc_author"] = $request->prc_author;
-        $data["prc_issues"] = $request->prc_issues;
+        $data = [];
+        $data['prc_title'] = $request->prc_title;
+        $data['prc_agency'] = $request->prc_agency;
+        $data['prc_author'] = $request->prc_author;
+        $data['prc_issues'] = $request->prc_issues;
 
         $insert = DB::table('policy_prc')->insert($data);
 
@@ -58,10 +57,13 @@ class PolicyController extends Controller
         }
     }
 
-    public function prc_edit(Request $request, $id) {
+    public function prc_edit(Request $request, $id)
+    {
         $title = 'Policy';
         $id = Crypt::decryptString($id);
-        $all = DB::table('policy_prc')->where('id', $id)->first();
+        $all = DB::table('policy_prc')
+            ->where('id', $id)
+            ->first();
         $agency = DB::table('agency')->get();
 
         // CMI
@@ -75,14 +77,15 @@ class PolicyController extends Controller
     }
     public function prc_update(Request $request, $id)
     {
-        $data = array();
-        $data["prc_title"] = $request->prc_title;
-        $data["prc_agency"] = $request->prc_agency;
-        $data["prc_author"] = $request->prc_author;
-        $data["prc_issues"] = $request->prc_issues;
+        $data = [];
+        $data['prc_title'] = $request->prc_title;
+        $data['prc_agency'] = $request->prc_agency;
+        $data['prc_author'] = $request->prc_author;
+        $data['prc_issues'] = $request->prc_issues;
 
-
-        $insert = DB::table('policy_prc')->where('id', $id)->update($data);
+        $insert = DB::table('policy_prc')
+            ->where('id', $id)
+            ->update($data);
 
         if ($insert) {
             return response()->json(['success' => 'Data Successfully Updated!']);
@@ -91,35 +94,40 @@ class PolicyController extends Controller
         }
     }
 
-
     public function prc_delete($id)
     {
         $id = Crypt::decryptString($id);
-        $delete = DB::table('policy_prc')->where('id', $id)->delete();
+        $delete = DB::table('policy_prc')
+            ->where('id', $id)
+            ->delete();
         if ($delete) {
-            $notification = array(
+            $notification = [
                 'message' => 'Policy Successfully Deleted!',
-                'alert-type' => 'success'
-            );
-            return redirect()->back()->with($notification);
+                'alert-type' => 'success',
+            ];
+            return redirect()
+                ->back()
+                ->with($notification);
         } else {
-            $notification = array(
+            $notification = [
                 'message' => 'Something is wrong, please try again!',
-                'alert-type' => 'error'
-            );
-            return redirect()->back()->with($notification);
+                'alert-type' => 'error',
+            ];
+            return redirect()
+                ->back()
+                ->with($notification);
         }
     }
-
 
     // FORMULATED POLICY FUNCTIONS
     public function formulated_add(Request $request)
     {
-
-        $data = array();
-        $data["policy_type"] = $request->policy_type;
-        $data["policy_agency"] = $request->policy_agency;
-        $data["policy_issues"] = $request->policy_issues;
+        $data = [];
+        $data['policy_type'] = $request->policy_type;
+        $data['policy_agency'] = $request->policy_agency;
+        $data['policy_date'] = $request->policy_date;
+        $data['policy_resource'] = $request->policy_resource;
+        $data['policy_issues'] = $request->policy_issues;
 
         $insert = DB::table('policy_formulated')->insert($data);
 
@@ -130,10 +138,13 @@ class PolicyController extends Controller
         }
     }
 
-    public function formulated_edit(Request $request, $id) {
+    public function formulated_edit(Request $request, $id)
+    {
         $title = 'Policy';
         $id = Crypt::decryptString($id);
-        $all = DB::table('policy_formulated')->where('id', $id)->first();
+        $all = DB::table('policy_formulated')
+            ->where('id', $id)
+            ->first();
         $agency = DB::table('agency')->get();
 
         // CMI
@@ -147,13 +158,16 @@ class PolicyController extends Controller
     }
     public function formulated_update(Request $request, $id)
     {
-        $data = array();
-        $data["policy_type"] = $request->policy_type;
-        $data["policy_agency"] = $request->policy_agency;
-        $data["policy_issues"] = $request->policy_issues;
+        $data = [];
+        $data['policy_type'] = $request->policy_type;
+        $data['policy_agency'] = $request->policy_agency;
+        $data['policy_date'] = $request->policy_date;
+        $data['policy_resource'] = $request->policy_resource;
+        $data['policy_issues'] = $request->policy_issues;
 
-
-        $insert = DB::table('policy_formulated')->where('id', $id)->update($data);
+        $insert = DB::table('policy_formulated')
+            ->where('id', $id)
+            ->update($data);
 
         if ($insert) {
             return response()->json(['success' => 'Data Successfully Updated!']);
@@ -162,23 +176,28 @@ class PolicyController extends Controller
         }
     }
 
-
     public function formulated_delete($id)
     {
         $id = Crypt::decryptString($id);
-        $delete = DB::table('policy_formulated')->where('id', $id)->delete();
+        $delete = DB::table('policy_formulated')
+            ->where('id', $id)
+            ->delete();
         if ($delete) {
-            $notification = array(
+            $notification = [
                 'message' => 'Policy Successfully Deleted!',
-                'alert-type' => 'success'
-            );
-            return redirect()->back()->with($notification);
+                'alert-type' => 'success',
+            ];
+            return redirect()
+                ->back()
+                ->with($notification);
         } else {
-            $notification = array(
+            $notification = [
                 'message' => 'Something is wrong, please try again!',
-                'alert-type' => 'error'
-            );
-            return redirect()->back()->with($notification);
+                'alert-type' => 'error',
+            ];
+            return redirect()
+                ->back()
+                ->with($notification);
         }
     }
 }

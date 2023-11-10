@@ -29,7 +29,8 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-header">
-                                <h2 class="card-title policy-formulated">List of Policies formulated, advocated, implemented institutional and institutionalized</h2>
+                                <h2 class="card-title policy-formulated">List of Policies formulated, advocated, implemented
+                                    institutional and institutionalized</h2>
                                 <div class="card-tools">
                                     <a href="{{ url('policy-formulated-add') }}" class="btn btn-success"><span><i
                                                 class="fa-solid fa-plus"></i> Add</span></a>
@@ -46,7 +47,9 @@
                                                         <th>#</th>
                                                         <th>Type</th>
                                                         <th>Agency</th>
-                                                        <th>Issues Addressed</th>
+                                                        <th>Date</th>
+                                                        <th>Resource Person(s)</th>
+                                                        <th>Topic Issues</th>
                                                         <th>Action</th>
                                                     </tr>
                                                 </thead>
@@ -56,9 +59,12 @@
                                                             <td>{{ $row->id }}</td>
                                                             <td>{{ $row->policy_type }}</td>
                                                             <td>{{ $row->policy_agency }}</td>
+                                                            <td>{{ date('m-d-Y', strtotime($row->policy_date)) }}</td>
+                                                            <td>{{ $row->policy_resource }}</td>
                                                             <td>{{ $row->policy_issues }}</td>
                                                             <td class="action btns">
-                                                                <a href="{{ url('edit-formulated/' . Crypt::encryptString($row->id)) }}" class="btn btn-primary"><i
+                                                                <a href="{{ url('edit-formulated/' . Crypt::encryptString($row->id)) }}"
+                                                                    class="btn btn-primary"><i
                                                                         class="fa-solid fa-pen-to-square"
                                                                         style="color: white;"></i></a>
                                                                 <a href="{{ url('delete-formulated/' . Crypt::encryptString($row->id)) }}"
@@ -87,6 +93,6 @@
         <!-- /.content -->
 
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-      
+
     </div>
 @endsection

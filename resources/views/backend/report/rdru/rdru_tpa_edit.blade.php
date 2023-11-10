@@ -95,6 +95,40 @@
                                     <div class="invalid-feedback">Missing title</div>
                                 </div>
 
+                                <div class="col-md-6 form-group">
+                                    <label for="ttp_sof" class=" font-weight-bold">Agency<span
+                                            class="text-danger">*</span></label>
+                                    <select id="agencySelect" name="tpa_agency" class="form-control r-agency" required>
+                                        <option value=""></option>
+                                        @foreach ($agency as $row)
+                                            <option value="{{ $row->abbrev }}"
+                                                {{ $row->abbrev == $all->tpa_agency ? 'selected' : '' }}>
+                                                {{ $row->agency_name }} </option>
+                                        @endforeach
+                                    </select>
+                                    <div class="invalid-feedback">Missing proponent</div>
+                                </div>
+
+                                @php
+                                    $res = json_decode($all->tpa_researchers);
+                                @endphp
+
+                                <div class="col-md-6 form-group">
+                                    <label for="ttp_sof" class=" font-weight-bold">Researchers<span
+                                            class="text-danger">*</span></label>
+                                    <select id="researcherSelect" name="tpa_researchers[]" class="form-control researchers"
+                                        multiple="multiple" required>
+                                        <option value=""></option>
+                                        @foreach ($researchers as $key)
+                                            <option value="{{ $key->name }}"
+                                                {{ in_array($key->name, $res) ? 'selected' : '' }}>
+                                                {{ $key->name }}
+                                                </b></option>
+                                        @endforeach
+                                    </select>
+                                    <div class="invalid-feedback">Missing researchers</div>
+                                </div>
+
                                 <div class="col-md-5 form-group">
                                     <label for="tpa_date" class=" font-weight-bold">Date<span
                                             class="text-danger">*</span></label>
@@ -336,7 +370,8 @@
 
                                                 <div class="form-group" id="others">
                                                     <label for="others">Specify Others</label>
-                                                    <input type="text" id="" name="is_others" value="{{ $all->is_others }}" class="form-control">
+                                                    <input type="text" id="" name="is_others"
+                                                        value="{{ $all->is_others }}" class="form-control">
                                                 </div>
                                             </div>
                                         </div>
@@ -356,6 +391,47 @@
     </div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            $('.r-agency').select2({
+                placeholder: 'Select Agency'
+            });
+
+            $('#agencySelect').on('change', function() {
+                var agencyId = $(this).val();
+                if (agencyId) {
+                    $.ajax({
+                        url: '/get-researchers',
+                        type: 'GET',
+                        data: {
+                            agency_id: agencyId
+                        },
+                        success: function(data) {
+                            $('#researcherSelect').empty();
+                            $('#researcherSelect').append(
+                                '<option value="">Select a Researcher</option>'
+                            );
+                            data.forEach(function(researcher) {
+                                $('#researcherSelect').append($('<option>', {
+                                    value: researcher.name,
+                                    text: researcher.name
+                                }));
+                            });
+                            $('#researcherSelect').select2({
+                                placeholder: "Select researchers"
+                            });
+                        }
+                    });
+                } else {
+                    $('#researcherSelect').empty();
+                    $('#researcherSelect').append(
+                        '<option value="">Select a Researcher</option>');
+                    $('#researcherSelect').select2();
+                }
+            });
+        });
+    </script>
     <script>
         $(document).ready(function() {
             $('#ttm_title, #ttm_agency, #ttm_status, #ttm_type, #ttp_end_date, #customCheckbox')

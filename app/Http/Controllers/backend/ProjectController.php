@@ -16,7 +16,7 @@ class ProjectController extends Controller
     {
         date_default_timezone_set('Asia/Hong_Kong');
 
-        $data = array();
+        $data = [];
         $data['programID'] = $request->programID;
         $data['project_fund_code'] = $request->project_fund_code;
         $data['project_funding_years'] = $request->project_funding_years;
@@ -34,7 +34,7 @@ class ProjectController extends Controller
         $data['project_extend_date'] = $request->project_extend_date;
         $data['project_description'] = $request->project_description;
         $data['project_approved_budget'] = str_replace(',', '', $request->project_approved_budget);
-        $data['project_amount_released'] =  str_replace(',', '', $request->project_amount_released);
+        $data['project_amount_released'] = str_replace(',', '', $request->project_amount_released);
         $data['project_budget_year'] = $request->project_budget_year;
         $data['project_form_of_development'] = $request->project_form_of_development;
         $data['keywords'] = htmlspecialchars_decode(json_encode($request->keywords));
@@ -51,10 +51,13 @@ class ProjectController extends Controller
     public function editProject($id)
     {
         $title = 'Projects | RDMC';
-        $projects = DB::table('projects')->where('id', $id)->first();
+        $projects = DB::table('projects')
+            ->where('id', $id)
+            ->first();
         $agency = DB::table('agency')->get();
         $researchers = DB::table('researchers')->get();
-        $programs = DB::table('programs')->leftJoin('projects', 'programs.programID', '=', 'projects.programID')
+        $programs = DB::table('programs')
+            ->leftJoin('projects', 'programs.programID', '=', 'projects.programID')
             ->select('programs.*')
             ->where('projects.id', $id)
             ->first();
@@ -65,29 +68,17 @@ class ProjectController extends Controller
             ->get();
 
         $researchers_filter = DB::table('researchers')
-            ->where('agency',  auth()->user()->agencyID)
+            ->where('agency', auth()->user()->agencyID)
             ->get();
 
-
-        return view(
-            'backend.report.rdmc.rdmc_projects_under_program_edit',
-            compact(
-                'title',
-                'projects',
-                'agency',
-                'programs',
-                'researchers',
-                'researchers_filter',
-                'user_agency'
-            )
-        );
+        return view('backend.report.rdmc.rdmc_projects_under_program_edit', compact('title', 'projects', 'agency', 'programs', 'researchers', 'researchers_filter', 'user_agency'));
     }
 
     public function UpdateProject(Request $request, $id)
     {
         date_default_timezone_set('Asia/Hong_Kong');
 
-        $data = array();
+        $data = [];
         $data['programID'] = $request->programID;
         $data['project_fund_code'] = $request->project_fund_code;
         $data['project_funding_years'] = $request->project_funding_years;
@@ -111,7 +102,9 @@ class ProjectController extends Controller
         $data['keywords'] = htmlspecialchars_decode(json_encode($request->keywords));
         $data['updated_at'] = now();
 
-        $update = DB::table('projects')->where('id', $id)->update($data);
+        $update = DB::table('projects')
+            ->where('id', $id)
+            ->update($data);
         if ($update) {
             return response()->json(['success' => 'Project Successfully Added!']);
         } else {
@@ -119,11 +112,12 @@ class ProjectController extends Controller
         }
     }
 
-
     public function editNoProgramProjectIndex($id)
     {
         $title = 'Projects | RDMC';
-        $projects = DB::table('projects')->where('id', $id)->first();
+        $projects = DB::table('projects')
+            ->where('id', $id)
+            ->first();
         $agency = DB::table('agency')->get();
         $researchers = DB::table('researchers')->get();
 
@@ -134,34 +128,31 @@ class ProjectController extends Controller
             ->get();
 
         $researchers_filter = DB::table('researchers')
-            ->where('agency',  auth()->user()->agencyID)
+            ->where('agency', auth()->user()->agencyID)
             ->get();
 
-        return view(
-            'backend.report.rdmc.rdmc_projects_edit',
-            compact(
-                'title',
-                'projects',
-                'agency',
-                'researchers',
-                'researchers_filter',
-                'user_agency'
-            )
-        );
+        return view('backend.report.rdmc.rdmc_projects_edit', compact('title', 'projects', 'agency', 'researchers', 'researchers_filter', 'user_agency'));
     }
-
 
     public function viewProjectIndex($id)
     {
         $title = 'Projects | RDMC';
         // $program = DB::table('programs')->where('programID', $programID)->first();
         // $programs = DB::table('programs')->where('programID', $programID)->first();
-        $projects = DB::table('projects')->where('id', $id)->get();
-        $sub_projects = DB::table('sub_projects')->where('projectID', $id)->get();
+        $projects = DB::table('projects')
+            ->where('id', $id)
+            ->get();
+        $sub_projects = DB::table('sub_projects')
+            ->where('projectID', $id)
+            ->get();
 
         // $program_leader = DB::table('personnels')->where('role', '=', "Program Leader")->where('programID', $programID)->get();
 
-        $personnels = DB::table('personnels')->orderByDesc("staff_name")->where('role', '=', "Staff")->where('projectID', $id)->get();
+        $personnels = DB::table('personnels')
+            ->orderByDesc('staff_name')
+            ->where('role', '=', 'Staff')
+            ->where('projectID', $id)
+            ->get();
         // $all = DB::table('programs')->get();
 
         $agency = DB::table('projects')
@@ -171,8 +162,13 @@ class ProjectController extends Controller
             ->first();
 
         // $documents = DB::table('program_files')->where('projectID', $id)->get();
-        $upload_files = DB::table('files')->where('projectID', $id)->orderByDesc("created_at")->get();
-        $projects = DB::table('projects')->where('id', $id)->first();
+        $upload_files = DB::table('files')
+            ->where('projectID', $id)
+            ->orderByDesc('created_at')
+            ->get();
+        $projects = DB::table('projects')
+            ->where('id', $id)
+            ->first();
 
         return view('backend.report.rdmc.rdmc_view_project', compact('title', 'projects', 'agency', 'personnels', 'upload_files', 'sub_projects'));
     }
@@ -180,13 +176,15 @@ class ProjectController extends Controller
     public function InsertProjectsPersonnelIndex($id)
     {
         $title = 'Project Staff | RDMC';
-        $personnel = DB::table('personnels')->where('projectID', $id)->get();
+        $personnel = DB::table('personnels')
+            ->where('projectID', $id)
+            ->get();
         return view('backend.projects.add_project_personnel', compact('title', 'personnel'));
     }
 
     public function downloadTemplate()
     {
-        $file_path = storage_path("import-templates\projects-template.xlsx");
+        $file_path = storage_path('import-templates\projects-template.xlsx');
         return Response::download($file_path);
     }
 
@@ -200,63 +198,77 @@ class ProjectController extends Controller
     {
         $request->validate([
             'moreFields.*.projectID' => 'required',
-            'moreFields.*.staff_name' => 'required'
+            'moreFields.*.staff_name' => 'required',
         ]);
 
         foreach ($request->moreFields as $key => $value) {
-
             $staffs = Personnel::create($value);
         }
         if ($staffs) {
-
-            $notification = array(
+            $notification = [
                 'message' => 'Staff(s) Successfully Added!',
-                'alert-type' => 'success'
-            );
+                'alert-type' => 'success',
+            ];
 
-            return redirect()->route('rdmcProjects')->with($notification);
+            return redirect()
+                ->route('rdmcProjects')
+                ->with($notification);
         } else {
-            $notification = array(
+            $notification = [
                 'message' => 'Something is wrong, please try again!',
-                'alert-type' => 'error'
-            );
-            return redirect()->route('rdmcProjects')->with($notification);
+                'alert-type' => 'error',
+            ];
+            return redirect()
+                ->route('rdmcProjects')
+                ->with($notification);
         }
     }
 
     public function DeleteProject($id)
     {
-        $delete = DB::table('projects')->where('id', $id)->delete();
+        $delete = DB::table('projects')
+            ->where('id', $id)
+            ->delete();
         if ($delete) {
-            $notification = array(
+            $notification = [
                 'message' => 'Project Successfully Deleted!',
-                'alert-type' => 'success'
-            );
-            return redirect()->back()->with($notification);
+                'alert-type' => 'success',
+            ];
+            return redirect()
+                ->back()
+                ->with($notification);
         } else {
-            $notification = array(
+            $notification = [
                 'message' => 'Something is wrong, please try again!',
-                'alert-type' => 'error'
-            );
-            return redirect()->back()->with($notification);
+                'alert-type' => 'error',
+            ];
+            return redirect()
+                ->back()
+                ->with($notification);
         }
     }
 
     public function DeleteStaff($id)
     {
-        $delete = DB::table('personnels')->where('id', $id)->delete();
+        $delete = DB::table('personnels')
+            ->where('id', $id)
+            ->delete();
         if ($delete) {
-            $notification = array(
+            $notification = [
                 'message' => 'Staff Successfully Deleted!',
-                'alert-type' => 'success'
-            );
-            return redirect()->back()->with($notification);
+                'alert-type' => 'success',
+            ];
+            return redirect()
+                ->back()
+                ->with($notification);
         } else {
-            $notification = array(
+            $notification = [
                 'message' => 'Something is wrong, please try again!',
-                'alert-type' => 'error'
-            );
-            return redirect()->back()->with($notification);
+                'alert-type' => 'error',
+            ];
+            return redirect()
+                ->back()
+                ->with($notification);
         }
     }
 }

@@ -106,10 +106,17 @@
                                         <option value="Advocated">Advocated</option>
                                         <option value="Implemented">Implemented</option>
                                         <option value="Institutionalized">Institutionalized</option>
-
                                     </select>
-
                                     <div class="invalid-feedback">Missing type</div>
+                                </div>
+                                <br>
+
+                                <div class="col-md-3">
+                                    <label for="tpa_date" class=" font-weight-bold">Date<span
+                                            class="text-danger">*</span></label>
+                                    <input type="text" name="policy_date" id="policy_date" class="form-control date"
+                                        placeholder="Enter date" required>
+                                    <div class="invalid-feedback">Missing date</div>
                                 </div>
 
                                 <div class="col-md-12 form-group">
@@ -135,12 +142,21 @@
                                 </div>
 
                                 <div class="col-md-12 form-group">
-                                    <label for="policy_issues" class="font-weight-bold">Issues addressed<span
+                                    <label for="policy_issues" class="font-weight-bold">Resource Person<span
+                                            class="text-danger">*</span></label>
+
+                                    <textarea name="policy_resource" id="policy_resource" class="form-control" cols="30" rows="3" required></textarea>
+
+                                    <div class="invalid-feedback">Missing resource person</div>
+                                </div>
+
+                                <div class="col-md-12 form-group">
+                                    <label for="policy_issues" class="font-weight-bold">Topic issues<span
                                             class="text-danger">*</span></label>
 
                                     <textarea name="policy_issues" id="policy_issues" class="form-control" cols="30" rows="5" required></textarea>
 
-                                    <div class="invalid-feedback">Missing issues addressed</div>
+                                    <div class="invalid-feedback">Missing topic issues</div>
                                 </div>
 
                                 <div class="col-md-4 form-group float-right">

@@ -112,6 +112,15 @@
                                     <div class="invalid-feedback">Missing source of funds</div>
                                 </div>
 
+                                <div class="col-md-12 form-group">
+                                    <label for="" class=" font-weight-bold">Research and Development Center<span
+                                            class="text-danger">*</span></label>
+                                    <input type="text" name="trainings_research_center[]" id="rc"
+                                        class="form-control research-center" placeholder="R&D Center(s)" value=""
+                                        data-role="tagsinput" required>
+                                    <div class="invalid-feedback">Missing research center</div>
+                                </div>
+
                                 <div class="col-md-7 form-group">
                                     <label for="trainings_agency" class=" font-weight-bold">Implementing Agency<span
                                             class="text-danger">*</span></label>

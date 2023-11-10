@@ -118,6 +118,15 @@
                                     <div class="invalid-feedback">Missing type</div>
                                 </div>
 
+                                <div class="col-md-3">
+                                    <label for="tpa_date" class=" font-weight-bold">Date<span
+                                            class="text-danger">*</span></label>
+                                    <input type="text" name="policy_date" id="policy_date"
+                                        value="{{ $all->policy_date }}" class="form-control date" placeholder="Enter date"
+                                        required>
+                                    <div class="invalid-feedback">Missing date</div>
+                                </div>
+
                                 <div class="col-md-12 form-group">
                                     <label for="ini_initiates" class="font-weight-bold">Agency<span
                                             class="text-danger">*</span></label>
@@ -140,6 +149,15 @@
                                     </select>
 
                                     <div class="invalid-feedback">Missing agency</div>
+                                </div>
+
+                                <div class="col-md-12 form-group">
+                                    <label for="policy_issues" class="font-weight-bold">Resource Person<span
+                                            class="text-danger">*</span></label>
+
+                                    <textarea name="policy_resource" id="policy_resource" class="form-control" cols="30" rows="3" required>{{ $all->policy_resource }}</textarea>
+
+                                    <div class="invalid-feedback">Missing resource person</div>
                                 </div>
 
                                 <div class="col-md-12 form-group">

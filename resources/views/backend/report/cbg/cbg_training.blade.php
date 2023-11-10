@@ -71,14 +71,18 @@
                                                                     to
                                                                     {{ $row->trainings_end ?: 'Present' }}</td>
                                                             @endif
-
+                                                            @php
+                                                                $rc = $row->trainings_research_center;
+                                                                $rc = str_replace(['[', '"', ']'], '', $rc);
+                                                            @endphp
                                                             <td>{{ $row->trainings_no_participants }}</td>
                                                             <td>{{ $row->trainings_venue }}</td>
                                                             <td>{{ $row->trainings_expenditures }}</td>
-                                                            <td>{{ $row->trainings_sof }}</td>
+                                                            <td>{{ $row->trainings_sof }} / {{ $rc }}
+                                                            </td>
                                                             <td>{{ $row->trainings_agency }}</td>
                                                             <td>
-                                                               {{ $row->trainings_remarks ?: 'N/A'}}
+                                                                {{ $row->trainings_remarks ?: 'N/A' }}
                                                             </td>
                                                             <td class="action btns">
                                                                 <a class="btn btn-primary"
