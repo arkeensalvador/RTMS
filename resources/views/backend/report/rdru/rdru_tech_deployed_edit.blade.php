@@ -83,57 +83,56 @@
                             <form id="techForm" class="row g-3 needs-validation" novalidate>
                                 @csrf
                                 <div class="form-title col-12">
-                                    <h2 class="font-weight-bold">Technologies Commercialized or Pre-Commercialization
-                                        Initiatives</h2>
+                                    <h2 class="font-weight-bold">Technologies Deployed through Various Extension Modalities
+                                    </h2>
                                     <h5 class="mt-0"> Kindly fill-out the fields needed.</h5>
                                 </div>
 
-                                <div class="col-md-12 form-group">
+                                <div class="col-md-8 form-group">
                                     <label for="ttm_title" class="font-weight-bold">Title<span
                                             class="text-danger">*</span></label>
-                                    <textarea class="form-control" name="ttm_title" id="ttm_title" rows="3" placeholder="Title" style="resize: none;"
-                                        required></textarea>
+                                    <textarea class="form-control" name="rdru_tech_title" id="ttm_title" rows="3" placeholder="Title"
+                                        style="resize: none;" required>{{ $all->rdru_tech_title }}</textarea>
                                     <div class="invalid-feedback">Missing title</div>
                                 </div>
 
-                                <div class="col-md-6 form-group">
-                                    <label for="ttm_type" class=" font-weight-bold">Type of IPR Applies<span
+                                <div class="col-md-5 form-group">
+                                    <label for="ttm_type" class=" font-weight-bold">Type of Technology<span
                                             class="text-danger">*</span></label>
-                                    <select name="ttm_type" class="form-control others" id="ttm_type" required>
+                                    <select name="rdru_tech_type" class="form-control others" id="ttm_type" required>
                                         <option value=""></option>
-                                        <option value="Copyright">Copyright</option>
-                                        <option value="Utility">Utility Model</option>
-                                        <option value="Patent">Patent</option>
-                                        <option value="Trademark">Trademark</option>
+                                        <option value="STCBF" {{ 'STCBF' == $all->rdru_tech_type ? 'selected' : '' }}>STCBF
+                                        </option>
+                                        <option value="STMF" {{ 'STMF' == $all->rdru_tech_type ? 'selected' : '' }}>STMF
+                                        </option>
+                                        <option value="STMP" {{ 'STMP' == $all->rdru_tech_type ? 'selected' : '' }}>STMP
+                                        </option>
+                                        <option value="Techno Demo"
+                                            {{ 'Techno Demo' == $all->rdru_tech_type ? 'selected' : '' }}>
+                                            Techno Demo</option>
+                                        <option value="FIESTA" {{ 'FIESTA' == $all->rdru_tech_type ? 'selected' : '' }}>
+                                            FIESTA</option>
                                     </select>
-                                    <div class="invalid-feedback">Missing type IPR applies</div>
+                                    <div class="invalid-feedback">Missing type of technology</div>
                                 </div>
 
-                                <div class="col-md-6 form-group">
-                                    <label for="ttm_status" class="font-weight-bold">Status<span
-                                            class="text-danger">*</span></label>
-                                    <select name="ttm_status" id="ttm_status" class="form-control others" required>
-                                        <option value="" selected disabled></option>
-                                        <option value="Commercialized">Commercialized</option>
-                                        <option value="Pre-Commercialized">Pre-Commercialized</option>
-                                    </select>
-                                    <div class="invalid-feedback">Missing status</div>
-                                </div>
 
                                 <div class="col-md-12 form-group">
                                     <label for="ttm_agency" class=" font-weight-bold">Source of Fund<span
                                             class="text-danger">*</span></label>
-                                    <select id="ttm_agency" name="ttm_agency" class="form-control agency" required>
+                                    <select id="ttm_agency" name="rdru_tech_sof" class="form-control agency" required>
                                         <option value=""></option>
                                         @foreach ($agency as $row)
-                                            <option value="{{ $row->abbrev }}"> {{ $row->agency_name }} </option>
+                                            <option value="{{ $row->abbrev }}"
+                                                {{ $row->abbrev == $all->rdru_tech_sof ? 'selected' : '' }}>
+                                                {{ $row->agency_name }} </option>
                                         @endforeach
                                     </select>
                                     <div class="invalid-feedback">Missing agency</div>
                                 </div>
 
                                 <div class="col-md-12 form-group buttons">
-                                    <a href="{{ url('rdru-ttm') }}" class="btn btn-default">Back</a>
+                                    <a href="{{ url('rdru-tech-deployed') }}" class="btn btn-default">Back</a>
                                     <button type="submit" id="submit" class="btn btn-primary btn-m ">Submit</button>
                                 </div>
                             </form>
@@ -207,7 +206,7 @@
                 e.preventDefault();
                 $.ajax({
                     type: 'POST',
-                    url: "{{ url('add-ttm') }}",
+                    url: "{{ url('rdru-update-tech-deployed/' . $all->id) }}",
                     data: formData,
                     cache: false,
                     contentType: false,
@@ -217,13 +216,13 @@
                         // this.reset();
                         Swal.fire({
                             icon: 'success',
-                            title: 'TTM Added Successfully',
+                            title: 'Data Updated Successfully',
                             timerProgressBar: true,
                             showConfirmButton: false,
                             timer: 900
                         }).then((result) => {
                             if (result.dismiss) {
-                                window.location.href = '/rdru-ttm';
+                                window.location.href = '/rdru-tech-deployed';
                             }
                         })
                     },

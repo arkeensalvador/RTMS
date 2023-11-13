@@ -538,6 +538,31 @@ class ReportController extends Controller
         return view('backend.report.rdmc.rdmc_regional_participants_add', compact('title', 'agency', 'researchers'));
     }
 
+    public function strategicIndex()
+    {
+        $title = 'Strategic R&D Activities';
+        // $all = DB::table('strategic_activities')->get();
+        return view('backend.report.strategic.strategic_index', compact('title'));
+    }
+
+    public function strategic_tech_list()
+    {
+        $title = 'Strategic R&D Activities';
+        $all = DB::table('strategic_tech_list')->get();
+        return view('backend.report.strategic.tech_list', compact('title', 'all'));
+    }
+
+    public function add_strategic_tech_list_index()
+    {
+        $title = 'Strategic R&D Activities';
+        $all = DB::table('strategic_tech_list')->get();
+        $agency = DB::table('agency')->get();
+        $programs = DB::table('programs')->get();
+        $projects = DB::table('projects')->get();
+        $sub_projects = DB::table('sub_projects')->get();
+        return view('backend.report.strategic.tech_list_add', compact('title', 'all', 'agency', 'programs', 'projects', 'sub_projects'));
+    }
+
     public function strategicActivities()
     {
         $title = 'Strategic R&D Activities';
@@ -550,7 +575,11 @@ class ReportController extends Controller
         $title = 'Strategic R&D Activities';
         $researchers = DB::table('researchers')->get();
         $agency = DB::table('agency')->get();
-        return view('backend.report.strategic.add_strategic_activities', compact('title', 'researchers', 'agency'));
+        $programs = DB::table('programs')->get();
+        $projects = DB::table('projects')->get();
+        $sub_projects = DB::table('sub_projects')->get();
+
+        return view('backend.report.strategic.add_strategic_activities', compact('title', 'researchers', 'agency', 'programs', 'projects', 'sub_projects'));
     }
 
     public function rdruIndex()
@@ -580,6 +609,12 @@ class ReportController extends Controller
         $agency = DB::table('agency')->get();
         return view('backend.report.rdru.rdru_ttm', compact('title', 'all', 'agency'));
     }
+
+    public function rdruTtmIndex()
+    {
+        $title = 'TTM | R&D Results Utilizations';
+        return view('backend.report.rdru.rdru_ttm_index', compact('title'));
+    }
     public function rdruTtmAdd()
     {
         $title = 'TTM | R&D Results Utilizations';
@@ -598,6 +633,23 @@ class ReportController extends Controller
         // $iec = DB::table('iec_approaches')->get();
         $agency = DB::table('agency')->get();
         return view('backend.report.rdru.rdru_tpa_add', compact('title', 'agency'));
+    }
+
+    public function rdru_tech_deployed()
+    {
+        $title = 'TPA | R&D Results Utilizations';
+        // $iec = DB::table('iec_approaches')->get();
+        $agency = DB::table('agency')->get();
+        $all = DB::table('rdru_tech_deployed')->get();
+        return view('backend.report.rdru.rdru_tech_deployed', compact('title', 'agency', 'all'));
+    }
+    public function rdru_add_tech_deployed_index()
+    {
+        $title = 'TPA | R&D Results Utilizations';
+        // $iec = DB::table('iec_approaches')->get();
+        $agency = DB::table('agency')->get();
+        $all = DB::table('rdru_tech_deployed')->get();
+        return view('backend.report.rdru.rdru_tech_deployed_add', compact('title', 'agency', 'all'));
     }
 
     public function policyIndex()

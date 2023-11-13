@@ -110,14 +110,12 @@ Route::get('/delete-file/{id}', [FileUpload::class, 'DeleteFile'])->name('Delete
 Route::get('download/{id}', [FileUpload::class, 'download']);
 
 // upload files project
-Route::get('project-upload-file/{id}', [FileUpload::class, 'createFormProject'])->name('uploadFileProject');;
+Route::get('project-upload-file/{id}', [FileUpload::class, 'createFormProject'])->name('uploadFileProject');
 Route::post('/project-upload-file', [FileUpload::class, 'ProjectFileUpload'])->name('ProjectFileUpload');
 Route::get('/delete-file-project/{id}', [FileUpload::class, 'DeleteFileProject'])->name('DeleteFileProject');
 // Route::get('download-project/{id}', [FileUpload::class, 'downloadProject']);
 
-
 // Add Program Personnel
-
 
 // R & D Management and Coordination
 Route::get('/rdmc-index', [App\Http\Controllers\backend\ReportController::class, 'rdmcIndex'])->name('rdmcIndex');
@@ -166,7 +164,6 @@ Route::get('/delete-project/{id}', [App\Http\Controllers\backend\ProjectControll
 Route::post('/add-project-personnel', [\App\Http\Controllers\backend\ProjectController::class, 'AddProjectPersonnel'])->name('AddProjectPersonnel');
 Route::get('/add-project-personnel/{id}', [App\Http\Controllers\backend\ProjectController::class, 'InsertProjectsPersonnelIndex'])->name('InsertProjectsPersonnelIndex');
 
-
 // SUB PROJECTS
 
 Route::get('/view-subprojects', [App\Http\Controllers\backend\SubprojectController::class, 'viewSubProjectIndex'])->name('viewSubProjectIndex');
@@ -180,10 +177,9 @@ Route::get('/add-sub-project-personnel/{id}', [App\Http\Controllers\backend\Subp
 Route::get('/delete-sp-staff/{id}', [App\Http\Controllers\backend\SubprojectController::class, 'DeleteSPStaff'])->name('DeleteSPStaff');
 
 // SUB PROJECT FILE UPLOAD
-Route::get('sub-project-upload-file/{projectID}/{id}', [FileUpload::class, 'createFormSubProject'])->name('uploadFileSubProject');;
+Route::get('sub-project-upload-file/{projectID}/{id}', [FileUpload::class, 'createFormSubProject'])->name('uploadFileSubProject');
 Route::post('/sub-project-upload-file', [FileUpload::class, 'SubProjectFileUpload'])->name('SubProjectFileUpload');
 Route::get('/delete-file-project/{id}', [FileUpload::class, 'DeleteFileProject'])->name('DeleteFileProject');
-
 
 // linkages
 Route::post('/add-linkages', [App\Http\Controllers\backend\LinkagesController::class, 'AddLinkages'])->name('AddLinkages');
@@ -203,6 +199,7 @@ Route::get('/rdmc-programs', [App\Http\Controllers\backend\ReportController::cla
 Route::post('/add-projects', [App\Http\Controllers\backend\ReportController::class, 'AddProjects'])->name('AddProjects');
 
 // Strategic activities
+Route::get('/strategic-index', [App\Http\Controllers\backend\ReportController::class, 'strategicIndex'])->name('strategicIndex');
 Route::get('/strategic-activities', [App\Http\Controllers\backend\ReportController::class, 'strategicActivities'])->name('strategicActivities');
 Route::get('/add-strategic-index', [App\Http\Controllers\backend\ReportController::class, 'addStrategicActivities']);
 Route::post('/add-strategic', [App\Http\Controllers\backend\StrategicController::class, 'addStrategic'])->name('addStrategic');
@@ -210,16 +207,31 @@ Route::get('/edit-strategic/{id}', [App\Http\Controllers\backend\StrategicContro
 Route::post('/update-strategic/{id}', [App\Http\Controllers\backend\StrategicController::class, 'UpdateStrategic'])->name('UpdateStrategic');
 Route::get('/delete-strategic/{id}', [App\Http\Controllers\backend\StrategicController::class, 'DeleteStrategic'])->name('DeleteStrategic');
 
+// Strategic tech list
+Route::get('/strategic-tech-list', [App\Http\Controllers\backend\ReportController::class, 'strategic_tech_list'])->name('strategic_tech_list');
+Route::get('/add-strategic-tech-list-index', [App\Http\Controllers\backend\ReportController::class, 'add_strategic_tech_list_index'])->name('add_strategic_tech_list_index');
+Route::post('/add-strategic-tech-list', [App\Http\Controllers\backend\StrategicController::class, 'add_strategic_tech_list'])->name('add_strategic_tech_list');
+Route::get('/edit-strategic-tech-list-index/{id}', [App\Http\Controllers\backend\StrategicController::class, 'edit_strategic_tech_list_index'])->name('edit_strategic_tech_list_index');
+Route::post('/update-strategic-tech-list/{id}', [App\Http\Controllers\backend\StrategicController::class, 'update_strategic_tech_list'])->name('update_strategic_tech_list');
+Route::get('/delete-strategic-tech-list/{id}', [App\Http\Controllers\backend\StrategicController::class, 'delete_strategic_tech_list'])->name('delete_strategic_tech_list');
 
 // R & D Results Utilization
 Route::get('/rdru-index', [App\Http\Controllers\backend\ReportController::class, 'rdruIndex'])->name('rdruIndex');
 Route::get('/rdru-ttp', [App\Http\Controllers\backend\ReportController::class, 'rdruTtp'])->name('rdruTtp');
 Route::get('/rdru-add', [App\Http\Controllers\backend\ReportController::class, 'rdruAdd'])->name('rdruAdd');
 Route::get('/rdru-ttm', [App\Http\Controllers\backend\ReportController::class, 'rdruTtm'])->name('rdruTtm');
+Route::get('/rdru-ttm-index', [App\Http\Controllers\backend\ReportController::class, 'rdruTtmIndex'])->name('rdruTtmIndex');
 Route::get('/rdru-ttm-add', [App\Http\Controllers\backend\ReportController::class, 'rdruTtmAdd'])->name('rdruTtmAdd');
 Route::get('/rdru-tpa', [App\Http\Controllers\backend\ReportController::class, 'rdruTpa'])->name('rdruTpa');
 Route::get('/rdru-tpa-add', [App\Http\Controllers\backend\ReportController::class, 'rdruTpaAdd'])->name('rdruTpaAdd');
+Route::get('/rdru-tech-deployed', [App\Http\Controllers\backend\ReportController::class, 'rdru_tech_deployed'])->name('rdru_tech_deployed');
+Route::get('/rdru-add-tech-deployed-index', [App\Http\Controllers\backend\ReportController::class, 'rdru_add_tech_deployed_index'])->name('rdru_add_tech_deployed_index');
 
+// RDRU TECH DEPLOYED
+Route::post('/rdru-add-tech-deployed', [App\Http\Controllers\backend\ResultsUtilizationController::class, 'rdru_add_tech_deployed'])->name('rdru_add_tech_deployed');
+Route::get('/rdru-edit-tech-deployed-index/{id}', [App\Http\Controllers\backend\ResultsUtilizationController::class, 'rdru_edit_tech_deployed_index'])->name('rdru_edit_tech_deployed_index');
+Route::post('/rdru-update-tech-deployed/{id}', [App\Http\Controllers\backend\ResultsUtilizationController::class, 'rdru_update_tech_deployed'])->name('rdru_update_tech_deployed');
+Route::get('/rdru-delete-tech-deployed/{id}', [App\Http\Controllers\backend\ResultsUtilizationController::class, 'rdru_delete_tech_deployed'])->name('rdru_delete_tech_deployed');
 
 // Cabability Building and Governance
 Route::get('/cbg-index', [App\Http\Controllers\backend\ReportController::class, 'cbgIndex'])->name('cbgIndex');
@@ -240,7 +252,7 @@ Route::get('/delete-contributions/{id}', [App\Http\Controllers\backend\Contribut
 Route::get('/edit-contributions/{id}', [App\Http\Controllers\backend\ContributionsController::class, 'con_edit'])->name('con_edit');
 Route::post('/update-contributions/{id}', [App\Http\Controllers\backend\ContributionsController::class, 'con_update'])->name('con_update');
 
-//Initiatives 
+//Initiatives
 Route::post('/add-initiatives', [App\Http\Controllers\backend\InitiativesController::class, 'ini_add'])->name('ini_add');
 Route::get('/delete-initiatives/{id}', [App\Http\Controllers\backend\InitiativesController::class, 'ini_delete']);
 Route::get('/edit-initiatives/{id}', [App\Http\Controllers\backend\InitiativesController::class, 'ini_edit'])->name('ini_edit');
@@ -290,13 +302,13 @@ Route::get('/edit-activity/{id}', [App\Http\Controllers\backend\ActivitiesContro
 Route::post('/update-activity/{id}', [App\Http\Controllers\backend\ActivitiesController::class, 'UpdateActivity'])->name('UpdateActivity');
 Route::get('/delete-activity/{id}', [App\Http\Controllers\backend\ActivitiesController::class, 'DeleteActivity'])->name('DeleteActivity');
 
-//TTP 
+//TTP
 Route::post('/add-ttp', [App\Http\Controllers\backend\ResultsUtilizationController::class, 'AddTtp'])->name('AddTtp');
 Route::get('/edit-ttp/{id}', [App\Http\Controllers\backend\ResultsUtilizationController::class, 'EditTtp'])->name('EditTtp');
 Route::post('/update-ttp/{id}', [App\Http\Controllers\backend\ResultsUtilizationController::class, 'UpdateTtp'])->name('UpdateTtp');
 Route::get('/delete-ttp/{id}', [App\Http\Controllers\backend\ResultsUtilizationController::class, 'DeleteTtp'])->name('DeleteTtp');
 
-//TTM 
+//TTM
 Route::post('/add-ttm', [App\Http\Controllers\backend\ResultsUtilizationController::class, 'AddTtm'])->name('AddTtm');
 Route::get('/edit-ttm/{id}', [App\Http\Controllers\backend\ResultsUtilizationController::class, 'EditTtm'])->name('EditTtm');
 Route::post('/update-ttm/{id}', [App\Http\Controllers\backend\ResultsUtilizationController::class, 'UpdateTtm'])->name('UpdateTtm');
@@ -345,6 +357,7 @@ Route::post('/import-file', [App\Http\Controllers\backend\ImportController::clas
 
 // AJAX REQUEST
 Route::get('/get-researchers', [App\Http\Controllers\backend\ResultsUtilizationController::class, 'getResearchers'])->name('getResearchers');
+Route::get('/fetch-source', [App\Http\Controllers\backend\StrategicController::class, 'getSource'])->name('getSource');
 
 // register email
 Route::post('/register', [App\Http\Controllers\backend\UserController::class, 'register']);

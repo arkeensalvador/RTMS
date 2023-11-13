@@ -5,6 +5,7 @@ namespace App\Http\Controllers\backend;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use DB;
+use Crypt;
 
 class ResultsUtilizationController extends Controller
 {
@@ -269,5 +270,84 @@ class ResultsUtilizationController extends Controller
             ->get();
 
         return response()->json($researchers);
+    }
+
+    // TECHNOLOGIES
+
+    public function rdru_add_tech_deployed(Request $request)
+    {
+        date_default_timezone_set('Asia/Hong_Kong');
+
+        $data = [];
+        $data['rdru_tech_title'] = $request->rdru_tech_title;
+        $data['rdru_tech_type'] = $request->rdru_tech_type;
+        $data['rdru_tech_sof'] = $request->rdru_tech_sof;
+        $data['created_at'] = now();
+
+        $insert = DB::table('rdru_tech_deployed')->insert($data);
+        if ($insert) {
+            return response()->json(['success' => 'Data Successfully!']);
+        } else {
+            return response()->json(['error' => 'There is something wrong...']);
+        }
+    }
+
+    public function rdru_edit_tech_deployed_index($id)
+    {
+        $title = 'TPA | R&D Results Utilizations';
+        $id = Crypt::decryptString($id);
+        $all = DB::table('rdru_tech_deployed')
+            ->where('id', $id)
+            ->first();
+        $agency = DB::table('agency')->get();
+        $researchers = DB::table('researchers')->get();
+        return view('backend.report.rdru.rdru_tech_deployed_edit', compact('title', 'all', 'agency', 'researchers'));
+    }
+
+    public function rdru_update_tech_deployed(Request $request, $id)
+    {
+        date_default_timezone_set('Asia/Hong_Kong');
+
+        $data = [];
+        $data['rdru_tech_title'] = $request->rdru_tech_title;
+        $data['rdru_tech_type'] = $request->rdru_tech_type;
+        $data['rdru_tech_sof'] = $request->rdru_tech_sof;
+        $data['updated_at'] = now();
+
+        $insert = DB::table('rdru_tech_deployed')
+            ->where('id', $id)
+            ->update($data);
+        if ($insert) {
+            return response()->json(['success' => 'Data Updated Successfully!']);
+        } else {
+            return response()->json(['error' => 'There is something wrong...']);
+        }
+    }
+
+    public function rdru_delete_tech_deployed($id)
+    {
+        $id = Crypt::decryptString($id);
+
+        $delete = DB::table('rdru_tech_deployed')
+            ->where('id', $id)
+            ->delete();
+        if ($delete) {
+            $notification = [
+                'message' => 'Data Successfully Deleted!',
+                'alert-type' => 'success',
+            ];
+
+            return redirect()
+                ->route('rdru_tech_deployed')
+                ->with($notification);
+        } else {
+            $notification = [
+                'message' => 'Something is wrong, please try again!',
+                'alert-type' => 'error',
+            ];
+            return redirect()
+                ->route('rdru_tech_deployed')
+                ->with($notification);
+        }
     }
 }

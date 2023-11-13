@@ -13,9 +13,7 @@
                             <li class="breadcrumb-item"><a href="home">Home</a></li>
                             <li class="breadcrumb-item"><a href="report-index">Reports</a></li>
                             <li class="breadcrumb-item"><a href="rdru-index">RDRU</a></li>
-                            <li class="breadcrumb-item"><a href="rdru-ttm-index">TTM</a></li>
-                            <li class="breadcrumb-item active">Technologies Commeialized or Pre-Commercialization
-                                Initiatives
+                            <li class="breadcrumb-item active">Technologies Deployed through Various Extension Modalities
                             </li>
                         </ol>
                     </div><!-- /.col -->
@@ -29,10 +27,9 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-header">
-                                <h2 class="card-title">List of Technologies Commercialized or Pre-Commercialization
-                                    Initiatives</h2>
+                                <h2 class="card-title">List of Technologies Deployed</h2>
                                 <div class="card-tools">
-                                    <a href="{{ url('rdru-ttm-add') }}" class="btn btn-success"><span><i
+                                    <a href="{{ url('rdru-add-tech-deployed-index') }}" class="btn btn-success"><span><i
                                                 class="fa-solid fa-plus"></i> Create</span></a>
 
                                     <!-- Here is a label for example -->
@@ -49,9 +46,8 @@
                                                     <tr>
                                                         <th>#</th>
                                                         <th>Title</th>
-                                                        <th>Type of IPR</th>
-                                                        <th>Status</th>
-                                                        <th>Agency</th>
+                                                        <th>Type of Technology</th>
+                                                        <th>Source of Fund</th>
                                                         <th>Action</th>
                                                     </tr>
                                                 </thead>
@@ -59,16 +55,15 @@
                                                     @foreach ($all as $key => $row)
                                                         <tr>
                                                             <td>{{ $key + 1 }}</td>
-                                                            <td>{{ $row->ttm_title }}</td>
-                                                            <td>{{ $row->ttm_type }}</td>
-                                                            <td>{{ $row->ttm_status }}</td>
-                                                            <td>{{ $row->ttm_agency }}</td>
+                                                            <td>{{ $row->rdru_tech_title }}</td>
+                                                            <td>{{ $row->rdru_tech_type }}</td>
+                                                            <td>{{ $row->rdru_tech_sof }}</td>
                                                             <td class="action btns">
                                                                 <a class="btn btn-primary"
-                                                                    href="{{ url('edit-ttm/' . $row->id) }}"><i
+                                                                    href="{{ url('rdru-edit-tech-deployed-index/' . Crypt::encryptString($row->id)) }}"><i
                                                                         class="fa-solid fa-pen-to-square"
                                                                         style="color: white;"></i></a>
-                                                                <a href="{{ url('delete-ttm/' . $row->id) }}"
+                                                                <a href="{{ url('rdru-delete-tech-deployed/' . Crypt::encryptString($row->id)) }}"
                                                                     class="btn btn-danger" id="delete"><i
                                                                         class="fa-solid fa-trash"></i></a>
                                                             </td>

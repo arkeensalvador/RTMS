@@ -11,12 +11,8 @@
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="home">Home</a></li>
-                            <li class="breadcrumb-item"><a href="report-index">Reports</a></li>
-                            <li class="breadcrumb-item"><a href="rdru-index">RDRU</a></li>
-                            <li class="breadcrumb-item"><a href="rdru-ttm-index">TTM</a></li>
-                            <li class="breadcrumb-item active">Technologies Commeialized or Pre-Commercialization
-                                Initiatives
-                            </li>
+                            <li class="breadcrumb-item"><a href="strategic-index">Strategic R&D</a></li>
+                            <li class="breadcrumb-item active">Technologies Generated</li>
                         </ol>
                     </div><!-- /.col -->
                 </div><!-- /.row -->
@@ -29,10 +25,10 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-header">
-                                <h2 class="card-title">List of Technologies Commercialized or Pre-Commercialization
-                                    Initiatives</h2>
+                                <h2 class="card-title">List of Technologies Generated from R&D</h2>
                                 <div class="card-tools">
-                                    <a href="{{ url('rdru-ttm-add') }}" class="btn btn-success"><span><i
+                                    <a href="{{ url('add-strategic-tech-list-index') }}"
+                                        class="btn btn-success {{ Route::current()->getName() == 'add-programs-index' ? 'active' : '' }}"><span><i
                                                 class="fa-solid fa-plus"></i> Create</span></a>
 
                                     <!-- Here is a label for example -->
@@ -44,31 +40,41 @@
                                 <div class="row">
                                     <div class="col-12 col-md-12">
                                         <div class="col-sm-12">
-                                            <table id="accounts" class="table table-bordered table-striped">
+                                            <table id="example1" class="table table-bordered table-striped">
                                                 <thead>
                                                     <tr>
-                                                        <th>#</th>
+                                                        <th>Type</th>
                                                         <th>Title</th>
-                                                        <th>Type of IPR</th>
-                                                        <th>Status</th>
+                                                        <th>Description</th>
+                                                        <th>Source</th>
                                                         <th>Agency</th>
+                                                        <th>Researchers</th>
+                                                        <th>Impact</th>
                                                         <th>Action</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                     @foreach ($all as $key => $row)
                                                         <tr>
-                                                            <td>{{ $key + 1 }}</td>
-                                                            <td>{{ $row->ttm_title }}</td>
-                                                            <td>{{ $row->ttm_type }}</td>
-                                                            <td>{{ $row->ttm_status }}</td>
-                                                            <td>{{ $row->ttm_agency }}</td>
+                                                            <td>{{ $row->tech_type }}</td>
+                                                            <td>{{ $row->tech_title }}</td>
+                                                            <td>{{ $row->tech_desc }}</td>
+                                                            <td>{{ $row->tech_source }}</td>
+                                                            <td>{{ $row->tech_agency }}</td>
+                                                            <td>
+                                                                @php
+                                                                    $res = json_decode($row->tech_researchers);
+                                                                    $res = implode(', ', $res);
+                                                                @endphp
+                                                                {{ $res }}
+                                                            </td>
+                                                            <td>{{ $row->tech_impact }}</td>
                                                             <td class="action btns">
                                                                 <a class="btn btn-primary"
-                                                                    href="{{ url('edit-ttm/' . $row->id) }}"><i
+                                                                    href="{{ url('edit-strategic-tech-list-index/' . Crypt::encryptString($row->id)) }}"><i
                                                                         class="fa-solid fa-pen-to-square"
                                                                         style="color: white;"></i></a>
-                                                                <a href="{{ url('delete-ttm/' . $row->id) }}"
+                                                                <a href="{{ url('delete-strategic-tech-list/' . Crypt::encryptString($row->id)) }}"
                                                                     class="btn btn-danger" id="delete"><i
                                                                         class="fa-solid fa-trash"></i></a>
                                                             </td>
@@ -85,7 +91,7 @@
                                                     </div>
                                                 </div>
                                             </a> --}}
-                                            <a href="{{ url('rdru-ttm-index') }}" class="btn btn-default">Back</a>
+                                            <a href="{{ url('strategic-index') }}" class="btn btn-default">Back</a>
                                         </div>
                                     </div>
                                 </div>

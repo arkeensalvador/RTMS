@@ -8,7 +8,7 @@
                 <div class="monitoring row">
                     <div class="col-6">
                         <div class="back-btn col-2">
-                            <a href="report-index">
+                            <a href="rdru-index">
                                 <div class="monitoring info-box bg-light">
                                     <div class="monitoring info-box-content">
                                         <span class="back monitoring info-box-number text-center text-muted"><i
@@ -25,12 +25,12 @@
                                 <div class="row">
                                     <div class="col-12 col-md-12">
                                         <div class="col-sm-12">
-                                            <a href="rdru-ttp">
+                                            <a href="rdru-tech-deployed">
                                                 <div class="monitoring info-box bg-light">
                                                     <div class="monitoring info-box-content">
-                                                        <span
-                                                            class="monitoring info-box-number text-center text-muted">Technology
-                                                            Transfer Proposals
+                                                        <span class="monitoring info-box-number text-center text-muted"
+                                                            style="padding: 1.25rem">Technologies
+                                                            Deployed through Various Extension Modalities
                                                         </span>
                                                     </div>
                                                 </div>
@@ -38,30 +38,17 @@
                                         </div>
 
                                         <div class="col-sm-12">
-                                            <a href="rdru-ttm-index">
+                                            <a href="rdru-ttm">
                                                 <div class="monitoring info-box bg-light">
                                                     <div class="monitoring info-box-content">
                                                         <span
-                                                            class="monitoring info-box-number text-center text-muted">Technology
-                                                            Transfer Modalities
+                                                            class="monitoring info-box-number text-center text-muted">Technologies
+                                                            Commercialized or Pre-Commercialization Initiatives
                                                         </span>
                                                     </div>
                                                 </div>
                                             </a>
                                         </div>
-
-                                        <div class="col-sm-12">
-                                            <a href="rdru-tpa">
-                                                <div class="monitoring info-box bg-light">
-                                                    <div class="monitoring info-box-content">
-                                                        <span
-                                                            class="monitoring info-box-number text-center text-muted">Technology
-                                                            Promotion Approaches</span>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                        </div>
-
                                     </div>
                                 </div>
                             </div>

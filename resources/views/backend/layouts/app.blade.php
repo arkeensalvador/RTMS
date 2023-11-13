@@ -640,6 +640,11 @@
             allowClear: false
         });
 
+        $('.source').select2({
+            placeholder: "Select Source",
+            allowClear: false
+        });
+
         $('.formtype').select2({
             placeholder: "Select",
             allowClear: false,

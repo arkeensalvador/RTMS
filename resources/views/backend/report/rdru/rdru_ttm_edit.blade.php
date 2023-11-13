@@ -83,7 +83,8 @@
                             <form id="techForm" class="row g-3 needs-validation" novalidate>
                                 @csrf
                                 <div class="form-title col-12">
-                                    <h2 class="font-weight-bold">Technology Transfer Modalities</h2>
+                                    <h2 class="font-weight-bold">Technologies Commercialized or Pre-Commercialization
+                                        Initiatives</h2>
                                     <h5 class="mt-0"> Kindly fill-out the fields needed.</h5>
                                 </div>
 
@@ -96,30 +97,20 @@
                                 </div>
 
                                 <div class="col-md-6 form-group">
-                                    <label for="ttm_type" class=" font-weight-bold">Type of Technology<span
+                                    <label for="ttm_type" class=" font-weight-bold">Type of IPR Applies<span
                                             class="text-danger">*</span></label>
-                                    <input type="text" name="ttm_type" value="{{ $all->ttm_type }}" class="form-control"
-                                        id="ttm_type" list="ttm_type_list" placeholder="Enter type of technology used"
-                                        required>
-                                    <datalist id="ttm_type_list">
-                                        <option value="STCBF">STCBF</option>
-                                        <option value="STMF">STMF</option>
-                                        <option value="STMP">STMP</option>
-                                        <option value="Techno Demo">Techno Demo</option>
-                                        <option value="FIESTA">FIESTA</option>
-                                    </datalist>
-                                    {{-- <select name="ttm_type" class="form-control others" id="ttm_type" required>
-                                        <option value="" selected disabled></option>
-                                        <option value="STCBF" {{ 'STCBF' == $all->ttm_type ? 'selected' : '' }}>STCBF
+                                    <select name="ttm_type" class="form-control others" id="ttm_type" required>
+                                        <option value=""></option>
+                                        <option value="Copyright" {{ 'Copyright' == $all->ttm_type ? 'selected' : '' }}>
+                                            Copyright</option>
+                                        <option value="Utility" {{ 'Utility' == $all->ttm_type ? 'selected' : '' }}>Utility
+                                            Model</option>
+                                        <option value="Patent" {{ 'Patent' == $all->ttm_type ? 'selected' : '' }}>Patent
                                         </option>
-                                        <option value="STMF" {{ 'STMF' == $all->ttm_type ? 'selected' : '' }}>STMF
-                                        </option>
-                                        <option value="STMP" {{ 'STMP' == $all->ttm_type ? 'selected' : '' }}>STMP
-                                        </option>
-                                        <option value="Techno Demo" {{ 'Techno Demo' == $all->ttm_type ? 'selected' : '' }}>
-                                            Techno Demo</option>
-                                    </select> --}}
-                                    <div class="invalid-feedback">Missing type of technology</div>
+                                        <option value="Trademark" {{ 'Trademark' == $all->ttm_type ? 'selected' : '' }}>
+                                            Trademark</option>
+                                    </select>
+                                    <div class="invalid-feedback">Missing type IPR applies</div>
                                 </div>
 
                                 <div class="col-md-6 form-group">
@@ -236,7 +227,7 @@
                         // this.reset();
                         Swal.fire({
                             icon: 'success',
-                            title: 'TTM Updated Successfully',
+                            title: 'Data Updated Successfully',
                             timerProgressBar: true,
                             showConfirmButton: false,
                             timer: 900

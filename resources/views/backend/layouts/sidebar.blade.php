@@ -87,6 +87,14 @@
                 'edit-formulated',
                 'cbg-contributions',
                 'cbg-initiatives',
+                'rdru-ttm-index',
+                'rdru-tech-deployed',
+                'rdru-add-tech-deployed-index',
+                'rdru-edit-tech-deployed-index',
+                'strategic-index',
+                'strategic-tech-list',
+                'add-strategic-tech-list-index',
+                'edit-strategic-tech-list-index',
             ];
         @endphp
 
