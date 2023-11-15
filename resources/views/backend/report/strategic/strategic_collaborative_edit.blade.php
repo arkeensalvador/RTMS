@@ -126,6 +126,8 @@
 
                                 @php
                                     $proj = json_decode($all->str_collab_project);
+                                    $string = 'N/A';
+                                    $proj = array_merge([$string], $proj);
                                 @endphp
 
                                 <div class="col-md-12 form-group">
@@ -311,7 +313,7 @@
                         success: function(data) {
                             $('#projectSelect').empty();
                             $('#projectSelect').append(
-                                '<option value="">Select a project</option>'
+                                '<option value="">Select projects</option>'
                             );
                             data.forEach(function(projects) {
                                 $('#projectSelect').append($('<option>', {
@@ -323,15 +325,16 @@
                                     text: projects.sub_project_title
                                 }));
                             });
-                            $('#projectSelect').select2({
-                                placeholder: "Select projects"
-                            });
+
+                            $('#projectSelect').append(
+                                '<option value="N/A">N/A</option>'
+                            );
                         }
                     });
                 } else {
                     $('#projectSelect').empty();
                     $('#projectSelect').append(
-                        '<option value="">Select a Researcher</option>');
+                        '<option value="">Select projects</option>');
                     $('#projectSelect').select2();
                 }
             });
