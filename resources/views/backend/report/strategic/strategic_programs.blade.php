@@ -29,7 +29,7 @@
                                 <h2 class="card-title">List of R&D Programs / Projects Packaged, Approved and Implemented
                                 </h2>
                                 <div class="card-tools">
-                                    <a href="{{ url('add-strategic-collaborative-list-index') }}"
+                                    <a href="{{ url('add-strategic-program-list-index') }}"
                                         class="btn btn-success {{ Route::current()->getName() == 'add-programs-index' ? 'active' : '' }}"><span><i
                                                 class="fa-solid fa-plus"></i> Create</span></a>
                                     <!-- Here is a label for example -->
