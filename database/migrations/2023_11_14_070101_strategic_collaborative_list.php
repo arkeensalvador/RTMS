@@ -14,7 +14,7 @@ return new class extends Migration {
             $table->id('id');
             $table->string('str_collab_type');
             $table->string('str_collab_program');
-            $table->string('str_collab_project');
+            $table->string('str_collab_project')->nullable();
             $table->string('str_collab_imp_agency');
             $table->string('str_collab_agency');
             $table->string('str_collab_date');
