@@ -83,99 +83,156 @@
                             <form id="activityForm" class="row g-3 needs-validation" novalidate>
                                 @csrf
                                 <div class="form-title col-12">
-                                    <h2 class="font-weight-bold">Technologies Generated</h2>
+                                    <h2 class="font-weight-bold">R&D Programs/ Projects Packaged, Approved and Implemented
+                                    </h2>
                                     <h5 class="mt-0"> Kindly fill-out the fields needed.</h5>
                                 </div>
 
                                 <div class="col-md-3 form-group">
-                                    <label for="strategic_program" class="font-weight-bold">Type of Technology<span
+                                    <label for="strategic_program" class="font-weight-bold">Program/Project Type<span
                                             class="text-danger">*</span></label>
-                                    <select name="tech_type" id="strategic_program" class="form-control type" required>
+                                    <select name="str_p_type" id="strategic_program" class="form-control type" required>
                                         <option value=""></option>
-                                        <option value="Research">Research</option>
-                                        <option value="Development">Development</option>
+                                        <option value="Proposals" {{ 'Proposals' == $all->str_p_type ? 'selected' : '' }}>
+                                            Proposals Packaged</option>
+                                        <option value="Approved" {{ 'Approved' == $all->str_p_type ? 'selected' : '' }}>
+                                            Approved and Implemented</option>
                                     </select>
                                     <div class="valid-feedback"></div>
                                     <div class="invalid-feedback">Missing type of technology</div>
                                 </div>
 
                                 <div class="col-md-12 form-group">
-                                    <label for="strategic_implementing_agency" class=" font-weight-bold">Title<span
+                                    <label for="agencySelect" class=" font-weight-bold">Program/Project Title<span
                                             class="text-danger">*</span></label>
-                                    <input type="text" name="tech_title" id="strategic_title" class="form-control"
-                                        placeholder="Title" required>
-                                    <div class="invalid-feedback">Missing title</div>
-                                </div>
-
-                                <div class="col-md-12 form-group">
-                                    <label for="strategic_implementing_agency" class=" font-weight-bold">Description<span
-                                            class="text-danger">*</span></label>
-                                    <textarea name="tech_desc" id="strategic_title" class="form-control" rows="4" style="resize: none" required
-                                        placeholder="Description"></textarea>
-                                    <div class="invalid-feedback">Missing title</div>
-                                </div>
-
-                                <div class="col-md-12 form-group">
-                                    <label for="agencySelect" class=" font-weight-bold">Agency<span
-                                            class="text-danger">*</span></label>
-                                    <select id="agencySelect" name="tech_agency" class="form-control agency" required>
-                                        <option value=""></option>
-                                        @foreach ($agency as $row)
-                                            <option value="{{ $row->abbrev }}"> {{ $row->agency_name }} </option>
-                                        @endforeach
-                                    </select>
-                                    <div class="invalid-feedback">Missing agency</div>
-                                </div>
-
-                                <div class="col-md-12 form-group">
-                                    <label for="ttp_sof" class=" font-weight-bold">Researchers<span
-                                            class="text-danger">*</span></label>
-                                    <select id="researcherSelect" name="tech_researchers[]" class="form-control researchers"
-                                        multiple="multiple" required>
-                                        <option value=""></option>
-                                    </select>
-                                    <div class="invalid-feedback">Missing researchers</div>
-                                </div>
-
-                                <div class="col-md-12 form-group">
-                                    <label for="agencySelect" class=" font-weight-bold">Program/Project Source<span
-                                            class="text-danger">*</span></label>
-                                    <select id="" name="tech_source" class="form-control source" required>
+                                    <select id="" name="str_p_title" class="form-control agency" required>
                                         <option value=""></option>
                                         <optgroup label="Programs">
                                             @foreach ($programs as $prog)
-                                                <option value="{{ $prog->program_title }}"> {{ $prog->program_title }}
+                                                <option value="{{ $prog->program_title }}"
+                                                    {{ $prog->program_title == $all->str_p_title ? 'selected' : '' }}>
+                                                    {{ $prog->program_title }}
                                                 </option>
                                             @endforeach
                                         </optgroup>
 
                                         <optgroup label="Projects">
                                             @foreach ($projects as $proj)
-                                                <option value="{{ $proj->project_title }}"> {{ $proj->project_title }}
+                                                <option value="{{ $proj->project_title }}"
+                                                    {{ $proj->project_title == $all->str_p_title ? 'selected' : '' }}>
+                                                    {{ $proj->project_title }}
                                                 </option>
                                             @endforeach
                                         </optgroup>
 
                                         <optgroup label="Sub Projects">
                                             @foreach ($sub_projects as $sub_proj)
-                                                <option value="{{ $sub_proj->sub_project_title }}">
+                                                <option value="{{ $sub_proj->sub_project_title }}"
+                                                    {{ $sub_proj->sub_project_title == $all->str_p_title ? 'selected' : '' }}>
                                                     {{ $sub_proj->sub_project_title }} </option>
                                             @endforeach
                                         </optgroup>
                                     </select>
-                                    <div class="invalid-feedback">Missing program/project source</div>
+                                    <div class="invalid-feedback">Missing program/project title</div>
                                 </div>
 
                                 <div class="col-md-12 form-group">
-                                    <label for="strategic_implementing_agency" class=" font-weight-bold">Potential Impact or
+                                    <label for="ttp_sof" class=" font-weight-bold">Researchers<span
+                                            class="text-danger">*</span></label>
+                                    <textarea name="str_p_researchers" id="strategic_title" class="form-control" rows="4" style="resize: none"
+                                        required placeholder="Researchers">{{ $all->str_p_researchers }}</textarea>
+                                    <div class="invalid-feedback">Missing researchers</div>
+                                </div>
+
+                                @php
+                                    $imp = json_decode($all->str_p_imp_agency);
+                                @endphp
+
+                                <div class="col-md-6 form-group">
+                                    <label for="awards_recipients" class=" font-weight-bold">Implementing Agency<span
+                                            class="text-danger">*</span></label>
+                                    <select class="form-control implementing_agency" id="awards_recipients"
+                                        name="str_p_imp_agency[]" multiple="multiple" required>
+
+                                        @foreach ($agency as $key)
+                                            <option value="{{ $key->abbrev }}"
+                                                {{ in_array($key->abbrev, $imp) ? 'selected' : '' }}>
+                                                {{ $key->agency_name }} -
+                                                ({{ $key->abbrev }})
+                                                </b></option>
+                                        @endforeach
+
+                                    </select>
+                                    <div class="invalid-feedback">Missing implementing agency</div>
+                                </div>
+
+                                @php
+                                    $collab = json_decode($all->str_p_collab_agency);
+                                @endphp
+
+
+                                <div class="col-md-6 form-group">
+                                    <label for="awards_recipients" class=" font-weight-bold">Collaborating Agency<span
+                                            class="text-danger">*</span></label>
+                                    <select class="form-control collaborating_agency" id=""
+                                        name="str_p_collab_agency[]" multiple="multiple" required>
+
+                                        @foreach ($agency as $key)
+                                            <option value="{{ $key->abbrev }}"
+                                                {{ in_array($key->abbrev, $collab) ? 'selected' : '' }}>
+                                                {{ $key->agency_name }} -
+                                                ({{ $key->abbrev }})
+                                                </b></option>
+                                        @endforeach
+
+                                    </select>
+                                    <div class="invalid-feedback">Missing collaborating agency</div>
+                                </div>
+
+                                <div class="col-md-5">
+                                    <label for="tpa_date" class=" font-weight-bold">Date<span
+                                            class="text-danger">*</span></label>
+                                    <input type="text" name="str_p_date" id="tpa_date" value="{{ $all->str_p_date }}"
+                                        class="form-control date-range" placeholder="Enter date" required>
+                                    <div class="invalid-feedback">Missing date</div>
+                                </div>
+
+                                <div class="col-md-4 form-group">
+                                    <label for="approved_budget" class=" font-weight-bold">Budget<span
+                                            class="text-danger">*</span></label>
+                                    <input type="text" name="str_p_budget" value="{{ $all->str_p_budget }}"
+                                        class="form-control" id="" placeholder="Budget" required>
+                                    <div class="invalid-feedback">Missing budget</div>
+                                </div>
+
+                                <div class="col-md-8 form-group">
+                                    <label for="funding_agency" class=" font-weight-bold">Source of Fund<span
+                                            class="text-danger">*</span></label>
+                                    <select id="funding_agency" name="str_p_sof" class="form-control agency" required>
+                                        <option></option>
+                                        @foreach ($agency as $key)
+                                            <option value="{{ $key->abbrev }}"
+                                                {{ $key->abbrev == $all->str_p_sof ? 'selected' : '' }}>
+                                                {{ $key->agency_name }} -
+                                                ({{ $key->abbrev }})
+                                                </b></option>
+                                        @endforeach
+                                    </select>
+                                    <div class="invalid-feedback">Missing source of fund</div>
+                                </div>
+
+
+                                <div class="col-md-12 form-group">
+                                    <label for="strategic_implementing_agency" class=" font-weight-bold">Regional Priority
+                                        Commodities Addressed
                                         Contribution<span class="text-danger">*</span></label>
-                                    <textarea name="tech_impact" id="strategic_title" class="form-control" rows="4" style="resize: none" required
-                                        placeholder="Impact"></textarea>
-                                    <div class="invalid-feedback">Missing impact</div>
+                                    <textarea name="str_p_regional" id="strategic_title" class="form-control" rows="4" style="resize: none"
+                                        required placeholder="Commodities addressed">{{ $all->str_p_regional }}</textarea>
+                                    <div class="invalid-feedback">Missing commodities addressed</div>
                                 </div>
 
                                 <div class="col-md-12 form-group buttons">
-                                    <a href="{{ url('strategic-tech-list') }}" class="btn btn-default">Back</a>
+                                    <a href="{{ url('strategic-program-list') }}" class="btn btn-default">Back</a>
                                     <button type="submit" id="submit" class="btn btn-primary btn-m ">Submit</button>
                                 </div>
                             </form>
@@ -290,7 +347,7 @@
                 e.preventDefault();
                 $.ajax({
                     type: 'POST',
-                    url: "{{ url('add-strategic-tech-list') }}",
+                    url: "{{ url('update-strategic-program-list/' . $all->id) }}",
                     data: formData,
                     cache: false,
                     contentType: false,
@@ -300,13 +357,13 @@
                         // // this.reset();
                         Swal.fire({
                             icon: 'success',
-                            title: 'Data Added Successfully',
+                            title: 'Data Updated Successfully',
                             timerProgressBar: true,
                             showConfirmButton: false,
                             timer: 900
                         }).then((result) => {
                             if (result.dismiss) {
-                                window.location.href = '/strategic-tech-list';
+                                window.location.href = '/strategic-program-list';
                             }
                         })
                     },

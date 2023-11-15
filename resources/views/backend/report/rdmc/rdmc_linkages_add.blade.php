@@ -132,8 +132,8 @@
                                 <div class="col-md-7 form-group">
                                     <label for="address" class=" font-weight-bold">Address<span
                                             class="text-danger">*</span></label>
-                                    <input type="text" id="address" name="address" class="form-control"
-                                        placeholder="Source of fund" required>
+                                    <input type="text" id="address" name="address" class="form-control" placeholder=""
+                                        required>
                                     <div class="invalid-feedback">Missing address</div>
                                 </div>
 

@@ -83,99 +83,127 @@
                             <form id="activityForm" class="row g-3 needs-validation" novalidate>
                                 @csrf
                                 <div class="form-title col-12">
-                                    <h2 class="font-weight-bold">Technologies Generated</h2>
+                                    <h2 class="font-weight-bold">Collaborative R&D Programs/Projects implemented
+                                    </h2>
                                     <h5 class="mt-0"> Kindly fill-out the fields needed.</h5>
                                 </div>
 
                                 <div class="col-md-3 form-group">
-                                    <label for="strategic_program" class="font-weight-bold">Type of Technology<span
+                                    <label for="strategic_program" class="font-weight-bold">Program/Project Type<span
                                             class="text-danger">*</span></label>
-                                    <select name="tech_type" id="strategic_program" class="form-control type" required>
+                                    <select name="str_collab_type" id="strategic_program" class="form-control type"
+                                        required>
                                         <option value=""></option>
-                                        <option value="Research">Research</option>
-                                        <option value="Development">Development</option>
+                                        <option value="Agency-led">Agency-led</option>
+                                        <option value="Consortium-led">Consortium-led</option>
                                     </select>
                                     <div class="valid-feedback"></div>
-                                    <div class="invalid-feedback">Missing type of technology</div>
+                                    <div class="invalid-feedback">Missing type</div>
                                 </div>
 
                                 <div class="col-md-12 form-group">
-                                    <label for="strategic_implementing_agency" class=" font-weight-bold">Title<span
+                                    <label for="ttp_sof" class=" font-weight-bold">Program<span
                                             class="text-danger">*</span></label>
-                                    <input type="text" name="tech_title" id="strategic_title" class="form-control"
-                                        placeholder="Title" required>
-                                    <div class="invalid-feedback">Missing title</div>
-                                </div>
-
-                                <div class="col-md-12 form-group">
-                                    <label for="strategic_implementing_agency" class=" font-weight-bold">Description<span
-                                            class="text-danger">*</span></label>
-                                    <textarea name="tech_desc" id="strategic_title" class="form-control" rows="4" style="resize: none" required
-                                        placeholder="Description"></textarea>
-                                    <div class="invalid-feedback">Missing title</div>
-                                </div>
-
-                                <div class="col-md-12 form-group">
-                                    <label for="agencySelect" class=" font-weight-bold">Agency<span
-                                            class="text-danger">*</span></label>
-                                    <select id="agencySelect" name="tech_agency" class="form-control agency" required>
+                                    <select id="programSelect" name="str_collab_program" id="str_collab_program"
+                                        class="form-control programs" required>
                                         <option value=""></option>
-                                        @foreach ($agency as $row)
-                                            <option value="{{ $row->abbrev }}"> {{ $row->agency_name }} </option>
+                                        @foreach ($programs as $row)
+                                            <option value="{{ $row->programID }}">
+                                                {{ $row->program_title }}
+                                            </option>
                                         @endforeach
                                     </select>
-                                    <div class="invalid-feedback">Missing agency</div>
+                                    <div class="invalid-feedback">Missing program</div>
                                 </div>
 
+                                {{-- PROGRAM TITLE --}}
+                                <input type="text" name="str_collab_program_title" id="programTitle" hidden>
+
                                 <div class="col-md-12 form-group">
-                                    <label for="ttp_sof" class=" font-weight-bold">Researchers<span
+                                    <label for="ttp_sof" class=" font-weight-bold">Projects<span
                                             class="text-danger">*</span></label>
-                                    <select id="researcherSelect" name="tech_researchers[]" class="form-control researchers"
+                                    <select id="projectSelect" name="str_collab_project[]" class="form-control projects"
                                         multiple="multiple" required>
                                         <option value=""></option>
                                     </select>
-                                    <div class="invalid-feedback">Missing researchers</div>
+                                    <div class="invalid-feedback">Missing projects</div>
                                 </div>
 
+
                                 <div class="col-md-12 form-group">
-                                    <label for="agencySelect" class=" font-weight-bold">Program/Project Source<span
+                                    <label for="awards_recipients" class=" font-weight-bold">Implementing Agency<span
                                             class="text-danger">*</span></label>
-                                    <select id="" name="tech_source" class="form-control source" required>
-                                        <option value=""></option>
-                                        <optgroup label="Programs">
-                                            @foreach ($programs as $prog)
-                                                <option value="{{ $prog->program_title }}"> {{ $prog->program_title }}
-                                                </option>
-                                            @endforeach
-                                        </optgroup>
+                                    <select class="form-control implementing_agency" id="awards_recipients"
+                                        name="str_collab_imp_agency[]" multiple="multiple" required>
 
-                                        <optgroup label="Projects">
-                                            @foreach ($projects as $proj)
-                                                <option value="{{ $proj->project_title }}"> {{ $proj->project_title }}
-                                                </option>
-                                            @endforeach
-                                        </optgroup>
+                                        @foreach ($agency as $key)
+                                            <option value="{{ $key->abbrev }}">{{ $key->agency_name }} -
+                                                ({{ $key->abbrev }})
+                                                </b></option>
+                                        @endforeach
 
-                                        <optgroup label="Sub Projects">
-                                            @foreach ($sub_projects as $sub_proj)
-                                                <option value="{{ $sub_proj->sub_project_title }}">
-                                                    {{ $sub_proj->sub_project_title }} </option>
-                                            @endforeach
-                                        </optgroup>
                                     </select>
-                                    <div class="invalid-feedback">Missing program/project source</div>
+                                    <div class="invalid-feedback">Missing implementing agency</div>
                                 </div>
 
+
                                 <div class="col-md-12 form-group">
-                                    <label for="strategic_implementing_agency" class=" font-weight-bold">Potential Impact or
-                                        Contribution<span class="text-danger">*</span></label>
-                                    <textarea name="tech_impact" id="strategic_title" class="form-control" rows="4" style="resize: none" required
-                                        placeholder="Impact"></textarea>
-                                    <div class="invalid-feedback">Missing impact</div>
+                                    <label for="awards_recipients" class=" font-weight-bold">Collaborating Agency<span
+                                            class="text-danger">*</span></label>
+                                    <select class="form-control collaborating_agency" id=""
+                                        name="str_collab_agency[]" multiple="multiple" required>
+
+                                        @foreach ($agency as $key)
+                                            <option value="{{ $key->abbrev }}">{{ $key->agency_name }} -
+                                                ({{ $key->abbrev }})
+                                                </b></option>
+                                        @endforeach
+
+                                    </select>
+                                    <div class="invalid-feedback">Missing collaborating agency</div>
+                                </div>
+
+                                <div class="col-md-5">
+                                    <label for="tpa_date" class=" font-weight-bold">Date<span
+                                            class="text-danger">*</span></label>
+                                    <input type="text" name="str_collab_date" id="tpa_date"
+                                        class="form-control date-range" placeholder="Enter date" required>
+                                    <div class="invalid-feedback">Missing date</div>
+                                </div>
+
+                                <div class="col-md-4 form-group">
+                                    <label for="approved_budget" class=" font-weight-bold">Budget<span
+                                            class="text-danger">*</span></label>
+                                    <input type="text" name="str_collab_budget" class="form-control" id=""
+                                        placeholder="Budget" required>
+                                    <div class="invalid-feedback">Missing budget</div>
+                                </div>
+
+                                <div class="col-md-8 form-group">
+                                    <label for="funding_agency" class=" font-weight-bold">Source of Fund<span
+                                            class="text-danger">*</span></label>
+                                    <select id="funding_agency" name="str_collab_sof" class="form-control agency" required>
+                                        <option></option>
+                                        @foreach ($agency as $key)
+                                            <option value="{{ $key->abbrev }}">{{ $key->agency_name }} -
+                                                ({{ $key->abbrev }})
+                                                </b></option>
+                                        @endforeach
+                                    </select>
+                                    <div class="invalid-feedback">Missing source of fund</div>
+                                </div>
+
+
+                                <div class="col-md-12 form-group">
+                                    <label for="strategic_implementing_agency" class=" font-weight-bold">Role of
+                                        Consortium<span class="text-danger">*</span></label>
+                                    <textarea name="str_collab_roc" id="strategic_title" class="form-control" rows="4" style="resize: none"
+                                        required placeholder="Role of consortium"></textarea>
+                                    <div class="invalid-feedback">Missing role of consortium</div>
                                 </div>
 
                                 <div class="col-md-12 form-group buttons">
-                                    <a href="{{ url('strategic-tech-list') }}" class="btn btn-default">Back</a>
+                                    <a href="{{ url('strategic-collaborative-list') }}" class="btn btn-default">Back</a>
                                     <button type="submit" id="submit" class="btn btn-primary btn-m ">Submit</button>
                                 </div>
                             </form>
@@ -188,6 +216,10 @@
     </div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+    <script></script>
+
+
     <script>
         $(document).ready(function() {
             $('.r-agency').select2({
@@ -224,6 +256,50 @@
                     $('#researcherSelect').append(
                         '<option value="">Select a Researcher</option>');
                     $('#researcherSelect').select2();
+                }
+            });
+
+            // Program Select & Projects 
+            $('#programSelect').on('change', function() {
+
+                var selectedText = $('#programSelect option:selected').text().trim();
+                $('#programTitle').val(selectedText);
+
+                var programID = $(this).val();
+
+                if (programID) {
+                    $.ajax({
+                        url: '/get-projects',
+                        type: 'GET',
+                        data: {
+                            program_id: programID
+                        },
+                        success: function(data) {
+                            $('#projectSelect').empty();
+                            $('#projectSelect').append(
+                                '<option value="">Select a project</option>'
+                            );
+                            data.forEach(function(projects) {
+                                $('#projectSelect').append($('<option>', {
+                                    value: projects.project_title,
+                                    text: projects.project_title
+                                }));
+
+                                $('#projectSelect').append($('<option>', {
+                                    value: projects.sub_project_title,
+                                    text: projects.sub_project_title
+                                }));
+                            });
+                            $('#projectSelect').select2({
+                                placeholder: "Select projects"
+                            });
+                        }
+                    });
+                } else {
+                    $('#projectSelect').empty();
+                    $('#projectSelect').append(
+                        '<option value="">Select a Researcher</option>');
+                    $('#projectSelect').select2();
                 }
             });
         });
@@ -290,7 +366,7 @@
                 e.preventDefault();
                 $.ajax({
                     type: 'POST',
-                    url: "{{ url('add-strategic-tech-list') }}",
+                    url: "{{ url('add-strategic-collaborative-list') }}",
                     data: formData,
                     cache: false,
                     contentType: false,
@@ -306,7 +382,7 @@
                             timer: 900
                         }).then((result) => {
                             if (result.dismiss) {
-                                window.location.href = '/strategic-tech-list';
+                                window.location.href = '/strategic-collaborative-list';
                             }
                         })
                     },

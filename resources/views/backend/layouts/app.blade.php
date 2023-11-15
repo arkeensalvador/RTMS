@@ -690,6 +690,17 @@
             // minimumResultsForSearch: -1
         });
 
+        $('.projects').select2({
+            placeholder: "Select projects",
+            minimumResultsForSearch: -1
+        });
+
+
+        $('.programs').select2({
+            placeholder: "Select programs",
+            minimumResultsForSearch: -1
+        });
+
         $(document).ready(function() {
             $('.js-recipients').select2({
                 placeholder: 'Select recipients',
@@ -727,6 +738,12 @@
                 tags: true,
                 tokenSeparators: [',', ' '],
                 placeholder: "Select implementing agency"
+            });
+
+            $('.collaborating_agency').select2({
+                tags: true,
+                tokenSeparators: [',', ' '],
+                placeholder: "Select collaborating agency"
             });
         });
     });

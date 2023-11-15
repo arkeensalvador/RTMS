@@ -117,21 +117,6 @@ class StrategicController extends Controller
         }
     }
 
-    public function getSource(Request $request)
-    {
-        $agency = $request->input('agency_id');
-
-        $data = DB::table('agency')
-            ->join('programs', 'agency.abbrev', '=', 'programs.implementing_agency')
-            ->join('projects', 'programs.implementing_agency', '=', 'projects.project_implementing_agency')
-            ->join('sub_projects', 'projects.project_implementing_agency', '=', 'sub_projects.sub_project_implementing_agency')
-            ->where('agency.abbrev', $agencyId)
-            ->select('programs.program_title as program_title', 'projects.project_title as project_title', 'sub_projects.sub_project_title as sub_project_title')
-            ->get();
-
-        return view('fetch-source', compact('data'));
-    }
-
     public function edit_strategic_tech_list_index($id)
     {
         $id = Crypt::decryptString($id);
@@ -193,6 +178,224 @@ class StrategicController extends Controller
             ];
             return redirect()
                 ->back()
+                ->with($notification);
+        }
+    }
+
+    // Program/project implemented/packaged
+
+    public function add_strategic_program_list(Request $request)
+    {
+        date_default_timezone_set('Asia/Hong_Kong');
+
+        $data = [];
+        $data['str_p_type'] = $request->str_p_type;
+        $data['str_p_title'] = $request->str_p_title;
+        $data['str_p_researchers'] = $request->str_p_researchers;
+        $data['str_p_imp_agency'] = json_encode($request->str_p_imp_agency);
+        $data['str_p_collab_agency'] = json_encode($request->str_p_collab_agency);
+        $data['str_p_date'] = $request->str_p_date;
+        $data['str_p_budget'] = $request->str_p_budget;
+        $data['str_p_sof'] = $request->str_p_sof;
+        $data['str_p_regional'] = $request->str_p_regional;
+        $data['created_at'] = now();
+
+        $insert = DB::table('strategic_program_list')->insert($data);
+        if ($insert) {
+            return response()->json(['success' => 'Data Successfully!']);
+        } else {
+            return response()->json(['error' => 'There is something wrong...']);
+        }
+    }
+
+    public function edit_strategic_program_list_index($id)
+    {
+        $title = 'TPA | R&D Results Utilizations';
+        $id = Crypt::decryptString($id);
+        $all = DB::table('strategic_program_list')
+            ->where('id', $id)
+            ->first();
+        $programs = DB::table('programs')->get();
+        $projects = DB::table('projects')->get();
+        $sub_projects = DB::table('sub_projects')->get();
+        $agency = DB::table('agency')->get();
+        $researchers = DB::table('researchers')->get();
+        return view('backend.report.strategic.strategic_program_edit', compact('title', 'all', 'agency', 'researchers', 'programs', 'projects', 'sub_projects'));
+    }
+
+    public function update_strategic_program_list(Request $request, $id)
+    {
+        date_default_timezone_set('Asia/Hong_Kong');
+
+        $data = [];
+        $data['str_p_type'] = $request->str_p_type;
+        $data['str_p_title'] = $request->str_p_title;
+        $data['str_p_researchers'] = $request->str_p_researchers;
+        $data['str_p_imp_agency'] = json_encode($request->str_p_imp_agency);
+        $data['str_p_collab_agency'] = json_encode($request->str_p_collab_agency);
+        $data['str_p_date'] = $request->str_p_date;
+        $data['str_p_budget'] = $request->str_p_budget;
+        $data['str_p_sof'] = $request->str_p_sof;
+        $data['str_p_regional'] = $request->str_p_regional;
+        $data['updated_at'] = now();
+
+        $insert = DB::table('strategic_program_list')
+            ->where('id', $id)
+            ->update($data);
+        if ($insert) {
+            return response()->json(['success' => 'Data Updated Successfully!']);
+        } else {
+            return response()->json(['error' => 'There is something wrong...']);
+        }
+    }
+
+    public function delete_strategic_program_list($id)
+    {
+        $id = Crypt::decryptString($id);
+
+        $delete = DB::table('strategic_program_list')
+            ->where('id', $id)
+            ->delete();
+        if ($delete) {
+            $notification = [
+                'message' => 'Data Successfully Deleted!',
+                'alert-type' => 'success',
+            ];
+
+            return redirect()
+                ->route('strategic_program_list')
+                ->with($notification);
+        } else {
+            $notification = [
+                'message' => 'Something is wrong, please try again!',
+                'alert-type' => 'error',
+            ];
+            return redirect()
+                ->route('strategic_program_list')
+                ->with($notification);
+        }
+    }
+
+    // Collaborative R&D Programs/Projects implemented
+
+    public function getProjects(Request $request)
+    {
+        $programID = $request->input('program_id');
+
+        $result = DB::table('sub_projects')
+            ->where('programID', $programID)
+            ->exists();
+
+        if ($result) {
+            $projects = DB::table('projects')
+                ->rightJoin('sub_projects', 'projects.id', '=', 'sub_projects.projectID')
+                ->where('projects.programID', $programID)
+                ->get();
+        } else {
+            $projects = DB::table('projects')
+                // ->rightJoin('sub_projects', 'projects.id', '=', 'sub_projects.projectID')
+                ->where('projects.programID', $programID)
+                ->get();
+        }
+
+        return response()->json($projects);
+    }
+
+    public function add_strategic_collaborative_list(Request $request)
+    {
+        date_default_timezone_set('Asia/Hong_Kong');
+
+        $data = [];
+        $data['str_collab_type'] = $request->str_collab_type;
+        $data['str_collab_program'] = $request->str_collab_program;
+        $data['str_collab_project'] = json_encode($request->str_collab_project);
+        $data['str_collab_imp_agency'] = json_encode($request->str_collab_imp_agency);
+        $data['str_collab_agency'] = json_encode($request->str_collab_agency);
+        $data['str_collab_date'] = $request->str_collab_date;
+        $data['str_collab_budget'] = $request->str_collab_budget;
+        $data['str_collab_sof'] = $request->str_collab_sof;
+        $data['str_collab_roc'] = $request->str_collab_roc;
+        $data['str_collab_program_title'] = $request->str_collab_program_title;
+        $data['created_at'] = now();
+
+        $insert = DB::table('strategic_collaborative_list')->insert($data);
+        if ($insert) {
+            return response()->json(['success' => 'Data Successfully!']);
+        } else {
+            return response()->json(['error' => 'There is something wrong...']);
+        }
+    }
+
+    public function edit_strategic_collaborative_list_index($id, $programID)
+    {
+        $title = 'TPA | R&D Results Utilizations';
+        $id = Crypt::decryptString($id);
+        $all = DB::table('strategic_collaborative_list')
+            ->where('id', $id)
+            ->first();
+        $programs = DB::table('programs')->get();
+        $projects = DB::table('projects')
+            ->join('sub_projects', 'projects.id', '=', 'sub_projects.projectID')
+            ->where('projects.programID', $programID)
+            ->get();
+
+        $sub_projects = DB::table('sub_projects')->get();
+        $agency = DB::table('agency')->get();
+        $researchers = DB::table('researchers')->get();
+
+        return view('backend.report.strategic.strategic_collaborative_edit', compact('title', 'all', 'agency', 'researchers', 'programs', 'projects', 'sub_projects'));
+    }
+
+    public function update_strategic_collaborative_list(Request $request, $id)
+    {
+        date_default_timezone_set('Asia/Hong_Kong');
+
+        $data = [];
+        $data['str_collab_type'] = $request->str_collab_type;
+        $data['str_collab_program'] = $request->str_collab_program;
+        $data['str_collab_project'] = json_encode($request->str_collab_project);
+        $data['str_collab_imp_agency'] = json_encode($request->str_collab_imp_agency);
+        $data['str_collab_agency'] = json_encode($request->str_collab_agency);
+        $data['str_collab_date'] = $request->str_collab_date;
+        $data['str_collab_budget'] = $request->str_collab_budget;
+        $data['str_collab_sof'] = $request->str_collab_sof;
+        $data['str_collab_roc'] = $request->str_collab_roc;
+        $data['str_collab_program_title'] = $request->str_collab_program_title;
+        $data['updated_at'] = now();
+
+        $insert = DB::table('strategic_collaborative_list')
+            ->where('id', $id)
+            ->update($data);
+        if ($insert) {
+            return response()->json(['success' => 'Data Updated Successfully!']);
+        } else {
+            return response()->json(['error' => 'There is something wrong...']);
+        }
+    }
+
+    public function delete_strategic_collaborative_list($id)
+    {
+        $id = Crypt::decryptString($id);
+
+        $delete = DB::table('strategic_collaborative_list')
+            ->where('id', $id)
+            ->delete();
+        if ($delete) {
+            $notification = [
+                'message' => 'Data Successfully Deleted!',
+                'alert-type' => 'success',
+            ];
+
+            return redirect()
+                ->route('strategic_collaborative_list')
+                ->with($notification);
+        } else {
+            $notification = [
+                'message' => 'Something is wrong, please try again!',
+                'alert-type' => 'error',
+            ];
+            return redirect()
+                ->route('strategic_collaborative_list')
                 ->with($notification);
         }
     }

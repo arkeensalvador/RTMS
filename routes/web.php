@@ -215,6 +215,22 @@ Route::get('/edit-strategic-tech-list-index/{id}', [App\Http\Controllers\backend
 Route::post('/update-strategic-tech-list/{id}', [App\Http\Controllers\backend\StrategicController::class, 'update_strategic_tech_list'])->name('update_strategic_tech_list');
 Route::get('/delete-strategic-tech-list/{id}', [App\Http\Controllers\backend\StrategicController::class, 'delete_strategic_tech_list'])->name('delete_strategic_tech_list');
 
+// R&D Programs/ Projects Packaged, Approved and Implemented
+Route::get('/strategic-program-list', [App\Http\Controllers\backend\ReportController::class, 'strategic_program_list'])->name('strategic_program_list');
+Route::get('/add-strategic-program-list-index', [App\Http\Controllers\backend\ReportController::class, 'add_strategic_program_list_index'])->name('add_strategic_program_list_index');
+Route::post('/add-strategic-program-list', [App\Http\Controllers\backend\StrategicController::class, 'add_strategic_program_list'])->name('add_strategic_program_list');
+Route::get('/edit-strategic-program-list-index/{id}', [App\Http\Controllers\backend\StrategicController::class, 'edit_strategic_program_list_index'])->name('edit_strategic_program_list_index');
+Route::post('/update-strategic-program-list/{id}', [App\Http\Controllers\backend\StrategicController::class, 'update_strategic_program_list'])->name('update_strategic_program_list');
+Route::get('/delete-strategic-program-list/{id}', [App\Http\Controllers\backend\StrategicController::class, 'delete_strategic_program_list'])->name('delete_strategic_program_list');
+
+// Collaborative R&D Programs/Projects implemented
+Route::get('/strategic-collaborative-list', [App\Http\Controllers\backend\ReportController::class, 'strategic_collaborative_list'])->name('strategic_collaborative_list');
+Route::get('/add-strategic-collaborative-list-index', [App\Http\Controllers\backend\ReportController::class, 'add_strategic_collaborative_list_index'])->name('add_strategic_collaborative_list_index');
+Route::post('/add-strategic-collaborative-list', [App\Http\Controllers\backend\StrategicController::class, 'add_strategic_collaborative_list'])->name('add_strategic_collaborative_list');
+Route::get('/edit-strategic-collaborative-list-index/{id}/{programID}', [App\Http\Controllers\backend\StrategicController::class, 'edit_strategic_collaborative_list_index'])->name('edit_strategic_collaborative_list_index');
+Route::post('/update-strategic-collaborative-list/{id}', [App\Http\Controllers\backend\StrategicController::class, 'update_strategic_collaborative_list'])->name('update_strategic_collaborative_list');
+Route::get('/delete-strategic-collaborative-list/{id}', [App\Http\Controllers\backend\StrategicController::class, 'delete_strategic_collaborative_list'])->name('delete_strategic_collaborative_list');
+
 // R & D Results Utilization
 Route::get('/rdru-index', [App\Http\Controllers\backend\ReportController::class, 'rdruIndex'])->name('rdruIndex');
 Route::get('/rdru-ttp', [App\Http\Controllers\backend\ReportController::class, 'rdruTtp'])->name('rdruTtp');
@@ -357,7 +373,7 @@ Route::post('/import-file', [App\Http\Controllers\backend\ImportController::clas
 
 // AJAX REQUEST
 Route::get('/get-researchers', [App\Http\Controllers\backend\ResultsUtilizationController::class, 'getResearchers'])->name('getResearchers');
-Route::get('/fetch-source', [App\Http\Controllers\backend\StrategicController::class, 'getSource'])->name('getSource');
+Route::get('/get-projects', [App\Http\Controllers\backend\StrategicController::class, 'getProjects'])->name('getProjects');
 
 // register email
 Route::post('/register', [App\Http\Controllers\backend\UserController::class, 'register']);

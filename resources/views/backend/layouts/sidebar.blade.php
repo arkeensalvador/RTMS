@@ -95,6 +95,9 @@
                 'strategic-tech-list',
                 'add-strategic-tech-list-index',
                 'edit-strategic-tech-list-index',
+                'strategic-collaborative-list',
+                'add-strategic-collaborative-list-index',
+                'edit-strategic-collaborative-list-index',
             ];
         @endphp
 

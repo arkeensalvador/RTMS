@@ -563,6 +563,42 @@ class ReportController extends Controller
         return view('backend.report.strategic.tech_list_add', compact('title', 'all', 'agency', 'programs', 'projects', 'sub_projects'));
     }
 
+    public function strategic_program_list()
+    {
+        $title = 'Strategic R&D Activities';
+        $all = DB::table('strategic_program_list')->get();
+        return view('backend.report.strategic.strategic_programs', compact('title', 'all'));
+    }
+
+    public function add_strategic_program_list_index()
+    {
+        $title = 'Strategic R&D Activities';
+        $all = DB::table('strategic_tech_list')->get();
+        $agency = DB::table('agency')->get();
+        $programs = DB::table('programs')->get();
+        $projects = DB::table('projects')->get();
+        $sub_projects = DB::table('sub_projects')->get();
+        return view('backend.report.strategic.strategic_program_add', compact('title', 'all', 'agency', 'programs', 'projects', 'sub_projects'));
+    }
+
+    public function strategic_collaborative_list()
+    {
+        $title = 'Strategic R&D Activities';
+        $all = DB::table('strategic_collaborative_list')->get();
+        return view('backend.report.strategic.strategic_collaborative', compact('title', 'all'));
+    }
+
+    public function add_strategic_collaborative_list_index()
+    {
+        $title = 'Strategic R&D Activities';
+        $all = DB::table('strategic_tech_list')->get();
+        $agency = DB::table('agency')->get();
+        $programs = DB::table('programs')->get();
+        $projects = DB::table('projects')->get();
+        $sub_projects = DB::table('sub_projects')->get();
+        return view('backend.report.strategic.strategic_collaborative_add', compact('title', 'all', 'agency', 'programs', 'projects', 'sub_projects'));
+    }
+
     public function strategicActivities()
     {
         $title = 'Strategic R&D Activities';

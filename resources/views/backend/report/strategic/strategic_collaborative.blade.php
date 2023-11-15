@@ -12,7 +12,8 @@
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="home">Home</a></li>
                             <li class="breadcrumb-item"><a href="strategic-index">Strategic R&D</a></li>
-                            <li class="breadcrumb-item active">Technologies Generated</li>
+                            <li class="breadcrumb-item active">R&D Programs / Projects Packaged, Approved and Implemented
+                            </li>
                         </ol>
                     </div><!-- /.col -->
                 </div><!-- /.row -->
@@ -25,9 +26,10 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-header">
-                                <h2 class="card-title">List of Technologies Generated from R&D</h2>
+                                <h2 class="card-title">List of Collaborative R&D Programs/Projects implemented
+                                </h2>
                                 <div class="card-tools">
-                                    <a href="{{ url('add-strategic-tech-list-index') }}"
+                                    <a href="{{ url('add-strategic-collaborative-list-index') }}"
                                         class="btn btn-success {{ Route::current()->getName() == 'add-programs-index' ? 'active' : '' }}"><span><i
                                                 class="fa-solid fa-plus"></i> Create</span></a>
                                     <!-- Here is a label for example -->
@@ -42,38 +44,48 @@
                                             <table id="example1" class="table table-bordered table-striped">
                                                 <thead>
                                                     <tr>
-                                                        <th>Type</th>
-                                                        <th>Title</th>
-                                                        <th>Description</th>
-                                                        <th>Source</th>
-                                                        <th>Agency</th>
-                                                        <th>Researchers</th>
-                                                        <th>Impact</th>
+                                                        <th>Program/Project Type</th>
+                                                        <th>Program Title</th>
+                                                        <th>Project Title</th>
+                                                        <th>Implementing Agency</th>
+                                                        <th>Collaborating Agency</th>
+                                                        <th>Duration</th>
+                                                        <th>Budget</th>
+                                                        <th>Source of Fund</th>
+                                                        <th>Role of Consortium</th>
                                                         <th>Action</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                     @foreach ($all as $key => $row)
                                                         <tr>
-                                                            <td>{{ $row->tech_type }}</td>
-                                                            <td>{{ $row->tech_title }}</td>
-                                                            <td>{{ $row->tech_desc }}</td>
-                                                            <td>{{ $row->tech_source }}</td>
-                                                            <td>{{ $row->tech_agency }}</td>
-                                                            <td>
-                                                                @php
-                                                                    $res = json_decode($row->tech_researchers);
-                                                                    $res = implode(', ', $res);
-                                                                @endphp
-                                                                {{ $res }}
-                                                            </td>
-                                                            <td>{{ $row->tech_impact }}</td>
+                                                            <td>{{ $row->str_collab_type }}</td>
+                                                            <td>{{ $row->str_collab_program_title }}</td>
+                                                            @php
+
+                                                                $imp = json_decode($row->str_collab_imp_agency);
+                                                                $imp = implode(', ', $imp);
+
+                                                                $collab = json_decode($row->str_collab_agency);
+                                                                $collab = implode(', ', $collab);
+
+                                                                $proj = json_decode($row->str_collab_project);
+                                                                $proj = implode(', ', $proj);
+
+                                                            @endphp
+                                                            <td> {{ $proj }}</td>
+                                                            <td> {{ $imp }}</td>
+                                                            <td> {{ $collab }}</td>
+                                                            <td>{{ $row->str_collab_date }}</td>
+                                                            <td>₱{{ number_format($row->str_collab_budget) }}</td>
+                                                            <td>{{ $row->str_collab_sof }}</td>
+                                                            <td>{{ $row->str_collab_roc }}</td>
                                                             <td class="action btns">
                                                                 <a class="btn btn-primary"
-                                                                    href="{{ url('edit-strategic-tech-list-index/' . Crypt::encryptString($row->id)) }}"><i
+                                                                    href="{{ url('edit-strategic-collaborative-list-index/' . Crypt::encryptString($row->id)) . '/' . $row->str_collab_program }}"><i
                                                                         class="fa-solid fa-pen-to-square"
                                                                         style="color: white;"></i></a>
-                                                                <a href="{{ url('delete-strategic-tech-list/' . Crypt::encryptString($row->id)) }}"
+                                                                <a href="{{ url('delete-strategic-collaborative-list/' . Crypt::encryptString($row->id)) }}"
                                                                     class="btn btn-danger" id="delete"><i
                                                                         class="fa-solid fa-trash"></i></a>
                                                             </td>

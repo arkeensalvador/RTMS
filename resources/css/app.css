@@ -5,10 +5,10 @@
 }
 
 body.login {
-    font-family: "Poppins", sans-serif;
+    font-family: 'Poppins', sans-serif;
     /* background-color: #e2ffd5;
     background: linear-gradient(to right, #e2e2e2, #c9ffb2); */
-    background-image: url("/public/backend/dist/img/CMI_BG.webp");
+    background-image: url('/public/backend/dist/img/CMI_BG.webp');
     background-size: cover;
     background-position: center center;
     background-repeat: no-repeat;
@@ -206,7 +206,7 @@ h3 {
 }
 
 body {
-    font-family: "Poppins", sans-serif;
+    font-family: 'Poppins', sans-serif;
 }
 /* .os-content {
     background-color: teal !important;
@@ -288,7 +288,7 @@ nav.main-header.navbar.navbar-expand {
 .layout-navbar-fixed
     .wrapper
     .sidebar-dark-primary
-    .brand-link:not([class*="navbar"]) {
+    .brand-link:not([class*='navbar']) {
     background-color: #3c3c3c;
 }
 
@@ -422,6 +422,12 @@ td.append {
     text-align: center;
 }
 
+.table thead th {
+    vertical-align: middle;
+    border-bottom: 2px solid #dee2e6;
+    font-size: .89rem;
+}
+
 .table-append td i {
     padding: 0.75rem;
     cursor: pointer;
@@ -466,7 +472,7 @@ td.donor {
     .select2-selection__choice {
     color: black;
 }
-.policy-formulated{
+.policy-formulated {
     font-size: 1.75rem;
 }
 
@@ -509,7 +515,7 @@ td.donor {
     width: fit-content;
     max-width: max-content;
 }
-.bootstrap-tagsinput .tag [data-role="remove"] {
+.bootstrap-tagsinput .tag [data-role='remove'] {
     color: #999;
     cursor: pointer;
     font-weight: bold;
@@ -557,7 +563,7 @@ td.donor {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    font-family: "Poppins", sans-serif;
+    font-family: 'Poppins', sans-serif;
 
     background-color: #43a615;
     height: 100vh;
@@ -579,7 +585,7 @@ body.reset .col-9.card-reset {
 }
 
 body {
-    font-family: "Poppins", sans-serif;
+    font-family: 'Poppins', sans-serif;
 }
 
 .h_line {

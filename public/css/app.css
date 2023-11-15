@@ -19,6 +19,11 @@ body.login {
     height: 100vh;
 }
 
+.table thead th {
+    vertical-align: middle;
+    border-bottom: 2px solid #dee2e6;
+    font-size: 0.85rem;
+}
 /* h1,
 h2,
 h3 {
