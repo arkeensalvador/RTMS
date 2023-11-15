@@ -73,8 +73,14 @@
                                                                 $proj = implode(', ', $proj);
 
                                                             @endphp
-                                                            <td> {{ $proj }}</td>
-                                                            <td> {{ $imp }}</td>
+                                                            <td>
+                                                                @if (empty($proj))
+                                                                    {{ 'N/A' }}
+                                                                @else
+                                                                    {{ $proj }}
+                                                                @endif
+                                                            </td>
+                                                            <td> {{ $imp }} </td>
                                                             <td> {{ $collab }}</td>
                                                             <td>{{ $row->str_collab_date }}</td>
                                                             <td>₱{{ number_format($row->str_collab_budget) }}</td>
