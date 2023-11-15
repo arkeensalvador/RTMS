@@ -68,18 +68,14 @@
 
                                                                 $collab = json_decode($row->str_collab_agency);
                                                                 $collab = implode(', ', $collab);
-
-                                                                $proj = json_decode($row->str_collab_project);
-                                                                $proj = implode(', ', $proj);
-
+                                                                if (empty($row->str_collab_project)) {
+                                                                    $proj = 'N/A';
+                                                                } else {
+                                                                    $proj = json_decode($row->str_collab_project);
+                                                                    $proj = implode(', ', $proj);
+                                                                }
                                                             @endphp
-                                                            <td>
-                                                                @if (empty($proj))
-                                                                    {{ 'N/A' }}
-                                                                @else
-                                                                    {{ $proj }}
-                                                                @endif
-                                                            </td>
+                                                            <td> {{ $proj }}</td>
                                                             <td> {{ $imp }} </td>
                                                             <td> {{ $collab }}</td>
                                                             <td>{{ $row->str_collab_date }}</td>
