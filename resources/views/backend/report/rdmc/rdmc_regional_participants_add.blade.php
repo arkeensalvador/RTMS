@@ -17,7 +17,8 @@
                                 <div class="col-md-4 form-group">
                                     <label for="category" class=" font-weight-bold">No. of participants<span
                                             class="text-danger">*</span></label>
-                                    <input type="number" class="form-control" name="rp_no" placeholder="Enter no. of participants" required>
+                                    <input type="number" class="form-control" name="rp_no"
+                                        placeholder="Enter no. of participants" required>
                                     <div class="invalid-feedback">Missing no. of participants</div>
                                 </div>
 
@@ -37,8 +38,7 @@
                                 <div class="col-md-12 form-group">
                                     <label for="awards_recipients" class=" font-weight-bold">Agency<span
                                             class="text-danger">*</span></label>
-                                    <select class="form-control agency" id="awards_recipients"
-                                        name="rp_agency" required>
+                                    <select class="form-control agency" id="awards_recipients" name="rp_agency" required>
                                         <option value=""></option>
                                         @if (auth()->user()->role == 'Admin')
                                             @foreach ($agency as $key)
@@ -59,11 +59,11 @@
                                 <div class="col-md-12 form-group">
                                     <label for="program_title" class=" font-weight-bold">Remarks<span
                                             class="text-danger">*</span></label></label>
-                                    <textarea class="form-control" id="program_title" name="rp_remarks" style="height: 100px"
-                                        placeholder="Enter remarks" required></textarea>
+                                    <textarea class="form-control" id="program_title" name="rp_remarks" style="height: 100px" placeholder="Enter remarks"
+                                        required></textarea>
                                     <div class="invalid-feedback">Missing remarks</div>
                                 </div>
-                                
+
                                 <div class="col-md-4 form-group float-right">
                                     <a href="{{ url('rdmc-regional') }}" class="btn btn-default">Back</a>
                                     <button type="submit" id="submit" class="btn btn-primary btn-m ">Submit</button>
@@ -194,13 +194,13 @@
                         })
                     },
                     error: function(data) {
-                        // Swal.fire({
-                        //     icon: 'warning',
-                        //     title: data.responseJSON.message,
-                        //     // title: 'There is something wrong...',
-                        //     timerProgressBar: false,
-                        //     showConfirmButton: true,
-                        // });
+                        Swal.fire({
+                            icon: 'warning',
+                            title: data.responseJSON.message,
+                            // title: 'There is something wrong...',
+                            timerProgressBar: false,
+                            showConfirmButton: true,
+                        });
                     }
                 });
             });
