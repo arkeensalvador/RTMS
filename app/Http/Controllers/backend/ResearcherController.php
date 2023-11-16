@@ -42,9 +42,6 @@ class ResearcherController extends Controller
 
     public function AddResearcher(Request $request)
     {
-        // $file = $request->file('image');
-        // $name = $request->name . '_IMAGE' . '.' . $file->getClientOriginalExtension();
-
         $data = [];
         $data['name'] = $request->name;
         $data['gender'] = $request->gender;
@@ -52,31 +49,19 @@ class ResearcherController extends Controller
         $data['email'] = $request->email;
         $data['agency'] = $request->agency;
 
-        if (request()->hasFile('image')) {
-            // $path = $file->storeAs('public' . '/' . 'profile-pic', $name);
-            // $data['image'] = 'profile-pic/' . $name;
-            $researcher = DB::table('researchers')->insert($data);
-            if ($researcher) {
-                $notification = [
-                    'message' => 'Researcher Successfully Added!',
-                    'alert-type' => 'success',
-                ];
+        $researcher = DB::table('researchers')->insert($data);
+        if ($researcher) {
+            $notification = [
+                'message' => 'Researcher Successfully Added!',
+                'alert-type' => 'success',
+            ];
 
-                return redirect()
-                    ->route('researcherIndex')
-                    ->with($notification);
-            } else {
-                $notification = [
-                    'message' => 'Something is wrong, please try again!',
-                    'alert-type' => 'error',
-                ];
-                return redirect()
-                    ->route('researcherIndex')
-                    ->with($notification);
-            }
+            return redirect()
+                ->route('researcherIndex')
+                ->with($notification);
         } else {
             $notification = [
-                'message' => 'Image is required!',
+                'message' => 'Something is wrong, please try again!',
                 'alert-type' => 'error',
             ];
             return redirect()
