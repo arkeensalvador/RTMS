@@ -94,14 +94,14 @@
                                 enctype="multipart/form-data">
                                 @csrf
 
-                                <div class="row">
+                                {{-- <div class="row">
                                     <div class="col-sm-12">
                                         <div class="form-group">
                                             <label>Upload Photo</label>
                                             <input type="file" name="image" class="form-control">
                                         </div>
                                     </div>
-                                </div>
+                                </div> --}}
 
                                 <div class="row">
                                     <div class="col-sm-12">
