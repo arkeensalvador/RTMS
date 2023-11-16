@@ -47,7 +47,7 @@ class RegionalController extends Controller
         $researchers_filter = DB::table('researchers')
             ->where('agency', auth()->user()->agencyID)
             ->get();
-        return view('backend.report.rdmc.rdmc_regional_participants_edit', compact('title', 'all', 'agency', 'researchers', 'user_agency', 'researchers_filter'));
+        return view('backend.report.rdmc.rdmc_regional_edit', compact('title', 'all', 'agency', 'researchers', 'user_agency', 'researchers_filter'));
     }
 
     public function regional_update(Request $request, $id)

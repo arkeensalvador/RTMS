@@ -98,6 +98,9 @@
                 'strategic-collaborative-list',
                 'add-strategic-collaborative-list-index',
                 'edit-strategic-collaborative-list-index',
+                'rdmc-regional-add',
+                'edit-regional',
+                'rdmc-regional',
             ];
         @endphp
 
