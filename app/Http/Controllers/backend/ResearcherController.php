@@ -42,8 +42,8 @@ class ResearcherController extends Controller
 
     public function AddResearcher(Request $request)
     {
-        $file = $request->file('image');
-        $name = $request->name . '_IMAGE' . '.' . $file->getClientOriginalExtension();
+        // $file = $request->file('image');
+        // $name = $request->name . '_IMAGE' . '.' . $file->getClientOriginalExtension();
 
         $data = [];
         $data['name'] = $request->name;
@@ -53,8 +53,8 @@ class ResearcherController extends Controller
         $data['agency'] = $request->agency;
 
         if (request()->hasFile('image')) {
-            $path = $file->storeAs('public' . '/' . 'profile-pic', $name);
-            $data['image'] = 'profile-pic/' . $name;
+            // $path = $file->storeAs('public' . '/' . 'profile-pic', $name);
+            // $data['image'] = 'profile-pic/' . $name;
             $researcher = DB::table('researchers')->insert($data);
             if ($researcher) {
                 $notification = [
