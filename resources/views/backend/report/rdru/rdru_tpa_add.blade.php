@@ -144,7 +144,7 @@
 
 
                                 <div class="col-md-12 form-group">
-                                    <label for="tpa_remarks" class="font-weight-bold">Information, Education and
+                                    <label for="" class="font-weight-bold">Information, Education and
                                         Communication (IEC) Approaches<span class="text-danger">*</span></label>
                                     <div class="ttm row">
                                         <div class="col-sm-3">
@@ -208,8 +208,7 @@
                                                         type="checkbox" value="Publications in Newspaper"
                                                         name="tpa_approaches[]" id="customCheckbox8">
                                                     <label for="customCheckbox8" class="custom-control-label">Publications
-                                                        in
-                                                        Newspaper</label>
+                                                        in Newspaper</label>
                                                 </div>
                                                 <div class="custom-control custom-checkbox">
                                                     <input class="custom-control-input custom-control-input-success"
@@ -275,8 +274,7 @@
                                                         type="checkbox" value="School on the Air" name="tpa_approaches[]"
                                                         id="customCheckbox16">
                                                     <label for="customCheckbox16" class="custom-control-label">School on
-                                                        the
-                                                        Air</label>
+                                                        the Air</label>
                                                 </div>
                                                 <div class="custom-control custom-checkbox">
                                                     <input class="custom-control-input custom-control-input-success"
@@ -336,6 +334,10 @@
                                             </div>
                                         </div>
                                     </div>
+
+                                    @error('tpa_approaches')
+                                        <p style="color: red;">{{ $message }}</p>
+                                    @enderror
                                 </div>
 
                                 <div class="col-md-12 form-group buttons">
@@ -393,7 +395,7 @@
     </script>
     <script>
         $(document).ready(function() {
-            $('#ttm_title, #ttm_agency, #ttm_status, #ttm_type, #tpa_date , #ttp_end_date')
+            $('#ttm_title, #ttm_agency, #ttm_status, #ttm_type, #tpa_date , #ttp_end_date, #tpa_approaches')
                 .on('input', function() {
                     const inputField = $(this);
                     if (inputField[0].checkValidity()) {
@@ -468,13 +470,14 @@
                         })
                     },
                     error: function(data) {
-                        // Swal.fire({
-                        //     // icon: 'warning',
-                        //     // title: data.responseJSON.message,
-                        //     // // title: 'There is something wrong...',
-                        //     // timerProgressBar: false,
-                        //     // showConfirmButton: true,
-                        // });
+                        Swal.fire({
+                            icon: 'warning',
+                            toast: true,
+                            title: data.responseJSON.message,
+                            // title: 'There is something wrong...',
+                            timerProgressBar: false,
+                            showConfirmButton: true,
+                        });
                     }
                 });
             });

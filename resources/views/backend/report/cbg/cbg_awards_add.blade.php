@@ -133,20 +133,29 @@
                                 <div class="col-md-6 form-group">
                                     <label for="awards_recipients" class=" font-weight-bold">Recipient(s)<span
                                             class="text-danger">*</span></label>
-                                    <select class="form-control js-example-basic-single" id="awards_recipients"
-                                        name="awards_recipients[]" multiple="multiple" required>
-                                        @foreach ($agency as $row)
-                                            <option value="{{ $row->abbrev }}">{{ $row->agency_name }}
-                                            </option>
-                                        @endforeach
-                                        @foreach ($programs as $row)
-                                            <option value="{{ $row->programID }}">{{ $row->program_title }}
-                                            </option>
-                                        @endforeach
-                                        @foreach ($researchers as $row)
-                                            <option value="{{ $row->name }}">{{ $row->name }}
-                                            </option>
-                                        @endforeach
+                                    <select class="form-control recipient id="awards_recipients" name="awards_recipients[]"
+                                        multiple="multiple" required>
+                                        <optgroup label="Agencies">
+                                            @foreach ($agency as $row)
+                                                <option value="{{ $row->abbrev }}">{{ $row->agency_name }}
+                                                </option>
+                                            @endforeach
+                                        </optgroup>
+
+                                        <optgroup label="Programs">
+                                            @foreach ($programs as $row)
+                                                <option value="{{ $row->programID }}">{{ $row->program_title }}
+                                                </option>
+                                            @endforeach
+                                        </optgroup>
+
+                                        <optgroup label="Researchers">
+                                            @foreach ($researchers as $row)
+                                                <option value="{{ $row->name }}">{{ $row->name }}
+                                                </option>
+                                            @endforeach
+                                        </optgroup>
+
                                     </select>
                                     <div class="invalid-feedback">Missing recipients</div>
                                 </div>

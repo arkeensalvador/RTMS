@@ -63,7 +63,8 @@
                                         <select class="form-control" name="role" id="" required>
                                             <option value="">--Select Role--</option>
                                             <option value="CMI" {{ $edit->role == 'CMI' ? 'selected' : '' }}>CMI</option>
-                                            <option value="Admin" {{ $edit->role == 'Admin' ? 'selected' : '' }}>Admin</option>
+                                            <option value="Admin" {{ $edit->role == 'Admin' ? 'selected' : '' }}>Admin
+                                            </option>
                                         </select>
                                     </div>
                                 </div>
@@ -71,8 +72,8 @@
                                 <div class="form-group row">
                                     <label for="password" class="col-sm-2 col-form-label">Password</label>
                                     <div class="col-sm-10">
-                                        <input type="password" class="form-control" value="{{ $edit->password }}" name="password" placeholder="Password"
-                                            required>
+                                        <input type="password" class="form-control" value="" name="password"
+                                            placeholder="Password">
                                     </div>
                                 </div>
 

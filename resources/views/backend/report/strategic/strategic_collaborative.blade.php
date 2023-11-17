@@ -76,7 +76,7 @@
                                                             <td> {{ $imp }} </td>
                                                             <td> {{ $collab }}</td>
                                                             <td>{{ $row->str_collab_date }}</td>
-                                                            <td>₱{{ number_format($row->str_collab_budget) }}</td>
+                                                            <td>₱{{ $row->str_collab_budget }}</td>
                                                             <td>{{ $row->str_collab_sof }}</td>
                                                             <td>{{ $row->str_collab_roc }}</td>
                                                             <td class="action btns">

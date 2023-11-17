@@ -545,6 +545,7 @@
             altInput: true,
             altFormat: "F j, Y",
             allowInput: true,
+            // minDate: "today",
         });
 
         flatpickr('.date-range', {
@@ -560,6 +561,8 @@
             dateFormat: "Y",
             minDate: "1900",
             maxDate: "2100",
+
+            minDate: new Date().getFullYear() // Set a minimum date if need
         });
     });
 </script>
@@ -722,8 +725,13 @@
             $('.js-example-basic-single').select2({
                 tags: true,
                 tokenSeparators: [',', ' '],
-                placeholder: 'Enter recipients'
+                placeholder: 'Enter recipients',
 
+            });
+
+            $('.recipient').select2({
+                placeholder: "Select recipients",
+                allowClear: false
             });
 
             $('.regional-researchers').select2({
@@ -733,10 +741,12 @@
 
             });
         });
+
         $(document).ready(function() {
             $('.implementing_agency').select2({
-                tags: true,
-                tokenSeparators: [',', ' '],
+                // tags: true,
+                // tokenSeparators: [',', ' '],
+                allowClear: false,
                 placeholder: "Select implementing agency"
             });
 

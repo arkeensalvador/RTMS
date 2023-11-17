@@ -9,78 +9,104 @@ use DB;
 
 class ContributionsController extends Controller
 {
-
     public function con_add(Request $request)
     {
-        $request->validate([
-            'con_name' => 'required',
-            'con_amount' => 'required|numeric',
-        ]);
+        $request->validate(
+            [
+                'con_name' => 'required',
+                'con_amount' => 'required|numeric',
+            ],
+            [
+                'con_amount.required' => 'Input numbers only',
+            ],
+        );
 
-        $data = array();
-        $data["con_name"] = $request->con_name;
-        $data["con_amount"] = $request->con_amount;
+        $data = [];
+        $data['con_name'] = $request->con_name;
+        $data['con_amount'] = $request->con_amount;
 
         $insert = DB::table('cbg_contributions')->insert($data);
 
         if ($insert) {
-
-            $notification = array(
+            $notification = [
                 'message' => 'Contribution Successfully Added!',
-                'alert-type' => 'success'
-            );
+                'alert-type' => 'success',
+            ];
 
-            return redirect()->route('cbgContributions')->with($notification);
+            return redirect()
+                ->route('cbgContributions')
+                ->with($notification);
         } else {
-            $notification = array(
+            $notification = [
                 'message' => 'Something is wrong, please try again!',
-                'alert-type' => 'error'
-            );
-            return redirect()->route('cbgContributions')->with($notification);
+                'alert-type' => 'error',
+            ];
+            return redirect()
+                ->route('cbgContributions')
+                ->with($notification);
         }
     }
 
     public function con_update(Request $request, $id)
     {
-        $data = array();
-        $data["con_name"] = $request->con_name;
-        $data["con_amount"] = $request->con_amount;
+        $request->validate(
+            [
+                'con_name' => 'required',
+                'con_amount' => 'required|numeric',
+            ],
+            [
+                'con_amount.required' => 'Input numbers only',
+            ],
+        );
+        $data = [];
+        $data['con_name'] = $request->con_name;
+        $data['con_amount'] = $request->con_amount;
 
-        $insert = DB::table('cbg_contributions')->where('id', $id)->update($data);
+        $insert = DB::table('cbg_contributions')
+            ->where('id', $id)
+            ->update($data);
 
         if ($insert) {
-
-            $notification = array(
+            $notification = [
                 'message' => 'Contribution Successfully Updated!',
-                'alert-type' => 'success'
-            );
+                'alert-type' => 'success',
+            ];
 
-            return redirect()->route('cbgContributions')->with($notification);
+            return redirect()
+                ->route('cbgContributions')
+                ->with($notification);
         } else {
-            $notification = array(
+            $notification = [
                 'message' => 'Something is wrong, please try again!',
-                'alert-type' => 'error'
-            );
-            return redirect()->route('cbgContributions')->with($notification);
+                'alert-type' => 'error',
+            ];
+            return redirect()
+                ->route('cbgContributions')
+                ->with($notification);
         }
     }
 
-
     public function con_delete($id)
     {
-        $delete = DB::table('cbg_contributions')->where('id', $id)->delete();
+        $delete = DB::table('cbg_contributions')
+            ->where('id', $id)
+            ->delete();
         if ($delete) {
-            $notification = array(
+            $notification = [
                 'message' => 'Contribution Successfully Deleted!',
-                'alert-type' => 'success'
-            );
-            return redirect()->back()->with($notification);
+                'alert-type' => 'success',
+            ];
+            return redirect()
+                ->back()
+                ->with($notification);
         } else {
-            $notification = array(
+            $notification = [
                 'message' => 'Something is wrong, please try again!',
-                'alert-type' => 'error'
-            );
-            return redirect()->back()->with($notification);
+                'alert-type' => 'error',
+            ];
+            return redirect()
+                ->back()
+                ->with($notification);
         }
     }
 }

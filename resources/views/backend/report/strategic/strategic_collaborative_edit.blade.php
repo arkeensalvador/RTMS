@@ -320,6 +320,7 @@
                                     value: projects.project_title,
                                     text: projects.project_title
                                 }));
+
                                 $('#projectSelect').append($('<option>', {
                                     value: projects.sub_project_title,
                                     text: projects.sub_project_title
@@ -332,6 +333,7 @@
                         }
                     });
                 } else {
+
                     $('#projectSelect').empty();
                     $('#projectSelect').append(
                         '<option value="">Select projects</option>');

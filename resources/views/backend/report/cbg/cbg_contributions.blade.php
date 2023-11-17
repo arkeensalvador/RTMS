@@ -1,7 +1,7 @@
 @extends('backend.layouts.app')
 @section('content')
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    
+
 
     <div class="content-wrapper">
         <div class="content-header">
@@ -58,8 +58,8 @@
                                                             <td>{{ $row->con_name }}</td>
                                                             <td>{{ $row->con_amount }}</td>
                                                             <td class="action btns">
-                                                                <a class="btn btn-primary editContributionModal" data-toggle="modal"
-                                                                    data-id="'.$row->id.'"
+                                                                <a class="btn btn-primary editContributionModal"
+                                                                    data-toggle="modal" data-id="'.$row->id.'"
                                                                     data-target="#editContributionModal"><i
                                                                         class="fa-solid fa-pen-to-square"
                                                                         style="color: white;"></i></a>
@@ -95,7 +95,6 @@
 
             <div class="modal-dialog">
                 <div class="modal-content">
-
                     <div class="modal-body">
                         <form id="techForm" method="POST" action="{{ url('add-contributions') }}"
                             class="row g-3 needs-validation" novalidate>
@@ -109,8 +108,8 @@
                                 <label for="con_name" class=" font-weight-bold">Name<span
                                         class="text-danger">*</span></label>
 
-                                <input type="text" name="con_name" class="form-control"
-                                    placeholder="Enter name" required>
+                                <input type="text" name="con_name" class="form-control" placeholder="Enter name"
+                                    required>
                                 <div class="invalid-feedback">Missing name</div>
                             </div>
 
@@ -118,8 +117,8 @@
                                 <label for="con_amount" class=" font-weight-bold">Amount<span
                                         class="text-danger">*</span></label>
 
-                                <input type="text" name="con_amount" class="form-control"
-                                    placeholder="Enter amount" required>
+                                <input type="number" name="con_amount" class="form-control" placeholder="Enter amount"
+                                    required>
                                 <div class="invalid-feedback">Missing amount</div>
                             </div>
 
@@ -156,7 +155,7 @@
                                 <h2 class="font-weight-bold">Contributions</h2>
                                 <h5 class="mt-0"> Kindly fill-out the fields needed.</h5>
                             </div>
-                            
+
                             <div class="col-md-12 form-group">
                                 <label for="con_name" class=" font-weight-bold">Name<span
                                         class="text-danger">*</span></label>
@@ -170,7 +169,7 @@
                                 <label for="con_amount" class=" font-weight-bold">Amount<span
                                         class="text-danger">*</span></label>
 
-                                <input type="text" name="con_amount" id="e_con_amount" class="form-control"
+                                <input type="number" name="con_amount" id="e_con_amount" class="form-control"
                                     placeholder="Enter amount" required>
                                 <div class="invalid-feedback">Missing amount</div>
                             </div>
@@ -195,10 +194,10 @@
 
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
         <script>
-            $(document).ready(function (){
+            $(document).ready(function() {
                 var table = $('#datatable').DataTable();
 
-                table.on('click', '.editContributionModal', function () {
+                table.on('click', '.editContributionModal', function() {
                     $tr = $(this).closest('tr');
                     if ($($tr).hasClass('child')) {
                         $tr = $tr.prev('.parent');
@@ -208,11 +207,11 @@
 
                     $('#e_con_name').val(data[1]);
                     $('#e_con_amount').val(data[2]);
-                    
-                    $('#editForm').attr('action', '/update-contributions/'+data[0]);
+
+                    $('#editForm').attr('action', '/update-contributions/' + data[0]);
                     // $('#editContributionModal').modal('show');
                 })
-                
+
             })
         </script>
         <script>

@@ -158,8 +158,8 @@
                                     $others = json_decode($all->tpa_approaches);
                                 @endphp
                                 <div class="col-md-12 form-group">
-                                    <label for="tpa_remarks" class="font-weight-bold">IEC Approaches<span
-                                            class="text-danger">*</span></label>
+                                    <label for="tpa_iec" class="font-weight-bold">Information, Education and
+                                        Communication (IEC) Approaches<span class="text-danger">*</span></label>
                                     <div class="ttm row">
                                         <div class="col-sm-3">
                                             <div class="form-group">
@@ -434,7 +434,7 @@
     </script>
     <script>
         $(document).ready(function() {
-            $('#ttm_title, #ttm_agency, #ttm_status, #ttm_type, #ttp_end_date, #customCheckbox')
+            $('#ttm_title, #ttm_agency, #ttm_status, #ttm_type, #ttp_end_date, #customCheckbox1,#customCheckbox2,#customCheckbox3,#customCheckbox4,#customCheckbox5,#customCheckbox6,#customCheckbox7,#customCheckbox8,#customCheckbox9,#customCheckbox10,#customCheckbox11,#customCheckbox12,#customCheckbox13,#customCheckbox14,#customCheckbox15,#customCheckbox16,#customCheckbox17,#customCheckbox18,#customCheckbox19,#customCheckbox20,#customCheckbox21,#customCheckbox22,#customCheckbox23,#customCheckbox24,#customCheckbox25,#customCheckbox26,#customCheckbox27,#customCheckbox28,#customCheckbox29, tpa_iec')
                 .on('input', function() {
                     const inputField = $(this);
                     if (inputField[0].checkValidity()) {
@@ -505,13 +505,16 @@
                         })
                     },
                     error: function(data) {
-                        // Swal.fire({
-                        //     icon: 'warning',
-                        //     title: data.responseJSON.message,
-                        //     // title: 'There is something wrong...',
-                        //     timerProgressBar: false,
-                        //     showConfirmButton: true,
-                        // });
+                        Swal.fire({
+                            icon: 'warning',
+                            // toast: true,
+                            // position: 'top-end',
+                            title: data.responseJSON.message,
+                            // title: 'There is something wrong...',
+                            timerProgressBar: false,
+                            showConfirmButton: true,
+                            // timer: 900
+                        });
                     }
                 });
             });

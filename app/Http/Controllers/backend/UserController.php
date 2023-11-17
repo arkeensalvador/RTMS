@@ -111,33 +111,64 @@ class UserController extends Controller
     {
         date_default_timezone_set('Asia/Hong_Kong');
 
-        $data = [];
-        $data['name'] = $request->name;
-        $data['email'] = $request->email;
-        $data['role'] = $request->role;
-        $data['agencyID'] = $request->agencyID;
-        // $data['password'] = Hash::make($request->password);
-        $data['updated_at'] = now();
+        if (empty($request->password)) {
+            $data = [];
+            $data['name'] = $request->name;
+            $data['email'] = $request->email;
+            $data['role'] = $request->role;
+            $data['agencyID'] = $request->agencyID;
+            // $data['password'] = Hash::make($request->password);
+            $data['updated_at'] = now();
 
-        $update = DB::table('users')
-            ->where('id', $id)
-            ->update($data);
-        if ($update) {
-            $notification = [
-                'message' => 'User Successfully Updated!',
-                'alert-type' => 'success',
-            ];
-            return redirect()
-                ->route('AllUser')
-                ->with($notification);
+            $update = DB::table('users')
+                ->where('id', $id)
+                ->update($data);
+            if ($update) {
+                $notification = [
+                    'message' => 'User Successfully Updated!',
+                    'alert-type' => 'success',
+                ];
+                return redirect()
+                    ->route('AllUser')
+                    ->with($notification);
+            } else {
+                $notification = [
+                    'message' => 'Something is wrong, please try again!',
+                    'alert-type' => 'error',
+                ];
+                return redirect()
+                    ->route('AllUser')
+                    ->with($notification);
+            }
         } else {
-            $notification = [
-                'message' => 'Something is wrong, please try again!',
-                'alert-type' => 'error',
-            ];
-            return redirect()
-                ->route('AllUser')
-                ->with($notification);
+            $data = [];
+            $data['name'] = $request->name;
+            $data['email'] = $request->email;
+            $data['role'] = $request->role;
+            $data['agencyID'] = $request->agencyID;
+            $data['password'] = Hash::make($request->password);
+            $data['updated_at'] = now();
+
+            $update = DB::table('users')
+                ->where('id', $id)
+                ->update($data);
+            if ($update) {
+                $notification = [
+                    'message' => 'User Successfully Updated!',
+                    'alert-type' => 'success',
+                ];
+                return redirect()
+                    ->route('AllUser')
+                    ->with($notification);
+            } else {
+                $notification = [
+                    'message' => 'Something is wrong, please try again!',
+                    'alert-type' => 'error',
+                ];
+                return redirect()
+                    ->route('AllUser')
+                    ->with($notification);
+            }
         }
     }
 

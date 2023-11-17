@@ -181,6 +181,15 @@ class ResultsUtilizationController extends Controller
     {
         date_default_timezone_set('Asia/Hong_Kong');
 
+        $request->validate(
+            [
+                'tpa_approaches' => 'required|array|min:1',
+            ],
+            [
+                'tpa_approaches.required' => 'Select 1 Information, Education and Communication (IEC) Approaches',
+            ],
+        );
+
         $data = [];
         $data['tpa_title'] = $request->tpa_title;
         $data['tpa_date'] = $request->tpa_date;
@@ -214,6 +223,12 @@ class ResultsUtilizationController extends Controller
     public function UpdateTpa(Request $request, $id)
     {
         date_default_timezone_set('Asia/Hong_Kong');
+        $request->validate(
+            [
+                'tpa_approaches' => 'required|array|min:1',
+            ],
+            ['tpa_approaches.required' => 'Select 1 Information, Education and Communication (IEC) Approaches'],
+        );
 
         $data = [];
         $data['tpa_title'] = $request->tpa_title;

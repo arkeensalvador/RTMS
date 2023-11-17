@@ -18,7 +18,7 @@ return new class extends Migration {
             $table->string('tech_source');
             $table->string('tech_agency');
             $table->string('tech_researchers');
-            $table->string('tech_impact');
+            $table->longText('tech_impact');
             $table->timestamps();
         });
     }
