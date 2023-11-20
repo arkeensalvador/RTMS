@@ -85,15 +85,15 @@
                                                 </td>
                                                 <td>{{ $row->project_agency }}</td>
                                                 @php
-
-                                                    $imp = json_decode($row->project_implementing_agency);
-                                                    if (!empty($imp)) {
-                                                        $agencies = implode(' / ', $imp);
+                                                    if (!empty($row->project_implementing_agency)) {
+                                                        $imp = json_decode($row->project_implementing_agency);
+                                                        $imp = implode(' / ', $imp);
                                                     }
+
                                                     $rc = $row->project_research_center;
                                                     $rc = str_replace(['[', '"', ']'], '', $rc);
                                                 @endphp
-                                                <td>{{ $agencies }} / {{ $rc }}</td>
+                                                <td>{{ $imp }} / {{ $rc }}</td>
                                                 <td>{{ $row->project_description }}</td>
                                                 <td>
                                                     @if ($row->project_status == 'New')
