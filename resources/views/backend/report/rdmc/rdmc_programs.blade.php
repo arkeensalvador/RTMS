@@ -92,7 +92,7 @@
                                                     <td>{{ $row->funding_agency }}</td>
                                                     @php
                                                         $imp = json_decode($row->implementing_agency);
-                                                        if (empty($imp)) {
+                                                        if (!empty($imp)) {
                                                             $agencies = implode(' / ', $imp);
                                                         }
                                                         $rc = $row->research_center;

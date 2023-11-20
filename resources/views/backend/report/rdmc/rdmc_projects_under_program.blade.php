@@ -87,7 +87,7 @@
                                                 @php
 
                                                     $imp = json_decode($row->project_implementing_agency);
-                                                    if (empty($imp)) {
+                                                    if (!empty($imp)) {
                                                         $agencies = implode(' / ', $imp);
                                                     }
                                                     $rc = $row->project_research_center;
