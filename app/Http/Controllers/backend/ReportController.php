@@ -66,6 +66,7 @@ class ReportController extends Controller
     {
         $title = 'Programs | RDMC';
         $agency = DB::table('agency')->get();
+
         $all = DB::table('programs')
             ->select('*')
             ->get();
@@ -439,7 +440,6 @@ class ReportController extends Controller
         $request->validate(
             [
                 'best_paper' => 'required',
-              
             ],
             [
                 'best_paper.required' => 'Title is required!',

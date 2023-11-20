@@ -390,8 +390,10 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h1 class="modal-title fs-5" id="staticBackdropLabel">Import to Database
-                        <span title="Click to download format">
-                            <a href="{{ url('download-template-programs') }}" download=""><i
+                        <span title="Click to see templates">
+                            {{-- <a href="{{ url('download-template-programs') }}" download><i
+                                    class="fa-solid fa-file-circle-question"></i></a> --}}
+                            <a href="{{ url('all-templates') }}" target="_blank"><i
                                     class="fa-solid fa-file-circle-question"></i></a>
                         </span>
                     </h1>

@@ -377,3 +377,9 @@ Route::get('/get-projects', [App\Http\Controllers\backend\StrategicController::c
 
 // register email
 Route::post('/register', [App\Http\Controllers\backend\UserController::class, 'register']);
+
+// templates
+Route::get('/all-templates', [App\Http\Controllers\backend\TemplatesController::class, 'templates_index'])->name('templates_index');
+Route::post('store-multi-file-ajax', [App\Http\Controllers\backend\TemplatesController::class, 'storeMultiFile']);
+Route::get('/delete-file/{id}', [App\Http\Controllers\backend\TemplatesController::class, 'DeleteFile'])->name('DeleteFile');
+Route::get('download/{id}', [App\Http\Controllers\backend\TemplatesController::class, 'download']);

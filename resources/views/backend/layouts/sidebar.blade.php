@@ -192,6 +192,16 @@
                         </a>
                     </li>
 
+                    <li class="nav-item">
+                        <a href="{{ URL::to('/all-templates') }}"
+                            class="nav-link {{ Request::is('all-templates') ? 'active' : '' }}">
+                            <i class="nav-icon fas fa-scroll"></i>
+                            <p>
+                                Templates
+                            </p>
+                        </a>
+                    </li>
+
                     <li class="nav-item has-treeview">
                         <a href="{{ URL::to('/all-user') }}"
                             class="nav-link {{ Request::is('all-user', 'add-user-index', 'edit-user/*') ? 'active' : '' }}">
