@@ -92,8 +92,9 @@
                                                     <td>{{ $row->funding_agency }}</td>
                                                     @php
                                                         $imp = json_decode($row->implementing_agency);
-                                                        $agencies = implode(' / ', $imp);
-
+                                                        if (empty($imp)) {
+                                                            $agencies = implode(' / ', $imp);
+                                                        }
                                                         $rc = $row->research_center;
                                                         $rc = str_replace(['[', '"', ']'], '', $rc);
                                                     @endphp
