@@ -42,6 +42,21 @@ class PolicyController extends Controller
 
     public function prc_add(Request $request)
     {
+        $request->validate(
+            [
+                'prc_title' => 'required',
+                'prc_agency' => 'required',
+                'prc_author' => 'required',
+                'prc_issues' => 'required',
+            ],
+            [
+                'prc_title.required' => 'Title is required!',
+                'prc_agency.required' => 'Agency is required!',
+                'prc_author.required' => 'Author is required!',
+                'prc_issues.required' => 'Issues field is required!',
+            ],
+        );
+
         $data = [];
         $data['prc_title'] = $request->prc_title;
         $data['prc_agency'] = $request->prc_agency;
@@ -77,6 +92,21 @@ class PolicyController extends Controller
     }
     public function prc_update(Request $request, $id)
     {
+        $request->validate(
+            [
+                'prc_title' => 'required',
+                'prc_agency' => 'required',
+                'prc_author' => 'required',
+                'prc_issues' => 'required',
+            ],
+            [
+                'prc_title.required' => 'Title is required!',
+                'prc_agency.required' => 'Agency is required!',
+                'prc_author.required' => 'Author is required!',
+                'prc_issues.required' => 'Issues field is required!',
+            ],
+        );
+
         $data = [];
         $data['prc_title'] = $request->prc_title;
         $data['prc_agency'] = $request->prc_agency;
@@ -122,6 +152,22 @@ class PolicyController extends Controller
     // FORMULATED POLICY FUNCTIONS
     public function formulated_add(Request $request)
     {
+        $request->validate(
+            [
+                'policy_type' => 'required',
+                'policy_agency' => 'required',
+                'policy_date' => 'required',
+                'policy_resource' => 'required',
+                'policy_issues' => 'required',
+            ],
+            [
+                'policy_type.required' => 'Type is required!',
+                'policy_agency.required' => 'Agency is required!',
+                'policy_date.required' => 'Date is required!',
+                'policy_resource.required' => 'Resource person is required!',
+                'policy_issues.required' => 'Issues addressed is required!',
+            ],
+        );
         $data = [];
         $data['policy_type'] = $request->policy_type;
         $data['policy_agency'] = $request->policy_agency;
@@ -158,6 +204,23 @@ class PolicyController extends Controller
     }
     public function formulated_update(Request $request, $id)
     {
+        $request->validate(
+            [
+                'policy_type' => 'required',
+                'policy_agency' => 'required',
+                'policy_date' => 'required',
+                'policy_resource' => 'required',
+                'policy_issues' => 'required',
+            ],
+            [
+                'policy_type.required' => 'Type is required!',
+                'policy_agency.required' => 'Agency is required!',
+                'policy_date.required' => 'Date is required!',
+                'policy_resource.required' => 'Resource person is required!',
+                'policy_issues.required' => 'Issues addressed is required!',
+            ],
+        );
+
         $data = [];
         $data['policy_type'] = $request->policy_type;
         $data['policy_agency'] = $request->policy_agency;

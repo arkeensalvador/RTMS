@@ -263,7 +263,7 @@
                                     <label for="extension_date" class=" font-weight-bold">Extension Date</label>
                                     <input type="text" name="extend_date" class="form-control date"
                                         id="extension_date" placeholder="Extension date">
-                                    <div class="valid-feedback"> There's no inputted extension date for this program</div>
+                                    {{-- <div class="valid-feedback"> There's no inputted extension date for this program</div> --}}
                                 </div>
 
                                 <div class="col-md-12 form-group">
@@ -395,12 +395,12 @@
                             event.preventDefault();
                             event.stopPropagation();
 
-                            Swal.fire({
-                                icon: 'info',
-                                title: 'All fields are required',
-                                timerProgressBar: false,
-                                showConfirmButton: true,
-                            });
+                            // Swal.fire({
+                            //     icon: 'info',
+                            //     title: 'All fields are required',
+                            //     timerProgressBar: false,
+                            //     showConfirmButton: true,
+                            // });
                         }
                         form.classList.add('was-validated');
                     }, false);
@@ -458,10 +458,19 @@
                     },
                     error: function(data) {
                         Swal.fire({
-                            icon: 'warning',
-                            title: 'There is something wrong...',
-                            timerProgressBar: false,
-                            showConfirmButton: true,
+                            icon: 'error',
+                            toast: true,
+                            iconColor: 'white',
+                            position: 'top-end',
+                            customClass: {
+                                popup: 'colored-toast',
+                            },
+                            // title: data.responseJSON.message,
+                            text: data.responseJSON.message,
+                            // title: 'There is something wrong...',
+                            timerProgressBar: true,
+                            showConfirmButton: false,
+                            timer: 2000
                         });
                     }
                 });

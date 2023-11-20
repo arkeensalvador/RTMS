@@ -121,8 +121,8 @@
                                     <label for="ini_initiates" class="font-weight-bold">Title<span
                                             class="text-danger">*</span></label>
 
-                                    <input type="text" name="prc_title" class="form-control"
-                                        placeholder="Enter title" required>
+                                    <input type="text" name="prc_title" class="form-control" placeholder="Enter title"
+                                        required>
 
                                     <div class="invalid-feedback">Missing title</div>
                                 </div>
@@ -132,8 +132,8 @@
                                     <label for="ini_initiates" class="font-weight-bold">Author<span
                                             class="text-danger">*</span></label>
 
-                                    <input type="text" name="prc_author" class="form-control"
-                                        placeholder="Enter author" required>
+                                    <input type="text" name="prc_author" class="form-control" placeholder="Enter author"
+                                        required>
 
                                     <div class="invalid-feedback">Missing author</div>
                                 </div>
@@ -236,12 +236,12 @@
                             event.preventDefault();
                             event.stopPropagation();
 
-                            Swal.fire({
-                                icon: 'info',
-                                title: 'All fields are required',
-                                timerProgressBar: false,
-                                showConfirmButton: true,
-                            });
+                            //Swal.fire({
+                            //                                icon: 'info',
+                            //                                title: 'All //fields are required',
+                            //timerProgressBar: false,
+                            //showConfirmButton: true,
+                            //                        });
                         }
                         form.classList.add('was-validated');
                     }, false);
@@ -298,6 +298,21 @@
                         //     timerProgressBar: false,
                         //     showConfirmButton: true,
                         // });
+                        Swal.fire({
+                            icon: 'error',
+                            toast: true,
+                            iconColor: 'white',
+                            position: 'top-end',
+                            customClass: {
+                                popup: 'colored-toast',
+                            },
+                            // title: data.responseJSON.message,
+                            text: data.responseJSON.message,
+                            // title: 'There is something wrong...',
+                            timerProgressBar: true,
+                            showConfirmButton: false,
+                            timer: 2000
+                        });
                     }
                 });
             });

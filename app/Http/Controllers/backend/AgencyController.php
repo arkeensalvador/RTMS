@@ -28,6 +28,17 @@ class AgencyController extends Controller
 
     public function AddAgency(Request $request)
     {
+        $request->validate(
+            [
+                'agency_name' => 'required',
+                'abbrev' => 'required',
+            ],
+            [
+                'agency_name.required' => 'Agency name is required!',
+                'abbrev.required' => 'Agency abbreviation is required!',
+            ],
+        );
+
         $data = [];
         $data['agency_name'] = $request->agency_name;
         $data['abbrev'] = $request->abbrev;
@@ -67,6 +78,17 @@ class AgencyController extends Controller
 
     public function EditAgencyProcess(Request $request, $id)
     {
+        $request->validate(
+            [
+                'agency_name' => 'required',
+                'abbrev' => 'required',
+            ],
+            [
+                'agency_name.required' => 'Agency name is required!',
+                'abbrev.required' => 'Agency abbreviation is required!',
+            ],
+        );
+
         $data = [];
         $data['agency_name'] = $request->agency_name;
         $data['abbrev'] = $request->abbrev;

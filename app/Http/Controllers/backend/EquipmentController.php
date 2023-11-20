@@ -12,14 +12,30 @@ class EquipmentController extends Controller
     {
         date_default_timezone_set('Asia/Hong_Kong');
 
-        $data = array();
+        $request->validate(
+            [
+                'equipments_type' => 'required',
+                'equipments_agency' => 'required',
+                'equipments_name' => 'required',
+                'equipments_total' => 'required|numeric',
+                'equipments_sof' => 'required',
+            ],
+            [
+                'equipments_type.required' => 'Type field is required!',
+                'equipments_agency.required' => 'Agency field is required!',
+                'equipments_name.required' => 'Name field is required!',
+                'equipments_total.required' => 'Total field is required! (Input numbers only)',
+                'equipments_sof.required' => 'Source of funds field is required!',
+            ],
+        );
+
+        $data = [];
         $data['equipments_type'] = $request->equipments_type;
         $data['equipments_agency'] = $request->equipments_agency;
         $data['equipments_name'] = $request->equipments_name;
         $data['equipments_total'] = $request->equipments_total;
         $data['equipments_sof'] = $request->equipments_sof;
         $data['created_at'] = now();
-
 
         $insert = DB::table('cbg_equipments')->insert($data);
         if ($insert) {
@@ -32,7 +48,9 @@ class EquipmentController extends Controller
     public function editEquipment($id)
     {
         $title = 'Equipments | CBG';
-        $all = DB::table('cbg_equipments')->where('id', $id)->first();
+        $all = DB::table('cbg_equipments')
+            ->where('id', $id)
+            ->first();
         $agency = DB::table('agency')->get();
         $researchers = DB::table('researchers')->get();
         return view('backend.report.cbg.cbg_equipment_edit', compact('title', 'all', 'agency', 'researchers'));
@@ -40,9 +58,26 @@ class EquipmentController extends Controller
 
     public function UpdateEquipment(Request $request, $id)
     {
+        $request->validate(
+            [
+                'equipments_type' => 'required',
+                'equipments_agency' => 'required',
+                'equipments_name' => 'required',
+                'equipments_total' => 'required|numeric',
+                'equipments_sof' => 'required',
+            ],
+            [
+                'equipments_type.required' => 'Type field is required!',
+                'equipments_agency.required' => 'Agency field is required!',
+                'equipments_name.required' => 'Name field is required!',
+                'equipments_total.required' => 'Total field is required! (Input numbers only)',
+                'equipments_sof.required' => 'Source of funds field is required!',
+            ],
+        );
+
         date_default_timezone_set('Asia/Hong_Kong');
 
-        $data = array();
+        $data = [];
         $data['equipments_type'] = $request->equipments_type;
         $data['equipments_agency'] = $request->equipments_agency;
         $data['equipments_name'] = $request->equipments_name;
@@ -50,7 +85,9 @@ class EquipmentController extends Controller
         $data['equipments_sof'] = $request->equipments_sof;
         $data['updated_at'] = now();
 
-        $update = DB::table('cbg_equipments')->where('id', $id)->update($data);
+        $update = DB::table('cbg_equipments')
+            ->where('id', $id)
+            ->update($data);
         if ($update) {
             return response()->json(['success' => 'Equipment Updated Successfully!']);
         } else {
@@ -60,20 +97,26 @@ class EquipmentController extends Controller
 
     public function DeleteEquipment($id)
     {
-        $delete = DB::table('cbg_equipments')->where('id', $id)->delete();
+        $delete = DB::table('cbg_equipments')
+            ->where('id', $id)
+            ->delete();
         if ($delete) {
-            $notification = array(
+            $notification = [
                 'message' => 'Equipment Successfully Deleted!',
-                'alert-type' => 'success'
-            );
+                'alert-type' => 'success',
+            ];
 
-            return redirect()->route('cbgEquipment')->with($notification);
+            return redirect()
+                ->route('cbgEquipment')
+                ->with($notification);
         } else {
-            $notification = array(
+            $notification = [
                 'message' => 'Something is wrong, please try again!',
-                'alert-type' => 'error'
-            );
-            return redirect()->route('cbgEquipment')->with($notification);
+                'alert-type' => 'error',
+            ];
+            return redirect()
+                ->route('cbgEquipment')
+                ->with($notification);
         }
     }
 }

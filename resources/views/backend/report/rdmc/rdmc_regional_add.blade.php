@@ -28,7 +28,8 @@
                                 <div class="col-md-12 form-group">
                                     <label for="category" class=" font-weight-bold">Title<span
                                             class="text-danger">*</span></label>
-                                    <input type="text" class="form-control" name="regional_title" placeholder="Enter title" required>
+                                    <input type="text" class="form-control" name="regional_title"
+                                        placeholder="Enter title" required>
                                     <div class="invalid-feedback">Missing title</div>
                                 </div>
 
@@ -77,7 +78,8 @@
                                 <div class="col-md-12 form-group">
                                     <label for="program_title" class=" font-weight-bold">Winners<span
                                             class="text-danger">*</span></label></label>
-                                    <input type="text" class="form-control" name="regional_winners" placeholder="Enter winners" required>
+                                    <input type="text" class="form-control" name="regional_winners"
+                                        placeholder="Enter winners" required>
                                     <div class="invalid-feedback">Missing recommendations</div>
                                 </div>
 
@@ -211,13 +213,13 @@
                         })
                     },
                     error: function(data) {
-                        // Swal.fire({
-                        //     icon: 'warning',
-                        //     title: data.responseJSON.message,
-                        //     // title: 'There is something wrong...',
-                        //     timerProgressBar: false,
-                        //     showConfirmButton: true,
-                        // });
+                        Swal.fire({
+                            icon: 'warning',
+                            title: data.responseJSON.message,
+                            // title: 'There is something wrong...',
+                            timerProgressBar: false,
+                            showConfirmButton: true,
+                        });
                     }
                 });
             });

@@ -436,6 +436,15 @@ class ReportController extends Controller
     public function best_paper_update(Request $request, $id)
     {
         $data = [];
+        $request->validate(
+            [
+                'best_paper' => 'required',
+              
+            ],
+            [
+                'best_paper.required' => 'Title is required!',
+            ],
+        );
         $data['best_paper'] = $request->best_paper;
         $insert = DB::table('best_paper')
             ->where('id', $id)

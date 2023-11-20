@@ -90,8 +90,8 @@
                                 <div class="col-md-6 form-group">
                                     <label for="meeting_type" class=" font-weight-bold">Type of Meeting/Activity<span
                                             class="text-danger">*</span></label>
-                                    <input type="text" name="meeting_type" value="{{ $all->meeting_type }}" class="form-control" id="meeting_type"
-                                        placeholder="Type/Activity" required>
+                                    <input type="text" name="meeting_type" value="{{ $all->meeting_type }}"
+                                        class="form-control" id="meeting_type" placeholder="Type/Activity" required>
                                     <div class="invalid-feedback"> Missing type of meeting/activity</div>
                                 </div>
 
@@ -123,8 +123,8 @@
                                     <label for="trainings_start" class=" font-weight-bold">Date<span
                                             class="text-danger">*</span></label>
 
-                                    <input type="number" name="meeting_date" value="{{ $all->meeting_date }}" id="meeting_date" class="form-control date"
-                                        placeholder="Enter start date" required>
+                                    <input type="number" name="meeting_date" value="{{ $all->meeting_date }}"
+                                        id="meeting_date" class="form-control date" placeholder="Enter start date" required>
                                     <div class="invalid-feedback">Missing start date</div>
                                 </div>
 
@@ -166,12 +166,12 @@
                         if (form.checkValidity() === false) {
                             event.preventDefault();
                             event.stopPropagation();
-                            Swal.fire({
-                                icon: 'info',
-                                title: 'All fields are required',
-                                timerProgressBar: false,
-                                showConfirmButton: true,
-                            });
+                            //Swal.fire({
+                            //                                icon: 'info',
+                            //                                title: 'All //fields are required',
+                            //timerProgressBar: false,
+                            //showConfirmButton: true,
+                            //                        });
                         }
                         form.classList.add('was-validated');
                     }, false);
@@ -197,7 +197,7 @@
                 e.preventDefault();
                 $.ajax({
                     type: 'POST',
-                    url: "{{ url('update-meetings/'.$all->id) }}",
+                    url: "{{ url('update-meetings/' . $all->id) }}",
                     data: formData,
                     cache: false,
                     contentType: false,
@@ -218,13 +218,21 @@
                         })
                     },
                     error: function(data) {
-                        // Swal.fire({
-                        //     icon: 'warning',
-                        //     title: data.responseJSON.message,
-                        //     // title: 'There is something wrong...',
-                        //     timerProgressBar: false,
-                        //     showConfirmButton: true,
-                        // });
+                        Swal.fire({
+                            icon: 'error',
+                            toast: true,
+                            iconColor: 'white',
+                            position: 'top-end',
+                            customClass: {
+                                popup: 'colored-toast',
+                            },
+                            // title: data.responseJSON.message,
+                            text: data.responseJSON.message,
+                            // title: 'There is something wrong...',
+                            timerProgressBar: true,
+                            showConfirmButton: false,
+                            timer: 2000
+                        });
                     }
                 });
             });

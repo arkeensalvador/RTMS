@@ -42,6 +42,22 @@ class ResearcherController extends Controller
 
     public function AddResearcher(Request $request)
     {
+        $request->validate(
+            [
+                'name' => 'required',
+                'gender' => 'required',
+                'contact' => 'required',
+                'email' => 'required|email',
+                'agency' => 'required',
+            ],
+            [
+                'name.required' => 'Name is required!',
+                'gender.required' => 'Sex is required!',
+                'contact.required' => 'Contact number is required!',
+                'email.required' => 'Email is required!',
+                'agency.required' => 'Agency is required!',
+            ],
+        );
         $data = [];
         $data['name'] = $request->name;
         $data['gender'] = $request->gender;
@@ -117,6 +133,22 @@ class ResearcherController extends Controller
 
     public function UpdateResearcher(Request $request, $id)
     {
+        $request->validate(
+            [
+                'name' => 'required',
+                'gender' => 'required',
+                'contact' => 'required',
+                'email' => 'required|email',
+                'agency' => 'required',
+            ],
+            [
+                'name.required' => 'Name is required!',
+                'gender.required' => 'Sex is required!',
+                'contact.required' => 'Contact number is required!',
+                'email.required' => 'Email is required!',
+                'agency.required' => 'Agency is required!',
+            ],
+        );
         $data = [];
         $data['name'] = $request->name;
         $data['gender'] = $request->gender;

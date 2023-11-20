@@ -11,71 +11,94 @@ class InitiativesController extends Controller
 {
     public function ini_add(Request $request)
     {
-        
-        $data = array();
-        $data["ini_initiates"] = $request->ini_initiates;
-        $data["ini_date"] = $request->ini_date;
+        $data = [];
+        $data['ini_initiates'] = $request->ini_initiates;
+        $data['ini_date'] = $request->ini_date;
 
         $insert = DB::table('cbg_initiatives')->insert($data);
 
         if ($insert) {
-
-            $notification = array(
+            $notification = [
                 'message' => 'Initiative Successfully Added!',
-                'alert-type' => 'success'
-            );
+                'alert-type' => 'success',
+            ];
 
-            return redirect()->route('cbgInitiatives')->with($notification);
+            return redirect()
+                ->route('cbgInitiatives')
+                ->with($notification);
         } else {
-            $notification = array(
+            $notification = [
                 'message' => 'Something is wrong, please try again!',
-                'alert-type' => 'error'
-            );
-            return redirect()->route('cbgInitiatives')->with($notification);
+                'alert-type' => 'error',
+            ];
+            return redirect()
+                ->route('cbgInitiatives')
+                ->with($notification);
         }
     }
 
     public function ini_update(Request $request, $id)
     {
-        $data = array();
-        $data["ini_initiates"] = $request->ini_initiates;
-        $data["ini_date"] = $request->ini_date;
+        $request->validate(
+            [
+                'ini_initiates' => 'required',
+                'ini_date' => 'required',
+            ],
+            [
+                'ini_initiates.required' => 'Initiatives field is required!',
+                'ini_date.required' => 'Date field is required!',
+            ],
+        );
 
-        $insert = DB::table('cbg_initiatives')->where('id', $id)->update($data);
+        $data = [];
+        $data['ini_initiates'] = $request->ini_initiates;
+        $data['ini_date'] = $request->ini_date;
+
+        $insert = DB::table('cbg_initiatives')
+            ->where('id', $id)
+            ->update($data);
 
         if ($insert) {
-
-            $notification = array(
+            $notification = [
                 'message' => 'Initiative Successfully Updated!',
-                'alert-type' => 'success'
-            );
+                'alert-type' => 'success',
+            ];
 
-            return redirect()->route('cbgInitiatives')->with($notification);
+            return redirect()
+                ->route('cbgInitiatives')
+                ->with($notification);
         } else {
-            $notification = array(
+            $notification = [
                 'message' => 'Something is wrong, please try again!',
-                'alert-type' => 'error'
-            );
-            return redirect()->route('cbgInitiatives')->with($notification);
+                'alert-type' => 'error',
+            ];
+            return redirect()
+                ->route('cbgInitiatives')
+                ->with($notification);
         }
     }
 
-
     public function ini_delete($id)
     {
-        $delete = DB::table('cbg_initiatives')->where('id', $id)->delete();
+        $delete = DB::table('cbg_initiatives')
+            ->where('id', $id)
+            ->delete();
         if ($delete) {
-            $notification = array(
+            $notification = [
                 'message' => 'Initiative Successfully Deleted!',
-                'alert-type' => 'success'
-            );
-            return redirect()->back()->with($notification);
+                'alert-type' => 'success',
+            ];
+            return redirect()
+                ->back()
+                ->with($notification);
         } else {
-            $notification = array(
+            $notification = [
                 'message' => 'Something is wrong, please try again!',
-                'alert-type' => 'error'
-            );
-            return redirect()->back()->with($notification);
+                'alert-type' => 'error',
+            ];
+            return redirect()
+                ->back()
+                ->with($notification);
         }
     }
 }

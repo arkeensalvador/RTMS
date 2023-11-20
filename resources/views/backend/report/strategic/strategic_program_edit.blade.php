@@ -308,12 +308,12 @@
                         if (form.checkValidity() === false) {
                             event.preventDefault();
                             event.stopPropagation();
-                            Swal.fire({
-                                icon: 'info',
-                                title: 'All fields are required',
-                                timerProgressBar: false,
-                                showConfirmButton: true,
-                            });
+                            // Swal.fire({
+                            //     icon: 'info',
+                            //     title: 'All fields are required',
+                            //     timerProgressBar: false,
+                            //     showConfirmButton: true,
+                            // });
                         }
                         form.classList.add('was-validated');
                     }, false);
@@ -368,12 +368,27 @@
                         })
                     },
                     error: function(data) {
+                        // Swal.fire({
+                        //     icon: 'warning',
+                        //     title: data.responseJSON.message,
+                        //     // title: 'There is something wrong...',
+                        //     timerProgressBar: false,
+                        //     showConfirmButton: true,
+                        // });
                         Swal.fire({
-                            icon: 'warning',
-                            title: data.responseJSON.message,
+                            icon: 'error',
+                            toast: true,
+                            iconColor: 'white',
+                            position: 'top-end',
+                            customClass: {
+                                popup: 'colored-toast',
+                            },
+                            // title: data.responseJSON.message,
+                            text: data.responseJSON.message,
                             // title: 'There is something wrong...',
-                            timerProgressBar: false,
-                            showConfirmButton: true,
+                            timerProgressBar: true,
+                            showConfirmButton: false,
+                            timer: 2000
                         });
                     }
                 });

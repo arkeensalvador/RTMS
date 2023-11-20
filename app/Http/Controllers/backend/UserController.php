@@ -48,6 +48,20 @@ class UserController extends Controller
     public function InsertUser(Request $request)
     {
         date_default_timezone_set('Asia/Hong_Kong');
+        $request->validate(
+            [
+                'name' => 'required',
+                'email' => 'required|email',
+                'role' => 'required',
+                'agencyID' => 'required',
+            ],
+            [
+                'name.required' => 'Name is required!',
+                'email.required' => 'Email is required!',
+                'role.required' => 'Role is required!',
+                'agencyID.required' => 'Agency is required!',
+            ],
+        );
 
         $data = [];
         $data['name'] = $request->name;
@@ -110,6 +124,21 @@ class UserController extends Controller
     public function UpdateUser(Request $request, $id)
     {
         date_default_timezone_set('Asia/Hong_Kong');
+
+        $request->validate(
+            [
+                'name' => 'required',
+                'email' => 'required|email',
+                'role' => 'required',
+                'agencyID' => 'required',
+            ],
+            [
+                'name.required' => 'Name is required!',
+                'email.required' => 'Email is required!',
+                'role.required' => 'Role is required!',
+                'agencyID.required' => 'Agency is required!',
+            ],
+        );
 
         if (empty($request->password)) {
             $data = [];

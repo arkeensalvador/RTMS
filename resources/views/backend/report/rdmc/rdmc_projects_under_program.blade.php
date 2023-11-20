@@ -89,7 +89,6 @@
                                                         $imp = json_decode($row->project_implementing_agency);
                                                         $imp = implode(' / ', $imp);
                                                     }
-
                                                     $rc = $row->project_research_center;
                                                     $rc = str_replace(['[', '"', ']'], '', $rc);
                                                 @endphp

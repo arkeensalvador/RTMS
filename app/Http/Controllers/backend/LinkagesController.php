@@ -12,7 +12,24 @@ class LinkagesController extends Controller
     {
         date_default_timezone_set('Asia/Hong_Kong');
 
-        $data = array();
+        $request->validate(
+            [
+                'type' => 'required',
+                'year' => 'required',
+                'form_of_development' => 'required',
+                'address' => 'required',
+                'nature_of_assistance' => 'required',
+            ],
+            [
+                'type.required' => 'Type field is required!',
+                'year.required' => 'Year field is required!',
+                'form_of_development.required' => 'Form of development field is required!',
+                'address.required' => 'Address field is required',
+                'nature_of_assistance.required' => 'Nature of assistance is required!',
+            ],
+        );
+
+        $data = [];
         $data['type'] = $request->type;
         $data['year'] = $request->year;
         $data['form_of_development'] = $request->form_of_development;
@@ -30,7 +47,9 @@ class LinkagesController extends Controller
     public function EditLinkages($id)
     {
         $title = 'Linkages | RDMC';
-        $all =  DB::table('rdmc_linkages')->where('id', $id)->first();
+        $all = DB::table('rdmc_linkages')
+            ->where('id', $id)
+            ->first();
         return view('backend.report.rdmc.rdmc_linkages_edit', compact('title', 'all'));
     }
 
@@ -38,7 +57,24 @@ class LinkagesController extends Controller
     {
         date_default_timezone_set('Asia/Hong_Kong');
 
-        $data = array();
+        $request->validate(
+            [
+                'type' => 'required',
+                'year' => 'required',
+                'form_of_development' => 'required',
+                'address' => 'required',
+                'nature_of_assistance' => 'required',
+            ],
+            [
+                'type.required' => 'Type field is required!',
+                'year.required' => 'Year field is required!',
+                'form_of_development.required' => 'Form of development field is required!',
+                'address.required' => 'Address field is required',
+                'nature_of_assistance.required' => 'Nature of assistance is required!',
+            ],
+        );
+
+        $data = [];
         $data['type'] = $request->type;
         $data['year'] = $request->year;
         $data['form_of_development'] = $request->form_of_development;
@@ -46,7 +82,9 @@ class LinkagesController extends Controller
         $data['nature_of_assistance'] = $request->nature_of_assistance;
         $data['updated_at'] = now();
 
-        $update = DB::table('rdmc_linkages')->where('id', $id)->update($data);
+        $update = DB::table('rdmc_linkages')
+            ->where('id', $id)
+            ->update($data);
         if ($update) {
             return response()->json(['success' => 'Linkages Updated Successfully!']);
         } else {
@@ -56,19 +94,25 @@ class LinkagesController extends Controller
 
     public function DeleteLinkages($id)
     {
-        $delete = DB::table('rdmc_linkages')->where('id', $id)->delete();
+        $delete = DB::table('rdmc_linkages')
+            ->where('id', $id)
+            ->delete();
         if ($delete) {
-            $notification = array(
+            $notification = [
                 'message' => 'Linkages Successfully Deleted!',
-                'alert-type' => 'success'
-            );
-            return redirect()->back()->with($notification);
+                'alert-type' => 'success',
+            ];
+            return redirect()
+                ->back()
+                ->with($notification);
         } else {
-            $notification = array(
+            $notification = [
                 'message' => 'Something is wrong, please try again!',
-                'alert-type' => 'error'
-            );
-            return redirect()->back()->with($notification);
+                'alert-type' => 'error',
+            ];
+            return redirect()
+                ->back()
+                ->with($notification);
         }
     }
 }

@@ -11,6 +11,33 @@ class StrategicController extends Controller
 {
     public function AddStrategic(Request $request)
     {
+        $request->validate(
+            [
+                'strategic_program' => 'required',
+                'strategic_title' => 'required',
+                'strategic_start' => 'required',
+                'strategic_end' => 'required',
+                'strategic_researcher' => 'required',
+                'strategic_implementing_agency' => 'required',
+                'strategic_funding_agency' => 'required',
+                'strategic_budget' => 'required|numeric',
+                'strategic_commodities' => 'required',
+                'strategic_consortium_role' => 'required',
+            ],
+            [
+                'strategic_program.required' => 'Program is required!',
+                'strategic_title.required' => 'Title is required!',
+                'strategic_start.required' => 'Date is required!',
+                'strategic_end.required' => 'Date is required!',
+                'strategic_researcher.required' => 'Researcher(s) is/are required!',
+                'strategic_implementing_agency.required' => 'Implementing agency is required!',
+                'strategic_funding_agency.required' => 'Funding agency is required!',
+                'strategic_budget.required' => 'Budget is required!',
+                'strategic_commodities.required' => 'Commodities is required!',
+                'strategic_consortium_role.required' => 'Consortium role is required!',
+            ],
+        );
+
         $data = [];
         $data['strategic_program'] = $request->strategic_program;
         $data['strategic_title'] = $request->strategic_title;
@@ -47,6 +74,33 @@ class StrategicController extends Controller
     public function UpdateStrategic(Request $request, $id)
     {
         date_default_timezone_set('Asia/Hong_Kong');
+
+        $request->validate(
+            [
+                'strategic_program' => 'required',
+                'strategic_title' => 'required',
+                'strategic_start' => 'required',
+                'strategic_end' => 'required',
+                'strategic_researcher' => 'required',
+                'strategic_implementing_agency' => 'required',
+                'strategic_funding_agency' => 'required',
+                'strategic_budget' => 'required|numeric',
+                'strategic_commodities' => 'required',
+                'strategic_consortium_role' => 'required',
+            ],
+            [
+                'strategic_program.required' => 'Program is required!',
+                'strategic_title.required' => 'Title is required!',
+                'strategic_start.required' => 'Date is required!',
+                'strategic_end.required' => 'Date is required!',
+                'strategic_researcher.required' => 'Researcher(s) is/are required!',
+                'strategic_implementing_agency.required' => 'Implementing agency is required!',
+                'strategic_funding_agency.required' => 'Funding agency is required!',
+                'strategic_budget.required' => 'Budget is required!',
+                'strategic_commodities.required' => 'Commodities is required!',
+                'strategic_consortium_role.required' => 'Consortium role is required!',
+            ],
+        );
 
         $data = [];
         $data['strategic_program'] = $request->strategic_program;
@@ -99,6 +153,27 @@ class StrategicController extends Controller
     // Tech list
     public function add_strategic_tech_list(Request $request)
     {
+        $request->validate(
+            [
+                'tech_type' => 'required',
+                'tech_title' => 'required',
+                'tech_desc' => 'required',
+                'tech_source' => 'required',
+                'tech_researchers' => 'required',
+                'tech_agency' => 'required',
+                'tech_impact' => 'required',
+            ],
+            [
+                'tech_type.required' => 'Type is required!',
+                'tech_title.required' => 'Title is required!',
+                'tech_desc.required' => 'Description is required!',
+                'tech_source.required' => 'Program/Project source is required!',
+                'tech_researchers.required' => 'Researcher(s) is/are required!',
+                'tech_agency.required' => 'Agency source is required!',
+                'tech_impact.required' => 'Impact is required!',
+            ],
+        );
+
         $data = [];
         $data['tech_type'] = $request->tech_type;
         $data['tech_title'] = $request->tech_title;
@@ -136,6 +211,27 @@ class StrategicController extends Controller
     public function update_strategic_tech_list(Request $request, $id)
     {
         date_default_timezone_set('Asia/Hong_Kong');
+
+        $request->validate(
+            [
+                'tech_type' => 'required',
+                'tech_title' => 'required',
+                'tech_desc' => 'required',
+                'tech_source' => 'required',
+                'tech_researchers' => 'required',
+                'tech_agency' => 'required',
+                'tech_impact' => 'required',
+            ],
+            [
+                'tech_type.required' => 'Type is required!',
+                'tech_title.required' => 'Title is required!',
+                'tech_desc.required' => 'Description is required!',
+                'tech_source.required' => 'Program/Project source is required!',
+                'tech_researchers.required' => 'Researcher(s) is/are required!',
+                'tech_agency.required' => 'Agency source is required!',
+                'tech_impact.required' => 'Impact is required!',
+            ],
+        );
 
         $data = [];
         $data['tech_type'] = $request->tech_type;
@@ -187,6 +283,30 @@ class StrategicController extends Controller
     public function add_strategic_program_list(Request $request)
     {
         date_default_timezone_set('Asia/Hong_Kong');
+        $request->validate(
+            [
+                'str_p_type' => 'required',
+                'str_p_title' => 'required',
+                'str_p_researchers' => 'required',
+                'str_p_imp_agency' => 'required',
+                'str_p_collab_agency' => 'required',
+                'str_p_date' => 'required',
+                'str_p_budget' => 'required|numeric',
+                'str_p_sof' => 'required',
+                'str_p_regional' => 'required',
+            ],
+            [
+                'str_p_type.required' => 'Type is required!',
+                'str_p_title.required' => 'Title is required!',
+                'str_p_researchers.required' => 'Researcher(s) is/are required!',
+                'str_p_imp_agency.required' => 'Implementing agency is required!',
+                'str_p_collab_agency.required' => 'Collaborating agency required!',
+                'str_p_date.required' => 'Date is required!',
+                'str_p_budget.required' => 'Budget is required!',
+                'str_p_sof.required' => 'Source of fund is required!',
+                'str_p_regional.required' => 'Commodities addressed is required!',
+            ],
+        );
 
         $data = [];
         $data['str_p_type'] = $request->str_p_type;
@@ -226,6 +346,31 @@ class StrategicController extends Controller
     public function update_strategic_program_list(Request $request, $id)
     {
         date_default_timezone_set('Asia/Hong_Kong');
+
+        $request->validate(
+            [
+                'str_p_type' => 'required',
+                'str_p_title' => 'required',
+                'str_p_researchers' => 'required',
+                'str_p_imp_agency' => 'required',
+                'str_p_collab_agency' => 'required',
+                'str_p_date' => 'required',
+                'str_p_budget' => 'required|numeric',
+                'str_p_sof' => 'required',
+                'str_p_regional' => 'required',
+            ],
+            [
+                'str_p_type.required' => 'Type is required!',
+                'str_p_title.required' => 'Title is required!',
+                'str_p_researchers.required' => 'Researcher(s) is/are required!',
+                'str_p_imp_agency.required' => 'Implementing agency is required!',
+                'str_p_collab_agency.required' => 'Collaborating agency required!',
+                'str_p_date.required' => 'Date is required!',
+                'str_p_budget.required' => 'Budget is required!',
+                'str_p_sof.required' => 'Source of fund is required!',
+                'str_p_regional.required' => 'Commodities addressed is required!',
+            ],
+        );
 
         $data = [];
         $data['str_p_type'] = $request->str_p_type;
@@ -304,6 +449,32 @@ class StrategicController extends Controller
     public function add_strategic_collaborative_list(Request $request)
     {
         date_default_timezone_set('Asia/Hong_Kong');
+        $request->validate(
+            [
+                'str_collab_type' => 'required',
+                'str_collab_program' => 'required',
+                'str_collab_project' => 'required',
+                'str_collab_imp_agency' => 'required',
+                'str_collab_agency' => 'required',
+                'str_collab_date' => 'required',
+                'str_collab_budget' => 'required|numeric',
+                'str_collab_sof' => 'required',
+                'str_collab_roc' => 'required',
+                'str_collab_program_title' => 'required',
+            ],
+            [
+                'str_collab_type.required' => 'Type is required!',
+                'str_collab_program.required' => 'Program is required!',
+                'str_collab_project.required' => 'Project(s) is/are required!',
+                'str_collab_imp_agency.required' => 'Implementing agency is required!',
+                'str_collab_agency.required' => 'Collaborating agency required!',
+                'str_collab_date.required' => 'Date is required!',
+                'str_collab_budget.required' => 'Budget is required!',
+                'str_collab_sof.required' => 'Source of fund is required!',
+                'str_collab_roc.required' => 'Commodities addressed is required!',
+                'str_collab_program_title.required' => 'Commodities addressed is required!',
+            ],
+        );
 
         $data = [];
         $data['str_collab_type'] = $request->str_collab_type;
@@ -349,6 +520,33 @@ class StrategicController extends Controller
     public function update_strategic_collaborative_list(Request $request, $id)
     {
         date_default_timezone_set('Asia/Hong_Kong');
+
+        $request->validate(
+            [
+                'str_collab_type' => 'required',
+                'str_collab_program' => 'required',
+                'str_collab_project' => 'required',
+                'str_collab_imp_agency' => 'required',
+                'str_collab_agency' => 'required',
+                'str_collab_date' => 'required',
+                'str_collab_budget' => 'required|numeric',
+                'str_collab_sof' => 'required',
+                'str_collab_roc' => 'required',
+                'str_collab_program_title' => 'required',
+            ],
+            [
+                'str_collab_type.required' => 'Type is required!',
+                'str_collab_program.required' => 'Program is required!',
+                'str_collab_project.required' => 'Project(s) is/are required!',
+                'str_collab_imp_agency.required' => 'Implementing agency is required!',
+                'str_collab_agency.required' => 'Collaborating agency required!',
+                'str_collab_date.required' => 'Date is required!',
+                'str_collab_budget.required' => 'Budget is required!',
+                'str_collab_sof.required' => 'Source of fund is required!',
+                'str_collab_roc.required' => 'Commodities addressed is required!',
+                'str_collab_program_title.required' => 'Commodities addressed is required!',
+            ],
+        );
 
         $data = [];
         $data['str_collab_type'] = $request->str_collab_type;

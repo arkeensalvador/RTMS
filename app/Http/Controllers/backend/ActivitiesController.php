@@ -11,7 +11,24 @@ class ActivitiesController extends Controller
     //
     public function AddActivities(Request $request)
     {
-        $data = array();
+        $request->validate(
+            [
+                'donor' => 'required',
+                'activity_type' => 'required',
+                'activity_title' => 'required',
+                'shared_amount' => 'required|numeric',
+                'remarks' => 'required',
+            ],
+            [
+                'donor.required' => 'Donor field is required!',
+                'activity_type.required' => 'Activity type field is required!',
+                'activity_title.required' => 'Acitivity title field is required!',
+                'shared_amount.required' => 'Input numbers only',
+                'remarks.required' => 'Remarks field is required!',
+            ],
+        );
+
+        $data = [];
         $data['donor'] = $request->donor;
         $data['activity_type'] = $request->activity_type;
         $data['activity_title'] = $request->activity_title;
@@ -46,7 +63,9 @@ class ActivitiesController extends Controller
     public function EditActivity($id)
     {
         $title = 'Activities | RDMC';
-        $all = DB::table('rdmc_activities')->where('id', $id)->first();
+        $all = DB::table('rdmc_activities')
+            ->where('id', $id)
+            ->first();
         $agency = DB::table('agency')->get();
         return view('backend.report.rdmc.rdmc_edit_activities', compact('title', 'all', 'agency'));
     }
@@ -55,7 +74,24 @@ class ActivitiesController extends Controller
     {
         date_default_timezone_set('Asia/Hong_Kong');
 
-        $data = array();
+        $request->validate(
+            [
+                'donor' => 'required',
+                'activity_type' => 'required',
+                'activity_title' => 'required',
+                'shared_amount' => 'required|numeric',
+                'remarks' => 'required',
+            ],
+            [
+                'donor.required' => 'Donor field is required!',
+                'activity_type.required' => 'Activity type field is required!',
+                'activity_title.required' => 'Acitivity title field is required!',
+                'shared_amount.required' => 'Input numbers only',
+                'remarks.required' => 'Remarks field is required!',
+            ],
+        );
+
+        $data = [];
         $data['donor'] = $request->donor;
         $data['activity_type'] = $request->activity_type;
         $data['activity_title'] = $request->activity_title;
@@ -63,7 +99,9 @@ class ActivitiesController extends Controller
         $data['remarks'] = $request->remarks;
         $data['updated_at'] = now();
 
-        $update = DB::table('rdmc_activities')->where('id', $id)->update($data);
+        $update = DB::table('rdmc_activities')
+            ->where('id', $id)
+            ->update($data);
 
         if ($update) {
             return response()->json(['success' => 'Activity Successfully Updated!']);
@@ -88,19 +126,25 @@ class ActivitiesController extends Controller
 
     public function DeleteActivity($id)
     {
-        $delete = DB::table('rdmc_activities')->where('id', $id)->delete();
+        $delete = DB::table('rdmc_activities')
+            ->where('id', $id)
+            ->delete();
         if ($delete) {
-            $notification = array(
+            $notification = [
                 'message' => 'Activity Successfully Deleted!',
-                'alert-type' => 'success'
-            );
-            return redirect()->back()->with($notification);
+                'alert-type' => 'success',
+            ];
+            return redirect()
+                ->back()
+                ->with($notification);
         } else {
-            $notification = array(
+            $notification = [
                 'message' => 'Something is wrong, please try again!',
-                'alert-type' => 'error'
-            );
-            return redirect()->back()->with($notification);
+                'alert-type' => 'error',
+            ];
+            return redirect()
+                ->back()
+                ->with($notification);
         }
     }
 }

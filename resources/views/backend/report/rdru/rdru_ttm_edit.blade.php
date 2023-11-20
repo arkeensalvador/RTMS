@@ -178,12 +178,12 @@
                         if (form.checkValidity() === false) {
                             event.preventDefault();
                             event.stopPropagation();
-                            Swal.fire({
-                                icon: 'info',
-                                title: 'All fields are required',
-                                timerProgressBar: false,
-                                showConfirmButton: true,
-                            });
+                            // Swal.fire({
+                            //     icon: 'info',
+                            //     title: 'All fields are required',
+                            //     timerProgressBar: false,
+                            //     showConfirmButton: true,
+                            // });
                         }
                         form.classList.add('was-validated');
                     }, false);
@@ -245,6 +245,21 @@
                         //     timerProgressBar: false,
                         //     showConfirmButton: true,
                         // });
+                        Swal.fire({
+                            icon: 'error',
+                            toast: true,
+                            iconColor: 'white',
+                            position: 'top-end',
+                            customClass: {
+                                popup: 'colored-toast',
+                            },
+                            // title: data.responseJSON.message,
+                            text: data.responseJSON.message,
+                            // title: 'There is something wrong...',
+                            timerProgressBar: true,
+                            showConfirmButton: false,
+                            timer: 2000
+                        });
                     }
                 });
             });

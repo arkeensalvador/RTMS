@@ -19,6 +19,46 @@ class ProgramsController extends Controller
     public function AddProgram(Request $request)
     {
         date_default_timezone_set('Asia/Hong_Kong');
+        $request->validate(
+            [
+                'fund_code' => 'required',
+                'program_title' => 'required',
+                'program_status' => 'required',
+                'program_category' => 'required',
+                'funding_agency' => 'required',
+                'implementing_agency' => 'required',
+                'research_center' => 'required',
+                'start_date' => 'required',
+                'end_date' => 'required',
+                'program_leader' => 'required',
+                'assistant_leader' => 'required',
+                'program_description' => 'required',
+                'approved_budget' => 'required|numeric',
+                'amount_released' => 'required',
+                'budget_year' => 'required',
+                'form_of_development' => 'required',
+                'keywords' => 'required',
+            ],
+            [
+                'fund_code.required' => 'Fund code is required!',
+                'program_title.required' => 'Title is required!',
+                'program_status.required' => 'Status is required!',
+                'program_category.required' => 'Category is required!',
+                'funding_agency.required' => 'Funding agency is required!',
+                'implementing_agency.required' => 'Implementing agency is required!',
+                'research_center.required' => 'Research center is required!',
+                'start_date.required' => 'Date is required!',
+                'end_date.required' => 'Date is required!',
+                'program_leader.required' => 'Program leader is required!',
+                'assistant_leader.required' => 'Assistant leader is required!',
+                'program_description.required' => 'Description is required!',
+                'approved_budget.required' => 'Budget is required!',
+                'amount_released.required' => 'Released amount is required!',
+                'budget_year.required' => 'Budget year is required!',
+                'form_of_development.required' => 'Form of development is required!',
+                'keywords.required' => 'Keywords is/are required!',
+            ],
+        );
 
         $data = [];
         $data['programID'] = $request->programID;
@@ -118,6 +158,46 @@ class ProgramsController extends Controller
     {
         date_default_timezone_set('Asia/Hong_Kong');
 
+        $request->validate(
+            [
+                'fund_code' => 'required',
+                'program_title' => 'required',
+                'program_status' => 'required',
+                'program_category' => 'required',
+                'funding_agency' => 'required',
+                'implementing_agency' => 'required',
+                'research_center' => 'required|array|min:1',
+                'start_date' => 'required',
+                'end_date' => 'required',
+                'program_leader' => 'required',
+                'assistant_leader' => 'required',
+                'program_description' => 'required',
+                'approved_budget' => 'required|numeric',
+                'amount_released' => 'required',
+                'budget_year' => 'required',
+                'form_of_development' => 'required',
+                'keywords' => 'required',
+            ],
+            [
+                'fund_code.required' => 'Fund code is required!',
+                'program_title.required' => 'Title is required!',
+                'program_status.required' => 'Status is required!',
+                'program_category.required' => 'Category is required!',
+                'funding_agency.required' => 'Funding agency is required!',
+                'implementing_agency.required' => 'Implementing agency is required!',
+                'research_center.required' => 'Research center is required!',
+                'start_date.required' => 'Date is required!',
+                'end_date.required' => 'Date is required!',
+                'program_leader.required' => 'Program leader is required!',
+                'assistant_leader.required' => 'Assistant leader is required!',
+                'program_description.required' => 'Description is required!',
+                'approved_budget.required' => 'Budget is required!',
+                'amount_released.required' => 'Released amount is required!',
+                'budget_year.required' => 'Budget year is required!',
+                'form_of_development.required' => 'Form of development is required!',
+                'keywords.required' => 'Keywords is/are required!',
+            ],
+        );
         $data = [];
         $data['programID'] = $request->programID;
         $data['fund_code'] = $request->fund_code;
@@ -147,7 +227,7 @@ class ProgramsController extends Controller
             if ($insert) {
                 return response()->json(['success' => 'Program Successfully Updated!']);
             } else {
-                return response()->json(['error' => 'There is something wrong...']);
+                return response()->json(['error' => 'There is something wrongs...']);
             }
         }
     }

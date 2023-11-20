@@ -13,7 +13,32 @@ class ResultsUtilizationController extends Controller
     public function AddTtp(Request $request)
     {
         date_default_timezone_set('Asia/Hong_Kong');
-
+        $request->validate(
+            [
+                'ttp_type' => 'required',
+                'ttp_title' => 'required',
+                'ttp_budget' => 'required|numeric',
+                'ttp_sof' => 'required',
+                'ttp_proponent' => 'required',
+                'ttp_researchers' => 'required',
+                'ttp_implementing_agency' => 'required',
+                'ttp_start_date' => 'required',
+                'ttp_end_date' => 'required',
+                'ttp_priorities' => 'required',
+            ],
+            [
+                'ttp_type.required' => 'Type is required!',
+                'ttp_title.required' => 'Title of fund is required!',
+                'ttp_budget.required' => 'Budget is required!',
+                'ttp_sof.required' => 'Source of fund is required!',
+                'ttp_proponent.required' => 'Proponent is required!',
+                'ttp_researchers.required' => 'Researcher(s) is/are required!',
+                'ttp_implementing_agency.required' => 'Implementing agency is required!',
+                'ttp_start_date.required' => 'Date is required!',
+                'ttp_end_date.required' => 'Date is required!',
+                'ttp_priorities.required' => 'Regional priorities addressed is required!',
+            ],
+        );
         $data = [];
         $data['ttp_type'] = $request->ttp_type;
         $data['ttp_title'] = $request->ttp_title;
@@ -49,7 +74,32 @@ class ResultsUtilizationController extends Controller
     public function UpdateTtp(Request $request, $id)
     {
         date_default_timezone_set('Asia/Hong_Kong');
-
+        $request->validate(
+            [
+                'ttp_type' => 'required',
+                'ttp_title' => 'required',
+                'ttp_budget' => 'required|numeric',
+                'ttp_sof' => 'required',
+                'ttp_proponent' => 'required',
+                'ttp_researchers' => 'required',
+                'ttp_implementing_agency' => 'required',
+                'ttp_start_date' => 'required',
+                'ttp_end_date' => 'required',
+                'ttp_priorities' => 'required',
+            ],
+            [
+                'ttp_type.required' => 'Type is required!',
+                'ttp_title.required' => 'Title is required!',
+                'ttp_budget.required' => 'Budget is required!',
+                'ttp_sof.required' => 'Source of fund is required!',
+                'ttp_proponent.required' => 'Proponent is required!',
+                'ttp_researchers.required' => 'Researcher(s) is/are required!',
+                'ttp_implementing_agency.required' => 'Implementing agency is required!',
+                'ttp_start_date.required' => 'Date is required!',
+                'ttp_end_date.required' => 'Date is required!',
+                'ttp_priorities.required' => 'Regional priorities addressed is required!',
+            ],
+        );
         $data = [];
         $data['ttp_type'] = $request->ttp_type;
         $data['ttp_title'] = $request->ttp_title;
@@ -103,7 +153,20 @@ class ResultsUtilizationController extends Controller
     public function AddTtm(Request $request)
     {
         date_default_timezone_set('Asia/Hong_Kong');
-
+        $request->validate(
+            [
+                'ttm_type' => 'required',
+                'ttm_title' => 'required',
+                'ttm_status' => 'required|numeric',
+                'ttm_agency' => 'required',
+            ],
+            [
+                'ttm_type.required' => 'Type is required!',
+                'ttm_title.required' => 'Title is required!',
+                'ttm_status.required' => 'Status is required!',
+                'ttm_agency.required' => 'Agency is required!',
+            ],
+        );
         $data = [];
         $data['ttm_type'] = $request->ttm_type;
         $data['ttm_title'] = $request->ttm_title;
@@ -132,6 +195,20 @@ class ResultsUtilizationController extends Controller
     public function UpdateTtm(Request $request, $id)
     {
         date_default_timezone_set('Asia/Hong_Kong');
+        $request->validate(
+            [
+                'ttm_type' => 'required',
+                'ttm_title' => 'required',
+                'ttm_status' => 'required|numeric',
+                'ttm_agency' => 'required',
+            ],
+            [
+                'ttm_type.required' => 'Type is required!',
+                'ttm_title.required' => 'Title is required!',
+                'ttm_status.required' => 'Status is required!',
+                'ttm_agency.required' => 'Agency is required!',
+            ],
+        );
 
         $data = [];
         $data['ttm_type'] = $request->ttm_type;
@@ -183,9 +260,21 @@ class ResultsUtilizationController extends Controller
 
         $request->validate(
             [
+                'tpa_title' => 'required',
+                'tpa_date' => 'required',
+                'tpa_details' => 'required',
+                'tpa_remarks' => 'required',
+                'tpa_researchers' => 'required',
+                'tpa_agency' => 'required',
                 'tpa_approaches' => 'required|array|min:1',
             ],
             [
+                'tpa_title.required' => 'Title is required!',
+                'tpa_date.required' => 'Date is required!',
+                'tpa_details.required' => 'Details is required!',
+                'tpa_remarks.required' => 'Remarks is required!',
+                'tpa_researchers.required' => 'Researcher(s) is/are required!',
+                'tpa_agency.required' => 'Agency is required!',
                 'tpa_approaches.required' => 'Select 1 Information, Education and Communication (IEC) Approaches',
             ],
         );
@@ -225,9 +314,23 @@ class ResultsUtilizationController extends Controller
         date_default_timezone_set('Asia/Hong_Kong');
         $request->validate(
             [
+                'tpa_title' => 'required',
+                'tpa_date' => 'required',
+                'tpa_details' => 'required',
+                'tpa_remarks' => 'required',
+                'tpa_researchers' => 'required',
+                'tpa_agency' => 'required',
                 'tpa_approaches' => 'required|array|min:1',
             ],
-            ['tpa_approaches.required' => 'Select 1 Information, Education and Communication (IEC) Approaches'],
+            [
+                'tpa_title.required' => 'Title is required!',
+                'tpa_date.required' => 'Date is required!',
+                'tpa_details.required' => 'Details is required!',
+                'tpa_remarks.required' => 'Remarks is required!',
+                'tpa_researchers.required' => 'Researcher(s) is/are required!',
+                'tpa_agency.required' => 'Agency is required!',
+                'tpa_approaches.required' => 'Select 1 Information, Education and Communication (IEC) Approaches',
+            ],
         );
 
         $data = [];
@@ -293,6 +396,19 @@ class ResultsUtilizationController extends Controller
     {
         date_default_timezone_set('Asia/Hong_Kong');
 
+        $request->validate(
+            [
+                'rdru_tech_title' => 'required',
+                'rdru_tech_type' => 'required',
+                'rdru_tech_sof' => 'required',
+            ],
+            [
+                'rdru_tech_title.required' => 'Title is required!',
+                'rdru_tech_type.required' => 'Type is required!',
+                'rdru_tech_sof.required' => 'Source of fund is required!',
+            ],
+        );
+
         $data = [];
         $data['rdru_tech_title'] = $request->rdru_tech_title;
         $data['rdru_tech_type'] = $request->rdru_tech_type;
@@ -322,6 +438,19 @@ class ResultsUtilizationController extends Controller
     public function rdru_update_tech_deployed(Request $request, $id)
     {
         date_default_timezone_set('Asia/Hong_Kong');
+
+        $request->validate(
+            [
+                'rdru_tech_title' => 'required',
+                'rdru_tech_type' => 'required',
+                'rdru_tech_sof' => 'required',
+            ],
+            [
+                'rdru_tech_title.required' => 'Title is required!',
+                'rdru_tech_type.required' => 'Type is required!',
+                'rdru_tech_sof.required' => 'Source of fund is required!',
+            ],
+        );
 
         $data = [];
         $data['rdru_tech_title'] = $request->rdru_tech_title;

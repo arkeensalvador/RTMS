@@ -104,6 +104,8 @@
                 'edit-strategic-program-list-index',
                 'add-strategic-program-list-index',
                 'strategic-program-list',
+                'edit-project',
+                'rdmc-regional-participants',
             ];
         @endphp
 

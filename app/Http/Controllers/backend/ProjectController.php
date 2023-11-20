@@ -15,6 +15,50 @@ class ProjectController extends Controller
     public function AddProject(Request $request)
     {
         date_default_timezone_set('Asia/Hong_Kong');
+        $request->validate(
+            [
+                'project_fund_code' => 'required',
+                'project_funding_years' => 'required',
+                'project_funding_duration' => 'required',
+                'project_title' => 'required',
+                'project_status' => 'required',
+                'project_category' => 'required',
+                'project_agency' => 'required',
+                'project_implementing_agency' => 'required',
+                'project_research_center' => 'required',
+                'project_start_date' => 'required',
+                'project_end_date' => 'required',
+                'project_leader' => 'required',
+                'project_assistant_leader' => 'required',
+                'project_description' => 'required',
+                'project_approved_budget' => 'required|numeric',
+                'project_amount_released' => 'required',
+                'project_budget_year' => 'required',
+                'project_form_of_development' => 'required',
+                'keywords' => 'required',
+            ],
+            [
+                'project_fund_code.required' => 'Fund code is required!',
+                'project_funding_years.required' => 'Funding years is required!',
+                'project_funding_duration.required' => 'Funding duration is required!',
+                'project_title.required' => 'Title is required!',
+                'project_status.required' => 'Status is required!',
+                'project_category.required' => 'Category is required!',
+                'project_agency.required' => 'Funding agency is required!',
+                'project_implementing_agency.required' => 'Implementing agency is required!',
+                'project_research_center.required' => 'Research center is required!',
+                'project_start_date.required' => 'Date is required!',
+                'project_end_date.required' => 'Date is required!',
+                'project_project_leader.required' => 'Program leader is required!',
+                'project_assistant_leader.required' => 'Assistant leader is required!',
+                'project_description.required' => 'Description is required!',
+                'project_approved_budget.required' => 'Budget is required!',
+                'project_amount_released.required' => 'Released amount is required!',
+                'project_budget_year.required' => 'Budget year is required!',
+                'project_form_of_development.required' => 'Form of development is required!',
+                'keywords.required' => 'Keywords is/are required!',
+            ],
+        );
 
         $data = [];
         $data['programID'] = $request->programID;
@@ -77,7 +121,50 @@ class ProjectController extends Controller
     public function UpdateProject(Request $request, $id)
     {
         date_default_timezone_set('Asia/Hong_Kong');
-
+        $request->validate(
+            [
+                'project_fund_code' => 'required',
+                'project_funding_years' => 'required',
+                'project_funding_duration' => 'required',
+                'project_title' => 'required',
+                'project_status' => 'required',
+                'project_category' => 'required',
+                'project_agency' => 'required',
+                'project_implementing_agency' => 'required',
+                'project_research_center' => 'required',
+                'project_start_date' => 'required',
+                'project_end_date' => 'required',
+                'project_leader' => 'required',
+                'project_assistant_leader' => 'required',
+                'project_description' => 'required',
+                'project_approved_budget' => 'required|numeric',
+                'project_amount_released' => 'required',
+                'project_budget_year' => 'required',
+                'project_form_of_development' => 'required',
+                'keywords' => 'required',
+            ],
+            [
+                'project_fund_code.required' => 'Fund code is required!',
+                'project_funding_years.required' => 'Funding years is required!',
+                'project_funding_duration.required' => 'Funding duration is required!',
+                'project_title.required' => 'Title is required!',
+                'project_status.required' => 'Status is required!',
+                'project_category.required' => 'Category is required!',
+                'project_agency.required' => 'Funding agency is required!',
+                'project_implementing_agency.required' => 'Implementing agency is required!',
+                'project_research_center.required' => 'Research center is required!',
+                'project_start_date.required' => 'Date is required!',
+                'project_end_date.required' => 'Date is required!',
+                'project_project_leader.required' => 'Program leader is required!',
+                'project_assistant_leader.required' => 'Assistant leader is required!',
+                'project_description.required' => 'Description is required!',
+                'project_approved_budget.required' => 'Budget is required!',
+                'project_amount_released.required' => 'Released amount is required!',
+                'project_budget_year.required' => 'Budget year is required!',
+                'project_form_of_development.required' => 'Form of development is required!',
+                'keywords.required' => 'Keywords is/are required!',
+            ],
+        );
         $data = [];
         $data['programID'] = $request->programID;
         $data['project_fund_code'] = $request->project_fund_code;

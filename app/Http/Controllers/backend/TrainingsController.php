@@ -11,6 +11,34 @@ class TrainingsController extends Controller
     public function AddTraining(Request $request)
     {
         date_default_timezone_set('Asia/Hong_Kong');
+        $request->validate(
+            [
+                'trainings_type' => 'required',
+                'trainings_sof' => 'required',
+                'trainings_agency' => 'required',
+                'trainings_title' => 'required',
+                'trainings_research_center' => 'required',
+                'trainings_expenditures' => 'required|numeric',
+                'trainings_start' => 'required',
+                'trainings_end' => 'required',
+                'trainings_no_participants' => 'required|numeric',
+                'trainings_venue' => 'required',
+                'trainings_remarks' => 'required',
+            ],
+            [
+                'trainings_type.required' => 'Type is required!',
+                'trainings_sof.required' => 'Source of fund is required!',
+                'trainings_agency.required' => 'Agency required!',
+                'trainings_title.required' => 'Title is required!',
+                'trainings_research_center.required' => 'Research center required!',
+                'trainings_expenditures.required' => 'Expenditures is required!',
+                'trainings_start.required' => 'Date is required!',
+                'trainings_end.required' => 'Date is required!',
+                'trainings_no_participants.required' => 'No. of participants is required!',
+                'trainings_venue.required' => 'Venue is required!',
+                'trainings_remarks.required' => 'Remarks is required!',
+            ],
+        );
 
         $data = [];
         $data['trainings_type'] = $request->trainings_type;
@@ -47,7 +75,34 @@ class TrainingsController extends Controller
     public function UpdateTraining(Request $request, $id)
     {
         date_default_timezone_set('Asia/Hong_Kong');
-
+        $request->validate(
+            [
+                'trainings_type' => 'required',
+                'trainings_sof' => 'required',
+                'trainings_agency' => 'required',
+                'trainings_title' => 'required',
+                'trainings_research_center' => 'required',
+                'trainings_expenditures' => 'required|numeric',
+                'trainings_start' => 'required',
+                'trainings_end' => 'required',
+                'trainings_no_participants' => 'required|numeric',
+                'trainings_venue' => 'required',
+                'trainings_remarks' => 'required',
+            ],
+            [
+                'trainings_type.required' => 'Type is required!',
+                'trainings_sof.required' => 'Source of fund is required!',
+                'trainings_agency.required' => 'Agency required!',
+                'trainings_title.required' => 'Title is required!',
+                'trainings_research_center.required' => 'Research center required!',
+                'trainings_expenditures.required' => 'Expenditures is required!',
+                'trainings_start.required' => 'Date is required!',
+                'trainings_end.required' => 'Date is required!',
+                'trainings_no_participants.required' => 'No. of participants is required!',
+                'trainings_venue.required' => 'Venue is required!',
+                'trainings_remarks.required' => 'Remarks is required!',
+            ],
+        );
         $data = [];
         $data['trainings_type'] = $request->trainings_type;
         $data['trainings_sof'] = $request->trainings_sof;

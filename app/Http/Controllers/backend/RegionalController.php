@@ -11,6 +11,24 @@ class RegionalController extends Controller
 {
     public function regional_add(Request $request)
     {
+        $request->validate(
+            [
+                'regional_category' => 'required',
+                'regional_title' => 'required',
+                'regional_implementing_agency' => 'required',
+                'regional_researchers' => 'required',
+                'regional_recommendations' => 'required',
+                'regional_winners' => 'required',
+            ],
+            [
+                'regional_category.required' => 'Category is required!',
+                'regional_title.required' => 'Title is required!',
+                'regional_implementing_agency.required' => 'Implementing agency is required!',
+                'regional_researchers.required' => 'Researchers is/are required!',
+                'regional_recommendations.required' => 'Recommendations field is required!',
+                'regional_winners.required' => 'Winners is/are required!',
+            ],
+        );
         $data = [];
         $data['regional_category'] = $request->regional_category;
         $data['regional_title'] = $request->regional_title;
@@ -53,6 +71,24 @@ class RegionalController extends Controller
     public function regional_update(Request $request, $id)
     {
         // $id = Crypt::decryptString($id);
+        $request->validate(
+            [
+                'regional_category' => 'required',
+                'regional_title' => 'required',
+                'regional_implementing_agency' => 'required',
+                'regional_researchers' => 'required',
+                'regional_recommendations' => 'required',
+                'regional_winners' => 'required',
+            ],
+            [
+                'regional_category.required' => 'Category is required!',
+                'regional_title.required' => 'Title is required!',
+                'regional_implementing_agency.required' => 'Implementing agency is required!',
+                'regional_researchers.required' => 'Researchers is/are required!',
+                'regional_recommendations.required' => 'Recommendations field is required!',
+                'regional_winners.required' => 'Winners is/are required!',
+            ],
+        );
         $data = [];
         $data['regional_category'] = $request->regional_category;
         $data['regional_title'] = $request->regional_title;
@@ -100,6 +136,21 @@ class RegionalController extends Controller
     // Regional Participants
     public function regional_participants_add(Request $request)
     {
+        $request->validate(
+            [
+                'rp_type' => 'required',
+                'rp_agency' => 'required',
+                'rp_no' => 'required|numeric',
+                'rp_remarks' => 'required',
+            ],
+            [
+                'rp_type.required' => 'Type is required!',
+                'rp_agency.required' => 'Agency is required!',
+                'rp_no.required' => 'No. of participants is required!',
+                'rp_remarks.required' => 'Remarks is required!',
+            ],
+        );
+
         $data = [];
         $data['rp_type'] = $request->rp_type;
         $data['rp_agency'] = $request->rp_agency;
@@ -141,6 +192,20 @@ class RegionalController extends Controller
     public function regional_participants_update(Request $request, $id)
     {
         // $id = Crypt::decryptString($id);
+        $request->validate(
+            [
+                'rp_type' => 'required',
+                'rp_agency' => 'required',
+                'rp_no' => 'required|numeric',
+                'rp_remarks' => 'required',
+            ],
+            [
+                'rp_type.required' => 'Type is required!',
+                'rp_agency.required' => 'Agency is required!',
+                'rp_no.required' => 'No. of participants is required!',
+                'rp_remarks.required' => 'Remarks is required!',
+            ],
+        );
         $data = [];
         $data['rp_type'] = $request->rp_type;
         $data['rp_agency'] = $request->rp_agency;
