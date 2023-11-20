@@ -51,6 +51,10 @@ body.login {
     color: white;
 }
 
+a.btn.btn-info.float-right {
+    margin-right: 1rem;
+}
+
 .table thead th {
     vertical-align: middle;
     border-bottom: 2px solid #dee2e6;
