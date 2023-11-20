@@ -91,14 +91,20 @@
                                                     </td>
                                                     <td>{{ $row->funding_agency }}</td>
                                                     @php
-                                                        $imp = json_decode($row->implementing_agency);
-                                                        if (!empty($imp)) {
-                                                            $agencies = implode(' / ', $imp);
+                                                        if (!empty($row->implementing_agency)) {
+                                                            $imp = json_decode($row->implementing_agency);
+                                                            $imp = implode(' / ', $imp);
                                                         }
+                                                        // $imp = json_decode($row->implementing_agency);
+                                                        // $agencies = implode(' / ', $imp);
+
+                                                        // $imp = $row->implementing_agency;
+                                                        // $imp = str_replace(['[', '"', ']'], '', $imp);
+
                                                         $rc = $row->research_center;
                                                         $rc = str_replace(['[', '"', ']'], '', $rc);
                                                     @endphp
-                                                    <td>{{ $agencies }} /
+                                                    <td>{{ $imp }} /
                                                         {{ $rc }}</td>
                                                     <td>{{ $row->program_description }}</td>
                                                     <td>
