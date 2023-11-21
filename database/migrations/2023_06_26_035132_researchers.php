@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      */
@@ -13,11 +12,11 @@ return new class extends Migration
     {
         Schema::create('researchers', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('gender');
-            $table->string('contact');
+            $table->string('name')->nullable();
+            $table->string('gender')->nullable();
+            $table->string('contact')->nullable();
             $table->string('email')->unique();
-            $table->string('agency');
+            $table->string('agency')->nullable();
             $table->timestamps();
         });
     }
@@ -27,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('researchers');
+        // Schema::dropIfExists('researchers');
     }
 };

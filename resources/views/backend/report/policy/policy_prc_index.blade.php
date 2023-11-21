@@ -15,7 +15,7 @@
                             <li class="breadcrumb-item"><a href="home">Home</a></li>
                             <li class="breadcrumb-item"><a href="report-index">Reports</a></li>
                             <li class="breadcrumb-item"><a href="cbg-index">CBG</a></li>
-                            <li class="breadcrumb-item active">Policy Researches Conducted
+                            <li class="breadcrumb-item active">Policy Researchers Conducted
                             </li>
                         </ol>
                     </div><!-- /.col -->
@@ -29,7 +29,7 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-header">
-                                <h2 class="card-title">List of Policy Researches Conducted</h2>
+                                <h2 class="card-title">List of Policy Researchers Conducted</h2>
                                 <div class="card-tools">
                                     <a href="{{ url('policy-prc-add') }}" class="btn btn-success"><span><i
                                                 class="fa-solid fa-plus"></i> Add</span></a>
@@ -60,7 +60,8 @@
                                                             <td>{{ $row->prc_author }}</td>
                                                             <td>{{ $row->prc_issues }}</td>
                                                             <td class="action btns">
-                                                                <a href="{{ url('edit-prc/' . Crypt::encryptString($row->id)) }}" class="btn btn-primary"><i
+                                                                <a href="{{ url('edit-prc/' . Crypt::encryptString($row->id)) }}"
+                                                                    class="btn btn-primary"><i
                                                                         class="fa-solid fa-pen-to-square"
                                                                         style="color: white;"></i></a>
                                                                 <a href="{{ url('delete-prc/' . Crypt::encryptString($row->id)) }}"
@@ -89,6 +90,6 @@
         <!-- /.content -->
 
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-      
+
     </div>
 @endsection

@@ -29,7 +29,7 @@ class ActivitiesController extends Controller
         );
 
         $data = [];
-        $data['donor'] = $request->donor;
+        $data['donor'] = json_encode($request->donor);
         $data['activity_type'] = $request->activity_type;
         $data['activity_title'] = $request->activity_title;
         $data['shared_amount'] = str_replace(',', '', $request->shared_amount);
@@ -42,22 +42,6 @@ class ActivitiesController extends Controller
         } else {
             return response()->json(['error' => 'There is something wrong...']);
         }
-
-        // if ($insert) {
-
-        //     $notification = array(
-        //         'message' => 'Activity Successfully Added!',
-        //         'alert-type' => 'success'
-        //     );
-
-        //     return redirect()->route('rdmcActivities')->with($notification);
-        // } else {
-        //     $notification = array(
-        //         'message' => 'Something is wrong, please try again!',
-        //         'alert-type' => 'error'
-        //     );
-        //     return redirect()->route('rdmcActivities')->with($notification);
-        // }
     }
 
     public function EditActivity($id)
@@ -92,7 +76,7 @@ class ActivitiesController extends Controller
         );
 
         $data = [];
-        $data['donor'] = $request->donor;
+        $data['donor'] = json_encode($request->donor);
         $data['activity_type'] = $request->activity_type;
         $data['activity_title'] = $request->activity_title;
         $data['shared_amount'] = str_replace(',', '', $request->shared_amount);
@@ -108,20 +92,6 @@ class ActivitiesController extends Controller
         } else {
             return response()->json(['error' => 'There is something wrong...']);
         }
-
-        // if ($update) {
-        //     $notification = array(
-        //         'message' => 'Activity Successfully Updated!',
-        //         'alert-type' => 'success'
-        //     );
-        //     return redirect()->route('rdmcActivities')->with($notification);
-        // } else {
-        //     $notification = array(
-        //         'message' => 'Something is wrong, please try again!',
-        //         'alert-type' => 'error'
-        //     );
-        //     return redirect()->route('rdmcActivities')->with($notification);
-        // }
     }
 
     public function DeleteActivity($id)

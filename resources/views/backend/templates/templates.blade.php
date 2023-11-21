@@ -52,14 +52,13 @@
                                                 <td>{{ $row->file_name }}</td>
                                                 <td hidden>{{ $row->file_path }}</td>
                                                 <td class="action">
-
                                                     <a href="{{ url('download/' . $row->id) }}" class="btn btn-info">
                                                         <i class="fa-solid fa-download"></i>
                                                     </a>
 
-                                                    <a href="{{ URL::to('/delete-file/' . $row->id) }}"
+                                                    {{-- <a href="{{ URL::to('/delete-file/' . $row->id) }}"
                                                         class="btn btn-danger" id="delete"><i
-                                                            class="fa-solid fa-trash"></i></a>
+                                                            class="fa-solid fa-trash"></i></a> --}}
                                                 </td>
                                             </tr>
                                         @endforeach
@@ -118,7 +117,6 @@
             </div>
         </div>
     </div>
-
 
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>

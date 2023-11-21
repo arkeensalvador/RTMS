@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      */
@@ -22,7 +21,7 @@ return new class extends Migration
             $table->string('ttp_implementing_agency');
             $table->string('ttp_start_date');
             $table->string('ttp_end_date');
-            $table->string('ttp_priorities');
+            $table->longText('ttp_priorities');
             $table->timestamps();
         });
     }

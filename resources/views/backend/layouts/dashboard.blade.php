@@ -140,7 +140,7 @@
                                 </div>
                             </div>
                             {{-- AIHRS --}}
-                            <div class="col-md-4">
+                            <div class="col-md-6">
                                 <div class="card card-success">
                                     <div class="col-md-12">
                                         <div class="card-body">
@@ -151,20 +151,9 @@
                                     </div>
                                 </div>
                             </div>
-                            {{-- Researcher --}}
-                            <div class="col-md-4">
-                                <div class="card card-success">
-                                    <div class="col-md-12">
-                                        <div class="card-body">
-                                            <div class="chart">
-                                                <div id="myChart3"></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+
                             {{-- Awards --}}
-                            <div class="col-md-4">
+                            <div class="col-md-6">
                                 <div class="card card-success">
                                     <div class="col-md-12">
                                         <div class="card-body">
@@ -175,32 +164,6 @@
                                     </div>
                                 </div>
                             </div>
-
-                            {{-- PROGRAMS, PROJECTS, SUB PROJECTS BUDGETS --}}
-                            {{-- <div class="col-md-12">
-                                <div class="card card-success">
-                                    <div class="col-md-12">
-                                        <div class="card-body">
-                                            <div class="chart">
-                                                <div id="myChart12"></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div> --}}
-
-                            {{-- RESEARCHERS INVOLVEMENT --}}
-                            {{-- <div class="col-md-6">
-                                <div class="card card-success">
-                                    <div class="col-md-12">
-                                        <div class="card-body">
-                                            <div class="chart">
-                                                <div id="myChart13"></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div> --}}
                         </div>
                     </div>
                 </div>
@@ -304,87 +267,6 @@
 
         chart2.render();
 
-        // Researchers
-        var options = {
-            series: {{ json_encode($count_res) }},
-            chart: {
-                height: 300,
-                type: 'radialBar',
-            },
-            plotOptions: {
-                radialBar: {
-                    offsetY: 0,
-                    offsetX: 0,
-                    startAngle: 0,
-                    endAngle: 270,
-                    hollow: {
-                        margin: 5,
-                        size: '30%',
-                        background: 'transparent',
-                        image: undefined,
-                    },
-                    dataLabels: {
-                        name: {
-                            show: false,
-                        },
-                        value: {
-                            show: false,
-                        }
-                    }
-                }
-            },
-            colors: ['#1ab7ea', '#0084ff', '#39539E', '#0077B5'],
-            labels: [
-                @php
-                    foreach ($researchers as $res) {
-                        echo "'" . $res->abbrev . "',";
-                    }
-                @endphp
-            ],
-            legend: {
-                show: true,
-                floating: true,
-                fontSize: '12px',
-                position: 'left',
-                offsetX: -35,
-                offsetY: -15,
-                labels: {
-                    useSeriesColors: true,
-                },
-                markers: {
-                    size: 0
-                },
-                formatter: function(seriesName, opts) {
-                    return seriesName + ":  " + opts.w.globals.series[opts.seriesIndex]
-                },
-                itemMargin: {
-                    vertical: -5
-                }
-            },
-            noData: {
-                text: "Loading...",
-            },
-            title: {
-                text: 'Researchers',
-                align: 'center',
-                floating: true
-            },
-            subtitle: {
-                text: 'Total # of researchers',
-                align: 'center',
-            },
-            responsive: [{
-                breakpoint: 480,
-                options: {
-                    legend: {
-                        show: false
-                    }
-                }
-            }]
-        };
-
-        var chart3 = new ApexCharts(document.querySelector("#myChart3"), options);
-        chart3.render();
 
         // AWARDS
 

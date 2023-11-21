@@ -91,7 +91,8 @@
                                 <div class="col-md-8 form-group">
                                     <label for="funding_agency" class=" font-weight-bold">Donor/Source<span
                                             class="text-danger">*</span></label>
-                                    <select class="form-control agency" id="awards_recipients" name="donor" required>
+                                    <select class="form-control implementing_agency" id="awards_recipients"
+                                        multiple="multiple" name="donor[]" required>
                                         <option value=""></option>
 
                                         @foreach ($agency as $key)

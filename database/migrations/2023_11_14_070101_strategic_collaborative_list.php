@@ -20,7 +20,7 @@ return new class extends Migration {
             $table->string('str_collab_date');
             $table->string('str_collab_budget');
             $table->string('str_collab_sof');
-            $table->string('str_collab_roc');
+            $table->longText('str_collab_roc');
             $table->string('str_collab_program_title');
             $table->timestamps();
         });

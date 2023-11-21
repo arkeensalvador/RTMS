@@ -21,7 +21,7 @@ return new class extends Migration {
             $table->string('str_p_budget');
             $table->string('str_p_sof');
             // $table->string('str_p_roc');
-            $table->string('str_p_regional');
+            $table->longText('str_p_regional');
             $table->timestamps();
         });
     }

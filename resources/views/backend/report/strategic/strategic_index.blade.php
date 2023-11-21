@@ -58,7 +58,7 @@
                                             </a>
                                         </div>
 
-                                        <div class="col-sm-12">
+                                        {{-- <div class="col-sm-12">
                                             <a href="strategic-activities">
                                                 <div class="monitoring info-box bg-light">
                                                     <div class="monitoring info-box-content">
@@ -68,7 +68,7 @@
                                                     </div>
                                                 </div>
                                             </a>
-                                        </div>
+                                        </div> --}}
                                     </div>
                                 </div>
                             </div>

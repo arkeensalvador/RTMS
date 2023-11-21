@@ -12,7 +12,7 @@
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="home">Home</a></li>
                             <li class="breadcrumb-item"><a href="strategic-index">Strategic R&D</a></li>
-                            <li class="breadcrumb-item active">R&D Programs / Projects Packaged, Approved and Implemented
+                            <li class="breadcrumb-item active">Collaborative R & D
                             </li>
                         </ol>
                     </div><!-- /.col -->
@@ -26,7 +26,7 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-header">
-                                <h2 class="card-title">List of Collaborative R&D Programs/Projects implemented
+                                <h2 class="card-title">List of Collaborative R & D
                                 </h2>
                                 <div class="card-tools">
                                     <a href="{{ url('add-strategic-collaborative-list-index') }}"

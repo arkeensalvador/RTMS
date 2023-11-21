@@ -15,7 +15,8 @@
                             <li class="breadcrumb-item"><a href="home">Home</a></li>
                             <li class="breadcrumb-item"><a href="report-index">Reports</a></li>
                             <li class="breadcrumb-item"><a href="cbg-index">CBG</a></li>
-                            <li class="breadcrumb-item active">Policy Researches Conducted
+                            <li class="breadcrumb-item active">Policies formulated, advocated, implemented institutional and
+                                institutionalized
                             </li>
                         </ol>
                     </div><!-- /.col -->

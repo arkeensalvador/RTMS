@@ -61,7 +61,11 @@
                                                                 {{ $key + 1 }}
                                                             </td>
                                                             <td>
-                                                                {{ $row->donor }}
+                                                                @php
+                                                                    $donor = json_decode($row->donor);
+                                                                    $donor = implode(', ', $donor);
+                                                                @endphp
+                                                                {{ $donor }}
                                                             </td>
                                                             {{-- <td>{{ $row->activity_type }}</td> --}}
                                                             <td>{{ $row->activity_title }}</td>

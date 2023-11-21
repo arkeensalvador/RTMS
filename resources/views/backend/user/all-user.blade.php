@@ -19,12 +19,12 @@
             </div><!-- /.container-fluid -->
         </div>
         <section class="content">
-            
+
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-12">
                         <div class="card">
-                            
+
                             <div class="card-header">
                                 <h3 class="card-title">List of Users</h3>
                                 <div class="card-tools">
@@ -66,23 +66,15 @@
                                                     <a class="btn btn-primary"
                                                         href="{{ URL::to('/edit-user/' . $row->id) }}"><i
                                                             class="fa-solid fa-pen-to-square" style="color: white;"></i></a>
-                                                            
-                                                    <a href="{{ URL::to('/delete-user/' . $row->id) }}" class="btn btn-danger"
-                                                        id="delete"><i class="fa-solid fa-trash"></i></a>
+
+                                                    <a href="{{ URL::to('/delete-user/' . $row->id) }}"
+                                                        class="btn btn-danger" id="delete"><i
+                                                            class="fa-solid fa-trash"></i></a>
                                                 </td>
                                             </tr>
                                         @endforeach
                                     </tbody>
-                                    <tfoot>
-                                        <tr>
-                                            <th>Serial</th>
-                                            <th>Name</th>
-                                            <th>Email</th>
-                                            <th>Institute</th>
-                                            <th>Role</th>
-                                            <th>Action</th>
-                                        </tr>
-                                    </tfoot>
+
                                 </table>
                             </div>
                             <!-- /.card-body -->
@@ -98,31 +90,33 @@
         <!-- /.content -->
     </div>
 
-     <!-- Modal -->
-     <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-     aria-labelledby="staticBackdropLabel" aria-hidden="true">
-     <div class="modal-dialog">
-         <div class="modal-content">
-             <div class="modal-header">
-                 <h1 class="modal-title fs-5" id="staticBackdropLabel">Import to Database
-                     <span title="Click to download format">
-                         <a href="{{ url('download-template-user') }}" class="" download><i class="fa-solid fa-file-circle-question"></i></a>
-                     </span>
-                 </h1>
+    <!-- Modal -->
+    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Import to Database
+                        <span title="Click to download format">
+                            <a href="{{ url('download-template-user') }}" class="" download><i
+                                    class="fa-solid fa-file-circle-question"></i></a>
+                        </span>
+                    </h1>
 
-                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-             </div>
-             <form action="{{ url('import-file') }}" method="POST" enctype="multipart/form-data">
-                 @csrf
-                 <div class="modal-body">
-                     <input type="file" name="import_excel_users" accept="application/vnd.ms-excel" class="form-control" id="import_excel">
-                 </div>
-                 <div class="modal-footer">
-                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                     <button type="submit"  class="btn btn-success">Import</button>
-                 </div>
-             </form>
-         </div>
-     </div>
- </div>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form action="{{ url('import-file') }}" method="POST" enctype="multipart/form-data">
+                    @csrf
+                    <div class="modal-body">
+                        <input type="file" name="import_excel_users" accept="application/vnd.ms-excel"
+                            class="form-control" id="import_excel">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-success">Import</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 @endsection

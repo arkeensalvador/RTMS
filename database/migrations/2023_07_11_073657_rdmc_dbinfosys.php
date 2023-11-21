@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      */
@@ -17,7 +16,7 @@ return new class extends Migration
             $table->string('dbinfosys_type');
             $table->string('dbinfosys_title');
             $table->string('dbinfosys_date_created');
-            $table->string('dbinfosys_purpose');
+            $table->longText('dbinfosys_purpose');
             $table->timestamps();
         });
     }
@@ -28,7 +27,7 @@ return new class extends Migration
     public function down(): void
     {
         /* The line `// Schema::dropIfExists('rdmc_dbinfosys');` is commented out, which means it is
-        not currently being executed. */
+         not currently being executed. */
         Schema::dropIfExists('rdmc_dbinfosys');
     }
 };

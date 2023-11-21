@@ -73,14 +73,6 @@
                                             </tr>
                                         @endforeach
                                     </tbody>
-                                    <tfoot>
-                                        <tr>
-                                            <th>Serial</th>
-                                            <th>Agency</th>
-                                            <th>Abbrev.</th>
-                                            <th>Action</th>
-                                        </tr>
-                                    </tfoot>
                                 </table>
                             </div>
                             <!-- /.card-body -->

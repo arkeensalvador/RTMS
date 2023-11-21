@@ -32,29 +32,63 @@ class HomeController extends Controller
             ->select('users.*', 'agency.*')
             ->get();
 
-        // CMI DASHBOARD 
-        $user_agency = DB::table('users')->where('agencyID', auth()->user()->agencyID)->first();
-        $total_programs_count_filter = DB::table('programs')->where('implementing_agency', 'LIKE', '%' . auth()->user()->agencyID . '%')->count();
-        $total_projects_filter = DB::table('projects')->where('project_implementing_agency', 'LIKE', '%' . auth()->user()->agencyID . '%')->count();
-        $total_sub_projects_filter = DB::table('sub_projects')->where('sub_project_implementing_agency', 'LIKE', '%' . auth()->user()->agencyID . '%')->count();
-        $total_researchers_filter = DB::table('researchers')->where('agency', auth()->user()->agencyID)->count();
+        // CMI DASHBOARD
+        $user_agency = DB::table('users')
+            ->where('agencyID', auth()->user()->agencyID)
+            ->first();
+        $total_programs_count_filter = DB::table('programs')
+            ->where('implementing_agency', 'LIKE', '%' . auth()->user()->agencyID . '%')
+            ->count();
+        $total_projects_filter = DB::table('projects')
+            ->where('project_implementing_agency', 'LIKE', '%' . auth()->user()->agencyID . '%')
+            ->count();
+        $total_sub_projects_filter = DB::table('sub_projects')
+            ->where('sub_project_implementing_agency', 'LIKE', '%' . auth()->user()->agencyID . '%')
+            ->count();
+        $total_researchers_filter = DB::table('researchers')
+            ->where('agency', auth()->user()->agencyID)
+            ->count();
         // END CMI DASHBOARD
 
         // Program
-        $new = DB::table('programs')->where('program_status', '=', 'new')->count();
-        $ongoing = DB::table('programs')->where('program_status', '=', 'ongoing')->count();
-        $terminated = DB::table('programs')->where('program_status', '=', 'terminated')->count();
-        $completed = DB::table('programs')->where('program_status', '=', 'completed')->count();
+        $new = DB::table('programs')
+            ->where('program_status', '=', 'new')
+            ->count();
+        $ongoing = DB::table('programs')
+            ->where('program_status', '=', 'ongoing')
+            ->count();
+        $terminated = DB::table('programs')
+            ->where('program_status', '=', 'terminated')
+            ->count();
+        $completed = DB::table('programs')
+            ->where('program_status', '=', 'completed')
+            ->count();
         // Project
-        $new_proj = DB::table('projects')->where('project_status', '=', 'new')->count();
-        $ongoing_proj = DB::table('projects')->where('project_status', '=', 'ongoing')->count();
-        $terminated_proj = DB::table('projects')->where('project_status', '=', 'terminated')->count();
-        $completed_proj = DB::table('projects')->where('project_status', '=', 'completed')->count();
+        $new_proj = DB::table('projects')
+            ->where('project_status', '=', 'new')
+            ->count();
+        $ongoing_proj = DB::table('projects')
+            ->where('project_status', '=', 'ongoing')
+            ->count();
+        $terminated_proj = DB::table('projects')
+            ->where('project_status', '=', 'terminated')
+            ->count();
+        $completed_proj = DB::table('projects')
+            ->where('project_status', '=', 'completed')
+            ->count();
         // Sub-Project
-        $new_subproj = DB::table('sub_projects')->where('sub_project_status', '=', 'new')->count();
-        $ongoing_subproj = DB::table('sub_projects')->where('sub_project_status', '=', 'ongoing')->count();
-        $terminated_subproj = DB::table('sub_projects')->where('sub_project_status', '=', 'terminated')->count();
-        $completed_subproj = DB::table('sub_projects')->where('sub_project_status', '=', 'completed')->count();
+        $new_subproj = DB::table('sub_projects')
+            ->where('sub_project_status', '=', 'new')
+            ->count();
+        $ongoing_subproj = DB::table('sub_projects')
+            ->where('sub_project_status', '=', 'ongoing')
+            ->count();
+        $terminated_subproj = DB::table('sub_projects')
+            ->where('sub_project_status', '=', 'terminated')
+            ->count();
+        $completed_subproj = DB::table('sub_projects')
+            ->where('sub_project_status', '=', 'completed')
+            ->count();
 
         $data_agency = DB::table('agency')->get();
 
@@ -70,18 +104,15 @@ class HomeController extends Controller
         $total_sub_projects = DB::table('sub_projects')->count();
         $total_researchers = DB::table('researchers')->count();
 
-
         $datas = DB::table('agency')
             ->join('cbg_awards', 'agency.abbrev', '=', 'cbg_awards.awards_agency')
-            ->select(
-                'agency.abbrev as agency',
-                DB::raw('COUNT(cbg_awards.id) as awards_count')
-            )
+            ->select('agency.abbrev as agency', DB::raw('COUNT(cbg_awards.id) as awards_count'))
             ->groupBy('agency')
             ->get();
 
-        $progs = DB::table('programs')->join('agency', 'agency.abbrev', '=', 'programs.funding_agency')
-            ->select(DB::raw("COUNT(*) as count_p"), DB::raw("agency.abbrev as abbrev"), DB::raw("approved_budget as budget"), DB::raw("program_title as title"))
+        $progs = DB::table('programs')
+            ->join('agency', 'agency.abbrev', '=', 'programs.funding_agency')
+            ->select(DB::raw('COUNT(*) as count_p'), DB::raw('agency.abbrev as abbrev'), DB::raw('approved_budget as budget'), DB::raw('program_title as title'))
             ->groupBy('abbrev', 'budget', 'title')
             ->orderBy('count_p')
             ->get();
@@ -93,28 +124,31 @@ class HomeController extends Controller
             // $programs_year[] = $progams->year;
         }
 
-        $projs = DB::table('projects')->join('agency', 'agency.abbrev', '=', 'projects.project_agency')
-            ->select(DB::raw("COUNT(*) as count_p"), DB::raw("agency.abbrev as abbrev"), DB::raw("project_approved_budget as budget"), DB::raw("project_title as title"))
+        $projs = DB::table('projects')
+            ->join('agency', 'agency.abbrev', '=', 'projects.project_agency')
+            ->select(DB::raw('COUNT(*) as count_p'), DB::raw('agency.abbrev as abbrev'), DB::raw('project_approved_budget as budget'), DB::raw('project_title as title'))
             ->groupBy('abbrev', 'budget', 'title')
             ->orderBy('count_p')
             ->get();
 
-        $sub_projs = DB::table('sub_projects')->join('agency', 'agency.abbrev', '=', 'sub_projects.sub_project_agency')
-            ->select(DB::raw("COUNT(*) as count_p"), DB::raw("agency.abbrev as abbrev"), DB::raw("sub_project_approved_budget as budget"), DB::raw("sub_project_title as title"))
+        $sub_projs = DB::table('sub_projects')
+            ->join('agency', 'agency.abbrev', '=', 'sub_projects.sub_project_agency')
+            ->select(DB::raw('COUNT(*) as count_p'), DB::raw('agency.abbrev as abbrev'), DB::raw('sub_project_approved_budget as budget'), DB::raw('sub_project_title as title'))
             ->groupBy('abbrev', 'budget', 'title')
             ->orderBy('count_p')
             ->get();
 
-        $total_programs = DB::table('programs')->select(DB::raw("COUNT(*) as total_programs_count"), DB::raw("funding_agency as total_program_agency"))
+        $total_programs = DB::table('programs')
+            ->select(DB::raw('COUNT(*) as total_programs_count'), DB::raw('funding_agency as total_program_agency'))
             ->groupBy('total_program_agency')
             ->orderBy('total_programs_count')
             ->get();
 
-        $total_projs = DB::table('projects')->select(DB::raw("COUNT(*) as total_count_proj"), DB::raw("project_agency as total_project_agency"))
+        $total_projs = DB::table('projects')
+            ->select(DB::raw('COUNT(*) as total_count_proj'), DB::raw('project_agency as total_project_agency'))
             ->groupBy('total_project_agency')
             ->orderBy('total_count_proj')
             ->get();
-
 
         // foreach ($projs as $projects) {
         //     $project_count[] = $projects->count_proj;
@@ -123,29 +157,25 @@ class HomeController extends Controller
         //     $projects_year[] = $projects->project_year;
         // }
 
-        $total_sub_projs = DB::table('sub_projects')->select(DB::raw("COUNT(*) as total_count_sub_proj"), DB::raw("sub_project_agency as total_sub_project_agency"))
+        $total_sub_projs = DB::table('sub_projects')
+            ->select(DB::raw('COUNT(*) as total_count_sub_proj'), DB::raw('sub_project_agency as total_sub_project_agency'))
             ->groupBy('total_sub_project_agency')
             ->orderBy('total_count_sub_proj')
             ->get();
 
+        // $researchers = DB::table('researchers')
+        //     ->join('agency', 'agency.abbrev', '=', 'researchers.agency')
+        //     ->select(DB::raw('count(*) as count_res'), DB::raw('agency.abbrev as abbrev'))
+        //     ->groupBy('abbrev')
+        //     ->get();
 
-        $researchers = DB::table('researchers')->join('agency', 'agency.abbrev', '=', 'researchers.agency')
-            ->select(DB::raw('count(*) as count_res'), DB::raw('agency.abbrev as abbrev'))
-            ->groupBy('abbrev')
-            ->get();
-
-        foreach ($researchers as $res) {
-            $res_count[] = $res->count_res;
-            $res_agency[] = $res->abbrev;
-        }
+        // foreach ($researchers as $res) {
+        //     $res_count[] = $res->count_res;
+        //     $res_agency[] = $res->abbrev;
+        // }
 
         $agencyData = DB::table('agency')
-            ->select(
-                'agency.abbrev as agency_abbreviation',
-                DB::raw('COUNT(DISTINCT programs.id) as total_programs'),
-                DB::raw('COUNT(DISTINCT projects.id) as total_projects'),
-                DB::raw('COUNT(DISTINCT sub_projects.id) as total_sub_projects')
-            )
+            ->select('agency.abbrev as agency_abbreviation', DB::raw('COUNT(DISTINCT programs.id) as total_programs'), DB::raw('COUNT(DISTINCT projects.id) as total_projects'), DB::raw('COUNT(DISTINCT sub_projects.id) as total_sub_projects'))
             ->leftJoin('programs', 'agency.abbrev', '=', 'programs.funding_agency')
             ->leftJoin('projects', 'agency.abbrev', '=', 'projects.project_agency')
             ->leftJoin('sub_projects', 'agency.abbrev', '=', 'sub_projects.sub_project_agency')
@@ -153,19 +183,11 @@ class HomeController extends Controller
             ->get();
 
         $agencyImp = DB::table('programs')
-            ->select(
-                DB::raw('COUNT(DISTINCT programs.id) as total_programs'),
-                DB::raw('implementing_agency as agency'),
-                DB::raw('program_title as title')
-            )
+            ->select(DB::raw('COUNT(DISTINCT programs.id) as total_programs'), DB::raw('implementing_agency as agency'), DB::raw('program_title as title'))
             ->groupBy('title', 'agency')
             ->get();
 
-        $minValueAgencyData = min(
-            $agencyData->min('total_programs'),
-            $agencyData->min('total_projects'),
-            $agencyData->min('total_sub_projects')
-        );
+        $minValueAgencyData = min($agencyData->min('total_programs'), $agencyData->min('total_projects'), $agencyData->min('total_sub_projects'));
 
         $agenciesDataBudget = Agency::select('agency.abbrev as agency_abbreviation')
             ->selectRaw('SUM(programs.approved_budget) as total_program_budget')
@@ -177,60 +199,36 @@ class HomeController extends Controller
             ->groupBy('agency_abbreviation')
             ->get();
 
-
         $dataBudget = DB::table('agency')
-            ->select(
-                'agency.abbrev as agency_abbreviation',
-                DB::raw('SUM(programs.approved_budget) as program_budget'),
-                DB::raw('SUM(projects.project_approved_budget) as project_budget'),
-                DB::raw('SUM(sub_projects.sub_project_approved_budget) as sub_project_budget')
-            )
+            ->select('agency.abbrev as agency_abbreviation', DB::raw('SUM(programs.approved_budget) as program_budget'), DB::raw('SUM(projects.project_approved_budget) as project_budget'), DB::raw('SUM(sub_projects.sub_project_approved_budget) as sub_project_budget'))
             ->leftJoin('programs', 'agency.abbrev', '=', 'programs.funding_agency')
             ->leftJoin('projects', 'agency.abbrev', '=', 'projects.project_agency')
             ->leftJoin('sub_projects', 'agency.abbrev', '=', 'sub_projects.sub_project_agency')
             ->groupBy('agency_abbreviation')
             ->get();
 
-
         $data = DB::table('programs')
-            ->select(
-                DB::raw('SUM(approved_budget) as program_budget'),
-                DB::raw('funding_agency as agency'),
-                DB::raw('program_title as title')
-            )
+            ->select(DB::raw('SUM(approved_budget) as program_budget'), DB::raw('funding_agency as agency'), DB::raw('program_title as title'))
             ->groupBy('title', 'agency')
             ->get();
 
         $data = $data->merge(
             DB::table('projects')
-                ->select(
-                    DB::raw('SUM(project_approved_budget) as project_budget'),
-                    DB::raw('project_agency as agency'),
-                    DB::raw('project_title as title')
-                )
+                ->select(DB::raw('SUM(project_approved_budget) as project_budget'), DB::raw('project_agency as agency'), DB::raw('project_title as title'))
                 ->groupBy('title', 'agency')
-                ->get()
+                ->get(),
         );
 
         $data = $data->merge(
             DB::table('sub_projects')
-                ->select(
-                    DB::raw('SUM(sub_project_approved_budget) as sub_project_budget'),
-                    DB::raw('sub_project_agency as agency'),
-                    DB::raw('sub_project_title as title')
-                )
+                ->select(DB::raw('SUM(sub_project_approved_budget) as sub_project_budget'), DB::raw('sub_project_agency as agency'), DB::raw('sub_project_title as title'))
                 ->groupBy('title', 'agency')
-                ->get()
+                ->get(),
         );
 
-        $minValue = min(
-            $data->min('program_budget'),
-            $data->min('project_budget'),
-            $data->min('sub_project_budget')
-        );
+        $minValue = min($data->min('program_budget'), $data->min('project_budget'), $data->min('sub_project_budget'));
 
-
-        // researchers involvement pie chart query 
+        // researchers involvement pie chart query
         $researcherCounts = DB::table('researchers')
             ->select('name', DB::raw('COUNT(programs.programID) as programs_count'), DB::raw('COUNT(projects.id) as projects_count'), DB::raw('COUNT(sub_projects.id) as sub_projects_count'))
             ->leftJoin('programs', 'researchers.name', '=', 'programs.program_leader')
@@ -239,39 +237,15 @@ class HomeController extends Controller
             ->groupBy('researchers.name')
             ->get();
 
-
-        return view('backend.layouts.dashboard', [
-            'total_new' => $total_new, 'total_ongoing' => $total_ongoing, 'total_terminated' => $total_terminated,
-            'total_completed' => $total_completed,
-            'count_res' => $res_count, 'abbrev' => $res_agency
-        ], compact(
-            'all',
-            'title',
-            'data',
-            'datas',
-            'researcherCounts',
-            'progs',
-            'minValue',
-            'data_agency',
-            'agencyImp',
-            'minValueAgencyData',
-            'projs',
-            'sub_projs',
-            'total_projs',
-            'total_programs_count',
-            'total_projects',
-            'total_sub_projects',
-            'total_sub_projs',
-            'total_researchers',
-            'researchers',
-            'agencyData',
-            'dataBudget',
-            'total_programs',
-            'user_agency',
-            'total_programs_count_filter',
-            'total_projects_filter',
-            'total_sub_projects_filter',
-            'total_researchers_filter'
-        ));
+        return view(
+            'backend.layouts.dashboard',
+            [
+                'total_new' => $total_new,
+                'total_ongoing' => $total_ongoing,
+                'total_terminated' => $total_terminated,
+                'total_completed' => $total_completed,
+            ],
+            compact('all', 'title', 'data', 'datas', 'researcherCounts', 'progs', 'minValue', 'data_agency', 'agencyImp', 'minValueAgencyData', 'projs', 'sub_projs', 'total_projs', 'total_programs_count', 'total_projects', 'total_sub_projects', 'total_sub_projs', 'total_researchers', 'agencyData', 'dataBudget', 'total_programs', 'user_agency', 'total_programs_count_filter', 'total_projects_filter', 'total_sub_projects_filter', 'total_researchers_filter'),
+        );
     }
 }

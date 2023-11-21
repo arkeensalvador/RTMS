@@ -14,8 +14,8 @@ return new class extends Migration {
             $table->id();
             $table->string('tpa_title');
             $table->string('tpa_date');
-            $table->string('tpa_details');
-            $table->string('tpa_remarks');
+            $table->longText('tpa_details');
+            $table->longText('tpa_remarks');
             $table->string('tpa_approaches');
             $table->string('tpa_researchers');
             $table->string('tpa_agency');

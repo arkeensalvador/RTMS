@@ -14,7 +14,7 @@ return new class extends Migration {
             $table->id('id');
             $table->string('tech_type');
             $table->string('tech_title');
-            $table->string('tech_desc');
+            $table->longText('tech_desc');
             $table->string('tech_source');
             $table->string('tech_agency');
             $table->string('tech_researchers');

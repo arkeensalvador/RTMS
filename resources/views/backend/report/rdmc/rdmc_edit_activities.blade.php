@@ -87,16 +87,21 @@
                                     <h2 class="font-weight-bold">RDMC Resources / Generation / Sharing</h2>
                                     <h5 class="mt-0"> Kindly fill-out the fields needed.</h5>
                                 </div>
+                                @php
+                                    $donor = json_decode($all->donor);
+                                @endphp
 
                                 <div class="col-md-8 form-group">
                                     <label for="funding_agency" class=" font-weight-bold">Donor/Source<span
                                             class="text-danger">*</span></label>
-                                    <select class="form-control agency" id="awards_recipients" name="donor" required>
+                                    <select class="form-control implementing_agency" id="awards_recipients" name="donor[]"
+                                        multiple="multiple" required>
                                         <option value=""></option>
 
                                         @foreach ($agency as $key)
                                             <option value="{{ $key->abbrev }}"
-                                                {{ $key->abbrev == $all->donor ? 'selected' : '' }}>{{ $key->agency_name }}
+                                                {{ in_array($key->abbrev, $donor) ? 'selected' : '' }}>
+                                                {{ $key->agency_name }}
                                                 -
                                                 ({{ $key->abbrev }})
                                                 </b></option>

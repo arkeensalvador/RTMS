@@ -91,7 +91,7 @@
                             <form id="programForm" class="row g-3 needs-validation" novalidate>
                                 @csrf
                                 <div class="form-title col-12">
-                                    <h2 class="font-weight-bold">Policy Researches Conducted</h2>
+                                    <h2 class="font-weight-bold">Policy Researchers Conducted</h2>
                                     <h5 class="mt-0"> Kindly fill-out the fields needed.</h5>
                                 </div>
 
