@@ -14,7 +14,7 @@
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="home">Home</a></li>
                             <li class="breadcrumb-item"><a href="report-index">Reports</a></li>
-                            <li class="breadcrumb-item"><a href="cbg-index">CBG</a></li>
+                            <li class="breadcrumb-item"><a href="policy-index">Policy</a></li>
                             <li class="breadcrumb-item active">Policy Researchers Conducted
                             </li>
                         </ol>
