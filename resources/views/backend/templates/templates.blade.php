@@ -92,8 +92,8 @@
                 </div>
                 <div class="modal-body row files">
                     <div class="col-lg-12">
-                        <form id="multi-file-upload-ajax" method="POST" action="javascript:void(0)" accept-charset="utf-8"
-                            enctype="multipart/form-data">
+                        <form id="templates-store-multi-file-ajax" method="POST" action="javascript:void(0)"
+                            accept-charset="utf-8" enctype="multipart/form-data">
 
                             @csrf
 

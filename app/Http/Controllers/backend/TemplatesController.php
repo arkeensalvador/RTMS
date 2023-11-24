@@ -18,7 +18,7 @@ class TemplatesController extends Controller
         return view('backend.templates.templates', compact('title', 'all'));
     }
 
-    public function storeMultiFile(Request $request)
+    public function storeMultiFileTemplate(Request $request)
     {
         $message = [
             'required' => 'Please select file to upload',

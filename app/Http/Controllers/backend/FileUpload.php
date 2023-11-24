@@ -10,6 +10,9 @@ use App\Models\File;
 use DB;
 use Illuminate\Support\Facades\Response;
 use Storage;
+use App\Notifications\FileUploadedNotification;
+use App\Models\User;
+use Illuminate\Support\Facades\Notification;
 
 class FileUpload extends Controller
 {
@@ -95,6 +98,7 @@ class FileUpload extends Controller
                     $insert[$x]['programID'] = $programID;
                     $insert[$x]['projectID'] = $projectID;
                     $insert[$x]['subprojectID'] = $subprojectID;
+                    $insert[$x]['created_at'] = now();
                 }
             }
 

@@ -420,6 +420,7 @@
 <body class="hold-transition light-mode sidebar-mini layout-fixed layout-navbar-fixed layout-footer">
     <div class="wrapper">
 
+        @include('sweetalert::alert')
         <!-- Navbar -->
         @include('backend.layouts.navbar')
         <!-- /.navbar -->
@@ -509,7 +510,7 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 
-    {{-- <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script> --}}
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
     {{-- Dropzone --}}
     <script src="{{ asset('backend/plugins/dropzone/min/dropzone.css') }}"></script>
@@ -529,10 +530,7 @@
     {{-- BS tags input --}}
     <script src="{{ asset('backend/plugins/bs-tags-input/bootstrap-tagsinput.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://js.pusher.com/8.2.0/pusher.min.js"></script>
 
-
-    {{-- Apex Charts --}}
 </body>
 
 <script>
