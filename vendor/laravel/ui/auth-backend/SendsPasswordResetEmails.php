@@ -32,13 +32,10 @@ trait SendsPasswordResetEmails
         // We will send the password reset link to this user. Once we have attempted
         // to send the link, we will examine the response then see the message we
         // need to show to the user. Finally, we'll send out a proper response.
-        $response = $this->broker()->sendResetLink(
-            $this->credentials($request)
-        );
+        $response = $this->broker()->sendResetLink($this->credentials($request));
 
-        return $response == Password::RESET_LINK_SENT
-                    ? $this->sendResetLinkResponse($request, $response)
-                    : $this->sendResetLinkFailedResponse($request, $response);
+        // return $response == Password::RESET_LINK_SENT ? $this->sendResetLinkResponse($request=) : $this->sendResetLinkFailedResponse($request, $response);
+        return $response == Password::RESET_LINK_SENT ? $this->sendResetLinkResponse($request) : $this->sendResetLinkFailedResponse($request);
     }
 
     /**
@@ -70,11 +67,22 @@ trait SendsPasswordResetEmails
      * @param  string  $response
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\JsonResponse
      */
-    protected function sendResetLinkResponse(Request $request, $response)
+    // protected function sendResetLinkResponse(Request $request, $response)
+    protected function sendResetLinkResponse(Request $request)
     {
-        return $request->wantsJson()
-                    ? new JsonResponse(['message' => trans($response)], 200)
-                    : back()->with('status', trans($response));
+        // $notification = [
+        //     'message' => 'Link sent successfully',
+        //     'alert-type' => 'success',
+        // ];
+        $notification = [
+            'message' => 'Request sent to email',
+            'alert-type' => 'success',
+        ];
+
+        return redirect()
+            ->route('login')
+            ->with($notification);
+        // return $request->wantsJson() ? new JsonResponse(['message' => trans($response)], 200) : back()->with('status', trans($response));
     }
 
     /**
@@ -86,17 +94,17 @@ trait SendsPasswordResetEmails
      *
      * @throws \Illuminate\Validation\ValidationException
      */
-    protected function sendResetLinkFailedResponse(Request $request, $response)
+    // protected function sendResetLinkFailedResponse(Request $request, $response)
+    protected function sendResetLinkFailedResponse(Request $request)
     {
-        if ($request->wantsJson()) {
-            throw ValidationException::withMessages([
-                'email' => [trans($response)],
-            ]);
-        }
+        $notification = [
+            'message' => 'Request failed. Please try again...',
+            'alert-type' => 'error',
+        ];
 
-        return back()
-                ->withInput($request->only('email'))
-                ->withErrors(['email' => trans($response)]);
+        return redirect()
+            ->route('login')
+            ->with($notification);
     }
 
     /**

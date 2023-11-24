@@ -9,11 +9,11 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
         integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="{{ mix('resources/css/app.css') }}" />
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/app.css') }}" />
     <title>RTMS | Login</title>
 </head>
 
-<body class="login">
+<body class="login-body">
 
     <div class="container login" id="container">
         <div class="form-container sign-in">

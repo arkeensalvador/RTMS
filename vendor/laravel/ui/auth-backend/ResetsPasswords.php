@@ -28,9 +28,7 @@ trait ResetsPasswords
     {
         $token = $request->route()->parameter('token');
 
-        return view('auth.passwords.reset')->with(
-            ['token' => $token, 'email' => $request->email]
-        );
+        return view('auth.passwords.reset')->with(['token' => $token, 'email' => $request->email]);
     }
 
     /**
@@ -46,18 +44,14 @@ trait ResetsPasswords
         // Here we will attempt to reset the user's password. If it is successful we
         // will update the password on an actual user model and persist it to the
         // database. Otherwise we will parse the error and return the response.
-        $response = $this->broker()->reset(
-            $this->credentials($request), function ($user, $password) {
-                $this->resetPassword($user, $password);
-            }
-        );
+        $response = $this->broker()->reset($this->credentials($request), function ($user, $password) {
+            $this->resetPassword($user, $password);
+        });
 
         // If the password was successfully reset, we will redirect the user back to
         // the application's home authenticated view. If there is an error we can
         // redirect them back to where they came from with their error message.
-        return $response == Password::PASSWORD_RESET
-                    ? $this->sendResetResponse($request, $response)
-                    : $this->sendResetFailedResponse($request, $response);
+        return $response == Password::PASSWORD_RESET ? $this->sendResetResponse($request, $response) : $this->sendResetFailedResponse($request, $response);
     }
 
     /**
@@ -92,9 +86,7 @@ trait ResetsPasswords
      */
     protected function credentials(Request $request)
     {
-        return $request->only(
-            'email', 'password', 'password_confirmation', 'token'
-        );
+        return $request->only('email', 'password', 'password_confirmation', 'token');
     }
 
     /**
@@ -142,8 +134,13 @@ trait ResetsPasswords
             return new JsonResponse(['message' => trans($response)], 200);
         }
 
-        return redirect($this->redirectPath())
-                            ->with('status', trans($response));
+        $notification = [
+            'message' => 'Successfully changed password',
+            'alert-type' => 'success',
+        ];
+
+        // return redirect($this->redirectPath())->with('status', trans($response));
+        return redirect($this->redirectPath())->with($notification);
     }
 
     /**
@@ -161,9 +158,15 @@ trait ResetsPasswords
             ]);
         }
 
-        return redirect()->back()
-                    ->withInput($request->only('email'))
-                    ->withErrors(['email' => trans($response)]);
+        $notification = [
+            'message' => 'Sending request failed. Please try again...',
+            'alert-type' => 'error',
+        ];
+
+        return redirect()
+            ->back()
+            ->withInput($request->only('email'))
+            ->withErrors(['email' => trans($response)]);
     }
 
     /**

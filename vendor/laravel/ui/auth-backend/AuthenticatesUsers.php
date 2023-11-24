@@ -36,10 +36,7 @@ trait AuthenticatesUsers
         // If the class is using the ThrottlesLogins trait, we can automatically throttle
         // the login attempts for this application. We'll key this by the username and
         // the IP address of the client making these requests into this application.
-        if (
-            method_exists($this, 'hasTooManyLoginAttempts') &&
-            $this->hasTooManyLoginAttempts($request)
-        ) {
+        if (method_exists($this, 'hasTooManyLoginAttempts') && $this->hasTooManyLoginAttempts($request)) {
             $this->fireLockoutEvent($request);
 
             return $this->sendLockoutResponse($request);
@@ -57,7 +54,6 @@ trait AuthenticatesUsers
         // to login and redirect the user back to the login form. Of course, when this
         // user surpasses their maximum number of attempts they will get locked out.
         $this->incrementLoginAttempts($request);
-
 
         return $this->sendFailedLoginResponse($request);
     }
@@ -86,10 +82,9 @@ trait AuthenticatesUsers
      */
     protected function attemptLogin(Request $request)
     {
-        return $this->guard()->attempt(
-            $this->credentials($request),
-            $request->boolean('remember')
-        );
+        /* The line `return ->guard()->attempt(->credentials(),
+        ->boolean('remember'));` is attempting to log the user into the application. */
+        return $this->guard()->attempt($this->credentials($request), $request->boolean('remember'));
     }
 
     /**
@@ -100,6 +95,9 @@ trait AuthenticatesUsers
      */
     protected function credentials(Request $request)
     {
+        /* The line `return ->only(->username(), 'password');` is retrieving the necessary
+        authorization credentials from the request. It returns an array containing only the values
+        for the specified keys, which in this case are the username and password. */
         return $request->only($this->username(), 'password');
     }
 
@@ -119,9 +117,7 @@ trait AuthenticatesUsers
             return $response;
         }
 
-        return $request->wantsJson()
-            ? new JsonResponse([], 204)
-            : redirect()->intended($this->redirectPath());
+        return $request->wantsJson() ? new JsonResponse([], 204) : redirect()->intended($this->redirectPath());
     }
 
     /**
@@ -146,13 +142,14 @@ trait AuthenticatesUsers
      */
     protected function sendFailedLoginResponse(Request $request)
     {
-
-        $notification = array(
+        $notification = [
             'message' => 'Email or Password is incorrect. Please try again...',
-            'alert-type' => 'error'
-        );
+            'alert-type' => 'error',
+        ];
 
-        return redirect()->route('login')->with($notification);
+        return redirect()
+            ->route('login')
+            ->with($notification);
 
         // throw ValidationException::withMessages([
         //     $this->username() => [trans('auth.failed')],
@@ -187,9 +184,7 @@ trait AuthenticatesUsers
             return $response;
         }
 
-        return $request->wantsJson()
-            ? new JsonResponse([], 204)
-            : redirect('/');
+        return $request->wantsJson() ? new JsonResponse([], 204) : redirect('/');
     }
 
     /**

@@ -4,19 +4,19 @@
     box-sizing: border-box;
 }
 
-body.login {
+body.login-body {
     font-family: 'Poppins', sans-serif;
     /* background-color: #e2ffd5;
     background: linear-gradient(to right, #e2e2e2, #c9ffb2); */
     background-image: url('/backend/dist/img/CMI_BG.webp');
-    background-size: cover;
+    /* background-size: cover; */
     background-position: center center;
     background-repeat: no-repeat;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    height: 100vh;
+    /* height: 100vh; */
 }
 
 .colored-toast.swal2-icon-success {
@@ -72,9 +72,10 @@ h3 {
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.35);
     position: relative;
     overflow: hidden;
-    width: 950px;
+    width: 50%;
     max-width: 100%;
     min-height: 580px;
+    top: 10rem;
 }
 
 .container.login p {

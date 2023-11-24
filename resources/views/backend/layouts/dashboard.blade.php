@@ -170,11 +170,31 @@
             </div>
         </section>
         <?php } ?>
+
+        <h1>Pusher Test</h1>
+        <p>
+            Try publishing an event to channel <code>my-channel</code>
+            with event name <code>my-event</code>.
+        </p>
         <!-- /.content -->
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+
+    <script>
+        // Enable pusher logging - don't include this in production
+        Pusher.logToConsole = true;
+
+        var pusher = new Pusher('ddbb76b62e5ab676dd8a', {
+            cluster: 'ap1'
+        });
+
+        var channel = pusher.subscribe('my-channel');
+        channel.bind('my-event', function(data) {
+            alert(JSON.stringify(data));
+        });
+    </script>
 
 
     <script>

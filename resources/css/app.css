@@ -425,7 +425,7 @@ td.append {
 .table thead th {
     vertical-align: middle;
     border-bottom: 2px solid #dee2e6;
-    font-size: .89rem;
+    font-size: 0.89rem;
 }
 
 .table-append td i {
