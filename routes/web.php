@@ -383,3 +383,8 @@ Route::get('/all-templates', [App\Http\Controllers\backend\TemplatesController::
 Route::post('templates-store-multi-file-ajax', [App\Http\Controllers\backend\TemplatesController::class, 'storeMultiFileTemplate']);
 Route::get('/delete-file/{id}', [App\Http\Controllers\backend\TemplatesController::class, 'DeleteFile'])->name('DeleteFile');
 Route::get('download/{id}', [App\Http\Controllers\backend\TemplatesController::class, 'download']);
+
+// profile
+Route::get('/profile/{id}', [App\Http\Controllers\ProfileController::class, 'profile_view'])->name('profile_view');
+Route::get('/edit-profile/{id}', [App\Http\Controllers\ProfileController::class, 'profile_edit'])->name('profile_edit');
+Route::post('/update-profile/{id}', [App\Http\Controllers\ProfileController::class, 'profile_update'])->name('profile_update');
