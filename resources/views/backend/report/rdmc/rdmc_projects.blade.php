@@ -322,7 +322,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form role="form" id="regiration_form" action="{{ url('add-program-personnel') }}"
+                    <form role="form" id="regiration_form" action="{{ url('add-project-personnel') }}"
                         method="POST">
                         @csrf
                         {{-- EMPLOYEE FORM WORKING --}}

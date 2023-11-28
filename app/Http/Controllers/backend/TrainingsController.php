@@ -23,10 +23,9 @@ class TrainingsController extends Controller
                 'trainings_end' => 'required',
                 'trainings_no_participants' => 'required|numeric',
                 'trainings_venue' => 'required',
-                'trainings_remarks' => 'required',
             ],
             [
-                'trainings_type.required' => 'Type is required!',
+                'trainings_type.required' => 'Type of participants is required!',
                 'trainings_sof.required' => 'Source of fund is required!',
                 'trainings_agency.required' => 'Agency required!',
                 'trainings_title.required' => 'Title is required!',
@@ -36,7 +35,6 @@ class TrainingsController extends Controller
                 'trainings_end.required' => 'Date is required!',
                 'trainings_no_participants.required' => 'No. of participants is required!',
                 'trainings_venue.required' => 'Venue is required!',
-                'trainings_remarks.required' => 'Remarks is required!',
             ],
         );
 

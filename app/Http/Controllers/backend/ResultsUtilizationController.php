@@ -157,7 +157,7 @@ class ResultsUtilizationController extends Controller
             [
                 'ttm_type' => 'required',
                 'ttm_title' => 'required',
-                'ttm_status' => 'required|numeric',
+                'ttm_status' => 'required',
                 'ttm_agency' => 'required',
             ],
             [

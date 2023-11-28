@@ -143,7 +143,7 @@
                             </table>
 
                             <div class="text-center mt-5 mb-3">
-                                <a href="javascript:history.back()" class="btn btn previous btn btn-default">Go back</a>
+                                <a href="{{ url('rdmc-projects') }}" class="btn btn previous btn btn-default">Go back</a>
                             </div>
                         </div>
                     </div>
