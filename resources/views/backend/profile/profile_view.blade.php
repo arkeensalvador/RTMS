@@ -23,7 +23,7 @@
                             <div class="col-md-12 border-right">
                                 <div class="p-3 py-2">
                                     <div class="d-flex justify-content-between align-items-center mb-3">
-                                        <h4 class="text-right">Reseacher Profile</h4>
+                                        <h4 class="text-right">User Profile</h4>
                                     </div>
                                     <div class="row mt-2">
                                         <table class="table">
