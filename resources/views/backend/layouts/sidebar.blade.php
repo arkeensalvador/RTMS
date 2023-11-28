@@ -8,10 +8,11 @@
     <!-- Sidebar -->
     <div class="sidebar">
         <!-- Sidebar user panel (optional) -->
-        <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+        <div class="user-panel mt-3 pb-3 mb-3 flex">
             <div class="image">
                 @if (auth()->user()->role == 'Admin')
-                    <img src="{{ asset('img/adminltelogo.png') }}" class="img-circle elevation-2" alt="User Image">
+                    <img src="{{ asset('storage/' . auth()->user()->profile_picture) }}"
+                        class="img-circle elevation-9 mb-2" alt="User Image">
                 @else
                     <img src="{{ asset('img/avatar4.png') }}" class="img-circle elevation-2" alt="User Image">
                 @endif

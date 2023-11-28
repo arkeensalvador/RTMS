@@ -15,6 +15,7 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Response;
+use Storage;
 
 class UserController extends Controller
 {
@@ -54,20 +55,29 @@ class UserController extends Controller
                 'email' => 'required|email',
                 'role' => 'required',
                 'agencyID' => 'required',
+                'profile_picture' => 'nullable|mimes:jpeg,jpg,png',
             ],
             [
                 'name.required' => 'Name is required!',
                 'email.required' => 'Email is required!',
                 'role.required' => 'Role is required!',
                 'agencyID.required' => 'Agency is required!',
+                'profile_picture.nullable' => 'Profile Picture is required!',
             ],
         );
+
+        // Auto-rename the uploaded profile picture
+        $profilePicture = $request->file('profile_picture');
+        $extension = $profilePicture->getClientOriginalExtension();
+        $newFileName = "{$request->name}_profile_picture.{$extension}";
+        $profilePicturePath = $profilePicture->storeAs('profile_pictures', $newFileName, 'public');
 
         $data = [];
         $data['name'] = $request->name;
         $data['email'] = $request->email;
         $data['role'] = $request->role;
         $data['agencyID'] = $request->agencyID;
+        $data['profile_picture'] = $profilePicturePath;
         $data['password'] = Hash::make($request->password);
         $data['created_at'] = now();
 
@@ -85,22 +95,26 @@ class UserController extends Controller
 
             Mail::to($users->email)->send($welcomeEmail);
 
-            $notification = [
-                'message' => 'User Successfully Added!',
-                'alert-type' => 'success',
-            ];
+            // $notification = [
+            //     'message' => 'User Successfully Added!',
+            //     'alert-type' => 'success',
+            // ];
 
-            return redirect()
-                ->route('AllUser')
-                ->with($notification);
+            // return redirect()
+            //     ->route('AllUser')
+            //     ->with($notification);
+
+            return response()->json(['success' => 'User Added Successfully!']);
         } else {
-            $notification = [
-                'message' => 'Something is wrong, please try again!',
-                'alert-type' => 'error',
-            ];
-            return redirect()
-                ->route('AllUser')
-                ->with($notification);
+            // $notification = [
+            //     'message' => 'Something is wrong, please try again!',
+            //     'alert-type' => 'error',
+            // ];
+            // return redirect()
+            //     ->route('AllUser')
+            //     ->with($notification);
+
+            return response()->json(['error' => 'There is something wrong...']);
         }
     }
 
@@ -131,14 +145,30 @@ class UserController extends Controller
                 'email' => 'required|email',
                 'role' => 'required',
                 'agencyID' => 'required',
+                'profile_picture' => 'nullable|mimes:jpeg,jpg,png',
             ],
             [
                 'name.required' => 'Name is required!',
                 'email.required' => 'Email is required!',
                 'role.required' => 'Role is required!',
                 'agencyID.required' => 'Agency is required!',
+                'profile_picture.nullable' => 'Profile picture is required',
             ],
         );
+        $user = User::find($id);
+        if ($request->hasFile('profile_picture')) {
+            // Remove old profile picture
+            if ($user->profile_picture) {
+                Storage::disk('public')->delete($user->profile_picture);
+            }
+
+            // Save the new profile picture
+            $profilePicture = $request->file('profile_picture');
+            $extension = $profilePicture->getClientOriginalExtension();
+            $newFileName = "{$user->name}_profile_picture.{$extension}";
+            $profilePicturePath = $profilePicture->storeAs('profile_pictures', $newFileName, 'public');
+            $user->profile_picture = $profilePicturePath;
+        }
 
         if (empty($request->password)) {
             $data = [];
@@ -152,22 +182,13 @@ class UserController extends Controller
             $update = DB::table('users')
                 ->where('id', $id)
                 ->update($data);
+
+            $user->save();
+
             if ($update) {
-                $notification = [
-                    'message' => 'User Successfully Updated!',
-                    'alert-type' => 'success',
-                ];
-                return redirect()
-                    ->route('AllUser')
-                    ->with($notification);
+                return response()->json(['success' => 'User Updated Successfully!']);
             } else {
-                $notification = [
-                    'message' => 'Something is wrong, please try again!',
-                    'alert-type' => 'error',
-                ];
-                return redirect()
-                    ->route('AllUser')
-                    ->with($notification);
+                return response()->json(['error' => 'There is something wrong...']);
             }
         } else {
             $data = [];
@@ -181,22 +202,12 @@ class UserController extends Controller
             $update = DB::table('users')
                 ->where('id', $id)
                 ->update($data);
+
+            $user->save();
             if ($update) {
-                $notification = [
-                    'message' => 'User Successfully Updated!',
-                    'alert-type' => 'success',
-                ];
-                return redirect()
-                    ->route('AllUser')
-                    ->with($notification);
+                return response()->json(['success' => 'User Added Successfully!']);
             } else {
-                $notification = [
-                    'message' => 'Something is wrong, please try again!',
-                    'alert-type' => 'error',
-                ];
-                return redirect()
-                    ->route('AllUser')
-                    ->with($notification);
+                return response()->json(['error' => 'There is something wrong...']);
             }
         }
     }
@@ -209,9 +220,13 @@ class UserController extends Controller
 
     public function DeleteUser($id)
     {
+        $user = User::find($id);
+        Storage::disk('public')->delete($user->profile_picture);
+
         $delete = DB::table('users')
             ->where('id', $id)
             ->delete();
+
         if ($delete) {
             $notification = [
                 'message' => 'User Successfully Deleted!',

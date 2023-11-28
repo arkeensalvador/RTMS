@@ -6,7 +6,7 @@
                 <div class="col-lg-1">
 
                 </div>
-                <div class="col-lg-10">
+                <div class="col-lg-12">
 
                     {{-- card start --}}
                     <div class="card">
@@ -17,8 +17,19 @@
                         </div>
                         {{-- card body start --}}
                         <div class="card-body">
-                            <form role="form" action="{{ URL::to('/update-user/' . $edit->id) }}" method="POST">
+                            <form id="techForm" enctype="multipart/form-data">
                                 @csrf
+                                <div class="form-group row">
+                                    <img id="preview" src="{{ asset('storage/' . $edit->profile_picture) }}"
+                                        alt="Current Profile Picture" style="max-width: 300px; max-height: 300px;">
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="profile_picture" class="col-sm-2 col-form-label">Profile Picture</label>
+                                    <div class="col-sm-10">
+                                        <input type="file" name="profile_picture" id="profile_picture" accept="image/*">
+                                    </div>
+                                </div>
 
                                 <div class="form-group row">
                                     <label for="name" class="col-sm-2 col-form-label">Name</label>
@@ -60,7 +71,7 @@
                                 <div class="form-group row">
                                     <label for="agency" class="col-sm-2 col-form-label">Role</label>
                                     <div class="col-sm-10">
-                                        <select class="form-control" name="role" id="" required>
+                                        <select class="form-control type" name="role" id="" required>
                                             <option value="">--Select Role--</option>
                                             <option value="CMI" {{ $edit->role == 'CMI' ? 'selected' : '' }}>CMI</option>
                                             <option value="Admin" {{ $edit->role == 'Admin' ? 'selected' : '' }}>Admin
@@ -91,6 +102,64 @@
             </div>
         </section>
     </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#techForm').on('submit', function(e) {
+
+                var formData = new FormData(this);
+
+                e.preventDefault();
+                $.ajax({
+                    type: 'POST',
+                    url: "{{ url('update-user/' . $edit->id) }}",
+                    data: formData,
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    dataType: 'json',
+                    success: (data) => {
+                        // this.reset();
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'User Updated Successfully',
+                            timerProgressBar: true,
+                            showConfirmButton: false,
+                            timer: 900
+                        }).then((result) => {
+                            if (result.dismiss) {
+                                window.location.href = '/all-user';
+                            }
+                        })
+                    },
+                    error: function(data) {
+                        Swal.fire({
+                            icon: 'error',
+                            toast: true,
+                            iconColor: 'white',
+                            position: 'top-end',
+                            customClass: {
+                                popup: 'colored-toast',
+                            },
+                            // title: data.responseJSON.message,
+                            text: data.responseJSON.message,
+                            // title: 'There is something wrong...',
+                            timerProgressBar: true,
+                            showConfirmButton: false,
+                            timer: 2000
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+    <script>
+        // Preview uploaded image
+        document.getElementById('profile_picture').addEventListener('change', function(event) {
+            const preview = document.getElementById('preview');
+            preview.src = URL.createObjectURL(event.target.files[0]);
+        });
+    </script>
     <script>
         var options = $('#agencyID').html();
     </script>
