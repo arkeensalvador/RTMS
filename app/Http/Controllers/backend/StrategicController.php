@@ -536,7 +536,7 @@ class StrategicController extends Controller
                 'str_collab_date.required' => 'Date is required!',
                 'str_collab_budget.required' => 'Budget is required!',
                 'str_collab_sof.required' => 'Source of fund is required!',
-                'str_collab_roc.required' => 'Commodities addressed is required!',
+                'str_collab_roc.required' => 'Role of consortium is required!',
             ],
         );
 
