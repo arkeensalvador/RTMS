@@ -264,9 +264,9 @@
                                         <option value="Multi-year"
                                             {{ 'Multi-year' == $projects->project_funding_duration ? 'selected' : '' }}>
                                             Multi-year Grant</option>
-                                        <option value="Both"
+                                        {{-- <option value="Both"
                                             {{ 'Both' == $projects->project_funding_duration ? 'selected' : '' }}>One-time
-                                            & Multi-year Grant</option>
+                                            & Multi-year Grant</option> --}}
                                     </select>
                                     <div class="invalid-feedback">Missing funding grant</div>
                                 </div>
@@ -335,7 +335,7 @@
                                     <input type="date" name="project_extend_date"
                                         value="{{ $projects->project_extend_date }}" class="form-control"
                                         id="extension_date">
-                                    <div class="valid-feedback">There's no inputted extension date for this project</div>
+                                    {{-- <div class="valid-feedback">There's no inputted extension date for this project</div> --}}
                                 </div>
 
                                 <div class="col-md-12 form-group">

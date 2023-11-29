@@ -232,7 +232,7 @@
                                         <option selected disabled value="">Select Funding Grant</option>
                                         <option value="One-time">One-time Grant</option>
                                         <option value="Multi-year">Multi-year Grant</option>
-                                        <option value="Both">One-time & Multi-year Grant</option>
+                                        {{-- <option value="Both">One-time & Multi-year Grant</option> --}}
                                     </select>
                                     <div class="invalid-feedback">Missing funding grant</div>
                                 </div>
@@ -305,7 +305,7 @@
                                     <label for="extension_date" class=" font-weight-bold">Extension Date</label>
                                     <input type="text" name="sub_project_extend_date" class="form-control date"
                                         placeholder="Extension Date" id="extension_date">
-                                    <div class="valid-feedback">There's no inputted extension date for this project</div>
+                                    {{-- <div class="valid-feedback">There's no inputted extension date for this project</div> --}}
                                 </div>
 
                                 <div class="col-md-12 form-group">

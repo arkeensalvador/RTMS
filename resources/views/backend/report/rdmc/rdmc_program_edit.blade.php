@@ -304,7 +304,7 @@
                                     <label for="extension_date" class=" font-weight-bold">Extension Date</label>
                                     <input type="text" name="extend_date" class="form-control date"
                                         value="{{ $programs->extend_date }}" id="extension_date">
-                                    <div class="valid-feedback"> There's no inputted extension date for this program</div>
+                                    {{-- <div class="valid-feedback"> There's no inputted extension date for this program</div> --}}
                                 </div>
 
                                 <div class="col-md-12 form-group">
