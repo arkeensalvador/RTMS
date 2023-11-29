@@ -98,6 +98,14 @@ class HomeController extends Controller
         $total_completed = $completed + $completed_proj + $completed_subproj;
 
         // $awards_count = DB::table('cbg_awards')->count();
+        // programs ongoing / completed
+        $total_programs_count_completed = DB::table('programs')
+            ->where('program_status', 'Completed')
+            ->count();
+
+        $total_programs_count_ongoing = DB::table('programs')
+            ->where('program_status', 'Ongoing')
+            ->count();
 
         $total_programs_count = DB::table('programs')->count();
         $total_projects = DB::table('projects')->count();
@@ -245,7 +253,7 @@ class HomeController extends Controller
                 'total_terminated' => $total_terminated,
                 'total_completed' => $total_completed,
             ],
-            compact('all', 'title', 'data', 'datas', 'researcherCounts', 'progs', 'minValue', 'data_agency', 'agencyImp', 'minValueAgencyData', 'projs', 'sub_projs', 'total_projs', 'total_programs_count', 'total_projects', 'total_sub_projects', 'total_sub_projs', 'total_researchers', 'agencyData', 'dataBudget', 'total_programs', 'user_agency', 'total_programs_count_filter', 'total_projects_filter', 'total_sub_projects_filter', 'total_researchers_filter'),
+            compact('all', 'title', 'data', 'datas', 'researcherCounts', 'progs', 'minValue', 'data_agency', 'agencyImp', 'minValueAgencyData', 'projs', 'sub_projs', 'total_projs', 'total_programs_count', 'total_projects', 'total_sub_projects', 'total_sub_projs', 'total_researchers', 'agencyData', 'dataBudget', 'total_programs', 'user_agency', 'total_programs_count_filter', 'total_projects_filter', 'total_sub_projects_filter', 'total_researchers_filter', 'total_programs_count_ongoing', 'total_programs_count_completed'),
         );
     }
 }

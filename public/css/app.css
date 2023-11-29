@@ -99,7 +99,14 @@ h3 {
     width: 50%;
     max-width: 100%;
     min-height: 580px;
-    top: 10rem;
+    top: 5rem;
+}
+/* custom card bg dashboard */
+.bg-custom {
+    background-color: #f27474;
+}
+.bg-custom-progams {
+    background-color: #f27474;
 }
 
 .container.login p {

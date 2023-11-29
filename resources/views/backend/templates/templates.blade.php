@@ -52,7 +52,8 @@
                                                 <td>{{ $row->file_name }}</td>
                                                 <td hidden>{{ $row->file_path }}</td>
                                                 <td class="action">
-                                                    <a href="{{ url('download/' . $row->id) }}" class="btn btn-info">
+                                                    <a href="{{ url('downloadTemplates/' . $row->id) }}"
+                                                        class="btn btn-info">
                                                         <i class="fa-solid fa-download"></i>
                                                     </a>
 

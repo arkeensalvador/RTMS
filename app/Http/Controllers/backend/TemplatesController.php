@@ -54,7 +54,7 @@ class TemplatesController extends Controller
         }
     }
 
-    public function download($id)
+    public function downloadTemplates($id)
     {
         $data = DB::table('templates')
             ->where('id', $id)

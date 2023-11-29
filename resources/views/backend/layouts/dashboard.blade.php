@@ -92,7 +92,7 @@
                     <!-- ./col -->
                     <div class="col-lg-3 col-6">
                         <!-- small box -->
-                        <div class="small-box bg-danger">
+                        <div class="small-box bg-custom">
                             <div class="inner">
                                 <h3>
                                     @if (auth()->user()->role == 'Admin')
@@ -113,6 +113,30 @@
                         </div>
                     </div>
                     <!-- ./col -->
+
+
+                    <div class="col-lg-3 col-6">
+                        <!-- small box -->
+                        <div class="small-box bg-custom-programs">
+                            <div class="inner">
+                                <h3>
+                                    @if (auth()->user()->role == 'Admin')
+                                        {{ $total_programs_count_ongoing }} / {{ $total_programs_count_completed }}
+                                    @else
+                                        {{ $total_researchers_filter }}
+                                    @endif
+
+                                </h3>
+
+                                <p>Ongoing / Completed Programs</p>
+                            </div>
+                            <div class="icon">
+                                <i class="fa-solid fa-circle-check"></i>
+                            </div>
+                            <a href="{{ url('rdmc-programs') }}" class="small-box-footer">More info <i
+                                    class="fas fa-arrow-circle-right"></i></a>
+                        </div>
+                    </div>
                 </div>
 
 
