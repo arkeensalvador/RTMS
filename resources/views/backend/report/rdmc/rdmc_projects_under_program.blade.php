@@ -100,8 +100,7 @@
                                                         <i class="fa-solid fa-database fa-xl" style="color: #28a745;"></i>
                                                     @elseif ($row->project_status == 'Ongoing')
                                                         {{ $row->project_status }}
-                                                        <i class="fa-solid fa-magnifying-glass-chart fa-xl"
-                                                            style="color: #2a6cdf;"></i>
+                                                        <i class="fa-solid fa-hourglass fa-xl" style="color: #2a6cdf;"></i>
                                                     @elseif ($row->project_status == 'Terminated')
                                                         {{ $row->project_status }}
                                                         <i class="fa-solid fa-triangle-exclamation fa-xl"
