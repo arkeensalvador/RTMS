@@ -281,7 +281,7 @@
                 height: 285
             },
             series: [{
-                name: 'Initiatives Count',
+                name: 'PRC Count',
                 data: @json($values_prc)
             }],
             xaxis: {
