@@ -488,6 +488,16 @@
         document.getElementById('is_others').addEventListener('change', function() {
             const othersInput = document.getElementById('others-input');
             othersInput.style.display = this.checked ? 'block' : 'none';
+
+            const elementToDisable = document.getElementById('others');
+
+            // Add or remove the 'disabled' attribute based on the checkbox state
+            if (this.checked) {
+                elementToDisable.removeAttribute('disabled');
+
+            } else {
+                elementToDisable.setAttribute('disabled', 'disabled');
+            }
         });
     </script>
 @endsection

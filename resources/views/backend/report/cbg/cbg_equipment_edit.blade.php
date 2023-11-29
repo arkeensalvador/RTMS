@@ -108,7 +108,7 @@
                                     </div>
 
 
-                                    <div class="custom-control custom-radio">
+                                    {{-- <div class="custom-control custom-radio">
                                         <input class="custom-control-input" type="radio" value="E_Upgraded"
                                             name="equipments_type" id="customRadio3"
                                             {{ 'E_Upgraded' == $all->equipments_type ? 'checked' : '' }}>
@@ -122,7 +122,7 @@
                                             {{ 'E_Established' == $all->equipments_type ? 'checked' : '' }}>
                                         <label for="customRadio4" class="custom-control-label"
                                             style="font-weight: bold;">Equipment Established</label>
-                                    </div>
+                                    </div> --}}
 
                                     <div class="custom-control custom-radio">
                                         <input class="custom-control-input" type="radio" value="E_Purchased"

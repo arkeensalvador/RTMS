@@ -101,17 +101,12 @@
                                     <br>
                                     <select name="prc_agency" class="form-control agency" required>
                                         <option value=""></option>
-                                        @if (auth()->user()->role == 'Admin')
-                                            @foreach ($agency as $key)
-                                                <option value="{{ $key->abbrev }}">{{ $key->agency_name }}
-                                                    </b></option>
-                                            @endforeach
-                                        @else
-                                            <option value="{{ $user_agency->abbrev }}" selected>
-                                                {{ $user_agency->agency_name }} -
-                                                ({{ $user_agency->abbrev }})
+
+                                        @foreach ($agency as $key)
+                                            <option value="{{ $key->abbrev }}">{{ $key->agency_name }}
                                                 </b></option>
-                                        @endif
+                                        @endforeach
+
                                     </select>
 
                                     <div class="invalid-feedback">Missing agency</div>

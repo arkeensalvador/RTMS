@@ -105,7 +105,7 @@
                                             style="font-weight: bold;">Approved</label>
                                     </div>
 
-                                    <div class="custom-control custom-radio">
+                                    {{-- <div class="custom-control custom-radio">
                                         <input class="custom-control-input" type="radio" value="Upgraded"
                                             name="equipments_type" id="customRadio3">
                                         <label for="customRadio3" class="custom-control-label"
@@ -117,7 +117,7 @@
                                             name="equipments_type" id="customRadio4">
                                         <label for="customRadio4" class="custom-control-label"
                                             style="font-weight: bold;">Equipment Established</label>
-                                    </div>
+                                    </div> --}}
 
                                     <div class="custom-control custom-radio">
                                         <input class="custom-control-input" type="radio" value="Purchased"
