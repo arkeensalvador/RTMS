@@ -185,7 +185,7 @@
                                     <label for="awards_recipients" class=" font-weight-bold">Implementing Agency<span
                                             class="text-danger">*</span></label>
                                     <select class="form-control implementing_agency" id="awards_recipients"
-                                        name="implementing_agency[]" multiple="multiple" required readonly>
+                                        name="ttp_implementing_agency[]" multiple="multiple" required readonly>
 
                                         @foreach ($agency as $key)
                                             <option value="{{ $key->abbrev }}"
