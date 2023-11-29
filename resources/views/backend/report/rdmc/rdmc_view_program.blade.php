@@ -92,13 +92,15 @@
                                         <th scope="row" class="thwidth">Program Staff(s)</th>
                                         <td>
                                             <ul class="list-group list-group-flush">
-
-                                                @foreach ($personnels as $personnel)
+                                                @foreach ($personnels as $personnel => $items)
                                                     <li class="list-group-item">
-                                                        {{ $personnel->staff_name }}
+                                                        <a href="{{ url('delete-staff/' . $items->id) }}"
+                                                            class="btn btn-danger float-right">
+                                                            <i class="fa-solid fa-trash"></i>
+                                                        </a>
+                                                        {{ $items->staff_name }}
                                                     </li>
                                                 @endforeach
-
                                             </ul>
                                         </td>
                                     </tr>
@@ -110,7 +112,7 @@
                                                 @foreach ($upload_files as $key => $items)
                                                     <li class="list-group-item">
                                                         <a href="{{ url('delete-file/' . $items->id) }}"
-                                                            class="btn btn-danger float-right">
+                                                            class="btn btn-danger float-right" id="delete">
                                                             <i class="fa-solid fa-trash"></i>
                                                         </a>
                                                         &nbsp;
@@ -132,7 +134,7 @@
                                                 @foreach ($projects as $key => $items)
                                                     <li class="list-group-item">
                                                         <a href="{{ url('view-project-index/' . $items->id) }}"
-                                                            class="btn-link text-secondary"><i
+                                                            class="btn-link text-secondary" id="delete"><i
                                                                 class="fa-solid fa-book mr-2"></i>{{ $items->project_title }}</a>
                                                     </li>
                                                 @endforeach

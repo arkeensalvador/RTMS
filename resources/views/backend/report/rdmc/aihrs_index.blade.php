@@ -81,8 +81,8 @@
                                                 </table>
                                             @endif
 
-                                            <a href="{{ url('rdmc-monitoring-evaluation') }}"
-                                                class="btn btn-default">Back</a>
+                                            {{-- <a href="{{ url('rdmc-monitoring-evaluation') }}"
+                                                class="btn btn-default">Back</a> --}}
                                         </div>
                                     </div>
                                 </div>
@@ -108,32 +108,36 @@
                         <div class="card">
                             <div class="card-header">
                                 <h2 class="card-title">Best Paper</h2>
-                                <div class="card-tools">
-                                    <span><button type="button" class="btn btn-success" data-toggle="modal"
+                                @if (auth()->user()->role == 'Admin')
+                                    <div class="card-tools">
+                                        <button type="button" class="btn btn-success" data-toggle="modal"
                                             data-target="#addBestPaper">
                                             <i class="fa-solid fa-plus"></i> Add best paper
                                         </button>
-                                </div>
+                                    </div>
+                                @endif
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-12 col-md-12">
                                         <div class="col-sm-12">
-                                            @if (auth()->user()->role == 'Admin')
-                                                <table id="datatable" class="table table-bordered table-striped">
-                                                    <thead>
-                                                        <tr>
-                                                            <th hidden>ID</th>
-                                                            <th>Title</th>
+                                            <table id="datatable" class="table table-bordered table-striped">
+                                                <thead>
+                                                    <tr>
+                                                        <th hidden>ID</th>
+                                                        <th>Title</th>
+                                                        @if (auth()->user()->role == 'Admin')
                                                             <th>Action</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        @foreach ($best_paper as $item)
-                                                            <tr>
-                                                                <td hidden>{{ $item->id }}</td>
-                                                                <td>{{ $item->best_paper }}</td>
+                                                        @endif
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach ($best_paper as $item)
+                                                        <tr>
+                                                            <td hidden>{{ $item->id }}</td>
+                                                            <td>{{ $item->best_paper }}</td>
+                                                            @if (auth()->user()->role == 'Admin')
                                                                 <td class="action btns">
                                                                     <a class="btn btn-primary editBestPaper"
                                                                         data-toggle="modal" data-id="'.$item->id.'"
@@ -144,35 +148,11 @@
                                                                         class="btn btn-danger" id="delete"><i
                                                                             class="fa-solid fa-trash"></i></a>
                                                                 </td>
-                                                            </tr>
-                                                        @endforeach
-
-                                                    </tbody>
-                                                </table>
-                                            @else
-                                                <table id="aihrs" class="table table-bordered table-striped">
-                                                    <span>Number of Projects Presented:</span>
-                                                    <thead>
-                                                        <tr>
-                                                            <th>New</th>
-                                                            <th>On-going</th>
-                                                            <th>Completed</th>
-                                                            <th>Terminated</th>
+                                                            @endif
                                                         </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        <tr>
-                                                            <th>{{ $cmi_new + $cmi_new_proj + $cmi_new_subproj }}</th>
-                                                            <th>{{ $cmi_ongoing + $cmi_ongoing_proj + $cmi_ongoing_subproj }}
-                                                            </th>
-                                                            <th>{{ $cmi_completed + $cmi_completed_proj + $cmi_completed_subproj }}
-                                                            </th>
-                                                            <th>{{ $cmi_terminated + $cmi_terminated_proj + $cmi_terminated_subproj }}
-                                                            </th>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
-                                            @endif
+                                                    @endforeach
+                                                </tbody>
+                                            </table>
 
                                             <a href="{{ url('rdmc-monitoring-evaluation') }}"
                                                 class="btn btn-default">Back</a>
@@ -229,8 +209,8 @@
         </div>
     </div>
 
-    <div class="modal fade" id="editBestPaper" data-keyboard="false" data-backdrop="static" tabindex="-1"
-        role="dialog" aria-labelledby="editContributionModalLabel" aria-hidden="true">
+    <div class="modal fade" id="editBestPaper" data-keyboard="false" data-backdrop="static" tabindex="-1" role="dialog"
+        aria-labelledby="editContributionModalLabel" aria-hidden="true">
         <!-- Your modal content for editing an existing contribution -->
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
@@ -248,8 +228,8 @@
                             <label for="con_name" class=" font-weight-bold">Title<span
                                     class="text-danger">*</span></label>
 
-                            <input type="text" name="best_paper" id="e_best_paper" class="form-control" placeholder="Enter title"
-                                required>
+                            <input type="text" name="best_paper" id="e_best_paper" class="form-control"
+                                placeholder="Enter title" required>
                             <div class="invalid-feedback">Missing title</div>
                         </div>
 

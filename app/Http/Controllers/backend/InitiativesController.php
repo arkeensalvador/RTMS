@@ -11,8 +11,21 @@ class InitiativesController extends Controller
 {
     public function ini_add(Request $request)
     {
+        $request->validate(
+            [
+                'ini_initiates' => 'required',
+                // 'ini_agency' => 'required',
+                'ini_date' => 'required',
+            ],
+            [
+                'ini_initiates.required' => 'Initiatives field is required!',
+                // 'ini_agency.required' => 'Agency field is required!',
+                'ini_date.required' => 'Date field is required!',
+            ],
+        );
         $data = [];
         $data['ini_initiates'] = $request->ini_initiates;
+        $data['ini_agency'] = $request->ini_agency;
         $data['ini_date'] = $request->ini_date;
 
         $insert = DB::table('cbg_initiatives')->insert($data);
@@ -42,16 +55,19 @@ class InitiativesController extends Controller
         $request->validate(
             [
                 'ini_initiates' => 'required',
+                // 'ini_agency' => 'required',
                 'ini_date' => 'required',
             ],
             [
                 'ini_initiates.required' => 'Initiatives field is required!',
+                // 'ini_agency.required' => 'Agency field is required!',
                 'ini_date.required' => 'Date field is required!',
             ],
         );
 
         $data = [];
         $data['ini_initiates'] = $request->ini_initiates;
+        $data['ini_agency'] = $request->ini_agency;
         $data['ini_date'] = $request->ini_date;
 
         $insert = DB::table('cbg_initiatives')

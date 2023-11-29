@@ -25,43 +25,43 @@
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-12 col-md-12">
-                                        @if (auth()->user()->role == 'Admin')
-                                            <div class="col-sm-12">
-                                                <a href="aihrs">
-                                                    <div class="monitoring info-box bg-light">
-                                                        <div class="monitoring info-box-content">
-                                                            <span
-                                                                class="monitoring info-box-number text-center text-muted">Agency
-                                                                In-House Reviews (AIHRs)
-                                                            </span>
-                                                        </div>
+                                        {{-- @if (auth()->user()->role == 'Admin') --}}
+                                        <div class="col-sm-12">
+                                            <a href="aihrs">
+                                                <div class="monitoring info-box bg-light">
+                                                    <div class="monitoring info-box-content">
+                                                        <span
+                                                            class="monitoring info-box-number text-center text-muted">Agency
+                                                            In-House Reviews (AIHRs)
+                                                        </span>
                                                     </div>
-                                                </a>
-                                            </div>
-                                            <div class="col-sm-12">
-                                                <a href="rdmc-regional">
-                                                    <div class="monitoring info-box bg-light">
-                                                        <div class="monitoring info-box-content">
-                                                            <span
-                                                                class="monitoring info-box-number text-center text-muted">Regional
-                                                                Symposium on R&D Highlights</span>
-                                                        </div>
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <div class="col-sm-12">
+                                            <a href="rdmc-regional">
+                                                <div class="monitoring info-box bg-light">
+                                                    <div class="monitoring info-box-content">
+                                                        <span
+                                                            class="monitoring info-box-number text-center text-muted">Regional
+                                                            Symposium on R&D Highlights</span>
                                                     </div>
-                                                </a>
-                                            </div>
+                                                </div>
+                                            </a>
+                                        </div>
 
-                                            <div class="col-sm-12">
-                                                <a href="rdmc-regional-participants">
-                                                    <div class="monitoring info-box bg-light">
-                                                        <div class="monitoring info-box-content">
-                                                            <span
-                                                                class="monitoring info-box-number text-center text-muted">Participants
-                                                                of Regional Symposium on R&D Highlights</span>
-                                                        </div>
+                                        <div class="col-sm-12">
+                                            <a href="rdmc-regional-participants">
+                                                <div class="monitoring info-box bg-light">
+                                                    <div class="monitoring info-box-content">
+                                                        <span
+                                                            class="monitoring info-box-number text-center text-muted">Participants
+                                                            of Regional Symposium on R&D Highlights</span>
                                                     </div>
-                                                </a>
-                                            </div>
-                                        @endif
+                                                </div>
+                                            </a>
+                                        </div>
+                                        {{-- @endif --}}
 
                                         <div class="col-sm-12">
                                             <a href="rdmc-projects">

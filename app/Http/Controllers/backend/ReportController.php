@@ -757,8 +757,9 @@ class ReportController extends Controller
     {
         $title = 'Contributions | CBG';
         $initiatives = Initiatives::all();
+        $agency = DB::table('agency')->get();
         // $all = DB::table('cbg_contributions')->get();
-        return view('backend.report.cbg.cbg_initiatives', compact('title', 'initiatives'));
+        return view('backend.report.cbg.cbg_initiatives', compact('title', 'initiatives', 'agency'));
     }
 
     public function cbgMeetings()

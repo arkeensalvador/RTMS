@@ -105,6 +105,7 @@
                                     <div class="invalid-feedback">Missing program id</div>
                                 </div>
 
+
                                 <div class="col-md-12 form-group">
                                     <label for="" class="font-weight-bold">Program<span
                                             class="text-success">*</span></label>
@@ -189,7 +190,7 @@
                                     <label for="awards_recipients" class=" font-weight-bold">Implementing Agency<span
                                             class="text-danger">*</span></label>
                                     <select class="form-control implementing_agency" id="awards_recipients"
-                                        name="implementing_agency[]" multiple="multiple" required>
+                                        name="project_implementing_agency[]" multiple="multiple" required>
                                         @if (auth()->user()->role == 'Admin')
                                             @foreach ($agency as $key)
                                                 <option value="{{ $key->abbrev }}">{{ $key->agency_name }} -
@@ -219,7 +220,7 @@
                                 <div class="col-md-3 form-group">
                                     <label for="coordination_fund" class=" font-weight-bold">Funding Grant<span
                                             class="text-danger">*</span></label>
-                                    <select id="form_of_development" name="project_funding_duration"
+                                    <select id="funding_duration" name="project_funding_duration"
                                         class="others form-control" required>
                                         <option selected disabled value="">Select Funding Grant</option>
                                         <option value="One-time">One-time Grant</option>
@@ -244,9 +245,16 @@
                                         <select id="program_leader" name="project_leader"
                                             class="form-control researchers" required>
                                             <option selected disabled value="">Select Researcher</option>
-                                            @foreach ($researchers_filter as $key)
-                                                <option value="{{ $key->name }}">{{ $key->name }}</option>
-                                            @endforeach
+                                            @if (auth()->user()->role == 'Admin')
+                                                @foreach ($researchers as $key)
+                                                    <option value="{{ $key->name }}">{{ $key->name }}</option>
+                                                @endforeach
+                                            @else
+                                                @foreach ($researchers_filter as $key)
+                                                    <option value="{{ $key->name }}">{{ $key->name }}</option>
+                                                @endforeach
+                                            @endif
+
                                         </select>
                                         <div class="invalid-feedback">Missing project leader</div>
                                     </div>
@@ -256,33 +264,43 @@
                                         <select id="assistant_leader" name="project_assistant_leader"
                                             class="form-control researchers" required>
                                             <option selected disabled value="">Select Researcher</option>
-                                            @foreach ($researchers as $key)
-                                                <option value="{{ $key->name }}">{{ $key->name }}</option>
-                                            @endforeach
+
+                                            @if (auth()->user()->role == 'Admin')
+                                                @foreach ($researchers as $key)
+                                                    <option value="{{ $key->name }}">{{ $key->name }}</option>
+                                                @endforeach
+                                            @else
+                                                @foreach ($researchers_filter as $key)
+                                                    <option value="{{ $key->name }}">{{ $key->name }}</option>
+                                                @endforeach
+                                            @endif
+
                                         </select>
                                         <div class="invalid-feedback">Missing assistant leader</div>
                                     </div>
                                 </div>
+
+
                                 <div class="col-md-4 form-group">
                                     <label for="start_date" class=" font-weight-bold">Start Date <span
                                             class="text-danger">*</span></label>
-                                    <input type="text" name="project_start_date" class="form-control date"
-                                        id="start_date" required>
+                                    <input type="text" placeholder="Start date" name="project_start_date"
+                                        class="form-control date" id="start_date" required>
                                     <div class="invalid-feedback">Missing start date of the project</div>
                                 </div>
 
                                 <div class="col-md-4 form-group">
                                     <label for="end_date" class=" font-weight-bold">End Date <span
                                             class="text-danger">*</span></label>
-                                    <input type="text" name="project_end_date" class="form-control date"
-                                        id="end_date" required>
+                                    <input type="text" placeholder="End date" name="project_end_date"
+                                        class="form-control date" id="end_date" required>
                                     <div class="invalid-feedback"> Missing end of the project</div>
                                 </div>
 
                                 <div class="col-md-4 form-group">
                                     <label for="extension_date" class=" font-weight-bold">Extension Date</label>
-                                    <input type="text" name="project_extend_date" class="form-control date"
-                                        id="extension_date">
+                                    <input type="text" placeholder="Extension date" name="project_extend_date"
+                                        class="form-control date" id="extension_date">
                                     <div class="valid-feedback">There's no inputted extension date for this project</div>
                                 </div>
 
@@ -299,7 +317,8 @@
                                     <label for="approved_budget" class=" font-weight-bold">Approved Budget<span
                                             class="text-danger">*</span></label>
                                     <input type="text" name="project_approved_budget" class="form-control"
-                                        id="approved_budget" placeholder="Approved budget" required>
+                                        id="approved_budget" placeholder="Approved budget"
+                                        onkeypress="return isNumberKey(event)" required>
                                     <div class="invalid-feedback">Missing approved budget</div>
                                 </div>
 
@@ -315,7 +334,7 @@
                                     <label for="year_of_release" class=" font-weight-bold">Amount Released<span
                                             class="text-danger">*</span></label>
                                     <input type="text" name="project_amount_released" class="form-control"
-                                        id="year_of_release" placeholder="Enter exact amount" required>
+                                        id="amount_released" placeholder="Enter exact amount" readonly>
                                     <div class="invalid-feedback">Missing</div>
                                 </div>
 
@@ -357,7 +376,20 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script> --}}
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+        function isNumberKey(evt) {
+            var charCode = (evt.which) ? evt.which : event.keyCode;
+            if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+                return false;
+            }
+            return true;
+        }
 
+        document.getElementById('approved_budget').addEventListener('keyup', function() {
+            var value = this.value.replace(/[^0-9]/g, ''); // Remove non-numeric characters
+            document.getElementById('amount_released').value = value;
+        });
+    </script>
     <script>
         var selectBox = document.getElementById("year");
         selectBox.onchange = function() {
@@ -461,14 +493,16 @@
                             timer: 900
                         }).then((result) => {
                             if (result.dismiss) {
-                                window.location.href = '/rdmc-programs';
+                                window.location.href = '/rdmc-projects';
                             }
                         })
+
                     },
                     error: function(data) {
                         // Swal.fire({
                         //     icon: 'warning',
-                        //     title: "There's something wrong...",
+                        //     title: data.responseJSON.message,
+                        //     // title: "There's something wrong...",
                         //     timerProgressBar: false,
                         //     showConfirmButton: true,
                         // });

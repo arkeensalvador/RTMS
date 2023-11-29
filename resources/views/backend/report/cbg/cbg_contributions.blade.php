@@ -117,8 +117,8 @@
                                 <label for="con_amount" class=" font-weight-bold">Amount<span
                                         class="text-danger">*</span></label>
 
-                                <input type="number" name="con_amount" class="form-control" placeholder="Enter amount"
-                                    required>
+                                <input type="text" name="con_amount" class="form-control"
+                                    onkeypress="return isNumberKey(event)" placeholder="Enter amount" required>
                                 <div class="invalid-feedback">Missing amount</div>
                             </div>
 
@@ -169,7 +169,8 @@
                                 <label for="con_amount" class=" font-weight-bold">Amount<span
                                         class="text-danger">*</span></label>
 
-                                <input type="number" name="con_amount" id="e_con_amount" class="form-control"
+                                <input type="text" name="con_amount" id="e_con_amount"
+                                    onkeypress="return isNumberKey(event)" class="form-control"
                                     placeholder="Enter amount" required>
                                 <div class="invalid-feedback">Missing amount</div>
                             </div>
@@ -193,6 +194,7 @@
 
 
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
         <script>
             $(document).ready(function() {
                 var table = $('#datatable').DataTable();

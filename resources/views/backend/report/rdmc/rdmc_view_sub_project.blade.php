@@ -92,9 +92,13 @@
                                         <th scope="row" class="thwidth">Sub-Project Staff(s)</th>
                                         <td>
                                             <ul class="list-group list-group-flush">
-                                                @foreach ($personnels as $personnel)
+                                                @foreach ($personnels as $personnel => $items)
                                                     <li class="list-group-item">
-                                                        {{ $personnel->staff_name }}
+                                                        <a href="{{ url('delete-staff/' . $items->id) }}"
+                                                            class="btn btn-danger float-right" id="delete">
+                                                            <i class="fa-solid fa-trash"></i>
+                                                        </a>
+                                                        {{ $items->staff_name }}
                                                     </li>
                                                 @endforeach
 
@@ -109,7 +113,7 @@
                                                 @foreach ($upload_files as $key => $items)
                                                     <li class="list-group-item">
                                                         <a href="{{ url('delete-file/' . $items->id) }}"
-                                                            class="btn btn-danger float-right">
+                                                            class="btn btn-danger float-right" id="delete">
                                                             <i class="fa-solid fa-trash"></i>
                                                         </a>
                                                         &nbsp;

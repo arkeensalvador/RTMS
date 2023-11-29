@@ -317,7 +317,8 @@
                                     <label for="approved_budget" class=" font-weight-bold">Approved Budget<span
                                             class="text-danger">*</span></label>
                                     <input type="text" name="project_approved_budget" class="form-control"
-                                        id="approved_budget" placeholder="Approved budget" required>
+                                        id="approved_budget" placeholder="Approved budget"
+                                        onkeypress="return isNumberKey(event)" required>
                                     <div class="invalid-feedback">Missing approved budget</div>
                                 </div>
 
@@ -333,7 +334,7 @@
                                     <label for="year_of_release" class=" font-weight-bold">Amount Released<span
                                             class="text-danger">*</span></label>
                                     <input type="text" name="project_amount_released" class="form-control"
-                                        id="year_of_release" placeholder="Enter exact amount" required>
+                                        id="amount_released" placeholder="Enter exact amount" readonly>
                                     <div class="invalid-feedback">Missing</div>
                                 </div>
 
@@ -375,7 +376,20 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script> --}}
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+        function isNumberKey(evt) {
+            var charCode = (evt.which) ? evt.which : event.keyCode;
+            if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+                return false;
+            }
+            return true;
+        }
 
+        document.getElementById('approved_budget').addEventListener('keyup', function() {
+            var value = this.value.replace(/[^0-9]/g, ''); // Remove non-numeric characters
+            document.getElementById('amount_released').value = value;
+        });
+    </script>
     <script>
         var selectBox = document.getElementById("year");
         selectBox.onchange = function() {

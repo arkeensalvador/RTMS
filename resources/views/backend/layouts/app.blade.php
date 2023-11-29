@@ -675,6 +675,13 @@
             minimumResultsForSearch: -1
         });
 
+        $('.fod').select2({
+            placeholder: "Select",
+            minimumResultsForSearch: -1
+        });
+
+
+
         $('.type').select2({
             placeholder: "Select",
             minimumResultsForSearch: -1
@@ -703,6 +710,12 @@
                 placeholder: 'Select recipients',
                 tags: true,
                 allowClear: true
+            });
+        });
+
+        $(document).ready(function() {
+            $('#form_of_development').select2({
+                placeholder: 'Select',
             });
         });
 
@@ -751,6 +764,16 @@
             });
         });
     });
+</script>
+
+<script>
+    function isNumberKey(evt) {
+        var charCode = (evt.which) ? evt.which : event.keyCode;
+        if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+            return false;
+        }
+        return true;
+    }
 </script>
 
 <script>

@@ -29,13 +29,15 @@
                         <div class="card">
                             <div class="card-header">
                                 <h2 class="card-title">List of Regional Symposium Highlights Participants</h2>
-                                <div class="card-tools">
+                                @if (auth()->user()->role == 'Admin')
+                                    <div class="card-tools">
 
-                                    <a href="{{ url('rdmc-regional-participants-add') }}" class="btn btn-success">
-                                        <span><i class="fa-solid fa-plus"></i> Create</span></a>
-                                    <!-- Here is a label for example -->
-                                    {{-- <span class="badge badge-primary">Label</span> --}}
-                                </div>
+                                        <a href="{{ url('rdmc-regional-participants-add') }}" class="btn btn-success">
+                                            <span><i class="fa-solid fa-plus"></i> Create</span></a>
+                                        <!-- Here is a label for example -->
+                                        {{-- <span class="badge badge-primary">Label</span> --}}
+                                    </div>
+                                @endif
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body">
@@ -50,7 +52,9 @@
                                                         <th>Agency / Association</th>
                                                         <th>No. of participants</th>
                                                         <th>Remarks</th>
-                                                        <th>Action</th>
+                                                        @if (auth()->user()->role == 'Admin')
+                                                            <th>Action</th>
+                                                        @endif
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -77,16 +81,18 @@
                                                             <td>{{ $researchers }}</td> --}}
                                                             <td>{{ $row->rp_no }}</td>
                                                             <td>{{ $row->rp_remarks }}</td>
-                                                            <td class="action">
-                                                                <a class="btn btn-primary"
-                                                                    href="{{ url('edit-regional-participants/' . Crypt::encryptString($row->id)) }}"><i
-                                                                        class="fa-solid fa-pen-to-square"
-                                                                        style="color: white;"></i></a>
+                                                            @if (auth()->user()->role == 'Admin')
+                                                                <td class="action">
+                                                                    <a class="btn btn-primary"
+                                                                        href="{{ url('edit-regional-participants/' . Crypt::encryptString($row->id)) }}"><i
+                                                                            class="fa-solid fa-pen-to-square"
+                                                                            style="color: white;"></i></a>
 
-                                                                <a href="{{ URL::to('/delete-regional-participants/' . Crypt::encryptString($row->id)) }}"
-                                                                    class="btn btn-danger" id="delete"><i
-                                                                        class="fa-solid fa-trash"></i></a>
-                                                            </td>
+                                                                    <a href="{{ URL::to('/delete-regional-participants/' . Crypt::encryptString($row->id)) }}"
+                                                                        class="btn btn-danger" id="delete"><i
+                                                                            class="fa-solid fa-trash"></i></a>
+                                                                </td>
+                                                            @endif
                                                         </tr>
                                                     @endforeach
                                                 </tbody>
