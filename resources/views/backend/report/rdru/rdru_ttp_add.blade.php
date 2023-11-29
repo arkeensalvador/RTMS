@@ -166,18 +166,13 @@
 
                                     <select class="form-control implementing_agency" name="ttp_implementing_agency[]"
                                         multiple="multiple" required>
-                                        @if (auth()->user()->role == 'Admin')
-                                            @foreach ($agency as $key)
-                                                <option value="{{ $key->abbrev }}">{{ $key->agency_name }} -
-                                                    ({{ $key->abbrev }})
-                                                    </b></option>
-                                            @endforeach
-                                        @else
-                                            <option value="{{ $user_agency->abbrev }}" selected>
-                                                {{ $user_agency->agency_name }} -
-                                                ({{ $user_agency->abbrev }})
+
+                                        @foreach ($agency as $key)
+                                            <option value="{{ $key->abbrev }}">{{ $key->agency_name }} -
+                                                ({{ $key->abbrev }})
                                                 </b></option>
-                                        @endif
+                                        @endforeach
+
                                     </select>
                                     <div class="invalid-feedback">Missing implementing agency</div>
                                 </div>
