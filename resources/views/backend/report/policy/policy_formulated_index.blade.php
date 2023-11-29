@@ -10,7 +10,7 @@
                     <div class="col-sm-6">
                         {{-- <h1 class="m-0">{{ auth()->user()->role }} - Manage Accounts</h1> --}}
                     </div><!-- /.col -->
-                    <div class="col-sm-12">
+                    <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right" style="font-size: 1.2rem">
                             <li class="breadcrumb-item"><a href="home">Home</a></li>
                             <li class="breadcrumb-item"><a href="report-index">Reports</a></li>
@@ -30,7 +30,8 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-header">
-                                <h2 class="card-title policy-formulated">List of Policies formulated, advocated, implemented
+                                <h2 class="card-title policy-formulated" style="font-size: 1.3rem">List of Policies
+                                    formulated, advocated, implemented
                                     institutional and institutionalized</h2>
                                 <div class="card-tools">
                                     <a href="{{ url('policy-formulated-add') }}" class="btn btn-success"><span><i
