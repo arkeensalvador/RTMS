@@ -14,7 +14,9 @@
                     <img src="{{ Storage::url(auth()->user()->profile_picture) }}" class="img-circle elevation-9 mb-2"
                         alt="User Image">
                 @else
-                    <img src="{{ asset('img/avatar4.png') }}" class="img-circle elevation-2" alt="User Image">
+                    {{-- <img src="{{ asset('img/avatar4.png') }}" class="img-circle elevation-2" alt="User Image"> --}}
+                    <img src="{{ Storage::url(auth()->user()->profile_picture) }}" class="img-circle elevation-2"
+                        alt="User Image">
                 @endif
             </div>
             <div class="info">
