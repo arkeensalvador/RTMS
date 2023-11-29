@@ -114,7 +114,7 @@
                                                                 style="color: #28a745;"></i>
                                                         @elseif ($row->program_status == 'Ongoing')
                                                             {{ $row->program_status }}
-                                                            <i class="fa-solid fa-magnifying-glass-chart fa-xl"
+                                                            <i class="fa-solid fa-hourglass fa-xl"
                                                                 style="color: #2a6cdf;"></i>
                                                         @elseif ($row->program_status == 'Terminated')
                                                             {{ $row->program_status }}
