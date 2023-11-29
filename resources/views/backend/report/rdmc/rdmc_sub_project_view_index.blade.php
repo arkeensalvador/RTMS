@@ -9,12 +9,13 @@
                     </div><!-- /.col -->
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item"><a href="home">Home</a></li>
-                            <li class="breadcrumb-item"><a href="report-index">Reports</a></li>
-                            <li class="breadcrumb-item"><a href="rdmc-index">RDMC</a></li>
-                            <li class="breadcrumb-item"><a href="rdmc-monitoring-evaluation">Monitoring and Evaluation</a>
+                            <li class="breadcrumb-item"><a href="{{ url('home') }}">Home</a></li>
+                            <li class="breadcrumb-item"><a href="{{ url('report-index') }}">Reports</a></li>
+                            <li class="breadcrumb-item"><a href="{{ url('rdmc-index') }}">RDMC</a></li>
+                            <li class="breadcrumb-item"><a href="{{ url('rdmc-monitoring-evaluation') }}">Monitoring and
+                                    Evaluation</a>
                             </li>
-                            <li class="breadcrumb-item "><a href="rdmc-projects">Projects</a></li>
+                            <li class="breadcrumb-item "><a href="{{ url('rdmc-projects') }}">Projects</a></li>
                             <li class="breadcrumb-item active">Sub Projects</li>
                         </ol>
                     </div><!-- /.col -->

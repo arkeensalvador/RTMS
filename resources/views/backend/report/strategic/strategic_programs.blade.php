@@ -12,7 +12,7 @@
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="home">Home</a></li>
                             <li class="breadcrumb-item"><a href="strategic-index">Strategic R&D</a></li>
-                            <li class="breadcrumb-item active">R&D Programs / Projects Packaged, Approved and Implemented
+                            <li class="breadcrumb-item active">R&D Programs - Projects Packaged, Approved and Implemented
                             </li>
                         </ol>
                     </div><!-- /.col -->

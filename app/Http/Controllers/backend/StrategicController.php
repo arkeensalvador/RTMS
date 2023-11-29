@@ -526,7 +526,6 @@ class StrategicController extends Controller
                 'str_collab_budget' => 'required|numeric',
                 'str_collab_sof' => 'required',
                 'str_collab_roc' => 'required',
-                'str_collab_program_title' => 'required',
             ],
             [
                 'str_collab_type.required' => 'Type is required!',
@@ -538,7 +537,6 @@ class StrategicController extends Controller
                 'str_collab_budget.required' => 'Budget is required!',
                 'str_collab_sof.required' => 'Source of fund is required!',
                 'str_collab_roc.required' => 'Commodities addressed is required!',
-                'str_collab_program_title.required' => 'Commodities addressed is required!',
             ],
         );
 
