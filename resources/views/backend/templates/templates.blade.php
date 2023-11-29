@@ -135,7 +135,7 @@
             });
 
 
-            $('#multi-file-upload-ajax').submit(function(e) {
+            $('#templates-store-multi-file-ajax').submit(function(e) {
 
                 e.preventDefault();
 
@@ -150,13 +150,15 @@
 
                 $.ajax({
                     type: 'POST',
-                    url: "{{ url('store-multi-file-ajax') }}",
+                    url: "{{ url('templates-store-multi-file-ajax') }}",
                     data: formData,
                     cache: false,
                     contentType: false,
                     processData: false,
                     dataType: 'json',
                     success: (data) => {
+                        $("#uploadfiles").modal().hide();
+                        $('.modal-backdrop').remove();
                         // this.reset();
                         Swal.fire({
                             icon: 'success',
@@ -166,8 +168,6 @@
                             timer: 900
                         }).then((result) => {
                             if (result.dismiss) {
-                                $("#uploadfiles").modal().hide();
-                                $('.modal-backdrop').remove();
                                 window.location.href = '/all-templates';
                             }
                         });

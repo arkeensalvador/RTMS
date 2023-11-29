@@ -60,6 +60,7 @@ class TemplatesController extends Controller
             ->where('id', $id)
             ->first();
         $file_path = storage_path("app/{$data->file_path}");
+
         return Response::download($file_path);
     }
 
