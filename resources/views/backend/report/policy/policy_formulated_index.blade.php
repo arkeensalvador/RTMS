@@ -77,7 +77,7 @@
                                                     @endforeach
                                                 </tbody>
                                             </table>
-                                            <a href="{{ url('cbg-index') }}" class="btn btn-default">Back</a>
+                                            <a href="{{ url('policy-formulated') }}" class="btn btn-default">Back</a>
                                         </div>
                                     </div>
                                 </div>

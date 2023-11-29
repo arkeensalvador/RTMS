@@ -125,11 +125,11 @@
                                     <br>
                                     <select name="policy_agency" class="form-control agency" required>
                                         <option value=""></option>
-                                            @foreach ($agency as $key)
-                                                <option value="{{ $key->abbrev }}">{{ $key->agency_name }}
-                                                    </b></option>
-                                            @endforeach
-                                      
+                                        @foreach ($agency as $key)
+                                            <option value="{{ $key->abbrev }}">{{ $key->agency_name }}
+                                                </b></option>
+                                        @endforeach
+
                                     </select>
 
                                     <div class="invalid-feedback">Missing agency</div>
@@ -139,7 +139,8 @@
                                     <label for="policy_issues" class="font-weight-bold">Resource Person<span
                                             class="text-danger">*</span></label>
 
-                                    <textarea name="policy_resource" id="policy_resource" class="form-control" cols="30" rows="3" required></textarea>
+                                    <textarea name="policy_resource" id="policy_resource" class="form-control" placeholder="Enter resource person(s)"
+                                        cols="30" rows="3" required></textarea>
 
                                     <div class="invalid-feedback">Missing resource person</div>
                                 </div>
@@ -148,7 +149,8 @@
                                     <label for="policy_issues" class="font-weight-bold">Topic issues<span
                                             class="text-danger">*</span></label>
 
-                                    <textarea name="policy_issues" id="policy_issues" class="form-control" cols="30" rows="5" required></textarea>
+                                    <textarea name="policy_issues" id="policy_issues" placeholder="Enter issues addressed" class="form-control"
+                                        cols="30" rows="5" required></textarea>
 
                                     <div class="invalid-feedback">Missing topic issues</div>
                                 </div>
