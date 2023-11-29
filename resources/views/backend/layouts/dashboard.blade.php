@@ -256,14 +256,15 @@
                 text: "Loading...",
             },
             title: {
-                text: 'Policy Researches Conducted',
+                text: 'New Initiatives on Governance',
                 align: 'center',
                 floating: true
             },
             subtitle: {
-                text: 'Total # of PRC',
+                text: 'Total # of initiatives',
                 align: 'center',
             }
+
         };
 
         var chartIni = new ApexCharts(document.querySelector("#myChartIni"), options);
@@ -291,12 +292,12 @@
                 text: "Loading...",
             },
             title: {
-                text: 'New Initiatives on Governance',
+                text: 'Policy Researches Conducted',
                 align: 'center',
                 floating: true
             },
             subtitle: {
-                text: 'Total # of initiatives',
+                text: 'Total # of PRC',
                 align: 'center',
             }
         };
