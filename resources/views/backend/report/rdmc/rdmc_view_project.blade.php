@@ -70,6 +70,10 @@
                             <table class="table">
                                 <tbody>
                                     <tr>
+                                        <th scope="row" class="thwidth">ID</th>
+                                        <td> {{ $projects->id }}</td>
+                                    </tr>
+                                    <tr>
                                         <th scope="row" class="thwidth">Funding Agency</th>
                                         <td>{{ $agency->agency_name }} ({{ $agency->abbrev }})</td>
                                     </tr>
