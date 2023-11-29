@@ -27,10 +27,12 @@
                         <div class="card">
                             <div class="card-header">
                                 <h3 class="card-title">List of Templates</h3>
-                                <div class="card-tools">
-                                    <a class="btn btn-success uploadFiles" data-toggle="modal" data-target='#uploadfiles'><i
-                                            class="fa-solid fa-plus"></i> Add</a>
-                                </div>
+                                @if (auth()->user()->role == 'Admin')
+                                    <div class="card-tools">
+                                        <a class="btn btn-success uploadFiles" data-toggle="modal"
+                                            data-target='#uploadfiles'><i class="fa-solid fa-plus"></i> Add</a>
+                                    </div>
+                                @endif
                                 <!-- /.card-tools -->
                             </div>
                             <!-- /.card-header -->
