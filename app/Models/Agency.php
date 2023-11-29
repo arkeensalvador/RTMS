@@ -9,8 +9,5 @@ class Agency extends Model
 {
     use HasFactory;
     protected $table = 'agency';
-    protected $fillable = [
-        'agency_name',
-        'abbrev'
-    ];
+    protected $fillable = ['agency_name', 'abbrev'];
 }

@@ -254,6 +254,26 @@ class HomeController extends Controller
             ->groupBy('researchers.name')
             ->get();
 
+        // Initiatives
+        $data_ini = DB::table('cbg_initiatives')
+            ->join('agency', 'cbg_initiatives.ini_agency', '=', 'agency.abbrev')
+            ->select('agency.abbrev', DB::raw('COUNT(cbg_initiatives.id) as initiative_count'))
+            ->groupBy('agency.abbrev')
+            ->get();
+
+        $labels_ini = $data_ini->pluck('abbrev');
+        $values_ini = $data_ini->pluck('initiative_count');
+
+        // policy research conducted
+        $data_prc = DB::table('policy_prc')
+            ->join('agency', 'policy_prc.prc_agency', '=', 'agency.abbrev')
+            ->select('agency.abbrev', DB::raw('COUNT(policy_prc.id) as prc_count'))
+            ->groupBy('agency.abbrev')
+            ->get();
+
+        $labels_prc = $data_prc->pluck('abbrev');
+        $values_prc = $data_prc->pluck('prc_count');
+
         return view(
             'backend.layouts.dashboard',
             [
@@ -262,7 +282,7 @@ class HomeController extends Controller
                 'total_terminated' => $total_terminated,
                 'total_completed' => $total_completed,
             ],
-            compact('all', 'title', 'data', 'datas', 'researcherCounts', 'progs', 'minValue', 'data_agency', 'agencyImp', 'minValueAgencyData', 'projs', 'sub_projs', 'total_projs', 'total_programs_count', 'total_projects', 'total_sub_projects', 'total_sub_projs', 'total_researchers', 'agencyData', 'dataBudget', 'total_programs', 'user_agency', 'total_programs_count_filter', 'total_projects_filter', 'total_sub_projects_filter', 'total_researchers_filter', 'total_programs_count_ongoing', 'total_programs_count_completed', 'total_projects_count_completed', 'total_projects_count_ongoing'),
+            compact('all', 'title', 'data', 'datas', 'researcherCounts', 'progs', 'minValue', 'data_agency', 'agencyImp', 'minValueAgencyData', 'projs', 'sub_projs', 'total_projs', 'total_programs_count', 'total_projects', 'total_sub_projects', 'total_sub_projs', 'total_researchers', 'agencyData', 'dataBudget', 'total_programs', 'user_agency', 'total_programs_count_filter', 'total_projects_filter', 'total_sub_projects_filter', 'total_researchers_filter', 'total_programs_count_ongoing', 'total_programs_count_completed', 'total_projects_count_completed', 'total_projects_count_ongoing', 'labels_ini', 'values_ini', 'labels_prc', 'values_prc'),
         );
     }
 }

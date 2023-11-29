@@ -112,16 +112,13 @@
 
     <div class="content-wrapper">
         <section class="content">
-
             <div class="strategic row">
-
                 <div class="col-md-12">
-
                     {{-- card start --}}
                     <div class="card">
                         <div class="card-header">
                             <h5 class="card-title">
-                                Report List
+                                Report List (In Progress)
                             </h5>
                             <a class="btn btn-primary float-right" href="{{ URL::to('/reports/pdf') }}">Export to PDF</a>
                         </div>

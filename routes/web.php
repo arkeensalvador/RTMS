@@ -388,3 +388,5 @@ Route::get('downloadTemplates/{id}', [App\Http\Controllers\backend\TemplatesCont
 Route::get('/profile/{id}', [App\Http\Controllers\ProfileController::class, 'profile_view'])->name('profile_view');
 Route::get('/edit-profile/{id}', [App\Http\Controllers\ProfileController::class, 'profile_edit'])->name('profile_edit');
 Route::post('/update-profile/{id}', [App\Http\Controllers\ProfileController::class, 'profile_update'])->name('profile_update');
+
+Route::get('/initiatives-per-agency', [HomeController::class, 'countInitiativesPerAgency']);

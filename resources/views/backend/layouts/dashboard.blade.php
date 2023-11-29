@@ -200,6 +200,31 @@
                                     </div>
                                 </div>
                             </div>
+                            {{-- CMI Initiatives --}}
+                            <div class="col-md-6">
+                                <div class="card card-success">
+                                    <div class="col-md-12">
+                                        <div class="card-body">
+                                            <div class="chart">
+                                                <div id="myChartIni"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            {{-- Policy Research Conducted --}}
+                            <div class="col-md-6">
+                                <div class="card card-success">
+                                    <div class="col-md-12">
+                                        <div class="card-body">
+                                            <div class="chart">
+                                                <div id="myChartPRC"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -212,6 +237,73 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 
+    {{-- Initiatives --}}
+    <script>
+        // Initialize ApexCharts
+        var options = {
+            chart: {
+                type: 'bar',
+                height: 285
+            },
+            series: [{
+                name: 'Initiatives Count',
+                data: @json($values_ini)
+            }],
+            xaxis: {
+                categories: @json($labels_ini)
+            },
+            noData: {
+                text: "Loading...",
+            },
+            title: {
+                text: 'Policy Researches Conducted',
+                align: 'center',
+                floating: true
+            },
+            subtitle: {
+                text: 'Total # of PRC',
+                align: 'center',
+            }
+        };
+
+        var chartIni = new ApexCharts(document.querySelector("#myChartIni"), options);
+        chartIni.render();
+    </script>
+
+
+    {{-- Policy research conducted --}}
+    {{-- Initiatives --}}
+    <script>
+        // Initialize ApexCharts
+        var options = {
+            chart: {
+                type: 'bar',
+                height: 285
+            },
+            series: [{
+                name: 'Initiatives Count',
+                data: @json($values_prc)
+            }],
+            xaxis: {
+                categories: @json($labels_prc)
+            },
+            noData: {
+                text: "Loading...",
+            },
+            title: {
+                text: 'New Initiatives on Governance',
+                align: 'center',
+                floating: true
+            },
+            subtitle: {
+                text: 'Total # of initiatives',
+                align: 'center',
+            }
+        };
+
+        var chartPRC = new ApexCharts(document.querySelector("#myChartPRC"), options);
+        chartPRC.render();
+    </script>
 
     <script>
         var totalNew = {{ json_encode($total_new) }};
@@ -502,96 +594,6 @@
         var chart9 = new ApexCharts(document.querySelector("#myChart9"), options);
         chart9.render();
 
-        // BUDGET PER PROGRAM, PROJECT, SUB PROJECT
-        // var data = @json($data);
-
-        // var categories = data.map(function(item) {
-        //     return `${item.title}(${item.agency})`;
-        // });
-
-        // var budgetData = data.map(function(item) {
-        //     return item.program_budget || item.project_budget || item.sub_project_budget;
-        // });
-
-        // var minAxisValue = @json($minValue);
-        // var options = {
-        //     chart: {
-        //         type: 'line',
-        //         height: 350,
-        //     },
-        //     dataLabels: {
-        //         enabled: true,
-        //     },
-        //     yaxis: {
-        //         labels: {
-        //             formatter: (val) => {
-        //                 if (val >= 1000000000) {
-        //                     return (val / 1000000000).toFixed(2) + 'B';
-        //                 } else if (val >= 1000000) {
-        //                     return (val / 1000000).toFixed(2) + 'M';
-        //                 } else if (val => 100000) {
-        //                     return (val / 1000) + 'K';
-        //                 }
-        //                 return val;
-        //             },
-        //         },
-        //         title: {
-        //             text: 'PHP'
-        //         },
-        //         min: minAxisValue,
-        //     },
-        //     stroke: {
-        //         curve: 'straight',
-        //         dashArray: [0, 10],
-        //     },
-        //     noData: {
-        //         text: "Loading...",
-        //     },
-        //     series: [{
-        //         name: 'Budget',
-        //         data: budgetData,
-        //     }],
-        //     xaxis: {
-        //         type: 'category',
-        //         categories: categories,
-        //         tooltip: {
-        //             enabled: false
-        //         },
-        //         labels: {
-        //             style: {
-        //                 fontSize: '10px',
-        //                 fontWeight: 500,
-        //             },
-        //             show: true,
-        //         },
-        //         title: {
-        //             text: 'Program, Project, or Sub-project title and Funding Agency'
-        //         }
-        //     },
-        //     legend: {
-        //         position: 'top',
-        //     },
-        //     title: {
-        //         text: 'Budget',
-        //         align: 'center',
-        //         floating: true
-        //     },
-        //     subtitle: {
-        //         text: 'Total budget per Programs, Projects, and Sub-projects granted',
-        //         align: 'center',
-        //     },
-        //     dataLabels: {
-        //         enabled: false,
-        //         style: {
-        //             fontSize: "12px",
-        //             fontFamily: "Helvetica, Arial, sans-serif",
-        //             fontWeight: "bold"
-        //         }
-        //     },
-        // };
-
-        var chart12 = new ApexCharts(document.querySelector("#myChart12"), options);
-        chart12.render();
 
         // Researchers Involvement
 
