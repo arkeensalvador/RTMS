@@ -315,7 +315,7 @@
                                     <div class="invalid-feedback">Missing program description</div>
                                 </div>
 
-                                <div class="col-md-3 form-group">
+                                <div class="col-md-4 form-group">
                                     <label for="approved_budget" class="font-weight-bold">Approved Budget<span
                                             class="text-danger">*</span></label>
                                     <input type="text" name="approved_budget"
@@ -325,7 +325,7 @@
                                     <div class="invalid-feedback">Missing approved budget</div>
                                 </div>
 
-                                <div class="col-md-1 form-group">
+                                <div class="col-md-4 form-group">
                                     <label for="#year_of_release" class=" font-weight-bold">Budget Year<span
                                             class="text-danger">*</span></label>
                                     <input type="text" name="budget_year" value="{{ $programs->budget_year }}"
@@ -333,7 +333,7 @@
                                     <div class="invalid-feedback"> Missing budget year</div>
                                 </div>
 
-                                <div class="col-md-3 form-group">
+                                <div class="col-md-4 form-group">
                                     <label for="year_of_release" class=" font-weight-bold">Amount Released<span
                                             class="text-danger">*</span></label>
                                     <input type="text" name="amount_released"

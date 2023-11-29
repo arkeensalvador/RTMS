@@ -287,7 +287,7 @@
                                     <div class="invalid-feedback">Missing project description</div>
                                 </div>
 
-                                <div class="col-md-3 form-group">
+                                <div class="col-md-4 form-group">
                                     <label for="approved_budget" class=" font-weight-bold">Approved Budget<span
                                             class="text-danger">*</span></label>
                                     <input type="text" name="project_approved_budget" class="form-control"
@@ -296,7 +296,7 @@
                                     <div class="invalid-feedback">Missing approved budget</div>
                                 </div>
 
-                                <div class="col-md-1 form-group">
+                                <div class="col-md-4 form-group">
                                     <label for="#year_of_release" class=" font-weight-bold">Budget Year<span
                                             class="text-danger">*</span></label>
                                     <input type="text" name="project_budget_year" class="form-control"
@@ -304,7 +304,7 @@
                                     <div class="invalid-feedback"> Missing budget year</div>
                                 </div>
 
-                                <div class="col-md-3 form-group">
+                                <div class="col-md-4 form-group">
                                     <label for="year_of_release" class=" font-weight-bold">Amount Released<span
                                             class="text-danger">*</span></label>
                                     <input type="text" name="project_amount_released" class="form-control"

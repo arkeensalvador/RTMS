@@ -283,7 +283,7 @@
                                     <div class="invalid-feedback">Missing approved budget</div>
                                 </div>
 
-                                <div class="col-md-2 form-group">
+                                <div class="col-md-4 form-group">
                                     <label for="year_of_release" class=" font-weight-bold">Budget Year<span
                                             class="text-danger">*</span></label>
                                     <input type="text" name="budget_year" class="form-control" id="budget_year"
