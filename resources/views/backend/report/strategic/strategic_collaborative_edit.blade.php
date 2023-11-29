@@ -231,7 +231,7 @@
                                 <div class="col-md-12 form-group">
                                     <label for="strategic_implementing_agency" class=" font-weight-bold">Role of
                                         Consortium<span class="text-danger">*</span></label>
-                                    <textarea name="str_collab_roc" id="strategic_title" class="form-control" rows="4" style="resize: none"
+                                    <textarea name="str_p_regional" id="strategic_title" class="form-control" rows="4" style="resize: none"
                                         required placeholder="Role of consortium">{{ $all->str_collab_roc }}</textarea>
                                     <div class="invalid-feedback">Missing role of consortium</div>
                                 </div>
