@@ -261,7 +261,7 @@ class HomeController extends Controller
             ->groupBy('agency.abbrev')
             ->get();
 
-        $labels_ini = $data_ini->pluck('agency.abbrev');
+        $labels_ini = $data_ini->pluck('abbrev');
         $values_ini = $data_ini->pluck('initiative_count');
 
         // policy research conducted
@@ -271,7 +271,7 @@ class HomeController extends Controller
             ->groupBy('agency.abbrev')
             ->get();
 
-        $labels_prc = $data_prc->pluck('agency.abbrev');
+        $labels_prc = $data_prc->pluck('abbrev');
         $values_prc = $data_prc->pluck('prc_count');
 
         return view(
