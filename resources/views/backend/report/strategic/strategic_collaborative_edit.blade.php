@@ -228,8 +228,6 @@
                                     </select>
                                     <div class="invalid-feedback">Missing source of fund</div>
                                 </div>
-
-
                                 <div class="col-md-12 form-group">
                                     <label for="strategic_implementing_agency" class=" font-weight-bold">Role of
                                         Consortium<span class="text-danger">*</span></label>
