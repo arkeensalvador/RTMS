@@ -20,7 +20,7 @@
                             <form id="techForm" enctype="multipart/form-data">
                                 @csrf
                                 <div class="form-group row">
-                                    <img id="preview" src="{{ Storage::url($edit->profile_picture) }}"
+                                    <img id="preview" src="{{ asset($edit->profile_picture) }}"
                                         alt="Current Profile Picture" style="max-width: 300px; max-height: 300px;">
                                 </div>
 

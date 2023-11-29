@@ -57,7 +57,7 @@ class ProfileController extends Controller
             $profilePicture = $request->file('profile_picture');
             $extension = $profilePicture->getClientOriginalExtension();
             $newFileName = "{$user->name}_profile_picture.{$extension}";
-            $profilePicturePath = $profilePicture->storeAs('profile_pictures', $newFileName, 'public');
+            $profilePicturePath = $profilePicture->storeAs('profile_pictures', $newFileName, 'profile');
             $user->profile_picture = $profilePicturePath;
         }
 

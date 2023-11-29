@@ -273,14 +273,14 @@
                                                             @endif
                                                         </span>
 
-                                                        <span title="Upload Program Files">
+                                                        <span title="Upload Project Files">
                                                             <a class="btn btn-secondary uploadFiles" data-toggle="modal"
                                                                 data-target='#uploadfiles'
                                                                 data-id="{{ $row->id }}"><i
                                                                     class="fa-solid fa-file-circle-plus"></i></a>
                                                         </span>
 
-                                                        <span title="Add Program Staffs">
+                                                        <span title="Add Project Staffs">
                                                             <!-- Button trigger modal -->
                                                             <a class="btn btn-warning addPersonnel" data-toggle="modal"
                                                                 data-target='#add-personnel'
@@ -376,7 +376,7 @@
         <div class="modal-dialog modal-dialog-centered modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">Program Files</h1>
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Project Files</h1>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>

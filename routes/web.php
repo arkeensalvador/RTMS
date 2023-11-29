@@ -381,7 +381,7 @@ Route::post('/register', [App\Http\Controllers\backend\UserController::class, 'r
 // templates
 Route::get('/all-templates', [App\Http\Controllers\backend\TemplatesController::class, 'templates_index'])->name('templates_index');
 Route::post('templates-store-multi-file-ajax', [App\Http\Controllers\backend\TemplatesController::class, 'storeMultiFileTemplate']);
-Route::get('/delete-file/{id}', [App\Http\Controllers\backend\TemplatesController::class, 'DeleteFile'])->name('DeleteFile');
+Route::get('/delete-template-file/{id}', [App\Http\Controllers\backend\TemplatesController::class, 'DeleteFile'])->name('DeleteFile');
 Route::get('downloadTemplates/{id}', [App\Http\Controllers\backend\TemplatesController::class, 'downloadTemplates']);
 
 // profile
