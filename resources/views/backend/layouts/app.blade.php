@@ -689,7 +689,7 @@
 
         $('.projects').select2({
             placeholder: "Select projects",
-            minimumResultsForSearch: -1
+            allowClear: false,
         });
 
 

@@ -21,7 +21,6 @@ return new class extends Migration {
             $table->string('str_collab_budget');
             $table->string('str_collab_sof');
             $table->longText('str_collab_roc');
-            $table->string('str_collab_program_title');
             $table->timestamps();
         });
     }

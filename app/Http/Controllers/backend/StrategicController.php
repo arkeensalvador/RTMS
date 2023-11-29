@@ -460,7 +460,6 @@ class StrategicController extends Controller
                 'str_collab_budget' => 'required|numeric',
                 'str_collab_sof' => 'required',
                 'str_collab_roc' => 'required',
-                'str_collab_program_title' => 'required',
             ],
             [
                 'str_collab_type.required' => 'Type is required!',
@@ -471,8 +470,7 @@ class StrategicController extends Controller
                 'str_collab_date.required' => 'Date is required!',
                 'str_collab_budget.required' => 'Budget is required!',
                 'str_collab_sof.required' => 'Source of fund is required!',
-                'str_collab_roc.required' => 'Commodities addressed is required!',
-                'str_collab_program_title.required' => 'Commodities addressed is required!',
+                'str_collab_roc.required' => 'Role of consortium is required!',
             ],
         );
 
@@ -486,7 +484,6 @@ class StrategicController extends Controller
         $data['str_collab_budget'] = $request->str_collab_budget;
         $data['str_collab_sof'] = $request->str_collab_sof;
         $data['str_collab_roc'] = $request->str_collab_roc;
-        $data['str_collab_program_title'] = $request->str_collab_program_title;
         $data['created_at'] = now();
 
         $insert = DB::table('strategic_collaborative_list')->insert($data);
@@ -505,10 +502,7 @@ class StrategicController extends Controller
             ->where('id', $id)
             ->first();
         $programs = DB::table('programs')->get();
-        $projects = DB::table('projects')
-            ->join('sub_projects', 'projects.id', '=', 'sub_projects.projectID')
-            ->where('projects.programID', $programID)
-            ->get();
+        $projects = DB::table('projects')->get();
 
         $sub_projects = DB::table('sub_projects')->get();
         $agency = DB::table('agency')->get();
@@ -558,7 +552,6 @@ class StrategicController extends Controller
         $data['str_collab_budget'] = $request->str_collab_budget;
         $data['str_collab_sof'] = $request->str_collab_sof;
         $data['str_collab_roc'] = $request->str_collab_roc;
-        $data['str_collab_program_title'] = $request->str_collab_program_title;
         $data['updated_at'] = now();
 
         $insert = DB::table('strategic_collaborative_list')

@@ -1,7 +1,6 @@
 <?php
 
 return [
-
     /*
     |--------------------------------------------------------------------------
     | Default Filesystem Disk
@@ -29,7 +28,6 @@ return [
     */
 
     'disks' => [
-
         'local' => [
             'driver' => 'local',
             'root' => storage_path('app'),
@@ -72,8 +70,6 @@ return [
             'folder' => env('GOOGLE_DRIVE_FOLDER'), // without folder is root of drive or team drive
             //'teamDriveId' => env('GOOGLE_DRIVE_TEAM_DRIVE_ID'),
         ],
-
-
     ],
 
     /*
@@ -90,5 +86,4 @@ return [
     'links' => [
         public_path('storage') => storage_path('app/public'),
     ],
-
 ];

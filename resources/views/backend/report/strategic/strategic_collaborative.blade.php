@@ -60,7 +60,7 @@
                                                     @foreach ($all as $key => $row)
                                                         <tr>
                                                             <td>{{ $row->str_collab_type }}</td>
-                                                            <td>{{ $row->str_collab_program_title }}</td>
+                                                            <td>{{ $row->str_collab_program }}</td>
                                                             @php
 
                                                                 $imp = json_decode($row->str_collab_imp_agency);
@@ -75,7 +75,7 @@
                                                             <td> {{ $proj }} </td>
                                                             <td> {{ $imp }} </td>
                                                             <td> {{ $collab }}</td>
-                                                            <td>{{ $row->str_collab_date }}</td>
+                                                            <td> {{ $row->str_collab_date }} </td>
                                                             <td>₱{{ $row->str_collab_budget }}</td>
                                                             <td>{{ $row->str_collab_sof }}</td>
                                                             <td>{{ $row->str_collab_roc }}</td>

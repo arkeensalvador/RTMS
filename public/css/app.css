@@ -102,11 +102,14 @@ h3 {
     top: 5rem;
 }
 /* custom card bg dashboard */
-.bg-custom {
+.bg-custom-researchers {
     background-color: #f27474;
 }
-.bg-custom-progams {
-    background-color: #f27474;
+.small-box.bg-custom-programs {
+    background-color: cadetblue;
+}
+.small-box.bg-custom-projects {
+    background-color: rgb(123, 204, 207);
 }
 
 .container.login p {

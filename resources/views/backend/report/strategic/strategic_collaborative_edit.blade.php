@@ -108,48 +108,45 @@
                                 <div class="col-md-12 form-group">
                                     <label for="ttp_sof" class=" font-weight-bold">Program<span
                                             class="text-danger">*</span></label>
-                                    <select id="programSelect" name="str_collab_program" class="form-control programs"
-                                        required>
+                                    <select id="" name="str_collab_program" class="form-control programs" required>
                                         <option value=""></option>
                                         @foreach ($programs as $row)
-                                            <option value="{{ $row->programID }}"
-                                                {{ $row->programID == $all->str_collab_program ? 'selected' : '' }}>
+                                            <option value="{{ $row->program_title }}"
+                                                {{ $row->program_title == $all->str_collab_program ? 'selected' : '' }}>
                                                 {{ $row->program_title }} </option>
                                         @endforeach
                                     </select>
                                     <div class="invalid-feedback">Missing program</div>
                                 </div>
 
-                                {{-- PROGRAM TITLE --}}
-                                <input type="text" name="str_collab_program_title" id="programTitle"
-                                    value="{{ $all->str_collab_program_title }}" hidden>
+
 
                                 @php
                                     $proj = json_decode($all->str_collab_project);
-                                    $string = 'N/A';
-                                    $proj = array_merge([$string], $proj);
                                 @endphp
 
                                 <div class="col-md-12 form-group">
                                     <label for="ttp_sof" class=" font-weight-bold">Projects<span
                                             class="text-danger">*</span></label>
-                                    <select id="projectSelect" name="str_collab_project[]" class="form-control projects"
+                                    <select id="" name="str_collab_project[]" class="form-control projects"
                                         multiple="multiple" required>
-                                        <option value=""></option>
+                                        <optgroup label="Project lists">
+                                            @foreach ($projects as $key)
+                                                <option value="{{ $key->project_title }}"
+                                                    {{ in_array($key->project_title, $proj) ? 'selected' : '' }}>
+                                                    {{ $key->project_title }}
+                                                    </b></option>
+                                            @endforeach
+                                        </optgroup>
 
-                                        @foreach ($projects as $key)
-                                            <option value="{{ $key->project_title }}"
-                                                {{ in_array($key->project_title, $proj) ? 'selected' : '' }}>
-                                                {{ $key->project_title }}
-                                                </b></option>
-                                        @endforeach
-
-                                        @foreach ($projects as $key)
-                                            <option value="{{ $key->sub_project_title }}"
-                                                {{ in_array($key->sub_project_title, $proj) ? 'selected' : '' }}>
-                                                {{ $key->sub_project_title }}
-                                                </b></option>
-                                        @endforeach
+                                        <optgroup label="Sub Project lists">
+                                            @foreach ($sub_projects as $key)
+                                                <option value="{{ $key->sub_project_title }}"
+                                                    {{ in_array($key->sub_project_title, $proj) ? 'selected' : '' }}>
+                                                    {{ $key->sub_project_title }}
+                                                    </b></option>
+                                            @endforeach
+                                        </optgroup>
                                     </select>
 
                                     <div class="invalid-feedback">Missing projects</div>
@@ -294,50 +291,6 @@
                     $('#researcherSelect').append(
                         '<option value="">Select a Researcher</option>');
                     $('#researcherSelect').select2();
-                }
-            });
-
-            // Program Select & Projects 
-            $('#programSelect').on('change', function() {
-                var selectedText = $('#programSelect option:selected').text().trim();
-                $('#programTitle').val(selectedText);
-
-                var programID = $(this).val();
-                if (programID) {
-                    $.ajax({
-                        url: '/get-projects',
-                        type: 'GET',
-                        data: {
-                            program_id: programID
-                        },
-                        success: function(data) {
-                            $('#projectSelect').empty();
-                            $('#projectSelect').append(
-                                '<option value="">Select projects</option>'
-                            );
-                            data.forEach(function(projects) {
-                                $('#projectSelect').append($('<option>', {
-                                    value: projects.project_title,
-                                    text: projects.project_title
-                                }));
-
-                                $('#projectSelect').append($('<option>', {
-                                    value: projects.sub_project_title,
-                                    text: projects.sub_project_title
-                                }));
-                            });
-
-                            $('#projectSelect').append(
-                                '<option value="N/A">N/A</option>'
-                            );
-                        }
-                    });
-                } else {
-
-                    $('#projectSelect').empty();
-                    $('#projectSelect').append(
-                        '<option value="">Select projects</option>');
-                    $('#projectSelect').select2();
                 }
             });
         });
