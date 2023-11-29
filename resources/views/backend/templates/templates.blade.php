@@ -58,10 +58,11 @@
                                                         class="btn btn-info">
                                                         <i class="fa-solid fa-download"></i>
                                                     </a>
-
-                                                    {{-- <a href="{{ URL::to('/delete-file/' . $row->id) }}"
-                                                        class="btn btn-danger" id="delete"><i
-                                                            class="fa-solid fa-trash"></i></a> --}}
+                                                    @if (auth()->user()->role == 'Admin')
+                                                        <a href="{{ URL::to('/delete-template-file/' . $row->id) }}"
+                                                            class="btn btn-danger" id="delete"><i
+                                                                class="fa-solid fa-trash"></i></a>
+                                                    @endif
                                                 </td>
                                             </tr>
                                         @endforeach
