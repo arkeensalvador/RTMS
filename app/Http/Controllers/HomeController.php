@@ -129,7 +129,7 @@ class HomeController extends Controller
 
         $progs = DB::table('programs')
             ->join('agency', 'agency.abbrev', '=', 'programs.funding_agency')
-            ->select(DB::raw('COUNT(*) as count_p'), DB::raw('agency.abbrev as abbrev'), DB::raw('approved_budget as budget'), DB::raw('program_title as title'))
+            ->select(DB::raw('COUNT(*) as count_p'), DB::raw('agency.abbrev as abbrev'), DB::raw('amount_released as budget'), DB::raw('program_title as title'))
             ->groupBy('abbrev', 'budget', 'title')
             ->orderBy('count_p')
             ->get();
@@ -143,14 +143,14 @@ class HomeController extends Controller
 
         $projs = DB::table('projects')
             ->join('agency', 'agency.abbrev', '=', 'projects.project_agency')
-            ->select(DB::raw('COUNT(*) as count_p'), DB::raw('agency.abbrev as abbrev'), DB::raw('project_approved_budget as budget'), DB::raw('project_title as title'))
+            ->select(DB::raw('COUNT(*) as count_p'), DB::raw('agency.abbrev as abbrev'), DB::raw('project_amount_released as budget'), DB::raw('project_title as title'))
             ->groupBy('abbrev', 'budget', 'title')
             ->orderBy('count_p')
             ->get();
 
         $sub_projs = DB::table('sub_projects')
             ->join('agency', 'agency.abbrev', '=', 'sub_projects.sub_project_agency')
-            ->select(DB::raw('COUNT(*) as count_p'), DB::raw('agency.abbrev as abbrev'), DB::raw('sub_project_approved_budget as budget'), DB::raw('sub_project_title as title'))
+            ->select(DB::raw('COUNT(*) as count_p'), DB::raw('agency.abbrev as abbrev'), DB::raw('sub_project_amount_released as budget'), DB::raw('sub_project_title as title'))
             ->groupBy('abbrev', 'budget', 'title')
             ->orderBy('count_p')
             ->get();
@@ -207,9 +207,9 @@ class HomeController extends Controller
         $minValueAgencyData = min($agencyData->min('total_programs'), $agencyData->min('total_projects'), $agencyData->min('total_sub_projects'));
 
         $agenciesDataBudget = Agency::select('agency.abbrev as agency_abbreviation')
-            ->selectRaw('SUM(programs.approved_budget) as total_program_budget')
-            ->selectRaw('SUM(projects.project_approved_budget) as total_project_budget')
-            ->selectRaw('SUM(sub_projects.sub_project_approved_budget) as total_sub_project_budget')
+            ->selectRaw('SUM(programs.amount_released) as total_program_budget')
+            ->selectRaw('SUM(projects.project_amount_released) as total_project_budget')
+            ->selectRaw('SUM(sub_projects.sub_project_amount_released) as total_sub_project_budget')
             ->leftJoin('programs', 'agency.abbrev', '=', 'programs.funding_agency')
             ->leftJoin('projects', 'agency.abbrev', '=', 'projects.project_agency')
             ->leftJoin('sub_projects', 'projects.id', '=', 'sub_projects.projectID')
@@ -217,7 +217,7 @@ class HomeController extends Controller
             ->get();
 
         $dataBudget = DB::table('agency')
-            ->select('agency.abbrev as agency_abbreviation', DB::raw('SUM(programs.approved_budget) as program_budget'), DB::raw('SUM(projects.project_approved_budget) as project_budget'), DB::raw('SUM(sub_projects.sub_project_approved_budget) as sub_project_budget'))
+            ->select('agency.abbrev as agency_abbreviation', DB::raw('SUM(programs.amount_released) as program_budget'), DB::raw('SUM(projects.project_amount_released) as project_budget'), DB::raw('SUM(sub_projects.sub_project_amount_released) as sub_project_budget'))
             ->leftJoin('programs', 'agency.abbrev', '=', 'programs.funding_agency')
             ->leftJoin('projects', 'agency.abbrev', '=', 'projects.project_agency')
             ->leftJoin('sub_projects', 'agency.abbrev', '=', 'sub_projects.sub_project_agency')
@@ -225,20 +225,20 @@ class HomeController extends Controller
             ->get();
 
         $data = DB::table('programs')
-            ->select(DB::raw('SUM(approved_budget) as program_budget'), DB::raw('funding_agency as agency'), DB::raw('program_title as title'))
+            ->select(DB::raw('SUM(amount_released) as program_budget'), DB::raw('funding_agency as agency'), DB::raw('program_title as title'))
             ->groupBy('title', 'agency')
             ->get();
 
         $data = $data->merge(
             DB::table('projects')
-                ->select(DB::raw('SUM(project_approved_budget) as project_budget'), DB::raw('project_agency as agency'), DB::raw('project_title as title'))
+                ->select(DB::raw('SUM(project_amount_released) as project_budget'), DB::raw('project_agency as agency'), DB::raw('project_title as title'))
                 ->groupBy('title', 'agency')
                 ->get(),
         );
 
         $data = $data->merge(
             DB::table('sub_projects')
-                ->select(DB::raw('SUM(sub_project_approved_budget) as sub_project_budget'), DB::raw('sub_project_agency as agency'), DB::raw('sub_project_title as title'))
+                ->select(DB::raw('SUM(sub_project_amount_released) as sub_project_budget'), DB::raw('sub_project_agency as agency'), DB::raw('sub_project_title as title'))
                 ->groupBy('title', 'agency')
                 ->get(),
         );

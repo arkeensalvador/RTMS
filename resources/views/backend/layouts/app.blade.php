@@ -529,7 +529,6 @@
     {{-- BS tags input --}}
     <script src="{{ asset('backend/plugins/bs-tags-input/bootstrap-tagsinput.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-
 </body>
 
 <script>
@@ -550,12 +549,19 @@
             mode: "range"
         });
 
+        flatpickr('.duration', {
+            dateFormat: 'm/d/Y',
+            altInput: true,
+            altFormat: "F j, Y",
+            allowInput: false,
+            mode: "range"
+        });
+
         flatpickr(".year", {
             enableTime: false,
             dateFormat: "Y",
             minDate: "1900",
             maxDate: "2100",
-
             minDate: new Date().getFullYear() // Set a minimum date if need
         });
     });
@@ -757,9 +763,17 @@
                 placeholder: "Select implementing agency"
             });
 
+            $('#funding_agency').select2({
+                // tags: true,
+                // tokenSeparators: [',', ' '],
+                allowClear: false,
+                placeholder: "Select funding agency"
+            });
+
             $('.collaborating_agency').select2({
-                tags: true,
-                tokenSeparators: [',', ' '],
+                // tags: true,
+                // tokenSeparators: [',', ' '],
+                allowClear: false,
                 placeholder: "Select collaborating agency"
             });
         });

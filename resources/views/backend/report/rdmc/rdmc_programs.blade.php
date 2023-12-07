@@ -71,30 +71,22 @@
                                         <tbody>
                                             @foreach ($all as $key => $row)
                                                 <tr>
-                                                    <td class="prog_id" hidden>{{ $row->programID }}</td>
-                                                    <td><span class="hashtag text-bg-primary">#</span> {{ $row->fund_code }}
-                                                    </td>
-                                                    <td>
-                                                        <a
-                                                            href="{{ url("projects-under-program/$row->programID") }}">{{ $row->program_title }}</a>
-                                                    </td>
-                                                    <td>{{ $row->program_leader }}</td>
-                                                    <td>
-                                                        @empty($row->extend_date)
-                                                            {{ date('F, Y', strtotime($row->start_date)) ?: 'Not Set' }} -
-                                                            {{ date('F, Y', strtotime($row->end_date)) ?: 'Not Set' }}
-                                                        @else
-                                                            {{ date('F, Y', strtotime($row->start_date)) ?: 'Not Set' }} -
-                                                            {{ date('F, Y', strtotime($row->extend_date)) ?: 'Not Set' }}
-                                                            <span class="badge text-bg-info">Extended</span>
-                                                        @endempty
-                                                    </td>
-                                                    <td>{{ $row->funding_agency }}</td>
                                                     @php
                                                         if (!empty($row->implementing_agency)) {
                                                             $imp = json_decode($row->implementing_agency);
                                                             $imp = implode(' / ', $imp);
                                                         }
+
+                                                        if (!empty($row->collaborating_agency)) {
+                                                            $collab = json_decode($row->collaborating_agency);
+                                                            $collab = implode(' / ', $collab);
+                                                        }
+
+                                                        if (!empty($row->funding_agency)) {
+                                                            $funding = json_decode($row->funding_agency);
+                                                            $funding = implode(', ', $funding);
+                                                        }
+
                                                         // $imp = json_decode($row->implementing_agency);
                                                         // $agencies = implode(' / ', $imp);
 
@@ -104,6 +96,19 @@
                                                         $rc = $row->research_center;
                                                         $rc = str_replace(['[', '"', ']'], '', $rc);
                                                     @endphp
+                                                    <td class="prog_id" hidden>{{ $row->programID }}</td>
+                                                    <td><span class="hashtag text-bg-primary">#</span> {{ $row->fund_code }}
+                                                    </td>
+                                                    <td>
+                                                        <a
+                                                            href="{{ url("projects-under-program/$row->programID") }}">{{ $row->program_title }}</a>
+                                                    </td>
+                                                    <td>{{ $row->program_leader }}</td>
+                                                    <td>
+                                                        {{ $row->duration }}
+                                                    </td>
+                                                    <td>{{ $funding }}</td>
+
                                                     <td>{{ $imp }} /
                                                         {{ $rc }}</td>
                                                     <td>{{ $row->program_description }}</td>
@@ -168,38 +173,47 @@
                                         <tbody>
                                             @foreach ($all_filter as $key => $row)
                                                 <tr>
-                                                    <td class="prog_id" hidden>{{ $row->programID }}</td>
-                                                    <td><span class="hashtag text-bg-primary">#</span>{{ $row->fund_code }}
-                                                    </td>
-                                                    <td>
-                                                        <a href="{{ url("projects-under-program/$row->programID") }}">
-                                                            {{ $row->program_title }}
-                                                        </a>
-                                                    </td>
-                                                    <td>{{ $row->program_leader }}</td>
-                                                    <td>
-                                                        @empty($row->extend_date)
-                                                            {{ date('F, Y', strtotime($row->start_date)) ?: 'Not Set' }} -
-                                                            {{ date('F, Y', strtotime($row->end_date)) ?: 'Not Set' }}
-                                                        @else
-                                                            {{ date('F, Y', strtotime($row->start_date)) ?: 'Not Set' }} -
-                                                            {{ date('F, Y', strtotime($row->extend_date)) ?: 'Not Set' }}
-                                                            <span class="badge text-bg-info">Extended</span>
-                                                        @endempty
-                                                    </td>
-                                                    <td>{{ $row->funding_agency }}</td>
                                                     @php
-                                                        $imp = json_decode($row->implementing_agency);
-                                                        $agencies = implode(' / ', $imp);
+                                                        if (!empty($row->implementing_agency)) {
+                                                            $imp = json_decode($row->implementing_agency);
+                                                            $imp = implode(' / ', $imp);
+                                                        }
+
+                                                        if (!empty($row->collaborating_agency)) {
+                                                            $collab = json_decode($row->collaborating_agency);
+                                                            $collab = implode(' / ', $collab);
+                                                        }
+
+                                                        if (!empty($row->funding_agency)) {
+                                                            $funding = json_decode($row->funding_agency);
+                                                            $funding = implode(', ', $funding);
+                                                        }
+
+                                                        // $imp = json_decode($row->implementing_agency);
+                                                        // $agencies = implode(' / ', $imp);
+
+                                                        // $imp = $row->implementing_agency;
+                                                        // $imp = str_replace(['[', '"', ']'], '', $imp);
 
                                                         $rc = $row->research_center;
                                                         $rc = str_replace(['[', '"', ']'], '', $rc);
                                                     @endphp
-
-
-                                                    <td>{{ $agencies }} /
-                                                        {{ $rc }}
+                                                    <td class="prog_id" hidden>{{ $row->programID }}</td>
+                                                    <td><span class="hashtag text-bg-primary">#</span>
+                                                        {{ $row->fund_code }}
                                                     </td>
+                                                    <td>
+                                                        <a
+                                                            href="{{ url("projects-under-program/$row->programID") }}">{{ $row->program_title }}</a>
+                                                    </td>
+                                                    <td>{{ $row->program_leader }}</td>
+                                                    <td>
+                                                        {{ $row->duration }}
+                                                    </td>
+                                                    <td>{{ $funding }}</td>
+
+                                                    <td>{{ $imp }} /
+                                                        {{ $rc }}</td>
                                                     <td>{{ $row->program_description }}</td>
                                                     <td>
                                                         @if ($row->program_status == 'New')
@@ -208,7 +222,7 @@
                                                                 style="color: #28a745;"></i>
                                                         @elseif ($row->program_status == 'Ongoing')
                                                             {{ $row->program_status }}
-                                                            <i class="fa-solid fa-magnifying-glass-chart fa-xl"
+                                                            <i class="fa-solid fa-hourglass fa-xl"
                                                                 style="color: #2a6cdf;"></i>
                                                         @elseif ($row->program_status == 'Terminated')
                                                             {{ $row->program_status }}

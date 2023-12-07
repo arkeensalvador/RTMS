@@ -355,7 +355,6 @@
         }
 
         var chart1 = new ApexCharts(document.querySelector("#myChart1"), options);
-
         chart1.render();
 
         // NEW CHARTS APEXCHARTs

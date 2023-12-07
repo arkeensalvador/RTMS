@@ -11,10 +11,10 @@
                                 <div class="card-counter bg-primary text-white">
                                     <i class="fa fa-area-chart"></i>
                                     <span class="count-numbers h2"><span class="font-weight-bold">₱</span>
-                                        @empty($program->approved_budget)
+                                        @empty($program->amount_released)
                                             -
                                         @else
-                                            {{ $program->approved_budget }}
+                                            {{ $program->amount_released }}
                                         @endempty
                                     </span>
                                     <span class="card-title font-italic ">Program Budget</span>
@@ -25,10 +25,10 @@
                                 <div class="card-counter bg-info text-white">
                                     <i class="fa fa-bar-chart"></i>
                                     <span class="count-numbers h2"><span class="font-weight-bold">₱</span>
-                                        @empty($program->approved_budget)
+                                        @empty($program->amount_released)
                                             -
                                         @else
-                                            {{ $program->approved_budget }}
+                                            {{ $program->amount_released }}
                                         @endempty
                                     </span>
                                     <span class="card-title font-italic">Approved Budget</span>
@@ -38,16 +38,23 @@
                             <div class="col-md-4">
                                 <div class="card-counter bg-success text-white">
                                     <i class="fa fa-calendar-o"></i>
-                                    <span class="count-duration h5">
-                                        @empty($program->extend_date)
-                                            {{ date('F, Y', strtotime($program->start_date)) }}
-                                            -
-                                            {{ date('F, Y', strtotime($program->end_date)) }}
-                                        @else
-                                            {{ date('F, Y', strtotime($program->start_date)) }}
-                                            -
-                                            {{ date('F, Y', strtotime($program->extend_date)) }}
-                                        @endempty
+                                    <span class="count-duration h2">
+                                        @php
+                                            use Carbon\Carbon;
+                                            // Get the date range from the flatpickr input
+                                            $dateRange = $program->duration;
+
+                                            // Extract start and end dates from the range
+                                            [$startDate, $endDate] = explode(' to ', $dateRange);
+
+                                            // Convert the string dates to Carbon objects
+                                            $startDate = Carbon::createFromFormat('m/d/Y', $startDate);
+                                            $endDate = Carbon::createFromFormat('m/d/Y', $endDate);
+
+                                            // Calculate the difference in months
+                                            $months = $startDate->diffInMonths($endDate);
+                                        @endphp
+                                        {{ $program->duration }}
                                     </span>
                                     <span class="card-title font-italic">Program Duration</span>
                                 </div>
@@ -74,8 +81,15 @@
                                         <td>{{ $program->programID }}</td>
                                     </tr>
                                     <tr>
+                                        <th scope="row" class="thwidth">Duration</th>
+                                        <td>{{ $months }} Months</td>
+                                    </tr>
+                                    @php
+                                        $funding = json_decode($program->funding_agency);
+                                    @endphp
+                                    <tr>
                                         <th scope="row" class="thwidth">Funding Agency</th>
-                                        <td>{{ $agency->agency_name }} ({{ $program->funding_agency }})</td>
+                                        <td>{{ implode(', ', $funding) }}</td>
                                     </tr>
                                     @php
                                         $imp = json_decode($program->implementing_agency);
@@ -88,10 +102,10 @@
                                         <th scope="row" class="thwidth">Program Leader</th>
                                         <td>{{ $program->program_leader }}</td>
                                     </tr>
-                                    <tr>
+                                    {{-- <tr>
                                         <th scope="row" class="thwidth">Program Assistant Leader</th>
                                         <td>{{ $program->assistant_leader }}</td>
-                                    </tr>
+                                    </tr> --}}
                                     <tr>
                                         <th scope="row" class="thwidth">Program Staff(s)</th>
                                         <td>

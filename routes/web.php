@@ -81,6 +81,9 @@ Route::post('update-program/{programID}', [\App\Http\Controllers\backend\Program
 Route::get('/edit-program-index/{programID}', [\App\Http\Controllers\backend\ProgramsController::class, 'EditProgramIndex'])->name('EditProgramIndex');
 Route::get('/delete-program/{id}', [App\Http\Controllers\backend\ProgramsController::class, 'DeleteProgram'])->name('DeleteProgram');
 
+// DELETE PROGRAM BUDGET
+Route::get('/delete-budget/{id}', [App\Http\Controllers\backend\ProgramsController::class, 'delete_budget'])->name('delete_budget');
+
 // Add Program Personnel
 Route::post('/add-program-personnel', [\App\Http\Controllers\backend\ProgramsController::class, 'AddProgramPersonnel'])->name('AddProgramPersonnel');
 // Route::post('/add-program-personnel', [\App\Http\Controllers\backend\ReportController::class, 'AddProgramPersonnel'])->name('AddProgramPersonnel');
@@ -291,6 +294,12 @@ Route::get('/policy-formulated', [App\Http\Controllers\backend\ReportController:
 Route::post('/add-best-paper', [App\Http\Controllers\backend\ReportController::class, 'best_paper_add'])->name('best_paper_add');
 Route::post('/update-best-paper/{id}', [App\Http\Controllers\backend\ReportController::class, 'best_paper_update'])->name('best_paper_update');
 Route::get('/delete-best-paper/{id}', [App\Http\Controllers\backend\ReportController::class, 'best_paper_delete']);
+
+// Best poster
+Route::post('/add-best-poster', [App\Http\Controllers\backend\ReportController::class, 'best_poster_add'])->name('best_poster_add');
+Route::post('/update-best-poster/{id}', [App\Http\Controllers\backend\ReportController::class, 'best_poster_update'])->name('best_poster_update');
+Route::get('/delete-best-poster/{id}', [App\Http\Controllers\backend\ReportController::class, 'best_poster_delete']);
+
 // POLICY PRC
 Route::post('/add-prc', [App\Http\Controllers\backend\PolicyController::class, 'prc_add'])->name('prc_add');
 Route::get('/delete-prc/{id}', [App\Http\Controllers\backend\PolicyController::class, 'prc_delete']);

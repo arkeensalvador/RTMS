@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      */
@@ -19,6 +18,7 @@ return new class extends Migration
             $table->string('sub_project_category');
             $table->string('sub_project_status');
             $table->string('sub_project_agency');
+            $table->string('sub_project_collaborating_agency');
             $table->string('sub_project_implementing_agency');
             $table->string('sub_project_research_center');
             $table->string('sub_project_funding_duration');

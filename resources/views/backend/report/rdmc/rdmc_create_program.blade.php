@@ -102,16 +102,14 @@
                                         value="<?= substr(md5(microtime()), 0, 10) ?>" readonly placeholder="Enter code"
                                         name="programID">
                                     <div class="valid-feedback"></div>
-                                    <div class="invalid-feedback">Missing fund code</div>
+                                    <div class="invalid-feedback">Missing programID</div>
                                 </div>
 
                                 <div class="col-md-4 form-group">
                                     <label for="fund_code" class="font-weight-bold">Fund Code<span
-                                            class="text-danger">*</span></label>
+                                            class="text-danger"></span> (Optional)</label>
                                     <input type="text" name="fund_code" class="form-control" id="fund_code"
                                         placeholder="Input Trust Fund Code" required>
-                                    <div class="valid-feedback"></div>
-                                    <div class="invalid-feedback">Missing fund code</div>
                                 </div>
 
                                 <div class="col-md-4 form-group">
@@ -159,19 +157,18 @@
                                     <div class="invalid-feedback">Missing form of development</div>
                                 </div>
 
-                                <div class="col-md-8 form-group">
+                                <div class="col-md-10 form-group">
                                     <label for="funding_agency" class=" font-weight-bold">Funding Agency<span
                                             class="text-danger">*</span></label>
-                                    <select id="funding_agency" name="funding_agency" class="form-control agency" required>
-                                        <option selected disabled value="">Choose Funding Agency / Source of Fund
-                                        </option>
+                                    <select id="funding_agency" name="funding_agency[]" multiple="multiple"
+                                        class="form-control" required>
                                         @foreach ($agency as $key)
                                             <option value="{{ $key->abbrev }}">{{ $key->agency_name }} -
                                                 ({{ $key->abbrev }})
                                                 </b></option>
                                         @endforeach
                                     </select>
-                                    <div class="invalid-feedback">Missing funding fgency / source of fund</div>
+                                    <div class="invalid-feedback">Missing funding agency / source of fund</div>
                                 </div>
 
                                 <div class="col-md-12 form-group">
@@ -193,6 +190,22 @@
                                         @endif
                                     </select>
                                     <div class="invalid-feedback">Missing implementing agency</div>
+                                </div>
+
+                                <div class="col-md-12 form-group">
+                                    <label for="awards_recipients" class=" font-weight-bold">Collaborating Agency<span
+                                            class="text-danger">*</span></label>
+                                    <select class="form-control collaborating_agency" id=""
+                                        name="collaborating_agency[]" multiple="multiple" required>
+
+                                        @foreach ($agency as $key)
+                                            <option value="{{ $key->abbrev }}">{{ $key->agency_name }} -
+                                                ({{ $key->abbrev }})
+                                                </b></option>
+                                        @endforeach
+
+                                    </select>
+                                    <div class="invalid-feedback">Missing collaborating agency</div>
                                 </div>
 
                                 <div class="col-md-12 form-group">
@@ -223,7 +236,7 @@
                                     <div class="invalid-feedback">Missing program leader</div>
                                 </div>
 
-                                <div class="col-md-6 form-group">
+                                {{-- <div class="col-md-6 form-group">
                                     <label for="assistant_leader" class=" font-weight-bold">Assistant Leader <span
                                             class="text-danger">*</span></label>
                                     <select id="assistant_leader" name="assistant_leader"
@@ -240,31 +253,17 @@
                                         @endif
                                     </select>
                                     <div class="invalid-feedback">Missing Assistant Leader</div>
-                                </div>
+                                </div> --}}
 
 
                                 <div class="col-md-4 form-group">
-                                    <label for="start_date" class=" font-weight-bold">Start Date<span
+                                    <label for="start_date" class=" font-weight-bold">Duration<span
                                             class="text-danger">*</span></label>
-                                    <input type="text" name="start_date" class="form-control date" id="start_date"
+                                    <input type="text" name="duration" class="form-control duration" id="start_date"
                                         placeholder="Start date" required>
-                                    <div class="invalid-feedback">Missing start date of the program</div>
+                                    <div class="invalid-feedback">Missing duration of the program</div>
                                 </div>
 
-                                <div class="col-md-4 form-group">
-                                    <label for="end_date" class=" font-weight-bold">End Date <span
-                                            class="text-danger">*</span></label>
-                                    <input type="text" name="end_date" class="form-control date" id="end_date"
-                                        placeholder="End date" required>
-                                    <div class="invalid-feedback"> Missing end of the program</div>
-                                </div>
-
-                                <div class="col-md-4 form-group">
-                                    <label for="extension_date" class=" font-weight-bold">Extension Date</label>
-                                    <input type="text" name="extend_date" class="form-control date"
-                                        id="extension_date" placeholder="Extension date">
-                                    {{-- <div class="valid-feedback"> There's no inputted extension date for this program</div> --}}
-                                </div>
 
                                 <div class="col-md-12 form-group">
                                     <label for="program_description" class=" font-weight-bold">Program Description<span
@@ -274,31 +273,53 @@
                                     <div class="invalid-feedback">Missing program description</div>
                                 </div>
 
-                                <div class="col-md-4 form-group">
-                                    <label for="approved_budget" class=" font-weight-bold">Approved Budget<span
-                                            class="text-danger">*</span></label>
-                                    <input type="text" name="approved_budget" class="form-control"
-                                        id="approved_budget" placeholder="Approved budget"
-                                        onkeypress="return isNumberKey(event)" required>
-                                    <div class="invalid-feedback">Missing approved budget</div>
+                                <div class="col-md-12 form-group">
+                                    <table id="budget-table">
+                                        <thead>
+                                            <tr>
+                                                <th colspan="3" style="align-items: center;">
+                                                    <i class="fa-solid fa-square-plus fa-xl" onclick="addInput()"
+                                                        style="color: #28a745; cursor: pointer; "></i>
+                                                </th>
+                                            </tr>
+                                            <tr>
+                                                <th>Approved Budget</th>
+                                                <th>Year</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>
+                                                    <input type="text" class="form-control budget-input"
+                                                        style="margin-bottom: 5px;" name="approved_budget[]"
+                                                        oninput="validateInput(this)" required>
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control year-input"
+                                                        style="margin-bottom: 5px;" name="budget_year[]" value="1"
+                                                        required readonly>
+                                                </td>
+                                                <td>
+                                                    <i class="fa-solid fa-square-minus fa-lg"
+                                                        style="color: #dc3545; margin-left: 1rem; margin-bottom:0px; cursor: pointer"
+                                                        onclick="removeRow(this)"></i>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <div id="total-budget" hidden>Total Approved Budget: <span id="total">0</span>
+                                    </div>
                                 </div>
 
-                                <div class="col-md-4 form-group">
-                                    <label for="year_of_release" class=" font-weight-bold">Budget Year<span
-                                            class="text-danger">*</span></label>
-                                    <input type="text" name="budget_year" class="form-control" id="budget_year"
-                                        required placeholder="Ex. Year 1">
-                                    <div class="invalid-feedback"> Missing budget year</div>
-                                </div>
 
                                 <div class="col-md-4 form-group">
                                     <label for="year_of_release" class=" font-weight-bold">Amount Released<span
                                             class="text-danger">*</span></label>
                                     <input type="text" name="amount_released" class="form-control"
-                                        id="amount_released" placeholder="Enter exact amount" readonly>
+                                        id="total_amount_released" placeholder="Enter exact amount" readonly>
                                     <div class="invalid-feedback">Missing amount released</div>
                                 </div>
-
 
                                 <div class="col-md-12 form-group">
                                     <label for="" class=" font-weight-bold">Keywords</label>
@@ -319,7 +340,71 @@
         </section>
     </div>
 
+    <script>
+        function addInput() {
+            var table = document.getElementById('budget-table').getElementsByTagName('tbody')[0];
+            var newRow = table.insertRow(table.rows.length);
+            var cell1 = newRow.insertCell(0);
+            var cell2 = newRow.insertCell(1);
+            var cell3 = newRow.insertCell(2);
 
+            cell1.innerHTML =
+                '<input type="text" style="margin-bottom: 5px;" class="form-control budget-input" oninput="validateInput(this)" name="approved_budget[]" required>';
+            cell2.innerHTML =
+                '<input type="text" style="margin-bottom: 5px;" class="form-control year-input" name="budget_year[]" required readonly>';
+            cell3.innerHTML =
+                '<i class="fa-solid fa-square-minus fa-lg" style="color: #dc3545; margin-left: 1rem; margin-bottom:0px; cursor: pointer" onclick="removeRow(this)"></i>';
+
+            // Increment the year for each new row added
+            var lastYearInput = document.getElementsByClassName('year-input')[document.getElementsByClassName('year-input')
+                .length - 2];
+            var newYearInput = document.getElementsByClassName('year-input')[document.getElementsByClassName('year-input')
+                .length - 1];
+            var lastYear = parseInt(lastYearInput.value) || 0;
+
+            // Start incrementing from 2 for subsequent inputs
+            newYearInput.value = lastYear === 1 ? 2 : lastYear + 1;
+
+            // Recalculate the total when an input is removed
+            calculateTotal();
+        }
+
+        function removeRow(button) {
+            var row = button.parentNode.parentNode;
+            row.parentNode.removeChild(row);
+
+            // Recalculate the total when an input is removed
+            calculateTotal();
+        }
+
+        function validateInput(input) {
+            // Remove non-numeric characters (except '-')
+            input.value = input.value.replace(/[^\d-]/g, '');
+
+            // Ensure the input is not empty
+            if (input.value === '-') {
+                input.value = '';
+            }
+
+            // Recalculate the total when the input changes
+            calculateTotal();
+        }
+
+        function calculateTotal() {
+            var budgetInputs = document.getElementsByClassName('budget-input');
+            var total = 0;
+
+            for (var i = 0; i < budgetInputs.length; i++) {
+                var value = parseFloat(budgetInputs[i].value) || 0;
+                total += value;
+            }
+
+            // Update the total displayed in the HTML
+            document.getElementById('total').textContent = total;
+            document.getElementById('total_amount_released').value = total;
+
+        }
+    </script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script>
         function isNumberKey(evt) {

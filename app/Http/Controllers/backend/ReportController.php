@@ -4,11 +4,14 @@ namespace App\Http\Controllers\backend;
 
 use App\Http\Controllers\Controller;
 use App\Models\backend\Personnel;
+use App\Models\Poster;
 use App\Models\Contributions;
 use App\Models\Initiatives;
 use Crypt;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Storage;
+use Illuminate\Support\Str;
 
 class ReportController extends Controller
 {
@@ -301,6 +304,8 @@ class ReportController extends Controller
         $title = 'Agency In-House Reviews (AIHRs) | RDMC';
         // Best Paper
         $best_paper = DB::table('best_paper')->get();
+        // Best poster
+        $best_poster = DB::table('best_poster')->get();
         // Program
         $new = DB::table('programs')
             ->where('program_status', '=', 'new')
@@ -314,6 +319,15 @@ class ReportController extends Controller
         $completed = DB::table('programs')
             ->where('program_status', '=', 'completed')
             ->count();
+
+        $prog_research = DB::table('programs')
+            ->where('program_category', '=', 'Research')
+            ->count();
+
+        $prog_dev = DB::table('programs')
+            ->where('program_category', '=', 'Development')
+            ->count();
+
         // Project
         $new_proj = DB::table('projects')
             ->where('project_status', '=', 'new')
@@ -405,13 +419,29 @@ class ReportController extends Controller
             ->where('sub_project_status', '=', 'completed')
             ->count();
 
-        return view('backend.report.rdmc.aihrs_index', compact('title', 'best_paper', 'completed', 'new', 'ongoing', 'terminated', 'completed_proj', 'new_proj', 'ongoing_proj', 'terminated_proj', 'completed_subproj', 'new_subproj', 'ongoing_subproj', 'terminated_subproj', 'cmi_completed', 'cmi_new', 'cmi_ongoing', 'cmi_terminated', 'cmi_completed_proj', 'cmi_new_proj', 'cmi_ongoing_proj', 'cmi_terminated_proj', 'cmi_completed_subproj', 'cmi_new_subproj', 'cmi_ongoing_subproj', 'cmi_terminated_subproj'));
+        return view('backend.report.rdmc.aihrs_index', compact('title', 'best_paper', 'completed', 'new', 'ongoing', 'terminated', 'completed_proj', 'new_proj', 'ongoing_proj', 'terminated_proj', 'completed_subproj', 'new_subproj', 'ongoing_subproj', 'terminated_subproj', 'cmi_completed', 'cmi_new', 'cmi_ongoing', 'cmi_terminated', 'cmi_completed_proj', 'cmi_new_proj', 'cmi_ongoing_proj', 'cmi_terminated_proj', 'cmi_completed_subproj', 'cmi_new_subproj', 'cmi_ongoing_subproj', 'cmi_terminated_subproj', 'best_poster', 'prog_dev', 'prog_research'));
     }
 
     public function best_paper_add(Request $request)
     {
         $data = [];
+        $request->validate(
+            [
+                'best_paper' => 'required',
+                'best_paper_year' => 'required',
+                'best_paper_fa' => 'required',
+            ],
+            [
+                'best_paper.required' => 'Title is required!',
+                'best_paper_year.required' => 'Year is required!',
+                'best_paper_fa.required' => 'Funding Agency is required!',
+            ],
+        );
+
         $data['best_paper'] = $request->best_paper;
+        $data['best_paper_fa'] = $request->best_paper_fa;
+        $data['best_paper_year'] = $request->best_paper_year;
+
         $insert = DB::table('best_paper')->insert($data);
 
         if ($insert) {
@@ -440,12 +470,18 @@ class ReportController extends Controller
         $request->validate(
             [
                 'best_paper' => 'required',
+                'best_paper_year' => 'required',
+                'best_paper_fa' => 'required',
             ],
             [
                 'best_paper.required' => 'Title is required!',
+                'best_paper_year.required' => 'Year is required!',
+                'best_paper_fa.required' => 'Funding Agency is required!',
             ],
         );
         $data['best_paper'] = $request->best_paper;
+        $data['best_paper_fa'] = $request->best_paper_fa;
+        $data['best_paper_year'] = $request->best_paper_year;
         $insert = DB::table('best_paper')
             ->where('id', $id)
             ->update($data);
@@ -493,6 +529,79 @@ class ReportController extends Controller
                 ->back()
                 ->with($notification);
         }
+    }
+
+    public function best_poster_add(Request $request)
+    {
+        // Auto-rename the uploaded profile picture
+        $posterPicture = $request->file('poster');
+        $extension = $posterPicture->getClientOriginalExtension();
+        $newFileName = Str::uuid() . '_' . time() . '_' . "poster.{$extension}";
+        $posterPath = $posterPicture->storeAs('posters', $newFileName, 'poster');
+
+        $data = [];
+        $data['file_name'] = $newFileName;
+        $data['file_path'] = $posterPath;
+        $data['date'] = $request->date;
+        $data['agency'] = $request->agency;
+
+        $insert = DB::table('best_poster')->insert($data);
+
+        if ($insert) {
+            $notification = [
+                'message' => 'Best Poster Successfully Added!',
+                'alert-type' => 'success',
+            ];
+
+            return redirect()
+                ->route('aihrsIndex')
+                ->with($notification);
+        } else {
+            $notification = [
+                'message' => 'Something is wrong, please try again!',
+                'alert-type' => 'error',
+            ];
+            return redirect()
+                ->route('aihrsIndex')
+                ->with($notification);
+        }
+    }
+
+    public function best_poster_delete($id)
+    {
+        $id = Crypt::decryptString($id);
+        // Find the record in the database
+        $poster = Poster::find($id);
+
+        // Delete the file from storage
+        Storage::disk('public')->delete($poster->file_path);
+
+        // Delete the record from the database
+        $delete = $poster->delete();
+
+        if ($delete) {
+            $notification = [
+                'message' => 'Poster Successfully Deleted!',
+                'alert-type' => 'success',
+            ];
+
+            return redirect()
+                ->route('aihrsIndex')
+                ->with($notification);
+        } else {
+            $notification = [
+                'message' => 'Something is wrong, please try again!',
+                'alert-type' => 'error',
+            ];
+            return redirect()
+                ->route('aihrsIndex')
+                ->with($notification);
+        }
+
+        // Redirect or return a response
+        return redirect()
+            ->route('aihrsIndex')
+            ->with($notification);
     }
     public function linkagesIndex()
     {

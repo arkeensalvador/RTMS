@@ -37,13 +37,15 @@
                                         <div class="col-sm-12">
                                             @if (auth()->user()->role == 'Admin')
                                                 <table id="aihrs" class="table table-bordered table-striped">
-                                                    <span>Number of Projects Presented:</span>
+                                                    {{-- <span>Number of Projects Presented:</span> --}}
                                                     <thead>
                                                         <tr>
                                                             <th>New</th>
                                                             <th>On-going</th>
                                                             <th>Completed</th>
                                                             <th>Terminated</th>
+                                                            <th>Research Category</th>
+                                                            <th>Development Category</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
@@ -52,7 +54,9 @@
                                                             <th>{{ $ongoing + $ongoing_proj + $ongoing_subproj }}</th>
                                                             <th>{{ $completed + $completed_proj + $completed_subproj }}</th>
                                                             <th>{{ $terminated + $terminated_proj + $terminated_subproj }}
-                                                            </th>
+                                                            </th >
+                                                            <th>{{ $prog_research }}</th>
+                                                            <th>{{ $prog_dev }}</th>
                                                         </tr>
                                                     </tbody>
                                                 </table>
@@ -127,6 +131,8 @@
                                                     <tr>
                                                         <th hidden>ID</th>
                                                         <th>Title</th>
+                                                        <th>Year</th>
+                                                        <th>Agency</th>
                                                         @if (auth()->user()->role == 'Admin')
                                                             <th>Action</th>
                                                         @endif
@@ -137,6 +143,8 @@
                                                         <tr>
                                                             <td hidden>{{ $item->id }}</td>
                                                             <td>{{ $item->best_paper }}</td>
+                                                            <td>{{ $item->best_paper_year }}</td>
+                                                            <td>{{ $item->best_paper_fa }}</td>
                                                             @if (auth()->user()->role == 'Admin')
                                                                 <td class="action btns">
                                                                     <a class="btn btn-primary editBestPaper"
@@ -153,7 +161,6 @@
                                                     @endforeach
                                                 </tbody>
                                             </table>
-
                                             <a href="{{ url('rdmc-monitoring-evaluation') }}"
                                                 class="btn btn-default">Back</a>
                                         </div>
@@ -171,9 +178,84 @@
 
             <!-- /.container-fluid -->
         </section>
+
+        {{-- Best Poster --}}
+        <section class="report">
+            <div class="container-fluid">
+                <div class="monitoring row">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h2 class="card-title">Best Poster</h2>
+                                @if (auth()->user()->role == 'Admin')
+                                    <div class="card-tools">
+                                        <button type="button" class="btn btn-success" data-toggle="modal"
+                                            data-target="#addBestPoster">
+                                            <i class="fa-solid fa-plus"></i> Add best poster
+                                        </button>
+                                    </div>
+                                @endif
+                            </div>
+                            <!-- /.card-header -->
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-12 col-md-12">
+                                        <div class="col-sm-12">
+                                            <table id="datatable2" class="table table-bordered table-striped">
+                                                <thead>
+                                                    <tr>
+                                                        <th hidden>ID</th>
+                                                        <th>Image</th>
+                                                        <th>Agency</th>
+                                                        <th>Year</th>
+                                                        @if (auth()->user()->role == 'Admin')
+                                                            <th>Action</th>
+                                                        @endif
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach ($best_poster as $item)
+                                                        <tr>
+                                                            <td hidden>{{ $item->id }}</td>
+                                                            <td>
+                                                                <img id="" class="poster"
+                                                                    src="{{ asset($item->file_path) }}"
+                                                                    alt="Current Poster"
+                                                                    style="max-width: 50px; max-height: 50px;">
+                                                            </td>
+                                                            <td>{{ $item->agency }}</td>
+                                                            <td>{{ $item->date }}</td>
+                                                            @if (auth()->user()->role == 'Admin')
+                                                                <td class="action btns">
+                                                                    <a href="{{ url('delete-best-poster/' . Crypt::encryptString($item->id)) }}"
+                                                                        class="btn btn-danger" id="delete"><i
+                                                                            class="fa-solid fa-trash"></i></a>
+                                                                </td>
+                                                            @endif
+                                                        </tr>
+                                                    @endforeach
+                                                </tbody>
+                                            </table>
+                                            {{-- <a href="{{ url('rdmc-monitoring-evaluation') }}"
+                                                class="btn btn-default">Back</a> --}}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /.card-body -->
+                    </div>
+                    <!-- /.card -->
+                </div>
+                <!-- /.col -->
+            </div>
+            <!-- /.row -->
+
+            <!-- /.container-fluid -->
+        </section>
     </div>
 
-    <div class="modal fade" id="addBestPaper" data-keyboard="false" data-backdrop="static" tabindex="-1" role="dialog"
+    <div class="modal fade" id="addBestPoster" data-keyboard="false" data-backdrop="static" tabindex="-1" role="dialog"
         aria-labelledby="createContributionModalLabel" aria-hidden="true">
         <!-- Your modal content for creating a new contribution -->
 
@@ -181,19 +263,44 @@
             <div class="modal-content">
 
                 <div class="modal-body">
-                    <form id="techForm" method="POST" action="{{ url('add-best-paper') }}"
-                        class="row g-3 needs-validation" novalidate>
+                    <form id="techForm" method="POST" action="{{ url('add-best-poster') }}"
+                        class="row g-3 needs-validation" novalidate enctype="multipart/form-data">
                         @csrf
+
                         <div class="form-title col-12">
-                            <h2 class="font-weight-bold">Best Paper</h2>
+                            <h2 class="font-weight-bold">Best Poster</h2>
                             <h5 class="mt-0">Kindly fill-out the fields needed.</h5>
                         </div>
 
                         <div class="col-md-12 form-group">
-                            <label for="con_name" class=" font-weight-bold">Title<span class="text-danger">*</span></label>
+                            <img id="preview" class="" src=""
+                                style="max-width: 300px; max-height: 300px;">
+                        </div>
 
-                            <input type="text" name="best_paper" class="form-control" placeholder="Enter title" required>
-                            <div class="invalid-feedback">Missing title</div>
+                        <div class="col-md-12 form-group">
+                            <label for="con_name" class=" font-weight-bold">Poster<span
+                                    class="text-danger">*</span></label>
+
+                            <input type="file" name="poster" id="poster" accept="image/*" class="form-control"
+                                placeholder="Enter file" required>
+                            <div class="invalid-feedback">Missing image</div>
+                        </div>
+
+                        <div class="col-md-12 form-group">
+                            <label for="con_name" class=" font-weight-bold">Agency<span
+                                    class="text-danger">*</span></label>
+
+                            <input type="text" name="agency" class="form-control" placeholder="Enter agency"
+                                required>
+                            <div class="invalid-feedback">Missing agency</div>
+                        </div>
+
+                        <div class="col-md-12 form-group">
+                            <label for="con_name" class="font-weight-bold">Year<span class="text-danger">*</span></label>
+
+                            <input type="text" name="date" id="date" class="form-control year"
+                                placeholder="Enter year" required>
+                            <div class="invalid-feedback">Missing year</div>
                         </div>
 
 
@@ -209,8 +316,62 @@
         </div>
     </div>
 
-    <div class="modal fade" id="editBestPaper" data-keyboard="false" data-backdrop="static" tabindex="-1" role="dialog"
-        aria-labelledby="editContributionModalLabel" aria-hidden="true">
+    <div class="modal fade" id="addBestPaper" data-keyboard="false" data-backdrop="static" tabindex="-1"
+        role="dialog" aria-labelledby="createContributionModalLabel" aria-hidden="true">
+        <!-- Your modal content for creating a new contribution -->
+
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+
+                <div class="modal-body">
+                    <form id="techForm" method="POST" action="{{ url('add-best-paper') }}"
+                        class="row g-3 needs-validation" novalidate>
+                        @csrf
+                        <div class="form-title col-12">
+                            <h2 class="font-weight-bold">Best Paper</h2>
+                            <h5 class="mt-0">Kindly fill-out the fields needed.</h5>
+                        </div>
+
+                        <div class="col-md-12 form-group">
+                            <label for="con_name" class=" font-weight-bold">Poster<span
+                                    class="text-danger">*</span></label>
+
+                            <input type="text" name="best_paper" class="form-control" placeholder="Enter title"
+                                required>
+                            <div class="invalid-feedback">Missing title</div>
+                        </div>
+                        <div class="col-md-12 form-group">
+                            <label for="con_name" class="font-weight-bold">Year<span class="text-danger">*</span></label>
+
+                            <input type="text" name="best_paper_year" id="best_paper_year" class="form-control year"
+                                placeholder="Enter year" required>
+                            <div class="invalid-feedback">Missing year</div>
+                        </div>
+
+                        <div class="col-md-12 form-group">
+                            <label for="con_name" class="font-weight-bold">Funding Agency<span
+                                    class="text-danger">*</span></label>
+
+                            <input type="text" name="best_paper_fa" id="best_paper_fa" class="form-control"
+                                placeholder="Enter agency" required>
+                            <div class="invalid-feedback">Missing year</div>
+                        </div>
+
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="submit" id="submit" class="btn btn-primary btn-m ">Submit</button>
+                        </div>
+
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="editBestPaper" data-keyboard="false" data-backdrop="static" tabindex="-1"
+        role="dialog" aria-labelledby="editContributionModalLabel" aria-hidden="true">
         <!-- Your modal content for editing an existing contribution -->
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
@@ -233,6 +394,23 @@
                             <div class="invalid-feedback">Missing title</div>
                         </div>
 
+                        <div class="col-md-12 form-group">
+                            <label for="con_name" class=" font-weight-bold">Year<span
+                                    class="text-danger">*</span></label>
+
+                            <input type="text" name="best_paper_year" id="e_best_paper_year"
+                                class="form-control year" placeholder="Enter year" required>
+                            <div class="invalid-feedback">Missing year</div>
+                        </div>
+
+                        <div class="col-md-12 form-group">
+                            <label for="con_name" class="font-weight-bold">Funding Agency<span
+                                    class="text-danger">*</span></label>
+
+                            <input type="text" name="best_paper_fa" id="e_best_paper_fa" class="form-control"
+                                placeholder="Enter agency" required>
+                            <div class="invalid-feedback">Missing year</div>
+                        </div>
 
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -245,6 +423,24 @@
             </div>
         </div>
     </div>
+
+    <div class="modal fade" id="imageModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-md">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Image Preview</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" style="text-align: center">
+                    <div class="col-md-12 form-group center">
+                        <img id="preview" class="modalImage" src="" alt="Current Poster"
+                            style="max-width: 100%; max-height: 100%;">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script>
@@ -259,7 +455,10 @@
                 var data = table.row($tr).data();
                 console.log(data);
 
+
                 $('#e_best_paper').val(data[1]);
+                $('#e_best_paper_year').val(data[2]);
+                $('#e_best_paper_fa').val(data[3]);
 
                 $('#editForm').attr('action', '/update-best-paper/' + data[0]);
                 // $('#editContributionModal').modal('show');
@@ -328,6 +527,26 @@
                 document.getElementById('awards_date').classList.add('is-invalid');
                 document.getElementById('awards_recipients').classList.add('is-invalid');
             }
+        });
+    </script>
+
+    <script>
+        $(document).ready(function() {
+            // Handle image click events
+            $('#datatable2 tbody').on('click', 'img', function() {
+                var imageUrl = $(this).attr('src');
+
+                $('.modalImage').attr('src', imageUrl);
+                $('#imageModal').modal('show');
+            });
+        });
+    </script>
+
+    <script>
+        // Preview uploaded image
+        document.getElementById('poster').addEventListener('change', function(event) {
+            const preview = document.getElementById('preview');
+            preview.src = URL.createObjectURL(event.target.files[0]);
         });
     </script>
 @endsection

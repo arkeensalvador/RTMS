@@ -10,11 +10,14 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::create('best_paper', function (Blueprint $table) {
+        Schema::create('budgets', function (Blueprint $table) {
             $table->id('id');
-            $table->string('best_paper');
-            $table->string('best_paper_year');
-            $table->string('best_paper_fa');
+            $table->string('programID')->nullable();
+            $table->string('projectID')->nullable();
+            $table->string('sub_projectID')->nullable();
+            $table->string('approved_budget');
+            $table->string('budget_year');
+            $table->timestamps();
         });
     }
 
@@ -23,6 +26,6 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('best_paper');
+        Schema::dropIfExists('budgets');
     }
 };

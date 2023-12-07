@@ -174,16 +174,18 @@
                                     </select>
                                     <div class="invalid-feedback">Missing form of development</div>
                                 </div>
-
+                                @php
+                                    $funding = json_decode($programs->funding_agency);
+                                @endphp
                                 <div class="col-md-8 form-group">
                                     <label for="funding_agency" class=" font-weight-bold">Funding Agency<span
                                             class="text-danger">*</span></label>
-                                    <select id="funding_agency" name="funding_agency" class="form-control agency" required>
-                                        <option selected disabled value="">Choose Funding Agency / Source of Fund
-                                        </option>
+                                    <select id="funding_agency" name="funding_agency[]" multiple class="form-control agency"
+                                        required>
+
                                         @foreach ($agency as $key)
                                             <option value="{{ $key->abbrev }}"
-                                                {{ $key->abbrev == $programs->funding_agency ? 'selected' : '' }}>
+                                                {{ in_array($key->abbrev, $funding) ? 'selected' : '' }}>
                                                 {{ $key->agency_name }} -
                                                 ({{ $key->abbrev }})
                                                 </b></option>
@@ -202,25 +204,35 @@
                                             class="text-danger">*</span></label>
                                     <select class="form-control implementing_agency" id="awards_recipients"
                                         name="implementing_agency[]" multiple="multiple" required readonly>
-                                        @if (auth()->user()->role == 'Admin')
-                                            @foreach ($agency as $key)
-                                                <option value="{{ $key->abbrev }}"
-                                                    {{ in_array($key->abbrev, $imp) ? 'selected' : '' }}>
-                                                    {{ $key->agency_name }} -
-                                                    ({{ $key->abbrev }})
-                                                    </b></option>
-                                            @endforeach
-                                        @else
-                                            @foreach ($user_agency as $key)
-                                                <option value="{{ $key->abbrev }}"
-                                                    {{ in_array($key->abbrev, $imp) ? 'selected' : '' }}>
-                                                    {{ $key->agency_name }} -
-                                                    ({{ $key->abbrev }})
-                                                    </b></option>
-                                            @endforeach
-                                        @endif
+                                        @foreach ($agency as $key)
+                                            <option value="{{ $key->abbrev }}"
+                                                {{ in_array($key->abbrev, $imp) ? 'selected' : '' }}>
+                                                {{ $key->agency_name }} -
+                                                ({{ $key->abbrev }})
+                                                </b></option>
+                                        @endforeach
                                     </select>
                                     <div class="invalid-feedback">Missing implementing agency</div>
+                                </div>
+
+                                @php
+                                    $collab = json_decode($programs->collaborating_agency);
+                                @endphp
+
+                                <div class="col-md-12 form-group">
+                                    <label for="awards_recipients" class=" font-weight-bold">Collaborating Agency<span
+                                            class="text-danger">*</span></label>
+                                    <select class="form-control collaborating_agency" id=""
+                                        name="collaborating_agency[]" multiple="multiple" required>
+                                        @foreach ($agency as $key)
+                                            <option value="{{ $key->abbrev }}"
+                                                {{ in_array($key->abbrev, $collab) ? 'selected' : '' }}>
+                                                {{ $key->agency_name }} -
+                                                ({{ $key->abbrev }})
+                                                </b></option>
+                                        @endforeach
+                                    </select>
+                                    <div class="invalid-feedback">Missing collaborating agency</div>
                                 </div>
 
                                 @php
@@ -244,68 +256,25 @@
                                     <select id="program_leader" name="program_leader" class="form-control researchers"
                                         required>
                                         <option selected disabled value="">Select Researcher</option>
-                                        @if (auth()->user()->role == 'Admin')
-                                            @foreach ($researchers as $key)
-                                                <option value="{{ $key->name }}"
-                                                    {{ $key->name == $programs->program_leader ? 'selected' : '' }}>
-                                                    {{ $key->name }}</option>
-                                            @endforeach
-                                        @else
-                                            @foreach ($researchers_filter as $key)
-                                                <option value="{{ $key->name }}"
-                                                    {{ $key->name == $programs->program_leader ? 'selected' : '' }}>
-                                                    {{ $key->name }}</option>
-                                            @endforeach
-                                        @endif
+                                        @foreach ($researchers as $key)
+                                            <option value="{{ $key->name }}"
+                                                {{ $key->name == $programs->program_leader ? 'selected' : '' }}>
+                                                {{ $key->name }}</option>
+                                        @endforeach
+
                                     </select>
                                     <div class="invalid-feedback">Missing program leader</div>
                                 </div>
 
-                                <div class="col-md-6 form-group">
-                                    <label for="assistant_leader" class=" font-weight-bold">Assistant Leader <span
-                                            class="text-danger">*</span></label>
-                                    <select id="assistant_leader" name="assistant_leader"
-                                        class="form-control researchers" required>
-                                        <option selected disabled value="">Select Researcher</option>
-                                        @if (auth()->user()->role == 'Admin')
-                                            @foreach ($researchers as $key)
-                                                <option value="{{ $key->name }}"
-                                                    {{ $key->name == $programs->assistant_leader ? 'selected' : '' }}>
-                                                    {{ $key->name }}</option>
-                                            @endforeach
-                                        @else
-                                            @foreach ($researchers_filter as $key)
-                                                <option value="{{ $key->name }}"
-                                                    {{ $key->name == $programs->assistant_leader ? 'selected' : '' }}>
-                                                    {{ $key->name }}</option>
-                                            @endforeach
-                                        @endif
-                                    </select>
-                                    <div class="invalid-feedback">Missing Assistant Leader</div>
-                                </div>
 
                                 <div class="col-md-4 form-group">
-                                    <label for="start_date" class=" font-weight-bold">Start Date <span
+                                    <label for="start_date" class=" font-weight-bold">Duration <span
                                             class="text-danger">*</span></label>
-                                    <input type="text" name="start_date" class="form-control date"
-                                        value="{{ $programs->start_date }}" id="start_date" required>
-                                    <div class="invalid-feedback">Missing start date of the program</div>
+                                    <input type="text" name="duration" class="form-control duration"
+                                        value="{{ $programs->duration }}" id="start_date" required>
+                                    <div class="invalid-feedback">Missing duration of the program</div>
                                 </div>
 
-                                <div class="col-md-4 form-group">
-                                    <label for="end_date" class=" font-weight-bold">End Date <span
-                                            class="text-danger">*</span></label>
-                                    <input type="text" name="end_date" class="form-control date"
-                                        value="{{ $programs->end_date }}" id="end_date" required>
-                                    <div class="invalid-feedback"> Missing end of the program</div>
-                                </div>
-
-                                <div class="col-md-4 form-group">
-                                    <label for="extension_date" class=" font-weight-bold">Extension Date</label>
-                                    <input type="text" name="extend_date" class="form-control date"
-                                        value="{{ $programs->extend_date }}" id="extension_date">
-                                    {{-- <div class="valid-feedback"> There's no inputted extension date for this program</div> --}}
-                                </div>
 
                                 <div class="col-md-12 form-group">
                                     <label for="program_description" class=" font-weight-bold">Program Description<span
@@ -315,22 +284,51 @@
                                     <div class="invalid-feedback">Missing program description</div>
                                 </div>
 
-                                <div class="col-md-4 form-group">
-                                    <label for="approved_budget" class="font-weight-bold">Approved Budget<span
-                                            class="text-danger">*</span></label>
-                                    <input type="text" name="approved_budget"
-                                        value="{{ $programs->approved_budget }}" class="form-control"
-                                        id="approved_budget" placeholder="Approved budget"
-                                        onkeypress="return isNumberKey(event)" required>
-                                    <div class="invalid-feedback">Missing approved budget</div>
-                                </div>
+                                <div class="col-md-12 form-group">
+                                    <table id="budget-table">
+                                        <thead>
+                                            <tr>
+                                                <th colspan="3" style="align-items: center;">
+                                                    <i class="fa-solid fa-square-plus fa-xl" onclick="addInput()"
+                                                        style="color: #28a745; cursor: pointer; "></i>
+                                                </th>
+                                            </tr>
+                                            <tr>
+                                                <th>Approved Budget</th>
+                                                <th>Year</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach ($budgetData as $key => $data)
+                                                <tr>
+                                                    <td>
+                                                        <input type="text" class="form-control budget-input"
+                                                            style="margin-bottom: 5px;" name="approved_budget[]"
+                                                            oninput="validateInput(this)"
+                                                            value="{{ $data->approved_budget }}" required>
+                                                    </td>
+                                                    <td>
+                                                        <input type="text" class="form-control year-input"
+                                                            style="margin-bottom: 5px;" name="budget_year[]"
+                                                            value="{{ $data->budget_year }}" required readonly>
+                                                    </td>
+                                                    <td>
+                                                        {{-- <i class="fa-solid fa-square-minus fa-lg"
+                                                            style="color: #dc3545; margin-left: 1rem; margin-bottom:0px; cursor: pointer"
+                                                            onclick="removeRow(this)"></i> --}}
 
-                                <div class="col-md-4 form-group">
-                                    <label for="#year_of_release" class=" font-weight-bold">Budget Year<span
-                                            class="text-danger">*</span></label>
-                                    <input type="text" name="budget_year" value="{{ $programs->budget_year }}"
-                                        class="form-control" id="budget_year" required placeholder="Ex. Year 1">
-                                    <div class="invalid-feedback"> Missing budget year</div>
+                                                        <a href="{{ URL::to('/delete-budget/' . $data->id) }}"
+                                                            class="btn btn-danger" id="delete"
+                                                            style="margin-left: 5px; margin-bottom: 5px"><i
+                                                                class="fa-solid fa-trash"></i></a>
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                    <div id="total-budget" hidden>Total Approved Budget: <span id="total">0</span>
+                                    </div>
                                 </div>
 
                                 <div class="col-md-4 form-group">
@@ -338,7 +336,7 @@
                                             class="text-danger">*</span></label>
                                     <input type="text" name="amount_released"
                                         value="{{ $programs->amount_released }}" class="form-control"
-                                        id="amount_released" placeholder="Enter exact amount" readonly>
+                                        id="total_amount_released" placeholder="Enter exact amount" readonly>
                                     <div class="invalid-feedback">Missing</div>
                                 </div>
 
@@ -371,21 +369,74 @@
 
     </section>
     </div>
-    {{-- <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
-        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous">
-    </script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
-        integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous">
-    </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tagsinput/0.6.0/bootstrap-tagsinput.min.js"></script> --}}
+
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput.min.js"></script> --}}
+    <script>
+        function addInput() {
+            var table = document.getElementById('budget-table').getElementsByTagName('tbody')[0];
+            var newRow = table.insertRow(table.rows.length);
+            var cell1 = newRow.insertCell(0);
+            var cell2 = newRow.insertCell(1);
+            var cell3 = newRow.insertCell(2);
 
-    {{-- <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script> --}}
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+            cell1.innerHTML =
+                '<input type="text" style="margin-bottom: 5px;" class="form-control budget-input" oninput="validateInput(this)" name="new_approved_budget[]" required>';
+            cell2.innerHTML =
+                '<input type="text" style="margin-bottom: 5px;" class="form-control year-input" name="new_budget_year[]" required>';
+            cell3.innerHTML =
+                '<i class="fa-solid fa-square-minus fa-lg" style="color: #dc3545; margin-left: 1rem; margin-bottom:0px; cursor: pointer" onclick="removeRow(this)"></i>';
+
+            // Increment the year for each new row added
+            var lastYearInput = document.getElementsByClassName('year-input')[document.getElementsByClassName('year-input')
+                .length - 2];
+            var newYearInput = document.getElementsByClassName('year-input')[document.getElementsByClassName('year-input')
+                .length - 1];
+            var lastYear = parseInt(lastYearInput.value) || 0;
+
+            // Start incrementing from 2 for subsequent inputs
+            newYearInput.value = lastYear === 1 ? 2 : lastYear + 1;
+
+            // Recalculate the total when an input is removed
+            calculateTotal();
+        }
+
+        function removeRow(button) {
+            var row = button.parentNode.parentNode;
+            row.parentNode.removeChild(row);
+
+            // Recalculate the total when an input is removed
+            calculateTotal();
+        }
+
+        function validateInput(input) {
+            // Remove non-numeric characters (except '-')
+            input.value = input.value.replace(/[^\d-]/g, '');
+
+            // Ensure the input is not empty
+            if (input.value === '-') {
+                input.value = '';
+            }
+
+            // Recalculate the total when the input changes
+            calculateTotal();
+        }
+
+        function calculateTotal() {
+            var budgetInputs = document.getElementsByClassName('budget-input');
+            var total = 0;
+
+            for (var i = 0; i < budgetInputs.length; i++) {
+                var value = parseFloat(budgetInputs[i].value) || 0;
+                total += value;
+            }
+
+            // Update the total displayed in the HTML
+            document.getElementById('total').textContent = total;
+            document.getElementById('total_amount_released').value = total;
+
+        }
+    </script>
     <script>
         function isNumberKey(evt) {
             var charCode = (evt.which) ? evt.which : event.keyCode;

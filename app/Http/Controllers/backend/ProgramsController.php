@@ -21,40 +21,40 @@ class ProgramsController extends Controller
         date_default_timezone_set('Asia/Hong_Kong');
         $request->validate(
             [
-                'fund_code' => 'required',
                 'program_title' => 'required',
                 'program_status' => 'required',
                 'program_category' => 'required',
-                'funding_agency' => 'required',
-                'implementing_agency' => 'required',
-                'research_center' => 'required',
-                'start_date' => 'required',
-                'end_date' => 'required',
+                'funding_agency' => 'required|array|min:1',
+                'collaborating_agency' => 'required|array|min:1',
+                'implementing_agency' => 'required|array|min:1',
+                'research_center' => 'required|array|min:1',
+                'duration' => 'required',
                 'program_leader' => 'required',
-                'assistant_leader' => 'required',
                 'program_description' => 'required',
-                'approved_budget' => 'required|numeric',
+                'approved_budget' => 'required|array',
+                'approved_budget.*' => 'required|integer',
                 'amount_released' => 'required',
-                'budget_year' => 'required',
+                'budget_year' => 'required|array',
+                'budget_year.*' => 'required|integer',
                 'form_of_development' => 'required',
                 'keywords' => 'required',
             ],
             [
-                'fund_code.required' => 'Fund code is required!',
                 'program_title.required' => 'Title is required!',
                 'program_status.required' => 'Status is required!',
                 'program_category.required' => 'Category is required!',
                 'funding_agency.required' => 'Funding agency is required!',
+                'collaborating_agency.required' => 'Collaborating agency is required!',
                 'implementing_agency.required' => 'Implementing agency is required!',
                 'research_center.required' => 'Research center is required!',
-                'start_date.required' => 'Date is required!',
-                'end_date.required' => 'Date is required!',
+                'duration.required' => 'Duration is required!',
                 'program_leader.required' => 'Program leader is required!',
-                'assistant_leader.required' => 'Assistant leader is required!',
                 'program_description.required' => 'Description is required!',
                 'approved_budget.required' => 'Budget is required!',
+                'approved_budget.*' => 'Budget is required!',
                 'amount_released.required' => 'Released amount is required!',
                 'budget_year.required' => 'Budget year is required!',
+                'budget_year.*' => 'Budget year is required!',
                 'form_of_development.required' => 'Form of development is required!',
                 'keywords.required' => 'Keywords is/are required!',
             ],
@@ -66,24 +66,35 @@ class ProgramsController extends Controller
         $data['program_title'] = $request->program_title;
         $data['program_status'] = $request->program_status;
         $data['program_category'] = $request->program_category;
-        $data['funding_agency'] = $request->funding_agency;
+        $data['funding_agency'] = json_encode($request->funding_agency);
+        $data['collaborating_agency'] = json_encode($request->collaborating_agency);
         $data['implementing_agency'] = json_encode($request->implementing_agency);
         $data['research_center'] = htmlspecialchars_decode(json_encode($request->research_center));
-        $data['start_date'] = $request->start_date;
-        $data['end_date'] = $request->end_date;
-        $data['extend_date'] = $request->extend_date;
+        $data['duration'] = $request->duration;
         $data['program_leader'] = $request->program_leader;
-        $data['assistant_leader'] = $request->assistant_leader;
         $data['program_description'] = $request->program_description;
-        $data['approved_budget'] = str_replace(',', '', $request->approved_budget);
-        $data['amount_released'] = str_replace(',', '', $request->amount_released);
-        $data['budget_year'] = $request->budget_year;
+        $data['amount_released'] = $request->amount_released;
         $data['form_of_development'] = $request->form_of_development;
         $data['keywords'] = htmlspecialchars_decode(json_encode($request->keywords));
         $data['created_at'] = now();
 
+        $data_budget = [];
+
+        foreach ($request->approved_budget as $key => $budget) {
+            $data_budget[] = [
+                'programID' => $request->programID,
+                'approved_budget' => $budget,
+                'budget_year' => $request->budget_year[$key],
+                'created_at' => now(),
+            ];
+        }
+
+        // Insert data into the 'budgets' table
+        $insert_budget = DB::table('budgets')->insert($data_budget);
+
         $insert = DB::table('programs')->insert($data);
-        if ($insert) {
+
+        if ($insert && $insert_budget) {
             return response()->json(['success' => 'Program Successfully Uploaded!']);
         } else {
             return response()->json(['error' => 'There is something wrong...']);
@@ -142,6 +153,10 @@ class ProgramsController extends Controller
         $agency = DB::table('agency')->get();
         $researchers = DB::table('researchers')->get();
 
+        $budgetData = DB::table('budgets')
+            ->where('programID', $programID)
+            ->get();
+
         $researchers_filter = DB::table('researchers')
             ->where('agency', auth()->user()->agencyID)
             ->get();
@@ -151,7 +166,7 @@ class ProgramsController extends Controller
             ->where('agencyID', auth()->user()->agencyID)
             ->get();
 
-        return view('backend.report.rdmc.rdmc_program_edit', compact('programs', 'agency', 'personnels', 'title', 'researchers', 'researchers_filter', 'user_agency'));
+        return view('backend.report.rdmc.rdmc_program_edit', compact('programs', 'agency', 'personnels', 'title', 'researchers', 'researchers_filter', 'user_agency', 'budgetData'));
     }
 
     public function UpdateProgram(Request $request, $programID)
@@ -160,40 +175,40 @@ class ProgramsController extends Controller
 
         $request->validate(
             [
-                'fund_code' => 'required',
                 'program_title' => 'required',
                 'program_status' => 'required',
                 'program_category' => 'required',
-                'funding_agency' => 'required',
-                'implementing_agency' => 'required',
+                'funding_agency' => 'required|array|min:1',
+                'collaborating_agency' => 'required|array|min:1',
+                'implementing_agency' => 'required|array|min:1',
                 'research_center' => 'required|array|min:1',
-                'start_date' => 'required',
-                'end_date' => 'required',
+                'duration' => 'required',
                 'program_leader' => 'required',
-                'assistant_leader' => 'required',
                 'program_description' => 'required',
-                'approved_budget' => 'required|numeric',
+                'approved_budget' => 'required|array',
+                'approved_budget.*' => 'required|integer',
                 'amount_released' => 'required',
-                'budget_year' => 'required',
+                'budget_year' => 'required|array',
+                'budget_year.*' => 'required|integer',
                 'form_of_development' => 'required',
                 'keywords' => 'required',
             ],
             [
-                'fund_code.required' => 'Fund code is required!',
                 'program_title.required' => 'Title is required!',
                 'program_status.required' => 'Status is required!',
                 'program_category.required' => 'Category is required!',
                 'funding_agency.required' => 'Funding agency is required!',
+                'collaborating_agency.required' => 'Collaborating agency is required!',
                 'implementing_agency.required' => 'Implementing agency is required!',
                 'research_center.required' => 'Research center is required!',
-                'start_date.required' => 'Date is required!',
-                'end_date.required' => 'Date is required!',
+                'duration.required' => 'Duration is required!',
                 'program_leader.required' => 'Program leader is required!',
-                'assistant_leader.required' => 'Assistant leader is required!',
                 'program_description.required' => 'Description is required!',
                 'approved_budget.required' => 'Budget is required!',
+                'approved_budget.*' => 'Budget is required!',
                 'amount_released.required' => 'Released amount is required!',
                 'budget_year.required' => 'Budget year is required!',
+                'budget_year.*' => 'Budget year is required!',
                 'form_of_development.required' => 'Form of development is required!',
                 'keywords.required' => 'Keywords is/are required!',
             ],
@@ -204,33 +219,94 @@ class ProgramsController extends Controller
         $data['program_title'] = $request->program_title;
         $data['program_status'] = $request->program_status;
         $data['program_category'] = $request->program_category;
-        $data['funding_agency'] = $request->funding_agency;
+        $data['funding_agency'] = json_encode($request->funding_agency);
+        $data['collaborating_agency'] = json_encode($request->collaborating_agency);
         $data['implementing_agency'] = json_encode($request->implementing_agency);
         $data['research_center'] = htmlspecialchars_decode(json_encode($request->research_center));
-        $data['start_date'] = $request->start_date;
-        $data['end_date'] = $request->end_date;
-        $data['extend_date'] = $request->extend_date;
+        $data['duration'] = $request->duration;
         $data['program_leader'] = $request->program_leader;
-        $data['assistant_leader'] = $request->assistant_leader;
         $data['program_description'] = $request->program_description;
-        $data['approved_budget'] = str_replace(',', '', $request->approved_budget);
-        $data['amount_released'] = str_replace(',', '', $request->amount_released);
-        $data['budget_year'] = $request->budget_year;
+        $data['amount_released'] = $request->amount_released;
+        // $data['budget_year'] = $request->budget_year;
         $data['form_of_development'] = $request->form_of_development;
         $data['keywords'] = htmlspecialchars_decode(json_encode($request->keywords));
         $data['updated_at'] = now();
 
+        // Retrieve existing data for the specified programID
+        $existingData = DB::table('budgets')
+            ->where('programID', $programID)
+            ->get();
+
+        // Prepare data for update
+        $data_update = [];
+
+        foreach ($existingData as $key => $existing) {
+            $data_update[] = [
+                'id' => $existing->id, // Assuming there is an 'id' column
+                'approved_budget' => $request->approved_budget[$key],
+                'budget_year' => $request->budget_year[$key],
+            ];
+        }
+
+        // Update existing data in the 'budgets' table based on programID
+        foreach ($data_update as $item) {
+            DB::table('budgets')
+                ->where('id', $item['id'])
+                ->update([
+                    'approved_budget' => $item['approved_budget'],
+                    'budget_year' => $item['budget_year'],
+                    'updated_at' => now(),
+                ]);
+        }
+
+        // Insert new data into the 'budgets' table
+        if ($request->has('new_approved_budget')) {
+            foreach ($request->new_approved_budget as $key => $newBudget) {
+                DB::table('budgets')->insert([
+                    'programID' => $programID,
+                    'approved_budget' => $newBudget,
+                    'budget_year' => $request->new_budget_year[$key],
+                    'created_at' => now(),
+                ]);
+            }
+        }
+
         $insert = DB::table('programs')
             ->where('programID', $programID)
             ->update($data);
+
         if ($insert) {
-            if ($insert) {
-                return response()->json(['success' => 'Program Successfully Updated!']);
-            } else {
-                return response()->json(['error' => 'There is something wrongs...']);
-            }
+            return response()->json(['success' => 'Program Successfully Updated!']);
+        } else {
+            return response()->json(['error' => 'There is something wrongs...']);
         }
     }
+
+    public function delete_budget($id)
+    {
+        $delete = DB::table('budgets')
+            ->where('id', $id)
+            ->delete();
+
+        if ($delete) {
+            $notification = [
+                'message' => 'Budget Successfully Deleted!',
+                'alert-type' => 'success',
+            ];
+            return redirect()
+                ->back()
+                ->with($notification);
+        } else {
+            $notification = [
+                'message' => 'Something is wrong, please try again!',
+                'alert-type' => 'error',
+            ];
+            return redirect()
+                ->back()
+                ->with($notification);
+        }
+    }
+
     public function UploadProgramFilesIndex($id)
     {
         $title = 'Programs | RTMS';
