@@ -47,42 +47,76 @@
                                                     <tr>
                                                         <th>#</th>
                                                         <th>Donor/Source</th>
-                                                        <th>Activity/Project</th>
+                                                        <th>Type of Activity</th>
+                                                        <th>Activity Title/Activity Details</th>
                                                         <th>Amount Shared</th>
-                                                        <th>Remarks</th>
+                                                        {{-- <th>Remarks</th> --}}
                                                         <th>Action</th>
 
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    @foreach ($all as $key => $row)
-                                                        <tr>
-                                                            <td class="counter">
-                                                                {{ $key + 1 }}
-                                                            </td>
-                                                            <td>
-                                                                @php
-                                                                    $donor = json_decode($row->donor);
-                                                                    $donor = implode(', ', $donor);
-                                                                @endphp
-                                                                {{ $donor }}
-                                                            </td>
-                                                            {{-- <td>{{ $row->activity_type }}</td> --}}
-                                                            <td>{{ $row->activity_title }}</td>
-                                                            <td>{{ $row->shared_amount }}</td>
-                                                            <td>{{ $row->remarks }}</td>
-                                                            <td class="action">
-                                                                <a class="btn btn-primary"
-                                                                    href="{{ url("edit-activity/$row->id") }}"><i
-                                                                        class="fa-solid fa-pen-to-square"
-                                                                        style="color: white;"></i></a>
+                                                    @if (auth()->user()->role == 'Admin')
+                                                        @foreach ($all as $key => $row)
+                                                            <tr>
+                                                                <td class="counter">
+                                                                    {{ $key + 1 }}
+                                                                </td>
+                                                                <td>
+                                                                    @php
+                                                                        $donor = json_decode($row->donor);
+                                                                        $donor = implode(', ', $donor);
+                                                                    @endphp
+                                                                    {{ $donor }}
+                                                                </td>
+                                                                <td>{{ $row->activity_type }}</td>
+                                                                <td>{{ $row->activity_title }}</td>
+                                                                <td>₱{{ number_format($row->shared_amount, 2) }}</td>
+                                                                {{-- <td>{{ $row->remarks }}</td> --}}
+                                                                <td class="action">
+                                                                    <a class="btn btn-primary"
+                                                                        href="{{ url("edit-activity/$row->id") }}"><i
+                                                                            class="fa-solid fa-pen-to-square"
+                                                                            style="color: white;"></i></a>
 
-                                                                <a href="{{ URL::to('/delete-activity/' . $row->id) }}"
-                                                                    class="btn btn-danger" id="delete"><i
-                                                                        class="fa-solid fa-trash"></i></a>
-                                                            </td>
-                                                        </tr>
-                                                    @endforeach
+                                                                    <a href="{{ URL::to('/delete-activity/' . $row->id) }}"
+                                                                        class="btn btn-danger" id="delete"><i
+                                                                            class="fa-solid fa-trash"></i></a>
+                                                                </td>
+                                                            </tr>
+                                                        @endforeach
+                                                    @else
+                                                        @foreach ($all_filter as $key => $row)
+                                                            <tr>
+                                                                <td class="counter">
+                                                                    {{ $key + 1 }}
+                                                                </td>
+                                                                <td>
+                                                                    @php
+                                                                        $donor = json_decode($row->donor);
+                                                                        $donor = implode(', ', $donor);
+                                                                    @endphp
+                                                                    {{ $donor }}
+                                                                </td>
+                                                                <td>{{ $row->activity_type }}</td>
+                                                                <td>{{ $row->activity_title }}</td>
+                                                                <td>₱{{ number_format($row->shared_amount, 2) }}</td>
+                                                                {{-- <td>{{ $row->remarks }}</td> --}}
+                                                                <td class="action">
+                                                                    <a class="btn btn-primary"
+                                                                        href="{{ url("edit-activity/$row->id") }}"><i
+                                                                            class="fa-solid fa-pen-to-square"
+                                                                            style="color: white;"></i></a>
+
+                                                                    <a href="{{ URL::to('/delete-activity/' . $row->id) }}"
+                                                                        class="btn btn-danger" id="delete"><i
+                                                                            class="fa-solid fa-trash"></i></a>
+                                                                </td>
+                                                            </tr>
+                                                        @endforeach
+                                                    @endif
+
+
                                                 </tbody>
                                             </table>
                                             <a href="{{ url('rdmc-monitoring-evaluation') }}"

@@ -87,11 +87,11 @@
                                     <h5 class="mt-0"> Kindly fill-out the fields needed.</h5>
                                 </div>
 
-                                <div class="col-md-3 form-group">
+                                <div class="col-md-5 form-group">
                                     <label for="category" class=" font-weight-bold">Type of participants<span
                                             class="text-danger">*</span></label>
-                                    <select id="category" name="trainings_type" class="form-control others" required>
-                                        <option selected disabled value="">Select type</option>
+                                    <select id="category" name="trainings_type[]" multiple class="form-control others"
+                                        required>
                                         <option value="GO">GO</option>
                                         <option value="NGO">NGO</option>
                                         <option value="Private Sector">Private Sector</option>
@@ -100,16 +100,29 @@
                                     <div class="invalid-feedback">Missing type</div>
                                 </div>
 
-                                <div class="col-md-9 form-group">
+                                <div class="col-md-12 form-group">
                                     <label for="trainings_sof" class=" font-weight-bold">Source of Funds<span
                                             class="text-danger">*</span></label>
-                                    <select id="trainings_sof" name="trainings_sof" class="form-control agency" required>
-                                        <option value=""></option>
+                                    <select id="trainings_sof" name="trainings_sof[]" multiple class="form-control agency"
+                                        required>
                                         @foreach ($agency as $row)
                                             <option value="{{ $row->abbrev }}"> {{ $row->agency_name }} </option>
                                         @endforeach
                                     </select>
                                     <div class="invalid-feedback">Missing source of funds</div>
+                                </div>
+
+                                <div class="col-md-12 form-group">
+                                    <label for="trainings_agency" class=" font-weight-bold">Implementing Agency<span
+                                            class="text-danger">*</span></label>
+                                    <select id="trainings_agency" name="trainings_agency[]" multiple
+                                        class="form-control agency" required>
+                                        <option value=""></option>
+                                        @foreach ($agency as $row)
+                                            <option value="{{ $row->abbrev }}"> {{ $row->agency_name }} </option>
+                                        @endforeach
+                                    </select>
+                                    <div class="invalid-feedback">Missing implementing agency</div>
                                 </div>
 
                                 <div class="col-md-12 form-group">
@@ -121,24 +134,13 @@
                                     <div class="invalid-feedback">Missing research center</div>
                                 </div>
 
-                                <div class="col-md-7 form-group">
-                                    <label for="trainings_agency" class=" font-weight-bold">Implementing Agency<span
-                                            class="text-danger">*</span></label>
-                                    <select id="trainings_agency" name="trainings_agency" class="form-control agency"
-                                        required>
-                                        <option value=""></option>
-                                        @foreach ($agency as $row)
-                                            <option value="{{ $row->abbrev }}"> {{ $row->agency_name }} </option>
-                                        @endforeach
-                                    </select>
-                                    <div class="invalid-feedback">Missing implementing agency</div>
-                                </div>
+
 
                                 <div class="col-md-12 form-group">
                                     <label for="trainings_title" class=" font-weight-bold">Title of Activity/Training<span
                                             class="text-danger">*</span></label>
-                                    <textarea class="form-control" name="trainings_title" id="trainings_title" rows="3" placeholder="Enter ..."
-                                        style="resize: none;" required></textarea>
+                                    <textarea class="form-control" name="trainings_title" id="trainings_title" rows="3"
+                                        placeholder="Enter activity/training title" style="resize: none;" required></textarea>
                                     <div class="invalid-feedback">Missing title</div>
                                 </div>
 
@@ -146,34 +148,28 @@
                                     <label for="trainings_expenditures" class=" font-weight-bold">Expenditures<span
                                             class="text-danger">*</span></label>
                                     <input type="text" class="form-control" name="trainings_expenditures"
-                                        id="trainings_expenditures" placeholder="Enter ..." required>
+                                        id="trainings_expenditures" placeholder="Enter expenditures"
+                                        oninput="validateInput(this)" required>
                                     <div class="invalid-feedback">Missing expenditures</div>
                                 </div>
 
 
-                                <div class="col-md-3 form-group">
-                                    <label for="trainings_start" class=" font-weight-bold">Start Date<span
+                                <div class="col-md-6 form-group">
+                                    <label for="trainings_start" class=" font-weight-bold">Activity/Training Duration<span
                                             class="text-danger">*</span></label>
 
                                     <input type="number" name="trainings_start" id="trainings_start"
-                                        class="form-control date" placeholder="Enter start date" required>
-                                    <div class="invalid-feedback">Missing start date</div>
-                                </div>
-
-                                <div class="col-md-3 form-group">
-                                    <label for="trainings_end" class="font-weight-bold">End Date <span
-                                            class="text-danger">*</span></label>
-                                    <input type="text" name="trainings_end" class="form-control date" id="trainings_end"
-                                        placeholder="Enter end date" required>
-                                    <div class="invalid-feedback">Missing end date</div>
+                                        class="form-control date-range" placeholder="Enter duration" required>
+                                    <div class="invalid-feedback">Missing activity/training duration</div>
                                 </div>
 
                                 <div class="col-md-6 form-group">
                                     <label for="trainings_no_participants" class=" font-weight-bold">No. of
                                         Participants<span class="text-danger">*</span></label>
-                                    <input type="number" name="trainings_no_participants" class="form-control"
-                                        id="trainings_no_participants" placeholder="# of participants" required>
-                                    <div class="invalid-feedback"> Missing # of participants</div>
+                                    <input type="text" name="trainings_no_participants" class="form-control"
+                                        id="trainings_no_participants" oninput="validateInput(this)"
+                                        placeholder="# of participants" required>
+                                    <div class="invalid-feedback">Missing # of participants</div>
                                 </div>
 
                                 <div class="col-md-6 form-group">
@@ -197,6 +193,17 @@
     </div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+        function validateInput(input) {
+            // Remove non-numeric characters (except '-')
+            input.value = input.value.replace(/[^\d-]/g, '');
+
+            // Ensure the input is not empty
+            if (input.value === '-') {
+                input.value = '';
+            }
+        }
+    </script>
     <script>
         $(document).ready(function() {
             $('#trainings_sof, #trainings_agency, #trainings_title, #trainings_start, #trainings_end, #trainings_title, #trainings_venue')
@@ -285,9 +292,9 @@
                             toast: true,
                             iconColor: 'white',
                             position: 'top-end',
-                            customClass: {
-                                popup: 'colored-toast',
-                            },
+                            // customClass: {
+                            //     popup: 'colored-toast',
+                            // },
                             // title: data.responseJSON.message,
                             text: data.responseJSON.message,
                             // title: 'There is something wrong...',

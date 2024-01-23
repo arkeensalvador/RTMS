@@ -93,14 +93,14 @@
 
                                     <div class="custom-control custom-radio">
                                         <input class="custom-control-input" type="radio" value="Database"
-                                            name="dbinfosys_category" id="customRadio1">
+                                            name="dbinfosys_category" id="customRadio1" required>
                                         <label for="customRadio1" class="custom-control-label"
                                             style="font-weight: bold;">Database</label>
                                     </div>
 
                                     <div class="custom-control custom-radio">
                                         <input class="custom-control-input" type="radio" value="Information System"
-                                            name="dbinfosys_category" id="customRadio2">
+                                            name="dbinfosys_category" id="customRadio2" required>
                                         <label for="customRadio2" class="custom-control-label"
                                             style="font-weight: bold;">Information System</label>
                                     </div>
@@ -114,6 +114,7 @@
                                         <option value="Developed">Developed</option>
                                         <option value="Enhanced">Enhanced</option>
                                         <option value="Maintained">Maintained</option>
+                                        <option value="Research">Research</option>
                                     </select>
                                     <div class="invalid-feedback">Missing type</div>
                                 </div>
@@ -137,9 +138,9 @@
                                 <div class="col-md-12 form-group">
                                     <label for="dbinfosys_purpose" class=" font-weight-bold">Purpose<span
                                             class="text-danger">*</span></label>
-                                    <textarea class="form-control" name="dbinfosys_purpose" id="dbinfosys_purpose" rows="2" placeholder="Enter ..."
-                                        style="resize: none;" required></textarea>
-                                    <div class="invalid-feedback">Missing purpose</div>
+                                    <textarea class="form-control" name="dbinfosys_purpose" id="dbinfosys_purpose" rows="2"
+                                        placeholder="Enter system purpose" style="resize: none;" required></textarea>
+                                    <div class="invalid-feedback">Missing purpose of system</div>
                                 </div>
 
                                 <div class="col-md-12 form-group buttons">

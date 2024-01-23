@@ -59,7 +59,9 @@
                                             <th>Program Leader</th>
                                             <th>Duration</th>
                                             <th>Funding Agency</th>
-                                            <th>Implementing Agency/Research and Development Center</th>
+                                            <th>Implementing Agency</th>
+                                            <th>Collaborating Agency</th>
+                                            <th>R & D Center</th>
                                             <th>Description</th>
                                             <th>Status</th>
                                             <th hidden>Keyword(s)</th>
@@ -74,12 +76,12 @@
                                                     @php
                                                         if (!empty($row->implementing_agency)) {
                                                             $imp = json_decode($row->implementing_agency);
-                                                            $imp = implode(' / ', $imp);
+                                                            $imp = implode(', ', $imp);
                                                         }
 
                                                         if (!empty($row->collaborating_agency)) {
                                                             $collab = json_decode($row->collaborating_agency);
-                                                            $collab = implode(' / ', $collab);
+                                                            $collab = implode(', ', $collab);
                                                         }
 
                                                         if (!empty($row->funding_agency)) {
@@ -87,14 +89,9 @@
                                                             $funding = implode(', ', $funding);
                                                         }
 
-                                                        // $imp = json_decode($row->implementing_agency);
-                                                        // $agencies = implode(' / ', $imp);
-
-                                                        // $imp = $row->implementing_agency;
-                                                        // $imp = str_replace(['[', '"', ']'], '', $imp);
-
                                                         $rc = $row->research_center;
                                                         $rc = str_replace(['[', '"', ']'], '', $rc);
+                                                        $rc = str_replace(',', ', ', $rc);
                                                     @endphp
                                                     <td class="prog_id" hidden>{{ $row->programID }}</td>
                                                     <td><span class="hashtag text-bg-primary">#</span> {{ $row->fund_code }}
@@ -103,14 +100,21 @@
                                                         <a
                                                             href="{{ url("projects-under-program/$row->programID") }}">{{ $row->program_title }}</a>
                                                     </td>
-                                                    <td>{{ $row->program_leader }}</td>
+                                                    <td>
+                                                        @php
+                                                            $leader = App\Models\Researchers::find($row->program_leader);
+                                                        @endphp
+                                                        {{ $leader->first_name . ' ' . $leader->middle_name . ' ' . $leader->last_name }}
+                                                    </td>
                                                     <td>
                                                         {{ $row->duration }}
                                                     </td>
                                                     <td>{{ $funding }}</td>
 
-                                                    <td>{{ $imp }} /
-                                                        {{ $rc }}</td>
+                                                    <td>{{ $imp }} </td>
+                                                    <td>{{ $collab }}</td>
+                                                    <td>{{ $rc }}</td>
+
                                                     <td>{{ $row->program_description }}</td>
                                                     <td>
                                                         @if ($row->program_status == 'New')
@@ -176,12 +180,12 @@
                                                     @php
                                                         if (!empty($row->implementing_agency)) {
                                                             $imp = json_decode($row->implementing_agency);
-                                                            $imp = implode(' / ', $imp);
+                                                            $imp = implode(', ', $imp);
                                                         }
 
                                                         if (!empty($row->collaborating_agency)) {
                                                             $collab = json_decode($row->collaborating_agency);
-                                                            $collab = implode(' / ', $collab);
+                                                            $collab = implode(', ', $collab);
                                                         }
 
                                                         if (!empty($row->funding_agency)) {
@@ -189,14 +193,9 @@
                                                             $funding = implode(', ', $funding);
                                                         }
 
-                                                        // $imp = json_decode($row->implementing_agency);
-                                                        // $agencies = implode(' / ', $imp);
-
-                                                        // $imp = $row->implementing_agency;
-                                                        // $imp = str_replace(['[', '"', ']'], '', $imp);
-
                                                         $rc = $row->research_center;
                                                         $rc = str_replace(['[', '"', ']'], '', $rc);
+                                                        $rc = str_replace(',', ', ', $rc);
                                                     @endphp
                                                     <td class="prog_id" hidden>{{ $row->programID }}</td>
                                                     <td><span class="hashtag text-bg-primary">#</span>
@@ -206,14 +205,21 @@
                                                         <a
                                                             href="{{ url("projects-under-program/$row->programID") }}">{{ $row->program_title }}</a>
                                                     </td>
-                                                    <td>{{ $row->program_leader }}</td>
+                                                    <td>
+                                                        @php
+                                                            $leader = App\Models\Researchers::find($row->program_leader);
+                                                        @endphp
+                                                        {{ $leader->first_name . ' ' . $leader->middle_name . ' ' . $leader->last_name }}
+                                                    </td>
                                                     <td>
                                                         {{ $row->duration }}
                                                     </td>
                                                     <td>{{ $funding }}</td>
 
-                                                    <td>{{ $imp }} /
-                                                        {{ $rc }}</td>
+                                                    <td>{{ $imp }} </td>
+                                                    <td>{{ $collab }}</td>
+                                                    <td>{{ $rc }}</td>
+
                                                     <td>{{ $row->program_description }}</td>
                                                     <td>
                                                         @if ($row->program_status == 'New')

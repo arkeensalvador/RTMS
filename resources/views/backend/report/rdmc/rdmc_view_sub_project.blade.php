@@ -7,47 +7,37 @@
                 <div class="col-md-12">
                     <div class="container">
                         <div class="row pt-2 ">
-                            <div class="col-md-4 ">
+                            <div class="col-md-6 ">
                                 <div class="card-counter bg-primary text-white">
                                     <i class="fa fa-area-chart"></i>
                                     <span class="count-numbers h2"><span class="font-weight-bold">₱</span>
-                                        @empty($sub_projects->sub_project_approved_budget)
-                                            -
-                                        @else
-                                            {{ $sub_projects->sub_project_approved_budget }}
-                                        @endempty
+                                        {{ number_format($sub_projects->sub_project_amount_released, 2) }}
                                     </span>
-                                    <span class="card-title font-italic ">Budget</span>
+                                    <span class="card-title font-italic">Released Budget</span>
                                 </div>
                             </div>
 
-                            <div class="col-md-4">
-                                <div class="card-counter bg-info text-white">
-                                    <i class="fa fa-bar-chart"></i>
-                                    <span class="count-numbers h2"><span class="font-weight-bold">₱</span>
-                                        @empty($sub_projects->sub_project_approved_budget)
-                                            -
-                                        @else
-                                            {{ $sub_projects->sub_project_approved_budget }}
-                                        @endempty
-                                    </span>
-                                    <span class="card-title font-italic">Approved Budget</span>
-                                </div>
-                            </div>
 
-                            <div class="col-md-4">
+                            <div class="col-md-6">
                                 <div class="card-counter bg-success text-white">
                                     <i class="fa fa-calendar-o"></i>
-                                    <span class="count-duration h5">
-                                        @empty($sub_projects->sub_project_extend_date)
-                                            {{ date('F, Y', strtotime($sub_projects->sub_project_start_date)) }}
-                                            -
-                                            {{ date('F, Y', strtotime($sub_projects->sub_project_end_date)) }}
-                                        @else
-                                            {{ date('F, Y', strtotime($sub_projects->sub_project_start_date)) }}
-                                            -
-                                            {{ date('F, Y', strtotime($sub_projects->sub_project_extend_date)) }}
-                                        @endempty
+                                    <span class="count-duration h2">
+                                        @php
+                                            use Carbon\Carbon;
+                                            // Get the date range from the flatpickr input
+                                            $dateRange = $sub_projects->sub_project_duration;
+
+                                            // Extract start and end dates from the range
+                                            [$startDate, $endDate] = explode(' to ', $dateRange);
+
+                                            // Convert the string dates to Carbon objects
+                                            $startDate = Carbon::createFromFormat('m/d/Y', $startDate);
+                                            $endDate = Carbon::createFromFormat('m/d/Y', $endDate);
+
+                                            // Calculate the difference in months
+                                            $months = $startDate->diffInMonths($endDate);
+                                        @endphp
+                                        {{ $sub_projects->sub_project_duration }}
                                     </span>
                                     <span class="card-title font-italic">Duration</span>
                                 </div>
@@ -70,8 +60,20 @@
                             <table class="table">
                                 <tbody>
                                     <tr>
+                                        <th scope="row" class="thwidth">Duration</th>
+                                        <td>{{ $months }} Months</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row" class="thwidth">Sub-Project/Study Leader</th>
+                                        <td>{{ $sub_project_leader->first_name . ' ' . $sub_project_leader->middle_name . ' ' . $sub_project_leader->last_name }}
+                                        </td>
+                                    </tr>
+                                    @php
+                                        $funding = json_decode($sub_projects->sub_project_agency);
+                                    @endphp
+                                    <tr>
                                         <th scope="row" class="thwidth">Funding Agency</th>
-                                        <td>{{ $agency->agency_name }} ({{ $sub_projects->sub_project_agency }})</td>
+                                        <td>{{ implode(', ', $funding) }}</td>
                                     </tr>
                                     @php
                                         $imp = json_decode($sub_projects->sub_project_implementing_agency);
@@ -80,14 +82,14 @@
                                         <th scope="row" class="thwidth">Implementing Agency</th>
                                         <td>{{ implode(' / ', $imp) }}</td>
                                     </tr>
+                                    @php
+                                        $collab = json_decode($sub_projects->sub_project_collaborating_agency);
+                                    @endphp
                                     <tr>
-                                        <th scope="row" class="thwidth">Sub-Project Leader</th>
-                                        <td>{{ $sub_projects->sub_project_leader }}</td>
+                                        <th scope="row" class="thwidth">Collaborating Agency</th>
+                                        <td>{{ implode(' / ', $collab) }}</td>
                                     </tr>
-                                    <tr>
-                                        <th scope="row" class="thwidth">Sub-Project Assistant Leader</th>
-                                        <td>{{ $sub_projects->sub_project_assistant_leader }}</td>
-                                    </tr>
+
                                     <tr>
                                         <th scope="row" class="thwidth">Sub-Project Staff(s)</th>
                                         <td>
@@ -127,17 +129,56 @@
                                             </ul>
                                         </td>
                                     </tr>
+
+                                    <tr>
+                                        <th scope="row" class="thwidth">Type of funding grant</th>
+                                        <td>
+                                            {{ $sub_projects->sub_project_funding_grant }}
+                                        </td>
+                                    </tr>
                                 </tbody>
                             </table>
 
-                            <div class="text-center mt-5 mb-3">
-                                <a href="{{ url('sub-projects-view/' . $sub_projects->projectID) }}"
-                                    class="btn btn previous btn btn-default">Go back</a>
-                            </div>
+
+                            <table id="budget-table" class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Approved Budget</th>
+                                        <th>Year No.</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($budgetData as $key => $data)
+                                        <tr>
+                                            <td>
+                                                <input type="text" class="form-control budget-input"
+                                                    name="approved_budget[]" readonly oninput="validateInput(this)"
+                                                    value="{{ $data->approved_budget }}" required>
+                                            </td>
+                                            <td>
+                                                <input type="text" class="form-control year-input" name="budget_year[]"
+                                                    value="{{ $data->budget_year }}" required readonly>
+                                            </td>
+                                            {{-- <td>
+                                                    <a href="{{ URL::to('/delete-sub-proj-budget/' . $data->id) }}"
+                                                        class="btn btn-danger" id="delete" style="margin-left: 5px"><i
+                                                            class="fa-solid fa-trash"></i></a>
+                                                </td> --}}
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+
+
+                        <div class="text-center mt-5 mb-3">
+                            <a href="{{ url('sub-projects-view/' . $sub_projects->projectID) }}"
+                                class="btn btn previous btn btn-default">Go back</a>
                         </div>
                     </div>
                 </div>
             </div>
-        </section>
+    </div>
+    </section>
     </div>
 @endsection

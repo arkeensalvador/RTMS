@@ -150,22 +150,34 @@
                                                 <thead style="background-color: #0DA603;">
                                                     <tr>
                                                         <td rowspan="2">Agency</td>
-                                                        <td colspan="4">Number of Project Presented</td>
-
+                                                        <td colspan="5">Number of Project Presented</td>
                                                     </tr>
                                                     <tr>
-                                                        <td style="width: 25%;">New</td>
+                                                        <td style="">New</td>
                                                         <td>Ongoing</td>
+                                                        <td>Terminated</td>
                                                         <td>Completed</td>
+                                                        <td>Total Projects Reviewed</td>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <tr>
-                                                        <td>TAU</td>
-                                                        <td>4</td>
-                                                        <td>17</td>
-                                                        <td>9</td>
-                                                    </tr>
+                                                    @foreach ($fundedCounts as $abbrev => $counts)
+                                                        @if (
+                                                            $counts['new'] > 0 ||
+                                                                $counts['ongoing'] > 0 ||
+                                                                $counts['terminated'] > 0 ||
+                                                                $counts['completed'] > 0 ||
+                                                                $counts['totalCount'] > 0)
+                                                            <tr>
+                                                                <td>{{ $abbrev }}</td>
+                                                                <td>{{ $counts['new'] }}</td>
+                                                                <td>{{ $counts['ongoing'] }}</td>
+                                                                <td>{{ $counts['terminated'] }}</td>
+                                                                <td>{{ $counts['completed'] }}</td>
+                                                                <td>{{ $counts['totalCount'] }}</td>
+                                                            </tr>
+                                                        @endif
+                                                    @endforeach
 
                                                 </tbody>
                                             </table>
@@ -192,11 +204,13 @@
                                                             <td>{{ $pl->project_title }}</td>
                                                             <td>{{ $pl->project_description }}</td>
                                                             <td>
-                                                                {{ date('m/d/Y', strtotime($pl->project_start_date)) ?: 'Not Set' }}
-                                                                -
-                                                                {{ date('m/d/Y', strtotime($pl->project_end_date)) ?: 'Not Set' }}
+                                                                {{ $pl->project_duration }}
                                                             </td>
-                                                            <td>{{ $pl->project_agency }}</td>
+                                                            @php
+                                                                $fa = json_decode($pl->project_agency);
+                                                                $fa = implode(', ', $fa);
+                                                            @endphp
+                                                            <td>{{ $fa }}</td>
                                                         </tr>
                                                     @endforeach
                                                 </tbody>
@@ -224,11 +238,13 @@
                                                             <td>{{ $data->program_title }}</td>
                                                             <td>{{ $data->program_description }}</td>
                                                             <td>
-                                                                {{ date('m/d/Y', strtotime($data->start_date)) ?: 'Not Set' }}
-                                                                -
-                                                                {{ date('m/d/Y', strtotime($data->end_date)) ?: 'Not Set' }}
+                                                                {{ $data->duration }}
                                                             </td>
-                                                            <td>{{ $data->funding_agency }}</td>
+                                                            @php
+                                                                $fa = json_decode($data->funding_agency);
+                                                                $fa = implode(', ', $fa);
+                                                            @endphp
+                                                            <td>{{ $fa }}</td>
                                                         </tr>
                                                     @endforeach
                                                 </tbody>
@@ -256,11 +272,13 @@
                                                             <td>{{ $spl->sub_project_title }}</td>
                                                             <td>{{ $spl->sub_project_description }}</td>
                                                             <td>
-                                                                {{ date('m/d/Y', strtotime($spl->sub_project_start_date)) ?: 'Not Set' }}
-                                                                -
-                                                                {{ date('m/d/Y', strtotime($spl->sub_project_end_date)) ?: 'Not Set' }}
+                                                                {{ $spl->sub_project_duration }}
                                                             </td>
-                                                            <td>{{ $spl->sub_project_agency }}</td>
+                                                            @php
+                                                                $fa = json_decode($spl->sub_project_agency);
+                                                                $fa = implode(', ', $fa);
+                                                            @endphp
+                                                            <td>{{ $fa }}</td>
                                                         </tr>
                                                     @endforeach
                                                 </tbody>
@@ -280,7 +298,7 @@
                                                         <td>Agency/Institutions</td>
                                                         <td>Address</td>
                                                         <td>Year</td>
-                                                        <td>Nature of Assistance / Linkages /Projects</td>
+                                                        <td>Nature of Assistance / Linkages / Projects</td>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -299,6 +317,7 @@
                                                             </td>
                                                         </tr>
                                                     @endforeach
+
                                                     <tr>
                                                         <td colspan="4" style="background: #d3ffd1;"
                                                             class="font-weight-bold">
@@ -340,7 +359,8 @@
                                                         <tr>
                                                             <td>{{ $db->dbinfosys_title }}</td>
                                                             <td>{{ $db->dbinfosys_category }}</td>
-                                                            <td>{{ $db->dbinfosys_date_created }}</td>
+                                                            <td>{{ date('m/d/Y', strtotime($db->dbinfosys_date_created)) }}
+                                                            </td>
                                                             <td>{{ $db->dbinfosys_purpose }}</td>
                                                         </tr>
                                                     @endforeach
@@ -370,7 +390,9 @@
                                                         <tr>
                                                             <td>{{ $is->dbinfosys_title }}</td>
                                                             <td>{{ $is->dbinfosys_category }}</td>
-                                                            <td>{{ $is->dbinfosys_date_created }}</td>
+
+                                                            <td>{{ date('m/d/Y', strtotime($is->dbinfosys_date_created)) }}
+                                                            </td>
                                                             <td>{{ $is->dbinfosys_purpose }}</td>
                                                         </tr>
                                                     @endforeach
@@ -382,8 +404,6 @@
 
                                     <!-- Strategic Research & Development Activities -->
                                     <section class="table-area mt-4 page-break">
-
-
                                         <div class="table-title col-12 py-1"
                                             style="background-image: url('https://i.ibb.co/MpcC8d4/sec2.webp'); background-size:cover;">
                                             <h1 class="text-center text-capitalized font-weight-bold"
@@ -417,30 +437,44 @@
                                                         <td colspan="6" style="background: #ddffff; color: black;"
                                                             class="font-weight-bold">PROPOSALS PACKAGED</td>
                                                     </tr>
-                                                    <tr>
-                                                        <td>Molecular Marker Assisted Selection of Resistant Onion combined
-                                                            with GMO-free
-                                                            silencing the Anthracnose-Twister Disease </td>
-                                                        <td>CLSU</td>
-                                                        <td>2 years</td>
-                                                        <td>PCAARRD</td>
-                                                        <td>5,226,969.00</td>
-                                                        <td>Onion</td>
-                                                    </tr>
+                                                    @foreach ($stratProgramListProposal as $splp)
+                                                        <tr>
+                                                            <td>{{ $splp->str_p_title }}</td>
+                                                            @php
+                                                                $imp = json_decode($splp->str_p_imp_agency);
+                                                                $imp = implode(', ', $imp);
+
+                                                                $sof = json_decode($splp->str_p_sof);
+                                                                $sof = implode(', ', $sof);
+                                                            @endphp
+                                                            <td>{{ $imp }}</td>
+                                                            <td>{{ $splp->str_p_date }}</td>
+                                                            <td>{{ $sof }}</td>
+                                                            <td>{{ number_format($splp->str_p_budget, 2) }}</td>
+                                                            <td>{{ $splp->str_p_regional }}</td>
+                                                        </tr>
+                                                    @endforeach
                                                     <tr>
                                                         <td colspan="6" style="background: #ddffff; color: black;"
                                                             class="font-weight-bold">PROJECTS APPROVED AND IMPLEMENTED</td>
                                                     </tr>
-                                                    <tr>
-                                                        <td>Molecular Marker Assisted Selection of Resistant Onion combined
-                                                            with GMO-free
-                                                            silencing the Anthracnose-Twister Disease </td>
-                                                        <td>CLSU</td>
-                                                        <td>2 years</td>
-                                                        <td>PCAARRD</td>
-                                                        <td>5,226,969.00</td>
-                                                        <td>Onion</td>
-                                                    </tr>
+                                                    @foreach ($stratProgramListApproved as $spla)
+                                                        <tr>
+                                                            <td>{{ $spla->str_p_title }}</td>
+                                                            @php
+                                                                $imp = json_decode($spla->str_p_imp_agency);
+                                                                $imp = implode(', ', $imp);
+
+                                                                $sof = json_decode($spla->str_p_sof);
+                                                                $sof = implode(', ', $sof);
+                                                            @endphp
+                                                            <td>{{ $imp }}</td>
+                                                            <td>{{ $spla->str_p_date }}</td>
+                                                            <td>{{ $sof }}</td>
+                                                            <td>{{ number_format($spla->str_p_budget, 2) }}</td>
+                                                            <td>{{ $spla->str_p_regional }}</td>
+                                                        </tr>
+                                                    @endforeach
                                                 </tbody>
                                             </table>
                                         </div>
@@ -462,7 +496,8 @@
                                                     <tr>
                                                         <td>Program Title</td>
                                                         <td>Project Title</td>
-                                                        <td>Implementing Agency <br>/ Institution</td>
+                                                        <td>Implementing Agency</td>
+                                                        <td>Collaborating Agency</td>
                                                         <td>Duration</td>
                                                         <td>Budget</td>
                                                         <td>Source(s) of Fund</td>
@@ -470,27 +505,45 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <tr>
-                                                        <td>Accelerated R&D Program for Capacity Building of Research and
-                                                            Development
-                                                            Institutions and Industrial Competitiveness: Niche Centers in
-                                                            the Regions for R&D
-                                                            (Nicer) Program: Sweet Potato R&D Center</td>
-                                                        <td>Optimization of Sweet potato Clean Planting Materials (SP CPM)
-                                                            Production in Central
-                                                            Luzon</td>
-                                                        <td>
-                                                            <ul class="list-group list-group-flush">
-                                                                <li class="list-group-item">TAU</li>
-                                                                <li class="list-group-item">CLSU</li>
-                                                                <li class="list-group-item">PRMSU</li>
-                                                            </ul>
-                                                        </td>
-                                                        <td>October 2019 – March 2022</td>
-                                                        <td>25,000,000.00</td>
-                                                        <td>DOST PCAARRD</td>
-                                                        <td>Lead Program Implementor</td>
-                                                    </tr>
+                                                    @foreach ($strat_collaborative as $item)
+                                                        @php
+                                                            if (!empty($item->str_collab_imp_agency)) {
+                                                                $imp = json_decode($item->str_collab_imp_agency);
+                                                                $imp = implode(', ', $imp);
+                                                            }
+
+                                                            if (!empty($item->str_collab_agency)) {
+                                                                $collab = json_decode($item->str_collab_agency);
+                                                                $collab = implode(', ', $collab);
+                                                            }
+
+                                                            if (!empty($item->str_collab_sof)) {
+                                                                $sof = json_decode($item->str_collab_sof);
+                                                                $sof = implode(', ', $sof);
+                                                            }
+
+                                                            [$startDateString, $endDateString] = explode(' to ', $item->str_collab_date);
+                                                            $startDate = \Carbon\Carbon::createFromFormat('m/d/Y', trim($startDateString));
+                                                            $endDate = \Carbon\Carbon::createFromFormat('m/d/Y', trim($endDateString));
+                                                        @endphp
+                                                        <tr>
+                                                            <td>{{ $item->str_collab_program }}</td>
+                                                            <td>{{ $item->str_collab_project }}</td>
+                                                            <td>
+                                                                {{ $imp }}
+                                                            </td>
+                                                            <td>
+                                                                {{ $collab }}
+                                                            </td>
+                                                            <td>
+                                                                {{ $startDate->format('F Y') }} to
+                                                                {{ $endDate->format('F Y') }}
+                                                            </td>
+                                                            <td>{{ number_format($item->str_collab_budget) }}</td>
+                                                            <td>{{ $sof }}</td>
+                                                            <td>{{ $item->str_collab_roc }}</td>
+                                                        </tr>
+                                                    @endforeach
                                                 </tbody>
                                             </table>
                                         </div>
@@ -498,7 +551,7 @@
                                         <div class="category my-5">
                                             <div class="notices mb-1 " style="border-left: 6px solid #002E94;">
                                                 <h5 class=" text-left">List of <span class="font-weight-bold"
-                                                        style="color:#002E94;">Technologies/ Information </span> Generated
+                                                        style="color:#002E94;">Technologies / Information </span> Generated
                                                     from <span class="font-weight-bold" style="color:#002E94;"> Research
                                                         and Development
                                                     </span></h5>
@@ -518,92 +571,61 @@
                                                         <td colspan="6" style="background: #ddffff; color: black;"
                                                             class="font-weight-bold">RESEARCH</td>
                                                     </tr>
-                                                    <tr>
-                                                        <td>Accelerated R&D Program for Capacity Building of Research and
-                                                            Development
-                                                            Institutions and Industrial Competitiveness: Niche Centers in
-                                                            the Regions for R&D
-                                                            (Nicer) Program: Sweet Potato R&D Center</td>
-                                                        <td>Optimization of Sweet potato Clean Planting Materials (SP CPM)
-                                                            Production in Central
-                                                            Luzon</td>
-                                                        <td>
-                                                            <ul class="list-group list-group-flush">
-                                                                <li class="list-group-item">TAU</li>
-                                                                <li class="list-group-item">CLSU</li>
-                                                                <li class="list-group-item">PRMSU</li>
-                                                            </ul>
-                                                        </td>
-                                                        <td>
-                                                            A modified FNA-based biosensor was developed at CLSU to
-                                                            determine the presence of
-                                                            pathogens. The device can be a decision tool for stakeholders to
-                                                            discard the rice
-                                                            seeds or provide treatment before storage banking and
-                                                            quarantine. In addition, the
-                                                            biosensor could avoid the risk of planting infected seeds and
-                                                            introducing and
-                                                            spreading the disease across fields.
-                                                        </td>
-                                                    </tr>
+                                                    @foreach ($strat_tech_research as $item)
+                                                        @php
+                                                            $res = json_decode($item->tech_researchers);
+                                                            $res = implode(', ', $res);
+                                                        @endphp
+                                                        <tr>
+                                                            <td>{{ $item->tech_title }}</td>
+                                                            <td>{{ $item->tech_agency }}</td>
+                                                            <td>{{ $res }}</td>
+                                                            <td>{{ $item->tech_impact }}</td>
+                                                        </tr>
+                                                    @endforeach
+
                                                     <tr>
                                                         <td colspan="6" style="background: #ddffff; color: black;"
                                                             class="font-weight-bold">DEVELOPMENT</td>
                                                     </tr>
-                                                    <tr>
-                                                        <td>Soft-boned Milkfish Products: Livelihood Opportunities for the
-                                                            Marginalized Members
-                                                            of the Community</td>
-                                                        <td>BPSU</td>
-                                                        <td style="width: 30%;">
-                                                            <ul class="list-group list-group-flush">
-                                                                <li class="list-group-item">Mark Nell Corpuz</li>
-                                                                <li class="list-group-item">MF Damaso, Marz</li>
-                                                                <li class="list-group-item">Linnaeous L.</li>
-                                                                <li class="list-group-item">Rabnadon, Adrian</li>
-                                                                <li class="list-group-item">Dale Manliclic</li>
-                                                                <li class="list-group-item">Christian Romero</li>
-                                                            </ul>
-                                                        </td>
-                                                        <td>
-                                                            A modified FNA-based biosensor was developed at CLSU to
-                                                            determine the presence of
-                                                            pathogens. The device can be a decision tool for stakeholders to
-                                                            discard the rice
-                                                            seeds or provide treatment before storage banking and
-                                                            quarantine. In addition, the
-                                                            biosensor could avoid the risk of planting infected seeds and
-                                                            introducing and
-                                                            spreading the disease across fields.
-                                                        </td>
-                                                    </tr>
+                                                    @foreach ($strat_tech_dev as $item)
+                                                        @php
+                                                            $res = json_decode($item->tech_researchers);
+                                                            $res = implode(', ', $res);
+                                                        @endphp
+                                                        <tr>
+                                                            <td>{{ $item->tech_title }}</td>
+                                                            <td>{{ $item->tech_agency }}</td>
+                                                            <td>{{ $res }}</td>
+                                                            <td>{{ $item->tech_impact }}</td>
+                                                        </tr>
+                                                    @endforeach
                                                 </tbody>
                                             </table>
-
-
-
                                         </div>
-
                                     </section>
 
                                     <!-- R & D Results Utilization-->
-                                    {{-- <section class="table-area mt-4 page-break">
-                        
+                                    <section class="table-area mt-4 page-break">
+
                                         <div class="table-title col-12 py-1"
                                             style="background-image: url('https://i.ibb.co/0Z2VpgB/sec3.webp'); background-size:cover;;">
                                             <h1 class="text-center text-capitalized font-weight-bold"
-                                                style="color: #fff; text-shadow: 1px 1px 2px #1b1b1b; letter-spacing: -1px; ">RESEARCH AND
+                                                style="color: #fff; text-shadow: 1px 1px 2px #1b1b1b; letter-spacing: -1px; ">
+                                                RESEARCH AND
                                                 DEVELOPMENT<br>RESULTS UTILIZATION</h1>
                                         </div>
-                        
+
                                         <!-- Data from "Technology Transfer Proposals -->
                                         <div class="category my-5">
                                             <div class="notices mb-1 " style="border-left: 6px solid #3D30A2;">
-                                                <h5>List of <span class="font-weight-bold" style="color:#3D30A2;"> Technology Transfer
-                                                        Program/Projects Packaged, Approved </span>and <span class="font-weight-bold"
-                                                        style="color:#002E94;">Implemented</span></h5>
+                                                <h5>List of <span class="font-weight-bold" style="color:#3D30A2;">
+                                                        Technology Transfer
+                                                        Program/Projects Packaged, Approved </span>and <span
+                                                        class="font-weight-bold" style="color:#002E94;">Implemented</span>
+                                                </h5>
                                             </div>
-                        
+
                                             <table class="table-bordered table table-hover">
                                                 <thead style="background-color: #3D30A2;">
                                                     <tr>
@@ -641,7 +663,8 @@
                                                             class="font-weight-bold">PROJECTS APPROVED AND IMPLEMENTED</td>
                                                     </tr>
                                                     <tr>
-                                                        <td>Let’s Doe Business: A Livelihood Opportunity in Response to COVID 19 Pandemic for
+                                                        <td>Let’s Doe Business: A Livelihood Opportunity in Response to
+                                                            COVID 19 Pandemic for
                                                             Small hold Farms through Production of Dairy Goats</td>
                                                         <td>
                                                             <ul class="list-group list-group-flush">
@@ -660,15 +683,17 @@
                                                 </tbody>
                                             </table>
                                         </div>
-                        
+
                                         <!--  Data from "Technology Transfer Modalities-->
                                         <div class="category my-5">
                                             <div class="notices mb-1 " style="border-left: 6px solid #3D30A2;">
-                                                <h5>List of <span class="font-weight-bold" style="color:#3D30A2;"> Technologies Commercialized
-                                                    </span>or <span class="font-weight-bold" style="color:#002E94;">Pre-Commercialization
+                                                <h5>List of <span class="font-weight-bold" style="color:#3D30A2;">
+                                                        Technologies Commercialized
+                                                    </span>or <span class="font-weight-bold"
+                                                        style="color:#002E94;">Pre-Commercialization
                                                         Initiatives</span></h5>
                                             </div>
-                        
+
                                             <table class="table-bordered table table-hover">
                                                 <thead style="background-color: #3D30A2;">
                                                     <tr>
@@ -688,11 +713,12 @@
                                                 </tbody>
                                             </table>
                                         </div>
-                        
+
                                         <!--  Data from "Technology Promotion Approches-->
                                         <div class="category my-5">
                                             <div class="notices mb-1 " style="border-left: 6px solid #3D30A2;">
-                                                <h5>List of <span class="font-weight-bold" style="color:#3D30A2;">Technology Promotion
+                                                <h5>List of <span class="font-weight-bold"
+                                                        style="color:#3D30A2;">Technology Promotion
                                                         Approaches </span></h5>
                                             </div>
                                             <table class="table-bordered table table-hover">
@@ -707,15 +733,16 @@
                                                 <tbody>
                                                     <tr>
                                                         <td>Regional FIESTA</td>
-                                                        <td>Smart Farming was presented during the Veggie FIESTA on technology pitching</td>
+                                                        <td>Smart Farming was presented during the Veggie FIESTA on
+                                                            technology pitching</td>
                                                         <td>CLSU</td>
                                                         <td>Lorem Ipsum </td>
                                                     </tr>
                                                 </tbody>
                                             </table>
                                         </div>
-                        
-                                    </section> --}}
+
+                                    </section>
 
                                     <!-- Capability Building and Governance-->
                                     {{-- <section class="table-area mt-4 page-break">

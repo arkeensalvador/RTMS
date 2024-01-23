@@ -15,8 +15,14 @@ return new class extends Migration {
             $table->string('policy_type');
             $table->string('policy_agency');
             $table->string('policy_date');
+            $table->string('policy_author');
+            $table->string('policy_co_author');
+            $table->string('policy_beneficiary');
+            $table->string('policy_implementer');
+            $table->string('policy_proponent');
             $table->longText('policy_issues');
-            $table->longText('policy_resource');
+            // $table->longText('policy_resource');
+            $table->string('encoder_agency');
         });
     }
 

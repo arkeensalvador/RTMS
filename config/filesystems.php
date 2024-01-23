@@ -55,6 +55,19 @@ return [
             'url' => env('APP_URL') . '/public',
             'visibility' => 'public',
         ],
+        'strategic' => [
+            'driver' => 'local',
+            'root' => public_path(),
+            'url' => env('APP_URL') . '/public',
+            'visibility' => 'public',
+        ],
+
+        'awards' => [
+            'driver' => 'local',
+            'root' => public_path(),
+            'url' => env('APP_URL') . '/public',
+            'visibility' => 'public',
+        ],
 
         'uploads' => [
             'driver' => 'local',

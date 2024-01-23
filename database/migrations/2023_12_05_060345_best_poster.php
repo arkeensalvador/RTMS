@@ -16,7 +16,6 @@ return new class extends Migration {
             $table->string('file_path');
             $table->string('agency');
             $table->string('date');
-            // $table->string('evaluators');
             $table->timestamps();
         });
     }

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 04, 2023 at 08:43 AM
+-- Generation Time: Jan 04, 2024 at 03:26 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -32,6 +32,7 @@ CREATE TABLE `users` (
   `name` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
   `agencyID` varchar(255) NOT NULL,
+  `profile_picture` varchar(255) NOT NULL,
   `role` varchar(255) NOT NULL DEFAULT 'Guest',
   `email_verified_at` timestamp NULL DEFAULT NULL,
   `password` varchar(255) NOT NULL,
@@ -44,8 +45,8 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `name`, `email`, `agencyID`, `role`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'Administrator', 'admin@gmail.com', '1', 'Admin', NULL, '$2y$10$i82bYSFWPtNuKksq9Hks4ueLE.ddfxFAfOhEbOR87PlcoSCOMcouG', NULL, '2023-03-23 17:39:26', '2023-03-23 17:39:26');
+INSERT INTO `users` (`id`, `name`, `email`, `agencyID`, `profile_picture`, `role`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
+(1, 'Administrator', 'admin@gmail.com', '1', 'profile_pictures/Administrator_profile_picture.png', 'Admin', NULL, '$2y$10$i82bYSFWPtNuKksq9Hks4ueLE.ddfxFAfOhEbOR87PlcoSCOMcouG', NULL, NULL, '2024-01-04 02:25:33');
 
 --
 -- Indexes for dumped tables

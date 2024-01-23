@@ -120,9 +120,10 @@
                                         multiple="multiple" required>
                                         <option value=""></option>
                                         @foreach ($researchers as $key)
-                                            <option value="{{ $key->name }}"
-                                                {{ in_array($key->name, $res) ? 'selected' : '' }}>
-                                                {{ $key->name }}
+                                            <option
+                                                value="{{ $key->first_name . ' ' . $key->middle_name . ' ' . $key->last_name }}"
+                                                {{ in_array($key->first_name . ' ' . $key->middle_name . ' ' . $key->last_name, $res) ? 'selected' : '' }}>
+                                                {{ $key->first_name . ' ' . $key->middle_name . ' ' . $key->last_name }}
                                                 </b></option>
                                         @endforeach
                                     </select>

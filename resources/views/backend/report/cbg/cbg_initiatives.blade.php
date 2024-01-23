@@ -53,23 +53,43 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    @foreach ($initiatives as $key => $row)
-                                                        <tr>
-                                                            <td>{{ $row->id }}</td>
-                                                            <td>{{ $row->ini_initiates }}</td>
-                                                            <td hidden>{{ $row->ini_agency }}</td>
-                                                            <td>{{ date('m/d/Y', strtotime($row->ini_date)) }}</td>
-                                                            <td class="action btns">
-                                                                <a class="btn btn-primary editModal" data-toggle="modal"
-                                                                    data-id="'.$row->id.'" data-target="#editModal"><i
-                                                                        class="fa-solid fa-pen-to-square"
-                                                                        style="color: white;"></i></a>
-                                                                <a href="{{ url('delete-initiatives/' . $row->id) }}"
-                                                                    class="btn btn-danger" id="delete"><i
-                                                                        class="fa-solid fa-trash"></i></a>
-                                                            </td>
-                                                        </tr>
-                                                    @endforeach
+                                                    @if (auth()->user()->role == 'Admin')
+                                                        @foreach ($initiatives as $key => $row)
+                                                            <tr>
+                                                                <td>{{ $row->id }}</td>
+                                                                <td>{{ $row->ini_initiates }}</td>
+                                                                <td hidden>{{ $row->ini_agency }}</td>
+                                                                <td>{{ date('m/d/Y', strtotime($row->ini_date)) }}</td>
+                                                                <td class="action btns">
+                                                                    <a class="btn btn-primary editModal" data-toggle="modal"
+                                                                        data-id="'.$row->id.'" data-target="#editModal"><i
+                                                                            class="fa-solid fa-pen-to-square"
+                                                                            style="color: white;"></i></a>
+                                                                    <a href="{{ url('delete-initiatives/' . $row->id) }}"
+                                                                        class="btn btn-danger" id="delete"><i
+                                                                            class="fa-solid fa-trash"></i></a>
+                                                                </td>
+                                                            </tr>
+                                                        @endforeach
+                                                    @else
+                                                        @foreach ($initiatives_filter as $key => $row)
+                                                            <tr>
+                                                                <td>{{ $row->id }}</td>
+                                                                <td>{{ $row->ini_initiates }}</td>
+                                                                <td hidden>{{ $row->ini_agency }}</td>
+                                                                <td>{{ date('m/d/Y', strtotime($row->ini_date)) }}</td>
+                                                                <td class="action btns">
+                                                                    <a class="btn btn-primary editModal" data-toggle="modal"
+                                                                        data-id="'.$row->id.'" data-target="#editModal"><i
+                                                                            class="fa-solid fa-pen-to-square"
+                                                                            style="color: white;"></i></a>
+                                                                    <a href="{{ url('delete-initiatives/' . $row->id) }}"
+                                                                        class="btn btn-danger" id="delete"><i
+                                                                            class="fa-solid fa-trash"></i></a>
+                                                                </td>
+                                                            </tr>
+                                                        @endforeach
+                                                    @endif
                                                 </tbody>
                                             </table>
                                             <a href="{{ url('cbg-index') }}" class="btn btn-default">Back</a>
@@ -116,15 +136,15 @@
                                 <div class="invalid-feedback">Missing initiates</div>
                             </div>
 
-                            @if (auth()->user()->role == 'CMI')
-                                <div class="col-md-12 form-group" hidden>
-                                    <label for="ini_date" class=" font-weight-bold">Agency<span
-                                            class="text-danger">*</span></label>
-                                    <input type="text" name="ini_agency" id=""
-                                        value="{{ auth()->user()->agencyID }}" class="form-control" placeholder="" readonly
-                                        required>
-                                </div>
-                            @endif
+                            {{-- @if (auth()->user()->role == 'CMI') --}}
+                            <div class="col-md-12 form-group" hidden>
+                                <label for="ini_date" class=" font-weight-bold">Agency<span
+                                        class="text-danger">*</span></label>
+                                <input type="text" name="ini_agency" id=""
+                                    value="{{ auth()->user()->agencyID }}" class="form-control" placeholder="" readonly
+                                    required>
+                            </div>
+                            {{-- @endif --}}
                             <div class="col-md-12 form-group">
                                 <label for="ini_date" class=" font-weight-bold">Date Implemented<span
                                         class="text-danger">*</span></label>

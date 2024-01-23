@@ -17,6 +17,7 @@ return new class extends Migration {
             $table->text('program_title');
             $table->string('program_status');
             $table->string('program_category');
+            // $table->string('funding_grant');
             $table->string('funding_agency');
             $table->string('collaborating_agency');
             $table->string('implementing_agency');
@@ -24,7 +25,7 @@ return new class extends Migration {
             // $table->string('coordination_fund');
             $table->string('duration');
             // $table->string('end_date');
-            $table->string('extend_date')->nullable();
+            // $table->string('extend_date')->nullable();
             $table->string('program_leader');
             // $table->string('assistant_leader');
             $table->text('program_description');
@@ -33,6 +34,7 @@ return new class extends Migration {
             // $table->string('budget_year');
             $table->string('form_of_development');
             $table->string('keywords');
+            $table->string('encoder_agency');
             $table->timestamps();
         });
     }

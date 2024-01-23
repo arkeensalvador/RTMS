@@ -45,45 +45,99 @@
                                                 <thead>
                                                     <tr>
                                                         <th>#</th>
+                                                        <th>Certificate</th>
                                                         <th>Type of Award</th>
                                                         <th>Award Title</th>
                                                         <th>Recipient/Agency</th>
                                                         <th>Sponsor</th>
                                                         <th>Event/Activity</th>
-                                                        <th>Place of Award</th>
+                                                        <th>Venue</th>
                                                         <th>Date</th>
                                                         <th>Action</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    @foreach ($award as $key => $row)
-                                                        <tr>
-                                                            <td>{{ $key + 1 }}</td>
-                                                            <td>{{ $row->awards_type }}</td>
-                                                            <td>{{ $row->awards_title }}</td>
-                                                            <td>
-                                                                @php
+                                                    @if (auth()->user()->role == 'Admin')
+                                                        @foreach ($award as $key => $row)
+                                                            <tr>
+
+                                                                <td>{{ $key + 1 }}</td>
+                                                                <td>
+                                                                    <a href="{{ asset($row->certificate) }}"
+                                                                        data-lightbox="photos">
+                                                                        <img id=""
+                                                                            src="{{ asset($row->certificate) }}"
+                                                                            alt=""
+                                                                            style="width: 100px; height: 100px;"
+                                                                            class="img-thumbnail">
+                                                                    </a>
+                                                                </td>
+                                                                <td>{{ $row->awards_type }}</td>
+                                                                <td>{{ $row->awards_title }}</td>
+                                                                <td>
+                                                                    {{-- @php
                                                                     $award = json_decode($row->awards_recipients);
-                                                                @endphp
-                                                                {{ implode(', ', $award) }}
-                                                                / {{ $row->awards_agency }}
-                                                            </td>
-                                                            <td>{{ $row->awards_sponsor }}</td>
-                                                            <td>{{ $row->awards_event }}</td>
-                                                            <td>{{ $row->awards_place }}</td>
-                                                            <td>{{ date('F, Y', strtotime($row->awards_date)) ?: 'Not Set' }}
-                                                            </td>
-                                                            <td class="action">
-                                                                <a class="btn btn-primary"
-                                                                    href="{{ url('edit-award/' . $row->id) }}"><i
-                                                                        class="fa-solid fa-pen-to-square"
-                                                                        style="color: white;"></i></a>
-                                                                <a href="{{ url('delete-award/' . $row->id) }}"
-                                                                    class="btn btn-danger" id="delete"><i
-                                                                        class="fa-solid fa-trash"></i></a>
-                                                            </td>
-                                                        </tr>
-                                                    @endforeach
+                                                                @endphp --}}
+                                                                    {{ $row->awards_recipients }}
+                                                                    / {{ $row->awards_agency }}
+                                                                </td>
+                                                                <td>{{ $row->awards_sponsor }}</td>
+                                                                <td>{{ $row->awards_event }}</td>
+                                                                <td>{{ $row->awards_place }}</td>
+                                                                <td>{{ date('m/d/Y', strtotime($row->awards_date)) ?: 'Not Set' }}
+                                                                </td>
+                                                                <td class="action">
+                                                                    <a class="btn btn-primary"
+                                                                        href="{{ url('edit-award/' . $row->id) }}"><i
+                                                                            class="fa-solid fa-pen-to-square"
+                                                                            style="color: white;"></i></a>
+                                                                    <a href="{{ url('delete-award/' . $row->id) }}"
+                                                                        class="btn btn-danger" id="delete"><i
+                                                                            class="fa-solid fa-trash"></i></a>
+                                                                </td>
+                                                            </tr>
+                                                        @endforeach
+                                                    @else
+                                                        @foreach ($award_filter as $key => $row)
+                                                            <tr>
+
+                                                                <td>{{ $key + 1 }}</td>
+                                                                <td>
+                                                                    <a href="{{ asset($row->certificate) }}"
+                                                                        data-lightbox="photos">
+                                                                        <img id=""
+                                                                            src="{{ asset($row->certificate) }}"
+                                                                            alt=""
+                                                                            style="width: 100px; height: 100px;"
+                                                                            class="img-thumbnail">
+                                                                    </a>
+                                                                </td>
+                                                                <td>{{ $row->awards_type }}</td>
+                                                                <td>{{ $row->awards_title }}</td>
+                                                                <td>
+                                                                    {{-- @php
+                                                                    $award = json_decode($row->awards_recipients);
+                                                                @endphp --}}
+                                                                    {{ $row->awards_recipients }}
+                                                                    / {{ $row->awards_agency }}
+                                                                </td>
+                                                                <td>{{ $row->awards_sponsor }}</td>
+                                                                <td>{{ $row->awards_event }}</td>
+                                                                <td>{{ $row->awards_place }}</td>
+                                                                <td>{{ date('m/d/Y', strtotime($row->awards_date)) ?: 'Not Set' }}
+                                                                </td>
+                                                                <td class="action">
+                                                                    <a class="btn btn-primary"
+                                                                        href="{{ url('edit-award/' . $row->id) }}"><i
+                                                                            class="fa-solid fa-pen-to-square"
+                                                                            style="color: white;"></i></a>
+                                                                    <a href="{{ url('delete-award/' . $row->id) }}"
+                                                                        class="btn btn-danger" id="delete"><i
+                                                                            class="fa-solid fa-trash"></i></a>
+                                                                </td>
+                                                            </tr>
+                                                        @endforeach
+                                                    @endif
                                                 </tbody>
                                             </table>
                                             <a href="{{ url('cbg-index') }}" class="btn btn-default">Back</a>

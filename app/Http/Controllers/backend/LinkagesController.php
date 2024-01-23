@@ -35,6 +35,7 @@ class LinkagesController extends Controller
         $data['form_of_development'] = $request->form_of_development;
         $data['address'] = $request->address;
         $data['nature_of_assistance'] = $request->nature_of_assistance;
+        $data['encoder_agency'] = auth()->user()->agencyID;
         $data['created_at'] = now();
 
         $insert = DB::table('rdmc_linkages')->insert($data);

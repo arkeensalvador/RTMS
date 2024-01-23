@@ -53,24 +53,51 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    @foreach ($all as $key => $row)
-                                                        <tr>
-                                                            <td>{{ $key + 1 }}</td>
-                                                            <td>{{ $row->dbinfosys_category }}</td>
-                                                            <td>{{ $row->dbinfosys_type }}</td>
-                                                            <td>{{ $row->dbinfosys_title }}</td>
-                                                            <td>{{ $row->dbinfosys_date_created }}</td>
-                                                            <td>{{ $row->dbinfosys_purpose }}</td>
-                                                            <td class="action btns">
-                                                                <a class="btn btn-primary" href="{{ url("edit-dbinfosys/$row->id") }}"><i
-                                                                        class="fa-solid fa-pen-to-square"
-                                                                        style="color: white;"></i></a>
-                                                                <a href="{{ url('/delete-dbinfosys/' . $row->id) }}" class="btn btn-danger" id="delete"><i
-                                                                        class="fa-solid fa-trash"></i></a>
+                                                    @if (auth()->user()->role == 'Admin')
+                                                        @foreach ($all as $key => $row)
+                                                            <tr>
+                                                                <td>{{ $key + 1 }}</td>
+                                                                <td>{{ $row->dbinfosys_category }}</td>
+                                                                <td>{{ $row->dbinfosys_type }}</td>
+                                                                <td>{{ $row->dbinfosys_title }}</td>
+                                                                <td>{{ date('m/d/Y', strtotime($row->dbinfosys_date_created)) }}
+                                                                </td>
+                                                                <td>{{ $row->dbinfosys_purpose }}</td>
+                                                                <td class="action btns">
+                                                                    <a class="btn btn-primary"
+                                                                        href="{{ url("edit-dbinfosys/$row->id") }}"><i
+                                                                            class="fa-solid fa-pen-to-square"
+                                                                            style="color: white;"></i></a>
+                                                                    <a href="{{ url('/delete-dbinfosys/' . $row->id) }}"
+                                                                        class="btn btn-danger" id="delete"><i
+                                                                            class="fa-solid fa-trash"></i></a>
 
-                                                            </td>
-                                                        </tr>
-                                                    @endforeach
+                                                                </td>
+                                                            </tr>
+                                                        @endforeach
+                                                    @else
+                                                        @foreach ($all_filter as $key => $row)
+                                                            <tr>
+                                                                <td>{{ $key + 1 }}</td>
+                                                                <td>{{ $row->dbinfosys_category }}</td>
+                                                                <td>{{ $row->dbinfosys_type }}</td>
+                                                                <td>{{ $row->dbinfosys_title }}</td>
+                                                                <td>{{ date('m/d/Y', strtotime($row->dbinfosys_date_created)) }}
+                                                                </td>
+                                                                <td>{{ $row->dbinfosys_purpose }}</td>
+                                                                <td class="action btns">
+                                                                    <a class="btn btn-primary"
+                                                                        href="{{ url("edit-dbinfosys/$row->id") }}"><i
+                                                                            class="fa-solid fa-pen-to-square"
+                                                                            style="color: white;"></i></a>
+                                                                    <a href="{{ url('/delete-dbinfosys/' . $row->id) }}"
+                                                                        class="btn btn-danger" id="delete"><i
+                                                                            class="fa-solid fa-trash"></i></a>
+
+                                                                </td>
+                                                            </tr>
+                                                        @endforeach
+                                                    @endif
                                                 </tbody>
                                             </table>
                                             <a href="{{ url('rdmc-index') }}" class="btn btn-default">Back</a>

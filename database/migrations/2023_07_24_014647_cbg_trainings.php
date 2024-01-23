@@ -19,10 +19,10 @@ return new class extends Migration {
             $table->string('trainings_expenditures');
             $table->string('trainings_start');
             $table->string('trainings_research_center');
-            $table->string('trainings_end')->nullable();
             $table->string('trainings_no_participants');
             $table->string('trainings_venue');
             $table->longText('trainings_remarks')->nullable();
+            $table->string('encoder_agency');
             $table->timestamps();
         });
     }

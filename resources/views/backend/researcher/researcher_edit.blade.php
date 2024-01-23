@@ -76,115 +76,246 @@
     </style>
     <div class="content-wrapper">
         <section class="content">
-            <div class="strategic row">
-
-                <div class="col-md-6">
-
-                    {{-- card start --}}
-                    <div class="card">
-                        <div class="card-header">
-                            <h5 class="card-title">
-                                Add Researcher
-                            </h5>
-                        </div>
-
-                        {{-- card body start --}}
-                        <div class="card-body">
-                            <form role="form" id="regiration_form"
-                                action="{{ url('update-researcher/' . $researcher->id) }}" method="POST"
-                                enctype="multipart/form-data">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12 mx-auto">
+                        <div class="d-flex justify-content-center mt-3">
+                            <form id="techForm" class="row g-3 needs-validation" novalidate>
                                 @csrf
+                                <div class="form-title col-12 mb-30">
+                                    <h2 class="font-weight-bold">Researcher</h2>
+                                    <h5 class="mt-0">Kindly fill-out the fields needed.</h5>
+                                </div>
 
-                                <div class="row">
-                                    <div class="col-sm-12">
-                                        <div class="form-group">
-                                            <label>Researcher Name</label>
-                                            <input type="text" name="name" value="{{ $researcher->name }}"
-                                                class="form-control">
+                                <div class="col-md-12 form-group row">
+                                    <img id="preview" src="{{ asset($researcher->profile_picture) }}"
+                                        alt="Current Profile Picture"
+                                        style="max-width: 300px; max-height: 300px; object-fit: cover;">
+                                </div>
+
+                                <div class="col-md-12 form-group">
+
+                                    <input type="file" class="form-control" name="profile_picture" id="profile_picture"
+                                        accept="image/*">
+
+                                </div>
+
+                                <div class="col-md-12 form-group">
+                                    <label for="fname" class=" font-weight-bold">Name<span
+                                            class="text-danger">*</span></label>
+                                    <div class="row g-3">
+                                        <div class="col-sm-4">
+                                            <input type="text" name="fname" id="fname" class="form-control"
+                                                placeholder="First name" value="{{ $researcher->first_name }}" required>
+                                            <div class="invalid-feedback">Missing first name</div>
                                         </div>
+
+                                        <div class="col-sm-4">
+                                            <input type="text" name="mname" id="mname"
+                                                value="{{ $researcher->middle_name }}" class="form-control"
+                                                placeholder="Middle name" required>
+                                            <div class="invalid-feedback">Missing middle name</div>
+                                        </div>
+
+                                        <div class="col-sm-4">
+                                            <input type="text" name="lname" id="lname"
+                                                value="{{ $researcher->last_name }}" class="form-control"
+                                                placeholder="Last name" required>
+                                            <div class="invalid-feedback">Missing last name</div>
+                                        </div>
+
                                     </div>
                                 </div>
 
+                                <div class="col-md-12 form-group">
+                                    <label for="agency" class=" font-weight-bold">Agency<span
+                                            class="text-danger">*</span></label>
+                                    <select id="agency" name="agency" class="form-control agency" required>
+                                        <option value=""></option>
+                                        @foreach ($agency as $row)
+                                            <option value="{{ $row->abbrev }}"
+                                                {{ $row->abbrev == $researcher->agency ? 'selected' : '' }}>
+                                                {{ $row->agency_name }} </option>
+                                        @endforeach
+                                    </select>
+                                    <div class="invalid-feedback">Missing agency</div>
+                                </div>
 
-                                <div class="row">
-                                    <div class="col-sm-12">
-                                        <div class="form-group">
-                                            <label>Agency</label>
-                                            <select name="agency" id="" class="form-control agency">
-                                                <option value=""disabled selected>Select Agency</option>
-                                                @if (auth()->user()->role == 'Admin')
-                                                    @foreach ($agency as $key)
-                                                        <option value="{{ $key->abbrev }}"
-                                                            {{ $key->abbrev == $researcher->agency ? 'selected' : '' }}>
-                                                            {{ $key->agency_name }}</option>
-                                                    @endforeach
-                                                @else
-                                                    <option value="{{ $user_agency->abbrev }}" selected>
-                                                        {{ $user_agency->agency_name }}</option>
-                                                @endif
-                                            </select>
-                                        </div>
+                                <div class="col-md-6 form-group">
+                                    <label for="sex" class=" font-weight-bold">Sex<span
+                                            class="text-danger">*</span></label>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="sex" value="Male"
+                                            required {{ 'Male' == $researcher->sex ? 'checked' : '' }} /> Male
                                     </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="sex" value="Female"
+                                            required {{ 'Female' == $researcher->sex ? 'checked' : '' }} />
+                                        Female
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="sex"
+                                            value="Prefer not to say" required
+                                            {{ 'Prefer not to say' == $researcher->sex ? 'checked' : '' }} />
+                                        Prefer not to say
+                                    </div>
+                                    <div class="invalid-feedback">Missing sex</div>
+                                </div>
+
+                                <div class="col-md-6 form-group">
+                                    <label for="emp_status" class="font-weight-bold">Employment Status<span
+                                            class="text-danger">*</span></label>
+                                    <select id="emp_status" name="emp_status" class="form-control others" required>
+                                        <option value=""></option>
+                                        <option value="Contractual"
+                                            {{ 'Contractual' == $researcher->emp_status ? 'selected' : '' }}>Contractual
+                                        </option>
+                                        <option value="JO" {{ 'JO' == $researcher->emp_status ? 'selected' : '' }}>Job
+                                            Order</option>
+                                        <option value="Project"
+                                            {{ 'Project' == $researcher->emp_status ? 'selected' : '' }}>Project Based
+                                        </option>
+                                        <option value="Regular"
+                                            {{ 'Regular' == $researcher->emp_status ? 'selected' : '' }}>Regular</option>
+                                    </select>
+                                    <div class="invalid-feedback">Missing employment status</div>
+                                </div>
+
+                                <div class="col-md-6 form-group">
+                                    <label for="email" class=" font-weight-bold">Email Address<span
+                                            class="text-danger">*</span></label>
+
+                                    <input type="email" name="email" value="{{ $researcher->email }}" id="email"
+                                        class="form-control" placeholder="Email address" required>
+                                    <div class="invalid-feedback">Missing email address</div>
+                                </div>
+
+                                <div class="col-md-6 form-group">
+                                    <label for="contact" class=" font-weight-bold">Phone No.<span
+                                            class="text-danger">*</span></label>
+
+                                    <input type="text" name="contact" value="{{ $researcher->contact }}"
+                                        id="contact" oninput="validateInput(this)" class="form-control"
+                                        placeholder="Phone no." maxlength="11" required>
+                                    <div class="invalid-feedback">Missing phone number</div>
                                 </div>
 
 
-                                <div class="row">
-                                    <div class="col-sm-5">
-                                        <div class="form-group">
-                                            <label>Gender</label>
-                                            <div class="form-group">
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="radio" name="gender"
-                                                        value="Male"
-                                                        {{ 'Male' == $researcher->gender ? 'checked' : '' }} /> Male
-                                                </div>
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="radio" name="gender"
-                                                        value="Female"
-                                                        {{ 'Female' == $researcher->gender ? 'checked' : '' }} /> Female
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                <div class="col-md-12 form-group buttons">
+                                    <a href="{{ url('researcher-index') }}" class="btn btn-default">Back</a>
+                                    <button type="submit" id="submit" class="btn btn-primary btn-m ">Submit</button>
                                 </div>
-
-                                <div class="row">
-                                    <div class="col-sm-12">
-                                        <div class="form-group">
-                                            <label>Contact No.</label>
-                                            <input type="text" name="contact" value="{{ $researcher->contact }}"
-                                                class="form-control" placeholder="">
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="col-sm-12">
-                                        <div class="form-group">
-                                            <label>Email</label>
-                                            <input type="email" name="email" value="{{ $researcher->email }}"
-                                                class="form-control" placeholder="">
-                                        </div>
-                                    </div>
-                                </div>
-
-
-                                <a href="{{ url('researcher-index') }}" class="btn btn-default">Back</a>
-                                <input type="submit" name="submit" class="submit btn btn-success" value="Update" />
-                                <!-- /.card-body -->
+                            </form>
                         </div>
-                        </form>
-                    </div> {{-- card body end --}}
-                </div>{{-- card end --}}
+                    </div>
+                </div>
             </div>
-            <div class="col-lg-1">
-
-            </div>
+        </section>
     </div>
-
-    </section>
-    </div>
-
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+        // Preview uploaded image
+        document.getElementById('profile_picture').addEventListener('change', function(event) {
+            const preview = document.getElementById('preview');
+            preview.src = URL.createObjectURL(event.target.files[0]);
+        });
+    </script>
+    <script>
+        function validateInput(input) {
+            // Remove non-numeric characters (except '-')
+            input.value = input.value.replace(/[^\d-]/g, '');
+
+            // Ensure the input is not empty
+            if (input.value === '-') {
+                input.value = '';
+            }
+        }
+    </script>
+
+    <script>
+        $(document).ready(function() {
+            $('#fname, #mname, #lname, #email, #sex, #contact, #agency')
+                .on('input', function() {
+                    const inputField = $(this);
+                    if (inputField[0].checkValidity()) {
+                        inputField.addClass('is-valid').removeClass('is-invalid');
+                    } else {
+                        inputField.addClass('is-invalid').removeClass('is-valid');
+                    }
+                });
+        });
+
+
+        (function() {
+            'use strict';
+            window.addEventListener('load', function() {
+                var forms = document.getElementsByClassName('needs-validation');
+                var validation = Array.prototype.filter.call(forms, function(form) {
+                    form.addEventListener('submit', function(event) {
+                        if (form.checkValidity() === false) {
+                            event.preventDefault();
+                            event.stopPropagation();
+                            //Swal.fire({
+                            //                                icon: 'info',
+                            //                                title: 'All //fields are required',
+                            //timerProgressBar: false,
+                            //showConfirmButton: true,
+                            //                        });
+                        }
+                        form.classList.add('was-validated');
+                    }, false);
+                });
+            }, false);
+        })();
+
+        $(document).ready(function() {
+            $('#techForm').on('submit', function(e) {
+
+                var formData = new FormData(this);
+
+                e.preventDefault();
+                $.ajax({
+                    type: 'POST',
+                    url: "{{ url('update-researcher/' . $researcher->id) }}",
+                    data: formData,
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    dataType: 'json',
+                    success: (data) => {
+                        // this.reset();
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Researcher Updated Successfully',
+                            timerProgressBar: true,
+                            showConfirmButton: false,
+                            timer: 900
+                        }).then((result) => {
+                            if (result.dismiss) {
+                                window.location.href = '/researcher-index';
+                            }
+                        })
+                    },
+                    error: function(data) {
+                        Swal.fire({
+                            icon: 'error',
+                            toast: true,
+                            iconColor: 'white',
+                            position: 'top-end',
+                            customClass: {
+                                popup: 'colored-toast',
+                            },
+                            // title: data.responseJSON.message,
+                            text: data.responseJSON.message,
+                            // title: 'There is something wrong...',
+                            timerProgressBar: true,
+                            showConfirmButton: false,
+                            timer: 2000
+                        });
+                    }
+                });
+            });
+        });
+    </script>
 @endsection

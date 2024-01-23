@@ -152,7 +152,7 @@
                                                 <div class="custom-control custom-checkbox">
                                                     <input class="custom-control-input custom-control-input-success"
                                                         type="checkbox" value="Regional FIESTA" name="tpa_approaches[]"
-                                                        id="customCheckbox1">
+                                                        id="customCheckbox1" required>
                                                     <label for="customCheckbox1" class="custom-control-label">Regional
                                                         FIESTA</label>
                                                 </div>
@@ -160,34 +160,34 @@
                                                 <div class="custom-control custom-checkbox">
                                                     <input class="custom-control-input custom-control-input-success"
                                                         type="checkbox" value="Fairs" name="tpa_approaches[]"
-                                                        id="customCheckbox2">
+                                                        id="customCheckbox2" required>
                                                     <label for="customCheckbox2" class="custom-control-label">Fairs</label>
                                                 </div>
                                                 <div class="custom-control custom-checkbox">
                                                     <input class="custom-control-input custom-control-input-success"
                                                         type="checkbox" value="Exhibits" name="tpa_approaches[]"
-                                                        id="customCheckbox3">
+                                                        id="customCheckbox3" required>
                                                     <label for="customCheckbox3"
                                                         class="custom-control-label">Exhibits</label>
                                                 </div>
                                                 <div class="custom-control custom-checkbox">
                                                     <input class="custom-control-input custom-control-input-success"
                                                         type="checkbox" value="Media Conference" name="tpa_approaches[]"
-                                                        id="customCheckbox4">
+                                                        id="customCheckbox4" required>
                                                     <label for="customCheckbox4" class="custom-control-label">Media
                                                         Conference</label>
                                                 </div>
                                                 <div class="custom-control custom-checkbox">
                                                     <input class="custom-control-input custom-control-input-success"
                                                         type="checkbox" value="Farmers' Fora" name="tpa_approaches[]"
-                                                        id="customCheckbox5">
+                                                        id="customCheckbox5" required>
                                                     <label for="customCheckbox5" class="custom-control-label">Farmers'
                                                         Fora</label>
                                                 </div>
                                                 <div class="custom-control custom-checkbox">
                                                     <input class="custom-control-input custom-control-input-success"
                                                         type="checkbox" value="IEC Materials" name="tpa_approaches[]"
-                                                        id="customCheckbox6">
+                                                        id="customCheckbox6" required>
                                                     <label for="customCheckbox6" class="custom-control-label">IEC
                                                         Materials</label>
                                                 </div>
@@ -198,7 +198,7 @@
                                                 <div class="custom-control custom-checkbox">
                                                     <input class="custom-control-input custom-control-input-success"
                                                         type="checkbox" value="Press Release" name="tpa_approaches[]"
-                                                        id="customCheckbox7">
+                                                        id="customCheckbox7" required>
                                                     <label for="customCheckbox7" class="custom-control-label">Press
                                                         Release</label>
                                                 </div>
@@ -206,24 +206,25 @@
                                                 <div class="custom-control custom-checkbox">
                                                     <input class="custom-control-input custom-control-input-success"
                                                         type="checkbox" value="Publications in Newspaper"
-                                                        name="tpa_approaches[]" id="customCheckbox8">
+                                                        name="tpa_approaches[]" id="customCheckbox8" required>
                                                     <label for="customCheckbox8" class="custom-control-label">Publications
                                                         in Newspaper</label>
                                                 </div>
                                                 <div class="custom-control custom-checkbox">
                                                     <input class="custom-control-input custom-control-input-success"
                                                         type="checkbox" value="Magazines" name="tpa_approaches[]"
-                                                        id="customCheckbox9">
+                                                        id="customCheckbox9" required>
                                                     <label for="customCheckbox9"
                                                         class="custom-control-label">Magazines</label>
                                                 </div>
                                                 <div class="custom-control custom-checkbox">
                                                     <input class="custom-control-input custom-control-input-success"
                                                         type="checkbox" value="Comics" name="tpa_approaches[]"
-                                                        id="customCheckbox10">
+                                                        id="customCheckbox10" required>
                                                     <label for="customCheckbox10"
                                                         class="custom-control-label">Comics</label>
                                                 </div>
+
                                                 {{-- <div class="custom-control custom-checkbox">
                                                     <input class="custom-control-input custom-control-input-success"
                                                         type="checkbox" value="Others" id="is_others" name="tpa_approaches[]"
@@ -235,7 +236,7 @@
                                                 <div class="custom-control custom-checkbox">
                                                     <input class="custom-control-input custom-control-input-success"
                                                         type="checkbox" value="Broadcast Media" name="tpa_approaches[]"
-                                                        id="customCheckbox12">
+                                                        id="customCheckbox12" required>
                                                     <label for="customCheckbox12" class="custom-control-label">Broadcast
                                                         Media</label>
                                                 </div>
@@ -243,7 +244,7 @@
                                                 <div class="custom-control custom-checkbox">
                                                     <input class="custom-control-input custom-control-input-success"
                                                         type="checkbox" value="Radio" name="tpa_approaches[]"
-                                                        id="customCheckbox13">
+                                                        id="customCheckbox13" required>
                                                     <label for="customCheckbox13"
                                                         class="custom-control-label">Radio</label>
                                                 </div>
@@ -258,28 +259,28 @@
                                                 <div class="custom-control custom-checkbox">
                                                     <input class="custom-control-input custom-control-input-success"
                                                         type="checkbox" value="Television" name="tpa_approaches[]"
-                                                        id="customCheckbox14">
+                                                        id="customCheckbox14" required>
                                                     <label for="customCheckbox14"
                                                         class="custom-control-label">Television</label>
                                                 </div>
                                                 <div class="custom-control custom-checkbox">
                                                     <input class="custom-control-input custom-control-input-success"
                                                         type="checkbox" value="News Features" name="tpa_approaches[]"
-                                                        id="customCheckbox15">
+                                                        id="customCheckbox15" required>
                                                     <label for="customCheckbox15" class="custom-control-label">News
                                                         Features</label>
                                                 </div>
                                                 <div class="custom-control custom-checkbox">
                                                     <input class="custom-control-input custom-control-input-success"
                                                         type="checkbox" value="School on the Air" name="tpa_approaches[]"
-                                                        id="customCheckbox16">
+                                                        id="customCheckbox16" required>
                                                     <label for="customCheckbox16" class="custom-control-label">School on
                                                         the Air</label>
                                                 </div>
                                                 <div class="custom-control custom-checkbox">
                                                     <input class="custom-control-input custom-control-input-success"
                                                         type="checkbox" value="Interview Guesting"
-                                                        name="tpa_approaches[]" id="customCheckbox17">
+                                                        name="tpa_approaches[]" id="customCheckbox17" required>
                                                     <label for="customCheckbox17" class="custom-control-label">Interview
                                                         Guesting</label>
                                                 </div>
@@ -287,7 +288,7 @@
                                                 <div class="custom-control custom-checkbox">
                                                     <input class="custom-control-input custom-control-input-success"
                                                         type="checkbox" value="ICT-based ICT" name="tpa_approaches[]"
-                                                        id="customCheckbox18">
+                                                        id="customCheckbox18" required>
                                                     <label for="customCheckbox18" class="custom-control-label">ICT-based
                                                         ICT</label>
                                                 </div>
@@ -295,7 +296,7 @@
                                                 <div class="custom-control custom-checkbox">
                                                     <input class="custom-control-input custom-control-input-success"
                                                         type="checkbox" value="CDs & Optimal Media"
-                                                        name="tpa_approaches[]" id="customCheckbox19">
+                                                        name="tpa_approaches[]" id="customCheckbox19" required>
                                                     <label for="customCheckbox19" class="custom-control-label">CDs &
                                                         Optimal
                                                         Media</label>
@@ -309,27 +310,27 @@
                                                 <div class="custom-control custom-checkbox">
                                                     <input class="custom-control-input custom-control-input-success"
                                                         type="checkbox" value="Web-based Formats" name="tpa_approaches[]"
-                                                        id="customCheckbox20">
+                                                        id="customCheckbox20" required>
                                                     <label for="customCheckbox20" class="custom-control-label">Web-based
                                                         Formats</label>
                                                 </div>
                                                 <div class="custom-control custom-checkbox">
                                                     <input class="custom-control-input custom-control-input-success"
                                                         type="checkbox" value="Online Promotion" name="tpa_approaches[]"
-                                                        id="customCheckbox21">
+                                                        id="customCheckbox21" required>
                                                     <label for="customCheckbox21" class="custom-control-label">Online
                                                         Promotion</label>
                                                 </div>
                                                 <div class="custom-control custom-checkbox form-check">
                                                     <input type="checkbox" id="is_others" name="tpa_approaches[]"
                                                         value="Others"
-                                                        class="custom-control-input custom-control-input-success">
+                                                        class="custom-control-input custom-control-input-success" required>
                                                     <label for="is_others" class="custom-control-label">Others</label>
                                                 </div>
                                                 <div class="form-group" style="display: none;" id="others-input">
                                                     <label for="others">Specify Others</label>
                                                     <input type="text" id="others" name="is_others"
-                                                        class="form-control">
+                                                        class="form-control" required>
                                                 </div>
                                             </div>
                                         </div>
@@ -471,12 +472,19 @@
                     },
                     error: function(data) {
                         Swal.fire({
-                            icon: 'warning',
+                            icon: 'error',
                             toast: true,
-                            title: data.responseJSON.message,
+                            iconColor: 'white',
+                            position: 'top-end',
+                            customClass: {
+                                popup: 'colored-toast',
+                            },
+                            // title: data.responseJSON.message,
+                            text: data.responseJSON.message,
                             // title: 'There is something wrong...',
-                            timerProgressBar: false,
-                            showConfirmButton: true,
+                            timerProgressBar: true,
+                            showConfirmButton: false,
+                            timer: 2000
                         });
                     }
                 });

@@ -46,56 +46,107 @@
                                                     <tr>
                                                         <th>#</th>
                                                         <th>Title</th>
-                                                        <th>Date</th>
                                                         <th>No. of Participants</th>
                                                         <th>Venue</th>
                                                         <th>Expenditures</th>
                                                         <th>Source of Fund</th>
                                                         <th>Implementing Agency</th>
+                                                        <th>Duration</th>
                                                         <th>Remarks</th>
                                                         <th>Action</th>
                                                     </tr>
                                                 </thead>
-                                                <tbody>
-                                                    @foreach ($all as $key => $row)
-                                                        <tr>
-                                                            <td>{{ $key + 1 }}</td>
-                                                            <td>{{ $row->trainings_title }}</td>
-                                                            @if ($row->trainings_end)
-                                                                <td>{{ date('m/d/Y', strtotime($row->trainings_start)) ?: 'Not Set' }}
-                                                                    to
-                                                                    {{ date('m/d/Y', strtotime($row->trainings_end)) ?: 'Present' }}
+                                                @if (auth()->user()->role == 'Admin')
+                                                    <tbody>
+                                                        @foreach ($all as $key => $row)
+                                                            <tr>
+                                                                <td>{{ $key + 1 }}</td>
+                                                                <td>{{ $row->trainings_title }}</td>
+                                                                @php
+                                                                    $rc = $row->trainings_research_center;
+                                                                    $rc = str_replace(['[', '"', ']'], '', $rc);
+
+                                                                    $sof = json_decode($row->trainings_sof);
+                                                                    $sof = implode(', ', $sof);
+
+                                                                    $agency = json_decode($row->trainings_agency);
+                                                                    $agency = implode(', ', $agency);
+
+                                                                    $type = json_decode($row->trainings_type);
+                                                                    $type = implode(', ', $type);
+                                                                @endphp
+                                                                <td>{{ $type }} /
+                                                                    {{ $row->trainings_no_participants }}
                                                                 </td>
-                                                            @else
-                                                                <td>{{ date('m/d/Y', strtotime($row->trainings_start)) ?: 'Not Set' }}
-                                                                    to
-                                                                    {{ $row->trainings_end ?: 'Present' }}</td>
-                                                            @endif
-                                                            @php
-                                                                $rc = $row->trainings_research_center;
-                                                                $rc = str_replace(['[', '"', ']'], '', $rc);
-                                                            @endphp
-                                                            <td>{{ $row->trainings_no_participants }}</td>
-                                                            <td>{{ $row->trainings_venue }}</td>
-                                                            <td>{{ $row->trainings_expenditures }}</td>
-                                                            <td>{{ $row->trainings_sof }} / {{ $rc }}
-                                                            </td>
-                                                            <td>{{ $row->trainings_agency }}</td>
-                                                            <td>
-                                                                {{ $row->trainings_remarks ?: 'N/A' }}
-                                                            </td>
-                                                            <td class="action btns">
-                                                                <a class="btn btn-primary"
-                                                                    href="{{ url('edit-training/' . $row->id) }}"><i
-                                                                        class="fa-solid fa-pen-to-square"
-                                                                        style="color: white;"></i></a>
-                                                                <a href="{{ url('delete-training/' . $row->id) }}"
-                                                                    class="btn btn-danger" id="delete"><i
-                                                                        class="fa-solid fa-trash"></i></a>
-                                                            </td>
-                                                        </tr>
-                                                    @endforeach
-                                                </tbody>
+                                                                <td>{{ $row->trainings_venue }}</td>
+                                                                <td>₱{{ number_format($row->trainings_expenditures, 2) }}
+                                                                </td>
+                                                                <td>{{ $sof }} / {{ $rc }}
+                                                                </td>
+                                                                <td>{{ $agency }}</td>
+                                                                <td>{{ $row->trainings_start }}</td>
+
+                                                                <td>
+                                                                    {{ $row->trainings_remarks ?: 'N/A' }}
+                                                                </td>
+                                                                <td class="action btns">
+                                                                    <a class="btn btn-primary"
+                                                                        href="{{ url('edit-training/' . $row->id) }}"><i
+                                                                            class="fa-solid fa-pen-to-square"
+                                                                            style="color: white;"></i></a>
+                                                                    <a href="{{ url('delete-training/' . $row->id) }}"
+                                                                        class="btn btn-danger" id="delete"><i
+                                                                            class="fa-solid fa-trash"></i></a>
+                                                                </td>
+                                                            </tr>
+                                                        @endforeach
+                                                    </tbody>
+                                                @else
+                                                    <tbody>
+                                                        @foreach ($all_filter as $key => $row)
+                                                            <tr>
+                                                                <td>{{ $key + 1 }}</td>
+                                                                <td>{{ $row->trainings_title }}</td>
+                                                                @php
+                                                                    $rc = $row->trainings_research_center;
+                                                                    $rc = str_replace(['[', '"', ']'], '', $rc);
+
+                                                                    $sof = json_decode($row->trainings_sof);
+                                                                    $sof = implode(', ', $sof);
+
+                                                                    $agency = json_decode($row->trainings_agency);
+                                                                    $agency = implode(', ', $agency);
+
+                                                                    $type = json_decode($row->trainings_type);
+                                                                    $type = implode(', ', $type);
+                                                                @endphp
+                                                                <td>{{ $type }} /
+                                                                    {{ $row->trainings_no_participants }}
+                                                                </td>
+                                                                <td>{{ $row->trainings_venue }}</td>
+                                                                <td>₱{{ number_format($row->trainings_expenditures, 2) }}
+                                                                </td>
+                                                                <td>{{ $sof }} / {{ $rc }}
+                                                                </td>
+                                                                <td>{{ $agency }}</td>
+                                                                <td>{{ $row->trainings_start }}</td>
+
+                                                                <td>
+                                                                    {{ $row->trainings_remarks ?: 'N/A' }}
+                                                                </td>
+                                                                <td class="action btns">
+                                                                    <a class="btn btn-primary"
+                                                                        href="{{ url('edit-training/' . $row->id) }}"><i
+                                                                            class="fa-solid fa-pen-to-square"
+                                                                            style="color: white;"></i></a>
+                                                                    <a href="{{ url('delete-training/' . $row->id) }}"
+                                                                        class="btn btn-danger" id="delete"><i
+                                                                            class="fa-solid fa-trash"></i></a>
+                                                                </td>
+                                                            </tr>
+                                                        @endforeach
+                                                    </tbody>
+                                                @endif
                                             </table>
                                             <a href="{{ url('cbg-index') }}" class="btn btn-default">Back</a>
                                         </div>

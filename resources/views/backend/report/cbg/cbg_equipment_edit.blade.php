@@ -87,6 +87,19 @@
                                     <h5 class="mt-0"> Kindly fill-out the fields needed.</h5>
                                 </div>
 
+                                @if (!$imgs->isEmpty())
+                                    <div class="col-md-12">
+                                        <label for="strategic_program" class="font-weight-bold">Uploaded Images<span
+                                                class="text-danger"></span></label><br>
+                                        @foreach ($imgs as $img)
+                                            <a href="{{ asset($img->filename) }}" data-lightbox="photos">
+                                                <img id="" src="{{ asset($img->filename) }}" alt=""
+                                                    style="width: 200px; height: 200px;" class="img-thumbnail">
+                                            </a>
+                                        @endforeach
+                                    </div>
+                                @endif
+
                                 <div class="col-md-12 form-group">
                                     <label for="awards_type" class=" font-weight-bold">Equipment/Facilities Type<span
                                             class="text-danger">*</span></label>
@@ -106,23 +119,6 @@
                                         <label for="customRadio2" class="custom-control-label"
                                             style="font-weight: bold;">Approved</label>
                                     </div>
-
-
-                                    {{-- <div class="custom-control custom-radio">
-                                        <input class="custom-control-input" type="radio" value="E_Upgraded"
-                                            name="equipments_type" id="customRadio3"
-                                            {{ 'E_Upgraded' == $all->equipments_type ? 'checked' : '' }}>
-                                        <label for="customRadio3" class="custom-control-label"
-                                            style="font-weight: bold;">Equipment Upgraded</label>
-                                    </div>
-
-                                    <div class="custom-control custom-radio">
-                                        <input class="custom-control-input" type="radio" value="E_Established"
-                                            name="equipments_type" id="customRadio4"
-                                            {{ 'E_Established' == $all->equipments_type ? 'checked' : '' }}>
-                                        <label for="customRadio4" class="custom-control-label"
-                                            style="font-weight: bold;">Equipment Established</label>
-                                    </div> --}}
 
                                     <div class="custom-control custom-radio">
                                         <input class="custom-control-input" type="radio" value="E_Purchased"
@@ -148,6 +144,23 @@
                                             style="font-weight: bold;">Facilities Established</label>
                                     </div>
                                 </div>
+                                @php
+                                    $sof = json_decode($all->equipments_sof);
+                                @endphp
+                                <div class="col-md-12 form-group">
+                                    <label for="equipments_sof" class=" font-weight-bold">Source of Fund<span
+                                            class="text-danger">*</span></label>
+                                    <select id="equipments_sof" name="equipments_sof[]" multiple class="form-control agency"
+                                        required>
+                                        <option value=""></option>
+                                        @foreach ($agency as $row)
+                                            <option value="{{ $row->abbrev }}"
+                                                {{ in_array($row->abbrev, $sof) ? 'selected' : '' }}>
+                                                {{ $row->agency_name }} </option>
+                                        @endforeach
+                                    </select>
+                                    <div class="invalid-feedback">Missing source of fund</div>
+                                </div>
 
                                 <div class="col-md-12 form-group">
                                     <label for="equipments_name" class=" font-weight-bold">Equipment Name<span
@@ -158,25 +171,16 @@
                                     <div class="invalid-feedback">Missing name</div>
                                 </div>
 
-                                <div class="col-md-6 form-group">
-                                    <label for="equipments_total" class=" font-weight-bold">Expenditures<span
+                                <div class="col-md-12 form-group">
+                                    <label for="equipments_name" class=" font-weight-bold">Equipment/Facilities Details<span
                                             class="text-danger">*</span></label>
+                                    <textarea name="equipments_details" id="equipments_details" cols="30" rows="5" class="form-control" required
+                                        placeholder="Enter details">{{ $all->equipments_details }}</textarea>
 
-                                    <input type="text" name="equipments_total" value="{{ $all->equipments_total }}"
-                                        id="equipments_total" class="form-control" placeholder="Expenditures" required>
-                                    <div class="invalid-feedback">Missing expenditures</div>
+                                    <div class="invalid-feedback">Missing details</div>
                                 </div>
 
-
-                                <div class="col-md-6 form-group">
-                                    <label for="equipments_sof" class=" font-weight-bold">Source of Fund<span
-                                            class="text-danger">*</span></label>
-                                    <input type="text" id="equipments_sof" value="{{ $all->equipments_sof }}"
-                                        name="equipments_sof" class="form-control" placeholder="Source of fund" required>
-                                    <div class="invalid-feedback">Missing source of fund</div>
-                                </div>
-
-                                <div class="col-md-6 form-group">
+                                <div class="col-md-12 form-group">
                                     <label for="equipments_agency" class=" font-weight-bold">Location/Agency<span
                                             class="text-danger">*</span></label>
                                     <select id="equipments_agency" name="equipments_agency" class="form-control agency"
@@ -191,12 +195,33 @@
                                     <div class="invalid-feedback">Missing agency</div>
                                 </div>
 
+                                <div class="col-md-12 form-group">
+                                    <label for="equipments_total" class=" font-weight-bold">Expenditures<span
+                                            class="text-danger">*</span></label>
+
+                                    <input type="text" name="equipments_total" value="{{ $all->equipments_total }}"
+                                        id="equipments_total" class="form-control" oninput="validateInput(this)"
+                                        placeholder="Expenditures" required>
+                                    <div class="invalid-feedback">Missing expenditures</div>
+                                </div>
 
                                 <div class="col-md-12 form-group buttons">
                                     <a href="{{ url('cbg-equipment') }}" class="btn btn-default">Back</a>
                                     <button type="submit" id="submit" class="btn btn-primary btn-m ">Submit</button>
                                 </div>
                             </form>
+                        </div>
+                        <hr>
+                        <div class="d-flex justify-content-center mt-3">
+                            <div class="col-md-12 form-group">
+                                <label for="ttp_sof" class=" font-weight-bold">Photo-documentation upload<span
+                                        class="text-danger">*</span></label>
+                                <form action="{{ url('/image/upload/store/equipment') }}" method="POST"
+                                    enctype="multipart/form-data" class="dropzone" id="dropzone">
+                                    @csrf
+                                    <input type="text" name="equipment_id" value="{{ $all->id }}" hidden>
+                                </form>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -205,6 +230,52 @@
     </div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+        Dropzone.options.dropzone = {
+            maxFilesize: 12,
+            renameFile: function(file) {
+                var dt = new Date();
+                var time = dt.getTime();
+                return time + file.name;
+            },
+            acceptedFiles: ".jpeg, .jpg, .png, .gif",
+            addRemoveLinks: true,
+            timeout: 5000,
+            success: function(file, response) {
+                console.log(response);
+            },
+            queuecomplete: function() {
+                // Reload the page after all uploads are complete
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Images Added Successfully',
+                    toast: true,
+                    position: 'top-right',
+                    timerProgressBar: true,
+                    showConfirmButton: false,
+                    timer: 500,
+                }).then((result) => {
+                    if (result.dismiss) {
+                        location.reload();
+                    }
+                })
+            },
+            error: function(file, response) {
+                return false;
+            }
+        };
+    </script>
+    <script>
+        function validateInput(input) {
+            // Remove non-numeric characters (except '-')
+            input.value = input.value.replace(/[^\d-]/g, '');
+
+            // Ensure the input is not empty
+            if (input.value === '-') {
+                input.value = '';
+            }
+        }
+    </script>
     <script>
         $(document).ready(function() {
             $('#equipments_agency, #equipments_sof, #equipments_total, #equipments_name')

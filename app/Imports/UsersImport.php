@@ -18,16 +18,14 @@ class UsersImport implements ToModel, WithHeadingRow
      * @return \Illuminate\Database\Eloquent\Model|null
      */
 
-
     public function model(array $row)
     {
-
         $user = new User([
-            "name"     => $row['name'],
-            "email"   => $row['email'],
-            "agencyID" => $row['agency_id'],
-            "role" => $row['role'],
-            "password" => Hash::make($row['password']),
+            'name' => $row['name'],
+            'email' => $row['email'],
+            'agencyID' => $row['agency'],
+            'role' => $row['role'],
+            'password' => Hash::make($row['password']),
         ]);
 
         return $user;

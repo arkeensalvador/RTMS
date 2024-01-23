@@ -87,8 +87,29 @@
                                     <h5 class="mt-0"> Kindly fill-out the fields needed.</h5>
                                 </div>
 
+                                <div class="col-md-12 form-group">
+                                    <label for="awards_type" class=" font-weight-bold">Type of Ceremony<span
+                                            class="text-danger">*</span></label>
+
+                                    <div class="custom-control custom-radio">
+                                        <input class="custom-control-input" type="radio" value="On-site"
+                                            name="awards_ceremony" id="customRadio1" required
+                                            {{ 'On-site' == $all->awards_ceremony ? 'checked' : '' }}>
+                                        <label for="customRadio1" class="custom-control-label"
+                                            style="font-weight: bold;">On-site</label>
+                                    </div>
+
+                                    <div class="custom-control custom-radio">
+                                        <input class="custom-control-input" type="radio" value="Virtual"
+                                            name="awards_ceremony" id="customRadio2" required
+                                            {{ 'Virtual' == $all->awards_ceremony ? 'checked' : '' }}>
+                                        <label for="customRadio2" class="custom-control-label"
+                                            style="font-weight: bold;">Virtual</label>
+                                    </div>
+                                </div>
+
                                 <div class="col-md-4 form-group">
-                                    <label for="awards_type" class=" font-weight-bold">Award Type<span
+                                    <label for="awards_type" class=" font-weight-bold">Type of Award<span
                                             class="text-danger">*</span></label>
                                     <select id="awards_type" name="awards_type" class="form-control others" required>
                                         <option value=""></option>
@@ -106,7 +127,7 @@
                                 </div>
 
 
-                                <div class="col-md-8 form-group">
+                                <div class="col-md-12 form-group">
                                     <label for="awards_agency" class=" font-weight-bold">Agency<span
                                             class="text-danger">*</span></label>
                                     <select id="awards_agency" name="awards_agency" class="form-control agency" required>
@@ -120,7 +141,7 @@
                                     <div class="invalid-feedback">Missing agency</div>
                                 </div>
 
-                                <div class="col-md-3 form-group">
+                                <div class="col-md-4 form-group">
                                     <label for="awards_date" class=" font-weight-bold">Date<span
                                             class="text-danger">*</span></label>
 
@@ -130,34 +151,19 @@
                                 </div>
 
                                 <div class="col-md-12 form-group">
-                                    <label for="awards_title" class=" font-weight-bold">Award Ttitle<span
+                                    <label for="awards_title" class=" font-weight-bold">Title of Award<span
                                             class="text-danger">*</span></label>
                                     <textarea class="form-control" name="awards_title" id="awards_title" rows="3" placeholder="Enter ..."
                                         style="resize: none;" required>{{ $all->awards_title }}</textarea>
                                     <div class="invalid-feedback">Missing title</div>
                                 </div>
-                                @php
-                                    $rec = json_decode($all->awards_recipients);
-                                @endphp
-                                <div class="col-md-6 form-group">
-                                    <label for="awards_recipients" class="font-weight-bold">Recipient(s)<span
-                                            class="text-danger">*</span></label>
 
-                                    <select class="form-control js-example-basic-single" id="awards_recipients"
-                                        name="awards_recipients[]" multiple="multiple" required>
-                                        @foreach ($agency as $row)
-                                            <option value="{{ $row->abbrev }}"
-                                                {{ in_array($row->abbrev, $rec) ? 'selected' : '' }}>
-                                                {{ $row->agency_name }}
-                                            </option>
-                                        @endforeach
-                                        @foreach ($researchers as $row)
-                                            <option value="{{ $row->name }}"
-                                                {{ in_array($row->name, $rec) ? 'selected' : '' }}>
-                                                {{ $row->name }}
-                                            </option>
-                                        @endforeach
-                                    </select>
+                                <div class="col-md-6 form-group">
+                                    <label for="awards_recipients" class=" font-weight-bold">Recipient(s)<span
+                                            class="text-danger">*</span></label>
+                                    <input type="text" name="awards_recipients" id="awards_recipients"
+                                        class="form-control" placeholder="Enter recipients"
+                                        value="{{ $all->awards_recipients }}" required>
                                     <div class="invalid-feedback">Missing recipients</div>
                                 </div>
 
@@ -185,11 +191,24 @@
                                 </div>
 
                                 <div class="col-md-6 form-group">
-                                    <label for="awards_place" class=" font-weight-bold">Place of Award<span
+                                    <label for="awards_place" class=" font-weight-bold">Venue<span
                                             class="text-danger">*</span></label>
                                     <input type="text" name="awards_place" value="{{ $all->awards_place }}"
                                         class="form-control" id="awards_place" placeholder="Event place" required>
                                     <div class="invalid-feedback"> Missing place of event</div>
+                                </div>
+
+                                <div class="col-md-6 form-group">
+                                    <label for="certificate" class=" font-weight-bold">Certificate<span
+                                            class="text-success">*</span></label>
+                                    <input type="file" name="certificate" id="certificate" class="form-control"
+                                        accept="image/*" id="certificate" placeholder="Event place">
+                                    {{-- <div class="valid-feedback">Valid certificate</div> --}}
+                                </div>
+
+                                <div class="form-group row">
+                                    <img id="preview" src="{{ asset($all->certificate) }}"
+                                        alt="Current certificate uploaded" style="max-width: 400px; max-height: 400px;">
                                 </div>
 
                                 <div class="col-md-12 form-group buttons">
@@ -205,6 +224,14 @@
     </div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+    <script>
+        // Preview uploaded image
+        document.getElementById('certificate').addEventListener('change', function(event) {
+            const preview = document.getElementById('preview');
+            preview.src = URL.createObjectURL(event.target.files[0]);
+        });
+    </script>
 
     <script>
         $(document).ready(function() {

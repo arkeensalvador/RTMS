@@ -94,14 +94,14 @@
                                     <div class="custom-control custom-radio">
                                         <input class="custom-control-input" type="radio" value="Developed" name="type"
                                             value="Developed" id="customRadio1"
-                                            {{ 'Developed' == $all->type ? 'checked' : '' }}>
+                                            {{ 'Developed' == $all->type ? 'checked' : '' }} required>
                                         <label for="customRadio1" class="custom-control-label"
-                                            style="font-weight: bold;">Developed</label>
+                                            style="font-weight: bold;">Developed/New</label>
                                     </div>
 
                                     <div class="custom-control custom-radio">
                                         <input class="custom-control-input" type="radio" value="Maintained" name="type"
-                                            id="customRadio2" {{ 'Maintained' == $all->type ? 'checked' : '' }}>
+                                            id="customRadio2" {{ 'Maintained' == $all->type ? 'checked' : '' }} required>
                                         <label for="customRadio2" class="custom-control-label"
                                             style="font-weight: bold;">Maintained/Sustained</label>
                                     </div>
@@ -130,8 +130,13 @@
                                     <label for="year" class=" font-weight-bold">Year<span
                                             class="text-danger">*</span></label>
 
-                                    <input type="text" name="year" id="year" value="{{ $all->year }}"
-                                        class="form-control year" placeholder="Year" required>
+                                    <select id="year" name="year" class="form-control yearSelect" required>
+                                        <option value=""></option>
+                                        @for ($year = 2000; $year <= 2060; $year++)
+                                            <option value="{{ $year }}" {{ $year == $all->year ? 'selected' : '' }}>
+                                                {{ $year }}</option>
+                                        @endfor
+                                    </select>
                                     <div class="invalid-feedback">Missing year</div>
                                 </div>
 

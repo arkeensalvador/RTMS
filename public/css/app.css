@@ -28,45 +28,13 @@ body.login-body {
     align-items: center;
 }
 .user-panel img {
-    height: 5.1rem;
-    width: 6.1rem;
+    height: 4.5rem;
+    width: 4.5rem;
     object-fit: cover;
 }
 .user-panel .image {
     display: inline-block;
     padding-left: 0rem;
-}
-
-.colored-toast.swal2-icon-success {
-    background-color: #a5dc86 !important;
-}
-
-.colored-toast.swal2-icon-error {
-    background-color: #f27474 !important;
-}
-
-.colored-toast.swal2-icon-warning {
-    background-color: #f8bb86 !important;
-}
-
-.colored-toast.swal2-icon-info {
-    background-color: #3fc3ee !important;
-}
-
-.colored-toast.swal2-icon-question {
-    background-color: #87adbd !important;
-}
-
-.colored-toast .swal2-title {
-    color: white;
-}
-
-.colored-toast .swal2-close {
-    color: white;
-}
-
-.colored-toast .swal2-html-container {
-    color: white;
 }
 
 a.btn.btn-info.float-right {
@@ -101,6 +69,22 @@ h3 {
     min-height: 580px;
     top: 10rem;
 } */
+/* SWAL */
+.swal2-popup.swal2-toast .swal2-icon.swal2-error [class^='swal2-x-mark-line'] {
+    background-color: white;
+}
+#dropzone {
+    border-radius: 0.5em;
+}
+.dz-success-mark {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background: green;
+    color: white;
+    padding: 5px;
+    border-radius: 0 0 0 5px;
+}
 
 .poster {
     max-width: 50%;
@@ -526,6 +510,10 @@ td.append {
 .table-append td i {
     padding: 0.75rem;
     cursor: pointer;
+}
+
+#img-thumbnail {
+    border-radius: 25px;
 }
 
 input.form-control.date.input,

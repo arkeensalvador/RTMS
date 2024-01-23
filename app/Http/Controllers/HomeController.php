@@ -246,13 +246,13 @@ class HomeController extends Controller
         $minValue = min($data->min('program_budget'), $data->min('project_budget'), $data->min('sub_project_budget'));
 
         // researchers involvement pie chart query
-        $researcherCounts = DB::table('researchers')
-            ->select('name', DB::raw('COUNT(programs.programID) as programs_count'), DB::raw('COUNT(projects.id) as projects_count'), DB::raw('COUNT(sub_projects.id) as sub_projects_count'))
-            ->leftJoin('programs', 'researchers.name', '=', 'programs.program_leader')
-            ->leftJoin('projects', 'researchers.name', '=', 'projects.project_leader')
-            ->leftJoin('sub_projects', 'researchers.name', '=', 'sub_projects.sub_project_leader')
-            ->groupBy('researchers.name')
-            ->get();
+        // $researcherCounts = DB::table('researchers')
+        //     ->select('name', DB::raw('COUNT(programs.programID) as programs_count'), DB::raw('COUNT(projects.id) as projects_count'), DB::raw('COUNT(sub_projects.id) as sub_projects_count'))
+        //     ->leftJoin('programs', 'researchers.name', '=', 'programs.program_leader')
+        //     ->leftJoin('projects', 'researchers.name', '=', 'projects.project_leader')
+        //     ->leftJoin('sub_projects', 'researchers.name', '=', 'sub_projects.sub_project_leader')
+        //     ->groupBy('researchers.name')
+        //     ->get();
 
         // Initiatives
         $data_ini = DB::table('cbg_initiatives')
@@ -274,6 +274,56 @@ class HomeController extends Controller
         $labels_prc = $data_prc->pluck('abbrev');
         $values_prc = $data_prc->pluck('prc_count');
 
+        // total count of funded programs, projects of agency
+        $agencyAbbreviations = DB::table('agency')
+            ->pluck('abbrev')
+            ->toArray();
+
+        $fundedCounts = [];
+
+        foreach ($agencyAbbreviations as $abbrev) {
+            $fundedProgramsCount = DB::table('programs')
+                ->whereJsonContains('funding_agency', $abbrev)
+                ->count();
+
+            $fundedProjectsCount = DB::table('projects')
+                ->whereJsonContains('project_agency', $abbrev)
+                ->count();
+
+            $fundedSubProjectsCount = DB::table('sub_projects')
+                ->whereJsonContains('sub_project_agency', $abbrev)
+                ->count();
+
+            $fundedCounts[$abbrev] = [
+                'programs' => $fundedProgramsCount,
+                'projects' => $fundedProjectsCount,
+                'subProjects' => $fundedSubProjectsCount,
+            ];
+        }
+
+        // total count of programs, projects implemented by agency
+        $impCounts = [];
+
+        foreach ($agencyAbbreviations as $abbrev_imp) {
+            $impProgramsCount = DB::table('programs')
+                ->whereJsonContains('implementing_agency', $abbrev_imp)
+                ->count();
+
+            $impProjectsCount = DB::table('projects')
+                ->whereJsonContains('project_implementing_agency', $abbrev_imp)
+                ->count();
+
+            $impSubProjectsCount = DB::table('sub_projects')
+                ->whereJsonContains('sub_project_implementing_agency', $abbrev_imp)
+                ->count();
+
+            $impCounts[$abbrev_imp] = [
+                'programs' => $impProgramsCount,
+                'projects' => $impProjectsCount,
+                'subProjects' => $impSubProjectsCount,
+            ];
+        }
+
         return view(
             'backend.layouts.dashboard',
             [
@@ -282,7 +332,7 @@ class HomeController extends Controller
                 'total_terminated' => $total_terminated,
                 'total_completed' => $total_completed,
             ],
-            compact('all', 'title', 'data', 'datas', 'researcherCounts', 'progs', 'minValue', 'data_agency', 'agencyImp', 'minValueAgencyData', 'projs', 'sub_projs', 'total_projs', 'total_programs_count', 'total_projects', 'total_sub_projects', 'total_sub_projs', 'total_researchers', 'agencyData', 'dataBudget', 'total_programs', 'user_agency', 'total_programs_count_filter', 'total_projects_filter', 'total_sub_projects_filter', 'total_researchers_filter', 'total_programs_count_ongoing', 'total_programs_count_completed', 'total_projects_count_completed', 'total_projects_count_ongoing', 'labels_ini', 'values_ini', 'labels_prc', 'values_prc'),
+            compact('all', 'title', 'data', 'datas', 'progs', 'minValue', 'data_agency', 'agencyImp', 'minValueAgencyData', 'projs', 'sub_projs', 'total_projs', 'total_programs_count', 'total_projects', 'total_sub_projects', 'total_sub_projs', 'total_researchers', 'agencyData', 'dataBudget', 'total_programs', 'user_agency', 'total_programs_count_filter', 'total_projects_filter', 'total_sub_projects_filter', 'total_researchers_filter', 'total_programs_count_ongoing', 'total_programs_count_completed', 'total_projects_count_completed', 'total_projects_count_ongoing', 'labels_ini', 'values_ini', 'labels_prc', 'values_prc', 'fundedCounts', 'impCounts'),
         );
     }
 }

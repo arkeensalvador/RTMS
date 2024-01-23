@@ -49,35 +49,71 @@
                                                         <th>#</th>
                                                         <th>Type</th>
                                                         <th>Agency</th>
+                                                        <th>Author</th>
+                                                        <th>Co-author</th>
+                                                        <th>Proponent</th>
+                                                        <th>Beneficiary</th>
+                                                        <th>Implementer</th>
                                                         <th>Date</th>
-                                                        <th>Resource Person(s)</th>
                                                         <th>Topic Issues</th>
                                                         <th>Action</th>
                                                     </tr>
                                                 </thead>
-                                                <tbody>
-                                                    @foreach ($all as $key => $row)
-                                                        <tr>
-                                                            <td>{{ $row->id }}</td>
-                                                            <td>{{ $row->policy_type }}</td>
-                                                            <td>{{ $row->policy_agency }}</td>
-                                                            <td>{{ date('m-d-Y', strtotime($row->policy_date)) }}</td>
-                                                            <td>{{ $row->policy_resource }}</td>
-                                                            <td>{{ $row->policy_issues }}</td>
-                                                            <td class="action btns">
-                                                                <a href="{{ url('edit-formulated/' . Crypt::encryptString($row->id)) }}"
-                                                                    class="btn btn-primary"><i
-                                                                        class="fa-solid fa-pen-to-square"
-                                                                        style="color: white;"></i></a>
-                                                                <a href="{{ url('delete-formulated/' . Crypt::encryptString($row->id)) }}"
-                                                                    class="btn btn-danger" id="delete"><i
-                                                                        class="fa-solid fa-trash"></i></a>
-                                                            </td>
-                                                        </tr>
-                                                    @endforeach
-                                                </tbody>
+                                                @if (auth()->user()->role == 'Admin')
+                                                    <tbody>
+                                                        @foreach ($all as $key => $row)
+                                                            <tr>
+                                                                <td>{{ $row->id }}</td>
+                                                                <td>{{ $row->policy_type }}</td>
+                                                                <td>{{ $row->policy_agency }}</td>
+                                                                <td>{{ $row->policy_author }}</td>
+                                                                <td>{{ $row->policy_co_author }}</td>
+                                                                <td>{{ $row->policy_proponent }}</td>
+                                                                <td>{{ $row->policy_beneficiary }}</td>
+                                                                <td>{{ $row->policy_implementer }}</td>
+                                                                <td>{{ date('m/d/Y', strtotime($row->policy_date)) }}</td>
+                                                                <td>{{ $row->policy_issues }}</td>
+                                                                <td class="action btns">
+                                                                    <a href="{{ url('edit-formulated/' . Crypt::encryptString($row->id)) }}"
+                                                                        class="btn btn-primary"><i
+                                                                            class="fa-solid fa-pen-to-square"
+                                                                            style="color: white;"></i></a>
+                                                                    <a href="{{ url('delete-formulated/' . Crypt::encryptString($row->id)) }}"
+                                                                        class="btn btn-danger" id="delete"><i
+                                                                            class="fa-solid fa-trash"></i></a>
+                                                                </td>
+                                                            </tr>
+                                                        @endforeach
+                                                    </tbody>
+                                                @else
+                                                    <tbody>
+                                                        @foreach ($all_filter as $key => $row)
+                                                            <tr>
+                                                                <td>{{ $row->id }}</td>
+                                                                <td>{{ $row->policy_type }}</td>
+                                                                <td>{{ $row->policy_agency }}</td>
+                                                                <td>{{ $row->policy_author }}</td>
+                                                                <td>{{ $row->policy_co_author }}</td>
+                                                                <td>{{ $row->policy_proponent }}</td>
+                                                                <td>{{ $row->policy_beneficiary }}</td>
+                                                                <td>{{ $row->policy_implementer }}</td>
+                                                                <td>{{ date('m/d/Y', strtotime($row->policy_date)) }}</td>
+                                                                <td>{{ $row->policy_issues }}</td>
+                                                                <td class="action btns">
+                                                                    <a href="{{ url('edit-formulated/' . Crypt::encryptString($row->id)) }}"
+                                                                        class="btn btn-primary"><i
+                                                                            class="fa-solid fa-pen-to-square"
+                                                                            style="color: white;"></i></a>
+                                                                    <a href="{{ url('delete-formulated/' . Crypt::encryptString($row->id)) }}"
+                                                                        class="btn btn-danger" id="delete"><i
+                                                                            class="fa-solid fa-trash"></i></a>
+                                                                </td>
+                                                            </tr>
+                                                        @endforeach
+                                                    </tbody>
+                                                @endif
                                             </table>
-                                            <a href="{{ url('policy-formulated') }}" class="btn btn-default">Back</a>
+                                            <a href="{{ url('policy-index') }}" class="btn btn-default">Back</a>
                                         </div>
                                     </div>
                                 </div>

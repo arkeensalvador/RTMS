@@ -100,20 +100,20 @@
                                 </div>
 
                                 <div class="col-md-12 form-group">
-                                    <label for="strategic_implementing_agency" class=" font-weight-bold">Title<span
-                                            class="text-danger">*</span></label>
-                                    <input type="text" name="tech_title" id="strategic_title" class="form-control"
-                                        placeholder="Title" required>
+                                    <label for="strategic_implementing_agency" class=" font-weight-bold">Title of
+                                        Technology<span class="text-danger">*</span></label>
+                                    <textarea name="tech_title" id="strategic_title" class="form-control" placeholder="Enter title" required cols="30"
+                                        rows="5" required></textarea>
                                     <div class="invalid-feedback">Missing title</div>
                                 </div>
 
-                                <div class="col-md-12 form-group">
+                                {{-- <div class="col-md-12 form-group">
                                     <label for="strategic_implementing_agency" class=" font-weight-bold">Description<span
                                             class="text-danger">*</span></label>
                                     <textarea name="tech_desc" id="strategic_title" class="form-control" rows="4" style="resize: none" required
                                         placeholder="Description"></textarea>
                                     <div class="invalid-feedback">Missing title</div>
-                                </div>
+                                </div> --}}
 
                                 <div class="col-md-12 form-group">
                                     <label for="agencySelect" class=" font-weight-bold">Agency<span
@@ -137,8 +137,8 @@
                                     <div class="invalid-feedback">Missing researchers</div>
                                 </div>
 
-                                <div class="col-md-12 form-group">
-                                    <label for="agencySelect" class=" font-weight-bold">Program/Project Source<span
+                                {{-- <div class="col-md-12 form-group">
+                                    <label for="agencySelect" class="font-weight-bold">Program/Project Source<span
                                             class="text-danger">*</span></label>
                                     <select id="" name="tech_source" class="form-control source" required>
                                         <option value=""></option>
@@ -164,7 +164,7 @@
                                         </optgroup>
                                     </select>
                                     <div class="invalid-feedback">Missing program/project source</div>
-                                </div>
+                                </div> --}}
 
                                 <div class="col-md-12 form-group">
                                     <label for="strategic_implementing_agency" class=" font-weight-bold">Potential Impact or
@@ -211,7 +211,7 @@
                             data.forEach(function(researcher) {
                                 $('#researcherSelect').append($('<option>', {
                                     value: researcher.name,
-                                    text: researcher.name
+                                    text: researcher.name,
                                 }));
                             });
                             $('#researcherSelect').select2({

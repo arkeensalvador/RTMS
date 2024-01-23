@@ -17,13 +17,15 @@ class EquipmentController extends Controller
                 'equipments_type' => 'required',
                 'equipments_agency' => 'required',
                 'equipments_name' => 'required',
+                'equipments_details' => 'required',
                 'equipments_total' => 'required|numeric',
-                'equipments_sof' => 'required',
+                'equipments_sof' => 'required|array|min:1',
             ],
             [
                 'equipments_type.required' => 'Type field is required!',
                 'equipments_agency.required' => 'Agency field is required!',
                 'equipments_name.required' => 'Name field is required!',
+                'equipments_details.required' => 'Details field is required!',
                 'equipments_total.required' => 'Total field is required! (Input numbers only)',
                 'equipments_sof.required' => 'Source of funds field is required!',
             ],
@@ -33,8 +35,10 @@ class EquipmentController extends Controller
         $data['equipments_type'] = $request->equipments_type;
         $data['equipments_agency'] = $request->equipments_agency;
         $data['equipments_name'] = $request->equipments_name;
+        $data['equipments_details'] = $request->equipments_details;
         $data['equipments_total'] = $request->equipments_total;
-        $data['equipments_sof'] = $request->equipments_sof;
+        $data['equipments_sof'] = json_encode($request->equipments_sof);
+        $data['encoder_agency'] = auth()->user()->agencyID;
         $data['created_at'] = now();
 
         $insert = DB::table('cbg_equipments')->insert($data);
@@ -51,9 +55,12 @@ class EquipmentController extends Controller
         $all = DB::table('cbg_equipments')
             ->where('id', $id)
             ->first();
+        $imgs = DB::table('equipment_imgs')
+            ->where('equipment_id', $id)
+            ->get();
         $agency = DB::table('agency')->get();
         $researchers = DB::table('researchers')->get();
-        return view('backend.report.cbg.cbg_equipment_edit', compact('title', 'all', 'agency', 'researchers'));
+        return view('backend.report.cbg.cbg_equipment_edit', compact('title', 'all', 'agency', 'researchers', 'imgs'));
     }
 
     public function UpdateEquipment(Request $request, $id)
@@ -63,13 +70,15 @@ class EquipmentController extends Controller
                 'equipments_type' => 'required',
                 'equipments_agency' => 'required',
                 'equipments_name' => 'required',
+                'equipments_details' => 'required',
                 'equipments_total' => 'required|numeric',
-                'equipments_sof' => 'required',
+                'equipments_sof' => 'required|array|min:1',
             ],
             [
                 'equipments_type.required' => 'Type field is required!',
                 'equipments_agency.required' => 'Agency field is required!',
                 'equipments_name.required' => 'Name field is required!',
+                'equipments_details.required' => 'Details field is required!',
                 'equipments_total.required' => 'Total field is required! (Input numbers only)',
                 'equipments_sof.required' => 'Source of funds field is required!',
             ],
@@ -81,8 +90,9 @@ class EquipmentController extends Controller
         $data['equipments_type'] = $request->equipments_type;
         $data['equipments_agency'] = $request->equipments_agency;
         $data['equipments_name'] = $request->equipments_name;
+        $data['equipments_details'] = $request->equipments_details;
         $data['equipments_total'] = $request->equipments_total;
-        $data['equipments_sof'] = $request->equipments_sof;
+        $data['equipments_sof'] = json_encode($request->equipments_sof);
         $data['updated_at'] = now();
 
         $update = DB::table('cbg_equipments')

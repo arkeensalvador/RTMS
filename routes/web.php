@@ -84,6 +84,12 @@ Route::get('/delete-program/{id}', [App\Http\Controllers\backend\ProgramsControl
 // DELETE PROGRAM BUDGET
 Route::get('/delete-budget/{id}', [App\Http\Controllers\backend\ProgramsController::class, 'delete_budget'])->name('delete_budget');
 
+// DELETE PROJECT BUDGET
+Route::get('/delete-proj-budget/{id}', [App\Http\Controllers\backend\ProjectController::class, 'delete_budget'])->name('delete_budget');
+
+// DELETE SUB-PROJECT/STUDY BUDGET
+Route::get('/delete-sub-proj-budget/{id}', [App\Http\Controllers\backend\SubprojectController::class, 'delete_budget'])->name('delete_budget');
+
 // Add Program Personnel
 Route::post('/add-program-personnel', [\App\Http\Controllers\backend\ProgramsController::class, 'AddProgramPersonnel'])->name('AddProgramPersonnel');
 // Route::post('/add-program-personnel', [\App\Http\Controllers\backend\ReportController::class, 'AddProgramPersonnel'])->name('AddProgramPersonnel');
@@ -230,7 +236,7 @@ Route::get('/delete-strategic-program-list/{id}', [App\Http\Controllers\backend\
 Route::get('/strategic-collaborative-list', [App\Http\Controllers\backend\ReportController::class, 'strategic_collaborative_list'])->name('strategic_collaborative_list');
 Route::get('/add-strategic-collaborative-list-index', [App\Http\Controllers\backend\ReportController::class, 'add_strategic_collaborative_list_index'])->name('add_strategic_collaborative_list_index');
 Route::post('/add-strategic-collaborative-list', [App\Http\Controllers\backend\StrategicController::class, 'add_strategic_collaborative_list'])->name('add_strategic_collaborative_list');
-Route::get('/edit-strategic-collaborative-list-index/{id}/{programID}', [App\Http\Controllers\backend\StrategicController::class, 'edit_strategic_collaborative_list_index'])->name('edit_strategic_collaborative_list_index');
+Route::get('/edit-strategic-collaborative-list-index/{id}', [App\Http\Controllers\backend\StrategicController::class, 'edit_strategic_collaborative_list_index'])->name('edit_strategic_collaborative_list_index');
 Route::post('/update-strategic-collaborative-list/{id}', [App\Http\Controllers\backend\StrategicController::class, 'update_strategic_collaborative_list'])->name('update_strategic_collaborative_list');
 Route::get('/delete-strategic-collaborative-list/{id}', [App\Http\Controllers\backend\StrategicController::class, 'delete_strategic_collaborative_list'])->name('delete_strategic_collaborative_list');
 
@@ -382,7 +388,7 @@ Route::post('/import-file', [App\Http\Controllers\backend\ImportController::clas
 
 // AJAX REQUEST
 Route::get('/get-researchers', [App\Http\Controllers\backend\ResultsUtilizationController::class, 'getResearchers'])->name('getResearchers');
-Route::get('/get-projects', [App\Http\Controllers\backend\StrategicController::class, 'getProjects'])->name('getProjects');
+// Route::get('/get-projects', [App\Http\Controllers\backend\StrategicController::class, 'getProjects'])->name('getProjects');
 
 // register email
 Route::post('/register', [App\Http\Controllers\backend\UserController::class, 'register']);
@@ -399,3 +405,12 @@ Route::get('/edit-profile/{id}', [App\Http\Controllers\ProfileController::class,
 Route::post('/update-profile/{id}', [App\Http\Controllers\ProfileController::class, 'profile_update'])->name('profile_update');
 
 Route::get('/initiatives-per-agency', [HomeController::class, 'countInitiativesPerAgency']);
+
+// Strategic IMG uploads
+Route::post('/image/upload/store', [App\Http\Controllers\DropzoneController::class, 'fileStore']);
+Route::post('/image/upload/store/collab', [App\Http\Controllers\DropzoneController::class, 'fileStoreCollab']);
+Route::post('/image/upload/store/tech', [App\Http\Controllers\DropzoneController::class, 'fileStoreTech']);
+Route::post('/image/upload/store/training', [App\Http\Controllers\DropzoneController::class, 'fileStoreTraining']);
+Route::post('/image/upload/store/equipment', [App\Http\Controllers\DropzoneController::class, 'fileStoreEquipment']);
+
+// Route::post('/strategic-programs-list-img', [App\Http\Controllers\StrategicController::class, 'fileStore']);

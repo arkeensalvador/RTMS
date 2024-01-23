@@ -96,29 +96,6 @@
                                     <h5 class="mt-0"> Kindly fill-out the fields needed.</h5>
                                 </div>
 
-                                <div class="col-md-6 form-group">
-                                    <label for="ini_initiates" class="font-weight-bold">Type<span
-                                            class="text-danger">*</span></label>
-                                    <br>
-                                    <select id="policy_type" name="policy_type" class="others form-control" required>
-                                        <option selected disabled value="">Select Type</option>
-                                        <option value="Formulated">Formulated</option>
-                                        <option value="Advocated">Advocated</option>
-                                        <option value="Implemented">Implemented</option>
-                                        <option value="Institutionalized">Institutionalized</option>
-                                    </select>
-                                    <div class="invalid-feedback">Missing type</div>
-                                </div>
-                                <br>
-
-                                <div class="col-md-3">
-                                    <label for="tpa_date" class=" font-weight-bold">Date<span
-                                            class="text-danger">*</span></label>
-                                    <input type="text" name="policy_date" id="policy_date" class="form-control date"
-                                        placeholder="Enter date" required>
-                                    <div class="invalid-feedback">Missing date</div>
-                                </div>
-
                                 <div class="col-md-12 form-group">
                                     <label for="ini_initiates" class="font-weight-bold">Agency<span
                                             class="text-danger">*</span></label>
@@ -135,24 +112,77 @@
                                     <div class="invalid-feedback">Missing agency</div>
                                 </div>
 
-                                <div class="col-md-12 form-group">
-                                    <label for="policy_issues" class="font-weight-bold">Resource Person<span
+                                <div class="col-md-6">
+                                    <label for="ini_initiates" class="font-weight-bold">Type<span
                                             class="text-danger">*</span></label>
+                                    <br>
+                                    <select id="policy_type" name="policy_type" class="others form-control" required>
+                                        <option selected disabled value="">Select Type</option>
+                                        <option value="Formulated">Formulated</option>
+                                        <option value="Advocated">Advocated</option>
+                                        <option value="Implemented">Implemented</option>
+                                        <option value="Institutionalized">Institutionalized</option>
+                                    </select>
+                                    <div class="invalid-feedback">Missing type</div>
+                                </div>
 
-                                    <textarea name="policy_resource" id="policy_resource" class="form-control" placeholder="Enter resource person(s)"
-                                        cols="30" rows="3" required></textarea>
 
-                                    <div class="invalid-feedback">Missing resource person</div>
+                                <div class="col-md-6">
+                                    <label for="tpa_date" class=" font-weight-bold">Author<span
+                                            class="text-danger">*</span></label>
+                                    <input type="text" name="policy_author" id="policy_author" class="form-control"
+                                        placeholder="Enter author" required>
+                                    <div class="invalid-feedback">Missing author</div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label for="tpa_date" class=" font-weight-bold">Co-author<span
+                                            class="text-danger">*</span></label>
+                                    <input type="text" name="policy_co_author" id="policy_co_author" class="form-control"
+                                        placeholder="Enter co-author" required>
+                                    <div class="invalid-feedback">Missing co-author</div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label for="tpa_date" class=" font-weight-bold">Proponent<span
+                                            class="text-danger">*</span></label>
+                                    <input type="text" name="policy_proponent" id="policy_proponent" class="form-control"
+                                        placeholder="Enter proponent" required>
+                                    <div class="invalid-feedback">Missing proponent</div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label for="tpa_date" class=" font-weight-bold">Beneficiary<span
+                                            class="text-danger">*</span></label>
+                                    <input type="text" name="policy_beneficiary" id="policy_beneficiary"
+                                        class="form-control" placeholder="Enter beneficiary" required>
+                                    <div class="invalid-feedback">Missing beneficiary</div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label for="tpa_date" class=" font-weight-bold">Implementer<span
+                                            class="text-danger">*</span></label>
+                                    <input type="text" name="policy_implementer" id="policy_implementer"
+                                        class="form-control" placeholder="Enter implementer" required>
+                                    <div class="invalid-feedback">Missing implementer</div>
+                                </div>
+
+                                <div class="col-md-3">
+                                    <label for="tpa_date" class=" font-weight-bold">Date<span
+                                            class="text-danger">*</span></label>
+                                    <input type="text" name="policy_date" id="policy_date" class="form-control date"
+                                        placeholder="Enter date" required>
+                                    <div class="invalid-feedback">Missing date</div>
                                 </div>
 
                                 <div class="col-md-12 form-group">
-                                    <label for="policy_issues" class="font-weight-bold">Topic issues<span
+                                    <label for="policy_issues" class="font-weight-bold">Issues addressed<span
                                             class="text-danger">*</span></label>
 
                                     <textarea name="policy_issues" id="policy_issues" placeholder="Enter issues addressed" class="form-control"
                                         cols="30" rows="5" required></textarea>
 
-                                    <div class="invalid-feedback">Missing topic issues</div>
+                                    <div class="invalid-feedback">Missing issues addressed</div>
                                 </div>
 
                                 <div class="col-md-4 form-group float-right">

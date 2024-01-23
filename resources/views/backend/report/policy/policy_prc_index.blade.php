@@ -15,7 +15,7 @@
                             <li class="breadcrumb-item"><a href="home">Home</a></li>
                             <li class="breadcrumb-item"><a href="report-index">Reports</a></li>
                             <li class="breadcrumb-item"><a href="policy-index">Policy</a></li>
-                            <li class="breadcrumb-item active">Policy Researchers Conducted
+                            <li class="breadcrumb-item active">Policy Researches Conducted
                             </li>
                         </ol>
                     </div><!-- /.col -->
@@ -29,7 +29,7 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-header">
-                                <h2 class="card-title">List of Policy Researchers Conducted</h2>
+                                <h2 class="card-title">List of Policy Researches Conducted</h2>
                                 <div class="card-tools">
                                     <a href="{{ url('policy-prc-add') }}" class="btn btn-success"><span><i
                                                 class="fa-solid fa-plus"></i> Add</span></a>
@@ -47,30 +47,53 @@
                                                         <th>Title</th>
                                                         <th>Agency</th>
                                                         <th>Author</th>
-                                                        <th>Issues Addressed</th>
+                                                        <th>Addressed Issues</th>
                                                         <th>Action</th>
                                                     </tr>
                                                 </thead>
-                                                <tbody>
-                                                    @foreach ($all as $key => $row)
-                                                        <tr>
-                                                            <td>{{ $row->id }}</td>
-                                                            <td>{{ $row->prc_title }}</td>
-                                                            <td>{{ $row->prc_agency }}</td>
-                                                            <td>{{ $row->prc_author }}</td>
-                                                            <td>{{ $row->prc_issues }}</td>
-                                                            <td class="action btns">
-                                                                <a href="{{ url('edit-prc/' . Crypt::encryptString($row->id)) }}"
-                                                                    class="btn btn-primary"><i
-                                                                        class="fa-solid fa-pen-to-square"
-                                                                        style="color: white;"></i></a>
-                                                                <a href="{{ url('delete-prc/' . Crypt::encryptString($row->id)) }}"
-                                                                    class="btn btn-danger" id="delete"><i
-                                                                        class="fa-solid fa-trash"></i></a>
-                                                            </td>
-                                                        </tr>
-                                                    @endforeach
-                                                </tbody>
+                                                @if (auth()->user()->role == 'Admin')
+                                                    <tbody>
+                                                        @foreach ($all as $key => $row)
+                                                            <tr>
+                                                                <td>{{ $row->id }}</td>
+                                                                <td>{{ $row->prc_title }}</td>
+                                                                <td>{{ $row->prc_agency }}</td>
+                                                                <td>{{ $row->prc_author }}</td>
+                                                                <td>{{ $row->prc_issues }}</td>
+                                                                <td class="action btns">
+                                                                    <a href="{{ url('edit-prc/' . Crypt::encryptString($row->id)) }}"
+                                                                        class="btn btn-primary"><i
+                                                                            class="fa-solid fa-pen-to-square"
+                                                                            style="color: white;"></i></a>
+                                                                    <a href="{{ url('delete-prc/' . Crypt::encryptString($row->id)) }}"
+                                                                        class="btn btn-danger" id="delete"><i
+                                                                            class="fa-solid fa-trash"></i></a>
+                                                                </td>
+                                                            </tr>
+                                                        @endforeach
+                                                    </tbody>
+                                                @else
+                                                    <tbody>
+                                                        @foreach ($all_filter as $key => $row)
+                                                            <tr>
+                                                                <td>{{ $row->id }}</td>
+                                                                <td>{{ $row->prc_title }}</td>
+                                                                <td>{{ $row->prc_agency }}</td>
+                                                                <td>{{ $row->prc_author }}</td>
+                                                                <td>{{ $row->prc_issues }}</td>
+                                                                <td class="action btns">
+                                                                    <a href="{{ url('edit-prc/' . Crypt::encryptString($row->id)) }}"
+                                                                        class="btn btn-primary"><i
+                                                                            class="fa-solid fa-pen-to-square"
+                                                                            style="color: white;"></i></a>
+                                                                    <a href="{{ url('delete-prc/' . Crypt::encryptString($row->id)) }}"
+                                                                        class="btn btn-danger" id="delete"><i
+                                                                            class="fa-solid fa-trash"></i></a>
+                                                                </td>
+                                                            </tr>
+                                                        @endforeach
+                                                    </tbody>
+                                                @endif
                                             </table>
                                             <a href="{{ url('policy-index') }}" class="btn btn-default">Back</a>
                                         </div>

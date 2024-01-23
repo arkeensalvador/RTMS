@@ -7,49 +7,39 @@
                 <div class="col-md-12">
                     <div class="container">
                         <div class="row pt-2 ">
-                            <div class="col-md-4 ">
+                            <div class="col-md-6 ">
                                 <div class="card-counter bg-primary text-white">
                                     <i class="fa fa-area-chart"></i>
                                     <span class="count-numbers h2"><span class="font-weight-bold">₱</span>
-                                        @empty($projects->project_approved_budget)
-                                            -
-                                        @else
-                                            {{ $projects->project_approved_budget }}
-                                        @endempty
+                                        {{ number_format($projects->project_amount_released, 2) }}
                                     </span>
-                                    <span class="card-title font-italic ">Project Budget</span>
+                                    <span class="card-title font-italic">Released Budget</span>
                                 </div>
                             </div>
 
-                            <div class="col-md-4">
-                                <div class="card-counter bg-info text-white">
-                                    <i class="fa fa-bar-chart"></i>
-                                    <span class="count-numbers h2"><span class="font-weight-bold">₱</span>
-                                        @empty($projects->project_approved_budget)
-                                            -
-                                        @else
-                                            {{ $projects->project_approved_budget }}
-                                        @endempty
-                                    </span>
-                                    <span class="card-title font-italic">Approved Budget</span>
-                                </div>
-                            </div>
 
-                            <div class="col-md-4">
+                            <div class="col-md-6">
                                 <div class="card-counter bg-success text-white">
                                     <i class="fa fa-calendar-o"></i>
-                                    <span class="count-duration h5">
-                                        @empty($projects->project_extend_date)
-                                            {{ date('F, Y', strtotime($projects->project_start_date)) }}
-                                            -
-                                            {{ date('F, Y', strtotime($projects->project_end_date)) }}
-                                        @else
-                                            {{ date('F, Y', strtotime($projects->project_start_date)) }}
-                                            -
-                                            {{ date('F, Y', strtotime($projects->project_extend_date)) }}
-                                        @endempty
+                                    <span class="count-duration h2">
+                                        @php
+                                            use Carbon\Carbon;
+                                            // Get the date range from the flatpickr input
+                                            $dateRange = $projects->project_duration;
+
+                                            // Extract start and end dates from the range
+                                            [$startDate, $endDate] = explode(' to ', $dateRange);
+
+                                            // Convert the string dates to Carbon objects
+                                            $startDate = Carbon::createFromFormat('m/d/Y', $startDate);
+                                            $endDate = Carbon::createFromFormat('m/d/Y', $endDate);
+
+                                            // Calculate the difference in months
+                                            $months = $startDate->diffInMonths($endDate);
+                                        @endphp
+                                        {{ $projects->project_duration }}
                                     </span>
-                                    <span class="card-title font-italic">Program Duration</span>
+                                    <span class="card-title font-italic">Duration</span>
                                 </div>
                             </div>
                         </div>
@@ -70,12 +60,20 @@
                             <table class="table">
                                 <tbody>
                                     <tr>
-                                        <th scope="row" class="thwidth">ID</th>
-                                        <td> {{ $projects->id }}</td>
+                                        <th scope="row" class="thwidth">Duration</th>
+                                        <td>{{ $months }} Months</td>
                                     </tr>
                                     <tr>
+                                        <th scope="row" class="thwidth">Project Leader</th>
+                                        <td>{{ $project_leader->first_name . ' ' . $project_leader->middle_name . ' ' . $project_leader->last_name }}
+                                        </td>
+                                    </tr>
+                                    @php
+                                        $funding = json_decode($projects->project_agency);
+                                    @endphp
+                                    <tr>
                                         <th scope="row" class="thwidth">Funding Agency</th>
-                                        <td>{{ $agency->agency_name }} ({{ $agency->abbrev }})</td>
+                                        <td>{{ implode(', ', $funding) }}</td>
                                     </tr>
                                     @php
                                         $imp = json_decode($projects->project_implementing_agency);
@@ -84,14 +82,14 @@
                                         <th scope="row" class="thwidth">Implementing Agency</th>
                                         <td>{{ implode(' / ', $imp) }}</td>
                                     </tr>
+                                    @php
+                                        $collab = json_decode($projects->project_collaborating_agency);
+                                    @endphp
                                     <tr>
-                                        <th scope="row" class="thwidth">Project Leader</th>
-                                        <td>{{ $projects->project_leader }}</td>
+                                        <th scope="row" class="thwidth">Collaborating Agency</th>
+                                        <td>{{ implode(' / ', $collab) }}</td>
                                     </tr>
-                                    <tr>
-                                        <th scope="row" class="thwidth">Project Assistant Leader</th>
-                                        <td>{{ $projects->project_assistant_leader }}</td>
-                                    </tr>
+
                                     <tr>
                                         <th scope="row" class="thwidth">Project Staff(s)</th>
                                         <td>
@@ -134,7 +132,7 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <th scope="row" class="thwidth">Sub - project(s) under this project</th>
+                                        <th scope="row" class="thwidth">Sub - project/Study under this project</th>
                                         <td>
                                             <ul class="list-group list-group-flush">
                                                 @foreach ($sub_projects as $key => $items)
@@ -147,6 +145,36 @@
                                             </ul>
                                         </td>
                                     </tr>
+                                    <tr>
+                                        <th scope="row" class="thwidth">Type of funding grant</th>
+                                        <td>
+                                            {{ $projects->project_funding_grant }}
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                            <table id="budget-table" class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Approved Budget</th>
+                                        <th>Year No.</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($budgetData as $key => $data)
+                                        <tr>
+                                            <td>
+                                                <input type="text" class="form-control budget-input"
+                                                    name="approved_budget[]" readonly oninput="validateInput(this)"
+                                                    value="{{ $data->approved_budget }}" required>
+                                            </td>
+                                            <td>
+                                                <input type="text" class="form-control year-input" name="budget_year[]"
+                                                    value="{{ $data->budget_year }}" required readonly>
+                                            </td>
+                                        </tr>
+                                    @endforeach
                                 </tbody>
                             </table>
 

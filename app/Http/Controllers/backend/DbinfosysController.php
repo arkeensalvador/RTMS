@@ -37,6 +37,7 @@ class DbinfosysController extends Controller
         $data['dbinfosys_title'] = $request->dbinfosys_title;
         $data['dbinfosys_date_created'] = $request->dbinfosys_date_created;
         $data['dbinfosys_purpose'] = $request->dbinfosys_purpose;
+        $data['encoder_agency'] = auth()->user()->agencyID;
         $data['created_at'] = now();
 
         $insert = DB::table('rdmc_dbinfosys')->insert($data);

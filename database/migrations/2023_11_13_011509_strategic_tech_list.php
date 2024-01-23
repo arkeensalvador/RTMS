@@ -14,11 +14,12 @@ return new class extends Migration {
             $table->id('id');
             $table->string('tech_type');
             $table->string('tech_title');
-            $table->longText('tech_desc');
-            $table->string('tech_source');
+            // $table->longText('tech_desc');
+            // $table->string('tech_source');
             $table->string('tech_agency');
             $table->string('tech_researchers');
             $table->longText('tech_impact');
+            $table->string('encoder_agency');
             $table->timestamps();
         });
     }

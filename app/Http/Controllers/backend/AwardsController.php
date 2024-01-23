@@ -4,6 +4,7 @@ namespace App\Http\Controllers\backend;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Awards;
 use DB;
 
 class AwardsController extends Controller
@@ -23,6 +24,8 @@ class AwardsController extends Controller
                 'awards_event' => 'required',
                 'awards_place' => 'required',
                 'awards_recipients' => 'required',
+                'awards_ceremony' => 'required',
+                'certificate' => 'required|mimes:jpeg,jpg,png',
             ],
             [
                 'awards_type.required' => 'Awards type field is required!',
@@ -33,8 +36,15 @@ class AwardsController extends Controller
                 'awards_event.required' => 'Awards event field is required!',
                 'awards_place.required' => 'Awards place field is required!',
                 'awards_recipients.required' => 'Awards recipients field is required!',
+                'awards_ceremony.required' => 'Type of Ceremony is required!',
+                'certificate.required' => 'Award Certificate is required!',
             ],
         );
+        // Auto-rename the uploaded certificate
+        $certificate = $request->file('certificate');
+        $extension = $certificate->getClientOriginalExtension();
+        $newFileName = "{$request->awards_title}.{$extension}";
+        $certificatePath = $certificate->storeAs('award_certificates', $newFileName, 'awards');
 
         $data = [];
         $data['awards_type'] = $request->awards_type;
@@ -44,7 +54,10 @@ class AwardsController extends Controller
         $data['awards_sponsor'] = $request->awards_sponsor;
         $data['awards_event'] = $request->awards_event;
         $data['awards_place'] = $request->awards_place;
-        $data['awards_recipients'] = htmlspecialchars_decode(json_encode($request->awards_recipients));
+        $data['awards_recipients'] = ucwords($request->awards_recipients);
+        $data['awards_ceremony'] = $request->awards_ceremony;
+        $data['certificate'] = $certificatePath;
+        $data['encoder_agency'] = auth()->user()->agencyID;
         $data['created_at'] = now();
 
         $insert = DB::table('cbg_awards')->insert($data);
@@ -97,6 +110,7 @@ class AwardsController extends Controller
                 'awards_sponsor' => 'required',
                 'awards_event' => 'required',
                 'awards_place' => 'required',
+                'awards_ceremony' => 'required',
                 'awards_recipients' => 'required',
             ],
             [
@@ -107,9 +121,26 @@ class AwardsController extends Controller
                 'awards_sponsor.required' => 'Awards sponsor field is required!',
                 'awards_event.required' => 'Awards event field is required!',
                 'awards_place.required' => 'Awards place field is required!',
+                'awards_ceremony.required' => 'Type of Ceremony is required!',
                 'awards_recipients.required' => 'Awards recipients field is required!',
             ],
         );
+
+        $award = Awards::find($id);
+        if ($request->hasFile('certificate')) {
+            // Remove old certificate
+            if ($award->profile_picture) {
+                Storage::disk('public')->delete($award->certificate);
+            }
+
+            // Save the new profile picture
+            $certificate = $request->file('certificate');
+            $extension = $certificate->getClientOriginalExtension();
+            $newFileName = "{$request->awards_title}.{$extension}";
+            $certificatePath = $certificate->storeAs('award_certificates', $newFileName, 'awards');
+            $award->certificate = $certificatePath;
+        }
+
         $data = [];
         $data['awards_type'] = $request->awards_type;
         $data['awards_agency'] = $request->awards_agency;
@@ -118,12 +149,16 @@ class AwardsController extends Controller
         $data['awards_sponsor'] = $request->awards_sponsor;
         $data['awards_event'] = $request->awards_event;
         $data['awards_place'] = $request->awards_place;
-        $data['awards_recipients'] = json_encode($request->awards_recipients);
+        $data['awards_recipients'] = ucwords($request->awards_recipients);
+        $data['awards_ceremony'] = $request->awards_ceremony;
         $data['updated_at'] = now();
 
         $update = DB::table('cbg_awards')
             ->where('id', $id)
             ->update($data);
+
+        $award->save();
+
         if ($update) {
             return response()->json(['success' => 'Award Updated Successfully!']);
         } else {

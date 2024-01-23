@@ -53,25 +53,47 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    @foreach ($all as $key => $row)
-                                                        <tr>
-                                                            <td>{{ $key + 1 }}</td>
-                                                            <td>{{ $row->type }}</td>
-                                                            <td>{{ $row->form_of_development }}</td>
-                                                            <td>{{ $row->year }}</td>
-                                                            <td>{{ $row->address }}</td>
-                                                            <td>{{ $row->nature_of_assistance }}</td>
-                                                            <td class="action btns">
-                                                                <a class="btn btn-primary"
-                                                                    href="{{ url("edit-linkages/$row->id") }}"><i
-                                                                        class="fa-solid fa-pen-to-square"
-                                                                        style="color: white;"></i></a>
-                                                                <a href="{{ URL::to('/delete-linkages/' . $row->id) }}"
-                                                                    class="btn btn-danger" id="delete"><i
-                                                                        class="fa-solid fa-trash"></i></a>
-                                                            </td>
-                                                        </tr>
-                                                    @endforeach
+                                                    @if (auth()->user()->role == 'Admin')
+                                                        @foreach ($all as $key => $row)
+                                                            <tr>
+                                                                <td>{{ $key + 1 }}</td>
+                                                                <td>{{ $row->type }}</td>
+                                                                <td>{{ $row->form_of_development }}</td>
+                                                                <td>{{ $row->year }}</td>
+                                                                <td>{{ $row->address }}</td>
+                                                                <td>{{ $row->nature_of_assistance }}</td>
+                                                                <td class="action btns">
+                                                                    <a class="btn btn-primary"
+                                                                        href="{{ url("edit-linkages/$row->id") }}"><i
+                                                                            class="fa-solid fa-pen-to-square"
+                                                                            style="color: white;"></i></a>
+                                                                    <a href="{{ URL::to('/delete-linkages/' . $row->id) }}"
+                                                                        class="btn btn-danger" id="delete"><i
+                                                                            class="fa-solid fa-trash"></i></a>
+                                                                </td>
+                                                            </tr>
+                                                        @endforeach
+                                                    @else
+                                                        @foreach ($all_filter as $key => $row)
+                                                            <tr>
+                                                                <td>{{ $key + 1 }}</td>
+                                                                <td>{{ $row->type }}</td>
+                                                                <td>{{ $row->form_of_development }}</td>
+                                                                <td>{{ $row->year }}</td>
+                                                                <td>{{ $row->address }}</td>
+                                                                <td>{{ $row->nature_of_assistance }}</td>
+                                                                <td class="action btns">
+                                                                    <a class="btn btn-primary"
+                                                                        href="{{ url("edit-linkages/$row->id") }}"><i
+                                                                            class="fa-solid fa-pen-to-square"
+                                                                            style="color: white;"></i></a>
+                                                                    <a href="{{ URL::to('/delete-linkages/' . $row->id) }}"
+                                                                        class="btn btn-danger" id="delete"><i
+                                                                            class="fa-solid fa-trash"></i></a>
+                                                                </td>
+                                                            </tr>
+                                                        @endforeach
+                                                    @endif
                                                 </tbody>
                                             </table>
                                             <a href="{{ url('rdmc-index') }}" class="btn btn-default">Back</a>

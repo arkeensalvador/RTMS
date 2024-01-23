@@ -12,7 +12,7 @@
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="home">Home</a></li>
                             <li class="breadcrumb-item"><a href="strategic-index">Strategic R&D</a></li>
-                            <li class="breadcrumb-item active">Technologies Generated</li>
+                            <li class="breadcrumb-item active">Technologies/Information Generated</li>
                         </ol>
                     </div><!-- /.col -->
                 </div><!-- /.row -->
@@ -25,7 +25,7 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-header">
-                                <h2 class="card-title">List of Technologies Generated from R&D</h2>
+                                <h2 class="card-title">List of Technologies/Information Generated from R&D</h2>
                                 <div class="card-tools">
                                     <a href="{{ url('add-strategic-tech-list-index') }}"
                                         class="btn btn-success {{ Route::current()->getName() == 'add-programs-index' ? 'active' : '' }}"><span><i
@@ -44,42 +44,73 @@
                                                     <tr>
                                                         <th>Type</th>
                                                         <th>Title</th>
-                                                        <th>Description</th>
-                                                        <th>Source</th>
+                                                        {{-- <th>Description</th> --}}
+                                                        {{-- <th>Source</th> --}}
                                                         <th>Agency</th>
                                                         <th>Researchers</th>
                                                         <th>Impact</th>
                                                         <th>Action</th>
                                                     </tr>
                                                 </thead>
-                                                <tbody>
-                                                    @foreach ($all as $key => $row)
-                                                        <tr>
-                                                            <td>{{ $row->tech_type }}</td>
-                                                            <td>{{ $row->tech_title }}</td>
-                                                            <td>{{ $row->tech_desc }}</td>
-                                                            <td>{{ $row->tech_source }}</td>
-                                                            <td>{{ $row->tech_agency }}</td>
-                                                            <td>
-                                                                @php
-                                                                    $res = json_decode($row->tech_researchers);
-                                                                    $res = implode(', ', $res);
-                                                                @endphp
-                                                                {{ $res }}
-                                                            </td>
-                                                            <td>{{ $row->tech_impact }}</td>
-                                                            <td class="action btns">
-                                                                <a class="btn btn-primary"
-                                                                    href="{{ url('edit-strategic-tech-list-index/' . Crypt::encryptString($row->id)) }}"><i
-                                                                        class="fa-solid fa-pen-to-square"
-                                                                        style="color: white;"></i></a>
-                                                                <a href="{{ url('delete-strategic-tech-list/' . Crypt::encryptString($row->id)) }}"
-                                                                    class="btn btn-danger" id="delete"><i
-                                                                        class="fa-solid fa-trash"></i></a>
-                                                            </td>
-                                                        </tr>
-                                                    @endforeach
-                                                </tbody>
+                                                @if (auth()->user()->role == 'Admin')
+                                                    <tbody>
+                                                        @foreach ($all as $key => $row)
+                                                            <tr>
+                                                                <td>{{ $row->tech_type }}</td>
+                                                                <td>{{ $row->tech_title }}</td>
+                                                                {{-- <td>{{ $row->tech_desc }}</td> --}}
+                                                                {{-- <td>{{ $row->tech_source }}</td> --}}
+                                                                <td>{{ $row->tech_agency }}</td>
+                                                                <td>
+                                                                    @php
+                                                                        $res = json_decode($row->tech_researchers);
+                                                                        $res = implode(', ', $res);
+                                                                    @endphp
+                                                                    {{ $res }}
+                                                                </td>
+                                                                <td>{{ $row->tech_impact }}</td>
+                                                                <td class="action btns">
+                                                                    <a class="btn btn-primary"
+                                                                        href="{{ url('edit-strategic-tech-list-index/' . Crypt::encryptString($row->id)) }}"><i
+                                                                            class="fa-solid fa-pen-to-square"
+                                                                            style="color: white;"></i></a>
+                                                                    <a href="{{ url('delete-strategic-tech-list/' . Crypt::encryptString($row->id)) }}"
+                                                                        class="btn btn-danger" id="delete"><i
+                                                                            class="fa-solid fa-trash"></i></a>
+                                                                </td>
+                                                            </tr>
+                                                        @endforeach
+                                                    </tbody>
+                                                @else
+                                                    <tbody>
+                                                        @foreach ($all_filter as $key => $row)
+                                                            <tr>
+                                                                <td>{{ $row->tech_type }}</td>
+                                                                <td>{{ $row->tech_title }}</td>
+                                                                {{-- <td>{{ $row->tech_desc }}</td> --}}
+                                                                {{-- <td>{{ $row->tech_source }}</td> --}}
+                                                                <td>{{ $row->tech_agency }}</td>
+                                                                <td>
+                                                                    @php
+                                                                        $res = json_decode($row->tech_researchers);
+                                                                        $res = implode(', ', $res);
+                                                                    @endphp
+                                                                    {{ $res }}
+                                                                </td>
+                                                                <td>{{ $row->tech_impact }}</td>
+                                                                <td class="action btns">
+                                                                    <a class="btn btn-primary"
+                                                                        href="{{ url('edit-strategic-tech-list-index/' . Crypt::encryptString($row->id)) }}"><i
+                                                                            class="fa-solid fa-pen-to-square"
+                                                                            style="color: white;"></i></a>
+                                                                    <a href="{{ url('delete-strategic-tech-list/' . Crypt::encryptString($row->id)) }}"
+                                                                        class="btn btn-danger" id="delete"><i
+                                                                            class="fa-solid fa-trash"></i></a>
+                                                                </td>
+                                                            </tr>
+                                                        @endforeach
+                                                    </tbody>
+                                                @endif
                                             </table>
                                             {{-- <a href="#">
                                                 <div class="monitoring info-box bg-light">

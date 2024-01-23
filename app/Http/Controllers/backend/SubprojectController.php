@@ -16,44 +16,36 @@ class SubprojectController extends Controller
         date_default_timezone_set('Asia/Hong_Kong');
         $request->validate(
             [
-                'sub_project_fund_code' => 'required',
-                'sub_project_funding_years' => 'required',
-                'sub_project_funding_duration' => 'required',
+                // 'sub_project_fund_code' => 'required',
+                'sub_project_funding_grant' => 'required',
                 'sub_project_title' => 'required',
                 'sub_project_status' => 'required',
                 'sub_project_category' => 'required',
                 'sub_project_agency' => 'required',
+                'sub_project_collaborating_agency' => 'required',
                 'sub_project_implementing_agency' => 'required',
                 'sub_project_research_center' => 'required',
-                'sub_project_start_date' => 'required',
-                'sub_project_end_date' => 'required',
+                'sub_project_duration' => 'required',
                 'sub_project_leader' => 'required',
-                'sub_project_assistant_leader' => 'required',
                 'sub_project_description' => 'required',
-                'sub_project_approved_budget' => 'required|numeric',
                 'sub_project_amount_released' => 'required',
-                'sub_project_budget_year' => 'required',
                 'sub_project_form_of_development' => 'required',
                 'keywords' => 'required',
             ],
             [
-                'sub_project_fund_code.required' => 'Fund code is required!',
-                'sub_project_funding_years.required' => 'Funding years is required!',
-                'sub_project_funding_duration.required' => 'Funding duration is required!',
+                // 'sub_project_fund_code.required' => 'Fund code is required!',
+                'sub_project_funding_grant.required' => 'Funding duration is required!',
                 'sub_project_title.required' => 'Title is required!',
                 'sub_project_status.required' => 'Status is required!',
                 'sub_project_category.required' => 'Category is required!',
                 'sub_project_agency.required' => 'Funding agency is required!',
+                'sub_project_collaborating_agency.required' => 'Collaborating agency is required!',
                 'sub_project_implementing_agency.required' => 'Implementing agency is required!',
                 'sub_project_research_center.required' => 'Research center is required!',
-                'sub_project_start_date.required' => 'Date is required!',
-                'sub_project_end_date.required' => 'Date is required!',
+                'sub_project_duration.required' => 'Date is required!',
                 'sub_project_project_leader.required' => 'Program leader is required!',
-                'sub_project_assistant_leader.required' => 'Assistant leader is required!',
                 'sub_project_description.required' => 'Description is required!',
-                'sub_project_approved_budget.required' => 'Budget is required!',
                 'sub_project_amount_released.required' => 'Released amount is required!',
-                'sub_project_budget_year.required' => 'Budget year is required!',
                 'sub_project_form_of_development.required' => 'Form of development is required!',
                 'keywords.required' => 'Keywords is/are required!',
             ],
@@ -63,28 +55,41 @@ class SubprojectController extends Controller
         $data['programID'] = $request->programID;
         $data['projectID'] = $request->projectID;
         $data['sub_project_fund_code'] = $request->sub_project_fund_code;
-        $data['sub_project_funding_years'] = $request->sub_project_funding_years;
-        $data['sub_project_funding_duration'] = $request->sub_project_funding_duration;
+        $data['sub_project_funding_grant'] = $request->sub_project_funding_grant;
         $data['sub_project_title'] = $request->sub_project_title;
         $data['sub_project_status'] = $request->sub_project_status;
         $data['sub_project_category'] = $request->sub_project_category;
-        $data['sub_project_agency'] = $request->sub_project_agency;
+        $data['sub_project_agency'] = json_encode($request->sub_project_agency);
+        $data['sub_project_collaborating_agency'] = json_encode($request->sub_project_collaborating_agency);
         $data['sub_project_implementing_agency'] = json_encode($request->sub_project_implementing_agency);
         $data['sub_project_research_center'] = htmlspecialchars_decode(json_encode($request->sub_project_research_center));
-        $data['sub_project_start_date'] = $request->sub_project_start_date;
-        $data['sub_project_end_date'] = $request->sub_project_end_date;
+        $data['sub_project_duration'] = $request->sub_project_duration;
         $data['sub_project_leader'] = $request->sub_project_leader;
-        $data['sub_project_assistant_leader'] = $request->sub_project_assistant_leader;
-        $data['sub_project_extend_date'] = $request->sub_project_extend_date;
         $data['sub_project_description'] = $request->sub_project_description;
-        $data['sub_project_approved_budget'] = str_replace(',', '', $request->sub_project_approved_budget);
-        $data['sub_project_amount_released'] = str_replace(',', '', $request->sub_project_amount_released);
-        $data['sub_project_budget_year'] = $request->sub_project_budget_year;
+        $data['sub_project_amount_released'] = $request->sub_project_amount_released;
         $data['sub_project_form_of_development'] = $request->sub_project_form_of_development;
         $data['keywords'] = htmlspecialchars_decode(json_encode($request->keywords));
+        $data['encoder_agency'] = auth()->user()->agencyID;
         $data['created_at'] = now();
 
-        $insert = DB::table('sub_projects')->insert($data);
+        $insert = DB::table('sub_projects')->insertGetId($data);
+
+        $data_budget = [];
+
+        foreach ($request->approved_budget as $key => $budget) {
+            // $grantType = count($request->approved_budget) == 1 ? 'One-time' : 'Multi-year';
+            $data_budget[] = [
+                'projectID' => $request->projectID,
+                'sub_projectID' => $insert,
+                'approved_budget' => $budget,
+                'budget_year' => $request->budget_year[$key],
+                'grant_type' => $request->sub_project_funding_grant,
+                'created_at' => now(),
+            ];
+        }
+        // Insert data into the 'budgets' table
+        $insert_budget = DB::table('sub_project_budget')->insert($data_budget);
+
         if ($insert) {
             return response()->json(['success' => 'Sub-project Successfully Added!']);
         } else {
@@ -98,8 +103,16 @@ class SubprojectController extends Controller
         $sub_project = DB::table('sub_projects')
             ->where('id', $id)
             ->first();
+
+        $budgetData = DB::table('sub_project_budget')
+            ->where('sub_projectID', $id)
+            ->get();
         $agency = DB::table('agency')->get();
         $researchers = DB::table('researchers')->get();
+
+        $researchers_filter = DB::table('researchers')
+            ->where('agency', auth()->user()->agencyID)
+            ->get();
 
         $sub_projects = DB::table('projects')
             ->leftJoin('sub_projects', 'projects.id', '=', 'sub_projects.projectID')
@@ -111,7 +124,7 @@ class SubprojectController extends Controller
             ->join('agency', 'agency.abbrev', '=', 'users.agencyID')
             ->where('agencyID', auth()->user()->agencyID)
             ->get();
-        return view('backend.report.rdmc.rdmc_sub_projects_edit', compact('title', 'sub_projects', 'agency', 'sub_project', 'researchers', 'user_agency'));
+        return view('backend.report.rdmc.rdmc_sub_projects_edit', compact('title', 'sub_projects', 'agency', 'sub_project', 'researchers', 'user_agency', 'budgetData', 'researchers_filter'));
     }
 
     public function UpdateSubProject(Request $request, $projectID, $id)
@@ -119,44 +132,36 @@ class SubprojectController extends Controller
         date_default_timezone_set('Asia/Hong_Kong');
         $request->validate(
             [
-                'sub_project_fund_code' => 'required',
-                'sub_project_funding_years' => 'required',
-                'sub_project_funding_duration' => 'required',
+                // 'sub_project_fund_code' => 'required',
+                'sub_project_funding_grant' => 'required',
                 'sub_project_title' => 'required',
                 'sub_project_status' => 'required',
                 'sub_project_category' => 'required',
                 'sub_project_agency' => 'required',
+                'sub_project_collaborating_agency' => 'required',
                 'sub_project_implementing_agency' => 'required',
                 'sub_project_research_center' => 'required',
-                'sub_project_start_date' => 'required',
-                'sub_project_end_date' => 'required',
+                'sub_project_duration' => 'required',
                 'sub_project_leader' => 'required',
-                'sub_project_assistant_leader' => 'required',
                 'sub_project_description' => 'required',
-                'sub_project_approved_budget' => 'required|numeric',
                 'sub_project_amount_released' => 'required',
-                'sub_project_budget_year' => 'required',
                 'sub_project_form_of_development' => 'required',
                 'keywords' => 'required',
             ],
             [
-                'sub_project_fund_code.required' => 'Fund code is required!',
-                'sub_project_funding_years.required' => 'Funding years is required!',
-                'sub_project_funding_duration.required' => 'Funding duration is required!',
+                // 'sub_project_fund_code.required' => 'Fund code is required!',
+                'sub_project_funding_grant.required' => 'Funding duration is required!',
                 'sub_project_title.required' => 'Title is required!',
                 'sub_project_status.required' => 'Status is required!',
                 'sub_project_category.required' => 'Category is required!',
                 'sub_project_agency.required' => 'Funding agency is required!',
+                'sub_project_collaborating_agency.required' => 'Collaborating agency is required!',
                 'sub_project_implementing_agency.required' => 'Implementing agency is required!',
                 'sub_project_research_center.required' => 'Research center is required!',
-                'sub_project_start_date.required' => 'Date is required!',
-                'sub_project_end_date.required' => 'Date is required!',
+                'sub_project_duration.required' => 'Date is required!',
                 'sub_project_project_leader.required' => 'Program leader is required!',
-                'sub_project_assistant_leader.required' => 'Assistant leader is required!',
                 'sub_project_description.required' => 'Description is required!',
-                'sub_project_approved_budget.required' => 'Budget is required!',
                 'sub_project_amount_released.required' => 'Released amount is required!',
-                'sub_project_budget_year.required' => 'Budget year is required!',
                 'sub_project_form_of_development.required' => 'Form of development is required!',
                 'keywords.required' => 'Keywords is/are required!',
             ],
@@ -166,31 +171,29 @@ class SubprojectController extends Controller
         $data['programID'] = $request->programID;
         $data['projectID'] = $request->projectID;
         $data['sub_project_fund_code'] = $request->sub_project_fund_code;
-        $data['sub_project_funding_years'] = $request->sub_project_funding_years;
-        $data['sub_project_funding_duration'] = $request->sub_project_funding_duration;
+        $data['sub_project_funding_grant'] = $request->sub_project_funding_grant;
         $data['sub_project_title'] = $request->sub_project_title;
         $data['sub_project_status'] = $request->sub_project_status;
         $data['sub_project_category'] = $request->sub_project_category;
-        $data['sub_project_agency'] = $request->sub_project_agency;
+        $data['sub_project_agency'] = json_encode($request->sub_project_agency);
+        $data['sub_project_collaborating_agency'] = json_encode($request->sub_project_collaborating_agency);
         $data['sub_project_implementing_agency'] = json_encode($request->sub_project_implementing_agency);
         $data['sub_project_research_center'] = htmlspecialchars_decode(json_encode($request->sub_project_research_center));
-        $data['sub_project_start_date'] = $request->sub_project_start_date;
-        $data['sub_project_end_date'] = $request->sub_project_end_date;
+        $data['sub_project_duration'] = $request->sub_project_duration;
         $data['sub_project_leader'] = $request->sub_project_leader;
-        $data['sub_project_assistant_leader'] = $request->sub_project_assistant_leader;
-        $data['sub_project_extend_date'] = $request->sub_project_extend_date;
         $data['sub_project_description'] = $request->sub_project_description;
-        $data['sub_project_approved_budget'] = str_replace(',', '', $request->sub_project_approved_budget);
-        $data['sub_project_amount_released'] = str_replace(',', '', $request->sub_project_amount_released);
-        $data['sub_project_budget_year'] = $request->sub_project_budget_year;
+        $data['sub_project_amount_released'] = $request->sub_project_amount_released;
         $data['sub_project_form_of_development'] = $request->sub_project_form_of_development;
         $data['keywords'] = htmlspecialchars_decode(json_encode($request->keywords));
         $data['updated_at'] = now();
+
+        $this->processBudgetData($request, $projectID, $id);
 
         $update = DB::table('sub_projects')
             ->where('projectID', $projectID)
             ->where('id', $id)
             ->update($data);
+
         if ($update) {
             return response()->json(['success' => 'Sub-project Successfully Updated!']);
         } else {
@@ -198,44 +201,69 @@ class SubprojectController extends Controller
         }
     }
 
-    public function viewSubProjectIndex($id)
+    private function processBudgetData(Request $request, $projectID, $id)
     {
-        $title = 'Sub-projects | RDMC';
-        // $program = DB::table('programs')->where('programID', $programID)->first();
-        // $programs = DB::table('programs')->where('programID', $programID)->first();
-        $sub_projects = DB::table('sub_projects')
-            ->where('projectID', $id)
+        // Retrieve existing data for the specified projectID
+        $existingData = DB::table('sub_project_budget')
+            ->where('sub_projectID', $id)
             ->get();
 
-        // $program_leader = DB::table('personnels')->where('role', '=', "Program Leader")->where('programID', $programID)->get();
+        $data_update = [];
 
-        // $personnels = DB::table('personnels')->orderByDesc("staff_name")->where('role', '=', "Staff")->where('projectID', $id)->get();
-        // $all = DB::table('programs')->get();
+        foreach ($existingData as $key => $existing) {
+            // $grantType = count($existingData) == 1 ? 'One-time' : 'Multi-year';
+            $data_update[] = [
+                'id' => $existing->id, // Assuming there is an 'id' column
+                'approved_budget' => $request->approved_budget[$key],
+                'grant_type' => $request->sub_project_funding_grant,
+                'budget_year' => $request->budget_year[$key],
+            ];
+        }
 
-        $agency = DB::table('projects')
-            ->rightJoin('agency', 'projects.project_agency', '=', 'agency.abbrev')
-            ->select('agency.agency_name')
-            ->first();
+        // Update existing data in the 'budgets' table based on programID
+        foreach ($data_update as $item) {
+            DB::table('sub_project_budget')
+                ->where('id', $item['id'])
+                ->update([
+                    'approved_budget' => $item['approved_budget'],
+                    'budget_year' => $item['budget_year'],
+                    'grant_type' => $item['grant_type'],
+                    'updated_at' => now(),
+                ]);
+        }
 
-        // $documents = DB::table('program_files')->where('projectID', $id)->get();
-        // $upload_files = DB::table('files')->where('projectID', $id)->orderByDesc("created_at")->get();
-        // $projects = DB::table('projects')->where('id', $id)->first();
-
-        // return view('backend.projects.view_projects', compact('title', 'projects'));
-        return view('backend.projects.view_projects', compact('title', 'sub_projects'));
+        // Insert new data into the 'budgets' table
+        if ($request->has('new_approved_budget')) {
+            foreach ($request->new_approved_budget as $key => $newBudget) {
+                // $grantType = count($request->approved_budget) >= 1 ? 'Multi-year' : 'One-time';
+                DB::table('sub_project_budget')->insert([
+                    'projectID' => $projectID,
+                    'sub_projectID' => $id,
+                    'approved_budget' => $newBudget,
+                    'budget_year' => $request->new_budget_year[$key],
+                    'grant_type' => $request->sub_project_funding_grant,
+                    'created_at' => now(),
+                ]);
+            }
+        }
     }
 
     public function viewSubProject($projectID, $id)
     {
         $title = 'Sub-project | RDMC';
+
         $sub_projects = DB::table('sub_projects')
             ->where('id', $id)
             ->first();
-        $sub_project_leader = DB::table('personnels')
-            ->where('role', '=', 'Project Leader')
-            ->where('projectID', $projectID)
-            ->orWhere('id', $id)
+
+        $sub_project_leader = DB::table('researchers')
+            ->where('id', '=', $sub_projects->sub_project_leader)
             ->first();
+
+        $budgetData = DB::table('sub_project_budget')
+            ->where('projectID', $projectID)
+            ->where('sub_projectID', $id)
+            ->get();
 
         $personnels = DB::table('personnels')
             ->orderByDesc('staff_name')
@@ -254,7 +282,7 @@ class SubprojectController extends Controller
             ->where('sub_projects.id', $id)
             ->first();
 
-        return view('backend.report.rdmc.rdmc_view_sub_project', compact('title', 'sub_projects', 'agency', 'sub_project_leader', 'personnels', 'upload_files'));
+        return view('backend.report.rdmc.rdmc_view_sub_project', compact('title', 'sub_projects', 'agency', 'sub_project_leader', 'personnels', 'upload_files', 'budgetData'));
     }
 
     public function InsertSubProjectsPersonnelIndex($id)
@@ -336,6 +364,31 @@ class SubprojectController extends Controller
         if ($delete) {
             $notification = [
                 'message' => 'Staff Successfully Deleted!',
+                'alert-type' => 'success',
+            ];
+            return redirect()
+                ->back()
+                ->with($notification);
+        } else {
+            $notification = [
+                'message' => 'Something is wrong, please try again!',
+                'alert-type' => 'error',
+            ];
+            return redirect()
+                ->back()
+                ->with($notification);
+        }
+    }
+
+    public function delete_budget($id)
+    {
+        $delete = DB::table('sub_project_budget')
+            ->where('id', $id)
+            ->delete();
+
+        if ($delete) {
+            $notification = [
+                'message' => 'Budget Successfully Deleted!',
                 'alert-type' => 'success',
             ];
             return redirect()

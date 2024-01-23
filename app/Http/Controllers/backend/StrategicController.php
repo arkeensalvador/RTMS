@@ -5,6 +5,7 @@ namespace App\Http\Controllers\backend;
 use App\Http\Controllers\Controller;
 use Crypt;
 use Illuminate\Http\Request;
+use App\Models\ImageUpload;
 use DB;
 
 class StrategicController extends Controller
@@ -157,8 +158,8 @@ class StrategicController extends Controller
             [
                 'tech_type' => 'required',
                 'tech_title' => 'required',
-                'tech_desc' => 'required',
-                'tech_source' => 'required',
+                // 'tech_desc' => 'required',
+                // 'tech_source' => 'required',
                 'tech_researchers' => 'required',
                 'tech_agency' => 'required',
                 'tech_impact' => 'required',
@@ -166,8 +167,8 @@ class StrategicController extends Controller
             [
                 'tech_type.required' => 'Type is required!',
                 'tech_title.required' => 'Title is required!',
-                'tech_desc.required' => 'Description is required!',
-                'tech_source.required' => 'Program/Project source is required!',
+                // 'tech_desc.required' => 'Description is required!',
+                // 'tech_source.required' => 'Program/Project source is required!',
                 'tech_researchers.required' => 'Researcher(s) is/are required!',
                 'tech_agency.required' => 'Agency source is required!',
                 'tech_impact.required' => 'Impact is required!',
@@ -177,11 +178,12 @@ class StrategicController extends Controller
         $data = [];
         $data['tech_type'] = $request->tech_type;
         $data['tech_title'] = $request->tech_title;
-        $data['tech_desc'] = $request->tech_desc;
-        $data['tech_source'] = $request->tech_source;
+        // $data['tech_desc'] = $request->tech_desc;
+        // $data['tech_source'] = $request->tech_source;
         $data['tech_researchers'] = json_encode($request->tech_researchers);
         $data['tech_agency'] = $request->tech_agency;
         $data['tech_impact'] = $request->tech_impact;
+        $data['encoder_agency'] = auth()->user()->agencyID;
         $data['created_at'] = now();
 
         $insert = DB::table('strategic_tech_list')->insert($data);
@@ -199,13 +201,18 @@ class StrategicController extends Controller
         $all = DB::table('strategic_tech_list')
             ->where('id', $id)
             ->first();
+
+        $imgs = DB::table('strat_tech_list_imgs')
+            ->where('strategic_tech_id', $id)
+            ->get();
+
         $researchers = DB::table('researchers')->get();
         $agency = DB::table('agency')->get();
         $programs = DB::table('programs')->get();
         $projects = DB::table('projects')->get();
         $sub_projects = DB::table('sub_projects')->get();
 
-        return view('backend.report.strategic.tech_list_edit', compact('title', 'all', 'agency', 'researchers', 'programs', 'projects', 'sub_projects'));
+        return view('backend.report.strategic.tech_list_edit', compact('title', 'imgs', 'all', 'agency', 'researchers', 'programs', 'projects', 'sub_projects'));
     }
 
     public function update_strategic_tech_list(Request $request, $id)
@@ -216,8 +223,8 @@ class StrategicController extends Controller
             [
                 'tech_type' => 'required',
                 'tech_title' => 'required',
-                'tech_desc' => 'required',
-                'tech_source' => 'required',
+                // 'tech_desc' => 'required',
+                // 'tech_source' => 'required',
                 'tech_researchers' => 'required',
                 'tech_agency' => 'required',
                 'tech_impact' => 'required',
@@ -225,8 +232,8 @@ class StrategicController extends Controller
             [
                 'tech_type.required' => 'Type is required!',
                 'tech_title.required' => 'Title is required!',
-                'tech_desc.required' => 'Description is required!',
-                'tech_source.required' => 'Program/Project source is required!',
+                // 'tech_desc.required' => 'Description is required!',
+                // 'tech_source.required' => 'Program/Project source is required!',
                 'tech_researchers.required' => 'Researcher(s) is/are required!',
                 'tech_agency.required' => 'Agency source is required!',
                 'tech_impact.required' => 'Impact is required!',
@@ -236,8 +243,8 @@ class StrategicController extends Controller
         $data = [];
         $data['tech_type'] = $request->tech_type;
         $data['tech_title'] = $request->tech_title;
-        $data['tech_desc'] = $request->tech_desc;
-        $data['tech_source'] = $request->tech_source;
+        // $data['tech_desc'] = $request->tech_desc;
+        // $data['tech_source'] = $request->tech_source;
         $data['tech_researchers'] = json_encode($request->tech_researchers);
         $data['tech_agency'] = $request->tech_agency;
         $data['tech_impact'] = $request->tech_impact;
@@ -288,11 +295,11 @@ class StrategicController extends Controller
                 'str_p_type' => 'required',
                 'str_p_title' => 'required',
                 'str_p_researchers' => 'required',
-                'str_p_imp_agency' => 'required',
-                'str_p_collab_agency' => 'required',
+                'str_p_imp_agency' => 'required|array|min:1',
+                'str_p_collab_agency' => 'required|array|min:1',
                 'str_p_date' => 'required',
                 'str_p_budget' => 'required|numeric',
-                'str_p_sof' => 'required',
+                'str_p_sof' => 'required|array|min:1',
                 'str_p_regional' => 'required',
             ],
             [
@@ -301,7 +308,7 @@ class StrategicController extends Controller
                 'str_p_researchers.required' => 'Researcher(s) is/are required!',
                 'str_p_imp_agency.required' => 'Implementing agency is required!',
                 'str_p_collab_agency.required' => 'Collaborating agency required!',
-                'str_p_date.required' => 'Date is required!',
+                'str_p_date.required' => 'Duration is required!',
                 'str_p_budget.required' => 'Budget is required!',
                 'str_p_sof.required' => 'Source of fund is required!',
                 'str_p_regional.required' => 'Commodities addressed is required!',
@@ -316,8 +323,9 @@ class StrategicController extends Controller
         $data['str_p_collab_agency'] = json_encode($request->str_p_collab_agency);
         $data['str_p_date'] = $request->str_p_date;
         $data['str_p_budget'] = $request->str_p_budget;
-        $data['str_p_sof'] = $request->str_p_sof;
+        $data['str_p_sof'] = json_encode($request->str_p_sof);
         $data['str_p_regional'] = $request->str_p_regional;
+        $data['encoder_agency'] = auth()->user()->agencyID;
         $data['created_at'] = now();
 
         $insert = DB::table('strategic_program_list')->insert($data);
@@ -335,12 +343,17 @@ class StrategicController extends Controller
         $all = DB::table('strategic_program_list')
             ->where('id', $id)
             ->first();
+
+        $imgs = DB::table('strat_program_list_imgs')
+            ->where('strategic_programs_list_id', $id)
+            ->get();
+
         $programs = DB::table('programs')->get();
         $projects = DB::table('projects')->get();
         $sub_projects = DB::table('sub_projects')->get();
         $agency = DB::table('agency')->get();
         $researchers = DB::table('researchers')->get();
-        return view('backend.report.strategic.strategic_program_edit', compact('title', 'all', 'agency', 'researchers', 'programs', 'projects', 'sub_projects'));
+        return view('backend.report.strategic.strategic_program_edit', compact('title', 'imgs', 'all', 'agency', 'researchers', 'programs', 'projects', 'sub_projects'));
     }
 
     public function update_strategic_program_list(Request $request, $id)
@@ -352,11 +365,11 @@ class StrategicController extends Controller
                 'str_p_type' => 'required',
                 'str_p_title' => 'required',
                 'str_p_researchers' => 'required',
-                'str_p_imp_agency' => 'required',
-                'str_p_collab_agency' => 'required',
+                'str_p_imp_agency' => 'required|array|min:1',
+                'str_p_collab_agency' => 'required|array|min:1',
                 'str_p_date' => 'required',
                 'str_p_budget' => 'required|numeric',
-                'str_p_sof' => 'required',
+                'str_p_sof' => 'required|array|min:1',
                 'str_p_regional' => 'required',
             ],
             [
@@ -365,7 +378,7 @@ class StrategicController extends Controller
                 'str_p_researchers.required' => 'Researcher(s) is/are required!',
                 'str_p_imp_agency.required' => 'Implementing agency is required!',
                 'str_p_collab_agency.required' => 'Collaborating agency required!',
-                'str_p_date.required' => 'Date is required!',
+                'str_p_date.required' => 'Duration is required!',
                 'str_p_budget.required' => 'Budget is required!',
                 'str_p_sof.required' => 'Source of fund is required!',
                 'str_p_regional.required' => 'Commodities addressed is required!',
@@ -380,7 +393,7 @@ class StrategicController extends Controller
         $data['str_p_collab_agency'] = json_encode($request->str_p_collab_agency);
         $data['str_p_date'] = $request->str_p_date;
         $data['str_p_budget'] = $request->str_p_budget;
-        $data['str_p_sof'] = $request->str_p_sof;
+        $data['str_p_sof'] = json_encode($request->str_p_sof);
         $data['str_p_regional'] = $request->str_p_regional;
         $data['updated_at'] = now();
 
@@ -423,48 +436,25 @@ class StrategicController extends Controller
 
     // Collaborative R&D Programs/Projects implemented
 
-    public function getProjects(Request $request)
-    {
-        $programID = $request->input('program_id');
-
-        $result = DB::table('sub_projects')
-            ->where('programID', $programID)
-            ->exists();
-
-        if ($result) {
-            $projects = DB::table('projects')
-                ->rightJoin('sub_projects', 'projects.id', '=', 'sub_projects.projectID')
-                ->where('projects.programID', $programID)
-                ->get();
-        } else {
-            $projects = DB::table('projects')
-                // ->rightJoin('sub_projects', 'projects.id', '=', 'sub_projects.projectID')
-                ->where('projects.programID', $programID)
-                ->get();
-        }
-
-        return response()->json($projects);
-    }
-
     public function add_strategic_collaborative_list(Request $request)
     {
         date_default_timezone_set('Asia/Hong_Kong');
         $request->validate(
             [
                 'str_collab_type' => 'required',
-                'str_collab_program' => 'required',
+                // 'str_collab_program' => 'required',
                 'str_collab_project' => 'required',
-                'str_collab_imp_agency' => 'required',
-                'str_collab_agency' => 'required',
+                'str_collab_imp_agency' => 'required|array|min:1',
+                'str_collab_agency' => 'required|array|min:1',
                 'str_collab_date' => 'required',
                 'str_collab_budget' => 'required|numeric',
-                'str_collab_sof' => 'required',
+                'str_collab_sof' => 'required|array|min:1',
                 'str_collab_roc' => 'required',
             ],
             [
                 'str_collab_type.required' => 'Type is required!',
-                'str_collab_program.required' => 'Program is required!',
-                'str_collab_project.required' => 'Project(s) is/are required!',
+                // 'str_collab_program.required' => 'Program/project title is required!',
+                'str_collab_project.required' => 'Project is/are required!',
                 'str_collab_imp_agency.required' => 'Implementing agency is required!',
                 'str_collab_agency.required' => 'Collaborating agency required!',
                 'str_collab_date.required' => 'Date is required!',
@@ -477,13 +467,19 @@ class StrategicController extends Controller
         $data = [];
         $data['str_collab_type'] = $request->str_collab_type;
         $data['str_collab_program'] = $request->str_collab_program;
-        $data['str_collab_project'] = json_encode($request->str_collab_project);
+        // Check if str_collab_program is empty and set it to 'N/A' if true
+        if (empty($data['str_collab_program'])) {
+            $data['str_collab_program'] = 'N/A';
+        }
+
+        $data['str_collab_project'] = $request->str_collab_project;
         $data['str_collab_imp_agency'] = json_encode($request->str_collab_imp_agency);
         $data['str_collab_agency'] = json_encode($request->str_collab_agency);
         $data['str_collab_date'] = $request->str_collab_date;
         $data['str_collab_budget'] = $request->str_collab_budget;
-        $data['str_collab_sof'] = $request->str_collab_sof;
+        $data['str_collab_sof'] = json_encode($request->str_collab_sof);
         $data['str_collab_roc'] = $request->str_collab_roc;
+        $data['encoder_agency'] = auth()->user()->agencyID;
         $data['created_at'] = now();
 
         $insert = DB::table('strategic_collaborative_list')->insert($data);
@@ -494,13 +490,18 @@ class StrategicController extends Controller
         }
     }
 
-    public function edit_strategic_collaborative_list_index($id, $programID)
+    public function edit_strategic_collaborative_list_index($id)
     {
         $title = 'TPA | R&D Results Utilizations';
         $id = Crypt::decryptString($id);
         $all = DB::table('strategic_collaborative_list')
             ->where('id', $id)
             ->first();
+
+        $imgs = DB::table('strat_collab_imgs')
+            ->where('strategic_collab_id', $id)
+            ->get();
+
         $programs = DB::table('programs')->get();
         $projects = DB::table('projects')->get();
 
@@ -508,7 +509,7 @@ class StrategicController extends Controller
         $agency = DB::table('agency')->get();
         $researchers = DB::table('researchers')->get();
 
-        return view('backend.report.strategic.strategic_collaborative_edit', compact('title', 'all', 'agency', 'researchers', 'programs', 'projects', 'sub_projects'));
+        return view('backend.report.strategic.strategic_collaborative_edit', compact('title', 'imgs', 'all', 'agency', 'researchers', 'programs', 'projects', 'sub_projects'));
     }
 
     public function update_strategic_collaborative_list(Request $request, $id)
@@ -518,19 +519,19 @@ class StrategicController extends Controller
         $request->validate(
             [
                 'str_collab_type' => 'required',
-                'str_collab_program' => 'required',
+                // 'str_collab_program' => 'required',
                 'str_collab_project' => 'required',
-                'str_collab_imp_agency' => 'required',
-                'str_collab_agency' => 'required',
+                'str_collab_imp_agency' => 'required|array|min:1',
+                'str_collab_agency' => 'required|array|min:1',
                 'str_collab_date' => 'required',
                 'str_collab_budget' => 'required|numeric',
-                'str_collab_sof' => 'required',
+                'str_collab_sof' => 'required|array|min:1',
                 'str_collab_roc' => 'required',
             ],
             [
                 'str_collab_type.required' => 'Type is required!',
-                'str_collab_program.required' => 'Program is required!',
-                'str_collab_project.required' => 'Project(s) is/are required!',
+                // 'str_collab_program.required' => 'Program/project title is required!',
+                'str_collab_project.required' => 'Project is/are required!',
                 'str_collab_imp_agency.required' => 'Implementing agency is required!',
                 'str_collab_agency.required' => 'Collaborating agency required!',
                 'str_collab_date.required' => 'Date is required!',
@@ -543,12 +544,16 @@ class StrategicController extends Controller
         $data = [];
         $data['str_collab_type'] = $request->str_collab_type;
         $data['str_collab_program'] = $request->str_collab_program;
-        $data['str_collab_project'] = json_encode($request->str_collab_project);
+        // Check if str_collab_program is empty and set it to 'N/A' if true
+        if (empty($data['str_collab_program'])) {
+            $data['str_collab_program'] = 'N/A';
+        }
+        $data['str_collab_project'] = $request->str_collab_project;
         $data['str_collab_imp_agency'] = json_encode($request->str_collab_imp_agency);
         $data['str_collab_agency'] = json_encode($request->str_collab_agency);
         $data['str_collab_date'] = $request->str_collab_date;
         $data['str_collab_budget'] = $request->str_collab_budget;
-        $data['str_collab_sof'] = $request->str_collab_sof;
+        $data['str_collab_sof'] = json_encode($request->str_collab_sof);
         $data['str_collab_roc'] = $request->str_collab_roc;
         $data['updated_at'] = now();
 

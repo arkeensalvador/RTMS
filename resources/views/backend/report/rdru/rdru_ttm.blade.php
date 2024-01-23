@@ -55,36 +55,59 @@
                                                         <th>Action</th>
                                                     </tr>
                                                 </thead>
-                                                <tbody>
-                                                    @foreach ($all as $key => $row)
-                                                        <tr>
-                                                            <td>{{ $key + 1 }}</td>
-                                                            <td>{{ $row->ttm_title }}</td>
-                                                            <td>{{ $row->ttm_type }}</td>
-                                                            <td>{{ $row->ttm_status }}</td>
-                                                            <td>{{ $row->ttm_agency }}</td>
-                                                            <td class="action btns">
-                                                                <a class="btn btn-primary"
-                                                                    href="{{ url('edit-ttm/' . $row->id) }}"><i
-                                                                        class="fa-solid fa-pen-to-square"
-                                                                        style="color: white;"></i></a>
-                                                                <a href="{{ url('delete-ttm/' . $row->id) }}"
-                                                                    class="btn btn-danger" id="delete"><i
-                                                                        class="fa-solid fa-trash"></i></a>
-                                                            </td>
-                                                        </tr>
-                                                    @endforeach
-                                                </tbody>
+                                                @if (auth()->user()->role == 'Admin')
+                                                    <tbody>
+                                                        @foreach ($all as $key => $row)
+                                                            <tr>
+                                                                <td>{{ $key + 1 }}</td>
+                                                                <td>{{ $row->ttm_title }}</td>
+                                                                <td>{{ $row->ttm_type }}</td>
+                                                                <td>{{ $row->ttm_status }}</td>
+                                                                @php
+                                                                    $sof = json_decode($row->ttm_sof);
+                                                                    $sof = implode(', ', $sof);
+                                                                @endphp
+                                                                <td>{{ $sof }}</td>
+                                                                <td class="action btns">
+                                                                    <a class="btn btn-primary"
+                                                                        href="{{ url('edit-ttm/' . $row->id) }}"><i
+                                                                            class="fa-solid fa-pen-to-square"
+                                                                            style="color: white;"></i></a>
+                                                                    <a href="{{ url('delete-ttm/' . $row->id) }}"
+                                                                        class="btn btn-danger" id="delete"><i
+                                                                            class="fa-solid fa-trash"></i></a>
+                                                                </td>
+                                                            </tr>
+                                                        @endforeach
+                                                    </tbody>
+                                                @else
+                                                    <tbody>
+                                                        @foreach ($all_filter as $key => $row)
+                                                            <tr>
+                                                                <td>{{ $key + 1 }}</td>
+                                                                <td>{{ $row->ttm_title }}</td>
+                                                                <td>{{ $row->ttm_type }}</td>
+                                                                <td>{{ $row->ttm_status }}</td>
+                                                                @php
+                                                                    $sof = json_decode($row->ttm_sof);
+                                                                    $sof = implode(', ', $sof);
+                                                                @endphp
+                                                                <td>{{ $sof }}</td>
+                                                                <td class="action btns">
+                                                                    <a class="btn btn-primary"
+                                                                        href="{{ url('edit-ttm/' . $row->id) }}"><i
+                                                                            class="fa-solid fa-pen-to-square"
+                                                                            style="color: white;"></i></a>
+                                                                    <a href="{{ url('delete-ttm/' . $row->id) }}"
+                                                                        class="btn btn-danger" id="delete"><i
+                                                                            class="fa-solid fa-trash"></i></a>
+                                                                </td>
+                                                            </tr>
+                                                        @endforeach
+                                                    </tbody>
+                                                @endif
                                             </table>
-                                            {{-- <a href="#">
-                                                <div class="monitoring info-box bg-light">
-                                                    <div class="monitoring info-box-content">
-                                                        <span class="info-box-number text-center text-muted">Agency In-House
-                                                            Reviews (AIHRs)
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                            </a> --}}
+
                                             <a href="{{ url('rdru-ttm-index') }}" class="btn btn-default">Back</a>
                                         </div>
                                     </div>

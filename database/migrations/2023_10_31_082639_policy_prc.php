@@ -16,6 +16,7 @@ return new class extends Migration {
             $table->string('prc_agency');
             $table->string('prc_author');
             $table->longText('prc_issues');
+            $table->string('encoder_agency');
         });
     }
 

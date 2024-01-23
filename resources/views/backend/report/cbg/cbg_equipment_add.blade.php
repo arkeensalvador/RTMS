@@ -93,53 +93,55 @@
 
                                     <div class="custom-control custom-radio">
                                         <input class="custom-control-input" type="radio" value="Endorsed"
-                                            name="equipments_type" id="customRadio1">
+                                            name="equipments_type" id="customRadio1" required>
                                         <label for="customRadio1" class="custom-control-label"
                                             style="font-weight: bold;">Endorsed</label>
                                     </div>
 
                                     <div class="custom-control custom-radio">
                                         <input class="custom-control-input" type="radio" value="Approved"
-                                            name="equipments_type" id="customRadio2">
+                                            name="equipments_type" id="customRadio2" required>
                                         <label for="customRadio2" class="custom-control-label"
                                             style="font-weight: bold;">Approved</label>
                                     </div>
 
-                                    {{-- <div class="custom-control custom-radio">
-                                        <input class="custom-control-input" type="radio" value="Upgraded"
-                                            name="equipments_type" id="customRadio3">
-                                        <label for="customRadio3" class="custom-control-label"
-                                            style="font-weight: bold;">Equipment Upgraded</label>
-                                    </div>
-
-                                    <div class="custom-control custom-radio">
-                                        <input class="custom-control-input" type="radio" value="Established"
-                                            name="equipments_type" id="customRadio4">
-                                        <label for="customRadio4" class="custom-control-label"
-                                            style="font-weight: bold;">Equipment Established</label>
-                                    </div> --}}
 
                                     <div class="custom-control custom-radio">
                                         <input class="custom-control-input" type="radio" value="Purchased"
-                                            name="equipments_type" id="customRadio5">
+                                            name="equipments_type" id="customRadio5" required>
                                         <label for="customRadio5" class="custom-control-label"
                                             style="font-weight: bold;">Equipment Purchased</label>
                                     </div>
 
                                     <div class="custom-control custom-radio">
                                         <input class="custom-control-input" type="radio" value="F-Purchased"
-                                            name="equipments_type" id="customRadio6">
+                                            name="equipments_type" id="customRadio6" required>
                                         <label for="customRadio6" class="custom-control-label"
                                             style="font-weight: bold;">Facilities Upgraded</label>
                                     </div>
 
                                     <div class="custom-control custom-radio">
                                         <input class="custom-control-input" type="radio" value="F-Established"
-                                            name="equipments_type" id="customRadio7">
+                                            name="equipments_type" id="customRadio7" required>
                                         <label for="customRadio7" class="custom-control-label"
                                             style="font-weight: bold;">Facilities Established</label>
                                     </div>
                                 </div>
+
+                                <div class="col-md-12 form-group">
+                                    <label for="equipments_sof" class=" font-weight-bold">Source of Fund<span
+                                            class="text-danger">*</span></label>
+                                    <select id="equipments_sof" name="equipments_sof[]" multiple class="form-control agency"
+                                        required>
+                                        <option value=""></option>
+
+                                        @foreach ($agency as $row)
+                                            <option value="{{ $row->abbrev }}"> {{ $row->agency_name }} </option>
+                                        @endforeach
+                                    </select>
+                                    <div class="invalid-feedback">Missing source of fund</div>
+                                </div>
+
 
                                 <div class="col-md-12 form-group">
                                     <label for="equipments_name" class=" font-weight-bold">Equipment/Facilities Name<span
@@ -150,40 +152,36 @@
                                     <div class="invalid-feedback">Missing name</div>
                                 </div>
 
-                                <div class="col-md-6 form-group">
-                                    <label for="equipments_total" class=" font-weight-bold">Expenditures<span
+                                <div class="col-md-12 form-group">
+                                    <label for="equipments_name" class=" font-weight-bold">Equipment/Facilities Details<span
                                             class="text-danger">*</span></label>
+                                    <textarea name="equipments_details" id="equipments_details" cols="30" rows="5" class="form-control" required
+                                        placeholder="Enter details"></textarea>
 
-                                    <input type="text" name="equipments_total" id="equipments_total" class="form-control"
-                                        placeholder="Expenditures" required>
-                                    <div class="invalid-feedback">Missing expenditures</div>
+                                    <div class="invalid-feedback">Missing details</div>
                                 </div>
 
-
-                                <div class="col-md-6 form-group">
-                                    <label for="equipments_sof" class=" font-weight-bold">Source of Fund<span
-                                            class="text-danger">*</span></label>
-                                    <input type="text" id="equipments_sof" name="equipments_sof" class="form-control"
-                                        placeholder="Source of fund" required>
-                                    <div class="invalid-feedback">Missing source of fund</div>
-                                </div>
-
-                                <div class="col-md-6 form-group">
+                                <div class="col-md-12 form-group">
                                     <label for="equipments_agency" class=" font-weight-bold">Location/Agency<span
                                             class="text-danger">*</span></label>
                                     <select id="equipments_agency" name="equipments_agency" class="form-control agency"
                                         required>
                                         <option value=""></option>
-                                        @if (auth()->user()->role == 'Admin')
-                                            @foreach ($agency as $row)
-                                                <option value="{{ $row->abbrev }}"> {{ $row->agency_name }} </option>
-                                            @endforeach
-                                        @else
-                                            <option value="{{ $user_agency->agencyID }}" selected>
-                                                {{ $user_agency->agencyID }} </option>
-                                        @endif
+
+                                        @foreach ($agency as $row)
+                                            <option value="{{ $row->abbrev }}"> {{ $row->agency_name }} </option>
+                                        @endforeach
                                     </select>
                                     <div class="invalid-feedback">Missing agency</div>
+                                </div>
+                                <div class="col-md-6 form-group">
+                                    <label for="equipments_total" class=" font-weight-bold">Expenditures<span
+                                            class="text-danger">*</span></label>
+
+                                    <input type="text" name="equipments_total" id="equipments_total"
+                                        oninput="validateInput(this)" class="form-control" placeholder="Expenditures"
+                                        required>
+                                    <div class="invalid-feedback">Missing expenditures</div>
                                 </div>
 
 
@@ -200,6 +198,17 @@
     </div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+        function validateInput(input) {
+            // Remove non-numeric characters (except '-')
+            input.value = input.value.replace(/[^\d-]/g, '');
+
+            // Ensure the input is not empty
+            if (input.value === '-') {
+                input.value = '';
+            }
+        }
+    </script>
     <script>
         $(document).ready(function() {
             $('#equipments_agency, #equipments_sof, #equipments_total, #equipments_name')

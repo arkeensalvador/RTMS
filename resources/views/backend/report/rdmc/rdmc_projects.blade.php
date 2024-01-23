@@ -81,7 +81,9 @@
                                             <th>Project Leader</th>
                                             <th>Duration</th>
                                             <th>Funding Agency</th>
-                                            <th>Implementing Agency/Research and Development Center</th>
+                                            <th>Implementing Agency</th>
+                                            <th>Collaborating Agency</th>
+                                            <th>R & D Center</th>
                                             <th>Description</th>
                                             <th>Status</th>
                                             <th hidden>Keyword(s)</th>
@@ -101,27 +103,42 @@
                                                         <a
                                                             href="{{ url("sub-projects-view/$row->id") }}">{{ $row->project_title }}</a>
                                                     </td>
-                                                    <td>{{ $row->project_leader }}</td>
                                                     <td>
-                                                        @empty($row->project_extend_date)
-                                                            {{ date('F, Y', strtotime($row->project_start_date)) ?: 'Not Set' }}
-                                                            -
-                                                            {{ date('F, Y', strtotime($row->project_end_date)) ?: 'Not Set' }}
-                                                        @else
-                                                            {{ date('F, Y', strtotime($row->project_start_date)) ?: 'Not Set' }}
-                                                            -
-                                                            {{ date('F, Y', strtotime($row->project_extend_date)) ?: 'Not Set' }}
-                                                            <span class="badge text-bg-info">Extended</span>
-                                                        @endempty
+                                                        @php
+                                                            $leader = App\Models\Researchers::find($row->project_leader);
+                                                        @endphp
+                                                        {{ $leader->first_name . ' ' . $leader->middle_name . ' ' . $leader->last_name }}
                                                     </td>
-                                                    <td>{{ $row->project_agency }}</td>
+                                                    <td>
+                                                        {{ $row->project_duration }}
+                                                    </td>
                                                     @php
-                                                        $imp = json_decode($row->project_implementing_agency);
-                                                        $agencies = implode(' / ', $imp);
+                                                        if (!empty($row->project_implementing_agency)) {
+                                                            $imp = json_decode($row->project_implementing_agency);
+                                                            $imp = implode(', ', $imp);
+                                                        }
+
+                                                        if (!empty($row->project_collaborating_agency)) {
+                                                            $collab = json_decode($row->project_collaborating_agency);
+                                                            $collab = implode(', ', $collab);
+                                                        }
+
+                                                        if (!empty($row->project_agency)) {
+                                                            $funding = json_decode($row->project_agency);
+                                                            $funding = implode(', ', $funding);
+                                                        }
+
                                                         $rc = $row->project_research_center;
                                                         $rc = str_replace(['[', '"', ']'], '', $rc);
+                                                        $rc = str_replace(',', ', ', $rc);
                                                     @endphp
-                                                    <td>{{ $agencies }} / {{ $rc }}</td>
+
+                                                    <td>{{ $funding }}</td>
+
+                                                    <td>{{ $imp }} </td>
+                                                    <td>{{ $collab }}</td>
+                                                    <td>{{ $rc }}</td>
+
                                                     <td>{{ $row->project_description }}</td>
                                                     <td>
                                                         @if ($row->project_status == 'New')
@@ -203,28 +220,42 @@
                                                         <a
                                                             href="{{ url("sub-projects-view/$row->id") }}">{{ $row->project_title }}</a>
                                                     </td>
-                                                    <td>{{ $row->project_leader }}</td>
                                                     <td>
-                                                        @empty($row->project_extend_date)
-                                                            {{ date('F, Y', strtotime($row->project_start_date)) ?: 'Not Set' }}
-                                                            -
-                                                            {{ date('F, Y', strtotime($row->project_end_date)) ?: 'Not Set' }}
-                                                        @else
-                                                            {{ date('F, Y', strtotime($row->project_start_date)) ?: 'Not Set' }}
-                                                            -
-                                                            {{ date('F, Y', strtotime($row->project_extend_date)) ?: 'Not Set' }}
-                                                            <span class="badge text-bg-info">Extended</span>
-                                                        @endempty
+                                                        @php
+                                                            $leader = App\Models\Researchers::find($row->project_leader);
+                                                        @endphp
+                                                        {{ $leader->first_name . ' ' . $leader->middle_name . ' ' . $leader->last_name }}
                                                     </td>
-                                                    <td>{{ $row->project_agency }}</td>
+                                                    <td>
+                                                        {{ $row->project_duration }}
+                                                    </td>
                                                     @php
-                                                        $imp = json_decode($row->project_implementing_agency);
-                                                        $agencies = implode(' / ', $imp);
+                                                        if (!empty($row->project_implementing_agency)) {
+                                                            $imp = json_decode($row->project_implementing_agency);
+                                                            $imp = implode(', ', $imp);
+                                                        }
+
+                                                        if (!empty($row->project_collaborating_agency)) {
+                                                            $collab = json_decode($row->project_collaborating_agency);
+                                                            $collab = implode(', ', $collab);
+                                                        }
+
+                                                        if (!empty($row->project_agency)) {
+                                                            $funding = json_decode($row->project_agency);
+                                                            $funding = implode(', ', $funding);
+                                                        }
 
                                                         $rc = $row->project_research_center;
                                                         $rc = str_replace(['[', '"', ']'], '', $rc);
+                                                        $rc = str_replace(',', ', ', $rc);
                                                     @endphp
-                                                    <td>{{ $agencies }} / {{ $rc }}</td>
+
+                                                    <td>{{ $funding }}</td>
+
+                                                    <td>{{ $imp }} </td>
+                                                    <td>{{ $collab }}</td>
+                                                    <td>{{ $rc }}</td>
+
                                                     <td>{{ $row->project_description }}</td>
                                                     <td>
                                                         @if ($row->project_status == 'New')
@@ -233,7 +264,7 @@
                                                                 style="color: #28a745;"></i>
                                                         @elseif ($row->project_status == 'Ongoing')
                                                             {{ $row->project_status }}
-                                                            <i class="fa-solid fa-hourglass fa-xl"
+                                                            <i class="fa-solid fa-magnifying-glass-chart fa-xl"
                                                                 style="color: #2a6cdf;"></i>
                                                         @elseif ($row->project_status == 'Terminated')
                                                             {{ $row->project_status }}
@@ -273,14 +304,14 @@
                                                             @endif
                                                         </span>
 
-                                                        <span title="Upload Project Files">
+                                                        <span title="Upload Program Files">
                                                             <a class="btn btn-secondary uploadFiles" data-toggle="modal"
                                                                 data-target='#uploadfiles'
                                                                 data-id="{{ $row->id }}"><i
                                                                     class="fa-solid fa-file-circle-plus"></i></a>
                                                         </span>
 
-                                                        <span title="Add Project Staffs">
+                                                        <span title="Add Program Staffs">
                                                             <!-- Button trigger modal -->
                                                             <a class="btn btn-warning addPersonnel" data-toggle="modal"
                                                                 data-target='#add-personnel'

@@ -103,7 +103,10 @@
                                 <div class="col-md-12 form-group">
                                     <label for="agencySelect" class=" font-weight-bold">Program/Project Title<span
                                             class="text-danger">*</span></label>
-                                    <select id="" name="str_p_title" class="form-control agency" required>
+
+                                    <textarea name="str_p_title" id="" cols="30" rows="5" class="form-control"
+                                        placeholder="Enter program/project title"></textarea>
+                                    {{-- <select id="" name="str_p_title" class="form-control agency" required>
                                         <option value=""></option>
                                         <optgroup label="Programs">
                                             @foreach ($programs as $prog)
@@ -125,7 +128,7 @@
                                                     {{ $sub_proj->sub_project_title }} </option>
                                             @endforeach
                                         </optgroup>
-                                    </select>
+                                    </select> --}}
                                     <div class="invalid-feedback">Missing program/project title</div>
                                 </div>
 
@@ -137,7 +140,7 @@
                                     <div class="invalid-feedback">Missing researchers</div>
                                 </div>
 
-                                <div class="col-md-6 form-group">
+                                <div class="col-md-12 form-group">
                                     <label for="awards_recipients" class=" font-weight-bold">Implementing Agency<span
                                             class="text-danger">*</span></label>
                                     <select class="form-control implementing_agency" id="awards_recipients"
@@ -154,7 +157,7 @@
                                 </div>
 
 
-                                <div class="col-md-6 form-group">
+                                <div class="col-md-12 form-group">
                                     <label for="awards_recipients" class=" font-weight-bold">Collaborating Agency<span
                                             class="text-danger">*</span></label>
                                     <select class="form-control collaborating_agency" id=""
@@ -171,7 +174,7 @@
                                 </div>
 
                                 <div class="col-md-5">
-                                    <label for="tpa_date" class=" font-weight-bold">Date<span
+                                    <label for="tpa_date" class=" font-weight-bold">Duration<span
                                             class="text-danger">*</span></label>
                                     <input type="text" name="str_p_date" id="tpa_date" class="form-control date-range"
                                         placeholder="Enter date" required>
@@ -179,17 +182,18 @@
                                 </div>
 
                                 <div class="col-md-4 form-group">
-                                    <label for="approved_budget" class=" font-weight-bold">Budget<span
+                                    <label for="approved_budget" class=" font-weight-bold">Approved Budget<span
                                             class="text-danger">*</span></label>
-                                    <input type="text" name="str_p_budget" class="form-control" id=""
-                                        placeholder="Budget" required>
+                                    <input type="text" name="str_p_budget" oninput="validateInput(this)"
+                                        class="form-control" id="" placeholder="Budget" required>
                                     <div class="invalid-feedback">Missing budget</div>
                                 </div>
 
-                                <div class="col-md-8 form-group">
+                                <div class="col-md-12 form-group">
                                     <label for="funding_agency" class=" font-weight-bold">Source of Fund<span
                                             class="text-danger">*</span></label>
-                                    <select id="funding_agency" name="str_p_sof" class="form-control agency" required>
+                                    <select id="funding_agency" name="str_p_sof[]" multiple="multiple"
+                                        class="form-control agency" required>
                                         <option></option>
                                         @foreach ($agency as $key)
                                             <option value="{{ $key->abbrev }}">{{ $key->agency_name }} -
@@ -203,19 +207,19 @@
 
                                 <div class="col-md-12 form-group">
                                     <label for="strategic_implementing_agency" class=" font-weight-bold">Regional Priority
-                                        Commodities Addressed
-                                        Contribution<span class="text-danger">*</span></label>
+                                        Commodities<span class="text-danger">*</span></label>
                                     <textarea name="str_p_regional" id="strategic_title" class="form-control" rows="4" style="resize: none"
-                                        required placeholder="Commodities addressed"></textarea>
-                                    <div class="invalid-feedback">Missing commodities addressed</div>
+                                        required placeholder="Enter commodities"></textarea>
+                                    <div class="invalid-feedback">Missing regional priotity commodities</div>
                                 </div>
+
+
 
                                 <div class="col-md-12 form-group buttons">
                                     <a href="{{ url('strategic-program-list') }}" class="btn btn-default">Back</a>
                                     <button type="submit" id="submit" class="btn btn-primary btn-m ">Submit</button>
                                 </div>
                             </form>
-
                         </div>
                     </div>
                 </div>
@@ -265,6 +269,17 @@
         });
     </script>
     <script>
+        function validateInput(input) {
+            // Remove non-numeric characters (except '-')
+            input.value = input.value.replace(/[^\d-]/g, '');
+
+            // Ensure the input is not empty
+            if (input.value === '-') {
+                input.value = '';
+            }
+
+        }
+
         $(document).ready(function() {
             $('#strategic_program, #strategic_researcher, #strategic_implementing_agency, #strategic_funding_agency, #strategic_budget, #strategic_end, #strategic_start, #strategic_title')
                 .on('input', function() {

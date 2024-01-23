@@ -27,6 +27,7 @@ class InitiativesController extends Controller
         $data['ini_initiates'] = $request->ini_initiates;
         $data['ini_agency'] = $request->ini_agency;
         $data['ini_date'] = $request->ini_date;
+        $data['encoder_agency'] = auth()->user()->agencyID;
 
         $insert = DB::table('cbg_initiatives')->insert($data);
 

@@ -48,38 +48,63 @@
                                                         <th>Title</th>
                                                         <th>Type of Technology</th>
                                                         <th>Source of Fund</th>
+                                                        <th>Status</th>
                                                         <th>Action</th>
                                                     </tr>
                                                 </thead>
-                                                <tbody>
-                                                    @foreach ($all as $key => $row)
-                                                        <tr>
-                                                            <td>{{ $key + 1 }}</td>
-                                                            <td>{{ $row->rdru_tech_title }}</td>
-                                                            <td>{{ $row->rdru_tech_type }}</td>
-                                                            <td>{{ $row->rdru_tech_sof }}</td>
-                                                            <td class="action btns">
-                                                                <a class="btn btn-primary"
-                                                                    href="{{ url('rdru-edit-tech-deployed-index/' . Crypt::encryptString($row->id)) }}"><i
-                                                                        class="fa-solid fa-pen-to-square"
-                                                                        style="color: white;"></i></a>
-                                                                <a href="{{ url('rdru-delete-tech-deployed/' . Crypt::encryptString($row->id)) }}"
-                                                                    class="btn btn-danger" id="delete"><i
-                                                                        class="fa-solid fa-trash"></i></a>
-                                                            </td>
-                                                        </tr>
-                                                    @endforeach
-                                                </tbody>
+                                                @if (auth()->user()->role == 'Admin')
+                                                    <tbody>
+                                                        @foreach ($all as $key => $row)
+                                                            <tr>
+                                                                <td>{{ $key + 1 }}</td>
+                                                                <td>{{ $row->rdru_tech_title }}</td>
+                                                                <td>{{ $row->rdru_tech_type }}</td>
+                                                                @php
+                                                                    $sof = json_decode($row->rdru_tech_sof);
+                                                                    $sof = implode(', ', $sof);
+                                                                @endphp
+                                                                <td>{{ $sof }}</td>
+                                                                <td>{{ $row->rdru_tech_status }}</td>
+                                                                <td class="action btns">
+                                                                    <a class="btn btn-primary"
+                                                                        href="{{ url('rdru-edit-tech-deployed-index/' . Crypt::encryptString($row->id)) }}"><i
+                                                                            class="fa-solid fa-pen-to-square"
+                                                                            style="color: white;"></i></a>
+                                                                    <a href="{{ url('rdru-delete-tech-deployed/' . Crypt::encryptString($row->id)) }}"
+                                                                        class="btn btn-danger" id="delete"><i
+                                                                            class="fa-solid fa-trash"></i></a>
+                                                                </td>
+                                                            </tr>
+                                                        @endforeach
+                                                    </tbody>
+                                                @else
+                                                    <tbody>
+                                                        @foreach ($all_filter as $key => $row)
+                                                            <tr>
+                                                                <td>{{ $key + 1 }}</td>
+                                                                <td>{{ $row->rdru_tech_title }}</td>
+                                                                <td>{{ $row->rdru_tech_type }}</td>
+                                                                @php
+                                                                    $sof = json_decode($row->rdru_tech_sof);
+                                                                    $sof = implode(', ', $sof);
+                                                                @endphp
+                                                                <td>{{ $sof }}</td>
+                                                                <td>{{ $row->rdru_tech_status }}</td>
+                                                                <td class="action btns">
+                                                                    <a class="btn btn-primary"
+                                                                        href="{{ url('rdru-edit-tech-deployed-index/' . Crypt::encryptString($row->id)) }}"><i
+                                                                            class="fa-solid fa-pen-to-square"
+                                                                            style="color: white;"></i></a>
+                                                                    <a href="{{ url('rdru-delete-tech-deployed/' . Crypt::encryptString($row->id)) }}"
+                                                                        class="btn btn-danger" id="delete"><i
+                                                                            class="fa-solid fa-trash"></i></a>
+                                                                </td>
+                                                            </tr>
+                                                        @endforeach
+                                                    </tbody>
+                                                @endif
                                             </table>
-                                            {{-- <a href="#">
-                                                <div class="monitoring info-box bg-light">
-                                                    <div class="monitoring info-box-content">
-                                                        <span class="info-box-number text-center text-muted">Agency In-House
-                                                            Reviews (AIHRs)
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                            </a> --}}
+
                                             <a href="{{ url('rdru-ttm-index') }}" class="btn btn-default">Back</a>
                                         </div>
                                     </div>

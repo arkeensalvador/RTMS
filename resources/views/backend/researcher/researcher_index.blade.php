@@ -50,6 +50,7 @@
                                                     <thead>
                                                         <tr>
                                                             <th>#</th>
+                                                            <th>Photo</th>
                                                             <th>Researcher's Name</th>
                                                             <th>Gender</th>
                                                             <th>Contact No.</th>
@@ -64,8 +65,19 @@
                                                                 <input type="hidden" class="delete_val_id"
                                                                     value="{{ $row->id }}">
                                                                 <td>{{ $key + 1 }}</td>
-                                                                <td>{{ $row->name }}</td>
-                                                                <td>{{ $row->gender }}</td>
+                                                                <td style="text-align:center">
+                                                                    <a href="{{ asset($row->profile_picture) }}"
+                                                                        data-lightbox="photos">
+                                                                        <img id=""
+                                                                            src="{{ asset($row->profile_picture) }}"
+                                                                            alt=""
+                                                                            style="width: 70px; height: 70px;"
+                                                                            class="img-thumbnail" />
+                                                                    </a>
+                                                                </td>
+                                                                <td>{{ $row->last_name }}, {{ $row->first_name }}
+                                                                    {{ $row->middle_name }}</td>
+                                                                <td>{{ $row->sex }}</td>
                                                                 <td>{{ $row->contact }}</td>
                                                                 <td>{{ $row->email }}</td>
                                                                 <td>{{ $row->agency }}</td>
@@ -93,8 +105,9 @@
                                                     <thead>
                                                         <tr>
                                                             <th>#</th>
+                                                            <th>Photo</th>
                                                             <th>Researcher's Name</th>
-                                                            <th>Gender</th>
+                                                            <th>Sex</th>
                                                             <th>Contact No.</th>
                                                             <th>Email</th>
                                                             <th>Institution/Agency</th>
@@ -107,8 +120,19 @@
                                                                 <input type="hidden" class="delete_val_id"
                                                                     value="{{ $row->id }}">
                                                                 <td>{{ $key + 1 }}</td>
-                                                                <td>{{ $row->name }}</td>
-                                                                <td>{{ $row->gender }}</td>
+                                                                <td style="text-align:center">
+                                                                    <a href="{{ asset($row->profile_picture) }}"
+                                                                        data-lightbox="photos">
+                                                                        <img id=""
+                                                                            src="{{ asset($row->profile_picture) }}"
+                                                                            alt=""
+                                                                            style="width: 70px; height: 70px;"
+                                                                            class="img-thumbnail" />
+                                                                    </a>
+                                                                </td>
+                                                                <td>{{ $row->last_name }}, {{ $row->first_name }}
+                                                                    {{ $row->middle_name }}</td>
+                                                                <td>{{ $row->sex }}</td>
                                                                 <td>{{ $row->contact }}</td>
                                                                 <td>{{ $row->email }}</td>
                                                                 <td>{{ $row->agency }}</td>
@@ -179,4 +203,11 @@
             </div>
         </div>
     </div>
+
+    <script>
+        document.getElementById('poster').addEventListener('change', function(event) {
+            const preview = document.getElementById('previewAdd');
+            preview.src = URL.createObjectURL(event.target.files[0]);
+        });
+    </script>
 @endsection

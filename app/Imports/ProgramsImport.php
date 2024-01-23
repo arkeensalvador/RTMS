@@ -3,6 +3,8 @@
 namespace App\Imports;
 
 use App\Models\Programs;
+use App\Models\Budget;
+use App\Models\Researchers;
 use Carbon\Carbon;
 use Carbon\Traits\Date;
 use Maatwebsite\Excel\Concerns\ToModel;
@@ -18,8 +20,7 @@ class ProgramsImport implements ToModel, WithHeadingRow
 
     public function model(array $row)
     {
-
-        return new Programs([
+        $program = [
             'programID' => substr(md5(microtime()), 0, 10),
             'fund_code' => $row['fund_code'],
             'program_title' => $row['program_title'],
@@ -27,18 +28,45 @@ class ProgramsImport implements ToModel, WithHeadingRow
             'program_category' => $row['program_category'],
             'funding_agency' => $row['funding_agency'],
             'implementing_agency' => $row['implementing_agency'],
+            'collaborating_agency' => $row['collaborating_agency'],
             'research_center' => $row['research_center'],
-            'start_date' => \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($row['start_date'])->format('Y-m-d'),
-            'end_date' => \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($row['end_date'])->format('Y-m-d'),
-            // 'extend_date' => \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($row['extend_date'])->format('Y-m-d'),
-            'program_leader' => $row['program_leader'],
-            'assistant_leader' => $row['assistant_leader'],
+            'duration' => $row['duration'],
             'program_description' => $row['program_description'],
-            'approved_budget' => $row['approved_budget'],
             'amount_released' => $row['amount_released'],
-            'budget_year' => $row['budget_year'],
             'form_of_development' => $row['form_of_development'],
-            'keywords' => $row['keywords']
-        ]);
+            'encoder_agency' => auth()->user()->agencyID,
+            'keywords' => $row['keywords'],
+        ];
+
+        // Find the researcher based on the extracted name
+        $researcher = Researchers::where([['first_name', $row['program_leader_fname']], ['middle_name', $row['program_leader_mname']], ['last_name', $row['program_leader_lname']]])->first();
+
+        // Check if a researcher is found
+        if ($researcher) {
+            // Update 'program_leader' in your program data with the researcher ID
+            $program['program_leader'] = $researcher->id;
+
+            // Insert or update the program data in the Programs table
+            $record1 = Programs::create($program);
+
+            // Additional code for handling Budget creation if needed
+            $budget = [
+                'programID' => $record1->programID,
+                'approved_budget' => $row['approved_budget'],
+                'budget_year' => $row['budget_year'],
+                'created_at' => now(),
+            ];
+
+            // Assuming there's a Budget model
+            $record2 = Budget::create($budget);
+
+            if ($record1 && $record2) {
+                alert('Import Success');
+            }
+        } else {
+            // Handle the case where the researcher with the specified name is not found
+            // You might want to log an error or handle it according to your application logic
+            alert('Researcher not found for program leader');
+        }
     }
 }

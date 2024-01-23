@@ -87,36 +87,75 @@
                                     <h5 class="mt-0"> Kindly fill-out the fields needed.</h5>
                                 </div>
 
-                                <div class="col-md-3 form-group">
+                                @if (!$imgs->isEmpty())
+                                    <div class="col-md-12">
+                                        <label for="strategic_program" class="font-weight-bold">Uploaded Images<span
+                                                class="text-danger"></span></label><br>
+                                        @foreach ($imgs as $img)
+                                            <a href="{{ asset($img->filename) }}" data-lightbox="photos">
+                                                <img id="" src="{{ asset($img->filename) }}" alt=""
+                                                    style="width: 200px; height: 200px;" class="img-thumbnail">
+                                            </a>
+                                        @endforeach
+                                    </div>
+                                @endif
+
+                                @php
+                                    $type = json_decode($all->trainings_type);
+                                @endphp
+
+                                <div class="col-md-5 form-group">
                                     <label for="category" class=" font-weight-bold">Type of participants<span
                                             class="text-danger">*</span></label>
-                                    <select id="category" name="trainings_type" class="form-control others" required>
-                                        <option selected disabled value="">Select type</option>
-                                        <option value="GO" {{ 'GO' == $all->trainings_type ? 'selected' : '' }}>GO
+                                    <select id="category" name="trainings_type[]" multiple class="form-control others"
+                                        required>
+                                        <option value="GO" {{ in_array('GO', $type) ? 'selected' : '' }}>
+                                            GO
                                         </option>
-                                        <option value="NGO" {{ 'NGO' == $all->trainings_type ? 'selected' : '' }}>NGO
+                                        <option value="NGO" {{ in_array('NGO', $type) ? 'selected' : '' }}>NGO
                                         </option>
-                                        <option
-                                            value="Private Sector"{{ 'Private Sector' == $all->trainings_type ? 'selected' : '' }}>
+                                        <option value="Private Sector"
+                                            {{ in_array('Private Sector', $type) ? 'selected' : '' }}>
                                             Private Sector</option>
-                                        <option value="LGU" {{ 'LGU' == $all->trainings_type ? 'selected' : '' }}>LGU
+                                        <option value="LGU" {{ in_array('LGU', $type) ? 'selected' : '' }}>LGU
                                         </option>
                                     </select>
                                     <div class="invalid-feedback">Missing type</div>
                                 </div>
-
-                                <div class="col-md-9 form-group">
+                                @php
+                                    $sof = json_decode($all->trainings_sof);
+                                @endphp
+                                <div class="col-md-12 form-group">
                                     <label for="trainings_sof" class=" font-weight-bold">Source of Funds<span
                                             class="text-danger">*</span></label>
-                                    <select id="trainings_sof" name="trainings_sof" class="form-control agency" required>
+                                    <select id="trainings_sof" name="trainings_sof[]" multiple class="form-control agency"
+                                        required>
                                         <option value=""></option>
                                         @foreach ($agency as $row)
                                             <option value="{{ $row->abbrev }}"
-                                                {{ $row->abbrev == $all->trainings_sof ? 'selected' : '' }}>
+                                                {{ in_array($row->abbrev, $sof) ? 'selected' : '' }}>
                                                 {{ $row->agency_name }} </option>
                                         @endforeach
                                     </select>
                                     <div class="invalid-feedback">Missing source of funds</div>
+                                </div>
+
+                                @php
+                                    $imp = json_decode($all->trainings_agency);
+                                @endphp
+
+                                <div class="col-md-12 form-group">
+                                    <label for="trainings_agency" class=" font-weight-bold">Implementing Agency<span
+                                            class="text-danger">*</span></label>
+                                    <select id="trainings_agency" name="trainings_agency[]" multiple
+                                        class="form-control agency" required>
+                                        @foreach ($agency as $row)
+                                            <option value="{{ $row->abbrev }}"
+                                                {{ in_array($row->abbrev, $imp) ? 'selected' : '' }}>
+                                                {{ $row->agency_name }}</option>
+                                        @endforeach
+                                    </select>
+                                    <div class="invalid-feedback">Missing agency</div>
                                 </div>
 
                                 @php
@@ -131,21 +170,6 @@
                                         class="form-control research-center" placeholder="R&D Center(s)"
                                         value="{{ $rc }}" data-role="tagsinput" required>
                                     <div class="invalid-feedback">Missing research center</div>
-                                </div>
-
-                                <div class="col-md-7 form-group">
-                                    <label for="trainings_agency" class=" font-weight-bold">Implementing Agency<span
-                                            class="text-danger">*</span></label>
-                                    <select id="trainings_agency" name="trainings_agency" class="form-control agency"
-                                        required>
-                                        <option value=""></option>
-                                        @foreach ($agency as $row)
-                                            <option value="{{ $row->abbrev }}"
-                                                {{ $row->abbrev == $all->trainings_agency ? 'selected' : '' }}>
-                                                {{ $row->agency_name }} </option>
-                                        @endforeach
-                                    </select>
-                                    <div class="invalid-feedback">Missing agency</div>
                                 </div>
 
                                 <div class="col-md-12 form-group">
@@ -166,24 +190,17 @@
                                 </div>
 
 
-                                <div class="col-md-3 form-group">
-                                    <label for="trainings_start" class=" font-weight-bold">Start Date<span
+                                <div class="col-md-6 form-group">
+                                    <label for="trainings_start" class=" font-weight-bold">Activity/Training Duration<span
                                             class="text-danger">*</span></label>
 
                                     <input type="number" name="trainings_start" id="trainings_start"
-                                        class="form-control date" placeholder="Enter start date"
+                                        class="form-control date-range" placeholder="Enter duration"
                                         value="{{ $all->trainings_start }}" required>
-                                    <div class="invalid-feedback">Missing start date</div>
+                                    <div class="invalid-feedback">Missing activity/training duration</div>
                                 </div>
 
-                                <div class="col-md-3 form-group">
-                                    <label for="trainings_end" class="font-weight-bold">End Date <span
-                                            class="text-danger">*</span></label>
-                                    <input type="text" name="trainings_end" class="form-control date"
-                                        value="{{ $all->trainings_end }}" id="trainings_end" placeholder="Enter end date"
-                                        required>
-                                    <div class="invalid-feedback">Missing end date</div>
-                                </div>
+
 
                                 <div class="col-md-6 form-group">
                                     <label for="trainings_no_participants" class=" font-weight-bold">No. of
@@ -207,7 +224,7 @@
                                     <label for="trainings_no_participants" class=" font-weight-bold">Remarks<span
                                             class="text-danger">*</span></label>
                                     <textarea name="trainings_remarks" class="form-control" id="training_venue" cols="30" rows="5"
-                                        placeholder="Remarks" required>{{ $all->trainings_remarks }}</textarea>
+                                        placeholder="Remarks">{{ $all->trainings_remarks }}</textarea>
 
                                     <div class="invalid-feedback">Missing remarks</div>
                                 </div>
@@ -218,6 +235,18 @@
                                 </div>
                             </form>
                         </div>
+                        <hr>
+                        <div class="d-flex justify-content-center mt-3">
+                            <div class="col-md-12 form-group">
+                                <label for="ttp_sof" class=" font-weight-bold">Photo-documentation upload<span
+                                        class="text-danger">*</span></label>
+                                <form action="{{ url('/image/upload/store/training') }}" method="POST"
+                                    enctype="multipart/form-data" class="dropzone" id="dropzone">
+                                    @csrf
+                                    <input type="text" name="training_id" value="{{ $all->id }}" hidden>
+                                </form>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -225,6 +254,42 @@
     </div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+    <script>
+        Dropzone.options.dropzone = {
+            maxFilesize: 12,
+            renameFile: function(file) {
+                var dt = new Date();
+                var time = dt.getTime();
+                return time + file.name;
+            },
+            acceptedFiles: ".jpeg, .jpg, .png, .gif",
+            addRemoveLinks: true,
+            timeout: 5000,
+            success: function(file, response) {
+                console.log(response);
+            },
+            queuecomplete: function() {
+                // Reload the page after all uploads are complete
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Images Added Successfully',
+                    toast: true,
+                    position: 'top-right',
+                    timerProgressBar: true,
+                    showConfirmButton: false,
+                    timer: 500,
+                }).then((result) => {
+                    if (result.dismiss) {
+                        location.reload();
+                    }
+                })
+            },
+            error: function(file, response) {
+                return false;
+            }
+        };
+    </script>
     <script>
         $(document).ready(function() {
             $('#trainings_sof, #trainings_agency, #trainings_title, #trainings_start, #trainings_end, #trainings_title')

@@ -15,6 +15,7 @@ return new class extends Migration {
             $table->string('ini_initiates');
             $table->string('ini_agency')->nullable();
             $table->string('ini_date');
+            $table->string('encoder_agency');
         });
     }
 

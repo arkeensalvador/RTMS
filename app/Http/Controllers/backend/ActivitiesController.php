@@ -17,14 +17,14 @@ class ActivitiesController extends Controller
                 'activity_type' => 'required',
                 'activity_title' => 'required',
                 'shared_amount' => 'required|numeric',
-                'remarks' => 'required',
+                // 'remarks' => 'required',
             ],
             [
                 'donor.required' => 'Donor field is required!',
                 'activity_type.required' => 'Activity type field is required!',
                 'activity_title.required' => 'Acitivity title field is required!',
                 'shared_amount.required' => 'Input numbers only',
-                'remarks.required' => 'Remarks field is required!',
+                // 'remarks.required' => 'Remarks field is required!',
             ],
         );
 
@@ -32,8 +32,9 @@ class ActivitiesController extends Controller
         $data['donor'] = json_encode($request->donor);
         $data['activity_type'] = $request->activity_type;
         $data['activity_title'] = $request->activity_title;
+        $data['encoder_agency'] = auth()->user()->agencyID;
         $data['shared_amount'] = str_replace(',', '', $request->shared_amount);
-        $data['remarks'] = $request->remarks;
+        // $data['remarks'] = $request->remarks;
         $data['created_at'] = now();
 
         $insert = DB::table('rdmc_activities')->insert($data);
@@ -64,14 +65,14 @@ class ActivitiesController extends Controller
                 'activity_type' => 'required',
                 'activity_title' => 'required',
                 'shared_amount' => 'required|numeric',
-                'remarks' => 'required',
+                // 'remarks' => 'required',
             ],
             [
                 'donor.required' => 'Donor field is required!',
                 'activity_type.required' => 'Activity type field is required!',
                 'activity_title.required' => 'Acitivity title field is required!',
                 'shared_amount.required' => 'Input numbers only',
-                'remarks.required' => 'Remarks field is required!',
+                // 'remarks.required' => 'Remarks field is required!',
             ],
         );
 
@@ -79,8 +80,8 @@ class ActivitiesController extends Controller
         $data['donor'] = json_encode($request->donor);
         $data['activity_type'] = $request->activity_type;
         $data['activity_title'] = $request->activity_title;
-        $data['shared_amount'] = str_replace(',', '', $request->shared_amount);
-        $data['remarks'] = $request->remarks;
+        $data['shared_amount'] = $request->shared_amount;
+        // $data['remarks'] = $request->remarks;
         $data['updated_at'] = now();
 
         $update = DB::table('rdmc_activities')

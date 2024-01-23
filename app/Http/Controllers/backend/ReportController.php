@@ -5,6 +5,11 @@ namespace App\Http\Controllers\backend;
 use App\Http\Controllers\Controller;
 use App\Models\backend\Personnel;
 use App\Models\Poster;
+use App\Models\Paper;
+use App\Models\Evaluators;
+use App\Models\Researchers;
+use App\Models\RdmcRegional;
+use App\Models\PosterEvaluators;
 use App\Models\Contributions;
 use App\Models\Initiatives;
 use Crypt;
@@ -51,7 +56,7 @@ class ReportController extends Controller
         // CMI
         $all_filter = DB::table('projects')
             ->select('*')
-            ->where('project_implementing_agency', 'LIKE', '%' . auth()->user()->agencyID . '%')
+            ->where('encoder_agency', '=', auth()->user()->agencyID)
             ->get();
 
         $researchers_filter = DB::table('researchers')
@@ -79,7 +84,7 @@ class ReportController extends Controller
         // CMI (fetch program implementing agency even data in db is in array)
         $all_filter = DB::table('programs')
             ->select('*')
-            ->where('implementing_agency', 'LIKE', '%' . auth()->user()->agencyID . '%')
+            ->where('encoder_agency', '=', auth()->user()->agencyID)
             ->get();
 
         $researchers_filter = DB::table('researchers')
@@ -170,6 +175,7 @@ class ReportController extends Controller
         $title = 'Program - projects | RDMC';
         $agency = DB::table('agency')->get();
         $researchers = DB::table('researchers')->get();
+
         $programs = DB::table('programs')
             ->where('programID', $programID)
             ->first();
@@ -223,9 +229,10 @@ class ReportController extends Controller
             ->where('programID', $programID)
             ->first();
 
-        $all_filter = DB::table('programs')
+        $all_filter = DB::table('projects')
             ->select('*')
-            ->where('funding_agency', auth()->user()->agencyID)
+            ->where('programID', '=', $programID)
+            ->where('encoder_agency', '=', auth()->user()->agencyID)
             ->get();
 
         return view('backend.report.rdmc.rdmc_projects_under_program', compact('projects', 'title', 'agency', 'researchers', 'program_title', 'all_filter'));
@@ -235,8 +242,13 @@ class ReportController extends Controller
         $title = 'Sub-projects | RDMC';
         $sub_projects = DB::table('sub_projects')
             ->select('*')
-            ->where('projectID', $projectID)
             ->orderByDesc('id')
+            ->get();
+
+        $all_filter = DB::table('sub_projects')
+            ->select('*')
+            ->where('projectID', $projectID)
+            ->where('encoder_agency', '=', auth()->user()->agencyID)
             ->get();
 
         $project_title = DB::table('projects')
@@ -244,7 +256,7 @@ class ReportController extends Controller
             ->where('id', $projectID)
             ->first();
         $agency = DB::table('agency')->get();
-        return view('backend.report.rdmc.rdmc_sub_project_view_index', compact('title', 'project_title', 'sub_projects', 'agency'));
+        return view('backend.report.rdmc.rdmc_sub_project_view_index', compact('title', 'project_title', 'sub_projects', 'agency', 'all_filter'));
     }
     public function ProjectSubProjectsAdd($id)
     {
@@ -289,7 +301,13 @@ class ReportController extends Controller
     {
         $title = 'Activities | RDMC';
         $all = DB::table('rdmc_activities')->get();
-        return view('backend.report.rdmc.rdmc_activities', compact('title', 'all'));
+        // CMI FILTER
+        $all_filter = DB::table('rdmc_activities')
+            ->select('*')
+            ->where('encoder_agency', '=', auth()->user()->agencyID)
+            ->get();
+
+        return view('backend.report.rdmc.rdmc_activities', compact('title', 'all', 'all_filter'));
     }
 
     public function rdmcAddActivities()
@@ -303,9 +321,11 @@ class ReportController extends Controller
     {
         $title = 'Agency In-House Reviews (AIHRs) | RDMC';
         // Best Paper
-        $best_paper = DB::table('best_paper')->get();
+        $best_paper = Paper::orderBy('id', 'desc')->get();
+        // $best_paper = DB::table('best_paper')->get();
+        // $best_paper_evaluator = DB::table('best_paper_evaluator')->get();
         // Best poster
-        $best_poster = DB::table('best_poster')->get();
+        $best_poster = Poster::orderBy('id', 'desc')->get();
         // Program
         $new = DB::table('programs')
             ->where('program_status', '=', 'new')
@@ -353,6 +373,22 @@ class ReportController extends Controller
             ->count();
         $completed_subproj = DB::table('sub_projects')
             ->where('sub_project_status', '=', 'completed')
+            ->count();
+
+        $proj_research = DB::table('projects')
+            ->where('project_category', '=', 'Research')
+            ->count();
+
+        $proj_dev = DB::table('projects')
+            ->where('project_category', '=', 'Development')
+            ->count();
+
+        $sub_proj_research = DB::table('sub_projects')
+            ->where('sub_project_category', '=', 'Research')
+            ->count();
+
+        $sub_proj_dev = DB::table('sub_projects')
+            ->where('sub_project_category', '=', 'Development')
             ->count();
 
         // CMI
@@ -419,7 +455,7 @@ class ReportController extends Controller
             ->where('sub_project_status', '=', 'completed')
             ->count();
 
-        return view('backend.report.rdmc.aihrs_index', compact('title', 'best_paper', 'completed', 'new', 'ongoing', 'terminated', 'completed_proj', 'new_proj', 'ongoing_proj', 'terminated_proj', 'completed_subproj', 'new_subproj', 'ongoing_subproj', 'terminated_subproj', 'cmi_completed', 'cmi_new', 'cmi_ongoing', 'cmi_terminated', 'cmi_completed_proj', 'cmi_new_proj', 'cmi_ongoing_proj', 'cmi_terminated_proj', 'cmi_completed_subproj', 'cmi_new_subproj', 'cmi_ongoing_subproj', 'cmi_terminated_subproj', 'best_poster', 'prog_dev', 'prog_research'));
+        return view('backend.report.rdmc.aihrs_index', compact('title', 'best_paper', 'completed', 'new', 'ongoing', 'terminated', 'completed_proj', 'new_proj', 'ongoing_proj', 'terminated_proj', 'completed_subproj', 'new_subproj', 'ongoing_subproj', 'terminated_subproj', 'cmi_completed', 'cmi_new', 'cmi_ongoing', 'cmi_terminated', 'cmi_completed_proj', 'cmi_new_proj', 'cmi_ongoing_proj', 'cmi_terminated_proj', 'cmi_completed_subproj', 'cmi_new_subproj', 'cmi_ongoing_subproj', 'cmi_terminated_subproj', 'best_poster', 'prog_dev', 'prog_research', 'proj_research', 'proj_dev', 'sub_proj_research', 'sub_proj_dev'));
     }
 
     public function best_paper_add(Request $request)
@@ -430,11 +466,13 @@ class ReportController extends Controller
                 'best_paper' => 'required',
                 'best_paper_year' => 'required',
                 'best_paper_fa' => 'required',
+                'moreFields.*.evaluator_name' => 'required',
             ],
             [
                 'best_paper.required' => 'Title is required!',
                 'best_paper_year.required' => 'Year is required!',
                 'best_paper_fa.required' => 'Funding Agency is required!',
+                'moreFields.*.evaluator_name.required' => 'Evaluators is required!',
             ],
         );
 
@@ -442,11 +480,20 @@ class ReportController extends Controller
         $data['best_paper_fa'] = $request->best_paper_fa;
         $data['best_paper_year'] = $request->best_paper_year;
 
-        $insert = DB::table('best_paper')->insert($data);
+        $insert = DB::table('best_paper')->insertGetId($data);
+
+        foreach ($request->moreFields as $key => $value) {
+            // dd($value['evaluator_name']);
+            Evaluators::create([
+                'best_paper_id' => $insert,
+                'evaluator_name' => $value['evaluator_name'],
+                // Add other columns as needed
+            ]);
+        }
 
         if ($insert) {
             $notification = [
-                'message' => 'Item Successfully Added!',
+                'message' => 'Paper Successfully Added!',
                 'alert-type' => 'success',
             ];
 
@@ -466,44 +513,34 @@ class ReportController extends Controller
 
     public function best_paper_update(Request $request, $id)
     {
-        $data = [];
-        $request->validate(
-            [
-                'best_paper' => 'required',
-                'best_paper_year' => 'required',
-                'best_paper_fa' => 'required',
-            ],
-            [
-                'best_paper.required' => 'Title is required!',
-                'best_paper_year.required' => 'Year is required!',
-                'best_paper_fa.required' => 'Funding Agency is required!',
-            ],
-        );
-        $data['best_paper'] = $request->best_paper;
-        $data['best_paper_fa'] = $request->best_paper_fa;
-        $data['best_paper_year'] = $request->best_paper_year;
-        $insert = DB::table('best_paper')
-            ->where('id', $id)
-            ->update($data);
+        $data = [
+            'best_paper' => $request->best_paper,
+            'best_paper_fa' => $request->best_paper_fa,
+            'best_paper_year' => $request->best_paper_year,
+        ];
 
-        if ($insert) {
-            $notification = [
-                'message' => 'Item Successfully Updated!',
-                'alert-type' => 'success',
-            ];
+        $paper = Paper::findOrFail($id);
+        $paper->update($data);
 
-            return redirect()
-                ->route('aihrsIndex')
-                ->with($notification);
-        } else {
-            $notification = [
-                'message' => 'Something is wrong, please try again!',
-                'alert-type' => 'error',
-            ];
-            return redirect()
-                ->route('aihrsIndex')
-                ->with($notification);
+        // Delete existing evaluators
+        $paper->evaluators()->delete();
+
+        // Insert new evaluators
+        foreach ($request->moreFields as $key => $values) {
+            Evaluators::create([
+                'best_paper_id' => $id,
+                'evaluator_name' => $values['evaluator_name'],
+            ]);
         }
+
+        $notification = [
+            'message' => 'Paper Successfully Updated!',
+            'alert-type' => 'success',
+        ];
+
+        return redirect()
+            ->route('aihrsIndex')
+            ->with($notification);
     }
 
     public function best_paper_delete($id)
@@ -514,7 +551,7 @@ class ReportController extends Controller
             ->delete();
         if ($delete) {
             $notification = [
-                'message' => 'Item Successfully Deleted!',
+                'message' => 'Paper Successfully Deleted!',
                 'alert-type' => 'success',
             ];
             return redirect()
@@ -545,11 +582,20 @@ class ReportController extends Controller
         $data['date'] = $request->date;
         $data['agency'] = $request->agency;
 
-        $insert = DB::table('best_poster')->insert($data);
+        $insert = DB::table('best_poster')->insertGetId($data);
+
+        foreach ($request->moreFields as $key => $value) {
+            // dd($value['evaluator_name']);
+            PosterEvaluators::create([
+                'best_poster_id' => $insert,
+                'evaluator_name' => $value['evaluator_name'],
+                // Add other columns as needed
+            ]);
+        }
 
         if ($insert) {
             $notification = [
-                'message' => 'Best Poster Successfully Added!',
+                'message' => 'Poster Successfully Added!',
                 'alert-type' => 'success',
             ];
 
@@ -567,6 +613,57 @@ class ReportController extends Controller
         }
     }
 
+    public function best_poster_update(Request $request, $id)
+    {
+        $poster = Poster::find($id);
+
+        if ($request->hasFile('poster')) {
+            // Remove old profile picture
+            if ($poster->file_path) {
+                Storage::disk('poster')->delete($poster->file_path);
+            }
+            // Auto-rename the uploaded profile picture
+            $posterPicture = $request->file('poster');
+            $extension = $posterPicture->getClientOriginalExtension();
+            $newFileName = Str::uuid() . '_' . time() . '_' . "poster.{$extension}";
+            $posterPath = $posterPicture->storeAs('posters', $newFileName, 'poster');
+            $poster->file_path = $profilePicturePath;
+        }
+
+        $data = [
+            'date' => $request->date,
+            'agency' => $request->agency,
+        ];
+
+        $poster->save();
+
+        $poster->update($data);
+
+        $poster = Poster::findOrFail($id);
+
+        $poster->poster_evaluators()->delete();
+
+        // $insert = DB::table('best_poster')->update($data);
+
+        foreach ($request->moreFields as $key => $value) {
+            // dd($value['evaluator_name']);
+            PosterEvaluators::create([
+                'best_poster_id' => $id,
+                'evaluator_name' => $value['evaluator_name'],
+                // Add other columns as needed
+            ]);
+        }
+
+        $notification = [
+            'message' => 'Poster Successfully Updated!',
+            'alert-type' => 'success',
+        ];
+
+        return redirect()
+            ->route('aihrsIndex')
+            ->with($notification);
+    }
+
     public function best_poster_delete($id)
     {
         $id = Crypt::decryptString($id);
@@ -574,7 +671,7 @@ class ReportController extends Controller
         $poster = Poster::find($id);
 
         // Delete the file from storage
-        Storage::disk('public')->delete($poster->file_path);
+        Storage::disk('poster')->delete($poster->file_path);
 
         // Delete the record from the database
         $delete = $poster->delete();
@@ -607,7 +704,14 @@ class ReportController extends Controller
     {
         $title = 'Linkages | RDMC';
         $all = DB::table('rdmc_linkages')->get();
-        return view('backend.report.rdmc.rdmc_linkages_index', compact('title', 'all'));
+
+        // CMI
+        $all_filter = DB::table('rdmc_linkages')
+            ->select('*')
+            ->where('encoder_agency', '=', auth()->user()->agencyID)
+            ->get();
+
+        return view('backend.report.rdmc.rdmc_linkages_index', compact('title', 'all', 'all_filter'));
     }
     public function linkagesAddIndex()
     {
@@ -618,7 +722,14 @@ class ReportController extends Controller
     {
         $title = 'DBIS | RDMC';
         $all = DB::table('rdmc_dbinfosys')->get();
-        return view('backend.report.rdmc.rdmc_dbinfosys_index', compact('title', 'all'));
+
+        // CMI filter
+        $all_filter = DB::table('rdmc_dbinfosys')
+            ->select('*')
+            ->where('encoder_agency', '=', auth()->user()->agencyID)
+            ->get();
+
+        return view('backend.report.rdmc.rdmc_dbinfosys_index', compact('title', 'all', 'all_filter'));
     }
     public function dbInfoSysAdd()
     {
@@ -630,7 +741,16 @@ class ReportController extends Controller
     {
         $title = 'Regional Symposium on R&D Highlights';
         $all = DB::table('rdmc_regional')->get();
-        return view('backend.report.rdmc.rdmc_regional', compact('title', 'all'));
+
+        $researcherIds = DB::table('rdmc_regional')
+            ->select('regional_researchers')
+            ->get();
+
+        $researchers = Researchers::whereHas('regional', function ($query) use ($researcherIds) {
+            $query->whereJsonContains('regional_researchers', $researcherIds);
+        })->get();
+
+        return view('backend.report.rdmc.rdmc_regional', compact('title', 'all', 'researchers'));
     }
 
     public function regional_add_index()
@@ -667,7 +787,12 @@ class ReportController extends Controller
     {
         $title = 'Strategic R&D Activities';
         $all = DB::table('strategic_tech_list')->get();
-        return view('backend.report.strategic.tech_list', compact('title', 'all'));
+        // CMI
+        $all_filter = DB::table('strategic_tech_list')
+            ->where('encoder_agency', '=', auth()->user()->agencyID)
+            ->get();
+
+        return view('backend.report.strategic.tech_list', compact('title', 'all', 'all_filter'));
     }
 
     public function add_strategic_tech_list_index()
@@ -678,14 +803,22 @@ class ReportController extends Controller
         $programs = DB::table('programs')->get();
         $projects = DB::table('projects')->get();
         $sub_projects = DB::table('sub_projects')->get();
-        return view('backend.report.strategic.tech_list_add', compact('title', 'all', 'agency', 'programs', 'projects', 'sub_projects'));
+        $researchers = DB::table('researchers')->get();
+
+        return view('backend.report.strategic.tech_list_add', compact('title', 'all', 'agency', 'programs', 'projects', 'sub_projects', 'researchers'));
     }
 
     public function strategic_program_list()
     {
         $title = 'Strategic R&D Activities';
         $all = DB::table('strategic_program_list')->get();
-        return view('backend.report.strategic.strategic_programs', compact('title', 'all'));
+
+        // CMI filter
+        $all_filter = DB::table('strategic_program_list')
+            ->where('encoder_agency', '=', auth()->user()->agencyID)
+            ->get();
+
+        return view('backend.report.strategic.strategic_programs', compact('title', 'all', 'all_filter'));
     }
 
     public function add_strategic_program_list_index()
@@ -703,18 +836,23 @@ class ReportController extends Controller
     {
         $title = 'Strategic R&D Activities';
         $all = DB::table('strategic_collaborative_list')->get();
-        return view('backend.report.strategic.strategic_collaborative', compact('title', 'all'));
+
+        $all_filter = DB::table('strategic_collaborative_list')
+            ->where('encoder_agency', '=', auth()->user()->agencyID)
+            ->get();
+
+        return view('backend.report.strategic.strategic_collaborative', compact('title', 'all', 'all_filter'));
     }
 
     public function add_strategic_collaborative_list_index()
     {
         $title = 'Strategic R&D Activities';
-        $all = DB::table('strategic_tech_list')->get();
         $agency = DB::table('agency')->get();
         $programs = DB::table('programs')->get();
         $projects = DB::table('projects')->get();
         $sub_projects = DB::table('sub_projects')->get();
-        return view('backend.report.strategic.strategic_collaborative_add', compact('title', 'all', 'agency', 'programs', 'projects', 'sub_projects'));
+
+        return view('backend.report.strategic.strategic_collaborative_add', compact('title', 'agency', 'programs', 'projects', 'sub_projects'));
     }
 
     public function strategicActivities()
@@ -747,21 +885,34 @@ class ReportController extends Controller
         $title = 'TTP | R&D Results Utilizations';
         $all = DB::table('results_ttp')->get();
         $agency = DB::table('agency')->get();
-        return view('backend.report.rdru.rdru_ttp', compact('title', 'all', 'agency'));
+
+        $all_filter = DB::table('results_ttp')
+            ->where('encoder_agency', '=', auth()->user()->agencyID)
+            ->get();
+
+        return view('backend.report.rdru.rdru_ttp', compact('title', 'all', 'agency', 'all_filter'));
     }
 
     public function rdruAdd()
     {
         $title = 'TTP | R&D Results Utilizations';
         $agency = DB::table('agency')->get();
-        return view('backend.report.rdru.rdru_ttp_add', compact('title', 'agency'));
+        $researchers = DB::table('researchers')->get();
+
+        return view('backend.report.rdru.rdru_ttp_add', compact('title', 'agency', 'researchers'));
     }
+    // RDRU TECH INITIATIVES
     public function rdruTtm()
     {
         $title = 'TTM | R&D Results Utilizations';
         $all = DB::table('results_ttm')->get();
         $agency = DB::table('agency')->get();
-        return view('backend.report.rdru.rdru_ttm', compact('title', 'all', 'agency'));
+
+        $all_filter = DB::table('results_ttm')
+            ->where('encoder_agency', '=', auth()->user()->agencyID)
+            ->get();
+
+        return view('backend.report.rdru.rdru_ttm', compact('title', 'all', 'agency', 'all_filter'));
     }
 
     public function rdruTtmIndex()
@@ -779,7 +930,12 @@ class ReportController extends Controller
     {
         $title = 'TPA | R&D Results Utilizations';
         $all = DB::table('results_tpa')->get();
-        return view('backend.report.rdru.rdru_tpa', compact('title', 'all'));
+
+        $all_filter = DB::table('results_tpa')
+            ->where('encoder_agency', '=', auth()->user()->agencyID)
+            ->get();
+
+        return view('backend.report.rdru.rdru_tpa', compact('title', 'all', 'all_filter'));
     }
     public function rdruTpaAdd()
     {
@@ -795,8 +951,15 @@ class ReportController extends Controller
         // $iec = DB::table('iec_approaches')->get();
         $agency = DB::table('agency')->get();
         $all = DB::table('rdru_tech_deployed')->get();
-        return view('backend.report.rdru.rdru_tech_deployed', compact('title', 'agency', 'all'));
+
+        // CMI Filter
+        $all_filter = DB::table('rdru_tech_deployed')
+            ->where('encoder_agency', '=', auth()->user()->agencyID)
+            ->get();
+
+        return view('backend.report.rdru.rdru_tech_deployed', compact('title', 'agency', 'all', 'all_filter'));
     }
+
     public function rdru_add_tech_deployed_index()
     {
         $title = 'TPA | R&D Results Utilizations';
@@ -816,6 +979,11 @@ class ReportController extends Controller
     {
         $title = 'Policy';
         $all = DB::table('policy_prc')->get();
+
+        $all_filter = DB::table('policy_prc')
+            ->where('encoder_agency', '=', auth()->user()->agencyID)
+            ->get();
+
         $agency = DB::table('agency')->get();
 
         // CMI
@@ -824,7 +992,7 @@ class ReportController extends Controller
             ->join('agency', 'agency.abbrev', '=', 'users.agencyID')
             ->where('agencyID', auth()->user()->agencyID)
             ->get();
-        return view('backend.report.policy.policy_prc_index', compact('title', 'all', 'agency', 'user_agency'));
+        return view('backend.report.policy.policy_prc_index', compact('title', 'all', 'agency', 'user_agency', 'all_filter'));
     }
 
     public function policyFormulated()
@@ -833,13 +1001,18 @@ class ReportController extends Controller
         $all = DB::table('policy_formulated')->get();
         $agency = DB::table('agency')->get();
 
+        $all_filter = DB::table('policy_formulated')
+            ->where('encoder_agency', '=', auth()->user()->agencyID)
+            ->get();
+
         // CMI
 
         $user_agency = DB::table('users')
             ->join('agency', 'agency.abbrev', '=', 'users.agencyID')
             ->where('agencyID', auth()->user()->agencyID)
             ->get();
-        return view('backend.report.policy.policy_formulated_index', compact('title', 'all', 'agency', 'user_agency'));
+            
+        return view('backend.report.policy.policy_formulated_index', compact('title', 'all', 'agency', 'user_agency', 'all_filter'));
     }
 
     public function cbgIndex()
@@ -852,7 +1025,12 @@ class ReportController extends Controller
     {
         $title = 'Trainings | CBG';
         $all = DB::table('cbg_trainings')->get();
-        return view('backend.report.cbg.cbg_training', compact('title', 'all'));
+
+        $all_filter = DB::table('cbg_trainings')
+            ->where('encoder_agency', '=', auth()->user()->agencyID)
+            ->get();
+
+        return view('backend.report.cbg.cbg_training', compact('title', 'all', 'all_filter'));
     }
     public function cbgContributions()
     {
@@ -864,11 +1042,15 @@ class ReportController extends Controller
 
     public function cbgInitiatives()
     {
-        $title = 'Contributions | CBG';
+        $title = 'Initiatives| CBG';
         $initiatives = Initiatives::all();
         $agency = DB::table('agency')->get();
         // $all = DB::table('cbg_contributions')->get();
-        return view('backend.report.cbg.cbg_initiatives', compact('title', 'initiatives', 'agency'));
+        $initiatives_filter = DB::table('cbg_initiatives')
+            ->where('encoder_agency', '=', auth()->user()->agencyID)
+            ->get();
+
+        return view('backend.report.cbg.cbg_initiatives', compact('title', 'initiatives', 'agency', 'initiatives_filter'));
     }
 
     public function cbgMeetings()
@@ -890,14 +1072,22 @@ class ReportController extends Controller
         $title = 'Awards | CBG';
         $award = DB::table('cbg_awards')->get();
 
-        return view('backend.report.cbg.cbg_awards', compact('title', 'award'));
+        $award_filter = DB::table('cbg_awards')
+            ->where('encoder_agency', '=', auth()->user()->agencyID)
+            ->get();
+
+        return view('backend.report.cbg.cbg_awards', compact('title', 'award', 'award_filter'));
     }
 
     public function cbgEquipment()
     {
         $title = 'Equipments | CBG';
         $equipment = DB::table('cbg_equipments')->get();
-        return view('backend.report.cbg.cbg_equipment', compact('title', 'equipment'));
+        $all_filter = DB::table('cbg_equipments')
+            ->where('encoder_agency', '=', auth()->user()->agencyID)
+            ->get();
+
+        return view('backend.report.cbg.cbg_equipment', compact('title', 'equipment', 'all_filter'));
     }
 
     public function cbgTrainingAdd()

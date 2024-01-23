@@ -16,12 +16,12 @@ return new class extends Migration {
             $table->string('ttp_title');
             $table->string('ttp_budget');
             $table->string('ttp_sof');
-            $table->string('ttp_proponent');
-            $table->string('ttp_researchers');
+            $table->string('ttp_proponent')->nullable();
+            $table->string('ttp_researchers')->nullable();
             $table->string('ttp_implementing_agency');
-            $table->string('ttp_start_date');
-            $table->string('ttp_end_date');
+            $table->string('ttp_date');
             $table->longText('ttp_priorities');
+            $table->string('encoder_agency');
             $table->timestamps();
         });
     }

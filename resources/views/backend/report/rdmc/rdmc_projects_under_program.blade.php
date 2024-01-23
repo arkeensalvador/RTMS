@@ -5,10 +5,10 @@
         <div class="content-header">
             <div class="container-fluid">
                 <div class="row mb-2">
-                    <div class="col-sm-6">
-                        {{-- <h1 class="m-0">{{ auth()->user()->role }} - Manage Accounts</h1> --}}
+                    <div class="col-sm-9">
+                        <h1 class="m-0"> {{ $program_title->program_title }}</h1>
                     </div><!-- /.col -->
-                    <div class="col-sm-6">
+                    <div class="col-sm-3">
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="home">Home</a></li>
                             <li class="breadcrumb-item active">Programs</li>
@@ -17,30 +17,29 @@
                 </div><!-- /.row -->
             </div><!-- /.container-fluid -->
         </div>
-
-
         <!-- Main content -->
-        <section class="content">
+        <section class="report">
             <div class="container-fluid">
-                <div class="row">
+                <div class="monitoring row">
                     <div class="col-12">
                         <div class="card">
                             <div class="card-header">
-                                <h3 class="card-title">{{ $program_title->program_title }}</h3>
+                                <h2 class="card-title">List of Projects
+                                </h2>
                                 <div class="card-tools">
-
                                     <button type="button" class="btn btn-info" data-bs-toggle="modal"
                                         data-bs-target="#staticBackdrop">
                                         <i class="fa-solid fa-cloud-arrow-up"></i>
                                         Import
                                     </button>
-                                    <a href="{{ url('projects-u-program-add/' . $program_title->programID) }}"
-                                        class="btn btn-success"><span><i class="fa-solid fa-plus"></i> Create</span></a>
-                                </div>
-                                <!-- /.card-tools -->
-                            </div>
 
+                                    <a href="{{ url('projects-u-program-add/' . $program_title->programID) }}"
+                                        class="btn btn-success">
+                                        <span><i class="fa-solid fa-plus"></i> Create</span></a>
+                                </div>
+                            </div>
                             <!-- /.card-header -->
+
                             <div class="card-body">
                                 <table id="programs" class="table table-bordered table-striped text-center">
                                     <thead>
@@ -52,7 +51,9 @@
                                             <th>Project Leader</th>
                                             <th>Duration</th>
                                             <th>Funding Agency</th>
-                                            <th>Implementing Agency/Research and Development Center</th>
+                                            <th>Implementing Agency</th>
+                                            <th>Collaborating Agency</th>
+                                            <th>R & D Center</th>
                                             <th>Description</th>
                                             <th>Status</th>
                                             <th hidden>Keyword(s)</th>
@@ -60,106 +61,246 @@
                                         </tr>
 
                                     </thead>
-                                    <tbody>
-                                        @foreach ($projects as $row)
-                                            <tr>
-                                                <td class="prog_id" hidden>{{ $row->programID }}</td>
-                                                <td class="proj_id" hidden>{{ $row->id }}</td>
-                                                <td><span class="hashtag text-bg-primary">#</span>
-                                                    {{ $row->project_fund_code }}
-                                                </td>
-                                                <td>
-                                                    <a
-                                                        href="{{ url("sub-projects-view/$row->id") }}">{{ $row->project_title }}</a>
-                                                </td>
-                                                <td>{{ $row->project_leader }}</td>
-                                                <td>
-                                                    @empty($row->extend_date)
-                                                        {{ date('F, Y', strtotime($row->project_start_date)) ?: 'Not Set' }} -
-                                                        {{ date('F, Y', strtotime($row->project_end_date)) ?: 'Not Set' }}
-                                                    @else
-                                                        {{ date('F, Y', strtotime($row->project_start_date)) ?: 'Not Set' }} -
-                                                        {{ date('F, Y', strtotime($row->project_extend_date)) ?: 'Not Set' }}
-                                                        <span class="badge text-bg-info">Extended</span>
-                                                    @endempty
-                                                </td>
-                                                <td>{{ $row->project_agency }}</td>
-                                                @php
-                                                    if (!empty($row->project_implementing_agency)) {
-                                                        $imp = json_decode($row->project_implementing_agency);
-                                                        $imp = implode(' / ', $imp);
-                                                    }
-                                                    $rc = $row->project_research_center;
-                                                    $rc = str_replace(['[', '"', ']'], '', $rc);
-                                                @endphp
-                                                <td>{{ $imp }} / {{ $rc }}</td>
-                                                <td>{{ $row->project_description }}</td>
-                                                <td>
-                                                    @if ($row->project_status == 'New')
-                                                        {{ $row->project_status }}
-                                                        <i class="fa-solid fa-database fa-xl" style="color: #28a745;"></i>
-                                                    @elseif ($row->project_status == 'Ongoing')
-                                                        {{ $row->project_status }}
-                                                        <i class="fa-solid fa-hourglass fa-xl" style="color: #2a6cdf;"></i>
-                                                    @elseif ($row->project_status == 'Terminated')
-                                                        {{ $row->project_status }}
-                                                        <i class="fa-solid fa-triangle-exclamation fa-xl"
-                                                            style="color: #ff0000;"></i>
-                                                    @elseif ($row->project_status == 'Completed')
-                                                        {{ $row->project_status }}
-                                                        <i class="fa-solid fa-circle-check fa-xl"
-                                                            style="color: #28a745;"></i>
-                                                    @endif
-                                                </td>
-                                                <td hidden>
-                                                    {{ $row->keywords }}
-                                                </td>
-                                                <td class="action">
-                                                    <span title="View Project">
-                                                        <a class="btn btn-info"
-                                                            href="{{ url("view-project-index/$row->id") }}"><i
-                                                                class="fa-solid fa-eye" style="color: white;"></i></a>
-                                                    </span>
+                                    @if (auth()->user()->role == 'Admin')
+                                        <tbody>
+                                            @foreach ($projects as $row)
+                                                <tr>
+                                                    <td class="prog_id" hidden>{{ $row->programID }}</td>
+                                                    <td class="proj_id" hidden>{{ $row->id }}</td>
+                                                    <td><span class="hashtag text-bg-primary">#</span>
+                                                        {{ $row->project_fund_code }}</td>
+                                                    <td>
+                                                        <a
+                                                            href="{{ url("sub-projects-view/$row->id") }}">{{ $row->project_title }}</a>
+                                                    </td>
+                                                    <td>
+                                                        @php
+                                                            $leader = App\Models\Researchers::find($row->project_leader);
+                                                        @endphp
+                                                        {{ $leader->first_name . ' ' . $leader->middle_name . ' ' . $leader->last_name }}
+                                                    </td>
+                                                    <td>
+                                                        {{ $row->project_duration }}
+                                                    </td>
+                                                    @php
+                                                        if (!empty($row->project_implementing_agency)) {
+                                                            $imp = json_decode($row->project_implementing_agency);
+                                                            $imp = implode(', ', $imp);
+                                                        }
 
-                                                    <span title="Edit Project">
-                                                        <a class="btn btn-primary"
-                                                            href="{{ url("edit-project/$row->id") }}"><i
-                                                                class="fa-solid fa-pen-to-square"
-                                                                style="color: white;"></i></a>
-                                                    </span>
+                                                        if (!empty($row->project_collaborating_agency)) {
+                                                            $collab = json_decode($row->project_collaborating_agency);
+                                                            $collab = implode(', ', $collab);
+                                                        }
 
-                                                    <span title="Upload Project Files">
-                                                        {{-- <a class="btn btn-secondary"
-                                                            href="{{ url("upload-file/$row->programID") }}"><i
-                                                                class="fa-solid fa-file-circle-plus"></i></a> --}}
+                                                        if (!empty($row->project_agency)) {
+                                                            $funding = json_decode($row->project_agency);
+                                                            $funding = implode(', ', $funding);
+                                                        }
 
-                                                        <a class="btn btn-secondary uploadFiles" data-toggle="modal"
-                                                            data-target='#uploadfiles' data-id="{{ $row->programID }}"><i
-                                                                class="fa-solid fa-file-circle-plus"></i></a>
-                                                    </span>
+                                                        $rc = $row->project_research_center;
+                                                        $rc = str_replace(['[', '"', ']'], '', $rc);
+                                                        $rc = str_replace(',', ', ', $rc);
+                                                    @endphp
 
-                                                    <span title="Add Project Staffs">
-                                                        <!-- Button trigger modal -->
-                                                        <a class="btn btn-warning addPersonnel" data-toggle="modal"
-                                                            data-target='#add-personnel' data-id="{{ $row->programID }}"><i
-                                                                class="fa-solid fa-user-plus"></i></a>
+                                                    <td>{{ $funding }}</td>
 
+                                                    <td>{{ $imp }} </td>
+                                                    <td>{{ $collab }}</td>
+                                                    <td>{{ $rc }}</td>
 
-                                                    </span>
+                                                    <td>{{ $row->project_description }}</td>
+                                                    <td>
+                                                        @if ($row->project_status == 'New')
+                                                            {{ $row->project_status }}
+                                                            <i class="fa-solid fa-database fa-xl"
+                                                                style="color: #28a745;"></i>
+                                                        @elseif ($row->project_status == 'Ongoing')
+                                                            {{ $row->project_status }}
+                                                            <i class="fa-solid fa-magnifying-glass-chart fa-xl"
+                                                                style="color: #2a6cdf;"></i>
+                                                        @elseif ($row->project_status == 'Terminated')
+                                                            {{ $row->project_status }}
+                                                            <i class="fa-solid fa-triangle-exclamation fa-xl"
+                                                                style="color: #ff0000;"></i>
+                                                        @elseif ($row->project_status == 'Completed')
+                                                            {{ $row->project_status }}
+                                                            <i class="fa-solid fa-circle-check fa-xl"
+                                                                style="color: #28a745;"></i>
+                                                        @endif
+                                                    </td>
+                                                    <td hidden>
+                                                        {{ $row->keywords }}
+                                                    </td>
+                                                    <td class="action">
+                                                        <span title="View Program">
+                                                            <a class="btn btn-info"
+                                                                href="{{ url("view-project-index/$row->id") }}"><i
+                                                                    class="fa-solid fa-eye" style="color: white;"></i></a>
+                                                        </span>
 
-                                                    <a href="{{ URL::to('/delete-project/' . $row->id) }}"
-                                                        class="btn btn-danger" id="delete"><i
-                                                            class="fa-solid fa-trash"></i></a>
-                                                </td>
-                                            </tr>
-                                        @endforeach
-                                    </tbody>
+                                                        <span title="Edit Program">
+                                                            @if (empty($row->programID))
+                                                                <span title="Edit">
+                                                                    <a class="btn btn-primary"
+                                                                        href="{{ url("edit-no-program-project/$row->id") }}"><i
+                                                                            class="fa-solid fa-pen-to-square"
+                                                                            style="color: white;"></i></a>
+                                                                </span>
+                                                            @else
+                                                                <span title="Edit">
+                                                                    <a class="btn btn-primary"
+                                                                        href="{{ url("edit-project/$row->id") }}"><i
+                                                                            class="fa-solid fa-pen-to-square"
+                                                                            style="color: white;"></i></a>
+                                                                </span>
+                                                            @endif
+                                                        </span>
+
+                                                        <span title="Upload Program Files">
+                                                            <a class="btn btn-secondary uploadFiles" data-toggle="modal"
+                                                                data-target='#uploadfiles' data-id="{{ $row->id }}"><i
+                                                                    class="fa-solid fa-file-circle-plus"></i></a>
+                                                        </span>
+
+                                                        <span title="Add Program Staffs">
+                                                            <!-- Button trigger modal -->
+                                                            <a class="btn btn-warning addPersonnel" data-toggle="modal"
+                                                                data-target='#add-personnel'
+                                                                data-id="{{ $row->id }}"><i
+                                                                    class="fa-solid fa-user-plus"></i></a>
+                                                        </span>
+
+                                                        <a href="{{ URL::to('/delete-project/' . $row->id) }}"
+                                                            class="btn btn-danger" id="delete"><i
+                                                                class="fa-solid fa-trash"></i></a>
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+                                        </tbody>
+                                    @else
+                                        <tbody>
+                                            @foreach ($all_filter as $row)
+                                                <tr>
+                                                    <td class="prog_id" hidden>{{ $row->programID }}</td>
+                                                    <td class="proj_id" hidden>{{ $row->id }}</td>
+                                                    <td><span class="hashtag text-bg-primary">#</span>
+                                                        {{ $row->project_fund_code }}</td>
+                                                    <td>
+                                                        <a
+                                                            href="{{ url("sub-projects-view/$row->id") }}">{{ $row->project_title }}</a>
+                                                    </td>
+                                                    <td>
+                                                        @php
+                                                            $leader = App\Models\Researchers::find($row->project_leader);
+                                                        @endphp
+                                                        {{ $leader->first_name . ' ' . $leader->middle_name . ' ' . $leader->last_name }}
+                                                    </td>
+                                                    <td>
+                                                        {{ $row->project_duration }}
+                                                    </td>
+                                                    @php
+                                                        if (!empty($row->project_implementing_agency)) {
+                                                            $imp = json_decode($row->project_implementing_agency);
+                                                            $imp = implode(', ', $imp);
+                                                        }
+
+                                                        if (!empty($row->project_collaborating_agency)) {
+                                                            $collab = json_decode($row->project_collaborating_agency);
+                                                            $collab = implode(', ', $collab);
+                                                        }
+
+                                                        if (!empty($row->project_agency)) {
+                                                            $funding = json_decode($row->project_agency);
+                                                            $funding = implode(', ', $funding);
+                                                        }
+
+                                                        $rc = $row->project_research_center;
+                                                        $rc = str_replace(['[', '"', ']'], '', $rc);
+                                                        $rc = str_replace(',', ', ', $rc);
+                                                    @endphp
+
+                                                    <td>{{ $funding }}</td>
+
+                                                    <td>{{ $imp }} </td>
+                                                    <td>{{ $collab }}</td>
+                                                    <td>{{ $rc }}</td>
+
+                                                    <td>{{ $row->project_description }}</td>
+                                                    <td>
+                                                        @if ($row->project_status == 'New')
+                                                            {{ $row->project_status }}
+                                                            <i class="fa-solid fa-database fa-xl"
+                                                                style="color: #28a745;"></i>
+                                                        @elseif ($row->project_status == 'Ongoing')
+                                                            {{ $row->project_status }}
+                                                            <i class="fa-solid fa-magnifying-glass-chart fa-xl"
+                                                                style="color: #2a6cdf;"></i>
+                                                        @elseif ($row->project_status == 'Terminated')
+                                                            {{ $row->project_status }}
+                                                            <i class="fa-solid fa-triangle-exclamation fa-xl"
+                                                                style="color: #ff0000;"></i>
+                                                        @elseif ($row->project_status == 'Completed')
+                                                            {{ $row->project_status }}
+                                                            <i class="fa-solid fa-circle-check fa-xl"
+                                                                style="color: #28a745;"></i>
+                                                        @endif
+                                                    </td>
+                                                    <td hidden>
+                                                        {{ $row->keywords }}
+                                                    </td>
+                                                    <td class="action">
+                                                        <span title="View Program">
+                                                            <a class="btn btn-info"
+                                                                href="{{ url("view-project-index/$row->id") }}"><i
+                                                                    class="fa-solid fa-eye" style="color: white;"></i></a>
+                                                        </span>
+
+                                                        <span title="Edit Program">
+                                                            @if (empty($row->programID))
+                                                                <span title="Edit">
+                                                                    <a class="btn btn-primary"
+                                                                        href="{{ url("edit-no-program-project/$row->id") }}"><i
+                                                                            class="fa-solid fa-pen-to-square"
+                                                                            style="color: white;"></i></a>
+                                                                </span>
+                                                            @else
+                                                                <span title="Edit">
+                                                                    <a class="btn btn-primary"
+                                                                        href="{{ url("edit-project/$row->id") }}"><i
+                                                                            class="fa-solid fa-pen-to-square"
+                                                                            style="color: white;"></i></a>
+                                                                </span>
+                                                            @endif
+                                                        </span>
+
+                                                        <span title="Upload Program Files">
+                                                            <a class="btn btn-secondary uploadFiles" data-toggle="modal"
+                                                                data-target='#uploadfiles'
+                                                                data-id="{{ $row->id }}"><i
+                                                                    class="fa-solid fa-file-circle-plus"></i></a>
+                                                        </span>
+
+                                                        <span title="Add Program Staffs">
+                                                            <!-- Button trigger modal -->
+                                                            <a class="btn btn-warning addPersonnel" data-toggle="modal"
+                                                                data-target='#add-personnel'
+                                                                data-id="{{ $row->id }}"><i
+                                                                    class="fa-solid fa-user-plus"></i></a>
+                                                        </span>
+
+                                                        <a href="{{ URL::to('/delete-project/' . $row->id) }}"
+                                                            class="btn btn-danger" id="delete"><i
+                                                                class="fa-solid fa-trash"></i></a>
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+                                        </tbody>
+                                    @endif
                                 </table>
                                 <a href="{{ url('rdmc-programs') }}" class="btn btn-default">Back</a>
                             </div>
                             <!-- /.card-body -->
-
-                            <!-- /.card-footer -->
                         </div>
                         <!-- /.card -->
                     </div>
@@ -182,7 +323,8 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form role="form" id="regiration_form" action="{{ url('add-project-personnel') }}" method="POST">
+                    <form role="form" id="regiration_form" action="{{ url('add-project-personnel') }}"
+                        method="POST">
                         @csrf
                         {{-- EMPLOYEE FORM WORKING --}}
                         <fieldset>

@@ -88,6 +88,19 @@
                                     <h5 class="mt-0"> Kindly fill-out the fields needed.</h5>
                                 </div>
 
+                                @if (!$imgs->isEmpty())
+                                    <div class="col-md-12">
+                                        <label for="strategic_program" class="font-weight-bold">Uploaded Images<span
+                                                class="text-danger"></span></label><br>
+                                        @foreach ($imgs as $img)
+                                            <a href="{{ asset($img->filename) }}" data-lightbox="photos">
+                                                <img id="" src="{{ asset($img->filename) }}" alt=""
+                                                    style="width: 200px; height: 200px;" class="img-thumbnail">
+                                            </a>
+                                        @endforeach
+                                    </div>
+                                @endif
+
                                 <div class="col-md-3 form-group">
                                     <label for="strategic_program" class="font-weight-bold">Program/Project Type<span
                                             class="text-danger">*</span></label>
@@ -105,7 +118,9 @@
                                 <div class="col-md-12 form-group">
                                     <label for="agencySelect" class=" font-weight-bold">Program/Project Title<span
                                             class="text-danger">*</span></label>
-                                    <select id="" name="str_p_title" class="form-control agency" required>
+                                    <textarea name="str_p_title" id="" cols="30" rows="5" class="form-control"
+                                        placeholder="Enter program/project title">{{ $all->str_p_title }}</textarea>
+                                    {{-- <select id="" name="str_p_title" class="form-control agency" required>
                                         <option value=""></option>
                                         <optgroup label="Programs">
                                             @foreach ($programs as $prog)
@@ -132,7 +147,7 @@
                                                     {{ $sub_proj->sub_project_title }} </option>
                                             @endforeach
                                         </optgroup>
-                                    </select>
+                                    </select> --}}
                                     <div class="invalid-feedback">Missing program/project title</div>
                                 </div>
 
@@ -148,7 +163,7 @@
                                     $imp = json_decode($all->str_p_imp_agency);
                                 @endphp
 
-                                <div class="col-md-6 form-group">
+                                <div class="col-md-12 form-group">
                                     <label for="awards_recipients" class=" font-weight-bold">Implementing Agency<span
                                             class="text-danger">*</span></label>
                                     <select class="form-control implementing_agency" id="awards_recipients"
@@ -171,7 +186,7 @@
                                 @endphp
 
 
-                                <div class="col-md-6 form-group">
+                                <div class="col-md-12 form-group">
                                     <label for="awards_recipients" class=" font-weight-bold">Collaborating Agency<span
                                             class="text-danger">*</span></label>
                                     <select class="form-control collaborating_agency" id=""
@@ -189,30 +204,34 @@
                                     <div class="invalid-feedback">Missing collaborating agency</div>
                                 </div>
 
-                                <div class="col-md-5">
-                                    <label for="tpa_date" class=" font-weight-bold">Date<span
+                                <div class="col-md-12">
+                                    <label for="tpa_date" class=" font-weight-bold">Duration<span
                                             class="text-danger">*</span></label>
                                     <input type="text" name="str_p_date" id="tpa_date" value="{{ $all->str_p_date }}"
                                         class="form-control date-range" placeholder="Enter date" required>
                                     <div class="invalid-feedback">Missing date</div>
                                 </div>
 
-                                <div class="col-md-4 form-group">
-                                    <label for="approved_budget" class=" font-weight-bold">Budget<span
+                                <div class="col-md-12 form-group">
+                                    <label for="approved_budget" class=" font-weight-bold">Approved Budget<span
                                             class="text-danger">*</span></label>
-                                    <input type="text" name="str_p_budget" value="{{ $all->str_p_budget }}"
-                                        class="form-control" id="" placeholder="Budget" required>
+                                    <input type="text" name="str_p_budget" oninput="validateInput(this)"
+                                        value="{{ $all->str_p_budget }}" class="form-control" id=""
+                                        placeholder="Budget" required>
                                     <div class="invalid-feedback">Missing budget</div>
                                 </div>
-
-                                <div class="col-md-8 form-group">
+                                @php
+                                    $sof = json_decode($all->str_p_sof);
+                                @endphp
+                                <div class="col-md-12 form-group">
                                     <label for="funding_agency" class=" font-weight-bold">Source of Fund<span
                                             class="text-danger">*</span></label>
-                                    <select id="funding_agency" name="str_p_sof" class="form-control agency" required>
+                                    <select id="funding_agency" name="str_p_sof[]" multiple class="form-control agency"
+                                        required>
                                         <option></option>
                                         @foreach ($agency as $key)
                                             <option value="{{ $key->abbrev }}"
-                                                {{ $key->abbrev == $all->str_p_sof ? 'selected' : '' }}>
+                                                {{ in_array($key->abbrev, $sof) ? 'selected' : '' }}>
                                                 {{ $key->agency_name }} -
                                                 ({{ $key->abbrev }})
                                                 </b></option>
@@ -224,11 +243,10 @@
 
                                 <div class="col-md-12 form-group">
                                     <label for="strategic_implementing_agency" class=" font-weight-bold">Regional Priority
-                                        Commodities Addressed
-                                        Contribution<span class="text-danger">*</span></label>
+                                        Commodities<span class="text-danger">*</span></label>
                                     <textarea name="str_p_regional" id="strategic_title" class="form-control" rows="4" style="resize: none"
-                                        required placeholder="Commodities addressed">{{ $all->str_p_regional }}</textarea>
-                                    <div class="invalid-feedback">Missing commodities addressed</div>
+                                        required placeholder="Enter commodities">{{ $all->str_p_regional }}</textarea>
+                                    <div class="invalid-feedback">Missing regional priotity commodities</div>
                                 </div>
 
                                 <div class="col-md-12 form-group buttons">
@@ -238,6 +256,20 @@
                             </form>
 
                         </div>
+
+                        <hr>
+                        <div class="d-flex justify-content-center mt-3">
+                            <div class="col-md-12 form-group">
+                                <label for="ttp_sof" class=" font-weight-bold">Photo-documentation upload<span
+                                        class="text-danger">*</span></label>
+                                <form action="{{ url('/image/upload/store') }}" method="POST"
+                                    enctype="multipart/form-data" class="dropzone" id="dropzone">
+                                    @csrf
+                                    <input type="text" name="strategic_programs_list_id" value="{{ $all->id }}"
+                                        hidden>
+                                </form>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -245,6 +277,42 @@
     </div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+        Dropzone.options.dropzone = {
+            maxFilesize: 12,
+            renameFile: function(file) {
+                var dt = new Date();
+                var time = dt.getTime();
+                return time + file.name;
+            },
+            acceptedFiles: ".jpeg, .jpg, .png, .gif",
+            addRemoveLinks: true,
+            timeout: 5000,
+            success: function(file, response) {
+                console.log(response);
+            },
+            queuecomplete: function() {
+                // Reload the page after all uploads are complete
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Images Added Successfully',
+                    toast: true,
+                    position: 'top-right',
+                    timerProgressBar: true,
+                    showConfirmButton: false,
+                    timer: 500,
+                }).then((result) => {
+                    if (result.dismiss) {
+                        location.reload();
+                    }
+                })
+            },
+            error: function(file, response) {
+                return false;
+            }
+        };
+    </script>
+
     <script>
         $(document).ready(function() {
             $('.r-agency').select2({
@@ -286,6 +354,16 @@
         });
     </script>
     <script>
+        function validateInput(input) {
+            // Remove non-numeric characters (except '-')
+            input.value = input.value.replace(/[^\d-]/g, '');
+
+            // Ensure the input is not empty
+            if (input.value === '-') {
+                input.value = '';
+            }
+
+        }
         $(document).ready(function() {
             $('#strategic_program, #strategic_researcher, #strategic_implementing_agency, #strategic_funding_agency, #strategic_budget, #strategic_end, #strategic_start, #strategic_title')
                 .on('input', function() {

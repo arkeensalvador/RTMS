@@ -118,58 +118,58 @@
                                     <div class="invalid-feedback">Missing title</div>
                                 </div>
 
-                                <div class="col-md-6 form-group">
-                                    <label for="ttp_budget" class=" font-weight-bold">Budget<span
-                                            class="text-danger">*</span></label>
-                                    <input type="text" class="form-control" name="ttp_budget" id="ttp_budget"
-                                        value="{{ $all->ttp_budget }}" required>
-                                    <div class="invalid-feedback">Missing budget</div>
-                                </div>
+                                @php
+                                    $sof = json_decode($all->ttp_sof);
+                                @endphp
 
-                                <div class="col-md-6 form-group">
+                                <div class="col-md-12 form-group">
                                     <label for="ttp_sof" class=" font-weight-bold">Source of Fund<span
                                             class="text-danger">*</span></label>
-                                    <select id="ttp_sof" name="ttp_sof" class="form-control agency" required>
+                                    <select id="ttp_sof" name="ttp_sof[]" multiple class="form-control agency" required>
                                         <option value=""></option>
                                         @foreach ($agency as $row)
                                             <option value="{{ $row->abbrev }}"
-                                                {{ $row->abbrev == $all->ttp_sof ? 'selected' : '' }}>
+                                                {{ in_array($row->abbrev, $sof) ? 'selected' : '' }}>
                                                 {{ $row->agency_name }} </option>
                                         @endforeach
                                     </select>
                                     <div class="invalid-feedback">Missing source of fund</div>
                                 </div>
 
+                                @php
+                                    $prop = json_decode($all->ttp_proponent);
+                                @endphp
 
-                                <div class="col-md-6 form-group">
+                                <div class="col-md-12 form-group">
                                     <label for="ttp_sof" class=" font-weight-bold">Proponent<span
                                             class="text-danger">*</span></label>
-                                    <select id="agencySelect" name="ttp_proponent" class="form-control r-agency" required>
+                                    <select id="" name="ttp_proponent[]" multiple class="form-control r-agency"
+                                        required>
                                         <option value=""></option>
                                         @foreach ($agency as $row)
                                             <option value="{{ $row->abbrev }}"
-                                                {{ $row->abbrev == $all->ttp_proponent ? 'selected' : '' }}>
+                                                {{ in_array($row->abbrev, $prop) ? 'selected' : '' }}>
                                                 {{ $row->agency_name }} </option>
                                         @endforeach
                                     </select>
                                     <div class="invalid-feedback">Missing proponent</div>
                                 </div>
 
-
                                 @php
                                     $res = json_decode($all->ttp_researchers);
                                 @endphp
 
-                                <div class="col-md-6 form-group">
+                                <div class="col-md-12 form-group">
                                     <label for="ttp_sof" class=" font-weight-bold">Researchers<span
                                             class="text-danger">*</span></label>
-                                    <select id="researcherSelect" name="ttp_researchers[]" class="form-control researchers"
+                                    <select id="" name="ttp_researchers[]" class="form-control researchers"
                                         multiple="multiple" required>
                                         <option value=""></option>
                                         @foreach ($researchers as $key)
-                                            <option value="{{ $key->name }}"
-                                                {{ in_array($key->name, $res) ? 'selected' : '' }}>
-                                                {{ $key->name }}
+                                            <option
+                                                value="{{ $key->first_name . ' ' . $key->middle_name . ' ' . $key->last_name }}"
+                                                {{ in_array($key->first_name . ' ' . $key->middle_name . ' ' . $key->last_name, $res) ? 'selected' : '' }}>
+                                                {{ $key->first_name . ' ' . $key->middle_name . ' ' . $key->last_name }}
                                                 </b></option>
                                         @endforeach
                                     </select>
@@ -197,24 +197,26 @@
                                     </select>
                                     <div class="invalid-feedback">Missing implementing agency</div>
                                 </div>
-                                <div class="col-md-3 form-group">
-                                    <label for="ttp_start_date" class=" font-weight-bold">Start Date<span
-                                            class="text-danger">*</span></label>
 
-                                    <input type="number" name="ttp_start_date" id="ttp_start_date"
-                                        class="form-control date" placeholder="Enter start date"
-                                        value="{{ $all->ttp_start_date }}" required>
-                                    <div class="invalid-feedback">Missing start date</div>
+                                <div class="col-md-6 form-group">
+                                    <label for="ttp_budget" class=" font-weight-bold">Budget<span
+                                            class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" name="ttp_budget" id="ttp_budget"
+                                        value="{{ $all->ttp_budget }}" oninput="validateInput(this)" required>
+                                    <div class="invalid-feedback">Missing budget</div>
                                 </div>
 
+
+
                                 <div class="col-md-3 form-group">
-                                    <label for="ttp_end_date" class="font-weight-bold">End Date <span
+                                    <label for="ttp_start_date" class=" font-weight-bold">Duration<span
                                             class="text-danger">*</span></label>
-                                    <input type="text" name="ttp_end_date" value="{{ $all->ttp_end_date }}"
-                                        class="form-control date" id="ttp_end_date" placeholder="Enter end date"
-                                        required>
-                                    <div class="invalid-feedback">Missing end date</div>
+
+                                    <input type="number" name="ttp_date" id="ttp_date" class="form-control date-range"
+                                        placeholder="Enter date" value="{{ $all->ttp_date }}" required>
+                                    <div class="invalid-feedback">Missing date</div>
                                 </div>
+
 
                                 <div class="col-md-12 form-group">
                                     <label for="ttp_priorities" class=" font-weight-bold">Regional Priorities
@@ -237,6 +239,17 @@
     </div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+        function validateInput(input) {
+            // Remove non-numeric characters (except '-')
+            input.value = input.value.replace(/[^\d-]/g, '');
+
+            // Ensure the input is not empty
+            if (input.value === '-') {
+                input.value = '';
+            }
+        }
+    </script>
     <script>
         $(document).ready(function() {
             $('.r-agency').select2({

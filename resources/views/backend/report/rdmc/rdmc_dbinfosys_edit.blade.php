@@ -92,7 +92,7 @@
                                             class="text-danger">*</span></label>
 
                                     <div class="custom-control custom-radio">
-                                        <input class="custom-control-input" type="radio" value="Database"
+                                        <input class="custom-control-input" type="radio" required value="Database"
                                             name="dbinfosys_category" id="customRadio1"
                                             {{ 'Database' == $all->dbinfosys_category ? 'checked' : '' }}>
                                         <label for="customRadio1" class="custom-control-label"
@@ -100,8 +100,8 @@
                                     </div>
 
                                     <div class="custom-control custom-radio">
-                                        <input class="custom-control-input" type="radio" value="Information System"
-                                            name="dbinfosys_category" id="customRadio2"
+                                        <input class="custom-control-input" type="radio" required
+                                            value="Information System" name="dbinfosys_category" id="customRadio2"
                                             {{ 'Information System' == $all->dbinfosys_category ? 'checked' : '' }}>
                                         <label for="customRadio2" class="custom-control-label"
                                             style="font-weight: bold;">Information System</label>
@@ -119,6 +119,8 @@
                                             Enhanced</option>
                                         <option value="Maintained"
                                             {{ 'Maintained' == $all->dbinfosys_type ? 'selected' : '' }}>Maintained</option>
+                                        <option value="Research" {{ 'Research' == $all->dbinfosys_type ? 'selected' : '' }}>
+                                            Research</option>
                                     </select>
                                     <div class="invalid-feedback">Missing type</div>
                                 </div>

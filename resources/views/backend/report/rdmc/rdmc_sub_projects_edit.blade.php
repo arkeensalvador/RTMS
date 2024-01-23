@@ -91,7 +91,7 @@
                             <form id="projectForm" class="row g-3 needs-validation" novalidate>
                                 @csrf
                                 <div class="form-title col-12">
-                                    <h2 class="font-weight-bold">Sub Project</h2>
+                                    <h2 class="font-weight-bold">Sub-Project/Study</h2>
                                     <h5 class="mt-0"> Kindly fill-out the fields needed.</h5>
                                 </div>
 
@@ -125,11 +125,10 @@
                                 </div>
 
                                 <div class="col-md-4 form-group">
-                                    <label for="fund_code" class="font-weight-bold">Fund Code<span
-                                            class="text-danger">*</span></label>
-                                    <input type="text" name="sub_project_fund_code"
-                                        value="{{ $sub_project->sub_project_fund_code }}" class="form-control"
-                                        id="fund_code" placeholder="Input Trust Fund Code" required>
+                                    <label for="fund_code" class="font-weight-bold">Fund Code (Optional)</label>
+                                    <input type="text" name="sub_project_fund_code" class="form-control"
+                                        value="{{ $sub_project->sub_project_fund_code }}" id="fund_code"
+                                        placeholder="Input Trust Fund Code" required>
                                     <div class="valid-feedback"></div>
                                     <div class="invalid-feedback">Missing fund code</div>
                                 </div>
@@ -137,7 +136,7 @@
                                 <div class="col-md-4 form-group">
                                     <label for="status" class="font-weight-bold">Status<span
                                             class="text-danger">*</span></label>
-                                    <select id="status" name="sub_project_status" class="form-control others" required>
+                                    <select id="status" name="sub_project_status" class="form-control status" required>
                                         <option selected disabled value="">Select status</option>
                                         <option value="New"
                                             {{ 'New' == $sub_project->sub_project_status ? 'selected' : '' }}>New</option>
@@ -170,14 +169,22 @@
                                 </div>
 
                                 <div class="col-md-12 form-group">
-                                    <label for="program_title" class=" font-weight-bold">Project Title<span
+                                    <label for="program_title" class=" font-weight-bold">Sub Project/Study Title<span
                                             class="text-danger">*</span></label></label>
                                     <textarea class="form-control" id="program_title" name="sub_project_title" style="height: 100px"
-                                        placeholder="Enter project title" required>{{ $sub_project->sub_project_title }}</textarea>
+                                        placeholder="Enter project/study title" required>{{ $sub_project->sub_project_title }}</textarea>
                                     <div class="invalid-feedback">Missing project title</div>
                                 </div>
 
-                                <div class="col-md-2 form-group">
+                                <div class="col-md-12 form-group">
+                                    <label for="program_description" class=" font-weight-bold">Sub Project
+                                        Description<span class="text-danger">*</span></label></label>
+                                    <textarea class="form-control" name="sub_project_description" id="program_description" style="height: 100px"
+                                        placeholder="Project/study brief description" required>{{ $sub_project->sub_project_description }}</textarea>
+                                    <div class="invalid-feedback">Missing project description</div>
+                                </div>
+
+                                <div class="col-md-4 form-group">
                                     <label for="form_of_development" class=" font-weight-bold">Form of Development<span
                                             class="text-danger">*</span></label>
                                     <select id="form_of_development" name="sub_project_form_of_development"
@@ -196,16 +203,55 @@
                                     <div class="invalid-feedback">Missing form of development</div>
                                 </div>
 
-                                <div class="col-md-8 form-group">
+
+                                <div class="col-md-4 form-group">
+                                    <label for="start_date" class=" font-weight-bold">Duration<span
+                                            class="text-danger">*</span></label>
+                                    <input type="text" value="{{ $sub_project->sub_project_duration }}"
+                                        name="sub_project_duration" class="form-control date-range"
+                                        id="sub_project_duration" placeholder="Enter project/study duration" required>
+                                    <div class="invalid-feedback">Missing duration of the project/study</div>
+                                </div>
+
+
+                                <div class="col-md-6 form-group">
+                                    <label for="program_leader" class=" font-weight-bold">Sub Project/Study
+                                        Leader<span class="text-danger">*</span></label>
+                                    <select id="program_leader" name="sub_project_leader"
+                                        class="form-control researchers" required>
+                                        <option selected disabled value="">Select Researcher</option>
+                                        @if (auth()->user()->role == 'Admin')
+                                            @foreach ($researchers as $key)
+                                                <option value="{{ $key->id }}"
+                                                    {{ $key->id == $sub_project->sub_project_leader ? 'selected' : '' }}>
+                                                    {{ $key->first_name . ' ' . $key->middle_name . ' ' . $key->last_name }}
+                                                </option>
+                                            @endforeach
+                                        @else
+                                            @foreach ($researchers_filter as $key)
+                                                <option value="{{ $key->id }}"
+                                                    {{ $key->id == $sub_project->sub_project_leader ? 'selected' : '' }}>
+                                                    {{ $key->first_name . ' ' . $key->middle_name . ' ' . $key->last_name }}
+                                                </option>
+                                            @endforeach
+                                        @endif
+                                    </select>
+                                    <div class="invalid-feedback">Missing project leader</div>
+                                </div>
+
+                                @php
+                                    $fa = json_decode($sub_project->sub_project_agency);
+                                @endphp
+
+                                <div class="col-md-12 form-group">
                                     <label for="funding_agency" class=" font-weight-bold">Funding Agency<span
                                             class="text-danger">*</span></label>
-                                    <select id="funding_agency" name="sub_project_agency" class="form-control agency"
-                                        required>
-                                        <option selected disabled value="">Choose Funding Agency / Source of Fund
-                                        </option>
+                                    <select id="funding_agency" name="sub_project_agency[]" multiple
+                                        class="form-control agency" required>
+                                        <option value=""></option>
                                         @foreach ($agency as $key)
                                             <option value="{{ $key->abbrev }}"
-                                                {{ $key->abbrev == $sub_project->sub_project_agency ? 'selected' : '' }}>
+                                                {{ in_array($key->abbrev, $fa) ? 'selected' : '' }}>
                                                 {{ $key->agency_name }} -
                                                 ({{ $key->abbrev }})
                                                 </b></option>
@@ -223,25 +269,37 @@
                                             class="text-danger">*</span></label>
                                     <select class="form-control implementing_agency" id="awards_recipients"
                                         name="sub_project_implementing_agency[]" multiple="multiple" required>
-                                        @if (auth()->user()->role == 'Admin')
-                                            @foreach ($agency as $key)
-                                                <option value="{{ $key->abbrev }}"
-                                                    {{ in_array($key->abbrev, $imp) ? 'selected' : '' }}>
-                                                    {{ $key->agency_name }} -
-                                                    ({{ $key->abbrev }})
-                                                    </b></option>
-                                            @endforeach
-                                        @else
-                                            @foreach ($user_agency as $key)
-                                                <option value="{{ $key->abbrev }}"
-                                                    {{ in_array($key->abbrev, $imp) ? 'selected' : '' }}>
-                                                    {{ $key->agency_name }} -
-                                                    ({{ $key->abbrev }})
-                                                    </b></option>
-                                            @endforeach
-                                        @endif
+                                        @foreach ($agency as $key)
+                                            <option value="{{ $key->abbrev }}"
+                                                {{ in_array($key->abbrev, $imp) ? 'selected' : '' }}>
+                                                {{ $key->agency_name }} -
+                                                ({{ $key->abbrev }})
+                                                </b></option>
+                                        @endforeach
                                     </select>
                                     <div class="invalid-feedback">Missing implementing agency</div>
+                                </div>
+
+                                @php
+                                    $collab = json_decode($sub_project->sub_project_collaborating_agency);
+                                @endphp
+
+                                <div class="col-md-12 form-group">
+                                    <label for="awards_recipients" class=" font-weight-bold">Collaborating Agency<span
+                                            class="text-danger">*</span></label>
+                                    <select class="form-control collaborating_agency" id=""
+                                        name="sub_project_collaborating_agency[]" multiple="multiple" required>
+
+                                        @foreach ($agency as $key)
+                                            <option value="{{ $key->abbrev }}"
+                                                {{ in_array($key->abbrev, $collab) ? 'selected' : '' }}>
+                                                {{ $key->agency_name }} -
+                                                ({{ $key->abbrev }})
+                                                </b></option>
+                                        @endforeach
+
+                                    </select>
+                                    <div class="invalid-feedback">Missing collaborating agency</div>
                                 </div>
 
                                 @php
@@ -262,142 +320,83 @@
                                 <div class="col-md-3 form-group">
                                     <label for="coordination_fund" class=" font-weight-bold">Funding Grant<span
                                             class="text-danger">*</span></label>
-                                    <select id="funding_grant" name="sub_project_funding_duration"
+                                    <select id="funding_grant" name="sub_project_funding_grant"
                                         class="others form-control" required>
                                         <option selected disabled value="">Select Funding Grant</option>
                                         <option value="One-time"
-                                            {{ 'One-time' == $sub_project->sub_project_funding_duration ? 'selected' : '' }}>
+                                            {{ 'One-time' == $sub_project->sub_project_funding_grant ? 'selected' : '' }}>
                                             One-time Grant</option>
                                         <option value="Multi-year"
-                                            {{ 'Multi-year' == $sub_project->sub_project_funding_duration ? 'selected' : '' }}>
+                                            {{ 'Multi-year' == $sub_project->sub_project_funding_grant ? 'selected' : '' }}>
                                             Multi-year Grant</option>
-                                        {{-- <option value="Both"
-                                            {{ 'Both' == $sub_project->sub_project_funding_duration ? 'selected' : '' }}>
-                                            One-time & Multi-year Grant</option> --}}
                                     </select>
                                     <div class="invalid-feedback">Missing funding grant</div>
                                 </div>
 
-                                <div class="col-md-3 form-group">
-                                    <label for="coordination_fund" class=" font-weight-bold">Funding Year(s)<span
-                                            class="text-danger">*</span></label>
-                                    <input type="text" name="sub_project_funding_years"
-                                        value="{{ $sub_project->sub_project_funding_years }}" class="form-control"
-                                        id="coordination_fund" placeholder="E.g. 1 Year, 2 Years, etc." required>
-                                    <div class="invalid-feedback">Missing funding year(s)</div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="col-md-6 form-group">
-                                        <label for="program_leader" class=" font-weight-bold">Project Leader <span
-                                                class="text-danger">*</span></label>
-                                        <select id="program_leader" name="sub_project_leader"
-                                            class="form-control researchers" required>
-                                            <option selected disabled value="">Select Researcher</option>
-                                            @foreach ($researchers as $key)
-                                                <option value="{{ $key->name }}"
-                                                    {{ $key->name == $sub_project->sub_project_leader ? 'selected' : '' }}>
-                                                    {{ $key->name }}</option>
-                                            @endforeach
-                                        </select>
-                                        <div class="invalid-feedback">Missing project leader</div>
-                                    </div>
-                                    <div class="col-md-6 form-group">
-                                        <label for="assistant_leader" class=" font-weight-bold">Assistant Leader <span
-                                                class="text-danger">*</span></label>
-                                        <select id="assistant_leader" name="sub_project_assistant_leader"
-                                            class="form-control researchers" required>
-                                            <option selected disabled value="">Select Researcher</option>
-                                            @foreach ($researchers as $key)
-                                                <option value="{{ $key->name }}"
-                                                    {{ $key->name == $sub_project->sub_project_assistant_leader ? 'selected' : '' }}>
-                                                    {{ $key->name }}</option>
-                                            @endforeach
-                                        </select>
-                                        <div class="invalid-feedback">Missing assistant leader</div>
-                                    </div>
-                                </div>
-
-
-                                <div class="col-md-4 form-group">
-                                    <label for="start_date" class=" font-weight-bold">Start Date <span
-                                            class="text-danger">*</span></label>
-                                    <input type="date" name="sub_project_start_date"
-                                        value="{{ $sub_project->sub_project_start_date }}" class="form-control"
-                                        id="start_date" required>
-                                    <div class="invalid-feedback">Missing start date of the project</div>
-                                </div>
-
-                                <div class="col-md-4 form-group">
-                                    <label for="end_date" class=" font-weight-bold">End Date <span
-                                            class="text-danger">*</span></label>
-                                    <input type="date" name="sub_project_end_date"
-                                        value="{{ $sub_project->sub_project_end_date }}" class="form-control"
-                                        id="end_date" required>
-                                    <div class="invalid-feedback"> Missing end of the project</div>
-                                </div>
-
-                                <div class="col-md-4 form-group">
-                                    <label for="extension_date" class=" font-weight-bold">Extension Date</label>
-                                    <input type="date" name="sub_project_extend_date"
-                                        value="{{ $sub_project->sub_project_extend_date }}" class="form-control"
-                                        id="extension_date">
-                                    {{-- <div class="valid-feedback">There's no inputted extension date for this project</div> --}}
-                                </div>
-
                                 <div class="col-md-12 form-group">
-                                    <label for="program_description" class=" font-weight-bold">Project Description<span
-                                            class="text-danger">*</span></label></label>
-                                    <textarea class="form-control" name="sub_project_description" id="program_description" style="height: 100px"
-                                        placeholder="Project brief description" required>{{ $sub_project->sub_project_description }}</textarea>
-                                    <div class="invalid-feedback">Missing project description</div>
-                                </div>
-
-
-                                <div class="col-md-3 form-group">
-                                    <label for="approved_budget" class=" font-weight-bold">Approved Budget<span
+                                    <label for="coordination_fund" class="font-weight-bold">Budget<span
                                             class="text-danger">*</span></label>
-                                    <input type="text" name="sub_project_approved_budget"
-                                        value="{{ $sub_project->sub_project_approved_budget }}" class="form-control"
-                                        id="approved_budget" placeholder="Approved budget"
-                                        onkeypress="return isNumberKey(event)" required>
-                                    <div class="invalid-feedback">Missing approved budget</div>
+                                    <table id="budget-table" class="table">
+                                        <thead>
+                                            <tr>
+                                                <th>Approved Budget</th>
+                                                <th>Year No.</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>
+                                                    <i class="fa-solid fa-square-plus fa-xl" onclick="addInput()"
+                                                        style="color: #28a745; cursor: pointer;"></i>
+                                                </td>
+                                            </tr>
+                                            @foreach ($budgetData as $key => $data)
+                                                <tr>
+                                                    <td>
+                                                        <input type="text" class="form-control budget-input"
+                                                            name="approved_budget[]" oninput="validateInput(this)"
+                                                            value="{{ $data->approved_budget }}" required>
+                                                    </td>
+                                                    <td>
+                                                        <input type="text" class="form-control year-input"
+                                                            name="budget_year[]" value="{{ $data->budget_year }}"
+                                                            required readonly>
+                                                    </td>
+                                                    <td>
+                                                        <a href="{{ URL::to('/delete-sub-proj-budget/' . $data->id) }}"
+                                                            class="btn btn-danger" id="delete"
+                                                            style="margin-left: 5px"><i class="fa-solid fa-trash"></i></a>
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                    <div id="total-budget" hidden>Total Approved Budget: <span id="total">0</span>
+                                    </div>
+                                    <div class="col-md-4 form-group" id="amountReleased">
+                                        <label for="year_of_release" class=" font-weight-bold">Total Amount Released<span
+                                                class="text-danger">*</span></label>
+                                        <input type="text" name="sub_project_amount_released" class="form-control"
+                                            value="{{ $sub_project->sub_project_amount_released }}"
+                                            id="total_amount_released" placeholder="0" readonly>
+                                        <div class="invalid-feedback">Missing amount released</div>
+                                    </div>
                                 </div>
-
-                                <div class="col-md-1 form-group">
-                                    <label for="#year_of_release" class=" font-weight-bold">Budget Year<span
-                                            class="text-danger">*</span></label>
-                                    <input type="text" name="sub_project_budget_year"
-                                        value="{{ $sub_project->sub_project_budget_year }}" class="form-control"
-                                        id="budget_year" required placeholder="Ex. Year 1">
-                                    <div class="invalid-feedback"> Missing budget year</div>
-                                </div>
-
-                                <div class="col-md-3 form-group">
-                                    <label for="year_of_release" class=" font-weight-bold">Amount Released<span
-                                            class="text-danger">*</span></label>
-                                    <input type="text" name="sub_project_amount_released"
-                                        value="{{ $sub_project->sub_project_amount_released }}" class="form-control"
-                                        id="amount_released" placeholder="Enter exact amount" readonly>
-                                    <div class="invalid-feedback">Missing</div>
-                                </div>
-
                                 @php
                                     $keywords = json_decode($sub_project->keywords);
                                     $keywords = implode($keywords);
                                 @endphp
-
-
                                 <div class="col-md-12 form-group">
                                     <label for="" class=" font-weight-bold">Keywords</label>
-                                    <input type="text" name="keywords[]" value="{{ $keywords }}"
-                                        class="form-control js-recipients" placeholder="Keyword(s)" data-role="tagsinput"
+                                    <input type="text" name="keywords[]" class="form-control js-recipients"
+                                        placeholder="Keyword(s)" value="{{ $keywords }}" data-role="tagsinput"
                                         required>
                                     <div class="invalid-feedback">Missing keywords</div>
                                 </div>
 
                                 <div class="col-md-4 form-group float-right">
-                                    <a href="{{ url('sub-projects-view/' . $sub_projects->id) }}"
+                                    <a href="{{ url('sub-projects-view/' . $sub_project->projectID) }}"
                                         class="btn btn-default">Back</a>
                                     <button type="submit" id="submit" class="btn btn-primary btn-m ">Submit</button>
                                 </div>
@@ -412,21 +411,97 @@
 
     </section>
     </div>
-    {{-- <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
-        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous">
-    </script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
-        integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous">
-    </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tagsinput/0.6.0/bootstrap-tagsinput.min.js"></script> --}}
-
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput.min.js"></script> --}}
 
-    {{-- <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script> --}}
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initial check for remove buttons
+            calculateTotal();
+            updateRemoveButtons();
+        });
+
+        function addInput() {
+            var table = document.getElementById('budget-table').getElementsByTagName('tbody')[0];
+            var newRow = table.insertRow(table.rows.length);
+            var cell1 = newRow.insertCell(0);
+            var cell2 = newRow.insertCell(1);
+            var cell3 = newRow.insertCell(2);
+
+            cell1.innerHTML =
+                '<input type="text" style="margin-bottom: 5px;" class="form-control budget-input" oninput="validateInput(this)" placeholder="Enter budget" name="new_approved_budget[]" required>';
+            cell2.innerHTML =
+                '<input type="text" style="margin-bottom: 5px;" class="form-control year-input" name="new_budget_year[]" required readonly>';
+            cell3.innerHTML =
+                '<i class="fa-solid fa-square-minus fa-lg" style="color: #dc3545; margin-left: 1rem; margin-bottom:0px; cursor: pointer" onclick="removeRow(this)"></i>';
+
+            // Increment the year for each new row added
+            var lastYearInput = document.getElementsByClassName('year-input')[document.getElementsByClassName('year-input')
+                .length - 2];
+            var newYearInput = document.getElementsByClassName('year-input')[document.getElementsByClassName('year-input')
+                .length - 1];
+            var lastYear = parseInt(lastYearInput.value) || 0;
+
+            // Start incrementing from 2 for subsequent inputs
+            newYearInput.value = lastYear === 1 ? 2 : lastYear + 1;
+
+            // Recalculate the total when an input is removed
+            calculateTotal();
+            // Hide "Remove" button if there is only one row
+            updateRemoveButtons();
+        }
+
+        function removeRow(button) {
+            var row = button.parentNode.parentNode;
+            row.parentNode.removeChild(row);
+
+            // Recalculate the total when an input is removed
+            calculateTotal();
+            // Hide "Remove" button if there is only one row
+            updateRemoveButtons();
+        }
+
+
+
+        function validateInput(input) {
+            // Remove non-numeric characters (except '-')
+            input.value = input.value.replace(/[^\d-]/g, '');
+
+            // Ensure the input is not empty
+            if (input.value === '-') {
+                input.value = '';
+            }
+
+            // Recalculate the total when the input changes
+            calculateTotal();
+        }
+
+        function calculateTotal() {
+            var budgetInputs = document.getElementsByClassName('budget-input');
+            var total = 0;
+
+            for (var i = 0; i < budgetInputs.length; i++) {
+                var value = parseFloat(budgetInputs[i].value) || 0;
+                total += value;
+            }
+
+            // Update the total displayed in the HTML
+            document.getElementById('total').textContent = total;
+            document.getElementById('total_amount_released').value = total;
+
+            // Hide "Remove" button if there is only one row
+            updateRemoveButtons();
+        }
+
+        function updateRemoveButtons() {
+            var removeButtons = document.querySelectorAll('#budget-table tbody tr i.fa-square-minus');
+
+            removeButtons.forEach(function(button, index) {
+                // Hide "Remove" button if there is only one row or it's the first row
+                button.style.display = (removeButtons.length > 1 && index > 0) ? 'block' : 'none';
+            });
+        }
+    </script>
+
     <script>
         function isNumberKey(evt) {
             var charCode = (evt.which) ? evt.which : event.keyCode;
@@ -538,7 +613,7 @@
                         // this.reset();
                         Swal.fire({
                             icon: 'success',
-                            title: 'Sub-project Updated Successfully',
+                            title: 'Sub-project Added Successfully',
                             timerProgressBar: true,
                             showConfirmButton: false,
                             timer: 900
@@ -550,13 +625,6 @@
                         })
                     },
                     error: function(data) {
-                        // Swal.fire({
-                        //     icon: 'warning',
-                        //     // title: data.responseJSON.message,
-                        //     title: "There is something wrong...",
-                        //     timerProgressBar: false,
-                        //     showConfirmButton: true,
-                        // });
                         Swal.fire({
                             icon: 'error',
                             toast: true,

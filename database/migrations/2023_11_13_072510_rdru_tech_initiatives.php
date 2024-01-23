@@ -16,6 +16,7 @@ return new class extends Migration {
             $table->string('rdru_tech_ini_type');
             $table->string('rdru_tech_ini_status');
             $table->string('rdru_tech_ini_agency');
+            $table->string('encoder_agency');
             $table->timestamps();
         });
     }

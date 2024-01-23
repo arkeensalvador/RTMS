@@ -21,6 +21,7 @@ return new class extends Migration {
             $table->string('tpa_agency');
             $table->string('is_others')->nullable();
             $table->string('tpa_activity')->nullable();
+            $table->string('encoder_agency');
             $table->timestamps();
         });
     }

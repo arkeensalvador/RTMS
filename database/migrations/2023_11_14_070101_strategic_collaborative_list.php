@@ -13,14 +13,15 @@ return new class extends Migration {
         Schema::create('strategic_collaborative_list', function (Blueprint $table) {
             $table->id('id');
             $table->string('str_collab_type');
-            $table->string('str_collab_program');
-            $table->string('str_collab_project')->nullable();
+            $table->string('str_collab_program')->nullable();
+            $table->string('str_collab_project');
             $table->string('str_collab_imp_agency');
             $table->string('str_collab_agency');
             $table->string('str_collab_date');
             $table->string('str_collab_budget');
             $table->string('str_collab_sof');
             $table->longText('str_collab_roc');
+            $table->string('encoder_agency');
             $table->timestamps();
         });
     }

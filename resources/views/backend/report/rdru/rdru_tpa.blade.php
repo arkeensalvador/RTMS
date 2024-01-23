@@ -55,59 +55,97 @@
                                                         <th>Action</th>
                                                     </tr>
                                                 </thead>
-                                                <tbody>
-                                                    @foreach ($all as $key => $row)
-                                                        <tr>
-                                                            <td>{{ $key + 1 }}</td>
-                                                            <td>
-                                                                @php
-                                                                    $approach = json_decode($row->tpa_approaches);
-                                                                    $forbidden_words = ['Others'];
-                                                                    $approach = array_filter($approach, function ($approach) use ($forbidden_words) {
-                                                                        return !in_array($approach, $forbidden_words);
-                                                                    });
-                                                                    $others = $row->is_others;
-                                                                    if (!empty($others)) {
-                                                                        array_push($approach, $others);
-                                                                    }
-                                                                    $researchers = json_decode($row->tpa_researchers);
-                                                                    $researchers = implode(', ', $researchers);
+                                                @if (auth()->user()->role == 'Admin')
+                                                    <tbody>
+                                                        @foreach ($all as $key => $row)
+                                                            <tr>
+                                                                <td>{{ $key + 1 }}</td>
+                                                                <td>
+                                                                    @php
+                                                                        $approach = json_decode($row->tpa_approaches);
+                                                                        $forbidden_words = ['Others'];
+                                                                        $approach = array_filter($approach, function ($approach) use ($forbidden_words) {
+                                                                            return !in_array($approach, $forbidden_words);
+                                                                        });
+                                                                        $others = $row->is_others;
+                                                                        if (!empty($others)) {
+                                                                            array_push($approach, $others);
+                                                                        }
+                                                                        $researchers = json_decode($row->tpa_researchers);
+                                                                        $researchers = implode(', ', $researchers);
 
-                                                                    $agency = $row->tpa_agency;
+                                                                        $agency = $row->tpa_agency;
 
-                                                                @endphp
-                                                                {{ implode(', ', $approach) }}
-                                                            </td>
-                                                            <td>{{ $row->tpa_title }}</td>
-                                                            <td>{{ $agency }}</td>
-                                                            <td>{{ $researchers }}</td>
-                                                            <td>{{ $row->tpa_date }}</td>
-                                                            <td>{{ $row->tpa_details }}</td>
-                                                            <td>{{ $row->tpa_remarks }}</td>
-                                                            {{-- <td>{{ $row->tpa_activity }}</td> --}}
-                                                            <td class="action btns">
-                                                                <a class="btn btn-primary"
-                                                                    href="{{ url('edit-tpa/' . $row->id) }}"><i
-                                                                        class="fa-solid fa-pen-to-square"
-                                                                        style="color: white;"></i></a>
-                                                                <a href="{{ url('delete-tpa/' . $row->id) }}"
-                                                                    class="btn btn-danger" id="delete"><i
-                                                                        class="fa-solid fa-trash"></i></a>
+                                                                    @endphp
+                                                                    {{ implode(', ', $approach) }}
+                                                                </td>
+                                                                <td>{{ $row->tpa_title }}</td>
+                                                                <td>{{ $agency }}</td>
+                                                                <td>{{ $researchers }}</td>
+                                                                <td>{{ $row->tpa_date }}</td>
+                                                                <td>{{ $row->tpa_details }}</td>
+                                                                <td>{{ $row->tpa_remarks }}</td>
+                                                                {{-- <td>{{ $row->tpa_activity }}</td> --}}
+                                                                <td class="action btns">
+                                                                    <a class="btn btn-primary"
+                                                                        href="{{ url('edit-tpa/' . $row->id) }}"><i
+                                                                            class="fa-solid fa-pen-to-square"
+                                                                            style="color: white;"></i></a>
+                                                                    <a href="{{ url('delete-tpa/' . $row->id) }}"
+                                                                        class="btn btn-danger" id="delete"><i
+                                                                            class="fa-solid fa-trash"></i></a>
 
-                                                            </td>
-                                                        </tr>
-                                                    @endforeach
-                                                </tbody>
+                                                                </td>
+                                                            </tr>
+                                                        @endforeach
+                                                    </tbody>
+                                                @else
+                                                    <tbody>
+                                                        @foreach ($all_filter as $key => $row)
+                                                            <tr>
+                                                                <td>{{ $key + 1 }}</td>
+                                                                <td>
+                                                                    @php
+                                                                        $approach = json_decode($row->tpa_approaches);
+                                                                        $forbidden_words = ['Others'];
+                                                                        $approach = array_filter($approach, function ($approach) use ($forbidden_words) {
+                                                                            return !in_array($approach, $forbidden_words);
+                                                                        });
+                                                                        $others = $row->is_others;
+                                                                        if (!empty($others)) {
+                                                                            array_push($approach, $others);
+                                                                        }
+                                                                        $researchers = json_decode($row->tpa_researchers);
+                                                                        $researchers = implode(', ', $researchers);
+
+                                                                        $agency = $row->tpa_agency;
+
+                                                                    @endphp
+                                                                    {{ implode(', ', $approach) }}
+                                                                </td>
+                                                                <td>{{ $row->tpa_title }}</td>
+                                                                <td>{{ $agency }}</td>
+                                                                <td>{{ $researchers }}</td>
+                                                                <td>{{ $row->tpa_date }}</td>
+                                                                <td>{{ $row->tpa_details }}</td>
+                                                                <td>{{ $row->tpa_remarks }}</td>
+                                                                {{-- <td>{{ $row->tpa_activity }}</td> --}}
+                                                                <td class="action btns">
+                                                                    <a class="btn btn-primary"
+                                                                        href="{{ url('edit-tpa/' . $row->id) }}"><i
+                                                                            class="fa-solid fa-pen-to-square"
+                                                                            style="color: white;"></i></a>
+                                                                    <a href="{{ url('delete-tpa/' . $row->id) }}"
+                                                                        class="btn btn-danger" id="delete"><i
+                                                                            class="fa-solid fa-trash"></i></a>
+
+                                                                </td>
+                                                            </tr>
+                                                        @endforeach
+                                                    </tbody>
+                                                @endif
                                             </table>
-                                            {{-- <a href="#">
-                                                <div class="monitoring info-box bg-light">
-                                                    <div class="monitoring info-box-content">
-                                                        <span class="info-box-number text-center text-muted">Agency In-House
-                                                            Reviews (AIHRs)
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                            </a> --}}
+
                                             <a href="{{ url('rdru-index') }}" class="btn btn-default">Back</a>
                                         </div>
                                     </div>

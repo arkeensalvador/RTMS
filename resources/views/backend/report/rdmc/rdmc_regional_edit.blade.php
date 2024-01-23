@@ -1,6 +1,5 @@
 @extends('backend.layouts.app')
 @section('content')
-
     <div class="content-wrapper">
         <section class="content">
             <div class="container">
@@ -46,21 +45,13 @@
                                             class="text-danger">*</span></label>
                                     <select class="form-control implementing_agency" id="awards_recipients"
                                         name="regional_implementing_agency[]" multiple="multiple" required>
-                                        @if (auth()->user()->role == 'Admin')
-                                            @foreach ($agency as $key)
-                                                <option value="{{ $key->abbrev }}"
-                                                    {{ in_array($key->abbrev, $imp) ? 'selected' : '' }}>
-                                                    {{ $key->agency_name }} -
-                                                    ({{ $key->abbrev }})
-                                                    </b></option>
-                                            @endforeach
-                                        @else
-                                            <option value="{{ $user_agency->abbrev }}"
-                                                {{ in_array($key->abbrev, $imp) ? 'selected' : '' }} selected>
-                                                {{ $user_agency->agency_name }} -
-                                                ({{ $user_agency->abbrev }})
+                                        @foreach ($agency as $key)
+                                            <option value="{{ $key->abbrev }}"
+                                                {{ in_array($key->abbrev, $imp) ? 'selected' : '' }}>
+                                                {{ $key->agency_name }} -
+                                                ({{ $key->abbrev }})
                                                 </b></option>
-                                        @endif
+                                        @endforeach
                                     </select>
                                     <div class="invalid-feedback">Missing implementing agency</div>
                                 </div>
@@ -74,8 +65,9 @@
                                     <select class="form-control researchers" id="regional_researchers"
                                         name="regional_researchers[]" multiple="multiple" required>
                                         @foreach ($researchers as $row)
-                                            <option value="{{ $row->name }}"
-                                                {{ in_array($row->name, $res) ? 'selected' : '' }}>{{ $row->name }}
+                                            <option value="{{ $row->id }}"
+                                                {{ in_array($row->id, $res) ? 'selected' : '' }}>
+                                                {{ $row->first_name . ' ' . $row->middle_name . ' ' . $row->last_name }}
                                             </option>
                                         @endforeach
                                     </select>

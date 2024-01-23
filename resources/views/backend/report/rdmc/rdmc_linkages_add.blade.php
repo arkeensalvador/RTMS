@@ -93,14 +93,14 @@
 
                                     <div class="custom-control custom-radio">
                                         <input class="custom-control-input" type="radio" name="type" value="Developed"
-                                            id="customRadio1">
+                                            id="customRadio1" required>
                                         <label for="customRadio1" class="custom-control-label"
-                                            style="font-weight: bold;">Developed</label>
+                                            style="font-weight: bold;">Developed/New</label>
                                     </div>
 
                                     <div class="custom-control custom-radio">
                                         <input class="custom-control-input" type="radio" value="Maintained" name="type"
-                                            id="customRadio2">
+                                            id="customRadio2" required>
                                         <label for="customRadio2" class="custom-control-label"
                                             style="font-weight: bold;">Maintained/Sustained</label>
                                     </div>
@@ -123,8 +123,12 @@
                                     <label for="year" class=" font-weight-bold">Year<span
                                             class="text-danger">*</span></label>
 
-                                    <input type="text" name="year" id="year" class="form-control year"
-                                        placeholder="Year" required>
+                                    <select id="year" name="year" class="form-control yearSelect" required>
+                                        <option value=""></option>
+                                        @for ($year = 2000; $year <= 2060; $year++)
+                                            <option value="{{ $year }}">{{ $year }}</option>
+                                        @endfor
+                                    </select>
                                     <div class="invalid-feedback">Missing year</div>
                                 </div>
 
@@ -132,17 +136,17 @@
                                 <div class="col-md-7 form-group">
                                     <label for="address" class=" font-weight-bold">Address<span
                                             class="text-danger">*</span></label>
-                                    <input type="text" id="address" name="address" class="form-control" placeholder=""
-                                        required>
+                                    <input type="text" id="address" name="address" class="form-control"
+                                        placeholder="Enter address" required>
                                     <div class="invalid-feedback">Missing address</div>
                                 </div>
 
                                 <div class="col-md-12 form-group">
                                     <label for="nature_of_assistance" class=" font-weight-bold">Nature of
                                         Assistance/Linkages/Projects<span class="text-danger">*</span></label>
-                                    <textarea class="form-control" name="nature_of_assistance" rows="3" placeholder="Enter ..." style="resize: none;"
-                                        required></textarea>
-                                    <div class="invalid-feedback">Missing nature of assistance</div>
+                                    <textarea class="form-control" name="nature_of_assistance" rows="3"
+                                        placeholder="Enter nature of assistance/linkages/projects" style="resize: none;" required></textarea>
+                                    <div class="invalid-feedback">Missing nature of assistance/linkages/projects</div>
                                 </div>
 
 

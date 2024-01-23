@@ -92,7 +92,7 @@
                                             class="text-danger">*</span></label>
                                     <div class="custom-control custom-radio">
                                         <input class="custom-control-input" type="radio" value="Packaged"
-                                            id="customRadio1" name="ttp_type">
+                                            id="customRadio1" name="ttp_type" required>
                                         <label for="customRadio1" class="custom-control-label">Packaged</label>
                                     </div>
                                     <div class="invalid-feedback">Missing classification</div>
@@ -102,32 +102,24 @@
                                     <label for="customRadio2" class="font-weight-bold"></label>
                                     <div class="custom-control custom-radio">
                                         <input class="custom-control-input" type="radio" value="Approved"
-                                            id="customRadio2" name="ttp_type">
+                                            id="customRadio2" name="ttp_type" required>
                                         <label for="customRadio2" class="custom-control-label">Approved/Implemented</label>
                                     </div>
                                     <div class="invalid-feedback">Missing classification</div>
                                 </div>
 
                                 <div class="col-md-12 form-group">
-                                    <label for="ttp_title" class=" font-weight-bold">Title<span
+                                    <label for="ttp_title" class=" font-weight-bold">Title of Technology<span
                                             class="text-danger">*</span></label>
-                                    <textarea class="form-control" name="ttp_title" id="ttp_title" rows="3" placeholder="Enter ..."
+                                    <textarea class="form-control" name="ttp_title" id="ttp_title" rows="3" placeholder="Enter title"
                                         style="resize: none;" required></textarea>
                                     <div class="invalid-feedback">Missing title</div>
                                 </div>
 
-                                <div class="col-md-6 form-group">
-                                    <label for="ttp_budget" class=" font-weight-bold">Budget<span
-                                            class="text-danger">*</span></label>
-                                    <input type="text" class="form-control" name="ttp_budget" id="ttp_budget"
-                                        placeholder="Enter ..." required>
-                                    <div class="invalid-feedback">Missing budget</div>
-                                </div>
-
-                                <div class="col-md-6 form-group">
+                                <div class="col-md-12 form-group">
                                     <label for="ttp_sof" class=" font-weight-bold">Source of Fund<span
                                             class="text-danger">*</span></label>
-                                    <select id="ttp_sof" name="ttp_sof" class="form-control agency" required>
+                                    <select id="ttp_sof" name="ttp_sof[]" multiple class="form-control agency" required>
                                         <option value=""></option>
                                         @foreach ($agency as $row)
                                             <option value="{{ $row->abbrev }}"> {{ $row->agency_name }} </option>
@@ -136,11 +128,11 @@
                                     <div class="invalid-feedback">Missing source of fund</div>
                                 </div>
 
-
-                                <div class="col-md-6 form-group">
+                                <div class="col-md-12 form-group">
                                     <label for="ttp_sof" class=" font-weight-bold">Proponent<span
                                             class="text-danger">*</span></label>
-                                    <select id="agencySelect" name="ttp_proponent" class="form-control r-agency" required>
+                                    <select id="" name="ttp_proponent[]" class="form-control r-agency" multiple
+                                        required>
                                         <option value=""></option>
                                         @foreach ($agency as $row)
                                             <option value="{{ $row->abbrev }}"> {{ $row->agency_name }} </option>
@@ -149,13 +141,18 @@
                                     <div class="invalid-feedback">Missing proponent</div>
                                 </div>
 
-
-                                <div class="col-md-6 form-group">
+                                <div class="col-md-12 form-group">
                                     <label for="ttp_sof" class=" font-weight-bold">Researchers<span
                                             class="text-danger">*</span></label>
-                                    <select id="researcherSelect" name="ttp_researchers[]" class="form-control researchers"
+                                    <select id="" name="ttp_researchers[]" class="form-control researchers"
                                         multiple="multiple" required>
                                         <option value=""></option>
+                                        @foreach ($researchers as $key)
+                                            <option
+                                                value="{{ $key->first_name . ' ' . $key->middle_name . ' ' . $key->last_name }}">
+                                                {{ $key->first_name . ' ' . $key->middle_name . ' ' . $key->last_name }}
+                                                </b></option>
+                                        @endforeach
                                     </select>
                                     <div class="invalid-feedback">Missing researchers</div>
                                 </div>
@@ -172,27 +169,29 @@
                                                 ({{ $key->abbrev }})
                                                 </b></option>
                                         @endforeach
-
                                     </select>
                                     <div class="invalid-feedback">Missing implementing agency</div>
                                 </div>
 
-                                <div class="col-md-3 form-group">
-                                    <label for="ttp_start_date" class="font-weight-bold">Start Date<span
+                                <div class="col-md-6 form-group">
+                                    <label for="ttp_budget" class=" font-weight-bold">Budget<span
                                             class="text-danger">*</span></label>
-
-                                    <input type="number" name="ttp_start_date" id="ttp_start_date"
-                                        class="form-control date" placeholder="Enter start date" required>
-                                    <div class="invalid-feedback">Missing start date</div>
+                                    <input type="text" class="form-control" name="ttp_budget" id="ttp_budget"
+                                        placeholder="Enter budget" oninput="validateInput(this)" required>
+                                    <div class="invalid-feedback">Missing budget</div>
                                 </div>
 
+
+
                                 <div class="col-md-3 form-group">
-                                    <label for="ttp_end_date" class="font-weight-bold">End Date <span
+                                    <label for="ttp_start_date" class="font-weight-bold">Duration<span
                                             class="text-danger">*</span></label>
-                                    <input type="text" name="ttp_end_date" class="form-control date"
-                                        id="ttp_end_date" placeholder="Enter end date" required>
-                                    <div class="invalid-feedback">Missing end date</div>
+
+                                    <input type="number" name="ttp_date" id="ttp_date" class="form-control date-range"
+                                        placeholder="Enter date" required>
+                                    <div class="invalid-feedback">Missing duration</div>
                                 </div>
+
 
                                 <div class="col-md-12 form-group">
                                     <label for="ttp_priorities" class=" font-weight-bold">Regional Priorities
@@ -215,45 +214,57 @@
     </div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.1.0-rc0/js/select2.min.js"></script> --}}
+
+    <script>
+        function validateInput(input) {
+            // Remove non-numeric characters (except '-')
+            input.value = input.value.replace(/[^\d-]/g, '');
+
+            // Ensure the input is not empty
+            if (input.value === '-') {
+                input.value = '';
+            }
+        }
+    </script>
+
     <script>
         $(document).ready(function() {
             $('.r-agency').select2({
                 placeholder: 'Select Agency'
             });
 
-            $('#agencySelect').on('change', function() {
-                var agencyId = $(this).val();
-                if (agencyId) {
-                    $.ajax({
-                        url: '/get-researchers',
-                        type: 'GET',
-                        data: {
-                            agency_id: agencyId
-                        },
-                        success: function(data) {
-                            $('#researcherSelect').empty();
-                            $('#researcherSelect').append(
-                                '<option value="">Select a Researcher</option>'
-                            );
-                            data.forEach(function(researcher) {
-                                $('#researcherSelect').append($('<option>', {
-                                    value: researcher.name,
-                                    text: researcher.name
-                                }));
-                            });
-                            $('#researcherSelect').select2({
-                                placeholder: "Select researchers"
-                            });
-                        }
-                    });
-                } else {
-                    $('#researcherSelect').empty();
-                    $('#researcherSelect').append(
-                        '<option value="">Select a Researcher</option>');
-                    $('#researcherSelect').select2();
-                }
-            });
+            // $('#agencySelect').on('change', function() {
+            //     var agencyId = $(this).val();
+            //     if (agencyId) {
+            //         $.ajax({
+            //             url: '/get-researchers',
+            //             type: 'GET',
+            //             data: {
+            //                 agency_id: agencyId
+            //             },
+            //             success: function(data) {
+            //                 $('#researcherSelect').empty();
+            //                 $('#researcherSelect').append(
+            //                     '<option value="">Select a Researcher</option>'
+            //                 );
+            //                 data.forEach(function(researcher) {
+            //                     $('#researcherSelect').append($('<option>', {
+            //                         value: researcher.name,
+            //                         text: researcher.name
+            //                     }));
+            //                 });
+            //                 $('#researcherSelect').select2({
+            //                     placeholder: "Select researchers"
+            //                 });
+            //             }
+            //         });
+            //     } else {
+            //         $('#researcherSelect').empty();
+            //         $('#researcherSelect').append(
+            //             '<option value="">Select a Researcher</option>');
+            //         $('#researcherSelect').select2();
+            //     }
+            // });
         });
     </script>
     <script>

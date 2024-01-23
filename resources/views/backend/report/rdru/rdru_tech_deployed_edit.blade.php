@@ -88,14 +88,6 @@
                                     <h5 class="mt-0"> Kindly fill-out the fields needed.</h5>
                                 </div>
 
-                                <div class="col-md-8 form-group">
-                                    <label for="ttm_title" class="font-weight-bold">Title<span
-                                            class="text-danger">*</span></label>
-                                    <textarea class="form-control" name="rdru_tech_title" id="ttm_title" rows="3" placeholder="Title"
-                                        style="resize: none;" required>{{ $all->rdru_tech_title }}</textarea>
-                                    <div class="invalid-feedback">Missing title</div>
-                                </div>
-
                                 <div class="col-md-5 form-group">
                                     <label for="ttm_type" class=" font-weight-bold">Type of Technology<span
                                             class="text-danger">*</span></label>
@@ -116,15 +108,39 @@
                                     <div class="invalid-feedback">Missing type of technology</div>
                                 </div>
 
+                                {{-- AGENCY OF THE USER WHO INPUTTED THIS DATA --}}
+                                <input type="text" hidden name="rdru_tech_agency" value="{{ $all->rdru_tech_agency }}">
+
+                                <div class="col-md-7 form-group">
+                                    <label for="ttm_type" class=" font-weight-bold">Status<span
+                                            class="text-danger">*</span></label>
+                                    <input type="text" name="rdru_tech_status" value="{{ $all->rdru_tech_status }}"
+                                        class="form-control" placeholder="Enter status" required>
+                                    <div class="invalid-feedback">Missing status</div>
+                                </div>
+
+
+                                <div class="col-md-8 form-group">
+                                    <label for="ttm_title" class="font-weight-bold">Title<span
+                                            class="text-danger">*</span></label>
+                                    <textarea class="form-control" name="rdru_tech_title" id="ttm_title" rows="3" placeholder="Title"
+                                        style="resize: none;" required>{{ $all->rdru_tech_title }}</textarea>
+                                    <div class="invalid-feedback">Missing title</div>
+                                </div>
+
+                                @php
+                                    $sof = json_decode($all->rdru_tech_sof);
+                                @endphp
 
                                 <div class="col-md-12 form-group">
                                     <label for="ttm_agency" class=" font-weight-bold">Source of Fund<span
                                             class="text-danger">*</span></label>
-                                    <select id="ttm_agency" name="rdru_tech_sof" class="form-control agency" required>
+                                    <select id="ttm_agency" name="rdru_tech_sof[]" multiple class="form-control agency"
+                                        required>
                                         <option value=""></option>
                                         @foreach ($agency as $row)
                                             <option value="{{ $row->abbrev }}"
-                                                {{ $row->abbrev == $all->rdru_tech_sof ? 'selected' : '' }}>
+                                                {{ in_array($row->abbrev, $sof) ? 'selected' : '' }}>
                                                 {{ $row->agency_name }} </option>
                                         @endforeach
                                     </select>

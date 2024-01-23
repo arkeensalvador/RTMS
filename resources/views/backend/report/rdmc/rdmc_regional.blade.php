@@ -75,12 +75,29 @@
                                                                     $imp = json_decode($row->regional_implementing_agency);
                                                                     $imp = implode(', ', $imp);
 
-                                                                    $researchers = json_decode($row->regional_researchers);
-                                                                    $researchers = implode(', ', $researchers);
                                                                 @endphp
                                                                 {{ $imp }}
                                                             </td>
-                                                            <td>{{ $researchers }}</td>
+                                                            @php
+                                                                $researcherIds = json_decode($row->regional_researchers);
+
+                                                                // Retrieve researchers based on the array of IDs from the rdmc_regional table
+                                                                $researchers = App\Models\Researchers::whereIn('id', $researcherIds)->get();
+
+                                                                // Initialize an array to store the full names
+                                                                $fullNames = [];
+
+                                                                // Concatenate the names into the array
+                                                                foreach ($researchers as $researcher) {
+                                                                    $fullNames[] = "{$researcher->first_name} {$researcher->last_name}";
+                                                                }
+
+                                                                // Implode the array into a single string with commas
+                                                                $formattedNames = implode(', ', $fullNames);
+                                                            @endphp
+                                                            <td>
+                                                                {{ $formattedNames }}
+                                                            </td>
                                                             <td>{{ $row->regional_recommendations }}</td>
                                                             <td>{{ $row->regional_winners }}</td>
                                                             @if (auth()->user()->role == 'Admin')

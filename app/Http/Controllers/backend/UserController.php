@@ -155,6 +155,7 @@ class UserController extends Controller
                 'profile_picture.nullable' => 'Profile picture is required',
             ],
         );
+
         $user = User::find($id);
         if ($request->hasFile('profile_picture')) {
             // Remove old profile picture

@@ -16,11 +16,15 @@ class ResearchersImport implements ToModel, WithHeadingRow
     public function model(array $row)
     {
         return new Researchers([
-            'name' => $row['name'],
-            'gender' => $row['gender'],
-            'contact' => $row['contact'],
-            'email' => $row['email'],
-            'agency' => $row['agency']
+            'first_name' => $row['first_name'],
+            'middle_name' => $row['middle_name'],
+            'last_name' => $row['last_name'],
+            'sex' => $row['sex'],
+            'contact' => $row['phone_number'],
+            'email' => $row['email_address'],
+            'agency' => $row['agency'],
+            'emp_status' => $row['employment_status'],
+            'profile_picture' => 'profile_pictures/default-profile-picture.png',
         ]);
     }
 }

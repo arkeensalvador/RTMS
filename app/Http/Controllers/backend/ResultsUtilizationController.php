@@ -18,12 +18,11 @@ class ResultsUtilizationController extends Controller
                 'ttp_type' => 'required',
                 'ttp_title' => 'required',
                 'ttp_budget' => 'required|numeric',
-                'ttp_sof' => 'required',
-                'ttp_proponent' => 'required',
-                'ttp_researchers' => 'required',
+                'ttp_sof' => 'required|array|min:1',
+                // 'ttp_proponent' => 'required',
+                // 'ttp_researchers' => 'required',
                 'ttp_implementing_agency' => 'required',
-                'ttp_start_date' => 'required',
-                'ttp_end_date' => 'required',
+                'ttp_date' => 'required',
                 'ttp_priorities' => 'required',
             ],
             [
@@ -31,25 +30,24 @@ class ResultsUtilizationController extends Controller
                 'ttp_title.required' => 'Title of fund is required!',
                 'ttp_budget.required' => 'Budget is required!',
                 'ttp_sof.required' => 'Source of fund is required!',
-                'ttp_proponent.required' => 'Proponent is required!',
-                'ttp_researchers.required' => 'Researcher(s) is/are required!',
+                // 'ttp_proponent.required' => 'Proponent is required!',
+                // 'ttp_researchers.required' => 'Researcher(s) is/are required!',
                 'ttp_implementing_agency.required' => 'Implementing agency is required!',
-                'ttp_start_date.required' => 'Date is required!',
-                'ttp_end_date.required' => 'Date is required!',
+                'ttp_date.required' => 'Date is required!',
                 'ttp_priorities.required' => 'Regional priorities addressed is required!',
             ],
         );
         $data = [];
         $data['ttp_type'] = $request->ttp_type;
         $data['ttp_title'] = $request->ttp_title;
-        $data['ttp_budget'] = str_replace(',', '', $request->ttp_budget);
-        $data['ttp_sof'] = $request->ttp_sof;
-        $data['ttp_proponent'] = $request->ttp_proponent;
+        $data['ttp_budget'] = $request->ttp_budget;
+        $data['ttp_sof'] = json_encode($request->ttp_sof);
+        $data['ttp_proponent'] = json_encode($request->ttp_proponent);
         $data['ttp_researchers'] = json_encode($request->ttp_researchers);
         $data['ttp_implementing_agency'] = json_encode($request->ttp_implementing_agency);
-        $data['ttp_start_date'] = $request->ttp_start_date;
-        $data['ttp_end_date'] = $request->ttp_end_date;
+        $data['ttp_date'] = $request->ttp_date;
         $data['ttp_priorities'] = $request->ttp_priorities;
+        $data['encoder_agency'] = auth()->user()->agencyID;
         $data['created_at'] = now();
 
         $insert = DB::table('results_ttp')->insert($data);
@@ -79,37 +77,34 @@ class ResultsUtilizationController extends Controller
                 'ttp_type' => 'required',
                 'ttp_title' => 'required',
                 'ttp_budget' => 'required|numeric',
-                'ttp_sof' => 'required',
-                'ttp_proponent' => 'required',
-                'ttp_researchers' => 'required',
+                'ttp_sof' => 'required|array|min:1',
+                // 'ttp_proponent' => 'required',
+                // 'ttp_researchers' => 'required',
                 'ttp_implementing_agency' => 'required',
-                'ttp_start_date' => 'required',
-                'ttp_end_date' => 'required',
+                'ttp_date' => 'required',
                 'ttp_priorities' => 'required',
             ],
             [
                 'ttp_type.required' => 'Type is required!',
-                'ttp_title.required' => 'Title is required!',
+                'ttp_title.required' => 'Title of fund is required!',
                 'ttp_budget.required' => 'Budget is required!',
                 'ttp_sof.required' => 'Source of fund is required!',
-                'ttp_proponent.required' => 'Proponent is required!',
-                'ttp_researchers.required' => 'Researcher(s) is/are required!',
+                // 'ttp_proponent.required' => 'Proponent is required!',
+                // 'ttp_researchers.required' => 'Researcher(s) is/are required!',
                 'ttp_implementing_agency.required' => 'Implementing agency is required!',
-                'ttp_start_date.required' => 'Date is required!',
-                'ttp_end_date.required' => 'Date is required!',
+                'ttp_date.required' => 'Date is required!',
                 'ttp_priorities.required' => 'Regional priorities addressed is required!',
             ],
         );
         $data = [];
         $data['ttp_type'] = $request->ttp_type;
         $data['ttp_title'] = $request->ttp_title;
-        $data['ttp_budget'] = str_replace(',', '', $request->ttp_budget);
-        $data['ttp_sof'] = $request->ttp_sof;
-        $data['ttp_proponent'] = $request->ttp_proponent;
+        $data['ttp_budget'] = $request->ttp_budget;
+        $data['ttp_sof'] = json_encode($request->ttp_sof);
+        $data['ttp_proponent'] = json_encode($request->ttp_proponent);
         $data['ttp_researchers'] = json_encode($request->ttp_researchers);
         $data['ttp_implementing_agency'] = json_encode($request->ttp_implementing_agency);
-        $data['ttp_start_date'] = $request->ttp_start_date;
-        $data['ttp_end_date'] = $request->ttp_end_date;
+        $data['ttp_date'] = $request->ttp_date;
         $data['ttp_priorities'] = $request->ttp_priorities;
         $data['updated_at'] = now();
 
@@ -158,6 +153,7 @@ class ResultsUtilizationController extends Controller
                 'ttm_type' => 'required',
                 'ttm_title' => 'required',
                 'ttm_status' => 'required',
+                'ttm_sof' => 'required|array|min:1',
                 'ttm_agency' => 'required',
             ],
             [
@@ -165,6 +161,7 @@ class ResultsUtilizationController extends Controller
                 'ttm_title.required' => 'Title is required!',
                 'ttm_status.required' => 'Status is required!',
                 'ttm_agency.required' => 'Agency is required!',
+                'ttm_sof.required' => 'Source of funds is required!',
             ],
         );
         $data = [];
@@ -172,6 +169,8 @@ class ResultsUtilizationController extends Controller
         $data['ttm_title'] = $request->ttm_title;
         $data['ttm_status'] = $request->ttm_status;
         $data['ttm_agency'] = $request->ttm_agency;
+        $data['ttm_sof'] = json_encode($request->ttm_sof);
+        $data['encoder_agency'] = auth()->user()->agencyID;
         $data['created_at'] = now();
 
         $insert = DB::table('results_ttm')->insert($data);
@@ -200,6 +199,7 @@ class ResultsUtilizationController extends Controller
                 'ttm_type' => 'required',
                 'ttm_title' => 'required',
                 'ttm_status' => 'required',
+                'ttm_sof' => 'required|array|min:1',
                 'ttm_agency' => 'required',
             ],
             [
@@ -207,14 +207,15 @@ class ResultsUtilizationController extends Controller
                 'ttm_title.required' => 'Title is required!',
                 'ttm_status.required' => 'Status is required!',
                 'ttm_agency.required' => 'Agency is required!',
+                'ttm_sof.required' => 'Source of funds is required!',
             ],
         );
-
         $data = [];
         $data['ttm_type'] = $request->ttm_type;
         $data['ttm_title'] = $request->ttm_title;
         $data['ttm_status'] = $request->ttm_status;
         $data['ttm_agency'] = $request->ttm_agency;
+        $data['ttm_sof'] = json_encode($request->ttm_sof);
         $data['updated_at'] = now();
 
         $update = DB::table('results_ttm')
@@ -288,6 +289,7 @@ class ResultsUtilizationController extends Controller
         $data['tpa_agency'] = $request->tpa_agency;
         $data['tpa_approaches'] = json_encode($request->tpa_approaches);
         $data['is_others'] = $request->is_others;
+        $data['encoder_agency'] = auth()->user()->agencyID;
         $data['created_at'] = now();
 
         $insert = DB::table('results_tpa')->insert($data);
@@ -383,7 +385,9 @@ class ResultsUtilizationController extends Controller
     public function getResearchers(Request $request)
     {
         $agencyId = $request->input('agency_id');
+
         $researchers = DB::table('researchers')
+            ->select('researchers.id', DB::raw('CONCAT(researchers.first_name, " ", researchers.middle_name, " ", researchers.last_name) AS name'))
             ->where('agency', $agencyId)
             ->get();
 
@@ -400,11 +404,15 @@ class ResultsUtilizationController extends Controller
             [
                 'rdru_tech_title' => 'required',
                 'rdru_tech_type' => 'required',
-                'rdru_tech_sof' => 'required',
+                'rdru_tech_status' => 'required',
+                'rdru_tech_agency' => 'required',
+                'rdru_tech_sof' => 'required|array|min:1',
             ],
             [
                 'rdru_tech_title.required' => 'Title is required!',
                 'rdru_tech_type.required' => 'Type is required!',
+                'rdru_tech_status.required' => 'Status is required!',
+                'rdru_tech_agency.required' => 'Agency is required!',
                 'rdru_tech_sof.required' => 'Source of fund is required!',
             ],
         );
@@ -412,7 +420,10 @@ class ResultsUtilizationController extends Controller
         $data = [];
         $data['rdru_tech_title'] = $request->rdru_tech_title;
         $data['rdru_tech_type'] = $request->rdru_tech_type;
-        $data['rdru_tech_sof'] = $request->rdru_tech_sof;
+        $data['rdru_tech_status'] = $request->rdru_tech_status;
+        $data['rdru_tech_agency'] = $request->rdru_tech_agency;
+        $data['rdru_tech_sof'] = json_encode($request->rdru_tech_sof);
+        $data['encoder_agency'] = auth()->user()->agencyID;
         $data['created_at'] = now();
 
         $insert = DB::table('rdru_tech_deployed')->insert($data);
@@ -443,11 +454,15 @@ class ResultsUtilizationController extends Controller
             [
                 'rdru_tech_title' => 'required',
                 'rdru_tech_type' => 'required',
-                'rdru_tech_sof' => 'required',
+                'rdru_tech_status' => 'required',
+                'rdru_tech_agency' => 'required',
+                'rdru_tech_sof' => 'required|array|min:1',
             ],
             [
                 'rdru_tech_title.required' => 'Title is required!',
                 'rdru_tech_type.required' => 'Type is required!',
+                'rdru_tech_status.required' => 'Status is required!',
+                'rdru_tech_agency.required' => 'Agency is required!',
                 'rdru_tech_sof.required' => 'Source of fund is required!',
             ],
         );
@@ -455,7 +470,9 @@ class ResultsUtilizationController extends Controller
         $data = [];
         $data['rdru_tech_title'] = $request->rdru_tech_title;
         $data['rdru_tech_type'] = $request->rdru_tech_type;
-        $data['rdru_tech_sof'] = $request->rdru_tech_sof;
+        $data['rdru_tech_status'] = $request->rdru_tech_status;
+        $data['rdru_tech_agency'] = $request->rdru_tech_agency;
+        $data['rdru_tech_sof'] = json_encode($request->rdru_tech_sof);
         $data['updated_at'] = now();
 
         $insert = DB::table('rdru_tech_deployed')

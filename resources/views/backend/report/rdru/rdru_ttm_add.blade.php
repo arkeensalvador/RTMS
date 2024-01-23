@@ -103,27 +103,31 @@
                                         <option value=""></option>
                                         <option value="Copyright">Copyright</option>
                                         <option value="Utility">Utility Model</option>
-                                        <option value="Patent">Patent</option>
                                         <option value="Trademark">Trademark</option>
                                     </select>
                                     <div class="invalid-feedback">Missing type IPR applies</div>
                                 </div>
 
+                                {{-- AGENCY OF THE USER WHO INPUTTED THIS DATA --}}
+                                <input type="text" hidden name="ttm_agency" value="{{ auth()->user()->agencyID }}">
+
                                 <div class="col-md-6 form-group">
                                     <label for="ttm_status" class="font-weight-bold">Status<span
                                             class="text-danger">*</span></label>
-                                    <select name="ttm_status" id="ttm_status" class="form-control others" required>
+                                    <input type="text" name="ttm_status" id="ttm_status" class="form-control"
+                                        placeholder="Enter status" required>
+                                    {{-- <select name="ttm_status" id="ttm_status" class="form-control others" required>
                                         <option value="" selected disabled></option>
                                         <option value="Commercialized">Commercialized</option>
                                         <option value="Pre-Commercialized">Pre-Commercialized</option>
-                                    </select>
+                                    </select> --}}
                                     <div class="invalid-feedback">Missing status</div>
                                 </div>
 
                                 <div class="col-md-12 form-group">
-                                    <label for="ttm_agency" class=" font-weight-bold">Source of Fund<span
+                                    <label for="ttm_sof" class=" font-weight-bold">Source of Fund<span
                                             class="text-danger">*</span></label>
-                                    <select id="ttm_agency" name="ttm_agency" class="form-control agency" required>
+                                    <select id="ttm_sof" name="ttm_sof[]" multiple class="form-control agency" required>
                                         <option value=""></option>
                                         @foreach ($agency as $row)
                                             <option value="{{ $row->abbrev }}"> {{ $row->agency_name }} </option>
@@ -147,7 +151,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script>
         $(document).ready(function() {
-            $('#ttm_title, #ttm_agency, #ttm_status, #ttm_type, #ttp_end_date, #ttp_priorities')
+            $('#ttm_title, #ttm_sof, #ttm_status, #ttm_type, #ttp_end_date, #ttp_priorities')
                 .on('input', function() {
                     const inputField = $(this);
                     if (inputField[0].checkValidity()) {

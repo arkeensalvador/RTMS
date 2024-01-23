@@ -17,6 +17,7 @@ return new class extends Migration {
             $table->string('dbinfosys_title');
             $table->string('dbinfosys_date_created');
             $table->longText('dbinfosys_purpose');
+            $table->string('encoder_agency');
             $table->timestamps();
         });
     }

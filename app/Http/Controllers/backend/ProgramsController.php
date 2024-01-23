@@ -76,6 +76,7 @@ class ProgramsController extends Controller
         $data['amount_released'] = $request->amount_released;
         $data['form_of_development'] = $request->form_of_development;
         $data['keywords'] = htmlspecialchars_decode(json_encode($request->keywords));
+        $data['encoder_agency'] = auth()->user()->agencyID;
         $data['created_at'] = now();
 
         $data_budget = [];
@@ -107,15 +108,19 @@ class ProgramsController extends Controller
         $program = DB::table('programs')
             ->where('programID', $programID)
             ->first();
+
         // $programs = DB::table('programs')->where('programID', $programID)->first();
         $projects = DB::table('projects')
             ->where('programID', $programID)
             ->get();
 
-        $program_leader = DB::table('personnels')
-            ->where('role', '=', 'Program Leader')
+        $budgetData = DB::table('budgets')
             ->where('programID', $programID)
             ->get();
+
+        $program_leader = DB::table('researchers')
+            ->where('id', '=', $program->program_leader)
+            ->first();
 
         $personnels = DB::table('personnels')
             ->orderByDesc('staff_name')
@@ -135,7 +140,7 @@ class ProgramsController extends Controller
             ->orderByDesc('created_at')
             ->get();
 
-        return view('backend.report.rdmc.rdmc_view_program', compact('program', 'agency', 'personnels', 'program_leader', 'title', 'upload_files', 'projects'));
+        return view('backend.report.rdmc.rdmc_view_program', compact('program', 'agency', 'personnels', 'program_leader', 'title', 'upload_files', 'projects', 'budgetData'));
     }
 
     public function EditProgramIndex($programID)

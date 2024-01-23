@@ -144,7 +144,7 @@
                                 <div class="icon">
                                     <i class="fa-solid fa-circle-check"></i>
                                 </div>
-                                <a href="{{ url('rdmc-programs') }}" class="small-box-footer">More info <i
+                                <a href="{{ url('rdmc-projects') }}" class="small-box-footer">More info <i
                                         class="fas fa-arrow-circle-right"></i></a>
                             </div>
                         </div>
@@ -163,13 +163,25 @@
                         {{-- CHARTS --}}
                         <div class="row">
 
-                            {{-- ALL PROGRAMS, PROJECTS, SUB PROJECTS --}}
+                            {{-- ALL PROGRAMS, PROJECTS, SUB PROJECTS COUNT FUNDED BY AGENCIES --}}
                             <div class="col-md-12">
                                 <div class="card card-success">
                                     <div class="col-md-12">
                                         <div class="card-body">
                                             <div class="chart">
-                                                <div id="myChart7"></div>
+                                                <div id="chart-container"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {{-- ALL PROGRAMS, PROJECTS, SUB PROJECTS COUNT IMPLEMENTED BY AGENCIES --}}
+                            <div class="col-md-12">
+                                <div class="card card-success">
+                                    <div class="col-md-12">
+                                        <div class="card-body">
+                                            <div class="chart">
+                                                <div id="imp-chart-container"></div>
                                             </div>
                                         </div>
                                     </div>
@@ -236,6 +248,146 @@
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var seriesData = [];
+            var usedColors = [];
+
+            @foreach ($fundedCounts as $abbrev => $counts)
+                var randomColor = getRandomColor();
+                usedColors.push(randomColor);
+
+                seriesData.push({
+                    name: '{{ $abbrev }}',
+                    data: [{{ $counts['programs'] }}, {{ $counts['projects'] }},
+                        {{ $counts['subProjects'] }}
+                    ],
+                    color: randomColor
+                });
+            @endforeach
+
+            function getRandomColor() {
+                var letters = '0123456789ABCDEF';
+                var color = '#';
+
+                // Keep generating random colors until a unique one is found
+                do {
+                    color = '#';
+                    for (var i = 0; i < 6; i++) {
+                        color += letters[Math.floor(Math.random() * 16)];
+                    }
+                } while (usedColors.includes(color));
+
+                return color;
+            }
+
+            var options = {
+                chart: {
+                    type: 'bar',
+                    height: 470,
+                },
+                series: seriesData,
+                title: {
+                    text: 'Funded Programs, Projects, Sub-projects/Studies of Agencies',
+                    align: 'center',
+                    floating: true
+                },
+
+                xaxis: {
+                    categories: ['Funded Programs', 'Funded Projects', 'Funded Sub-Projects/Studies']
+                },
+                yaxis: {
+                    min: 0, // Set the minimum value for the y-axis
+                    title: {
+                        text: 'Total'
+                    }
+                },
+                plotOptions: {
+                    bar: {
+                        columnWidth: '100%', // Adjust the width of the bars (percentage or pixels)
+                    }
+                },
+                labels: {
+                    show: true
+                }
+            }
+
+            var chart = new ApexCharts(document.querySelector("#chart-container"), options);
+            chart.render();
+        });
+    </script>
+
+    {{-- total imp programs of agencies --}}
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var seriesDataImp = [];
+            var usedColorsImp = [];
+
+            @foreach ($impCounts as $abbrev_imp => $counts)
+                var randomColor = getRandomColor();
+                usedColorsImp.push(randomColor);
+
+                seriesDataImp.push({
+                    name: '{{ $abbrev_imp }}',
+                    data: [{{ $counts['programs'] }}, {{ $counts['projects'] }},
+                        {{ $counts['subProjects'] }}
+                    ],
+                    color: randomColor
+                });
+            @endforeach
+
+            function getRandomColor() {
+                var letters = '0123456789ABCDEF';
+                var color = '#';
+
+                // Keep generating random colors until a unique one is found
+                do {
+                    color = '#';
+                    for (var i = 0; i < 6; i++) {
+                        color += letters[Math.floor(Math.random() * 16)];
+                    }
+                } while (usedColorsImp.includes(color));
+
+                return color;
+            }
+
+            var options = {
+                chart: {
+                    type: 'bar',
+                    height: 470,
+                },
+                series: seriesDataImp,
+                title: {
+                    text: 'Implemented Program, Projects, Sub-projects/Studies of Agencies',
+                    align: 'center',
+                    floating: true
+                },
+
+                xaxis: {
+                    categories: ['Implemented Programs', 'Implemented Projects',
+                        'Implemented Sub-Projects/Studies'
+                    ]
+                },
+                yaxis: {
+                    min: 0, // Set the minimum value for the y-axis
+                    title: {
+                        text: 'Total'
+                    }
+                },
+                plotOptions: {
+                    bar: {
+                        columnWidth: '100%', // Adjust the width of the bars (percentage or pixels)
+                    }
+                },
+                labels: {
+                    show: true
+                }
+            }
+
+            var chart = new ApexCharts(document.querySelector("#imp-chart-container"), options);
+            chart.render();
+        });
+    </script>
 
     {{-- Initiatives --}}
     <script>
@@ -477,78 +629,6 @@
         var chart4 = new ApexCharts(document.querySelector("#myChart4"), options);
         chart4.render();
 
-        // PROGRAMS, PROJECTS, SUB_PROJECT
-        // Prepare the data for ApexCharts
-        let agencyData = @json($agencyData);
-        let minValueAgencyData = @json($minValueAgencyData);
-
-        // Extract data for chart labels and series
-        let labels = [];
-        let programsData = [];
-        let projectsData = [];
-        let subProjectsData = [];
-
-        agencyData.forEach((item) => {
-            labels.push(item.agency_abbreviation);
-            programsData.push(item.total_programs);
-            projectsData.push(item.total_projects);
-            subProjectsData.push(item.total_sub_projects);
-        });
-
-        // Create the ApexCharts instance
-        var options = {
-            chart: {
-                type: 'bar',
-                height: 450,
-            },
-            xaxis: {
-                categories: labels,
-            },
-            plotOptions: {
-                bar: {
-                    borderRadius: 1,
-                    columnWidth: '100%',
-                    dataLabels: {
-                        position: 'bottom'
-                    },
-                }
-            },
-            series: [{
-                    name: 'Programs',
-                    data: programsData,
-                },
-                {
-                    name: 'Projects',
-                    data: projectsData,
-                },
-                {
-                    name: 'Sub-Projects',
-                    data: subProjectsData,
-                },
-            ],
-            noData: {
-                text: "Loading...",
-            },
-            yaxis: {
-                title: {
-                    text: 'Total #'
-                },
-                min: minValueAgencyData,
-            },
-            title: {
-                text: 'Funded Research',
-                align: 'center',
-                floating: true
-            },
-            subtitle: {
-                text: 'Total # of Programs, Projects, and Sub-projects funded per consortium',
-                align: 'center',
-            },
-        };
-
-        var chart7 = new ApexCharts(document.querySelector("#myChart7"), options);
-        chart7.render();
-
         // Sub PROJECTS
         var options = {
             chart: {
@@ -593,33 +673,5 @@
 
         var chart9 = new ApexCharts(document.querySelector("#myChart9"), options);
         chart9.render();
-
-
-        // Researchers Involvement
-
-        var options = {
-            chart: {
-                type: 'donut',
-            },
-            labels: [
-                @foreach ($researcherCounts as $researcher)
-                    '{{ $researcher->name }}',
-                @endforeach
-            ],
-            series: [
-                @foreach ($researcherCounts as $researcher)
-                    {{ $researcher->programs_count + $researcher->projects_count + $researcher->sub_projects_count }},
-                @endforeach
-            ],
-
-            title: {
-                text: 'Researchers Involvement',
-                align: 'center',
-                floating: false
-            },
-        }
-
-        var chart13 = new ApexCharts(document.querySelector('#myChart13'), options);
-        chart13.render();
     </script>
 @endsection

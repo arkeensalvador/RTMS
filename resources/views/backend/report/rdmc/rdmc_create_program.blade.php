@@ -109,7 +109,7 @@
                                     <label for="fund_code" class="font-weight-bold">Fund Code<span
                                             class="text-danger"></span> (Optional)</label>
                                     <input type="text" name="fund_code" class="form-control" id="fund_code"
-                                        placeholder="Input Trust Fund Code" required>
+                                        placeholder="Input Trust Fund Code">
                                 </div>
 
                                 <div class="col-md-4 form-group">
@@ -176,18 +176,13 @@
                                             class="text-danger">*</span></label>
                                     <select class="form-control implementing_agency" id="awards_recipients"
                                         name="implementing_agency[]" multiple="multiple" required>
-                                        @if (auth()->user()->role == 'Admin')
-                                            @foreach ($agency as $key)
-                                                <option value="{{ $key->abbrev }}">{{ $key->agency_name }} -
-                                                    ({{ $key->abbrev }})
-                                                    </b></option>
-                                            @endforeach
-                                        @else
-                                            <option value="{{ $user_agency->abbrev }}" selected>
-                                                {{ $user_agency->agency_name }} -
-                                                ({{ $user_agency->abbrev }})
+
+                                        @foreach ($agency as $key)
+                                            <option value="{{ $key->abbrev }}">{{ $key->agency_name }} -
+                                                ({{ $key->abbrev }})
                                                 </b></option>
-                                        @endif
+                                        @endforeach
+
                                     </select>
                                     <div class="invalid-feedback">Missing implementing agency</div>
                                 </div>
@@ -222,45 +217,24 @@
                                             class="text-danger">*</span></label>
                                     <select id="program_leader" name="program_leader" class="form-control researchers"
                                         required>
-                                        <option selected disabled value="">Select Researcher</option>
-                                        @if (auth()->user()->role == 'Admin')
-                                            @foreach ($researchers as $key)
-                                                <option value="{{ $key->name }}">{{ $key->name }}</option>
-                                            @endforeach
-                                        @else
-                                            @foreach ($researchers_filter as $key)
-                                                <option value="{{ $key->name }}">{{ $key->name }}</option>
-                                            @endforeach
-                                        @endif
+                                        <option value=""></option>
+
+                                        @foreach ($researchers as $key)
+                                            <option value="{{ $key->id }}">
+                                                {{ $key->first_name . ' ' . $key->middle_name . ' ' . $key->last_name }}
+                                            </option>
+                                        @endforeach
+
                                     </select>
                                     <div class="invalid-feedback">Missing program leader</div>
                                 </div>
-
-                                {{-- <div class="col-md-6 form-group">
-                                    <label for="assistant_leader" class=" font-weight-bold">Assistant Leader <span
-                                            class="text-danger">*</span></label>
-                                    <select id="assistant_leader" name="assistant_leader"
-                                        class="form-control researchers" required>
-                                        <option selected disabled value="">Select Researcher</option>
-                                        @if (auth()->user()->role == 'Admin')
-                                            @foreach ($researchers as $key)
-                                                <option value="{{ $key->name }}">{{ $key->name }}</option>
-                                            @endforeach
-                                        @else
-                                            @foreach ($researchers_filter as $key)
-                                                <option value="{{ $key->name }}">{{ $key->name }}</option>
-                                            @endforeach
-                                        @endif
-                                    </select>
-                                    <div class="invalid-feedback">Missing Assistant Leader</div>
-                                </div> --}}
 
 
                                 <div class="col-md-4 form-group">
                                     <label for="start_date" class=" font-weight-bold">Duration<span
                                             class="text-danger">*</span></label>
-                                    <input type="text" name="duration" class="form-control duration" id="start_date"
-                                        placeholder="Start date" required>
+                                    <input type="text" name="duration" class="form-control date-range"
+                                        id="start_date" placeholder="Start date" required>
                                     <div class="invalid-feedback">Missing duration of the program</div>
                                 </div>
 
@@ -274,31 +248,29 @@
                                 </div>
 
                                 <div class="col-md-12 form-group">
-                                    <table id="budget-table">
+                                    <label for="coordination_fund" class="font-weight-bold">Budget<span
+                                            class="text-danger">*</span></label>
+                                    <table id="budget-table" class="table">
                                         <thead>
                                             <tr>
-                                                <th colspan="3" style="align-items: center;">
-                                                    <i class="fa-solid fa-square-plus fa-xl" onclick="addInput()"
-                                                        style="color: #28a745; cursor: pointer; "></i>
-                                                </th>
-                                            </tr>
-                                            <tr>
                                                 <th>Approved Budget</th>
-                                                <th>Year</th>
+                                                <th>Year No.</th>
                                                 <th>Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <tr>
+                                                <td><i class="fa-solid fa-square-plus fa-xl" onclick="addInput()"
+                                                        style="color: #28a745; cursor: pointer; "></i></td>
+                                            </tr>
+                                            <tr>
                                                 <td>
                                                     <input type="text" class="form-control budget-input"
-                                                        style="margin-bottom: 5px;" name="approved_budget[]"
-                                                        oninput="validateInput(this)" required>
+                                                        name="approved_budget[]" oninput="validateInput(this)" required>
                                                 </td>
                                                 <td>
                                                     <input type="text" class="form-control year-input"
-                                                        style="margin-bottom: 5px;" name="budget_year[]" value="1"
-                                                        required readonly>
+                                                        name="budget_year[]" value="1" required readonly>
                                                 </td>
                                                 <td>
                                                     <i class="fa-solid fa-square-minus fa-lg"
@@ -341,6 +313,11 @@
     </div>
 
     <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initial check for remove buttons
+            updateRemoveButtons();
+        });
+
         function addInput() {
             var table = document.getElementById('budget-table').getElementsByTagName('tbody')[0];
             var newRow = table.insertRow(table.rows.length);
@@ -349,9 +326,9 @@
             var cell3 = newRow.insertCell(2);
 
             cell1.innerHTML =
-                '<input type="text" style="margin-bottom: 5px;" class="form-control budget-input" oninput="validateInput(this)" name="approved_budget[]" required>';
+                '<input type="text" class="form-control budget-input" oninput="validateInput(this)" name="approved_budget[]" required>';
             cell2.innerHTML =
-                '<input type="text" style="margin-bottom: 5px;" class="form-control year-input" name="budget_year[]" required readonly>';
+                '<input type="text" class="form-control year-input" name="budget_year[]" required readonly>';
             cell3.innerHTML =
                 '<i class="fa-solid fa-square-minus fa-lg" style="color: #dc3545; margin-left: 1rem; margin-bottom:0px; cursor: pointer" onclick="removeRow(this)"></i>';
 
@@ -367,6 +344,9 @@
 
             // Recalculate the total when an input is removed
             calculateTotal();
+
+            // Hide "Remove" button if there is only one row
+            updateRemoveButtons();
         }
 
         function removeRow(button) {
@@ -375,6 +355,9 @@
 
             // Recalculate the total when an input is removed
             calculateTotal();
+
+            // Hide "Remove" button if there is only one row
+            updateRemoveButtons();
         }
 
         function validateInput(input) {
@@ -403,6 +386,15 @@
             document.getElementById('total').textContent = total;
             document.getElementById('total_amount_released').value = total;
 
+            // Hide "Remove" button if there is only one row
+            updateRemoveButtons();
+        }
+
+        function updateRemoveButtons() {
+            var removeButtons = document.querySelectorAll('#budget-table tbody tr i.fa-square-minus');
+            removeButtons.forEach(function(button) {
+                button.style.display = removeButtons.length > 1 ? 'block' : 'none';
+            });
         }
     </script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>

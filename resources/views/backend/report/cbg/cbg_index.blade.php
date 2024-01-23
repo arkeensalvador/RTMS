@@ -35,18 +35,18 @@
                                                 </div>
                                             </a>
                                         </div>
-
-                                        <div class="col-sm-12">
-                                            <a href="cbg-meetings">
-                                                <div class="monitoring info-box bg-light">
-                                                    <div class="monitoring info-box-content">
-                                                        <span
-                                                            class="monitoring info-box-number text-center text-muted">Meetings</span>
+                                        @if (auth()->user()->role == 'Admin')
+                                            <div class="col-sm-12">
+                                                <a href="cbg-meetings">
+                                                    <div class="monitoring info-box bg-light">
+                                                        <div class="monitoring info-box-content">
+                                                            <span
+                                                                class="monitoring info-box-number text-center text-muted">Meetings</span>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                            </a>
-                                        </div>
-
+                                                </a>
+                                            </div>
+                                        @endif
                                         <div class="col-sm-12">
                                             <a href="cbg-awards">
                                                 <div class="monitoring info-box bg-light">

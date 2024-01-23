@@ -80,15 +80,34 @@
                 <div class="row">
                     <div class="col-md-12 mx-auto">
                         <div class="d-flex justify-content-center mt-3">
-                            <form id="techForm" class="row g-3 needs-validation" novalidate>
+                            <form id="techForm" class="row g-3 needs-validation" novalidate enctype="multipart/form-data">
                                 @csrf
                                 <div class="form-title col-12">
                                     <h2 class="font-weight-bold">Awards</h2>
                                     <h5 class="mt-0"> Kindly fill-out the fields needed.</h5>
                                 </div>
 
+                                <div class="col-md-12 form-group">
+                                    <label for="awards_type" class=" font-weight-bold">Type of Ceremony<span
+                                            class="text-danger">*</span></label>
+
+                                    <div class="custom-control custom-radio">
+                                        <input class="custom-control-input" type="radio" value="On-site"
+                                            name="awards_ceremony" id="customRadio1" required>
+                                        <label for="customRadio1" class="custom-control-label"
+                                            style="font-weight: bold;">On-site</label>
+                                    </div>
+
+                                    <div class="custom-control custom-radio">
+                                        <input class="custom-control-input" type="radio" value="Virtual"
+                                            name="awards_ceremony" id="customRadio2" required>
+                                        <label for="customRadio2" class="custom-control-label"
+                                            style="font-weight: bold;">Virtual</label>
+                                    </div>
+                                </div>
+
                                 <div class="col-md-4 form-group">
-                                    <label for="awards_type" class=" font-weight-bold">Award Type<span
+                                    <label for="awards_type" class=" font-weight-bold">Type of Award<span
                                             class="text-danger">*</span></label>
                                     <select id="awards_type" name="awards_type" class="form-control others" required>
                                         <option value=""></option>
@@ -100,8 +119,7 @@
                                     <div class="invalid-feedback">Missing award type</div>
                                 </div>
 
-
-                                <div class="col-md-8 form-group">
+                                <div class="col-md-12 form-group">
                                     <label for="awards_agency" class=" font-weight-bold">Agency<span
                                             class="text-danger">*</span></label>
                                     <select id="awards_agency" name="awards_agency" class="form-control agency" required>
@@ -113,7 +131,7 @@
                                     <div class="invalid-feedback">Missing agency</div>
                                 </div>
 
-                                <div class="col-md-3 form-group">
+                                <div class="col-md-4 form-group">
                                     <label for="awards_date" class=" font-weight-bold">Date<span
                                             class="text-danger">*</span></label>
 
@@ -123,40 +141,18 @@
                                 </div>
 
                                 <div class="col-md-12 form-group">
-                                    <label for="awards_title" class=" font-weight-bold">Award Ttitle<span
+                                    <label for="awards_title" class=" font-weight-bold">Title of Award<span
                                             class="text-danger">*</span></label>
                                     <textarea class="form-control" name="awards_title" id="awards_title" rows="3" placeholder="Enter ..."
                                         style="resize: none;" required></textarea>
-                                    <div class="invalid-feedback">Missing title</div>
+                                    <div class="invalid-feedback">Missing title of award</div>
                                 </div>
 
                                 <div class="col-md-6 form-group">
                                     <label for="awards_recipients" class=" font-weight-bold">Recipient(s)<span
                                             class="text-danger">*</span></label>
-                                    <select class="form-control recipient id="awards_recipients" name="awards_recipients[]"
-                                        multiple="multiple" required>
-                                        <optgroup label="Agencies">
-                                            @foreach ($agency as $row)
-                                                <option value="{{ $row->abbrev }}">{{ $row->agency_name }}
-                                                </option>
-                                            @endforeach
-                                        </optgroup>
-
-                                        <optgroup label="Programs">
-                                            @foreach ($programs as $row)
-                                                <option value="{{ $row->programID }}">{{ $row->program_title }}
-                                                </option>
-                                            @endforeach
-                                        </optgroup>
-
-                                        <optgroup label="Researchers">
-                                            @foreach ($researchers as $row)
-                                                <option value="{{ $row->name }}">{{ $row->name }}
-                                                </option>
-                                            @endforeach
-                                        </optgroup>
-
-                                    </select>
+                                    <input type="text" name="awards_recipients" id="awards_recipients"
+                                        class="form-control" placeholder="Enter recipients" required>
                                     <div class="invalid-feedback">Missing recipients</div>
                                 </div>
 
@@ -184,11 +180,23 @@
                                 </div>
 
                                 <div class="col-md-6 form-group">
-                                    <label for="awards_place" class=" font-weight-bold">Place of Award<span
+                                    <label for="awards_place" class=" font-weight-bold">Venue<span
                                             class="text-danger">*</span></label>
                                     <input type="text" name="awards_place" class="form-control" id="awards_place"
                                         placeholder="Event place" required>
-                                    <div class="invalid-feedback"> Missing place of event</div>
+                                    <div class="invalid-feedback"> Missing venue</div>
+                                </div>
+
+                                <div class="col-md-6 form-group">
+                                    <label for="certificate" class=" font-weight-bold">Certificate<span
+                                            class="text-danger">*</span></label>
+                                    <input type="file" name="certificate" id="certificate" class="form-control"
+                                        accept="image/*" id="certificate" placeholder="Event place" required>
+                                    <div class="invalid-feedback"> Missing certificate</div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <img id="preview" alt="" style="max-width: 300px; max-height: 300px;">
                                 </div>
 
                                 <div class="col-md-12 form-group buttons">
@@ -204,6 +212,13 @@
     </div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+        // Preview uploaded image
+        document.getElementById('certificate').addEventListener('change', function(event) {
+            const preview = document.getElementById('preview');
+            preview.src = URL.createObjectURL(event.target.files[0]);
+        });
+    </script>
     <script>
         $(document).ready(function() {
             $('#awards_type, #awards_agency, #awards_date, #awards_title, #awards_recipients, #awards_sponsor')

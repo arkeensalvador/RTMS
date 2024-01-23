@@ -257,9 +257,10 @@
                                         required>
                                         <option selected disabled value="">Select Researcher</option>
                                         @foreach ($researchers as $key)
-                                            <option value="{{ $key->name }}"
-                                                {{ $key->name == $programs->program_leader ? 'selected' : '' }}>
-                                                {{ $key->name }}</option>
+                                            <option value="{{ $key->id }}"
+                                                {{ $key->id == $programs->program_leader ? 'selected' : '' }}>
+                                                {{ $key->first_name . ' ' . $key->middle_name . ' ' . $key->last_name }}
+                                            </option>
                                         @endforeach
 
                                     </select>
@@ -285,7 +286,9 @@
                                 </div>
 
                                 <div class="col-md-12 form-group">
-                                    <table id="budget-table">
+                                    <label for="coordination_fund" class="font-weight-bold">Budget<span
+                                            class="text-danger">*</span></label>
+                                    <table id="budget-table" class="table">
                                         <thead>
                                             <tr>
                                                 <th colspan="3" style="align-items: center;">
@@ -304,14 +307,13 @@
                                                 <tr>
                                                     <td>
                                                         <input type="text" class="form-control budget-input"
-                                                            style="margin-bottom: 5px;" name="approved_budget[]"
-                                                            oninput="validateInput(this)"
+                                                            name="approved_budget[]" oninput="validateInput(this)"
                                                             value="{{ $data->approved_budget }}" required>
                                                     </td>
                                                     <td>
                                                         <input type="text" class="form-control year-input"
-                                                            style="margin-bottom: 5px;" name="budget_year[]"
-                                                            value="{{ $data->budget_year }}" required readonly>
+                                                            name="budget_year[]" value="{{ $data->budget_year }}"
+                                                            required readonly>
                                                     </td>
                                                     <td>
                                                         {{-- <i class="fa-solid fa-square-minus fa-lg"
@@ -320,8 +322,7 @@
 
                                                         <a href="{{ URL::to('/delete-budget/' . $data->id) }}"
                                                             class="btn btn-danger" id="delete"
-                                                            style="margin-left: 5px; margin-bottom: 5px"><i
-                                                                class="fa-solid fa-trash"></i></a>
+                                                            style="margin-left: 5px"><i class="fa-solid fa-trash"></i></a>
                                                     </td>
                                                 </tr>
                                             @endforeach
@@ -381,9 +382,9 @@
             var cell3 = newRow.insertCell(2);
 
             cell1.innerHTML =
-                '<input type="text" style="margin-bottom: 5px;" class="form-control budget-input" oninput="validateInput(this)" name="new_approved_budget[]" required>';
+                '<input type="text" class="form-control budget-input" oninput="validateInput(this)" name="new_approved_budget[]" required>';
             cell2.innerHTML =
-                '<input type="text" style="margin-bottom: 5px;" class="form-control year-input" name="new_budget_year[]" required>';
+                '<input type="text"  class="form-control year-input" name="new_budget_year[]" required>';
             cell3.innerHTML =
                 '<i class="fa-solid fa-square-minus fa-lg" style="color: #dc3545; margin-left: 1rem; margin-bottom:0px; cursor: pointer" onclick="removeRow(this)"></i>';
 

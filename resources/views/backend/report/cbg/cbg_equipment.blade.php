@@ -44,37 +44,72 @@
                                                 <thead>
                                                     <tr>
                                                         <th>#</th>
-                                                        <th>Type</th>
-                                                        <th>Equipment</th>
-                                                        <th>Expenditures</th>
-                                                        <th>Source of Fund</th>
                                                         <th>Agency</th>
+                                                        <th>Type</th>
+                                                        <th>Equipment/Facilities</th>
+                                                        <th>Details</th>
+                                                        <th>Source of Fund</th>
+                                                        <th>Expenditures</th>
                                                         <th>Action</th>
                                                     </tr>
                                                 </thead>
-                                                <tbody>
+                                                @if (auth()->user()->role == 'Admin')
+                                                    <tbody>
+                                                        @foreach ($equipment as $key => $row)
+                                                            <tr>
+                                                                <td>{{ $key + 1 }}</td>
+                                                                <td>{{ $row->equipments_agency }}</td>
+                                                                <td>{{ $row->equipments_type }}</td>
+                                                                <td>{{ $row->equipments_name }}</td>
+                                                                <td>{{ $row->equipments_details }}</td>
+                                                                @php
+                                                                    $sof = json_decode($row->equipments_sof);
+                                                                    $sof = implode(', ', $sof);
+                                                                @endphp
+                                                                <td>{{ $sof }}</td>
+                                                                <td>₱{{ number_format($row->equipments_total, 2) }}</td>
+                                                                <td class="action btns">
+                                                                    <a class="btn btn-primary"
+                                                                        href="{{ url('edit-equipment/' . $row->id) }}"><i
+                                                                            class="fa-solid fa-pen-to-square"
+                                                                            style="color: white;"></i></a>
+                                                                    <a href="{{ url('delete-equipment/' . $row->id) }}"
+                                                                        class="btn btn-danger" id="delete"><i
+                                                                            class="fa-solid fa-trash"></i></a>
 
-                                                    @foreach ($equipment as $key => $row)
-                                                        <tr>
-                                                            <td>{{ $key + 1 }}</td>
-                                                            <td>{{ $row->equipments_type }}</td>
-                                                            <td>{{ $row->equipments_name }}</td>
-                                                            <td>{{ $row->equipments_total }}</td>
-                                                            <td>{{ $row->equipments_sof }}</td>
-                                                            <td>{{ $row->equipments_agency }}</td>
-                                                            <td class="action btns">
-                                                                <a class="btn btn-primary"
-                                                                    href="{{ url('edit-equipment/' . $row->id) }}"><i
-                                                                        class="fa-solid fa-pen-to-square"
-                                                                        style="color: white;"></i></a>
-                                                                <a href="{{ url('delete-equipment/' . $row->id) }}"
-                                                                    class="btn btn-danger" id="delete"><i
-                                                                        class="fa-solid fa-trash"></i></a>
+                                                                </td>
+                                                            </tr>
+                                                        @endforeach
+                                                    </tbody>
+                                                @else
+                                                    <tbody>
+                                                        @foreach ($all_filter as $key => $row)
+                                                            <tr>
+                                                                <td>{{ $key + 1 }}</td>
+                                                                <td>{{ $row->equipments_agency }}</td>
+                                                                <td>{{ $row->equipments_type }}</td>
+                                                                <td>{{ $row->equipments_name }}</td>
+                                                                <td>{{ $row->equipments_details }}</td>
+                                                                @php
+                                                                    $sof = json_decode($row->equipments_sof);
+                                                                    $sof = implode(', ', $sof);
+                                                                @endphp
+                                                                <td>{{ $sof }}</td>
+                                                                <td>₱{{ number_format($row->equipments_total, 2) }}</td>
+                                                                <td class="action btns">
+                                                                    <a class="btn btn-primary"
+                                                                        href="{{ url('edit-equipment/' . $row->id) }}"><i
+                                                                            class="fa-solid fa-pen-to-square"
+                                                                            style="color: white;"></i></a>
+                                                                    <a href="{{ url('delete-equipment/' . $row->id) }}"
+                                                                        class="btn btn-danger" id="delete"><i
+                                                                            class="fa-solid fa-trash"></i></a>
 
-                                                            </td>
-                                                        </tr>
-                                                    @endforeach
-                                                </tbody>
+                                                                </td>
+                                                            </tr>
+                                                        @endforeach
+                                                    </tbody>
+                                                @endif
                                             </table>
                                             <a href="{{ url('cbg-index') }}" class="btn btn-default">Back</a>
                                         </div>

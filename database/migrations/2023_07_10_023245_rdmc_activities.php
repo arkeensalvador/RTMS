@@ -14,9 +14,9 @@ return new class extends Migration {
             $table->id();
             $table->string('donor');
             $table->string('activity_type');
-            $table->string('activity_title');
+            $table->longText('activity_title');
             $table->string('shared_amount');
-            $table->longText('remarks')->nullable();
+            $table->string('encoder_agency');
             $table->timestamps();
         });
     }

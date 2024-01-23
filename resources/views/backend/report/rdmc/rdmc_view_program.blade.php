@@ -7,35 +7,17 @@
                 <div class="col-md-12">
                     <div class="container">
                         <div class="row pt-2 ">
-                            <div class="col-md-4 ">
+                            <div class="col-md-6 ">
                                 <div class="card-counter bg-primary text-white">
                                     <i class="fa fa-area-chart"></i>
                                     <span class="count-numbers h2"><span class="font-weight-bold">₱</span>
-                                        @empty($program->amount_released)
-                                            -
-                                        @else
-                                            {{ $program->amount_released }}
-                                        @endempty
+                                        {{ number_format($program->amount_released, 2) }}
                                     </span>
-                                    <span class="card-title font-italic ">Program Budget</span>
+                                    <span class="card-title font-italic">Released Program Budget</span>
                                 </div>
                             </div>
 
-                            <div class="col-md-4">
-                                <div class="card-counter bg-info text-white">
-                                    <i class="fa fa-bar-chart"></i>
-                                    <span class="count-numbers h2"><span class="font-weight-bold">₱</span>
-                                        @empty($program->amount_released)
-                                            -
-                                        @else
-                                            {{ $program->amount_released }}
-                                        @endempty
-                                    </span>
-                                    <span class="card-title font-italic">Approved Budget</span>
-                                </div>
-                            </div>
-
-                            <div class="col-md-4">
+                            <div class="col-md-6">
                                 <div class="card-counter bg-success text-white">
                                     <i class="fa fa-calendar-o"></i>
                                     <span class="count-duration h2">
@@ -98,14 +80,18 @@
                                         <th scope="row" class="thwidth">Implementing Agency</th>
                                         <td>{{ implode(' / ', $imp) }}</td>
                                     </tr>
+                                    @php
+                                        $collab = json_decode($program->collaborating_agency);
+                                    @endphp
+                                    <tr>
+                                        <th scope="row" class="thwidth">Collaborating Agency</th>
+                                        <td>{{ implode(' / ', $collab) }}</td>
+                                    </tr>
                                     <tr>
                                         <th scope="row" class="thwidth">Program Leader</th>
-                                        <td>{{ $program->program_leader }}</td>
+                                        <td>{{ $program_leader->first_name . ' ' . $program_leader->middle_name . ' ' . $program_leader->last_name }}
+                                        </td>
                                     </tr>
-                                    {{-- <tr>
-                                        <th scope="row" class="thwidth">Program Assistant Leader</th>
-                                        <td>{{ $program->assistant_leader }}</td>
-                                    </tr> --}}
                                     <tr>
                                         <th scope="row" class="thwidth">Program Staff(s)</th>
                                         <td>
@@ -160,6 +146,30 @@
                                         </td>
                                     </tr>
                                 </tbody>
+                                <table id="budget-table" class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>Approved Budget</th>
+                                            <th>Year No.</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($budgetData as $key => $data)
+                                            <tr>
+                                                <td>
+                                                    <input type="text" class="form-control budget-input"
+                                                        name="approved_budget[]" readonly oninput="validateInput(this)"
+                                                        value="{{ $data->approved_budget }}" required>
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control year-input"
+                                                        name="budget_year[]" value="{{ $data->budget_year }}" required
+                                                        readonly>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
                             </table>
                             <div class="text-center mt-5 mb-3">
                                 <a href="{{ url('rdmc-programs') }}" class="btn btn previous btn btn-default">Go back</a>

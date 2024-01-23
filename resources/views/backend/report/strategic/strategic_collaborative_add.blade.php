@@ -102,41 +102,17 @@
                                 </div>
 
                                 <div class="col-md-12 form-group">
-                                    <label for="ttp_sof" class=" font-weight-bold">Program<span
-                                            class="text-danger">*</span></label>
-                                    <select id="" name="str_collab_program" id="str_collab_program"
-                                        class="form-control programs" required>
-                                        <option value=""></option>
-                                        @foreach ($programs as $row)
-                                            <option value="{{ $row->program_title }}">
-                                                {{ $row->program_title }}
-                                            </option>
-                                        @endforeach
-                                    </select>
-                                    <div class="invalid-feedback">Missing program</div>
+                                    <label for="ttp_sof" class=" font-weight-bold">Program (Optional)</label>
+                                    <textarea name="str_collab_program" id="str_collab_program" cols="30" rows="5" class="form-control"
+                                        placeholder="Enter program title"></textarea>
                                 </div>
 
-
                                 <div class="col-md-12 form-group">
-                                    <label for="ttp_sof" class=" font-weight-bold">Projects<span
+                                    <label for="ttp_sof" class=" font-weight-bold">Project<span
                                             class="text-danger">*</span></label>
-                                    <select id="" name="str_collab_project[]" class="form-control projects"
-                                        multiple="multiple" required>
-                                        <optgroup label="Project lists">
-                                            @foreach ($projects as $key)
-                                                <option value="{{ $key->project_title }}">{{ $key->project_title }}
-                                                    </b></option>
-                                            @endforeach
-                                        </optgroup>
-                                        <optgroup label="Sub Project lists">
-                                            @foreach ($sub_projects as $key)
-                                                <option value="{{ $key->sub_project_title }}">{{ $key->sub_project_title }}
-                                                    </b></option>
-                                            @endforeach
-                                        </optgroup>
-
-                                    </select>
-                                    <div class="invalid-feedback">Missing projects</div>
+                                    <textarea name="str_collab_project" id="str_collab_project" cols="30" rows="5" class="form-control"
+                                        placeholder="Enter project title"></textarea>
+                                    <div class="invalid-feedback">Missing project title</div>
                                 </div>
 
 
@@ -174,7 +150,7 @@
                                 </div>
 
                                 <div class="col-md-5">
-                                    <label for="tpa_date" class=" font-weight-bold">Date<span
+                                    <label for="tpa_date" class=" font-weight-bold">Duration<span
                                             class="text-danger">*</span></label>
                                     <input type="text" name="str_collab_date" id="tpa_date"
                                         class="form-control date-range" placeholder="Enter date" required>
@@ -184,16 +160,16 @@
                                 <div class="col-md-4 form-group">
                                     <label for="approved_budget" class=" font-weight-bold">Budget<span
                                             class="text-danger">*</span></label>
-                                    <input type="text" name="str_collab_budget" class="form-control" id=""
-                                        placeholder="Budget" required>
+                                    <input type="text" name="str_collab_budget" oninput="validateInput(this)"
+                                        class="form-control" id="" placeholder="Budget" required>
                                     <div class="invalid-feedback">Missing budget</div>
                                 </div>
 
-                                <div class="col-md-8 form-group">
+                                <div class="col-md-12 form-group">
                                     <label for="funding_agency" class=" font-weight-bold">Source of Fund<span
                                             class="text-danger">*</span></label>
-                                    <select id="funding_agency" name="str_collab_sof" class="form-control agency" required>
-                                        <option></option>
+                                    <select id="funding_agency" name="str_collab_sof[]" class="form-control agency" multiple
+                                        required>
                                         @foreach ($agency as $key)
                                             <option value="{{ $key->abbrev }}">{{ $key->agency_name }} -
                                                 ({{ $key->abbrev }})
@@ -207,8 +183,8 @@
                                 <div class="col-md-12 form-group">
                                     <label for="strategic_implementing_agency" class=" font-weight-bold">Role of
                                         Consortium<span class="text-danger">*</span></label>
-                                    <textarea name="str_collab_roc" id="strategic_title" class="form-control" rows="4" style="resize: none"
-                                        required placeholder="Role of consortium"></textarea>
+                                    <textarea name="str_collab_roc" id="strategic_title" class="form-control" rows="4" style="resize: none" required
+                                        placeholder="Role of consortium"></textarea>
                                     <div class="invalid-feedback">Missing role of consortium</div>
                                 </div>
 
@@ -227,7 +203,17 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
-    <script></script>
+    <script>
+        function validateInput(input) {
+            // Remove non-numeric characters (except '-')
+            input.value = input.value.replace(/[^\d-]/g, '');
+
+            // Ensure the input is not empty
+            if (input.value === '-') {
+                input.value = '';
+            }
+        }
+    </script>
 
 
     <script>

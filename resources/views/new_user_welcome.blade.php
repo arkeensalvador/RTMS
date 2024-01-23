@@ -12,14 +12,14 @@ This is your system login credentials:
 <br>
 <strong>Email:</strong> {{ $user->email }}
 <br>
-<strong>Password:</strong> {{ $user->password }}
+{{-- <strong>Password:</strong> {{ $user->password }} --}}
 @endcomponent
 
 
 <i>Note: Permissions within the system may vary depends on your system role</i>
 
 
-@component('mail::button', ['url' => 'https://example.com/welcome'])
+@component('mail::button', ['url' => 'https://rtms.clsu.edu.ph'])
 Click here to get started
 @endcomponent
 @endcomponent

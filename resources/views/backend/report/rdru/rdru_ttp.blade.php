@@ -48,48 +48,96 @@
                                                         <th>Title</th>
                                                         <th>Budget</th>
                                                         <th>Source of Fund</th>
-                                                        <th>Proponents</th>
+                                                        <th>Proponent/Researchers</th>
                                                         <th>Implementing Agency</th>
                                                         <th>Duration</th>
                                                         <th>Commodities Addressed</th>
                                                         <th>Action</th>
                                                     </tr>
                                                 </thead>
-                                                <tbody>
-                                                    @foreach ($all as $key => $row)
-                                                        <tr>
-                                                            <td>{{ $row->ttp_type }}</td>
-                                                            <td>{{ $row->ttp_title }}</td>
-                                                            <td>{{ $row->ttp_budget }}</td>
-                                                            <td>{{ $row->ttp_sof }}</td>
+                                                @if (auth()->user()->role == 'Admin')
+                                                    <tbody>
+                                                        @foreach ($all as $key => $row)
                                                             @php
-                                                                $res = json_decode($row->ttp_researchers);
+                                                                $sof = json_decode($row->ttp_sof);
+                                                                $sof = implode(', ', $sof);
 
-                                                                $res = implode(', ', $res);
-                                                            @endphp
-                                                            <td>{{ $row->ttp_proponent }} / {{ $res }}</td>
-                                                            @php
+                                                                $res = json_decode($row->ttp_researchers);
+                                                                $res = is_array($res) ? implode(', ', $res) : null;
+
                                                                 $imp = json_decode($row->ttp_implementing_agency);
-                                                                $agencies = implode(', ', $imp);
+                                                                $imp = implode(', ', $imp);
+
+                                                                $prop = json_decode($row->ttp_proponent);
+                                                                $prop = implode(', ', $prop);
                                                             @endphp
-                                                            <td>{{ $agencies }}</td>
-                                                            <td>{{ date('m/d/Y', strtotime($row->ttp_start_date)) ?: 'Not Set' }}
-                                                                -
-                                                                {{ date('m/d/Y', strtotime($row->ttp_end_date)) ?: 'Not Set' }}
-                                                            </td>
-                                                            <td>{{ $row->ttp_priorities }}</td>
-                                                            <td class="action btns">
-                                                                <a class="btn btn-primary"
-                                                                    href="{{ url("edit-ttp/$row->id") }}"><i
-                                                                        class="fa-solid fa-pen-to-square"
-                                                                        style="color: white;"></i></a>
-                                                                <a href="{{ url("delete-ttp/$row->id") }}"
-                                                                    class="btn btn-danger" id="delete"><i
-                                                                        class="fa-solid fa-trash"></i></a>
-                                                            </td>
-                                                        </tr>
-                                                    @endforeach
-                                                </tbody>
+                                                            <tr>
+                                                                <td>{{ $row->ttp_type }}</td>
+                                                                <td>{{ $row->ttp_title }}</td>
+                                                                <td>₱{{ number_format($row->ttp_budget, 2) }}</td>
+                                                                <td>{{ $sof }}</td>
+                                                                <td>{{ $prop }}
+                                                                    @if (!empty($res))
+                                                                        / {{ $res }}
+                                                                    @endif
+                                                                </td>
+                                                                <td>{{ $imp }}</td>
+                                                                <td>{{ $row->ttp_date }}</td>
+                                                                <td>{{ $row->ttp_priorities }}</td>
+                                                                <td class="action btns">
+                                                                    <a class="btn btn-primary"
+                                                                        href="{{ url("edit-ttp/$row->id") }}"><i
+                                                                            class="fa-solid fa-pen-to-square"
+                                                                            style="color: white;"></i></a>
+                                                                    <a href="{{ url("delete-ttp/$row->id") }}"
+                                                                        class="btn btn-danger" id="delete"><i
+                                                                            class="fa-solid fa-trash"></i></a>
+                                                                </td>
+                                                            </tr>
+                                                        @endforeach
+                                                    </tbody>
+                                                @else
+                                                    <tbody>
+                                                        @foreach ($all_filter as $key => $row)
+                                                            @php
+                                                                $sof = json_decode($row->ttp_sof);
+                                                                $sof = implode(', ', $sof);
+
+                                                                $res = json_decode($row->ttp_researchers);
+                                                                $res = is_array($res) ? implode(', ', $res) : null;
+
+                                                                $imp = json_decode($row->ttp_implementing_agency);
+                                                                $imp = implode(', ', $imp);
+
+                                                                $prop = json_decode($row->ttp_proponent);
+                                                                $prop = implode(', ', $prop);
+                                                            @endphp
+                                                            <tr>
+                                                                <td>{{ $row->ttp_type }}</td>
+                                                                <td>{{ $row->ttp_title }}</td>
+                                                                <td>₱{{ number_format($row->ttp_budget, 2) }}</td>
+                                                                <td>{{ $sof }}</td>
+                                                                <td>{{ $prop }}
+                                                                    @if (!empty($res))
+                                                                        / {{ $res }}
+                                                                    @endif
+                                                                </td>
+                                                                <td>{{ $imp }}</td>
+                                                                <td>{{ $row->ttp_date }}</td>
+                                                                <td>{{ $row->ttp_priorities }}</td>
+                                                                <td class="action btns">
+                                                                    <a class="btn btn-primary"
+                                                                        href="{{ url("edit-ttp/$row->id") }}"><i
+                                                                            class="fa-solid fa-pen-to-square"
+                                                                            style="color: white;"></i></a>
+                                                                    <a href="{{ url("delete-ttp/$row->id") }}"
+                                                                        class="btn btn-danger" id="delete"><i
+                                                                            class="fa-solid fa-trash"></i></a>
+                                                                </td>
+                                                            </tr>
+                                                        @endforeach
+                                                    </tbody>
+                                                @endif
                                             </table>
                                             {{-- <a href="#">
                                                 <div class="monitoring info-box bg-light">

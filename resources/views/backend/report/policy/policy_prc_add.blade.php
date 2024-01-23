@@ -91,7 +91,7 @@
                             <form id="programForm" class="row g-3 needs-validation" novalidate>
                                 @csrf
                                 <div class="form-title col-12">
-                                    <h2 class="font-weight-bold">Policy Researchers Conducted</h2>
+                                    <h2 class="font-weight-bold">Policy Researches Conducted</h2>
                                     <h5 class="mt-0"> Kindly fill-out the fields needed.</h5>
                                 </div>
 
@@ -101,24 +101,19 @@
                                     <br>
                                     <select name="prc_agency" class="form-control agency" required>
                                         <option value=""></option>
-
                                         @foreach ($agency as $key)
                                             <option value="{{ $key->abbrev }}">{{ $key->agency_name }}
                                                 </b></option>
                                         @endforeach
-
                                     </select>
-
                                     <div class="invalid-feedback">Missing agency</div>
                                 </div>
 
                                 <div class="col-md-12 form-group">
                                     <label for="ini_initiates" class="font-weight-bold">Title<span
                                             class="text-danger">*</span></label>
-
                                     <input type="text" name="prc_title" class="form-control" placeholder="Enter title"
                                         required>
-
                                     <div class="invalid-feedback">Missing title</div>
                                 </div>
 
@@ -126,7 +121,6 @@
                                 <div class="col-md-12 form-group">
                                     <label for="ini_initiates" class="font-weight-bold">Author<span
                                             class="text-danger">*</span></label>
-
                                     <input type="text" name="prc_author" class="form-control" placeholder="Enter author"
                                         required>
 
@@ -134,12 +128,12 @@
                                 </div>
 
                                 <div class="col-md-12 form-group">
-                                    <label for="policy_issues" class="font-weight-bold">Issues addressed<span
+                                    <label for="policy_issues" class="font-weight-bold">Issues<span
                                             class="text-danger">*</span></label>
 
-                                    <textarea name="prc_issues" id="policy_issues" class="form-control" cols="30" rows="5" required></textarea>
-
-                                    <div class="invalid-feedback">Missing issues addressed</div>
+                                    <textarea name="prc_issues" id="policy_issues" class="form-control" cols="30" rows="5" required
+                                        placeholder="Enter issues"></textarea>
+                                    <div class="invalid-feedback">Missing addressed issues</div>
                                 </div>
 
                                 <div class="col-md-4 form-group float-right">

@@ -56,53 +56,90 @@
                                                         <th>Action</th>
                                                     </tr>
                                                 </thead>
-                                                <tbody>
-                                                    @foreach ($all as $key => $row)
-                                                        <tr>
-                                                            <td>
-                                                                @if ($row->str_p_type == 'Proposals')
-                                                                    {{ 'Proposals Packaged' }}
-                                                                @elseif ($row->str_p_type == 'Approved')
-                                                                    {{ 'Approved and Implemented' }}
-                                                                @endif
-                                                            </td>
-                                                            <td>{{ $row->str_p_title }}</td>
-                                                            <td>{{ $row->str_p_researchers }}</td>
-                                                            @php
-                                                                $imp = json_decode($row->str_p_imp_agency);
-                                                                $imp = implode(', ', $imp);
+                                                @if (auth()->user()->role == 'Admin')
+                                                    <tbody>
+                                                        @foreach ($all as $key => $row)
+                                                            <tr>
+                                                                <td>
+                                                                    @if ($row->str_p_type == 'Proposals')
+                                                                        {{ 'Proposals Packaged' }}
+                                                                    @elseif ($row->str_p_type == 'Approved')
+                                                                        {{ 'Approved and Implemented' }}
+                                                                    @endif
+                                                                </td>
+                                                                <td>{{ $row->str_p_title }}</td>
+                                                                <td>{{ $row->str_p_researchers }}</td>
+                                                                @php
+                                                                    $imp = json_decode($row->str_p_imp_agency);
+                                                                    $imp = implode(', ', $imp);
 
-                                                                $collab = json_decode($row->str_p_collab_agency);
-                                                                $collab = implode(', ', $collab);
-                                                            @endphp
-                                                            <td> {{ $imp }}</td>
-                                                            <td> {{ $collab }}</td>
-                                                            <td>{{ $row->str_p_date }}</td>
-                                                            <td>₱{{ number_format($row->str_p_budget) }}</td>
-                                                            <td>{{ $row->str_p_sof }}</td>
-                                                            <td>{{ $row->str_p_regional }}</td>
-                                                            <td class="action btns">
-                                                                <a class="btn btn-primary"
-                                                                    href="{{ url('edit-strategic-program-list-index/' . Crypt::encryptString($row->id)) }}"><i
-                                                                        class="fa-solid fa-pen-to-square"
-                                                                        style="color: white;"></i></a>
-                                                                <a href="{{ url('delete-strategic-program-list/' . Crypt::encryptString($row->id)) }}"
-                                                                    class="btn btn-danger" id="delete"><i
-                                                                        class="fa-solid fa-trash"></i></a>
-                                                            </td>
-                                                        </tr>
-                                                    @endforeach
-                                                </tbody>
+                                                                    $collab = json_decode($row->str_p_collab_agency);
+                                                                    $collab = implode(', ', $collab);
+
+                                                                    $sof = json_decode($row->str_p_sof);
+                                                                    $sof = implode(', ', $sof);
+                                                                @endphp
+                                                                <td> {{ $imp }}</td>
+                                                                <td> {{ $collab }}</td>
+                                                                <td>{{ $row->str_p_date }}</td>
+                                                                <td>₱{{ number_format($row->str_p_budget, 2) }}</td>
+                                                                <td>{{ $sof }}</td>
+                                                                <td>{{ $row->str_p_regional }}</td>
+                                                                <td class="action btns">
+                                                                    <a class="btn btn-primary"
+                                                                        href="{{ url('edit-strategic-program-list-index/' . Crypt::encryptString($row->id)) }}"><i
+                                                                            class="fa-solid fa-pen-to-square"
+                                                                            style="color: white;"></i></a>
+                                                                    <a href="{{ url('delete-strategic-program-list/' . Crypt::encryptString($row->id)) }}"
+                                                                        class="btn btn-danger" id="delete"><i
+                                                                            class="fa-solid fa-trash"></i></a>
+                                                                </td>
+                                                            </tr>
+                                                        @endforeach
+                                                    </tbody>
+                                                @else
+                                                    <tbody>
+                                                        @foreach ($all_filter as $key => $row)
+                                                            <tr>
+                                                                <td>
+                                                                    @if ($row->str_p_type == 'Proposals')
+                                                                        {{ 'Proposals Packaged' }}
+                                                                    @elseif ($row->str_p_type == 'Approved')
+                                                                        {{ 'Approved and Implemented' }}
+                                                                    @endif
+                                                                </td>
+                                                                <td>{{ $row->str_p_title }}</td>
+                                                                <td>{{ $row->str_p_researchers }}</td>
+                                                                @php
+                                                                    $imp = json_decode($row->str_p_imp_agency);
+                                                                    $imp = implode(', ', $imp);
+
+                                                                    $collab = json_decode($row->str_p_collab_agency);
+                                                                    $collab = implode(', ', $collab);
+
+                                                                    $sof = json_decode($row->str_p_sof);
+                                                                    $sof = implode(', ', $sof);
+                                                                @endphp
+                                                                <td> {{ $imp }}</td>
+                                                                <td> {{ $collab }}</td>
+                                                                <td>{{ $row->str_p_date }}</td>
+                                                                <td>₱{{ number_format($row->str_p_budget, 2) }}</td>
+                                                                <td>{{ $sof }}</td>
+                                                                <td>{{ $row->str_p_regional }}</td>
+                                                                <td class="action btns">
+                                                                    <a class="btn btn-primary"
+                                                                        href="{{ url('edit-strategic-program-list-index/' . Crypt::encryptString($row->id)) }}"><i
+                                                                            class="fa-solid fa-pen-to-square"
+                                                                            style="color: white;"></i></a>
+                                                                    <a href="{{ url('delete-strategic-program-list/' . Crypt::encryptString($row->id)) }}"
+                                                                        class="btn btn-danger" id="delete"><i
+                                                                            class="fa-solid fa-trash"></i></a>
+                                                                </td>
+                                                            </tr>
+                                                        @endforeach
+                                                    </tbody>
+                                                @endif
                                             </table>
-                                            {{-- <a href="#">
-                                                <div class="monitoring info-box bg-light">
-                                                    <div class="monitoring info-box-content">
-                                                        <span class="info-box-number text-center text-muted">Agency In-House
-                                                            Reviews (AIHRs)
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                            </a> --}}
                                             <a href="{{ url('strategic-index') }}" class="btn btn-default">Back</a>
                                         </div>
                                     </div>

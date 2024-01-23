@@ -26,7 +26,7 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-header">
-                                <h2 class="card-title">List of Collaborative R & D
+                                <h2 class="card-title">List of Collaborative R & D Programs/Projects implemented
                                 </h2>
                                 <div class="card-tools">
                                     <a href="{{ url('add-strategic-collaborative-list-index') }}"
@@ -44,9 +44,9 @@
                                             <table id="example1" class="table table-bordered table-striped">
                                                 <thead>
                                                     <tr>
-                                                        <th>Program/Project Type</th>
-                                                        <th>Program Title</th>
-                                                        <th>Project Title</th>
+                                                        <th>Program/project Type</th>
+                                                        <th>Program</th>
+                                                        <th>Project</th>
                                                         <th>Implementing Agency</th>
                                                         <th>Collaborating Agency</th>
                                                         <th>Duration</th>
@@ -56,51 +56,79 @@
                                                         <th>Action</th>
                                                     </tr>
                                                 </thead>
-                                                <tbody>
-                                                    @foreach ($all as $key => $row)
-                                                        <tr>
-                                                            <td>{{ $row->str_collab_type }}</td>
-                                                            <td>{{ $row->str_collab_program }}</td>
+                                                @if (auth()->user()->role == 'Admin')
+                                                    <tbody>
+                                                        @foreach ($all as $key => $row)
                                                             @php
-
                                                                 $imp = json_decode($row->str_collab_imp_agency);
                                                                 $imp = implode(', ', $imp);
 
                                                                 $collab = json_decode($row->str_collab_agency);
                                                                 $collab = implode(', ', $collab);
 
-                                                                $proj = json_decode($row->str_collab_project);
-                                                                $proj = implode(', ', $proj);
+                                                                $sof = json_decode($row->str_collab_sof);
+                                                                $sof = implode(', ', $sof);
                                                             @endphp
-                                                            <td> {{ $proj }} </td>
-                                                            <td> {{ $imp }} </td>
-                                                            <td> {{ $collab }}</td>
-                                                            <td> {{ $row->str_collab_date }} </td>
-                                                            <td>₱{{ $row->str_collab_budget }}</td>
-                                                            <td>{{ $row->str_collab_sof }}</td>
-                                                            <td>{{ $row->str_collab_roc }}</td>
-                                                            <td class="action btns">
-                                                                <a class="btn btn-primary"
-                                                                    href="{{ url('edit-strategic-collaborative-list-index/' . Crypt::encryptString($row->id)) . '/' . $row->str_collab_program }}"><i
-                                                                        class="fa-solid fa-pen-to-square"
-                                                                        style="color: white;"></i></a>
-                                                                <a href="{{ url('delete-strategic-collaborative-list/' . Crypt::encryptString($row->id)) }}"
-                                                                    class="btn btn-danger" id="delete"><i
-                                                                        class="fa-solid fa-trash"></i></a>
-                                                            </td>
-                                                        </tr>
-                                                    @endforeach
-                                                </tbody>
+                                                            <tr>
+                                                                <td>{{ $row->str_collab_type }}</td>
+                                                                <td>{{ $row->str_collab_program }}</td>
+                                                                <td>{{ $row->str_collab_project }}</td>
+                                                                <td> {{ $imp }} </td>
+                                                                <td> {{ $collab }}</td>
+                                                                <td> {{ $row->str_collab_date }} </td>
+                                                                <td>₱{{ number_format($row->str_collab_budget, 2) }}</td>
+                                                                <td>{{ $sof }}</td>
+                                                                <td>{{ $row->str_collab_roc }}</td>
+                                                                <td class="action btns">
+                                                                    <a class="btn btn-primary"
+                                                                        href="{{ url('edit-strategic-collaborative-list-index/' . Crypt::encryptString($row->id)) }}"><i
+                                                                            class="fa-solid fa-pen-to-square"
+                                                                            style="color: white;"></i></a>
+                                                                    <a href="{{ url('delete-strategic-collaborative-list/' . Crypt::encryptString($row->id)) }}"
+                                                                        class="btn btn-danger" id="delete"><i
+                                                                            class="fa-solid fa-trash"></i></a>
+                                                                </td>
+                                                            </tr>
+                                                        @endforeach
+                                                    </tbody>
+                                                @else
+                                                    <tbody>
+                                                        @foreach ($all_filter as $key => $row)
+                                                            <tr>
+                                                                <td>{{ $row->str_collab_type }}</td>
+                                                                <td>{{ $row->str_collab_program }}</td>
+                                                                <td>{{ $row->str_collab_project }}</td>
+                                                                @php
+                                                                    $imp = json_decode($row->str_collab_imp_agency);
+                                                                    $imp = implode(', ', $imp);
+
+                                                                    $collab = json_decode($row->str_collab_agency);
+                                                                    $collab = implode(', ', $collab);
+
+                                                                    $sof = json_decode($row->str_collab_sof);
+                                                                    $sof = implode(', ', $sof);
+                                                                @endphp
+                                                                <td> {{ $imp }} </td>
+                                                                <td> {{ $collab }}</td>
+                                                                <td> {{ $row->str_collab_date }} </td>
+                                                                <td>₱{{ number_format($row->str_collab_budget, 2) }}</td>
+                                                                <td>{{ $sof }}</td>
+                                                                <td>{{ $row->str_collab_roc }}</td>
+                                                                <td class="action btns">
+                                                                    <a class="btn btn-primary"
+                                                                        href="{{ url('edit-strategic-collaborative-list-index/' . Crypt::encryptString($row->id)) }}"><i
+                                                                            class="fa-solid fa-pen-to-square"
+                                                                            style="color: white;"></i></a>
+                                                                    <a href="{{ url('delete-strategic-collaborative-list/' . Crypt::encryptString($row->id)) }}"
+                                                                        class="btn btn-danger" id="delete"><i
+                                                                            class="fa-solid fa-trash"></i></a>
+                                                                </td>
+                                                            </tr>
+                                                        @endforeach
+                                                    </tbody>
+                                                @endif
                                             </table>
-                                            {{-- <a href="#">
-                                                <div class="monitoring info-box bg-light">
-                                                    <div class="monitoring info-box-content">
-                                                        <span class="info-box-number text-center text-muted">Agency In-House
-                                                            Reviews (AIHRs)
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                            </a> --}}
+
                                             <a href="{{ url('strategic-index') }}" class="btn btn-default">Back</a>
                                         </div>
                                     </div>

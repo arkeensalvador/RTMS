@@ -22,6 +22,7 @@ return new class extends Migration {
             $table->string('strategic_budget');
             $table->string('strategic_commodities');
             $table->string('strategic_consortium_role');
+            $table->string('encoder_agency');
             $table->timestamps();
         });
     }

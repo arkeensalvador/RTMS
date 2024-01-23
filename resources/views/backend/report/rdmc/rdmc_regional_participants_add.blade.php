@@ -1,6 +1,5 @@
 @extends('backend.layouts.app')
 @section('content')
-
     <div class="content-wrapper">
         <section class="content">
             <div class="container">
@@ -40,18 +39,11 @@
                                             class="text-danger">*</span></label>
                                     <select class="form-control agency" id="awards_recipients" name="rp_agency" required>
                                         <option value=""></option>
-                                        @if (auth()->user()->role == 'Admin')
-                                            @foreach ($agency as $key)
-                                                <option value="{{ $key->abbrev }}">{{ $key->agency_name }} -
-                                                    ({{ $key->abbrev }})
-                                                    </b></option>
-                                            @endforeach
-                                        @else
-                                            <option value="{{ $user_agency->abbrev }}" selected>
-                                                {{ $user_agency->agency_name }} -
-                                                ({{ $user_agency->abbrev }})
+                                        @foreach ($agency as $key)
+                                            <option value="{{ $key->abbrev }}">{{ $key->agency_name }} -
+                                                ({{ $key->abbrev }})
                                                 </b></option>
-                                        @endif
+                                        @endforeach
                                     </select>
                                     <div class="invalid-feedback">Missing agency</div>
                                 </div>

@@ -87,6 +87,19 @@
                                     <h5 class="mt-0"> Kindly fill-out the fields needed.</h5>
                                 </div>
 
+                                @if (!$imgs->isEmpty())
+                                    <div class="col-md-12">
+                                        <label for="strategic_program" class="font-weight-bold">Uploaded Images<span
+                                                class="text-danger"></span></label><br>
+                                        @foreach ($imgs as $img)
+                                            <a href="{{ asset($img->filename) }}" data-lightbox="photos">
+                                                <img id="" src="{{ asset($img->filename) }}" alt=""
+                                                    style="width: 200px; height: 200px;" class="img-thumbnail">
+                                            </a>
+                                        @endforeach
+                                    </div>
+                                @endif
+
                                 <div class="col-md-3 form-group">
                                     <label for="strategic_program" class="font-weight-bold">Type of Technology<span
                                             class="text-danger">*</span></label>
@@ -104,20 +117,20 @@
                                 <div class="col-md-12 form-group">
                                     <label for="strategic_implementing_agency" class=" font-weight-bold">Title<span
                                             class="text-danger">*</span></label>
-                                    <input type="text" name="tech_title" id="strategic_title" class="form-control"
-                                        value="{{ $all->tech_title }}" placeholder="Title" required>
+                                    <textarea name="tech_title" id="strategic_title" class="form-control" placeholder="Enter title" required cols="30"
+                                        rows="5" required>{{ $all->tech_title }}</textarea>
                                     <div class="invalid-feedback">Missing title</div>
                                 </div>
 
-                                <div class="col-md-12 form-group">
+                                {{-- <div class="col-md-12 form-group">
                                     <label for="strategic_implementing_agency" class=" font-weight-bold">Description<span
                                             class="text-danger">*</span></label>
                                     <textarea name="tech_desc" id="strategic_title" class="form-control" rows="4" style="resize: none" required
                                         placeholder="Description">{{ $all->tech_desc }}</textarea>
                                     <div class="invalid-feedback">Missing title</div>
-                                </div>
+                                </div> --}}
 
-                                <div class="col-md-6 form-group">
+                                <div class="col-md-12 form-group">
                                     <label for="agencySelect" class=" font-weight-bold">Agency<span
                                             class="text-danger">*</span></label>
                                     <select id="agencySelect" name="tech_agency" class="form-control agency" required>
@@ -135,23 +148,24 @@
                                     $res = json_decode($all->tech_researchers);
                                 @endphp
 
-                                <div class="col-md-6 form-group">
+                                <div class="col-md-12 form-group">
                                     <label for="ttp_sof" class=" font-weight-bold">Researchers<span
                                             class="text-danger">*</span></label>
                                     <select id="researcherSelect" name="tech_researchers[]" class="form-control researchers"
                                         multiple="multiple" required>
                                         <option value=""></option>
                                         @foreach ($researchers as $key)
-                                            <option value="{{ $key->name }}"
-                                                {{ in_array($key->name, $res) ? 'selected' : '' }}>
-                                                {{ $key->name }}
+                                            <option
+                                                value="{{ $key->first_name . ' ' . $key->middle_name . ' ' . $key->last_name }}"
+                                                {{ in_array($key->first_name . ' ' . $key->middle_name . ' ' . $key->last_name, $res) ? 'selected' : '' }}>
+                                                {{ $key->first_name . ' ' . $key->middle_name . ' ' . $key->last_name }}
                                                 </b></option>
                                         @endforeach
                                     </select>
                                     <div class="invalid-feedback">Missing researchers</div>
                                 </div>
 
-                                <div class="col-md-12 form-group">
+                                {{-- <div class="col-md-12 form-group">
                                     <label for="agencySelect" class=" font-weight-bold">Program/Project Source<span
                                             class="text-danger">*</span></label>
                                     <select id="" name="tech_source" class="form-control source" required>
@@ -183,10 +197,11 @@
                                         </optgroup>
                                     </select>
                                     <div class="invalid-feedback">Missing program/project source</div>
-                                </div>
+                                </div> --}}
 
                                 <div class="col-md-12 form-group">
-                                    <label for="strategic_implementing_agency" class=" font-weight-bold">Potential Impact or
+                                    <label for="strategic_implementing_agency" class=" font-weight-bold">Potential Impact
+                                        or
                                         Contribution<span class="text-danger">*</span></label>
                                     <textarea name="tech_impact" id="strategic_title" class="form-control" rows="4" style="resize: none" required
                                         placeholder="Impact">{{ $all->tech_impact }}</textarea>
@@ -199,6 +214,18 @@
                                 </div>
                             </form>
                         </div>
+                        <hr>
+                        <div class="d-flex justify-content-center mt-3">
+                            <div class="col-md-12 form-group">
+                                <label for="ttp_sof" class=" font-weight-bold">Photo-documentation upload<span
+                                        class="text-danger">*</span></label>
+                                <form action="{{ url('/image/upload/store/tech') }}" method="POST"
+                                    enctype="multipart/form-data" class="dropzone" id="dropzone">
+                                    @csrf
+                                    <input type="text" name="strategic_tech_id" value="{{ $all->id }}" hidden>
+                                </form>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -206,6 +233,42 @@
     </div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+        Dropzone.options.dropzone = {
+            maxFilesize: 12,
+            renameFile: function(file) {
+                var dt = new Date();
+                var time = dt.getTime();
+                return time + file.name;
+            },
+            acceptedFiles: ".jpeg, .jpg, .png, .gif",
+            addRemoveLinks: true,
+            timeout: 5000,
+            success: function(file, response) {
+                console.log(response);
+            },
+            queuecomplete: function() {
+                // Reload the page after all uploads are complete
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Images Added Successfully',
+                    toast: true,
+                    position: 'top-right',
+                    timerProgressBar: true,
+                    showConfirmButton: false,
+                    timer: 500,
+                }).then((result) => {
+                    if (result.dismiss) {
+                        location.reload();
+                    }
+                })
+            },
+            error: function(file, response) {
+                return false;
+            }
+        };
+    </script>
+
     <script>
         $(document).ready(function() {
             $('.r-agency').select2({

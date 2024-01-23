@@ -91,7 +91,7 @@
                                     $donor = json_decode($all->donor);
                                 @endphp
 
-                                <div class="col-md-8 form-group">
+                                <div class="col-md-12 form-group">
                                     <label for="funding_agency" class=" font-weight-bold">Donor/Source<span
                                             class="text-danger">*</span></label>
                                     <select class="form-control implementing_agency" id="awards_recipients" name="donor[]"
@@ -111,8 +111,8 @@
                                     <div class="invalid-feedback">Missing donor/source</div>
                                 </div>
 
-                                <div class="col-md-4 form-group">
-                                    <label for="fund_code" class="font-weight-bold">Activity type<span
+                                <div class="col-md-12 form-group">
+                                    <label for="fund_code" class="font-weight-bold">Type of Activity<span
                                             class="text-danger">*</span></label>
                                     <input name="activity_type" value="{{ $all->activity_type }}" class="form-control"
                                         list="titledtlist" required placeholder="Activity type">
@@ -134,29 +134,31 @@
 
 
                                 <div class="col-md-12 form-group">
-                                    <label for="program_title" class=" font-weight-bold">Activity Title<span
+                                    <label for="program_title" class=" font-weight-bold">Activity Details<span
                                             class="text-danger">*</span></label></label>
                                     <textarea class="form-control" id="program_title" name="activity_title" style="height: 100px"
-                                        placeholder="Enter activity title" required>{{ $all->activity_title }}</textarea>
-                                    <div class="invalid-feedback">Missing title</div>
+                                        placeholder="Enter the activity title first, followed by a colon, before adding details (e.g., title of activity: details)."
+                                        required>{{ $all->activity_title }}</textarea>
+                                    <div class="invalid-feedback">Missing details</div>
                                 </div>
 
 
                                 <div class="col-md-4 form-group">
                                     <label for="approved_budget" class=" font-weight-bold">Shared Amount<span
                                             class="text-danger">*</span></label>
-                                    <input type="text" name="shared_amount" value="{{ $all->shared_amount }}"
-                                        id="shared_amount" class="form-control" placeholder="Amount" required>
+                                    <input type="text" name="shared_amount" oninput="validateInput(this)"
+                                        value="{{ $all->shared_amount }}" id="shared_amount" class="form-control"
+                                        placeholder="Amount" required>
                                     <div class="invalid-feedback">Missing shared amount</div>
                                 </div>
 
 
                                 <div class="col-md-12 form-group">
-                                    <label for="program_title" class=" font-weight-bold">Remarks<span
+                                    {{-- <label for="program_title" class=" font-weight-bold">Remarks<span
                                             class="text-danger">*</span></label></label>
                                     <textarea class="form-control" id="program_title" name="remarks" style="height: 100px" placeholder="Enter N/A if none."
                                         required>{{ $all->remarks }}</textarea>
-                                    <div class="invalid-feedback">Missing remarks</div>
+                                    <div class="invalid-feedback">Missing remarks</div> --}}
                                 </div>
 
 
@@ -178,6 +180,17 @@
             var textbox = document.getElementById("textYear");
             textbox.value = this.value;
         };
+
+        function validateInput(input) {
+            // Remove non-numeric characters (except '-')
+            input.value = input.value.replace(/[^\d-]/g, '');
+
+            // Ensure the input is not empty
+            if (input.value === '-') {
+                input.value = '';
+            }
+
+        }
     </script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 

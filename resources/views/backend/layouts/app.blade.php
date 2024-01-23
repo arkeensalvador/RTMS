@@ -17,8 +17,7 @@
 
     {{-- <script src="https://kit.fontawesome.com/403b4fe327.js" crossorigin="anonymous"></script> --}}
 
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
-        integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
@@ -47,8 +46,6 @@
 
     {{-- bs stepper --}}
 
-    {{-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous"> --}}
-
     <link rel="stylesheet" href="{{ asset('backend/plugins/bs-stepper/css/bs-stepper.min.css') }}">
 
     <link rel="stylesheet" href="{{ asset('backend/plugins/chart.js/Chart.css') }}">
@@ -59,10 +56,15 @@
 
     {{-- CSS --}}
     <link rel="stylesheet" type="text/css" href="{{ asset('css/app.css') }}" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.min.css">
 
 
     {{-- DropZone --}}
-    <link rel="stylesheet" href="{{ asset('backend/plugins/dropzone/min/dropzone.css') }}">
+    {{-- <link rel="stylesheet" href="{{ asset('backend/plugins/dropzone/min/dropzone.css') }}"> --}}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.0/dropzone.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.0/dropzone.min.js"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
     {{-- BS Tags input --}}
     <link rel="stylesheet" href="{{ asset('backend/plugins/bs-tags-input/bootstrap-tagsinput.css') }}">
@@ -70,6 +72,9 @@
     {{-- Flat Pickr --}}
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
+
+
 
 
     <style>
@@ -444,7 +449,7 @@
                     href="http://pcaarrd.dost.gov.ph/index.php/claarrdec">CLAARRDEC</a>.</strong>
             All rights reserved.
             <div class="float-right d-none d-sm-inline-block">
-                <b>Version</b> 1.0
+                <b>Version</b> 2.0
             </div>
         </footer>
     </div>
@@ -454,7 +459,6 @@
     <!-- REQUIRED SCRIPTS -->
     <!-- jQuery -->
     {{-- <script src="{{ asset('backend/plugins/jquery/jquery.min.js') }}"></script> --}}
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
     <!-- Bootstrap -->
@@ -512,7 +516,7 @@
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
     {{-- Dropzone --}}
-    <script src="{{ asset('backend/plugins/dropzone/min/dropzone.css') }}"></script>
+    {{-- <script src="{{ asset('backend/plugins/dropzone/min/dropzone.css') }}"></script> --}}
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <!-- ChartJS -->
@@ -524,13 +528,16 @@
     <script src="{{ asset('backend/dist/js/pages/dashboard2.js') }}"></script>
 
     {{-- dropzone --}}
-    <script src="{{ asset('backend/plugins/dropzone/min/dropzone.min.js') }}"></script>
+    {{-- <script src="{{ asset('backend/plugins/dropzone/min/dropzone.min.js') }}"></script> --}}
 
     {{-- BS tags input --}}
     <script src="{{ asset('backend/plugins/bs-tags-input/bootstrap-tagsinput.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/js/lightbox.min.js"></script>
 </body>
 
+{{-- /* The code below is using the flatpickr library to add date pickers to HTML elements with specific
+classes. */ --}}
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         flatpickr('.date', {
@@ -568,6 +575,7 @@
 </script>
 
 
+{{-- /* The code below is a JavaScript function that formats a number input in a specific way. */ --}}
 <script>
     function formatNumber(e) {
         var rex = /(^\d{2})|(\d{1,3})(?=\d{1,3}|$)/g,
@@ -591,6 +599,11 @@
 
     ni2.addEventListener("keyup", formatNumber);
 </script>
+
+{{-- /* The code below is written in JavaScript and it is binding a keypress event to all forms on the page.
+When the user presses the enter key (keyCode 13), the code retrieves the value of the submit button
+with the id "submit" and returns it. It also prevents the default behavior of the enter key, which
+is to submit the form. */ --}}
 <script>
     $("form").bind("keypress", function(e) {
         if (e.keyCode == 13) {
@@ -601,6 +614,8 @@
     });
 </script>
 
+{{-- /* The code below is a JavaScript function called `enableCreateUser()`. It is used to enable or disable
+file input fields based on the state of corresponding checkboxes. */ --}}
 <script>
     function enableCreateUser() {
         // file input 1
@@ -636,8 +651,17 @@
 
     }
 </script>
+
+{{-- /* The code below is using the jQuery library to initialize and configure various select2 dropdown
+menus. Select2 is a jQuery-based replacement for select boxes that provides a customizable and
+feature-rich user interface for selecting options. */ --}}
 <script>
     $(document).ready(function() {
+        $('.yearSelect').select2({
+            placeholder: "Select Year",
+            allowClear: false
+        });
+
         $('.agency').select2({
             placeholder: "Select Agency",
             allowClear: false
@@ -763,6 +787,11 @@
                 placeholder: "Select implementing agency"
             });
 
+            $('#act_donor').select2({
+                allowClear: false,
+                placeholder: "Select donor"
+            });
+
             $('#funding_agency').select2({
                 // tags: true,
                 // tokenSeparators: [',', ' '],
@@ -780,6 +809,11 @@
     });
 </script>
 
+{{-- /* The code below is a JavaScript function called "isNumberKey" that is used to validate whether the
+key pressed is a number or not. It takes an event object as a parameter and checks the character
+code of the key pressed. If the character code is between 48 and 57 (which corresponds to the ASCII
+values of digits 0-9), it returns true, indicating that it is a number. Otherwise, it returns false,
+indicating that it is not a number. */ --}}
 <script>
     function isNumberKey(evt) {
         var charCode = (evt.which) ? evt.which : event.keyCode;
@@ -790,6 +824,8 @@
     }
 </script>
 
+{{-- /* The code below is written in PHP and JavaScript. It checks if there is a session message set in the
+PHP code. If there is a message, it retrieves the message and the alert type from the session. */ --}}
 <script>
     @if (Session::has('message'))
         var type = "{{ Session::get('alert-type', 'info') }}"
@@ -870,7 +906,7 @@
                     reverseButtons: true
                 }).then((result) => {
                     if (result.value) {
-                        window.location.href = 'sub-projects-add';
+                        window.location.href = '/sub-projects-add';
                     }
                     // else {
                     //     window.location.href = 'projects-add';
@@ -906,6 +942,8 @@
         }
     @endif
 </script>
+
+{{-- /* The code below is written in JavaScript and it is using jQuery library. */ --}}
 <script>
     $('#chooseFile').change(function() {
         var i = $(this).prev('label').clone();
@@ -913,6 +951,8 @@
         $(this).prev('label').text(file);
     });
 </script>
+
+{{-- /* The code below is written in PHP and JavaScript. */ --}}
 <script>
     $(document).ready(function() {
         var stepper = new Stepper($('.bs-stepper')[0])
@@ -922,7 +962,9 @@
         showFirstItemToDefault: true,
     });
 </script>
-
+{{-- 
+/* The code below is written in PHP and JavaScript. It is handling two different events: deleting an
+item and logging out. */ --}}
 <script>
     $(document).on("click", "#delete", function(e) {
         e.preventDefault();
@@ -980,6 +1022,8 @@
     });
 </script>
 
+{{-- /* The code below is written in JavaScript and is using the SweetAlert library to display a loading
+message and then a success message after a certain delay. */ --}}
 <script>
     $(document).on('click', '.sweet-alert-trigger', function() {
         swal.fire({
@@ -997,12 +1041,15 @@
     });
 </script>
 
+{{-- /* The code below is using the DataTables plugin in jQuery to enhance the functionality of HTML tables.
+It is initializing multiple tables with different configurations and adding buttons for exporting
+data in various formats (copy, csv, excel, pdf, print) and for column visibility control (colvis). */ --}}
 <script>
     $(function() {
         $("#example1").DataTable({
             "responsive": true,
             "lengthChange": false,
-            "autoWidth": false,
+            "autoWidth": true,
             "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
         }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
         $('#example2').DataTable({
@@ -1145,6 +1192,8 @@
     });
 </script>
 
+{{-- /* The code below is written in PHP and JavaScript. It is using the jQuery library to apply input masks
+to certain form fields. */ --}}
 <script>
     $(document).ready(function() {
         $('#start_date').inputmask("99/99/9999", {
@@ -1163,35 +1212,8 @@
     });
 </script>
 
-<script>
-    $(document).ready(function() {
-        var current = 1,
-            current_step, next_step, steps;
-        steps = $("fieldset").length;
-        $(".next").click(function() {
-            current_step = $(this).parent();
-            next_step = $(this).parent().next();
-            next_step.show();
-            current_step.hide();
-            setProgressBar(++current);
-        });
-        $(".previous").click(function() {
-            current_step = $(this).parent();
-            next_step = $(this).parent().prev();
-            next_step.show();
-            current_step.hide();
-            setProgressBar(--current);
-        });
-        setProgressBar(current);
-        // Change progress bar action
-        function setProgressBar(curStep) {
-            var percent = parseFloat(100 / steps) * curStep;
-            percent = percent.toFixed();
-            $(".progress-bar")
-                .css("width", percent + "%")
-                .html(percent + "%");
-        }
-    });
-</script>
+
+
+
 
 </html>

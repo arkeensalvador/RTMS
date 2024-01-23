@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      */
@@ -17,6 +16,8 @@ return new class extends Migration
             $table->string('ttm_type');
             $table->string('ttm_status');
             $table->string('ttm_agency');
+            $table->string('ttm_sof');
+            $table->string('encoder_agency');
             $table->timestamps();
         });
     }

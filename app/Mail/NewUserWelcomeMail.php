@@ -14,11 +14,9 @@ class NewUserWelcomeMail extends Mailable
     use Queueable, SerializesModels;
     public $user;
 
-
     public function build()
     {
-        return $this->markdown('new_user_welcome')
-            ->subject('Account Credentials');
+        return $this->markdown('new_user_welcome')->subject('Account Credentials');
     }
     /**
      * Create a new message instance.
@@ -33,15 +31,12 @@ class NewUserWelcomeMail extends Mailable
      */
     public function envelope(): Envelope
     {
-        return new Envelope(
-            subject: 'RTMS Account Login Credentials',
-        );
+        return new Envelope(subject: 'RTMS Account Login Credentials');
     }
 
     /**
      * Get the message content definition.
      */
-
 
     /**
      * Get the attachments for the message.

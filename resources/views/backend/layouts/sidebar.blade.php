@@ -109,6 +109,8 @@
                 'strategic-program-list',
                 'edit-project',
                 'rdmc-regional-participants',
+                'program-projects-add',
+                'edit-sub-project',
             ];
         @endphp
 
