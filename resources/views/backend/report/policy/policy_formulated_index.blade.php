@@ -46,8 +46,8 @@
                                             <table id="programs" class="table table-bordered table-striped">
                                                 <thead>
                                                     <tr>
-                                                        <th>#</th>
                                                         <th>Type</th>
+                                                        <th>Title</th>
                                                         <th>Agency</th>
                                                         <th>Author</th>
                                                         <th>Co-author</th>
@@ -63,8 +63,8 @@
                                                     <tbody>
                                                         @foreach ($all as $key => $row)
                                                             <tr>
-                                                                <td>{{ $row->id }}</td>
                                                                 <td>{{ $row->policy_type }}</td>
+                                                                <td>{{ $row->policy_title }}</td>
                                                                 <td>{{ $row->policy_agency }}</td>
                                                                 <td>{{ $row->policy_author }}</td>
                                                                 <td>{{ $row->policy_co_author }}</td>
@@ -89,8 +89,8 @@
                                                     <tbody>
                                                         @foreach ($all_filter as $key => $row)
                                                             <tr>
-                                                                <td>{{ $row->id }}</td>
                                                                 <td>{{ $row->policy_type }}</td>
+                                                                <td>{{ $row->policy_title }}</td>
                                                                 <td>{{ $row->policy_agency }}</td>
                                                                 <td>{{ $row->policy_author }}</td>
                                                                 <td>{{ $row->policy_co_author }}</td>

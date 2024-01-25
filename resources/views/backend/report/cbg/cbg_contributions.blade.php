@@ -46,7 +46,7 @@
                                                 <thead>
                                                     <tr>
                                                         <th>#</th>
-                                                        <th>Name</th>
+                                                        <th>Contributor</th>
                                                         <th>Amount</th>
                                                         <th>Action</th>
                                                     </tr>
@@ -105,7 +105,7 @@
                             </div>
 
                             <div class="col-md-12 form-group">
-                                <label for="con_name" class=" font-weight-bold">Name<span
+                                <label for="con_name" class=" font-weight-bold">Contributor<span
                                         class="text-danger">*</span></label>
 
                                 <input type="text" name="con_name" class="form-control" placeholder="Enter name"
@@ -157,7 +157,7 @@
                             </div>
 
                             <div class="col-md-12 form-group">
-                                <label for="con_name" class=" font-weight-bold">Name<span
+                                <label for="con_name" class=" font-weight-bold">Contributor<span
                                         class="text-danger">*</span></label>
 
                                 <input type="text" name="con_name" id="e_con_name" class="form-control"

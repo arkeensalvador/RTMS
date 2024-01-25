@@ -13,6 +13,7 @@ return new class extends Migration {
         Schema::create('policy_formulated', function (Blueprint $table) {
             $table->id('id');
             $table->string('policy_type');
+            $table->string('policy_title');
             $table->string('policy_agency');
             $table->string('policy_date');
             $table->string('policy_author');

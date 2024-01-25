@@ -70,6 +70,19 @@ h3 {
     top: 10rem;
 } */
 /* SWAL */
+.table.dataTable > thead > tr > th:not(.sorting_disabled),
+table.dataTable > thead > tr > td:not(.sorting_disabled) {
+    padding-right: 15px;
+    text-align: center;
+}
+
+table.table-bordered.dataTable tbody th,
+table.table-bordered.dataTable tbody td {
+    border-bottom-width: 0;
+    text-align: left;
+    font-size: 14.5px;
+}
+
 .swal2-popup.swal2-toast .swal2-icon.swal2-error [class^='swal2-x-mark-line'] {
     background-color: white;
 }

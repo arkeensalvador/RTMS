@@ -128,11 +128,11 @@
                                 </div>
 
                                 <div class="col-md-12 form-group">
-                                    <label for="policy_issues" class="font-weight-bold">Issues<span
+                                    <label for="policy_issues" class="font-weight-bold">Addressed Issues<span
                                             class="text-danger">*</span></label>
 
                                     <textarea name="prc_issues" id="policy_issues" class="form-control" cols="30" rows="5" required
-                                        placeholder="Enter issues"></textarea>
+                                        placeholder="Enter addressed issues"></textarea>
                                     <div class="invalid-feedback">Missing addressed issues</div>
                                 </div>
 

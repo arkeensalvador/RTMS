@@ -55,7 +55,7 @@
                                                             <td>{{ $key + 1 }}</td>
                                                             <td>{{ $row->meeting_type }}</td>
                                                             <td>{{ $row->meeting_venue }}</td>
-                                                            <td>{{ $row->meeting_date }}</td>
+                                                            <td>{{ date('m/d/y', strtotime($row->meeting_date)) }}</td>
                                                             <td>{{ $row->meeting_host }}</td>
                                                             <td class="action btns">
                                                                 <a class="btn btn-primary"

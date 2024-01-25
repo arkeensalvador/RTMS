@@ -156,6 +156,7 @@ class PolicyController extends Controller
         $request->validate(
             [
                 'policy_type' => 'required',
+                'policy_title' => 'required',
                 'policy_agency' => 'required',
                 'policy_date' => 'required',
                 'policy_beneficiary' => 'required',
@@ -167,6 +168,7 @@ class PolicyController extends Controller
             ],
             [
                 'policy_type.required' => 'Type is required!',
+                'policy_title.required' => 'Title is required!',
                 'policy_agency.required' => 'Agency is required!',
                 'policy_date.required' => 'Date is required!',
                 'policy_issues.required' => 'Issues addressed is required!',
@@ -179,6 +181,7 @@ class PolicyController extends Controller
         );
         $data = [];
         $data['policy_type'] = $request->policy_type;
+        $data['policy_title'] = $request->policy_title;
         $data['policy_agency'] = $request->policy_agency;
         $data['policy_date'] = $request->policy_date;
         $data['policy_issues'] = $request->policy_issues;
@@ -221,6 +224,7 @@ class PolicyController extends Controller
         $request->validate(
             [
                 'policy_type' => 'required',
+                'policy_title' => 'required',
                 'policy_agency' => 'required',
                 'policy_date' => 'required',
                 'policy_beneficiary' => 'required',
@@ -232,6 +236,7 @@ class PolicyController extends Controller
             ],
             [
                 'policy_type.required' => 'Type is required!',
+                'policy_title.required' => 'Title is required!',
                 'policy_agency.required' => 'Agency is required!',
                 'policy_date.required' => 'Date is required!',
                 'policy_issues.required' => 'Issues addressed is required!',
@@ -242,9 +247,9 @@ class PolicyController extends Controller
                 'policy_proponent.required' => 'Proponent is required!',
             ],
         );
-
         $data = [];
         $data['policy_type'] = $request->policy_type;
+        $data['policy_title'] = $request->policy_title;
         $data['policy_agency'] = $request->policy_agency;
         $data['policy_date'] = $request->policy_date;
         $data['policy_issues'] = $request->policy_issues;

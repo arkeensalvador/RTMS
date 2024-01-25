@@ -46,7 +46,7 @@
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body">
-                                <table id="programs" class="table table-bordered table-striped text-center">
+                                <table id="programs" class="table table-bordered table-striped">
                                     <thead>
                                         <tr>
                                             <th hidden>Sub Project ID</th>
@@ -70,10 +70,15 @@
                                             @foreach ($sub_projects as $row)
                                                 <tr>
                                                     <td class="subproj_id" hidden>{{ $row->id }}</td>
-                                                    <td><span class="hashtag text-bg-primary">#</span>
-                                                        {{ $row->sub_project_fund_code }} </td>
                                                     <td>
-                                                        {{ $row->sub_project_title }}
+                                                        @if (!empty($row->sub_project_fund_code))
+                                                            {{ $row->sub_project_fund_code }}
+                                                        @else
+                                                            {{ 'N/A' }}
+                                                        @endif
+                                                    </td>
+                                                    <td>
+                                                        {{ strtoupper($row->sub_project_title) }}
                                                     </td>
                                                     <td>
                                                         @php
@@ -113,19 +118,19 @@
                                                     <td>
                                                         @if ($row->sub_project_status == 'New')
                                                             {{ $row->sub_project_status }}
-                                                            <i class="fa-solid fa-database fa-xl"
-                                                                style="color: #28a745;"></i>
+                                                            <i class="fa-regular fa-square-plus"
+                                                                style="color: #0dcaf0;"></i>
                                                         @elseif ($row->sub_project_status == 'Ongoing')
                                                             {{ $row->sub_project_status }}
-                                                            <i class="fa-solid fa-magnifying-glass-chart fa-xl"
-                                                                style="color: #2a6cdf;"></i>
+                                                            <i class="fa-solid fa-spinner fa-spin"
+                                                                style="color: #0d6efd"></i>
                                                         @elseif ($row->sub_project_status == 'Terminated')
                                                             {{ $row->sub_project_status }}
-                                                            <i class="fa-solid fa-triangle-exclamation fa-xl"
+                                                            <i class="fa-regular fa-circle-xmark"
                                                                 style="color: #ff0000;"></i>
                                                         @elseif ($row->sub_project_status == 'Completed')
                                                             {{ $row->sub_project_status }}
-                                                            <i class="fa-solid fa-circle-check fa-xl"
+                                                            <i class="fa-regular fa-circle-check"
                                                                 style="color: #28a745;"></i>
                                                         @endif
                                                     </td>
@@ -164,7 +169,7 @@
 
                                                         <a href="{{ URL::to('/delete-sub-project/' . $row->id) }}"
                                                             class="btn btn-danger" id="delete"><i
-                                                                class="fa-solid fa-trash"></i></a>
+                                                                class="fa-regular fa-trash-can"></i></a>
                                                     </td>
                                                 </tr>
                                             @endforeach
@@ -174,7 +179,7 @@
                                             @foreach ($all_filter as $row)
                                                 <tr>
                                                     <td class="subproj_id" hidden>{{ $row->id }}</td>
-                                                    <td><span class="hashtag text-bg-primary">#</span>
+                                                    <td>
                                                         {{ $row->sub_project_fund_code }} </td>
                                                     <td>
                                                         {{ $row->sub_project_title }}

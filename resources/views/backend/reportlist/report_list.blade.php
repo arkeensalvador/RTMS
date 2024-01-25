@@ -350,7 +350,7 @@
                                                     <tr>
                                                         <td>Title</td>
                                                         <td>Type of Database</td>
-                                                        <td>Database Created</td>
+                                                        <td>Date Created</td>
                                                         <td>Purpose / Use</td>
                                                     </tr>
                                                 </thead>
@@ -358,7 +358,7 @@
                                                     @foreach ($db as $db)
                                                         <tr>
                                                             <td>{{ $db->dbinfosys_title }}</td>
-                                                            <td>{{ $db->dbinfosys_category }}</td>
+                                                            <td>{{ $db->dbinfosys_type }}</td>
                                                             <td>{{ date('m/d/Y', strtotime($db->dbinfosys_date_created)) }}
                                                             </td>
                                                             <td>{{ $db->dbinfosys_purpose }}</td>
@@ -380,8 +380,8 @@
                                                 <thead style="background-color: #0DA603;">
                                                     <tr>
                                                         <td>Title</td>
-                                                        <td>Type of Database</td>
-                                                        <td>Database Created</td>
+                                                        <td>Type of Information System</td>
+                                                        <td>Date Created</td>
                                                         <td>Purpose / Use</td>
                                                     </tr>
                                                 </thead>
@@ -389,7 +389,7 @@
                                                     @foreach ($is as $is)
                                                         <tr>
                                                             <td>{{ $is->dbinfosys_title }}</td>
-                                                            <td>{{ $is->dbinfosys_category }}</td>
+                                                            <td>{{ $is->dbinfosys_type }}</td>
 
                                                             <td>{{ date('m/d/Y', strtotime($is->dbinfosys_date_created)) }}
                                                             </td>
@@ -450,7 +450,7 @@
                                                             <td>{{ $imp }}</td>
                                                             <td>{{ $splp->str_p_date }}</td>
                                                             <td>{{ $sof }}</td>
-                                                            <td>{{ number_format($splp->str_p_budget, 2) }}</td>
+                                                            <td>₱{{ number_format($splp->str_p_budget, 2) }}</td>
                                                             <td>{{ $splp->str_p_regional }}</td>
                                                         </tr>
                                                     @endforeach
@@ -471,7 +471,7 @@
                                                             <td>{{ $imp }}</td>
                                                             <td>{{ $spla->str_p_date }}</td>
                                                             <td>{{ $sof }}</td>
-                                                            <td>{{ number_format($spla->str_p_budget, 2) }}</td>
+                                                            <td>₱{{ number_format($spla->str_p_budget, 2) }}</td>
                                                             <td>{{ $spla->str_p_regional }}</td>
                                                         </tr>
                                                     @endforeach
@@ -539,7 +539,7 @@
                                                                 {{ $startDate->format('F Y') }} to
                                                                 {{ $endDate->format('F Y') }}
                                                             </td>
-                                                            <td>{{ number_format($item->str_collab_budget) }}</td>
+                                                            <td>₱{{ number_format($item->str_collab_budget, 2) }}</td>
                                                             <td>{{ $sof }}</td>
                                                             <td>{{ $item->str_collab_roc }}</td>
                                                         </tr>
@@ -632,7 +632,7 @@
                                                         <td>Program / Project Title</td>
                                                         <td>Proponent</td>
                                                         <td>Implementing Agency</td>
-                                                        <td>Durataion</td>
+                                                        <td>Duration</td>
                                                         <td>Source of Funds</td>
                                                         <td>Budget</td>
                                                         <td>Regional <br>Priority/ <br> Commodities <br> Addressed</td>
@@ -643,43 +643,60 @@
                                                         <td colspan="7" style="background: #DFCCFB; color: black;"
                                                             class="font-weight-bold">PROPOSALS PACKAGED</td>
                                                     </tr>
-                                                    <tr>
-                                                        <td>Native Animals Fair</td>
-                                                        <td>PCAARRD</td>
-                                                        <td>
-                                                            <ul class="list-group list-group-flush">
-                                                                <li class="list-group-item">TAU</li>
-                                                                <li class="list-group-item">CLSU</li>
-                                                                <li class="list-group-item">PRMSU</li>
-                                                            </ul>
-                                                        </td>
-                                                        <td>01/02/2020 - 09/20/2023</td>
-                                                        <td>PCAARRD</td>
-                                                        <td>4,690,222</td>
-                                                        <td>Livestock - Itik Pinas</td>
-                                                    </tr>
+                                                    @foreach ($ttp_proposal as $item)
+                                                        @php
+                                                            $prop = json_decode($item->ttp_proponent);
+                                                            $prop = implode(', ', $prop);
+
+                                                            $rs = json_decode($item->ttp_researchers);
+                                                            $rs = implode(', ', $rs);
+
+                                                            $imp = json_decode($item->ttp_implementing_agency);
+                                                            $imp = implode(', ', $imp);
+
+                                                            $sof = json_decode($item->ttp_sof);
+                                                            $sof = implode(', ', $sof);
+                                                        @endphp
+                                                        <tr>
+                                                            <td>{{ $item->ttp_title }}</td>
+                                                            <td>{{ $prop . ' / ' . $rs }}</td>
+                                                            <td>{{ $imp }}</td>
+                                                            <td>{{ $item->ttp_date }}</td>
+                                                            <td>{{ $sof }}</td>
+                                                            <td>₱{{ number_format($item->ttp_budget, 2) }}</td>
+                                                            <td>{{ $item->ttp_priorities }}</td>
+                                                        </tr>
+                                                    @endforeach
                                                     <tr>
                                                         <td colspan="7" style="background: #DFCCFB; color: black;"
-                                                            class="font-weight-bold">PROJECTS APPROVED AND IMPLEMENTED</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Let’s Doe Business: A Livelihood Opportunity in Response to
-                                                            COVID 19 Pandemic for
-                                                            Small hold Farms through Production of Dairy Goats</td>
-                                                        <td>
-                                                            <ul class="list-group list-group-flush">
-                                                                <li class="list-group-item">Mark Nell Corpuz</li>
-                                                                <li class="list-group-item">MF Damaso, Marz</li>
-                                                                <li class="list-group-item">Linnaeous L.</li>
-                                                            </ul>
+                                                            class="font-weight-bold">PROJECTS APPROVED AND IMPLEMENTED
                                                         </td>
-                                                        <td>CLSU</td>
-                                                        <td>01/02/2020 - 09/20/2023</td>
-                                                        <td>PCAARRD</td>
-                                                        <td>4,690,222</td>
-                                                        <td>Goat</td>
                                                     </tr>
-                                                    </tr>
+
+                                                    @foreach ($ttp_approved as $item)
+                                                        @php
+                                                            $prop = json_decode($item->ttp_proponent);
+                                                            $prop = implode(', ', $prop);
+
+                                                            $rs = json_decode($item->ttp_researchers);
+                                                            $rs = implode(', ', $rs);
+
+                                                            $imp = json_decode($item->ttp_implementing_agency);
+                                                            $imp = implode(', ', $imp);
+
+                                                            $sof = json_decode($item->ttp_sof);
+                                                            $sof = implode(', ', $sof);
+                                                        @endphp
+                                                        <tr>
+                                                            <td>{{ $item->ttp_title }}</td>
+                                                            <td>{{ $prop . ' / ' . $rs }}</td>
+                                                            <td>{{ $imp }}</td>
+                                                            <td>{{ $item->ttp_date }}</td>
+                                                            <td>{{ $sof }}</td>
+                                                            <td>₱{{ number_format($item->ttp_budget, 2) }}</td>
+                                                            <td>{{ $item->ttp_priorities }}</td>
+                                                        </tr>
+                                                    @endforeach
                                                 </tbody>
                                             </table>
                                         </div>
@@ -704,12 +721,14 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <tr>
-                                                        <td>Copyright</td>
-                                                        <td>CLSU Special Purpose Rice </td>
-                                                        <td>CLSU</td>
-                                                        <td>Application No. O2022-66 / March 2, 2022</td>
-                                                    </tr>
+                                                    @foreach ($tech_commercialized as $item)
+                                                        <tr>
+                                                            <td>{{ $item->ttm_type }}</td>
+                                                            <td>{{ $item->ttm_title }}</td>
+                                                            <td>{{ $item->ttm_agency }}</td>
+                                                            <td>{{ $item->ttm_status }}</td>
+                                                        </tr>
+                                                    @endforeach
                                                 </tbody>
                                             </table>
                                         </div>
@@ -731,13 +750,18 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <tr>
-                                                        <td>Regional FIESTA</td>
-                                                        <td>Smart Farming was presented during the Veggie FIESTA on
-                                                            technology pitching</td>
-                                                        <td>CLSU</td>
-                                                        <td>Lorem Ipsum </td>
-                                                    </tr>
+                                                    @foreach ($tpa as $item)
+                                                        @php
+                                                            $approaches = json_decode($item->tpa_approaches);
+                                                            $approaches = implode(', ', $approaches);
+                                                        @endphp
+                                                        <tr>
+                                                            <td>{{ $approaches }}</td>
+                                                            <td>{{ $item->tpa_title }}</td>
+                                                            <td>{{ $item->tpa_agency }}</td>
+                                                            <td>{{ $item->tpa_details }}</td>
+                                                        </tr>
+                                                    @endforeach
                                                 </tbody>
                                             </table>
                                         </div>
@@ -745,19 +769,21 @@
                                     </section>
 
                                     <!-- Capability Building and Governance-->
-                                    {{-- <section class="table-area mt-4 page-break">
-                        
+                                    <section class="table-area mt-4 page-break">
+
                                         <div class="table-title col-12 py-1"
                                             style="background-image: url('https://i.ibb.co/NCMBtB8/sec4.webp'); background-size:cover;;">
                                             <h1 class="text-center text-capitalized font-weight-bold"
-                                                style="color: #fff; text-shadow: 1px 1px 2px #1b1b1b; letter-spacing: -1px; ">CAPABILITY
+                                                style="color: #fff; text-shadow: 1px 1px 2px #1b1b1b; letter-spacing: -1px; ">
+                                                CAPABILITY
                                                 BUILDING<br>AND GOVERNANCE</h1>
                                         </div>
-                        
+
                                         <!-- Data from "Trainings-Workshop" -->
                                         <div class="category my-5">
                                             <div class="notices mb-1 " style="border-left: 6px solid #FF8400;">
-                                                <h5>List of <span class="font-weight-bold" style="color:#FF8400;"> non-degree trainings
+                                                <h5>List of <span class="font-weight-bold" style="color:#FF8400;">
+                                                        non-degree trainings
                                                         conducted/facilitated </span></h5>
                                             </div>
                                             <table class="table-bordered table table-hover">
@@ -772,34 +798,36 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <tr>
-                                                        <td>Training Workshop on Social Media (SocMed) Management and Content Development</td>
-                                                        <td>March 17 - 18, 2022</td>
-                                                        <td>CLSU</td>
-                                                        <td>30</td>
-                                                        <td>N/A</td>
-                                                        <td>
-                                                            <ul class="list-group list-group-flush">
-                                                                <li class="list-group-item">PCAARRD</li>
-                                                                <li class="list-group-item">CLAARRDEC</li>
-                                                            </ul>
-                                                        </td>
-                                                    </tr>
+                                                    @foreach ($trainings as $item)
+                                                        @php
+                                                            $sof = json_decode($item->trainings_sof);
+                                                            $sof = implode(', ', $sof);
+                                                        @endphp
+                                                        <tr>
+                                                            <td>{{ $item->trainings_title }}</td>
+                                                            <td>{{ $item->trainings_start }}</td>
+                                                            <td>{{ $item->trainings_venue }}</td>
+                                                            <td>{{ $item->trainings_no_participants }}</td>
+                                                            <td>₱{{ number_format($item->trainings_expenditures, 2) }}</td>
+                                                            <td>{{ $sof }}
+                                                        </tr>
+                                                    @endforeach
                                                 </tbody>
                                             </table>
                                         </div>
-                        
+
                                         <!-- Equipments and Facilities" -->
                                         <div class="category my-5">
                                             <div class="notices mb-1 " style="border-left: 6px solid #FF8400;">
-                                                <h5><span class="font-weight-bold" style="color:#FF8400;">Equipment</span> and <span
-                                                        class="font-weight-bold" style="color:#FF8400;">Facilities
+                                                <h5><span class="font-weight-bold" style="color:#FF8400;">Equipment</span>
+                                                    and <span class="font-weight-bold" style="color:#FF8400;">Facilities
                                                         Established/Installed/Acquired/Funded</span></h5>
                                             </div>
                                             <table class="table-bordered table table-hover">
                                                 <thead style="background-color: #FF8400;">
                                                     <tr>
-                                                        <td class="text-center">Equipment/ <br>Facilities Established<br>/Upgraded/<br>Approved
+                                                        <td class="text-center">Equipment/ <br>Facilities
+                                                            Established<br>/Upgraded/<br>Approved
                                                         </td>
                                                         <td>Name of Equipment</td>
                                                         <td>Agency</td>
@@ -808,23 +836,31 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <tr>
-                                                        <td>Facilities Established</td>
-                                                        <td>Construction of BASC Swine Multiplier & Technodemo Farm</td>
-                                                        <td>BSAC</td>
-                                                        <td>126, 950.00</td>
-                                                        <td>DA-BAYANIHAN 2</td>
-                                                    </tr>
+                                                    @foreach ($equipments as $item)
+                                                        @php
+                                                            $sof = json_decode($item->equipments_sof);
+                                                            $sof = implode(', ', $sof);
+                                                        @endphp
+                                                        <tr>
+                                                            <td>{{ $item->equipments_type }}</td>
+                                                            <td>{{ $item->equipments_name }}</td>
+                                                            <td>{{ $item->equipments_agency }}</td>
+                                                            <td>₱{{ number_format($item->equipments_total, 2) }}</td>
+                                                            <td>{{ $sof }}</td>
+                                                        </tr>
+                                                    @endforeach
                                                 </tbody>
                                             </table>
                                         </div>
-                        
+
                                         <!-- Awards Received" -->
                                         <div class="category my-5">
                                             <div class="notices mb-1 " style="border-left: 6px solid #FF8400;">
-                                                <h5><span class="font-weight-bold" style="color:#FF8400;">Awards Received</span> by the<span
-                                                        class="font-weight-bold" style="color:#FF8400;"> consortium </span> or <span
-                                                        class="font-weight-bold" style="color:#FF8400;"> member-agencies</span></h5>
+                                                <h5><span class="font-weight-bold" style="color:#FF8400;">Awards
+                                                        Received</span> by the<span class="font-weight-bold"
+                                                        style="color:#FF8400;"> consortium </span> or <span
+                                                        class="font-weight-bold" style="color:#FF8400;">
+                                                        member-agencies</span></h5>
                                             </div>
                                             <table class="table-bordered table table-hover">
                                                 <thead style="background-color: #FF8400;">
@@ -839,21 +875,181 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <tr>
-                                                        <td>REGIONAL</td>
-                                                        <td>Awards Title Sample</td>
-                                                        <td>Health Beyond Bars and Community-Based Rice Mushroom Production/BPSU</td>
-                                                        <td>Civil Service Commission</td>
-                                                        <td>CSC 2022 Honor Awards Programs</td>
-                                                        <td>San Fernando, Pampanga</td>
-                                                        <td>September 6, 2022</td>
-                                                    </tr>
+                                                    @foreach ($awards as $item)
+                                                        <tr>
+                                                            <td>{{ $item->awards_type }}</td>
+                                                            <td>{{ $item->awards_title }}</td>
+                                                            <td>{{ $item->awards_recipients . '/' . $item->awards_agency }}
+                                                            </td>
+                                                            <td>{{ $item->awards_sponsor }}</td>
+                                                            <td>{{ $item->awards_event }}</td>
+                                                            <td>{{ $item->awards_place }}</td>
+                                                            <td>{{ date('F d, Y', strtotime($item->awards_date)) }}</td>
+                                                        </tr>
+                                                    @endforeach
                                                 </tbody>
                                             </table>
                                         </div>
-                        
-                                    </section> --}}
 
+
+                                        {{-- Meetings --}}
+                                        <div class="category my-5">
+                                            <div class="notices mb-1 " style="border-left: 6px solid #FF8400;">
+                                                <h5>Schedule, Venue, Host Agencies of Regular <span
+                                                        class="font-weight-bold" style="color:#FF8400;">Meetings
+                                                    </span></h5>
+                                            </div>
+                                            <table class="table-bordered table table-hover">
+                                                <thead style="background-color: #FF8400;">
+                                                    <tr>
+                                                        <td class="text-center">Type of Meeting/Activity</td>
+                                                        <td>Venue</td>
+                                                        <td>Date</td>
+                                                        <td>Host Agency</td>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach ($meetings as $item)
+                                                        <tr>
+                                                            <td>{{ $item->meeting_type }}</td>
+                                                            <td>{{ $item->meeting_venue }}</td>
+                                                            <td>{{ date('F d, Y', strtotime($item->meeting_date)) }}</td>
+                                                            <td>{{ $item->meeting_host }}</td>
+                                                        </tr>
+                                                    @endforeach
+                                                </tbody>
+                                            </table>
+                                        </div>
+
+                                        {{-- CMI Contributions --}}
+                                        <div class="category my-5">
+                                            <div class="notices mb-1 " style="border-left: 6px solid #FF8400;">
+                                                <h5>List of <span class="font-weight-bold" style="color:#FF8400;">CMIs
+                                                        Contribution
+                                                    </span></h5>
+                                            </div>
+                                            <table class="table-bordered table table-hover">
+                                                <thead style="background-color: #FF8400;">
+                                                    <tr>
+                                                        <td class="text-center">Contributor</td>
+                                                        <td>Amount</td>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach ($contributions as $item)
+                                                        <tr>
+                                                            <td>{{ $item->con_name }}</td>
+                                                            <td>{{ $item->con_amount }}</td>
+                                                        </tr>
+                                                    @endforeach
+                                                </tbody>
+                                            </table>
+                                        </div>
+
+                                        {{-- New initatives on Governance --}}
+                                        <div class="category my-5">
+                                            <div class="notices mb-1 " style="border-left: 6px solid #FF8400;">
+                                                <h5>List of <span class="font-weight-bold" style="color:#FF8400;">New
+                                                        Initiatives </span> on <span class="font-weight-bold"
+                                                        style="color:#FF8400;">Governance</span>
+                                                </h5>
+                                            </div>
+                                            <table class="table-bordered table table-hover">
+                                                <thead style="background-color: #FF8400;">
+                                                    <tr>
+                                                        <td class="text-center">New Initiates</td>
+                                                        <td>Date Conducted/Implemented</td>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach ($initiatives as $item)
+                                                        <tr>
+                                                            <td>{{ $item->ini_initiates }}</td>
+                                                            <td>{{ date('F d, Y', strtotime($item->ini_date)) }}</td>
+                                                        </tr>
+                                                    @endforeach
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </section>
+
+
+                                    {{-- POLICY ANALYSIS AND ADVOCACY --}}
+                                    <section class="table-area mt-4 page-break">
+                                        <div class="table-title col-12 py-1"
+                                            style="background-image: url('https://i.ibb.co/qNdVBF4/sec5.png'); background-size:cover;;">
+                                            <h1 class="text-center text-capitalized font-weight-bold"
+                                                style="color: #fff; text-shadow: 1px 1px 2px #1b1b1b; letter-spacing: -1px; ">
+                                                POLICY
+                                                ANALAYSIS<br>AND ADVOCACY</h1>
+                                        </div>
+
+                                        <!-- Data from "Policy Conducted" -->
+                                        <div class="category my-5">
+                                            <div class="notices mb-1 " style="border-left: 6px solid #D22B2B;">
+                                                <h5>List of <span class="font-weight-bold" style="color:#D22B2B;">Policy
+                                                        Researches Conducted </span></h5>
+                                            </div>
+                                            <table class="table-bordered table table-hover">
+                                                <thead style="background-color: #D22B2B;">
+                                                    <tr>
+                                                        <td>Title</td>
+                                                        <td>Agency</td>
+                                                        <td>Author</td>
+                                                        <td>Issues Addressed</td>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach ($issues as $item)
+                                                        <tr>
+                                                            <td>{{ $item->prc_title }}</td>
+                                                            <td>{{ $item->prc_agency }}</td>
+                                                            <td>{{ $item->prc_author }}</td>
+                                                            <td>{{ $item->prc_issues }}</td>
+                                                        </tr>
+                                                    @endforeach
+                                                </tbody>
+                                            </table>
+                                        </div>
+
+                                        <!-- Data from "Policy formulated" -->
+                                        <div class="category my-5">
+                                            <div class="notices mb-1 " style="border-left: 6px solid #D22B2B;">
+                                                <h5>List of <span class="font-weight-bold" style="color:#D22B2B;">Policy
+                                                        Researches Conducted </span></h5>
+                                            </div>
+                                            <table class="table-bordered table table-hover">
+                                                <thead style="background-color: #D22B2B;">
+                                                    <tr>
+                                                        <td>Type</td>
+                                                        <td>Title</td>
+                                                        <td>Agency</td>
+                                                        <td>Author</td>
+                                                        <td>Co-author</td>
+                                                        <td>Proponent</td>
+                                                        <td>Beneficiary</td>
+                                                        <td>Implementer</td>
+                                                        <td>Issues Addressed</td>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach ($formulated as $item)
+                                                        <tr>
+                                                            <td>{{ $item->policy_type }}</td>
+                                                            <td>{{ $item->policy_title }}</td>
+                                                            <td>{{ $item->policy_agency }}</td>
+                                                            <td>{{ $item->policy_author }}</td>
+                                                            <td>{{ $item->policy_co_author }}</td>
+                                                            <td>{{ $item->policy_proponent }}</td>
+                                                            <td>{{ $item->policy_beneficiary }}</td>
+                                                            <td>{{ $item->policy_implementer }}</td>
+                                                            <td>{{ $item->policy_issues }}</td>
+                                                        </tr>
+                                                    @endforeach
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </section>
                                     {{-- <div class="report-footer mt-5">
                                         <p class="text-center">
                                             This is generated report from <span class="text-success">CLAARDEC Real-Time Monitoring
@@ -868,6 +1064,8 @@
                             </div>
                         </div>
                     </div>
+                </div>
+            </div>
         </section>
     </div>
 @endsection

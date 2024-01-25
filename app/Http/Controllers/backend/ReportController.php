@@ -242,6 +242,7 @@ class ReportController extends Controller
         $title = 'Sub-projects | RDMC';
         $sub_projects = DB::table('sub_projects')
             ->select('*')
+            ->where('projectID', '=', $projectID)
             ->orderByDesc('id')
             ->get();
 
@@ -1011,7 +1012,7 @@ class ReportController extends Controller
             ->join('agency', 'agency.abbrev', '=', 'users.agencyID')
             ->where('agencyID', auth()->user()->agencyID)
             ->get();
-            
+
         return view('backend.report.policy.policy_formulated_index', compact('title', 'all', 'agency', 'user_agency', 'all_filter'));
     }
 

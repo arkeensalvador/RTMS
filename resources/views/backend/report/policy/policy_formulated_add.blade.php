@@ -127,7 +127,7 @@
                                 </div>
 
 
-                                <div class="col-md-6">
+                                <div class="col-md-12">
                                     <label for="tpa_date" class=" font-weight-bold">Author<span
                                             class="text-danger">*</span></label>
                                     <input type="text" name="policy_author" id="policy_author" class="form-control"
@@ -135,7 +135,15 @@
                                     <div class="invalid-feedback">Missing author</div>
                                 </div>
 
-                                <div class="col-md-6">
+                                <div class="col-md-12">
+                                    <label for="tpa_date" class=" font-weight-bold">Title<span
+                                            class="text-danger">*</span></label>
+                                    <input type="text" name="policy_title" id="policy_title" class="form-control"
+                                        placeholder="Enter title" required>
+                                    <div class="invalid-feedback">Missing title</div>
+                                </div>
+
+                                <div class="col-md-12">
                                     <label for="tpa_date" class=" font-weight-bold">Co-author<span
                                             class="text-danger">*</span></label>
                                     <input type="text" name="policy_co_author" id="policy_co_author" class="form-control"
@@ -143,7 +151,7 @@
                                     <div class="invalid-feedback">Missing co-author</div>
                                 </div>
 
-                                <div class="col-md-6">
+                                <div class="col-md-12">
                                     <label for="tpa_date" class=" font-weight-bold">Proponent<span
                                             class="text-danger">*</span></label>
                                     <input type="text" name="policy_proponent" id="policy_proponent" class="form-control"
@@ -151,7 +159,7 @@
                                     <div class="invalid-feedback">Missing proponent</div>
                                 </div>
 
-                                <div class="col-md-6">
+                                <div class="col-md-12">
                                     <label for="tpa_date" class=" font-weight-bold">Beneficiary<span
                                             class="text-danger">*</span></label>
                                     <input type="text" name="policy_beneficiary" id="policy_beneficiary"
@@ -159,7 +167,7 @@
                                     <div class="invalid-feedback">Missing beneficiary</div>
                                 </div>
 
-                                <div class="col-md-6">
+                                <div class="col-md-12">
                                     <label for="tpa_date" class=" font-weight-bold">Implementer<span
                                             class="text-danger">*</span></label>
                                     <input type="text" name="policy_implementer" id="policy_implementer"

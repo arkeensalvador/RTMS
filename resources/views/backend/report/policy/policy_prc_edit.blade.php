@@ -136,12 +136,13 @@
                                 </div>
 
                                 <div class="col-md-12 form-group">
-                                    <label for="policy_issues" class="font-weight-bold">Issues addressed<span
+                                    <label for="policy_issues" class="font-weight-bold">Addressed Issues<span
                                             class="text-danger">*</span></label>
 
-                                    <textarea name="prc_issues" id="policy_issues" class="form-control" cols="30" rows="5" required>{{ $all->prc_issues }}</textarea>
+                                    <textarea name="prc_issues" id="policy_issues" class="form-control" cols="30" rows="5"
+                                        placeholder="Enter addressed issues" required>{{ $all->prc_issues }}</textarea>
 
-                                    <div class="invalid-feedback">Missing issues addressed</div>
+                                    <div class="invalid-feedback">Missing addressed issues</div>
                                 </div>
 
                                 <div class="col-md-4 form-group float-right">

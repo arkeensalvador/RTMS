@@ -48,7 +48,7 @@
                                                 <thead>
                                                     <tr>
                                                         <th>#</th>
-                                                        <th>Title</th>
+                                                        <th>Title of Technology</th>
                                                         <th>Type of IPR</th>
                                                         <th>Status</th>
                                                         <th>Agency</th>

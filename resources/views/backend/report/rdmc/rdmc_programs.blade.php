@@ -50,7 +50,7 @@
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body">
-                                <table id="programs" class="table table-bordered table-striped text-center">
+                                <table id="programs" class="table table-bordered table-striped">
                                     <thead>
                                         <tr>
                                             <th hidden>Program ID</th>
@@ -94,11 +94,16 @@
                                                         $rc = str_replace(',', ', ', $rc);
                                                     @endphp
                                                     <td class="prog_id" hidden>{{ $row->programID }}</td>
-                                                    <td><span class="hashtag text-bg-primary">#</span> {{ $row->fund_code }}
+                                                    <td>
+                                                        @if (!empty($row->fund_code))
+                                                            {{ $row->fund_code }}
+                                                        @else
+                                                            {{ 'N/A' }}
+                                                        @endif
                                                     </td>
                                                     <td>
                                                         <a
-                                                            href="{{ url("projects-under-program/$row->programID") }}">{{ $row->program_title }}</a>
+                                                            href="{{ url("projects-under-program/$row->programID") }}">{{ strtoupper($row->program_title) }}</a>
                                                     </td>
                                                     <td>
                                                         @php
@@ -119,19 +124,19 @@
                                                     <td>
                                                         @if ($row->program_status == 'New')
                                                             {{ $row->program_status }}
-                                                            <i class="fa-solid fa-database fa-xl"
-                                                                style="color: #28a745;"></i>
+                                                            <i class="fa-regular fa-square-plus"
+                                                                style="color: #0dcaf0;"></i>
                                                         @elseif ($row->program_status == 'Ongoing')
                                                             {{ $row->program_status }}
-                                                            <i class="fa-solid fa-hourglass fa-xl"
-                                                                style="color: #2a6cdf;"></i>
+                                                            <i class="fa-solid fa-spinner fa-spin"
+                                                                style="color: #0d6efd"></i>
                                                         @elseif ($row->program_status == 'Terminated')
                                                             {{ $row->program_status }}
-                                                            <i class="fa-solid fa-triangle-exclamation fa-xl"
+                                                            <i class="fa-regular fa-circle-xmark"
                                                                 style="color: #ff0000;"></i>
                                                         @elseif ($row->program_status == 'Completed')
                                                             {{ $row->program_status }}
-                                                            <i class="fa-solid fa-circle-check fa-xl"
+                                                            <i class="fa-regular fa-circle-check"
                                                                 style="color: #28a745;"></i>
                                                         @endif
                                                     </td>
@@ -168,7 +173,7 @@
 
                                                         <a href="{{ URL::to('/delete-program/' . $row->id) }}"
                                                             class="btn btn-danger" id="delete"><i
-                                                                class="fa-solid fa-trash"></i></a>
+                                                                class="fa-regular fa-trash-can"></i></a>
                                                     </td>
                                                 </tr>
                                             @endforeach
@@ -198,7 +203,7 @@
                                                         $rc = str_replace(',', ', ', $rc);
                                                     @endphp
                                                     <td class="prog_id" hidden>{{ $row->programID }}</td>
-                                                    <td><span class="hashtag text-bg-primary">#</span>
+                                                    <td>
                                                         {{ $row->fund_code }}
                                                     </td>
                                                     <td>
