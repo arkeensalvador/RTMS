@@ -190,9 +190,6 @@
                                     <div class="invalid-feedback">Missing date</div>
                                 </div>
 
-
-
-
                                 <div class="col-md-12 form-group">
                                     <label for="policy_issues" class="font-weight-bold">Issues addressed<span
                                             class="text-danger">*</span></label>

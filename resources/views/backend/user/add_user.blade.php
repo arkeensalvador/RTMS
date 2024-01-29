@@ -112,6 +112,19 @@
                 var formData = new FormData(this);
 
                 e.preventDefault();
+
+                // Show loading spinner using Sweet Alert 2
+                Swal.fire({
+                    imageUrl: "https://i.ibb.co/1q3p6Cg/loading.gif",
+                    title: 'Loading...',
+                    allowOutsideClick: false,
+                    showConfirmButton: false,
+                    timer: 3500,
+                    onBeforeOpen: () => {
+                        Swal.showLoading();
+                    },
+                });
+
                 $.ajax({
                     type: 'POST',
                     url: "{{ url('insert-user') }}",

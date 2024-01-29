@@ -67,7 +67,7 @@
         function showAlert(message) {
             Swal.fire({
                 // icon: 'info',
-                imageUrl: "{{ asset('img/loading.gif') }}",
+                imageUrl: "https://i.ibb.co/1q3p6Cg/loading.gif",
                 text: message,
                 allowOutsideClick: false,
                 showConfirmButton: false,
