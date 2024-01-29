@@ -6,6 +6,10 @@
     <script src="https://code.highcharts.com/modules/accessibility.js"></script>
 
     <style>
+        .page-break {
+            page-break-after: always;
+        }
+
         .radio-input input {
             display: none;
         }
@@ -23,7 +27,6 @@
             overflow: hidden;
             border: 1px solid rgba(53, 52, 52, 0.226);
         }
-
 
         .radio-input label.upl {
             width: 100%;
@@ -120,7 +123,8 @@
                             <h5 class="card-title">
                                 Report List (In Progress)
                             </h5>
-                            <a class="btn btn-primary float-right" href="{{ URL::to('/reports/pdf') }}">Export to PDF</a>
+                            <a class="btn btn-primary float-right" target="_blank" href="{{ URL::to('/reports/pdf') }}">Export
+                                to PDF</a>
                         </div>
 
                         {{-- card body start --}}
@@ -183,39 +187,6 @@
                                             </table>
                                         </div>
 
-                                        <!-- PROJECTS -->
-                                        <div class="category my-5">
-                                            <div class="notices mb-1 " style="border-left: 6px solid #0DA603;">
-                                                <h5>List of <span class="font-weight-bold"
-                                                        style=" color: #0DA603;">Project</span></h5>
-                                            </div>
-                                            <table class="table-bordered table table-hover">
-                                                <thead style="background-color: #0DA603;">
-                                                    <tr>
-                                                        <td>Project Title</td>
-                                                        <td>Description</td>
-                                                        <td>Duration</td>
-                                                        <td>Funding Agency</td>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    @foreach ($plist as $pl)
-                                                        <tr>
-                                                            <td>{{ $pl->project_title }}</td>
-                                                            <td>{{ $pl->project_description }}</td>
-                                                            <td>
-                                                                {{ $pl->project_duration }}
-                                                            </td>
-                                                            @php
-                                                                $fa = json_decode($pl->project_agency);
-                                                                $fa = implode(', ', $fa);
-                                                            @endphp
-                                                            <td>{{ $fa }}</td>
-                                                        </tr>
-                                                    @endforeach
-                                                </tbody>
-                                            </table>
-                                        </div>
 
                                         <!-- PROGRAMS -->
                                         <div class="category my-5">
@@ -242,6 +213,40 @@
                                                             </td>
                                                             @php
                                                                 $fa = json_decode($data->funding_agency);
+                                                                $fa = implode(', ', $fa);
+                                                            @endphp
+                                                            <td>{{ $fa }}</td>
+                                                        </tr>
+                                                    @endforeach
+                                                </tbody>
+                                            </table>
+                                        </div>
+
+                                        <!-- PROJECTS -->
+                                        <div class="category my-5">
+                                            <div class="notices mb-1 " style="border-left: 6px solid #0DA603;">
+                                                <h5>List of <span class="font-weight-bold"
+                                                        style=" color: #0DA603;">Project</span></h5>
+                                            </div>
+                                            <table class="table-bordered table table-hover">
+                                                <thead style="background-color: #0DA603;">
+                                                    <tr>
+                                                        <td>Project Title</td>
+                                                        <td>Description</td>
+                                                        <td>Duration</td>
+                                                        <td>Funding Agency</td>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach ($plist as $pl)
+                                                        <tr>
+                                                            <td>{{ $pl->project_title }}</td>
+                                                            <td>{{ $pl->project_description }}</td>
+                                                            <td>
+                                                                {{ $pl->project_duration }}
+                                                            </td>
+                                                            @php
+                                                                $fa = json_decode($pl->project_agency);
                                                                 $fa = implode(', ', $fa);
                                                             @endphp
                                                             <td>{{ $fa }}</td>
@@ -1015,8 +1020,12 @@
                                         <!-- Data from "Policy formulated" -->
                                         <div class="category my-5">
                                             <div class="notices mb-1 " style="border-left: 6px solid #D22B2B;">
-                                                <h5>List of <span class="font-weight-bold" style="color:#D22B2B;">Policy
-                                                        Researches Conducted </span></h5>
+                                                <h5>List of <span class="font-weight-bold" style="color:#D22B2B;">Policies
+                                                        Formulated</span>, <span class="font-weight-bold"
+                                                        style="color:#D22B2B;">Advocated</span>, <span
+                                                        class="font-weight-bold" style="color:#D22B2B;">Implemented
+                                                        Instituional</span> and <span class="font-weight-bold"
+                                                        style="color:#D22B2B;">Institutionalized</span></h5>
                                             </div>
                                             <table class="table-bordered table table-hover">
                                                 <thead style="background-color: #D22B2B;">
@@ -1050,16 +1059,6 @@
                                             </table>
                                         </div>
                                     </section>
-                                    {{-- <div class="report-footer mt-5">
-                                        <p class="text-center">
-                                            This is generated report from <span class="text-success">CLAARDEC Real-Time Monitoring
-                                                System</span><br>
-                                            <span class="mx-1 sm"><i class="fas fa-mobile-alt mx-1 text-success"></i>0945 498 6941</span>
-                                            <span class="mx-1 sm"><i class="fas fa-envelope mx-1 text-success"></i>claardec@clsu.edu.ph</span>
-                                            <span class="mx-1 sm"><i
-                                                    class="fas fa-globe mx-1 text-success"></i></i>www.rtms.claarrdec.gov.ph</span>
-                                        </p>
-                                    </div> --}}
                                 </div>
                             </div>
                         </div>

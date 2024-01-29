@@ -126,6 +126,13 @@
                                     <div class="invalid-feedback">Missing type</div>
                                 </div>
 
+                                <div class="col-md-12">
+                                    <label for="tpa_date" class=" font-weight-bold">Title<span
+                                            class="text-danger">*</span></label>
+                                    <input type="text" name="policy_title" id="policy_title" class="form-control"
+                                        placeholder="Enter title" required>
+                                    <div class="invalid-feedback">Missing title</div>
+                                </div>
 
                                 <div class="col-md-12">
                                     <label for="tpa_date" class=" font-weight-bold">Author<span
@@ -135,13 +142,6 @@
                                     <div class="invalid-feedback">Missing author</div>
                                 </div>
 
-                                <div class="col-md-12">
-                                    <label for="tpa_date" class=" font-weight-bold">Title<span
-                                            class="text-danger">*</span></label>
-                                    <input type="text" name="policy_title" id="policy_title" class="form-control"
-                                        placeholder="Enter title" required>
-                                    <div class="invalid-feedback">Missing title</div>
-                                </div>
 
                                 <div class="col-md-12">
                                     <label for="tpa_date" class=" font-weight-bold">Co-author<span

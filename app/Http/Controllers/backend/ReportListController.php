@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Programs;
 use App\Models\Projects;
 use App\Models\SubProjects;
+use Mpdf\Mpdf;
 use PDF;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -73,47 +74,51 @@ class ReportListController extends Controller
         // $agency = DB::table('agency')->get()->pluck("abbrev");
         $data = DB::table('agency')->get();
 
-        foreach ($data as $agency) {
-            $lists[] = $agency->abbrev;
-        }
+        // foreach ($data as $agency) {
+        //     $lists[] = $agency->abbrev;
+        // }
 
         $total_new = $new + $new_proj + $new_sub_proj;
         $total_ongoing = $ongoing + $ongoing_proj + $ongoing_sub_proj;
         $total_terminated = $terminated + $terminated_proj + $terminated_sub_proj;
         $total_completed = $completed + $completed_proj + $completed_sub_proj;
 
-        $all_programs = DB::table('programs')->get();
-        $all_projects = DB::table('projects')->get();
-        $all_sub_projects = DB::table('sub_projects')->get();
-
-        $plist = Projects::get();
-        $list = Programs::get();
-        $splist = SubProjects::get();
-        $stratProgramListProposal = DB::table('strategic_program_list')
-            ->where('str_p_type', '=', 'Proposals')
-            ->get();
-
-        $stratProgramListApproved = DB::table('strategic_program_list')
-            ->where('str_p_type', '=', 'Approved')
-            ->get();
+        $plist = Projects::select('project_title', 'project_description', 'project_duration', 'project_agency')->get();
+        $list = Programs::select('program_title', 'program_description', 'duration', 'funding_agency')->get();
+        $splist = SubProjects::select('sub_project_title', 'sub_project_description', 'sub_project_duration', 'sub_project_agency')->get();
 
         $linkages_developed = DB::table('rdmc_linkages')
+            ->select('form_of_development', 'address', 'year', 'nature_of_assistance')
             ->where('type', '=', 'Developed')
             ->orderBy('form_of_development') // Order by alphabetical order of form_of_development
             ->orderBy('year')
             ->get();
 
         $linkages_maintained = DB::table('rdmc_linkages')
+            ->select('form_of_development', 'address', 'year', 'nature_of_assistance')
             ->where('type', '=', 'Maintained')
             ->orderBy('form_of_development') // Order by alphabetical order of form_of_development
             ->orderBy('year')
             ->get();
 
         $db = DB::table('rdmc_dbinfosys')
+            ->select('dbinfosys_title', 'dbinfosys_type', 'dbinfosys_date_created', 'dbinfosys_purpose')
             ->where('dbinfosys_category', '=', 'Database')
             ->get();
+
         $is = DB::table('rdmc_dbinfosys')
+            ->select('dbinfosys_title', 'dbinfosys_type', 'dbinfosys_date_created', 'dbinfosys_purpose')
             ->where('dbinfosys_category', '=', 'Information System')
+            ->get();
+
+        $stratProgramListProposal = DB::table('strategic_program_list')
+            ->select('str_p_title', 'str_p_imp_agency', 'str_p_sof', 'str_p_date', 'str_p_budget', 'str_p_regional')
+            ->where('str_p_type', '=', 'Proposals')
+            ->get();
+
+        $stratProgramListApproved = DB::table('strategic_program_list')
+            ->select('str_p_title', 'str_p_imp_agency', 'str_p_sof', 'str_p_date', 'str_p_budget', 'str_p_regional')
+            ->where('str_p_type', '=', 'Approved')
             ->get();
 
         $agencyAbbreviations = DB::table('agency')
@@ -164,112 +169,80 @@ class ReportListController extends Controller
         }
 
         // strategic collaborative
-        $strat_collaborative = DB::table('strategic_collaborative_list')->get();
+        $strat_collaborative = DB::table('strategic_collaborative_list')
+            ->select('str_collab_program', 'str_collab_project', 'str_collab_imp_agency', 'str_collab_agency', 'str_collab_budget', 'str_collab_date', 'str_collab_roc')
+            ->get();
 
         // strategic tech/info list
         $strat_tech_research = DB::table('strategic_tech_list')
+            ->select('tech_researchers', 'tech_title', 'tech_agency', 'tech_impact')
             ->where('tech_type', '=', 'Research')
             ->get();
         $strat_tech_dev = DB::table('strategic_tech_list')
+            ->select('tech_researchers', 'tech_title', 'tech_agency', 'tech_impact')
             ->where('tech_type', '=', 'Development')
-            ->get();
-
-        /* The code is querying the database table 'rdmc_linkages' to retrieve records where the 'type'
-        column is equal to 'Developed' and the 'form_of_development' column is equal to 'Local'. The
-        results are then ordered by the 'year' column in ascending order. The retrieved records are
-        stored in the variables  and
-        respectively. */
-        $linkages_local_developed = DB::table('rdmc_linkages')
-            ->where('type', '=', 'Developed')
-            ->where('form_of_development', '=', 'Local')
-            ->orderBy('form_of_development') // Order by alphabetical order of form_of_development
-            ->orderBy('year')
-            ->get();
-
-        $linkages_local_maintained = DB::table('rdmc_linkages')
-            ->where('type', '=', 'Maintained')
-            ->where('form_of_development', '=', 'Local')
-            ->orderBy('form_of_development') // Order by alphabetical order of form_of_development
-            ->orderBy('year')
-            ->get();
-
-        /* The code is querying the database table 'rdmc_linkages' to retrieve records where the 'type'
-       column is equal to 'Developed' and the 'form_of_development' column is equal to 'National'.
-       The results are then ordered by the 'year' column in ascending order. The retrieved records
-       are stored in the variables  and
-       respectively. */
-        $linkages_national_developed = DB::table('rdmc_linkages')
-            ->where('type', '=', 'Developed')
-            ->where('form_of_development', '=', 'National')
-            ->orderBy('form_of_development') // Order by alphabetical order of form_of_development
-            ->orderBy('year')
-            ->get();
-
-        $linkages_national_maintained = DB::table('rdmc_linkages')
-            ->where('type', '=', 'Maintained')
-            ->where('form_of_development', '=', 'National')
-            ->orderBy('form_of_development') // Order by alphabetical order of form_of_development
-            ->orderBy('year')
-            ->get();
-
-        /* The above code is performing database queries using the Laravel framework's query builder. */
-        $linkages_international_developed = DB::table('rdmc_linkages')
-            ->where('type', '=', 'Developed')
-            ->where('form_of_development', '=', 'International')
-            ->orderBy('form_of_development') // Order by alphabetical order of form_of_development
-            ->orderBy('year')
-            ->get();
-
-        $linkages_international_maintained = DB::table('rdmc_linkages')
-            ->where('type', '=', 'Maintained')
-            ->where('form_of_development', '=', 'International')
-            ->orderBy('form_of_development') // Order by alphabetical order of form_of_development
-            ->orderBy('year')
             ->get();
 
         // list of Technology Transfer Program/Projects Packaged, Approved and Implemented
         $ttp_proposal = DB::table('results_ttp')
+            ->select('ttp_proponent', 'ttp_researchers', 'ttp_implementing_agency', 'ttp_sof', 'ttp_title', 'ttp_date', 'ttp_budget', 'ttp_priorities')
             ->where('ttp_type', '=', 'Packaged')
             ->get();
 
         $ttp_approved = DB::table('results_ttp')
+            ->select('ttp_proponent', 'ttp_researchers', 'ttp_implementing_agency', 'ttp_sof', 'ttp_title', 'ttp_date', 'ttp_budget', 'ttp_priorities')
             ->where('ttp_type', '=', 'Approved')
             ->get();
 
         //List of Technologies Commercialized or Pre-Commercialization Initiatives
         $tech_commercialized = DB::table('results_ttm')
+            ->select('ttm_type', 'ttm_title', 'ttm_agency', 'ttm_status')
             ->orderBy('ttm_type')
             ->get();
 
         //List of Technology Promotion Approaches
         $tpa = DB::table('results_tpa')
+            ->select('tpa_approaches', 'tpa_title', 'tpa_agency', 'tpa_details')
             ->orderBy('tpa_title')
             ->get();
 
         // CBG trainings
-        $trainings = DB::table('cbg_trainings')->get();
+        $trainings = DB::table('cbg_trainings')
+            ->select('trainings_title', 'trainings_start', 'trainings_venue', 'trainings_no_participants', 'trainings_expenditures', 'trainings_sof')
+            ->get();
         // CBG equipments
-        $equipments = DB::table('cbg_equipments')->get();
+        $equipments = DB::table('cbg_equipments')
+            ->select('equipments_type', 'equipments_name', 'equipments_agency', 'equipments_total', 'equipments_sof')
+            ->get();
         // CBG awards
-        $awards = DB::table('cbg_awards')->get();
+        $awards = DB::table('cbg_awards')
+            ->select('awards_type', 'awards_title', 'awards_recipients', 'awards_agency', 'awards_sponsor', 'awards_event', 'awards_place', 'awards_date')
+            ->get();
         // CBG meetings
-        $meetings = DB::table('cbg_meetings')->get();
+        $meetings = DB::table('cbg_meetings')
+            ->select('meeting_type', 'meeting_venue', 'meeting_date', 'meeting_host')
+            ->get();
         // CBG CMI Contributions
-        $contributions = DB::table('cbg_contributions')->get();
+        $contributions = DB::table('cbg_contributions')
+            ->select('con_name', 'con_amount')
+            ->get();
         // CBG new initiatives
-        $initiatives = DB::table('cbg_initiatives')->get();
+        $initiatives = DB::table('cbg_initiatives')
+            ->select('ini_initiates', 'ini_date')
+            ->get();
 
         // Policy analysis and advocacy (Policy Researches Conducted)
-        $issues = DB::table('policy_prc')->get();
+        $issues = DB::table('policy_prc')
+            ->select('prc_title', 'prc_agency', 'prc_author', 'prc_issues')
+            ->get();
 
         // Policy analysis and advocacy (Policy Formulated...)
-        $formulated = DB::table('policy_formulated')->get();
+        $formulated = DB::table('policy_formulated')
+            ->select('policy_type', 'policy_title', 'policy_agency', 'policy_author', 'policy_co_author', 'policy_proponent', 'policy_beneficiary', 'policy_implementer', 'policy_issues')
+            ->get();
 
         return view('backend.reportlist.report_list', [
             'title' => $title,
-            'all_programs' => $all_programs,
-            'all_projects' => $all_projects,
-            'all_sub_projects' => $all_sub_projects,
             'fundedCounts' => $fundedCounts,
             'stratProgramListApproved' => $stratProgramListApproved,
             'stratProgramListProposal' => $stratProgramListProposal,
@@ -277,7 +250,6 @@ class ReportListController extends Controller
             'total_ongoing' => $total_ongoing,
             'total_terminated' => $total_terminated,
             'total_completed' => $total_completed,
-            'lists' => $lists,
             'list' => $list,
             'plist' => $plist,
             'splist' => $splist,
@@ -288,12 +260,6 @@ class ReportListController extends Controller
             'strat_collaborative' => $strat_collaborative,
             'strat_tech_research' => $strat_tech_research,
             'strat_tech_dev' => $strat_tech_dev,
-            'linkages_local_developed' => $linkages_local_developed,
-            'linkages_local_maintained' => $linkages_local_maintained,
-            'linkages_national_developed' => $linkages_national_developed,
-            'linkages_national_maintained' => $linkages_national_maintained,
-            'linkages_international_developed' => $linkages_international_developed,
-            'linkages_international_maintained' => $linkages_international_maintained,
             'ttp_proposal' => $ttp_proposal,
             'ttp_approved' => $ttp_approved,
             'tech_commercialized' => $tech_commercialized,
@@ -311,7 +277,6 @@ class ReportListController extends Controller
 
     public function createPDF()
     {
-        // retreive all records from db
         $title = 'List of Reports | RTMS';
         $new = DB::table('programs')
             ->where('program_status', '=', 'new')
@@ -367,47 +332,51 @@ class ReportListController extends Controller
         // $agency = DB::table('agency')->get()->pluck("abbrev");
         $data = DB::table('agency')->get();
 
-        foreach ($data as $agency) {
-            $lists[] = $agency->abbrev;
-        }
+        // foreach ($data as $agency) {
+        //     $lists[] = $agency->abbrev;
+        // }
 
         $total_new = $new + $new_proj + $new_sub_proj;
         $total_ongoing = $ongoing + $ongoing_proj + $ongoing_sub_proj;
         $total_terminated = $terminated + $terminated_proj + $terminated_sub_proj;
         $total_completed = $completed + $completed_proj + $completed_sub_proj;
 
-        $all_programs = DB::table('programs')->get();
-        $all_projects = DB::table('projects')->get();
-        $all_sub_projects = DB::table('sub_projects')->get();
-
-        $plist = Projects::get();
-        $list = Programs::get();
-        $splist = SubProjects::get();
-        $stratProgramListProposal = DB::table('strategic_program_list')
-            ->where('str_p_type', '=', 'Proposals')
-            ->get();
-
-        $stratProgramListApproved = DB::table('strategic_program_list')
-            ->where('str_p_type', '=', 'Approved')
-            ->get();
+        $plist = Projects::select('project_title', 'project_description', 'project_duration', 'project_agency')->get();
+        $list = Programs::select('program_title', 'program_description', 'duration', 'funding_agency')->get();
+        $splist = SubProjects::select('sub_project_title', 'sub_project_description', 'sub_project_duration', 'sub_project_agency')->get();
 
         $linkages_developed = DB::table('rdmc_linkages')
+            ->select('form_of_development', 'address', 'year', 'nature_of_assistance')
             ->where('type', '=', 'Developed')
             ->orderBy('form_of_development') // Order by alphabetical order of form_of_development
             ->orderBy('year')
             ->get();
 
         $linkages_maintained = DB::table('rdmc_linkages')
+            ->select('form_of_development', 'address', 'year', 'nature_of_assistance')
             ->where('type', '=', 'Maintained')
             ->orderBy('form_of_development') // Order by alphabetical order of form_of_development
             ->orderBy('year')
             ->get();
 
         $db = DB::table('rdmc_dbinfosys')
+            ->select('dbinfosys_title', 'dbinfosys_type', 'dbinfosys_date_created', 'dbinfosys_purpose')
             ->where('dbinfosys_category', '=', 'Database')
             ->get();
+
         $is = DB::table('rdmc_dbinfosys')
+            ->select('dbinfosys_title', 'dbinfosys_type', 'dbinfosys_date_created', 'dbinfosys_purpose')
             ->where('dbinfosys_category', '=', 'Information System')
+            ->get();
+
+        $stratProgramListProposal = DB::table('strategic_program_list')
+            ->select('str_p_title', 'str_p_imp_agency', 'str_p_sof', 'str_p_date', 'str_p_budget', 'str_p_regional')
+            ->where('str_p_type', '=', 'Proposals')
+            ->get();
+
+        $stratProgramListApproved = DB::table('strategic_program_list')
+            ->select('str_p_title', 'str_p_imp_agency', 'str_p_sof', 'str_p_date', 'str_p_budget', 'str_p_regional')
+            ->where('str_p_type', '=', 'Approved')
             ->get();
 
         $agencyAbbreviations = DB::table('agency')
@@ -458,112 +427,80 @@ class ReportListController extends Controller
         }
 
         // strategic collaborative
-        $strat_collaborative = DB::table('strategic_collaborative_list')->get();
+        $strat_collaborative = DB::table('strategic_collaborative_list')
+            ->select('str_collab_program', 'str_collab_project', 'str_collab_imp_agency', 'str_collab_agency', 'str_collab_budget', 'str_collab_date', 'str_collab_roc')
+            ->get();
 
         // strategic tech/info list
         $strat_tech_research = DB::table('strategic_tech_list')
+            ->select('tech_researchers', 'tech_title', 'tech_agency', 'tech_impact')
             ->where('tech_type', '=', 'Research')
             ->get();
         $strat_tech_dev = DB::table('strategic_tech_list')
+            ->select('tech_researchers', 'tech_title', 'tech_agency', 'tech_impact')
             ->where('tech_type', '=', 'Development')
-            ->get();
-
-        /* The code is querying the database table 'rdmc_linkages' to retrieve records where the 'type'
-        column is equal to 'Developed' and the 'form_of_development' column is equal to 'Local'. The
-        results are then ordered by the 'year' column in ascending order. The retrieved records are
-        stored in the variables  and
-        respectively. */
-        $linkages_local_developed = DB::table('rdmc_linkages')
-            ->where('type', '=', 'Developed')
-            ->where('form_of_development', '=', 'Local')
-            ->orderBy('form_of_development') // Order by alphabetical order of form_of_development
-            ->orderBy('year')
-            ->get();
-
-        $linkages_local_maintained = DB::table('rdmc_linkages')
-            ->where('type', '=', 'Maintained')
-            ->where('form_of_development', '=', 'Local')
-            ->orderBy('form_of_development') // Order by alphabetical order of form_of_development
-            ->orderBy('year')
-            ->get();
-
-        /* The code is querying the database table 'rdmc_linkages' to retrieve records where the 'type'
-       column is equal to 'Developed' and the 'form_of_development' column is equal to 'National'.
-       The results are then ordered by the 'year' column in ascending order. The retrieved records
-       are stored in the variables  and
-       respectively. */
-        $linkages_national_developed = DB::table('rdmc_linkages')
-            ->where('type', '=', 'Developed')
-            ->where('form_of_development', '=', 'National')
-            ->orderBy('form_of_development') // Order by alphabetical order of form_of_development
-            ->orderBy('year')
-            ->get();
-
-        $linkages_national_maintained = DB::table('rdmc_linkages')
-            ->where('type', '=', 'Maintained')
-            ->where('form_of_development', '=', 'National')
-            ->orderBy('form_of_development') // Order by alphabetical order of form_of_development
-            ->orderBy('year')
-            ->get();
-
-        /* The above code is performing database queries using the Laravel framework's query builder. */
-        $linkages_international_developed = DB::table('rdmc_linkages')
-            ->where('type', '=', 'Developed')
-            ->where('form_of_development', '=', 'International')
-            ->orderBy('form_of_development') // Order by alphabetical order of form_of_development
-            ->orderBy('year')
-            ->get();
-
-        $linkages_international_maintained = DB::table('rdmc_linkages')
-            ->where('type', '=', 'Maintained')
-            ->where('form_of_development', '=', 'International')
-            ->orderBy('form_of_development') // Order by alphabetical order of form_of_development
-            ->orderBy('year')
             ->get();
 
         // list of Technology Transfer Program/Projects Packaged, Approved and Implemented
         $ttp_proposal = DB::table('results_ttp')
+            ->select('ttp_proponent', 'ttp_researchers', 'ttp_implementing_agency', 'ttp_sof', 'ttp_title', 'ttp_date', 'ttp_budget', 'ttp_priorities')
             ->where('ttp_type', '=', 'Packaged')
             ->get();
 
         $ttp_approved = DB::table('results_ttp')
+            ->select('ttp_proponent', 'ttp_researchers', 'ttp_implementing_agency', 'ttp_sof', 'ttp_title', 'ttp_date', 'ttp_budget', 'ttp_priorities')
             ->where('ttp_type', '=', 'Approved')
             ->get();
 
         //List of Technologies Commercialized or Pre-Commercialization Initiatives
         $tech_commercialized = DB::table('results_ttm')
+            ->select('ttm_type', 'ttm_title', 'ttm_agency', 'ttm_status')
             ->orderBy('ttm_type')
             ->get();
 
         //List of Technology Promotion Approaches
         $tpa = DB::table('results_tpa')
+            ->select('tpa_approaches', 'tpa_title', 'tpa_agency', 'tpa_details')
             ->orderBy('tpa_title')
             ->get();
 
         // CBG trainings
-        $trainings = DB::table('cbg_trainings')->get();
+        $trainings = DB::table('cbg_trainings')
+            ->select('trainings_title', 'trainings_start', 'trainings_venue', 'trainings_no_participants', 'trainings_expenditures', 'trainings_sof')
+            ->get();
         // CBG equipments
-        $equipments = DB::table('cbg_equipments')->get();
+        $equipments = DB::table('cbg_equipments')
+            ->select('equipments_type', 'equipments_name', 'equipments_agency', 'equipments_total', 'equipments_sof')
+            ->get();
         // CBG awards
-        $awards = DB::table('cbg_awards')->get();
+        $awards = DB::table('cbg_awards')
+            ->select('awards_type', 'awards_title', 'awards_recipients', 'awards_agency', 'awards_sponsor', 'awards_event', 'awards_place', 'awards_date')
+            ->get();
         // CBG meetings
-        $meetings = DB::table('cbg_meetings')->get();
+        $meetings = DB::table('cbg_meetings')
+            ->select('meeting_type', 'meeting_venue', 'meeting_date', 'meeting_host')
+            ->get();
         // CBG CMI Contributions
-        $contributions = DB::table('cbg_contributions')->get();
+        $contributions = DB::table('cbg_contributions')
+            ->select('con_name', 'con_amount')
+            ->get();
         // CBG new initiatives
-        $initiatives = DB::table('cbg_initiatives')->get();
+        $initiatives = DB::table('cbg_initiatives')
+            ->select('ini_initiates', 'ini_date')
+            ->get();
 
         // Policy analysis and advocacy (Policy Researches Conducted)
-        $issues = DB::table('policy_prc')->get();
+        $issues = DB::table('policy_prc')
+            ->select('prc_title', 'prc_agency', 'prc_author', 'prc_issues')
+            ->get();
 
         // Policy analysis and advocacy (Policy Formulated...)
-        $formulated = DB::table('policy_formulated')->get();
+        $formulated = DB::table('policy_formulated')
+            ->select('policy_type', 'policy_title', 'policy_agency', 'policy_author', 'policy_co_author', 'policy_proponent', 'policy_beneficiary', 'policy_implementer', 'policy_issues')
+            ->get();
 
-        $pdf = PDF::loadView('backend.reportlist.export_report', [
+        $pdfData = [
             'title' => $title,
-            'all_programs' => $all_programs,
-            'all_projects' => $all_projects,
-            'all_sub_projects' => $all_sub_projects,
             'fundedCounts' => $fundedCounts,
             'stratProgramListApproved' => $stratProgramListApproved,
             'stratProgramListProposal' => $stratProgramListProposal,
@@ -571,7 +508,6 @@ class ReportListController extends Controller
             'total_ongoing' => $total_ongoing,
             'total_terminated' => $total_terminated,
             'total_completed' => $total_completed,
-            'lists' => $lists,
             'list' => $list,
             'plist' => $plist,
             'splist' => $splist,
@@ -582,12 +518,6 @@ class ReportListController extends Controller
             'strat_collaborative' => $strat_collaborative,
             'strat_tech_research' => $strat_tech_research,
             'strat_tech_dev' => $strat_tech_dev,
-            'linkages_local_developed' => $linkages_local_developed,
-            'linkages_local_maintained' => $linkages_local_maintained,
-            'linkages_national_developed' => $linkages_national_developed,
-            'linkages_national_maintained' => $linkages_national_maintained,
-            'linkages_international_developed' => $linkages_international_developed,
-            'linkages_international_maintained' => $linkages_international_maintained,
             'ttp_proposal' => $ttp_proposal,
             'ttp_approved' => $ttp_approved,
             'tech_commercialized' => $tech_commercialized,
@@ -600,8 +530,12 @@ class ReportListController extends Controller
             'initiatives' => $initiatives,
             'issues' => $issues,
             'formulated' => $formulated,
-        ])->setPaper('a4', 'portrait');
-        return $pdf->download('reports.pdf');
+        ];
+
+        $pdf = PDF::loadView('backend.reportlist.export_report', $pdfData);
+
+        // Display the PDF in the browser in a new tab
+        return $pdf->stream('sample.pdf');
     }
 
     public function reportTest()

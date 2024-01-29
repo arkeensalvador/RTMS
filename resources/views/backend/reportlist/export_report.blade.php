@@ -39,19 +39,6 @@
             border-top: 1px solid #ddd;
             padding-top: 10px;
         }
-
-        /* .page {
-            background: var(--white);
-            display: block;
-            margin: 0 auto;
-            position: relative;
-            box-shadow: var(--pageShadow);
-        }
-
-        .page[size="A4"] {
-            width: 21cm;
-            overflow: hidden;
-        } */
     </style>
 </head>
 
@@ -68,13 +55,16 @@
         </section>
 
         <!-- R&D Management and Coordination -->
-        <section class="table-area mt-4 page-break">
+        <section class="table-area mt-1 page-break">
             <div class="table-title col-12 py-1"
                 style="background-image: url('https://i.ibb.co/Jp0tJxt/sec1.webp'); background-size:cover;;">
                 <h1 class="text-center text-capitalized font-weight-bold"
-                    style="color: #fff; text-shadow: 1px 1px 2px #1b1b1b; letter-spacing: -1px; ">RESEARCH AND
+                    style="color: #fff; text-shadow: 1px 1px 2px #1b1b1b; letter-spacing: -1px; ">
+                    RESEARCH AND
                     DEVELOPMENT<br>MANAGEMENT AND COORDINATION</h1>
             </div>
+
+
             <!-- Summary of the AIHR's conducted by the CMI's -->
             <div class="category my-5">
                 <div class="notices mb-1 " style="border-left: 6px solid #0DA603;">
@@ -119,38 +109,6 @@
                 </table>
             </div>
 
-            <!-- PROJECTS -->
-            <div class="category my-5">
-                <div class="notices mb-1 " style="border-left: 6px solid #0DA603;">
-                    <h5>List of <span class="font-weight-bold" style=" color: #0DA603;">Project</span></h5>
-                </div>
-                <table class="table-bordered table table-hover">
-                    <thead style="background-color: #0DA603;">
-                        <tr>
-                            <td>Project Title</td>
-                            <td>Description</td>
-                            <td>Duration</td>
-                            <td>Funding Agency</td>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($plist as $pl)
-                            <tr>
-                                <td>{{ $pl->project_title }}</td>
-                                <td>{{ $pl->project_description }}</td>
-                                <td>
-                                    {{ $pl->project_duration }}
-                                </td>
-                                @php
-                                    $fa = json_decode($pl->project_agency);
-                                    $fa = implode(', ', $fa);
-                                @endphp
-                                <td>{{ $fa }}</td>
-                            </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-            </div>
 
             <!-- PROGRAMS -->
             <div class="category my-5">
@@ -176,6 +134,39 @@
                                 </td>
                                 @php
                                     $fa = json_decode($data->funding_agency);
+                                    $fa = implode(', ', $fa);
+                                @endphp
+                                <td>{{ $fa }}</td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- PROJECTS -->
+            <div class="category my-5">
+                <div class="notices mb-1 " style="border-left: 6px solid #0DA603;">
+                    <h5>List of <span class="font-weight-bold" style=" color: #0DA603;">Project</span></h5>
+                </div>
+                <table class="table-bordered table table-hover">
+                    <thead style="background-color: #0DA603;">
+                        <tr>
+                            <td>Project Title</td>
+                            <td>Description</td>
+                            <td>Duration</td>
+                            <td>Funding Agency</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($plist as $pl)
+                            <tr>
+                                <td>{{ $pl->project_title }}</td>
+                                <td>{{ $pl->project_description }}</td>
+                                <td>
+                                    {{ $pl->project_duration }}
+                                </td>
+                                @php
+                                    $fa = json_decode($pl->project_agency);
                                     $fa = implode(', ', $fa);
                                 @endphp
                                 <td>{{ $fa }}</td>
@@ -338,7 +329,8 @@
             <div class="table-title col-12 py-1"
                 style="background-image: url('https://i.ibb.co/MpcC8d4/sec2.webp'); background-size:cover;">
                 <h1 class="text-center text-capitalized font-weight-bold"
-                    style="color: #fff; text-shadow: 1px 1px 2px #1b1b1b; letter-spacing: -1px; ">STRATEGIC
+                    style="color: #fff; text-shadow: 1px 1px 2px #1b1b1b; letter-spacing: -1px; ">
+                    STRATEGIC
                     RESEARCH AND <br>DEVELOPMENT ACTIVITIES</h1>
             </div><br>
 
@@ -380,7 +372,7 @@
                                 <td>{{ $imp }}</td>
                                 <td>{{ $splp->str_p_date }}</td>
                                 <td>{{ $sof }}</td>
-                                <td>{{ number_format($splp->str_p_budget, 2) }}</td>
+                                <td>₱{{ number_format($splp->str_p_budget, 2) }}</td>
                                 <td>{{ $splp->str_p_regional }}</td>
                             </tr>
                         @endforeach
@@ -401,7 +393,7 @@
                                 <td>{{ $imp }}</td>
                                 <td>{{ $spla->str_p_date }}</td>
                                 <td>{{ $sof }}</td>
-                                <td>{{ number_format($spla->str_p_budget, 2) }}</td>
+                                <td>₱{{ number_format($spla->str_p_budget, 2) }}</td>
                                 <td>{{ $spla->str_p_regional }}</td>
                             </tr>
                         @endforeach
@@ -468,7 +460,7 @@
                                     {{ $startDate->format('F Y') }} to
                                     {{ $endDate->format('F Y') }}
                                 </td>
-                                <td>{{ number_format($item->str_collab_budget, 2) }}</td>
+                                <td>₱{{ number_format($item->str_collab_budget, 2) }}</td>
                                 <td>{{ $sof }}</td>
                                 <td>{{ $item->str_collab_roc }}</td>
                             </tr>
@@ -532,7 +524,6 @@
                     </tbody>
                 </table>
             </div>
-
         </section>
 
         <!-- R & D Results Utilization-->
@@ -541,7 +532,8 @@
             <div class="table-title col-12 py-1"
                 style="background-image: url('https://i.ibb.co/0Z2VpgB/sec3.webp'); background-size:cover;;">
                 <h1 class="text-center text-capitalized font-weight-bold"
-                    style="color: #fff; text-shadow: 1px 1px 2px #1b1b1b; letter-spacing: -1px; ">RESEARCH AND
+                    style="color: #fff; text-shadow: 1px 1px 2px #1b1b1b; letter-spacing: -1px; ">
+                    RESEARCH AND
                     DEVELOPMENT<br>RESULTS UTILIZATION</h1>
             </div>
 
@@ -592,7 +584,7 @@
                                 <td>{{ $imp }}</td>
                                 <td>{{ $item->ttp_date }}</td>
                                 <td>{{ $sof }}</td>
-                                <td>{{ number_format($item->ttp_budget, 2) }}</td>
+                                <td>₱{{ number_format($item->ttp_budget, 2) }}</td>
                                 <td>{{ $item->ttp_priorities }}</td>
                             </tr>
                         @endforeach
@@ -622,7 +614,7 @@
                                 <td>{{ $imp }}</td>
                                 <td>{{ $item->ttp_date }}</td>
                                 <td>{{ $sof }}</td>
-                                <td>{{ number_format($item->ttp_budget, 2) }}</td>
+                                <td>₱{{ number_format($item->ttp_budget, 2) }}</td>
                                 <td>{{ $item->ttp_priorities }}</td>
                             </tr>
                         @endforeach
@@ -735,7 +727,7 @@
                                 <td>{{ $item->trainings_start }}</td>
                                 <td>{{ $item->trainings_venue }}</td>
                                 <td>{{ $item->trainings_no_participants }}</td>
-                                <td>{{ number_format($item->trainings_expenditures, 2) }}</td>
+                                <td>₱{{ number_format($item->trainings_expenditures, 2) }}</td>
                                 <td>{{ $sof }}
                             </tr>
                         @endforeach
@@ -772,7 +764,7 @@
                                 <td>{{ $item->equipments_type }}</td>
                                 <td>{{ $item->equipments_name }}</td>
                                 <td>{{ $item->equipments_agency }}</td>
-                                <td>{{ number_format($item->equipments_total, 2) }}</td>
+                                <td>₱{{ number_format($item->equipments_total, 2) }}</td>
                                 <td>{{ $sof }}</td>
                             </tr>
                         @endforeach
@@ -784,8 +776,8 @@
             <div class="category my-5">
                 <div class="notices mb-1 " style="border-left: 6px solid #FF8400;">
                     <h5><span class="font-weight-bold" style="color:#FF8400;">Awards
-                            Received</span> by the<span class="font-weight-bold" style="color:#FF8400;">
-                            consortium </span> or <span class="font-weight-bold" style="color:#FF8400;">
+                            Received</span> by the<span class="font-weight-bold" style="color:#FF8400;"> consortium
+                        </span> or <span class="font-weight-bold" style="color:#FF8400;">
                             member-agencies</span></h5>
                 </div>
                 <table class="table-bordered table table-hover">
@@ -899,6 +891,7 @@
             </div>
         </section>
 
+
         {{-- POLICY ANALYSIS AND ADVOCACY --}}
         <section class="table-area mt-4 page-break">
             <div class="table-title col-12 py-1"
@@ -940,8 +933,11 @@
             <!-- Data from "Policy formulated" -->
             <div class="category my-5">
                 <div class="notices mb-1 " style="border-left: 6px solid #D22B2B;">
-                    <h5>List of <span class="font-weight-bold" style="color:#D22B2B;">Policy
-                            Researches Conducted </span></h5>
+                    <h5>List of <span class="font-weight-bold" style="color:#D22B2B;">Policies
+                            Formulated</span>, <span class="font-weight-bold" style="color:#D22B2B;">Advocated</span>,
+                        <span class="font-weight-bold" style="color:#D22B2B;">Implemented
+                            Instituional</span> and <span class="font-weight-bold"
+                            style="color:#D22B2B;">Institutionalized</span></h5>
                 </div>
                 <table class="table-bordered table table-hover">
                     <thead style="background-color: #D22B2B;">
