@@ -26,6 +26,7 @@ class UsersImport implements ToModel, WithHeadingRow
             'agencyID' => $row['agency'],
             'role' => $row['role'],
             'password' => Hash::make($row['password']),
+            'profile_picture' => 'profile_pictures/default-profile-picture.png',
         ]);
 
         return $user;
