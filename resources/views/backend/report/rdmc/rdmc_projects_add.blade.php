@@ -106,7 +106,6 @@
                                             class="text-danger">*</span></label>
                                     <select id="status" name="project_status" class="form-control status" required>
                                         <option selected disabled value="">Select status</option>
-                                        <option value="New">New</option>
                                         <option value="Ongoing">Ongoing</option>
                                         <option value="Completed">Completed</option>
                                         <option value="Terminated">Terminated</option>
@@ -197,49 +196,36 @@
                                             class="text-danger">*</span></label>
                                     <select class="form-control implementing_agency" id="awards_recipients"
                                         name="project_implementing_agency[]" multiple="multiple" required>
-                                        @if (auth()->user()->role == 'Admin')
-                                            @foreach ($agency as $key)
-                                                <option value="{{ $key->abbrev }}">{{ $key->agency_name }} -
-                                                    ({{ $key->abbrev }})
-                                                    </b></option>
-                                            @endforeach
-                                        @else
-                                            <option value="{{ $user_agency->abbrev }}" selected>
-                                                {{ $user_agency->agency_name }} -
-                                                ({{ $user_agency->abbrev }})
+                                        @foreach ($agency as $key)
+                                            <option value="{{ $key->abbrev }}">{{ $key->agency_name }} -
+                                                ({{ $key->abbrev }})
                                                 </b></option>
-                                        @endif
+                                        @endforeach
                                     </select>
                                     <div class="invalid-feedback">Missing implementing agency</div>
                                 </div>
 
                                 <div class="col-md-12 form-group">
-                                    <label for="awards_recipients" class=" font-weight-bold">Collaborating Agency<span
-                                            class="text-danger">*</span></label>
+                                    <label for="awards_recipients" class=" font-weight-bold">Collaborating Agency
+                                        (Optional)</label>
                                     <select class="form-control collaborating_agency" id=""
-                                        name="project_collaborating_agency[]" multiple="multiple" required>
+                                        name="project_collaborating_agency[]" multiple="multiple">
 
                                         @foreach ($agency as $key)
                                             <option value="{{ $key->abbrev }}">{{ $key->agency_name }} -
                                                 ({{ $key->abbrev }})
                                                 </b></option>
                                         @endforeach
-
                                     </select>
-                                    <div class="invalid-feedback">Missing collaborating agency</div>
                                 </div>
 
                                 <div class="col-md-12 form-group">
-                                    <label for="" class=" font-weight-bold">Research and Development Center<span
-                                            class="text-danger">*</span></label>
+                                    <label for="" class=" font-weight-bold">Research and Development Center
+                                        (Optional)</label>
                                     <input type="text" name="project_research_center[]" id="rc"
-                                        class="form-control research-center"
-                                        placeholder="Research and Development Center(s)" value=""
-                                        data-role="tagsinput" required>
-                                    <div class="invalid-feedback">Missing research center</div>
+                                        class="form-control research-center" placeholder="R & D Center(s)" value=""
+                                        data-role="tagsinput">
                                 </div>
-
-
 
                                 <div class="col-md-3 form-group">
                                     <label for="coordination_fund" class=" font-weight-bold">Type of Funding
@@ -260,7 +246,7 @@
                                     <table id="budget-table" class="table">
                                         <thead>
                                             <tr>
-                                                <th>Approved Budget</th>
+                                                <th>Proposed Budget</th>
                                                 <th>Year No.</th>
                                                 <th>Action</th>
                                             </tr>
@@ -276,7 +262,8 @@
                                                 <td>
                                                     <input type="text" class="form-control budget-input"
                                                         style="margin-bottom: 5px;" name="approved_budget[]"
-                                                        oninput="validateInput(this)" placeholder="Enter budget" required>
+                                                        oninput="validateInput(this)" placeholder="Enter proposed budget"
+                                                        required>
                                                 </td>
                                                 <td>
                                                     <input type="text" class="form-control year-input"
@@ -291,7 +278,7 @@
                                             </tr>
                                         </tbody>
                                     </table>
-                                    <div id="total-budget" hidden>Total Approved Budget: <span id="total">0</span>
+                                    <div id="total-budget" hidden>Total Proposed Budget: <span id="total">0</span>
                                     </div>
                                     <div class="col-md-4 form-group" id="amountReleased">
                                         <label for="year_of_release" class=" font-weight-bold">Total Amount Released<span
@@ -341,7 +328,7 @@
             var cell3 = newRow.insertCell(2);
 
             cell1.innerHTML =
-                '<input type="text" style="margin-bottom: 5px;" class="form-control budget-input" oninput="validateInput(this)" placeholder="Enter budget" name="approved_budget[]" required>';
+                '<input type="text" style="margin-bottom: 5px;" class="form-control budget-input" oninput="validateInput(this)" placeholder="Enter proposed budget" name="approved_budget[]" required>';
             cell2.innerHTML =
                 '<input type="text" style="margin-bottom: 5px;" class="form-control year-input" name="budget_year[]" required readonly>';
             cell3.innerHTML =
@@ -377,15 +364,26 @@
 
         function validateInput(input) {
             // Remove non-numeric characters (except '-')
-            input.value = input.value.replace(/[^\d-]/g, '');
+            let numericValue = input.value.replace(/[^\d-]/g, '');
 
             // Ensure the input is not empty
-            if (input.value === '-') {
-                input.value = '';
+            if (numericValue === '-') {
+                numericValue = '';
             }
+
+            // Format the numeric value with commas
+            const formattedValue = formatNumberWithCommas(numericValue);
+
+            // Set the formatted value back to the input
+            input.value = formattedValue;
 
             // Recalculate the total when the input changes
             calculateTotal();
+        }
+
+        function formatNumberWithCommas(number) {
+            // Convert the number to a string and add commas
+            return parseFloat(number).toLocaleString('en-US');
         }
 
         function calculateTotal() {
@@ -393,17 +391,28 @@
             var total = 0;
 
             for (var i = 0; i < budgetInputs.length; i++) {
-                var value = parseFloat(budgetInputs[i].value) || 0;
+                var valueWithCommas = budgetInputs[i].value;
+
+                // Remove commas from the value before parsing
+                var valueWithoutCommas = valueWithCommas.replace(/,/g, '');
+
+                // Parse the numeric value
+                var value = parseFloat(valueWithoutCommas) || 0;
+
                 total += value;
             }
 
+            total = isNaN(total) ? 0 : total;
+
             // Update the total displayed in the HTML
-            document.getElementById('total').textContent = total;
-            document.getElementById('total_amount_released').value = total;
+            document.getElementById('total').textContent = formatNumberWithCommas(total);
+            document.getElementById('total_amount_released').value = formatNumberWithCommas(total);
+
 
             // Hide "Remove" button if there is only one row
             updateRemoveButtons();
         }
+
 
         function updateRemoveButtons() {
             var removeButtons = document.querySelectorAll('#budget-table tbody tr i.fa-square-minus');

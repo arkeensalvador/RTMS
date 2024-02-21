@@ -310,6 +310,17 @@ body {
     background-color: teal !important;
 } */
 
+/* Filtered Table */
+.th-filtered {
+    font-size: 16px;
+}
+.td-filtered {
+    font-size: 14px;
+}
+.date-range {
+    cursor: pointer;
+}
+
 td.action {
     width: 3rem !important;
     overflow: hidden;

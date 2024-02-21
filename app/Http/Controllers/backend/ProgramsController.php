@@ -25,14 +25,14 @@ class ProgramsController extends Controller
                 'program_status' => 'required',
                 'program_category' => 'required',
                 'funding_agency' => 'required|array|min:1',
-                'collaborating_agency' => 'required|array|min:1',
+                // 'collaborating_agency' => 'required|array|min:1',
                 'implementing_agency' => 'required|array|min:1',
-                'research_center' => 'required|array|min:1',
+                // 'research_center' => 'required|array|min:1',
                 'duration' => 'required',
                 'program_leader' => 'required',
                 'program_description' => 'required',
                 'approved_budget' => 'required|array',
-                'approved_budget.*' => 'required|integer',
+                'approved_budget.*' => 'required',
                 'amount_released' => 'required',
                 'budget_year' => 'required|array',
                 'budget_year.*' => 'required|integer',
@@ -44,9 +44,9 @@ class ProgramsController extends Controller
                 'program_status.required' => 'Status is required!',
                 'program_category.required' => 'Category is required!',
                 'funding_agency.required' => 'Funding agency is required!',
-                'collaborating_agency.required' => 'Collaborating agency is required!',
+                // 'collaborating_agency.required' => 'Collaborating agency is required!',
                 'implementing_agency.required' => 'Implementing agency is required!',
-                'research_center.required' => 'Research center is required!',
+                // 'research_center.required' => 'Research center is required!',
                 'duration.required' => 'Duration is required!',
                 'program_leader.required' => 'Program leader is required!',
                 'program_description.required' => 'Description is required!',
@@ -73,7 +73,7 @@ class ProgramsController extends Controller
         $data['duration'] = $request->duration;
         $data['program_leader'] = $request->program_leader;
         $data['program_description'] = $request->program_description;
-        $data['amount_released'] = $request->amount_released;
+        $data['amount_released'] = str_replace(',', '', $request->amount_released);
         $data['form_of_development'] = $request->form_of_development;
         $data['keywords'] = htmlspecialchars_decode(json_encode($request->keywords));
         $data['encoder_agency'] = auth()->user()->agencyID;
@@ -84,7 +84,7 @@ class ProgramsController extends Controller
         foreach ($request->approved_budget as $key => $budget) {
             $data_budget[] = [
                 'programID' => $request->programID,
-                'approved_budget' => $budget,
+                'approved_budget' => str_replace(',', '', $budget),
                 'budget_year' => $request->budget_year[$key],
                 'created_at' => now(),
             ];
@@ -184,14 +184,14 @@ class ProgramsController extends Controller
                 'program_status' => 'required',
                 'program_category' => 'required',
                 'funding_agency' => 'required|array|min:1',
-                'collaborating_agency' => 'required|array|min:1',
+                // 'collaborating_agency' => 'required|array|min:1',
                 'implementing_agency' => 'required|array|min:1',
-                'research_center' => 'required|array|min:1',
+                // 'research_center' => 'required|array|min:1',
                 'duration' => 'required',
                 'program_leader' => 'required',
                 'program_description' => 'required',
                 'approved_budget' => 'required|array',
-                'approved_budget.*' => 'required|integer',
+                'approved_budget.*' => 'required',
                 'amount_released' => 'required',
                 'budget_year' => 'required|array',
                 'budget_year.*' => 'required|integer',
@@ -203,9 +203,9 @@ class ProgramsController extends Controller
                 'program_status.required' => 'Status is required!',
                 'program_category.required' => 'Category is required!',
                 'funding_agency.required' => 'Funding agency is required!',
-                'collaborating_agency.required' => 'Collaborating agency is required!',
+                // 'collaborating_agency.required' => 'Collaborating agency is required!',
                 'implementing_agency.required' => 'Implementing agency is required!',
-                'research_center.required' => 'Research center is required!',
+                // 'research_center.required' => 'Research center is required!',
                 'duration.required' => 'Duration is required!',
                 'program_leader.required' => 'Program leader is required!',
                 'program_description.required' => 'Description is required!',
@@ -231,7 +231,7 @@ class ProgramsController extends Controller
         $data['duration'] = $request->duration;
         $data['program_leader'] = $request->program_leader;
         $data['program_description'] = $request->program_description;
-        $data['amount_released'] = $request->amount_released;
+        $data['amount_released'] = str_replace(',', '', $request->amount_released);
         // $data['budget_year'] = $request->budget_year;
         $data['form_of_development'] = $request->form_of_development;
         $data['keywords'] = htmlspecialchars_decode(json_encode($request->keywords));
@@ -248,7 +248,7 @@ class ProgramsController extends Controller
         foreach ($existingData as $key => $existing) {
             $data_update[] = [
                 'id' => $existing->id, // Assuming there is an 'id' column
-                'approved_budget' => $request->approved_budget[$key],
+                'approved_budget' => str_replace(',', '', $request->approved_budget[$key]),
                 'budget_year' => $request->budget_year[$key],
             ];
         }
@@ -258,7 +258,7 @@ class ProgramsController extends Controller
             DB::table('budgets')
                 ->where('id', $item['id'])
                 ->update([
-                    'approved_budget' => $item['approved_budget'],
+                    'approved_budget' => str_replace(',', '', $item['approved_budget']),
                     'budget_year' => $item['budget_year'],
                     'updated_at' => now(),
                 ]);
@@ -269,7 +269,7 @@ class ProgramsController extends Controller
             foreach ($request->new_approved_budget as $key => $newBudget) {
                 DB::table('budgets')->insert([
                     'programID' => $programID,
-                    'approved_budget' => $newBudget,
+                    'approved_budget' => str_replace(',', '', $newBudget),
                     'budget_year' => $request->new_budget_year[$key],
                     'created_at' => now(),
                 ]);

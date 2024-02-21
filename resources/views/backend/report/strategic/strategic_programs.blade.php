@@ -67,14 +67,21 @@
                                                                         {{ 'Approved and Implemented' }}
                                                                     @endif
                                                                 </td>
-                                                                <td>{{ $row->str_p_title }}</td>
+                                                                <td>{{ strtoupper($row->str_p_title) }}</td>
                                                                 <td>{{ $row->str_p_researchers }}</td>
                                                                 @php
                                                                     $imp = json_decode($row->str_p_imp_agency);
                                                                     $imp = implode(', ', $imp);
 
                                                                     $collab = json_decode($row->str_p_collab_agency);
-                                                                    $collab = implode(', ', $collab);
+
+                                                                    // Check if $collab is null after decoding JSON
+                                                                    if ($collab === null) {
+                                                                        $collab = 'N/A';
+                                                                    } else {
+                                                                        // If $collab is not null, implode the array values
+                                                                        $collab = implode(', ', $collab);
+                                                                    }
 
                                                                     $sof = json_decode($row->str_p_sof);
                                                                     $sof = implode(', ', $sof);
@@ -108,7 +115,7 @@
                                                                         {{ 'Approved and Implemented' }}
                                                                     @endif
                                                                 </td>
-                                                                <td>{{ $row->str_p_title }}</td>
+                                                                <td>{{ strtoupper($row->str_p_title) }}</td>
                                                                 <td>{{ $row->str_p_researchers }}</td>
                                                                 @php
                                                                     $imp = json_decode($row->str_p_imp_agency);

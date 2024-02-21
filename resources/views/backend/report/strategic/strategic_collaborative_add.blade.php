@@ -104,7 +104,7 @@
                                 <div class="col-md-12 form-group">
                                     <label for="ttp_sof" class=" font-weight-bold">Program (Optional)</label>
                                     <textarea name="str_collab_program" id="str_collab_program" cols="30" rows="5" class="form-control"
-                                        placeholder="Enter program title"></textarea>
+                                        placeholder="Enter the program title; N/A if none."></textarea>
                                 </div>
 
                                 <div class="col-md-12 form-group">
@@ -153,16 +153,16 @@
                                     <label for="tpa_date" class=" font-weight-bold">Duration<span
                                             class="text-danger">*</span></label>
                                     <input type="text" name="str_collab_date" id="tpa_date"
-                                        class="form-control date-range" placeholder="Enter date" required>
+                                        class="form-control date-range" placeholder="Enter duration date" required>
                                     <div class="invalid-feedback">Missing date</div>
                                 </div>
 
                                 <div class="col-md-4 form-group">
-                                    <label for="approved_budget" class=" font-weight-bold">Budget<span
+                                    <label for="approved_budget" class="font-weight-bold">Proposed Budget<span
                                             class="text-danger">*</span></label>
                                     <input type="text" name="str_collab_budget" oninput="validateInput(this)"
-                                        class="form-control" id="" placeholder="Budget" required>
-                                    <div class="invalid-feedback">Missing budget</div>
+                                        class="form-control" id="" placeholder="Enter Proposed Budget" required>
+                                    <div class="invalid-feedback">Missing proposed budget</div>
                                 </div>
 
                                 <div class="col-md-12 form-group">
@@ -184,7 +184,7 @@
                                     <label for="strategic_implementing_agency" class=" font-weight-bold">Role of
                                         Consortium<span class="text-danger">*</span></label>
                                     <textarea name="str_collab_roc" id="strategic_title" class="form-control" rows="4" style="resize: none" required
-                                        placeholder="Role of consortium"></textarea>
+                                        placeholder="Enter role of consortium"></textarea>
                                     <div class="invalid-feedback">Missing role of consortium</div>
                                 </div>
 
@@ -206,12 +206,23 @@
     <script>
         function validateInput(input) {
             // Remove non-numeric characters (except '-')
-            input.value = input.value.replace(/[^\d-]/g, '');
+            let numericValue = input.value.replace(/[^\d-]/g, '');
 
             // Ensure the input is not empty
-            if (input.value === '-') {
-                input.value = '';
+            if (numericValue === '-') {
+                numericValue = '';
             }
+
+            // Format the numeric value with commas
+            const formattedValue = formatNumberWithCommas(numericValue);
+
+            // Set the formatted value back to the input
+            input.value = formattedValue;
+        }
+
+        function formatNumberWithCommas(number) {
+            // Convert the number to a string and add commas
+            return parseFloat(number).toLocaleString('en-US');
         }
     </script>
 

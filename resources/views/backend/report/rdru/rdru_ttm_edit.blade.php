@@ -89,7 +89,7 @@
                                 </div>
 
                                 <div class="col-md-12 form-group">
-                                    <label for="ttm_title" class="font-weight-bold">Title of Technology<span
+                                    <label for="ttm_title" class="font-weight-bold">Title<span
                                             class="text-danger">*</span></label>
                                     <textarea class="form-control" name="ttm_title" id="ttm_title" rows="3" placeholder="Title" style="resize: none;"
                                         required>{{ $all->ttm_title }}</textarea>

@@ -147,8 +147,8 @@
                                     <label for="approved_budget" class=" font-weight-bold">Shared Amount<span
                                             class="text-danger">*</span></label>
                                     <input type="text" name="shared_amount" oninput="validateInput(this)"
-                                        value="{{ $all->shared_amount }}" id="shared_amount" class="form-control"
-                                        placeholder="Amount" required>
+                                        value="{{ number_format($all->shared_amount) }}" id="shared_amount"
+                                        class="form-control" placeholder="Amount" required>
                                     <div class="invalid-feedback">Missing shared amount</div>
                                 </div>
 
@@ -183,13 +183,23 @@
 
         function validateInput(input) {
             // Remove non-numeric characters (except '-')
-            input.value = input.value.replace(/[^\d-]/g, '');
+            let numericValue = input.value.replace(/[^\d-]/g, '');
 
             // Ensure the input is not empty
-            if (input.value === '-') {
-                input.value = '';
+            if (numericValue === '-') {
+                numericValue = '';
             }
 
+            // Format the numeric value with commas
+            const formattedValue = formatNumberWithCommas(numericValue);
+
+            // Set the formatted value back to the input
+            input.value = formattedValue;
+        }
+
+        function formatNumberWithCommas(number) {
+            // Convert the number to a string and add commas
+            return parseFloat(number).toLocaleString('en-US');
         }
     </script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>

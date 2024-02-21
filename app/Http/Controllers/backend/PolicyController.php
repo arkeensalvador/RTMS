@@ -163,7 +163,6 @@ class PolicyController extends Controller
                 'policy_implementer' => 'required',
                 'policy_author' => 'required',
                 'policy_co_author' => 'required',
-                'policy_proponent' => 'required',
                 'policy_issues' => 'required',
             ],
             [
@@ -176,7 +175,6 @@ class PolicyController extends Controller
                 'policy_implementer.required' => 'Implementer is required!',
                 'policy_author.required' => 'Author is required!',
                 'policy_co_author.required' => 'Co-author is required!',
-                'policy_proponent.required' => 'Proponent is required!',
             ],
         );
         $data = [];
@@ -189,7 +187,7 @@ class PolicyController extends Controller
         $data['policy_beneficiary'] = $request->policy_beneficiary;
         $data['policy_author'] = $request->policy_author;
         $data['policy_co_author'] = $request->policy_co_author;
-        $data['policy_proponent'] = $request->policy_proponent;
+
         $data['encoder_agency'] = auth()->user()->agencyID;
 
         $insert = DB::table('policy_formulated')->insert($data);
@@ -231,7 +229,6 @@ class PolicyController extends Controller
                 'policy_implementer' => 'required',
                 'policy_author' => 'required',
                 'policy_co_author' => 'required',
-                'policy_proponent' => 'required',
                 'policy_issues' => 'required',
             ],
             [
@@ -244,7 +241,6 @@ class PolicyController extends Controller
                 'policy_implementer.required' => 'Implementer is required!',
                 'policy_author.required' => 'Author is required!',
                 'policy_co_author.required' => 'Co-author is required!',
-                'policy_proponent.required' => 'Proponent is required!',
             ],
         );
         $data = [];
@@ -257,7 +253,6 @@ class PolicyController extends Controller
         $data['policy_beneficiary'] = $request->policy_beneficiary;
         $data['policy_author'] = $request->policy_author;
         $data['policy_co_author'] = $request->policy_co_author;
-        $data['policy_proponent'] = $request->policy_proponent;
 
         $insert = DB::table('policy_formulated')
             ->where('id', $id)

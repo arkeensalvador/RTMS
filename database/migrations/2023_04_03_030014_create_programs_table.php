@@ -19,9 +19,9 @@ return new class extends Migration {
             $table->string('program_category');
             // $table->string('funding_grant');
             $table->string('funding_agency');
-            $table->string('collaborating_agency');
+            $table->string('collaborating_agency')->nullable();
             $table->string('implementing_agency');
-            $table->string('research_center');
+            $table->string('research_center')->nullable();
             // $table->string('coordination_fund');
             $table->string('duration');
             // $table->string('end_date');

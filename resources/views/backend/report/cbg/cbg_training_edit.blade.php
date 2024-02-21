@@ -92,36 +92,61 @@
                                         <label for="strategic_program" class="font-weight-bold">Uploaded Images<span
                                                 class="text-danger"></span></label><br>
                                         @foreach ($imgs as $img)
-                                            <a href="{{ asset($img->filename) }}" data-lightbox="photos">
-                                                <img id="" src="{{ asset($img->filename) }}" alt=""
-                                                    style="width: 200px; height: 200px;" class="img-thumbnail">
-                                            </a>
+                                            <div style="display: inline-block; margin-right: 10px;">
+                                                <a href="{{ asset($img->filename) }}" data-lightbox="photos">
+                                                    <img src="{{ asset($img->filename) }}" alt=""
+                                                        style="width: 200px; height: 200px;" class="img-thumbnail">
+                                                </a>
+                                                <p style="text-align: center">
+                                                    <a href="{{ url('delete-image/' . $img->id) }}" id="delete"
+                                                        style="color: red; text-decoration: underline; font-size: 13px">remove</a>
+                                                </p>
+                                            </div>
                                         @endforeach
                                     </div>
                                 @endif
 
-                                @php
-                                    $type = json_decode($all->trainings_type);
-                                @endphp
-
-                                <div class="col-md-5 form-group">
-                                    <label for="category" class=" font-weight-bold">Type of participants<span
+                                <div class="col-md-12 form-group">
+                                    <label for="coordination_fund" class="font-weight-bold">Participants<span
                                             class="text-danger">*</span></label>
-                                    <select id="category" name="trainings_type[]" multiple class="form-control others"
-                                        required>
-                                        <option value="GO" {{ in_array('GO', $type) ? 'selected' : '' }}>
-                                            GO
-                                        </option>
-                                        <option value="NGO" {{ in_array('NGO', $type) ? 'selected' : '' }}>NGO
-                                        </option>
-                                        <option value="Private Sector"
-                                            {{ in_array('Private Sector', $type) ? 'selected' : '' }}>
-                                            Private Sector</option>
-                                        <option value="LGU" {{ in_array('LGU', $type) ? 'selected' : '' }}>LGU
-                                        </option>
-                                    </select>
-                                    <div class="invalid-feedback">Missing type</div>
+                                    <table id="participants-table" class="table">
+                                        <thead>
+                                            <tr>
+                                                <th>Type of Participant</th>
+                                                <th>No. of Participants</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td><i class="fa-solid fa-square-plus fa-xl" onclick="addInput()"
+                                                        style="color: #28a745; cursor: pointer; "></i></td>
+                                            </tr>
+                                            @foreach ($participantsData as $key => $data)
+                                                <tr>
+                                                    <td>
+                                                        <input type="text" class="form-control"
+                                                            name="type_of_participants[]"
+                                                            placeholder="Enter type of participants"
+                                                            value="{{ $data->type_of_participants }}" required>
+                                                    </td>
+                                                    <td>
+                                                        <input type="number" class="form-control"
+                                                            name="no_of_participants[]"
+                                                            placeholder="Enter no. of participants"
+                                                            value="{{ $data->no_of_participants }}" required>
+                                                    </td>
+                                                    <td>
+                                                        <a href="{{ URL::to('/delete-training-participant/' . $data->id) }}"
+                                                            class="btn btn-danger" id="delete"
+                                                            style="margin-left: 5px"><i class="fa-solid fa-trash"></i></a>
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
                                 </div>
+
                                 @php
                                     $sof = json_decode($all->trainings_sof);
                                 @endphp
@@ -164,12 +189,11 @@
                                 @endphp
 
                                 <div class="col-md-12 form-group">
-                                    <label for="" class=" font-weight-bold">Research and Development Center<span
-                                            class="text-danger">*</span></label>
+                                    <label for="" class=" font-weight-bold">Research and Development Center
+                                        (Optional)</label>
                                     <input type="text" name="trainings_research_center[]" id="rc"
                                         class="form-control research-center" placeholder="R&D Center(s)"
-                                        value="{{ $rc }}" data-role="tagsinput" required>
-                                    <div class="invalid-feedback">Missing research center</div>
+                                        value="{{ $rc }}" data-role="tagsinput">
                                 </div>
 
                                 <div class="col-md-12 form-group">
@@ -184,8 +208,9 @@
                                     <label for="trainings_expenditures" class=" font-weight-bold">Expenditures<span
                                             class="text-danger">*</span></label>
                                     <input type="text" class="form-control" name="trainings_expenditures"
-                                        id="trainings_expenditures" placeholder="Enter ..."
-                                        value="{{ $all->trainings_expenditures }}" required>
+                                        id="trainings_expenditures" oninput="validateInput(this)"
+                                        placeholder="Enter expenditures"
+                                        value="{{ number_format($all->trainings_expenditures) }}" required>
                                     <div class="invalid-feedback">Missing expenditures</div>
                                 </div>
 
@@ -200,18 +225,7 @@
                                     <div class="invalid-feedback">Missing activity/training duration</div>
                                 </div>
 
-
-
-                                <div class="col-md-6 form-group">
-                                    <label for="trainings_no_participants" class=" font-weight-bold">No. of
-                                        Participants<span class="text-danger">*</span></label>
-                                    <input type="number" name="trainings_no_participants" class="form-control"
-                                        id="trainings_no_participants" placeholder="# of participants"
-                                        value="{{ $all->trainings_no_participants }}" required>
-                                    <div class="invalid-feedback"> Missing # of participants</div>
-                                </div>
-
-                                <div class="col-md-6 form-group">
+                                <div class="col-md-12 form-group">
                                     <label for="trainings_no_participants" class=" font-weight-bold">Venue<span
                                             class="text-danger">*</span></label>
                                     <input type="text" name="trainings_venue" value="{{ $all->trainings_venue }}"
@@ -224,7 +238,7 @@
                                     <label for="trainings_no_participants" class=" font-weight-bold">Remarks<span
                                             class="text-danger">*</span></label>
                                     <textarea name="trainings_remarks" class="form-control" id="training_venue" cols="30" rows="5"
-                                        placeholder="Remarks">{{ $all->trainings_remarks }}</textarea>
+                                        placeholder="Remarks" required>{{ $all->trainings_remarks }}</textarea>
 
                                     <div class="invalid-feedback">Missing remarks</div>
                                 </div>
@@ -254,6 +268,61 @@
     </div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+    <script>
+        function addInput() {
+            var table = document.getElementById('participants-table').getElementsByTagName('tbody')[0];
+            var newRow = table.insertRow(table.rows.length);
+            var cell1 = newRow.insertCell(0);
+            var cell2 = newRow.insertCell(1);
+            var cell3 = newRow.insertCell(2);
+
+            cell1.innerHTML =
+                '<input type="text" class="form-control" placeholder="Enter type of participants"  name="new_type_of_participants[]" required>';
+            cell2.innerHTML =
+                '<input type="text" class="form-control" placeholder="Enter no. of participants" name="new_no_of_participants[]" required>';
+            cell3.innerHTML =
+                '<i class="fa-solid fa-square-minus fa-lg" style="color: #dc3545; margin-left: 1rem; margin-bottom:0px; cursor: pointer" onclick="removeRow(this)"></i>';
+
+            // Hide "Remove" button if there is only one row
+            updateRemoveButtons();
+        }
+
+        function removeRow(button) {
+            var row = button.parentNode.parentNode;
+            row.parentNode.removeChild(row);
+            // Hide "Remove" button if there is only one row
+            updateRemoveButtons();
+        }
+
+        function updateRemoveButtons() {
+            var removeButtons = document.querySelectorAll('#participants-table tbody tr i.fa-square-minus');
+            removeButtons.forEach(function(button) {
+                button.style.display = removeButtons.length > 1 ? 'block' : 'none';
+            });
+        }
+
+        function validateInput(input) {
+            // Remove non-numeric characters (except '-')
+            let numericValue = input.value.replace(/[^\d-]/g, '');
+
+            // Ensure the input is not empty
+            if (numericValue === '-') {
+                numericValue = '';
+            }
+
+            // Format the numeric value with commas
+            const formattedValue = formatNumberWithCommas(numericValue);
+
+            // Set the formatted value back to the input
+            input.value = formattedValue;
+        }
+
+        function formatNumberWithCommas(number) {
+            // Convert the number to a string and add commas
+            return parseFloat(number).toLocaleString('en-US');
+        }
+    </script>
 
     <script>
         Dropzone.options.dropzone = {

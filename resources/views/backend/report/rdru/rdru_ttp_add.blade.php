@@ -109,7 +109,7 @@
                                 </div>
 
                                 <div class="col-md-12 form-group">
-                                    <label for="ttp_title" class=" font-weight-bold">Title of Technology<span
+                                    <label for="ttp_title" class=" font-weight-bold">Title<span
                                             class="text-danger">*</span></label>
                                     <textarea class="form-control" name="ttp_title" id="ttp_title" rows="3" placeholder="Enter title"
                                         style="resize: none;" required></textarea>
@@ -174,13 +174,12 @@
                                 </div>
 
                                 <div class="col-md-6 form-group">
-                                    <label for="ttp_budget" class=" font-weight-bold">Budget<span
+                                    <label for="ttp_budget" class=" font-weight-bold">Proposed Budget<span
                                             class="text-danger">*</span></label>
                                     <input type="text" class="form-control" name="ttp_budget" id="ttp_budget"
-                                        placeholder="Enter budget" oninput="validateInput(this)" required>
+                                        placeholder="Enter proposed budget" oninput="validateInput(this)" required>
                                     <div class="invalid-feedback">Missing budget</div>
                                 </div>
-
 
 
                                 <div class="col-md-3 form-group">
@@ -218,12 +217,23 @@
     <script>
         function validateInput(input) {
             // Remove non-numeric characters (except '-')
-            input.value = input.value.replace(/[^\d-]/g, '');
+            let numericValue = input.value.replace(/[^\d-]/g, '');
 
             // Ensure the input is not empty
-            if (input.value === '-') {
-                input.value = '';
+            if (numericValue === '-') {
+                numericValue = '';
             }
+
+            // Format the numeric value with commas
+            const formattedValue = formatNumberWithCommas(numericValue);
+
+            // Set the formatted value back to the input
+            input.value = formattedValue;
+        }
+
+        function formatNumberWithCommas(number) {
+            // Convert the number to a string and add commas
+            return parseFloat(number).toLocaleString('en-US');
         }
     </script>
 

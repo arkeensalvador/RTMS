@@ -161,12 +161,17 @@
                                 <div class="col-md-6 form-group">
                                     <label for="awards_recipients" class=" font-weight-bold">Recipient(s)<span
                                             class="text-danger">*</span></label>
+                                    <!-- Question mark icon with tooltip -->
+                                    <span data-toggle="tooltip" data-placement="right"
+                                        title="Use ','(comma and space) as a delimiter after entering the first name and last name (with a suffix if applicable) of the recipient. E.g. Juan Dela Cruz Jr.,<space>Thomas Shelby">
+                                        <i class="fas fa-question-circle" style="cursor: pointer;"></i>
+                                    </span>
+
                                     <input type="text" name="awards_recipients" id="awards_recipients"
                                         class="form-control" placeholder="Enter recipients"
                                         value="{{ $all->awards_recipients }}" required>
                                     <div class="invalid-feedback">Missing recipients</div>
                                 </div>
-
 
                                 <div class="col-md-6 form-group">
                                     <label for="awards_sponsor" class=" font-weight-bold">Sponsor<span
@@ -194,7 +199,8 @@
                                     <label for="awards_place" class=" font-weight-bold">Venue<span
                                             class="text-danger">*</span></label>
                                     <input type="text" name="awards_place" value="{{ $all->awards_place }}"
-                                        class="form-control" id="awards_place" placeholder="Event place" required>
+                                        class="form-control" id="awards_place" placeholder="Enter venue; otherwise, N/A"
+                                        required>
                                     <div class="invalid-feedback"> Missing place of event</div>
                                 </div>
 
@@ -224,6 +230,12 @@
     </div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+        // Initialize Bootstrap tooltips
+        $(function() {
+            $('[data-toggle="tooltip"]').tooltip();
+        });
+    </script>
 
     <script>
         // Preview uploaded image

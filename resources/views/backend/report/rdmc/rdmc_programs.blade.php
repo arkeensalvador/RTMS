@@ -79,7 +79,9 @@
                                                             $imp = implode(', ', $imp);
                                                         }
 
-                                                        if (!empty($row->collaborating_agency)) {
+                                                        if ($row->collaborating_agency == 'null') {
+                                                            $collab = 'N/A';
+                                                        } else {
                                                             $collab = json_decode($row->collaborating_agency);
                                                             $collab = implode(', ', $collab);
                                                         }
@@ -90,8 +92,14 @@
                                                         }
 
                                                         $rc = $row->research_center;
-                                                        $rc = str_replace(['[', '"', ']'], '', $rc);
-                                                        $rc = str_replace(',', ', ', $rc);
+                                                        // Check if $rc is [null]
+                                                        if ($rc === '[null]') {
+                                                            $rc = 'N/A';
+                                                        } else {
+                                                            // If $rc is not [null], perform the replacements
+                                                            $rc = str_replace(['[', '"', ']'], '', $rc);
+                                                            $rc = str_replace(',', ', ', $rc);
+                                                        }
                                                     @endphp
                                                     <td class="prog_id" hidden>{{ $row->programID }}</td>
                                                     <td>
@@ -109,7 +117,7 @@
                                                         @php
                                                             $leader = App\Models\Researchers::find($row->program_leader);
                                                         @endphp
-                                                        {{ $leader->first_name . ' ' . $leader->middle_name . ' ' . $leader->last_name }}
+                                                        {{ $leader->first_name . ' ' . $leader->last_name }}
                                                     </td>
                                                     <td>
                                                         {{ $row->duration }}
@@ -119,8 +127,9 @@
                                                     <td>{{ $imp }} </td>
                                                     <td>{{ $collab }}</td>
                                                     <td>{{ $rc }}</td>
-
-                                                    <td>{{ $row->program_description }}</td>
+                                                    <td>
+                                                        {{ Illuminate\Support\Str::limit($row->program_description, 100) }}
+                                                    </td>
                                                     <td>
                                                         @if ($row->program_status == 'New')
                                                             {{ $row->program_status }}
@@ -188,7 +197,9 @@
                                                             $imp = implode(', ', $imp);
                                                         }
 
-                                                        if (!empty($row->collaborating_agency)) {
+                                                        if ($row->collaborating_agency == 'null') {
+                                                            $collab = 'N/A';
+                                                        } else {
                                                             $collab = json_decode($row->collaborating_agency);
                                                             $collab = implode(', ', $collab);
                                                         }
@@ -199,8 +210,14 @@
                                                         }
 
                                                         $rc = $row->research_center;
-                                                        $rc = str_replace(['[', '"', ']'], '', $rc);
-                                                        $rc = str_replace(',', ', ', $rc);
+                                                        // Check if $rc is [null]
+                                                        if ($rc === '[null]') {
+                                                            $rc = 'N/A';
+                                                        } else {
+                                                            // If $rc is not [null], perform the replacements
+                                                            $rc = str_replace(['[', '"', ']'], '', $rc);
+                                                            $rc = str_replace(',', ', ', $rc);
+                                                        }
                                                     @endphp
                                                     <td class="prog_id" hidden>{{ $row->programID }}</td>
                                                     <td>
@@ -214,7 +231,7 @@
                                                         @php
                                                             $leader = App\Models\Researchers::find($row->program_leader);
                                                         @endphp
-                                                        {{ $leader->first_name . ' ' . $leader->middle_name . ' ' . $leader->last_name }}
+                                                        {{ $leader->first_name . ' ' . $leader->last_name }}
                                                     </td>
                                                     <td>
                                                         {{ $row->duration }}
@@ -225,23 +242,24 @@
                                                     <td>{{ $collab }}</td>
                                                     <td>{{ $rc }}</td>
 
-                                                    <td>{{ $row->program_description }}</td>
+                                                    <td>{{ Illuminate\Support\Str::limit($row->program_description, 100) }}
+                                                    </td>
                                                     <td>
                                                         @if ($row->program_status == 'New')
                                                             {{ $row->program_status }}
-                                                            <i class="fa-solid fa-database fa-xl"
-                                                                style="color: #28a745;"></i>
+                                                            <i class="fa-regular fa-square-plus"
+                                                                style="color: #0dcaf0;"></i>
                                                         @elseif ($row->program_status == 'Ongoing')
                                                             {{ $row->program_status }}
-                                                            <i class="fa-solid fa-hourglass fa-xl"
-                                                                style="color: #2a6cdf;"></i>
+                                                            <i class="fa-solid fa-spinner fa-spin"
+                                                                style="color: #0d6efd"></i>
                                                         @elseif ($row->program_status == 'Terminated')
                                                             {{ $row->program_status }}
-                                                            <i class="fa-solid fa-triangle-exclamation fa-xl"
+                                                            <i class="fa-regular fa-circle-xmark"
                                                                 style="color: #ff0000;"></i>
                                                         @elseif ($row->program_status == 'Completed')
                                                             {{ $row->program_status }}
-                                                            <i class="fa-solid fa-circle-check fa-xl"
+                                                            <i class="fa-regular fa-circle-check"
                                                                 style="color: #28a745;"></i>
                                                         @endif
                                                     </td>
@@ -284,7 +302,6 @@
                                             @endforeach
                                         </tbody>
                                     @endif
-
                                 </table>
                             </div>
                             <!-- /.card-body -->

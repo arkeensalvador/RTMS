@@ -131,11 +131,11 @@
                                 </div>
 
                                 <div class="col-md-5 form-group">
-                                    <label for="tpa_date" class=" font-weight-bold">Date<span
+                                    <label for="tpa_date" class=" font-weight-bold">Duration<span
                                             class="text-danger">*</span></label>
                                     <input type="number" name="tpa_date" id="tpa_date" value="{{ $all->tpa_date }}"
                                         class="form-control date-range" placeholder="Enter date" required>
-                                    <div class="invalid-feedback">Missing date</div>
+                                    <div class="invalid-feedback">Missing duration</div>
                                 </div>
 
                                 <div class="col-md-12 form-group">

@@ -18,7 +18,7 @@ class EquipmentController extends Controller
                 'equipments_agency' => 'required',
                 'equipments_name' => 'required',
                 'equipments_details' => 'required',
-                'equipments_total' => 'required|numeric',
+                'equipments_total' => 'required',
                 'equipments_sof' => 'required|array|min:1',
             ],
             [
@@ -36,7 +36,7 @@ class EquipmentController extends Controller
         $data['equipments_agency'] = $request->equipments_agency;
         $data['equipments_name'] = $request->equipments_name;
         $data['equipments_details'] = $request->equipments_details;
-        $data['equipments_total'] = $request->equipments_total;
+        $data['equipments_total'] = str_replace(',', '', $request->equipments_total);
         $data['equipments_sof'] = json_encode($request->equipments_sof);
         $data['encoder_agency'] = auth()->user()->agencyID;
         $data['created_at'] = now();
@@ -71,7 +71,7 @@ class EquipmentController extends Controller
                 'equipments_agency' => 'required',
                 'equipments_name' => 'required',
                 'equipments_details' => 'required',
-                'equipments_total' => 'required|numeric',
+                'equipments_total' => 'required',
                 'equipments_sof' => 'required|array|min:1',
             ],
             [
@@ -91,7 +91,7 @@ class EquipmentController extends Controller
         $data['equipments_agency'] = $request->equipments_agency;
         $data['equipments_name'] = $request->equipments_name;
         $data['equipments_details'] = $request->equipments_details;
-        $data['equipments_total'] = $request->equipments_total;
+        $data['equipments_total'] = str_replace(',', '', $request->equipments_total);
         $data['equipments_sof'] = json_encode($request->equipments_sof);
         $data['updated_at'] = now();
 

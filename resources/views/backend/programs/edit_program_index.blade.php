@@ -98,7 +98,8 @@
 
                         {{-- card body start --}}
                         <div class="card-body">
-                            <form role="form" id="regiration_form" action="{{ URL::to('/update-program/'.$program->programID)}}" method="POST"
+                            <form role="form" id="regiration_form"
+                                action="{{ URL::to('/update-program/' . $program->programID) }}" method="POST"
                                 enctype="multipart/form-data">
                                 @csrf
                                 <fieldset>
@@ -162,8 +163,7 @@
                                         <div class="col-sm-12">
                                             <div class="form-group">
                                                 <label>Program Title</label>
-                                                <textarea name="program_title" id="" cols="30" rows="5"
-                                                    style="resize: none;" class="form-control">{{ $program->program_title }}</textarea>
+                                                <textarea name="program_title" id="" cols="30" rows="5" style="resize: none;" class="form-control">{{ $program->program_title }}</textarea>
                                             </div>
                                         </div>
                                     </div>
@@ -191,8 +191,9 @@
                                         <div class="col-sm-6">
                                             <div class="form-group">
                                                 <label>Coordination Fund</label>
-                                                <input type="text" value="{{ $program->coordination_fund }}" name="coordination_fund" class="form-control"
-                                                    id="cf" placeholder="Enter ...">
+                                                <input type="text" value="{{ $program->coordination_fund }}"
+                                                    name="coordination_fund" class="form-control" id="cf"
+                                                    placeholder="Enter ...">
                                             </div>
                                         </div>
                                     </div>
@@ -212,8 +213,8 @@
                                         <div class="col-sm-3">
                                             <div class="form-group">
                                                 <label>Start Date</label>
-                                                <input type="month" required value="<?= $program->start_date?>" class="form-control" name="start_date"
-                                                    autocomplete="false">
+                                                <input type="month" required value="<?= $program->start_date ?>"
+                                                    class="form-control" name="start_date" autocomplete="false">
                                             </div>
                                         </div>
                                     </div>
@@ -221,8 +222,8 @@
                                         <div class="col-sm-3">
                                             <div class="form-group">
                                                 <label>End Date</label>
-                                                <input type="month" required value="{{ $program->end_date }}" class="form-control" name="end_date"
-                                                    autocomplete="false">
+                                                <input type="month" required value="{{ $program->end_date }}"
+                                                    class="form-control" name="end_date" autocomplete="false">
                                             </div>
                                         </div>
                                     </div>
@@ -232,8 +233,8 @@
                                             <div class="col-sm-3">
                                                 <div class="form-group">
                                                     <label>Extend Date</label>
-                                                    <input type="month" value="{{ $program->extend_date }}" class="form-control" name="extend_date"
-                                                        autocomplete="false">
+                                                    <input type="month" value="{{ $program->extend_date }}"
+                                                        class="form-control" name="extend_date" autocomplete="false">
                                                 </div>
                                             </div>
                                         @endif
@@ -243,7 +244,8 @@
                                         <div class="col-sm-6">
                                             <div class="form-group">
                                                 <label>Program Leader</label>
-                                                <input type="text" name="program_leader" value="{{ $program->program_leader }}" class="form-control"
+                                                <input type="text" name="program_leader"
+                                                    value="{{ $program->program_leader }}" class="form-control"
                                                     placeholder="Program Leader" list="leaderdtlist">
                                                 <datalist id="leaderdtlist">
                                                     <option value="Leader 1"><span>Agency</span></option>
@@ -259,7 +261,8 @@
                                             <div class="form-group">
                                                 <label>Assistant Leader</label>
                                                 <input type="text" name="assistant_leader" class="form-control"
-                                                    placeholder="Program Leader" value="{{ $program->assistant_leader }}" list="assisdtlist">
+                                                    placeholder="Program Leader" value="{{ $program->assistant_leader }}"
+                                                    list="assisdtlist">
                                                 <datalist id="assisdtlist">
                                                     <option value="Leader 1"><span>Agency</span></option>
                                                     <option value="Leader 2"></option>
@@ -289,13 +292,13 @@
                                     <div class="row">
                                         <div class="col-sm-6">
                                             <div class="form-group">
-                                                <label>Approved Budget</label>
+                                                <label>Proposed Budget</label>
                                                 <div class="input-group">
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text">PHP</span>
                                                     </div>
-                                                    <input type="text" value="{{ $program->approved_budget }}" class="form-control" id="numin"
-                                                        name="approved_budget">
+                                                    <input type="text" value="{{ $program->approved_budget }}"
+                                                        class="form-control" id="numin" name="approved_budget">
                                                 </div>
                                             </div>
                                         </div>
@@ -306,12 +309,24 @@
                                             <div class="form-group">
                                                 <label>Amount of Released</label>
                                                 <select name="budget_year" id="year" class="form-control">
-                                                    <option value="Year 1" {{ 'Year 1' == $program->budget_year ? 'selected' : '' }} >Year 1</option>
-                                                    <option value="Year 2" {{ 'Year 2' == $program->budget_year ? 'selected' : '' }} >Year 2</option>
-                                                    <option value="Year 3" {{ 'Year 3' == $program->budget_year ? 'selected' : '' }} >Year 3</option>
-                                                    <option value="Year 4" {{ 'Year 4' == $program->budget_year ? 'selected' : '' }} >Year 4</option>
-                                                    <option value="Year 5" {{ 'Year 5' == $program->budget_year ? 'selected' : '' }} >Year 5</option>
-                                                    <option value="Year 6" {{ 'Year 6' == $program->budget_year ? 'selected' : '' }} >Year 6</option>
+                                                    <option value="Year 1"
+                                                        {{ 'Year 1' == $program->budget_year ? 'selected' : '' }}>Year 1
+                                                    </option>
+                                                    <option value="Year 2"
+                                                        {{ 'Year 2' == $program->budget_year ? 'selected' : '' }}>Year 2
+                                                    </option>
+                                                    <option value="Year 3"
+                                                        {{ 'Year 3' == $program->budget_year ? 'selected' : '' }}>Year 3
+                                                    </option>
+                                                    <option value="Year 4"
+                                                        {{ 'Year 4' == $program->budget_year ? 'selected' : '' }}>Year 4
+                                                    </option>
+                                                    <option value="Year 5"
+                                                        {{ 'Year 5' == $program->budget_year ? 'selected' : '' }}>Year 5
+                                                    </option>
+                                                    <option value="Year 6"
+                                                        {{ 'Year 6' == $program->budget_year ? 'selected' : '' }}>Year 6
+                                                    </option>
                                                 </select>
                                             </div>
                                         </div>
@@ -323,8 +338,8 @@
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text">PHP</span>
                                                     </div>
-                                                    <input type="text" value="{{ $program->amount_released }}" class="form-control" id="numin2"
-                                                        name="amount_released">
+                                                    <input type="text" value="{{ $program->amount_released }}"
+                                                        class="form-control" id="numin2" name="amount_released">
                                                 </div>
                                             </div>
                                         </div>
@@ -336,11 +351,14 @@
                                                 <label>Form of Development</label>
                                                 <select name="form_of_development" id="" class="form-control">
                                                     <option value="Local"
-                                                    {{ 'Local' == $program->form_of_development ? 'selected' : '' }} >Local</option>
+                                                        {{ 'Local' == $program->form_of_development ? 'selected' : '' }}>
+                                                        Local</option>
                                                     <option value="National"
-                                                    {{ 'National' == $program->form_of_development ? 'selected' : '' }}>National</option>
+                                                        {{ 'National' == $program->form_of_development ? 'selected' : '' }}>
+                                                        National</option>
                                                     <option value="International"
-                                                    {{ 'International' == $program->form_of_development ? 'selected' : '' }}>International</option>
+                                                        {{ 'International' == $program->form_of_development ? 'selected' : '' }}>
+                                                        International</option>
                                                 </select>
                                             </div>
                                         </div>

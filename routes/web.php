@@ -90,6 +90,9 @@ Route::get('/delete-proj-budget/{id}', [App\Http\Controllers\backend\ProjectCont
 // DELETE SUB-PROJECT/STUDY BUDGET
 Route::get('/delete-sub-proj-budget/{id}', [App\Http\Controllers\backend\SubprojectController::class, 'delete_budget'])->name('delete_budget');
 
+// DELETE TRAINING PARTICIPANTS
+Route::get('/delete-training-participant/{id}', [App\Http\Controllers\backend\TrainingsController::class, 'delete_participant'])->name('delete_participant');
+
 // Add Program Personnel
 Route::post('/add-program-personnel', [\App\Http\Controllers\backend\ProgramsController::class, 'AddProgramPersonnel'])->name('AddProgramPersonnel');
 // Route::post('/add-program-personnel', [\App\Http\Controllers\backend\ReportController::class, 'AddProgramPersonnel'])->name('AddProgramPersonnel');
@@ -373,6 +376,7 @@ Route::get('/delete-equipment/{id}', [App\Http\Controllers\backend\EquipmentCont
 Route::get('/report-list', [App\Http\Controllers\backend\ReportListController::class, 'reportListIndex'])->name('reportListIndex');
 Route::get('/report-test', [App\Http\Controllers\backend\ReportListController::class, 'reportTest'])->name('reportTest');
 Route::get('/reports/pdf', [App\Http\Controllers\backend\ReportListController::class, 'createPDF']);
+// Route::get('/filtered-report', [App\Http\Controllers\backend\ReportListController::class, 'reportFiltered'])->name('reportFiltered');
 
 //Download templates
 Route::get('download-template-user', [App\Http\Controllers\backend\UserController::class, 'downloadTemplate']);
@@ -414,3 +418,14 @@ Route::post('/image/upload/store/training', [App\Http\Controllers\DropzoneContro
 Route::post('/image/upload/store/equipment', [App\Http\Controllers\DropzoneController::class, 'fileStoreEquipment']);
 
 // Route::post('/strategic-programs-list-img', [App\Http\Controllers\StrategicController::class, 'fileStore']);
+Route::get('/records', [App\Http\Controllers\backend\ReportListController::class, 'index'])->name('records.index');
+Route::post('/records/filter', [App\Http\Controllers\backend\ReportListController::class, 'filter'])->name('records.filter');
+
+Route::get('users', [App\Http\Controllers\backend\ReportListController::class, 'index'])->name('users.index');
+
+// IMAGE DELETE
+Route::get('/delete-image/{id}', [App\Http\Controllers\backend\ImageController::class, 'deleteImg'])->name('delete.image');
+Route::get('/delete-image/{id}', [App\Http\Controllers\backend\ImageController::class, 'deleteCollabImg'])->name('delete.image');
+Route::get('/delete-image/{id}', [App\Http\Controllers\backend\ImageController::class, 'deleteProgListImg'])->name('delete.image');
+Route::get('/delete-image/{id}', [App\Http\Controllers\backend\ImageController::class, 'deleteTrainingImg'])->name('delete.image');
+Route::get('/delete-image/{id}', [App\Http\Controllers\backend\ImageController::class, 'deleteEquipImg'])->name('delete.image');

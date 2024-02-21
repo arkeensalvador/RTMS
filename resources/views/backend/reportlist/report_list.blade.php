@@ -260,12 +260,12 @@
                                         <div class="category my-5">
                                             <div class="notices mb-1 " style="border-left: 6px solid #0DA603;">
                                                 <h5>List of <span class="font-weight-bold"
-                                                        style=" color: #0DA603;">Sub-Project</span></h5>
+                                                        style=" color: #0DA603;">Sub-Projects / Study</span></h5>
                                             </div>
                                             <table class="table-bordered table table-hover">
                                                 <thead style="background-color: #0DA603;">
                                                     <tr>
-                                                        <td>Sub-Project Title </td>
+                                                        <td>Sub-Project / Study Title </td>
                                                         <td>Description</td>
                                                         <td>Duration</td>
                                                         <td>Funding Agency</td>
@@ -530,6 +530,7 @@
                                                             [$startDateString, $endDateString] = explode(' to ', $item->str_collab_date);
                                                             $startDate = \Carbon\Carbon::createFromFormat('m/d/Y', trim($startDateString));
                                                             $endDate = \Carbon\Carbon::createFromFormat('m/d/Y', trim($endDateString));
+
                                                         @endphp
                                                         <tr>
                                                             <td>{{ $item->str_collab_program }}</td>
@@ -541,8 +542,12 @@
                                                                 {{ $collab }}
                                                             </td>
                                                             <td>
-                                                                {{ $startDate->format('F Y') }} to
-                                                                {{ $endDate->format('F Y') }}
+                                                                @if ($startDate === $endDate)
+                                                                    {{ $startDate }}
+                                                                @else
+                                                                    {{ $startDate->format('F Y') }} to
+                                                                    {{ $endDate->format('F Y') }}
+                                                                @endif
                                                             </td>
                                                             <td>₱{{ number_format($item->str_collab_budget, 2) }}</td>
                                                             <td>{{ $sof }}</td>
@@ -807,12 +812,23 @@
                                                         @php
                                                             $sof = json_decode($item->trainings_sof);
                                                             $sof = implode(', ', $sof);
+
+                                                            $participants = DB::table('training_participants')
+                                                                ->select('type_of_participants', 'no_of_participants')
+                                                                ->where('training_id', '=', $item->id)
+                                                                ->get();
                                                         @endphp
                                                         <tr>
                                                             <td>{{ $item->trainings_title }}</td>
                                                             <td>{{ $item->trainings_start }}</td>
                                                             <td>{{ $item->trainings_venue }}</td>
-                                                            <td>{{ $item->trainings_no_participants }}</td>
+                                                            <td>
+                                                                @foreach ($participants as $participant)
+                                                                    <li>{{ $participant->type_of_participants }}
+                                                                        ({{ $participant->no_of_participants }})
+                                                                    </li>
+                                                                @endforeach
+                                                            </td>
                                                             <td>₱{{ number_format($item->trainings_expenditures, 2) }}</td>
                                                             <td>{{ $sof }}
                                                         </tr>
@@ -944,7 +960,7 @@
                                                     @foreach ($contributions as $item)
                                                         <tr>
                                                             <td>{{ $item->con_name }}</td>
-                                                            <td>{{ $item->con_amount }}</td>
+                                                            <td>₱{{ number_format($item->con_amount, 2) }}</td>
                                                         </tr>
                                                     @endforeach
                                                 </tbody>
@@ -1024,7 +1040,7 @@
                                                         Formulated</span>, <span class="font-weight-bold"
                                                         style="color:#D22B2B;">Advocated</span>, <span
                                                         class="font-weight-bold" style="color:#D22B2B;">Implemented
-                                                        Instituional</span> and <span class="font-weight-bold"
+                                                        Institutional</span> and <span class="font-weight-bold"
                                                         style="color:#D22B2B;">Institutionalized</span></h5>
                                             </div>
                                             <table class="table-bordered table table-hover">
@@ -1035,7 +1051,6 @@
                                                         <td>Agency</td>
                                                         <td>Author</td>
                                                         <td>Co-author</td>
-                                                        <td>Proponent</td>
                                                         <td>Beneficiary</td>
                                                         <td>Implementer</td>
                                                         <td>Issues Addressed</td>
@@ -1049,7 +1064,6 @@
                                                             <td>{{ $item->policy_agency }}</td>
                                                             <td>{{ $item->policy_author }}</td>
                                                             <td>{{ $item->policy_co_author }}</td>
-                                                            <td>{{ $item->policy_proponent }}</td>
                                                             <td>{{ $item->policy_beneficiary }}</td>
                                                             <td>{{ $item->policy_implementer }}</td>
                                                             <td>{{ $item->policy_issues }}</td>

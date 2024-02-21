@@ -71,8 +71,8 @@
                                                             @endphp
                                                             <tr>
                                                                 <td>{{ $row->str_collab_type }}</td>
-                                                                <td>{{ $row->str_collab_program }}</td>
-                                                                <td>{{ $row->str_collab_project }}</td>
+                                                                <td>{{ strtoupper($row->str_collab_program) }}</td>
+                                                                <td>{{ strtoupper($row->str_collab_project) }}</td>
                                                                 <td> {{ $imp }} </td>
                                                                 <td> {{ $collab }}</td>
                                                                 <td> {{ $row->str_collab_date }} </td>
@@ -96,8 +96,8 @@
                                                         @foreach ($all_filter as $key => $row)
                                                             <tr>
                                                                 <td>{{ $row->str_collab_type }}</td>
-                                                                <td>{{ $row->str_collab_program }}</td>
-                                                                <td>{{ $row->str_collab_project }}</td>
+                                                                <td>{{ strtoupper($row->str_collab_program) }}</td>
+                                                                <td>{{ strtoupper($row->str_collab_project) }}</td>
                                                                 @php
                                                                     $imp = json_decode($row->str_collab_imp_agency);
                                                                     $imp = implode(', ', $imp);

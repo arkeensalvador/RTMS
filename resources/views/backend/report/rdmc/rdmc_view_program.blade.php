@@ -66,6 +66,7 @@
                                         <th scope="row" class="thwidth">Duration</th>
                                         <td>{{ $months }} Months</td>
                                     </tr>
+
                                     @php
                                         $funding = json_decode($program->funding_agency);
                                     @endphp
@@ -73,19 +74,42 @@
                                         <th scope="row" class="thwidth">Funding Agency</th>
                                         <td>{{ implode(', ', $funding) }}</td>
                                     </tr>
+
                                     @php
                                         $imp = json_decode($program->implementing_agency);
                                     @endphp
                                     <tr>
                                         <th scope="row" class="thwidth">Implementing Agency</th>
-                                        <td>{{ implode(' / ', $imp) }}</td>
+                                        <td>
+                                            {{ implode(', ', $imp) }}
+
+                                        </td>
                                     </tr>
+
                                     @php
-                                        $collab = json_decode($program->collaborating_agency);
+                                        if ($program->collaborating_agency == 'null') {
+                                            $collab = 'N/A';
+                                        } else {
+                                            $collab = json_decode($program->collaborating_agency);
+                                            $collab = implode(', ', $collab);
+                                        }
                                     @endphp
                                     <tr>
                                         <th scope="row" class="thwidth">Collaborating Agency</th>
-                                        <td>{{ implode(' / ', $collab) }}</td>
+                                        <td>{{ $collab }}</td>
+                                    </tr>
+
+                                    @php
+                                        if ($program->research_center == '[null]') {
+                                            $rc = 'N/A';
+                                        } else {
+                                            $rc = json_decode($program->research_center);
+                                            $rc = implode(', ', $rc);
+                                        }
+                                    @endphp
+                                    <tr>
+                                        <th scope="row" class="thwidth">R & D Center(s)</th>
+                                        <td>{{ $rc }}</td>
                                     </tr>
                                     <tr>
                                         <th scope="row" class="thwidth">Program Leader</th>
@@ -138,7 +162,7 @@
                                                 @foreach ($projects as $key => $items)
                                                     <li class="list-group-item">
                                                         <a href="{{ url('view-project-index/' . $items->id) }}"
-                                                            class="btn-link text-secondary" id="delete"><i
+                                                            class="btn-link text-secondary"><i
                                                                 class="fa-solid fa-book mr-2"></i>{{ $items->project_title }}</a>
                                                     </li>
                                                 @endforeach
@@ -146,31 +170,35 @@
                                         </td>
                                     </tr>
                                 </tbody>
-                                <table id="budget-table" class="table">
-                                    <thead>
-                                        <tr>
-                                            <th>Approved Budget</th>
-                                            <th>Year No.</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @foreach ($budgetData as $key => $data)
-                                            <tr>
-                                                <td>
-                                                    <input type="text" class="form-control budget-input"
-                                                        name="approved_budget[]" readonly oninput="validateInput(this)"
-                                                        value="{{ $data->approved_budget }}" required>
-                                                </td>
-                                                <td>
-                                                    <input type="text" class="form-control year-input"
-                                                        name="budget_year[]" value="{{ $data->budget_year }}" required
-                                                        readonly>
-                                                </td>
-                                            </tr>
-                                        @endforeach
-                                    </tbody>
-                                </table>
                             </table>
+                            <table id="budget-table" class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Proposed Budget Breakdown</th>
+                                        <th>Year No.</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($budgetData as $key => $data)
+                                        <tr>
+                                            <td>
+                                                <input type="text" class="form-control budget-input"
+                                                    name="approved_budget[]" readonly oninput="validateInput(this)"
+                                                    value="{{ number_format($data->approved_budget) }}" required>
+                                            </td>
+                                            <td>
+                                                <input type="text" class="form-control year-input" name="budget_year[]"
+                                                    value="{{ $data->budget_year }}" required readonly>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+
+                            <div id="total-budget">Total Proposed Budget: <span class="font-weight-bold">₱ </span><span
+                                    id="total">{{ number_format($program->amount_released, 2) }}</span>
+                            </div>
+
                             <div class="text-center mt-5 mb-3">
                                 <a href="{{ url('rdmc-programs') }}" class="btn btn previous btn btn-default">Go back</a>
                             </div>

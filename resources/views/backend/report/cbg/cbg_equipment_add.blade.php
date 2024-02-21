@@ -107,21 +107,21 @@
 
 
                                     <div class="custom-control custom-radio">
-                                        <input class="custom-control-input" type="radio" value="Purchased"
+                                        <input class="custom-control-input" type="radio" value="Equipment Purchased"
                                             name="equipments_type" id="customRadio5" required>
                                         <label for="customRadio5" class="custom-control-label"
                                             style="font-weight: bold;">Equipment Purchased</label>
                                     </div>
 
                                     <div class="custom-control custom-radio">
-                                        <input class="custom-control-input" type="radio" value="F-Purchased"
+                                        <input class="custom-control-input" type="radio" value="Facilities Upgraded"
                                             name="equipments_type" id="customRadio6" required>
                                         <label for="customRadio6" class="custom-control-label"
                                             style="font-weight: bold;">Facilities Upgraded</label>
                                     </div>
 
                                     <div class="custom-control custom-radio">
-                                        <input class="custom-control-input" type="radio" value="F-Established"
+                                        <input class="custom-control-input" type="radio" value="Facilities Established"
                                             name="equipments_type" id="customRadio7" required>
                                         <label for="customRadio7" class="custom-control-label"
                                             style="font-weight: bold;">Facilities Established</label>
@@ -201,12 +201,23 @@
     <script>
         function validateInput(input) {
             // Remove non-numeric characters (except '-')
-            input.value = input.value.replace(/[^\d-]/g, '');
+            let numericValue = input.value.replace(/[^\d-]/g, '');
 
             // Ensure the input is not empty
-            if (input.value === '-') {
-                input.value = '';
+            if (numericValue === '-') {
+                numericValue = '';
             }
+
+            // Format the numeric value with commas
+            const formattedValue = formatNumberWithCommas(numericValue);
+
+            // Set the formatted value back to the input
+            input.value = formattedValue;
+        }
+
+        function formatNumberWithCommas(number) {
+            // Convert the number to a string and add commas
+            return parseFloat(number).toLocaleString('en-US');
         }
     </script>
     <script>

@@ -4,8 +4,7 @@
             <div class="form-group">
                 <label>ProgramID</label>
                 {{-- Route::input('name'); --}}
-                <input type="text" class="form-control"
-                    value="<?= substr(md5(microtime()), 0, 10) ?>" readonly
+                <input type="text" class="form-control" value="<?= substr(md5(microtime()), 0, 10) ?>" readonly
                     placeholder="Enter code" name="programID">
             </div>
         </div>
@@ -19,8 +18,7 @@
                     <div class="input-group-prepend">
                         <span class="input-group-text">#</span>
                     </div>
-                    <input type="text" class="form-control" id="fund_code"
-                        placeholder="Enter code" name="fund_code">
+                    <input type="text" class="form-control" id="fund_code" placeholder="Enter code" name="fund_code">
                 </div>
             </div>
         </div>
@@ -28,8 +26,7 @@
         <div class="col-sm-4">
             <div class="form-group">
                 <label>Status</label>
-                <select name="program_status" id=""
-                    class="form-control custom-select">
+                <select name="program_status" id="" class="form-control custom-select">
                     <option value="" selected disabled>--Select Status--</option>
                     <option value="New">New</option>
                     <option value="On-going">On-going</option>
@@ -42,8 +39,7 @@
         <div class="col-sm-4">
             <div class="form-group">
                 <label>Category</label>
-                <select name="program_category" id=""
-                    class="form-control custom-select">
+                <select name="program_category" id="" class="form-control custom-select">
                     <option value="" selected disabled>--Select Category--</option>
                     <option value="Research Category">Research Category</option>
                     <option value="Development Category">Development Category</option>
@@ -85,8 +81,8 @@
                     <div class="input-group-prepend">
                         <span class="input-group-text">PHP</span>
                     </div>
-                    <input type="text" name="coordination_fund" class="form-control"
-                        id="cf" placeholder="Enter ...">
+                    <input type="text" name="coordination_fund" class="form-control" id="cf"
+                        placeholder="Enter ...">
                 </div>
 
             </div>
@@ -97,8 +93,8 @@
         <div class="col-sm-6">
             <div class="form-group">
                 <label>Keyword(s)</label>
-                <input type="text" name="keywords[]" class="form-control"
-                    data-role="tagsinput" placeholder="Keyword(s)">
+                <input type="text" name="keywords[]" class="form-control" data-role="tagsinput"
+                    placeholder="Keyword(s)">
             </div>
         </div>
     </div>
@@ -120,8 +116,7 @@
         <div class="col-sm-3">
             <div class="form-group">
                 <label>Start Date</label>
-                <input type="month" class="form-control" name="start_date"
-                    autocomplete="false">
+                <input type="month" class="form-control" name="start_date" autocomplete="false">
             </div>
         </div>
     </div>
@@ -129,8 +124,7 @@
         <div class="col-sm-3">
             <div class="form-group">
                 <label>End Date</label>
-                <input type="month" class="form-control" name="end_date"
-                    autocomplete="false">
+                <input type="month" class="form-control" name="end_date" autocomplete="false">
             </div>
         </div>
     </div>
@@ -140,8 +134,7 @@
             <div class="col-sm-3">
                 <div class="form-group">
                     <label>Extend Date</label>
-                    <input type="month" class="form-control" name="extend_date"
-                        autocomplete="false">
+                    <input type="month" class="form-control" name="extend_date" autocomplete="false">
                 </div>
             </div>
         @endif
@@ -151,8 +144,8 @@
         <div class="col-sm-6">
             <div class="form-group">
                 <label>Program Leader</label>
-                <input type="text" name="program_leader" class="form-control"
-                    placeholder="Program Leader" list="leaderdtlist">
+                <input type="text" name="program_leader" class="form-control" placeholder="Program Leader"
+                    list="leaderdtlist">
                 <datalist id="leaderdtlist">
                     <option value="Leader 1"><span>Agency</span></option>
                     <option value="Leader 2"></option>
@@ -166,8 +159,8 @@
         <div class="col-sm-6">
             <div class="form-group">
                 <label>Assistant Leader</label>
-                <input type="text" name="assistant_leader" class="form-control"
-                    placeholder="Program Leader" list="assisdtlist">
+                <input type="text" name="assistant_leader" class="form-control" placeholder="Program Leader"
+                    list="assisdtlist">
                 <datalist id="assisdtlist">
                     <option value="Leader 1"><span>Agency</span></option>
                     <option value="Leader 2"></option>
@@ -178,8 +171,7 @@
     </div>
 
 
-    <input type="button" name="previous" class="previous btn btn-default"
-        value="Previous" />
+    <input type="button" name="previous" class="previous btn btn-default" value="Previous" />
     <input type="button" name="next" class="next btn btn-info" value="Next" />
 </fieldset>
 
@@ -197,13 +189,12 @@
     <div class="row">
         <div class="col-sm-6">
             <div class="form-group">
-                <label>Approved Budget</label>
+                <label>Proposed Budget</label>
                 <div class="input-group">
                     <div class="input-group-prepend">
                         <span class="input-group-text">PHP</span>
                     </div>
-                    <input type="text" class="form-control" id="numin"
-                        name="approved_budget">
+                    <input type="text" class="form-control" id="numin" name="approved_budget">
                 </div>
             </div>
         </div>
@@ -231,8 +222,7 @@
                     <div class="input-group-prepend">
                         <span class="input-group-text">PHP</span>
                     </div>
-                    <input type="text" class="form-control" id="numin2"
-                        name="amount_released">
+                    <input type="text" class="form-control" id="numin2" name="amount_released">
                 </div>
             </div>
         </div>
@@ -242,8 +232,7 @@
         <div class="col-sm-5">
             <div class="form-group">
                 <label>Form of Development</label>
-                <select name="form_of_development" id=""
-                    class="form-control custom-select">
+                <select name="form_of_development" id="" class="form-control custom-select">
                     <option value="" selected disabled>--Select Form of Development--
                     </option>
                     <option value="Local">Local</option>
@@ -254,10 +243,7 @@
         </div>
     </div>
 
-    <input type="button" name="previous" class="previous btn btn-default"
-        value="Previous" />
+    <input type="button" name="previous" class="previous btn btn-default" value="Previous" />
 
-    <input type="submit" name="submit" class="submit btn btn-success"
-        value="Submit" />
+    <input type="submit" name="submit" class="submit btn btn-success" value="Submit" />
 </fieldset>
-

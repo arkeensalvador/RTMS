@@ -17,7 +17,7 @@ class ResultsUtilizationController extends Controller
             [
                 'ttp_type' => 'required',
                 'ttp_title' => 'required',
-                'ttp_budget' => 'required|numeric',
+                'ttp_budget' => 'required',
                 'ttp_sof' => 'required|array|min:1',
                 // 'ttp_proponent' => 'required',
                 // 'ttp_researchers' => 'required',
@@ -40,7 +40,7 @@ class ResultsUtilizationController extends Controller
         $data = [];
         $data['ttp_type'] = $request->ttp_type;
         $data['ttp_title'] = $request->ttp_title;
-        $data['ttp_budget'] = $request->ttp_budget;
+        $data['ttp_budget'] = str_replace(',', '', $request->ttp_budget);
         $data['ttp_sof'] = json_encode($request->ttp_sof);
         $data['ttp_proponent'] = json_encode($request->ttp_proponent);
         $data['ttp_researchers'] = json_encode($request->ttp_researchers);
@@ -76,7 +76,7 @@ class ResultsUtilizationController extends Controller
             [
                 'ttp_type' => 'required',
                 'ttp_title' => 'required',
-                'ttp_budget' => 'required|numeric',
+                'ttp_budget' => 'required',
                 'ttp_sof' => 'required|array|min:1',
                 // 'ttp_proponent' => 'required',
                 // 'ttp_researchers' => 'required',
@@ -99,7 +99,7 @@ class ResultsUtilizationController extends Controller
         $data = [];
         $data['ttp_type'] = $request->ttp_type;
         $data['ttp_title'] = $request->ttp_title;
-        $data['ttp_budget'] = $request->ttp_budget;
+        $data['ttp_budget'] = str_replace(',', '', $request->ttp_budget);
         $data['ttp_sof'] = json_encode($request->ttp_sof);
         $data['ttp_proponent'] = json_encode($request->ttp_proponent);
         $data['ttp_researchers'] = json_encode($request->ttp_researchers);

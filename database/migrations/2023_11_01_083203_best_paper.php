@@ -15,6 +15,7 @@ return new class extends Migration {
             $table->string('best_paper');
             $table->string('best_paper_year');
             $table->string('best_paper_fa');
+            $table->timestamps();
         });
     }
 

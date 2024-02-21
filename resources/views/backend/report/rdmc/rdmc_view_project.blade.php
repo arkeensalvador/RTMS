@@ -72,7 +72,7 @@
                                         $funding = json_decode($projects->project_agency);
                                     @endphp
                                     <tr>
-                                        <th scope="row" class="thwidth">Funding Agency</th>
+                                        <th scope="row" class="thwidth">Fund ing Agency</th>
                                         <td>{{ implode(', ', $funding) }}</td>
                                     </tr>
                                     @php
@@ -80,14 +80,32 @@
                                     @endphp
                                     <tr>
                                         <th scope="row" class="thwidth">Implementing Agency</th>
-                                        <td>{{ implode(' / ', $imp) }}</td>
+                                        <td>{{ implode(', ', $imp) }}</td>
                                     </tr>
                                     @php
-                                        $collab = json_decode($projects->project_collaborating_agency);
+                                        if ($projects->project_collaborating_agency == 'null') {
+                                            $collab = 'N/A';
+                                        } else {
+                                            $collab = json_decode($projects->project_collaborating_agency);
+                                            $collab = implode(', ', $collab);
+                                        }
                                     @endphp
                                     <tr>
                                         <th scope="row" class="thwidth">Collaborating Agency</th>
-                                        <td>{{ implode(' / ', $collab) }}</td>
+                                        <td>{{ $collab }}</td>
+                                    </tr>
+
+                                    @php
+                                        if ($projects->project_research_center == '[null]') {
+                                            $rc = 'N/A';
+                                        } else {
+                                            $rc = json_decode($projects->project_research_center);
+                                            $rc = implode(', ', $rc);
+                                        }
+                                    @endphp
+                                    <tr>
+                                        <th scope="row" class="thwidth">R & D Center(s)</th>
+                                        <td>{{ $rc }}</td>
                                     </tr>
 
                                     <tr>
@@ -104,7 +122,6 @@
                                                         {{ $items->staff_name }}
                                                     </li>
                                                 @endforeach
-
                                             </ul>
                                         </td>
                                     </tr>
@@ -157,7 +174,7 @@
                             <table id="budget-table" class="table">
                                 <thead>
                                     <tr>
-                                        <th>Approved Budget</th>
+                                        <th>Proposed Budget Breakdown</th>
                                         <th>Year No.</th>
                                     </tr>
                                 </thead>
@@ -167,7 +184,7 @@
                                             <td>
                                                 <input type="text" class="form-control budget-input"
                                                     name="approved_budget[]" readonly oninput="validateInput(this)"
-                                                    value="{{ $data->approved_budget }}" required>
+                                                    value="{{ number_format($data->approved_budget) }}" required>
                                             </td>
                                             <td>
                                                 <input type="text" class="form-control year-input" name="budget_year[]"
@@ -177,6 +194,9 @@
                                     @endforeach
                                 </tbody>
                             </table>
+                            <div id="total-budget">Total Proposed Budget: <span class="font-weight-bold">₱ </span><span
+                                    id="total">{{ number_format($projects->project_amount_released, 2) }}</span>
+                            </div>
 
                             <div class="text-center mt-5 mb-3">
                                 <a href="{{ url('rdmc-projects') }}" class="btn btn previous btn btn-default">Go back</a>

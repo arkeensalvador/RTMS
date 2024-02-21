@@ -92,10 +92,16 @@
                                         <label for="strategic_program" class="font-weight-bold">Uploaded Images<span
                                                 class="text-danger"></span></label><br>
                                         @foreach ($imgs as $img)
-                                            <a href="{{ asset($img->filename) }}" data-lightbox="photos">
-                                                <img id="" src="{{ asset($img->filename) }}" alt=""
-                                                    style="width: 200px; height: 200px;" class="img-thumbnail">
-                                            </a>
+                                            <div style="display: inline-block; margin-right: 10px;">
+                                                <a href="{{ asset($img->filename) }}" data-lightbox="photos">
+                                                    <img src="{{ asset($img->filename) }}" alt=""
+                                                        style="width: 200px; height: 200px;" class="img-thumbnail">
+                                                </a>
+                                                <p style="text-align: center">
+                                                    <a href="{{ url('delete-image/' . $img->id) }}" id="delete"
+                                                        style="color: red; text-decoration: underline; font-size: 13px">remove</a>
+                                                </p>
+                                            </div>
                                         @endforeach
                                     </div>
                                 @endif
@@ -121,25 +127,25 @@
                                     </div>
 
                                     <div class="custom-control custom-radio">
-                                        <input class="custom-control-input" type="radio" value="E_Purchased"
+                                        <input class="custom-control-input" type="radio" value="Equipment Purchased"
                                             name="equipments_type" id="customRadio5"
-                                            {{ 'E_Purchased' == $all->equipments_type ? 'checked' : '' }}>
+                                            {{ 'Equipment Purchased' == $all->equipments_type ? 'checked' : '' }}>
                                         <label for="customRadio5" class="custom-control-label"
                                             style="font-weight: bold;">Equipment Purchased</label>
                                     </div>
 
                                     <div class="custom-control custom-radio">
-                                        <input class="custom-control-input" type="radio" value="F_Purchased"
+                                        <input class="custom-control-input" type="radio" value="Facilities Upgraded"
                                             name="equipments_type" id="customRadio6"
-                                            {{ 'F_Purchased' == $all->equipments_type ? 'checked' : '' }}>
+                                            {{ 'Facilities Upgraded' == $all->equipments_type ? 'checked' : '' }}>
                                         <label for="customRadio6" class="custom-control-label"
                                             style="font-weight: bold;">Facilities Upgraded</label>
                                     </div>
 
                                     <div class="custom-control custom-radio">
-                                        <input class="custom-control-input" type="radio" value="F_Established"
+                                        <input class="custom-control-input" type="radio" value="Facilities Established"
                                             name="equipments_type" id="customRadio7"
-                                            {{ 'F_Established' == $all->equipments_type ? 'checked' : '' }}>
+                                            {{ 'Facilities Established' == $all->equipments_type ? 'checked' : '' }}>
                                         <label for="customRadio7" class="custom-control-label"
                                             style="font-weight: bold;">Facilities Established</label>
                                     </div>
@@ -174,8 +180,8 @@
                                 <div class="col-md-12 form-group">
                                     <label for="equipments_name" class=" font-weight-bold">Equipment/Facilities Details<span
                                             class="text-danger">*</span></label>
-                                    <textarea name="equipments_details" id="equipments_details" cols="30" rows="5" class="form-control" required
-                                        placeholder="Enter details">{{ $all->equipments_details }}</textarea>
+                                    <textarea name="equipments_details" id="equipments_details" cols="30" rows="5" class="form-control"
+                                        required placeholder="Enter details">{{ $all->equipments_details }}</textarea>
 
                                     <div class="invalid-feedback">Missing details</div>
                                 </div>
@@ -199,9 +205,10 @@
                                     <label for="equipments_total" class=" font-weight-bold">Expenditures<span
                                             class="text-danger">*</span></label>
 
-                                    <input type="text" name="equipments_total" value="{{ $all->equipments_total }}"
-                                        id="equipments_total" class="form-control" oninput="validateInput(this)"
-                                        placeholder="Expenditures" required>
+                                    <input type="text" name="equipments_total"
+                                        value="{{ number_format($all->equipments_total) }}" id="equipments_total"
+                                        class="form-control" oninput="validateInput(this)" placeholder="Expenditures"
+                                        required>
                                     <div class="invalid-feedback">Missing expenditures</div>
                                 </div>
 
@@ -268,12 +275,23 @@
     <script>
         function validateInput(input) {
             // Remove non-numeric characters (except '-')
-            input.value = input.value.replace(/[^\d-]/g, '');
+            let numericValue = input.value.replace(/[^\d-]/g, '');
 
             // Ensure the input is not empty
-            if (input.value === '-') {
-                input.value = '';
+            if (numericValue === '-') {
+                numericValue = '';
             }
+
+            // Format the numeric value with commas
+            const formattedValue = formatNumberWithCommas(numericValue);
+
+            // Set the formatted value back to the input
+            input.value = formattedValue;
+        }
+
+        function formatNumberWithCommas(number) {
+            // Convert the number to a string and add commas
+            return parseFloat(number).toLocaleString('en-US');
         }
     </script>
     <script>

@@ -29,7 +29,7 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-header">
-                                <h2 class="card-title">{{ $project_title->project_title }} (Sub-projects / Study)</h2>
+                                <h2 class="card-title sbp">{{ $project_title->project_title }} (Sub-projects / Study)</h2>
                                 <div class="card-tools">
                                     {{-- <a href="{{ url('view-subprojects') }}" class="btn btn-primary">Sub-projects</a> --}}
 
@@ -84,7 +84,7 @@
                                                         @php
                                                             $leader = App\Models\Researchers::find($row->sub_project_leader);
                                                         @endphp
-                                                        {{ $leader->first_name . ' ' . $leader->middle_name . ' ' . $leader->last_name }}
+                                                        {{ $leader->first_name . ' ' . $leader->last_name }}
                                                     </td>
                                                     <td>
                                                         {{ $row->sub_project_duration }}
@@ -95,7 +95,9 @@
                                                             $imp = implode(', ', $imp);
                                                         }
 
-                                                        if (!empty($row->sub_project_collaborating_agency)) {
+                                                        if ($row->sub_project_collaborating_agency == 'null') {
+                                                            $collab = 'N/A';
+                                                        } else {
                                                             $collab = json_decode($row->sub_project_collaborating_agency);
                                                             $collab = implode(', ', $collab);
                                                         }
@@ -106,15 +108,25 @@
                                                         }
 
                                                         $rc = $row->sub_project_research_center;
-                                                        $rc = str_replace(['[', '"', ']'], '', $rc);
-                                                        $rc = str_replace(',', ', ', $rc);
+                                                        if ($rc === '[null]') {
+                                                            $rc = 'N/A';
+                                                        } else {
+                                                            // If $rc is not [null], perform the replacements
+                                                            $rc = str_replace(['[', '"', ']'], '', $rc);
+                                                            $rc = str_replace(',', ', ', $rc);
+                                                        }
+
+                                                        // $rc = str_replace(['[', '"', ']'], '', $rc);
+                                                        // $rc = str_replace(',', ', ', $rc);
+
                                                     @endphp
                                                     <td>{{ $funding }}</td>
 
                                                     <td>{{ $imp }} </td>
                                                     <td>{{ $collab }}</td>
                                                     <td>{{ $rc }}</td>
-                                                    <td>{{ $row->sub_project_description }}</td>
+                                                    <td>{{ Illuminate\Support\Str::limit($row->sub_project_description, 100) }}
+                                                    </td>
                                                     <td>
                                                         @if ($row->sub_project_status == 'New')
                                                             {{ $row->sub_project_status }}
@@ -188,7 +200,7 @@
                                                         @php
                                                             $leader = App\Models\Researchers::find($row->sub_project_leader);
                                                         @endphp
-                                                        {{ $leader->first_name . ' ' . $leader->middle_name . ' ' . $leader->last_name }}
+                                                        {{ $leader->first_name . ' ' . $leader->last_name }}
                                                     </td>
                                                     <td>
                                                         {{ $row->sub_project_duration }}
@@ -199,7 +211,9 @@
                                                             $imp = implode(', ', $imp);
                                                         }
 
-                                                        if (!empty($row->sub_project_collaborating_agency)) {
+                                                        if ($row->sub_project_collaborating_agency == 'null') {
+                                                            $collab = 'N/A';
+                                                        } else {
                                                             $collab = json_decode($row->sub_project_collaborating_agency);
                                                             $collab = implode(', ', $collab);
                                                         }
@@ -210,31 +224,37 @@
                                                         }
 
                                                         $rc = $row->sub_project_research_center;
-                                                        $rc = str_replace(['[', '"', ']'], '', $rc);
-                                                        $rc = str_replace(',', ', ', $rc);
+                                                        if ($rc === '[null]') {
+                                                            $rc = 'N/A';
+                                                        } else {
+                                                            // If $rc is not [null], perform the replacements
+                                                            $rc = str_replace(['[', '"', ']'], '', $rc);
+                                                            $rc = str_replace(',', ', ', $rc);
+                                                        }
                                                     @endphp
                                                     <td>{{ $funding }}</td>
 
                                                     <td>{{ $imp }} </td>
                                                     <td>{{ $collab }}</td>
                                                     <td>{{ $rc }}</td>
-                                                    <td>{{ $row->sub_project_description }}</td>
+                                                    <td>{{ Illuminate\Support\Str::limit($row->sub_project_description, 100) }}
+                                                    </td>
                                                     <td>
                                                         @if ($row->sub_project_status == 'New')
                                                             {{ $row->sub_project_status }}
-                                                            <i class="fa-solid fa-database fa-xl"
-                                                                style="color: #28a745;"></i>
+                                                            <i class="fa-regular fa-square-plus"
+                                                                style="color: #0dcaf0;"></i>
                                                         @elseif ($row->sub_project_status == 'Ongoing')
                                                             {{ $row->sub_project_status }}
-                                                            <i class="fa-solid fa-magnifying-glass-chart fa-xl"
-                                                                style="color: #2a6cdf;"></i>
+                                                            <i class="fa-solid fa-spinner fa-spin"
+                                                                style="color: #0d6efd"></i>
                                                         @elseif ($row->sub_project_status == 'Terminated')
                                                             {{ $row->sub_project_status }}
-                                                            <i class="fa-solid fa-triangle-exclamation fa-xl"
+                                                            <i class="fa-regular fa-circle-xmark"
                                                                 style="color: #ff0000;"></i>
                                                         @elseif ($row->sub_project_status == 'Completed')
                                                             {{ $row->sub_project_status }}
-                                                            <i class="fa-solid fa-circle-check fa-xl"
+                                                            <i class="fa-regular fa-circle-check"
                                                                 style="color: #28a745;"></i>
                                                         @endif
                                                     </td>
@@ -248,7 +268,6 @@
                                                                     class="fa-solid fa-eye" style="color: white;"></i></a>
                                                         </span>
 
-
                                                         <span title="Edit">
                                                             <a class="btn btn-primary"
                                                                 href="{{ url("edit-sub-project/$row->projectID/$row->id") }}"><i
@@ -256,13 +275,11 @@
                                                                     style="color: white;"></i></a>
                                                         </span>
 
-
                                                         <span title="Upload">
                                                             <a class="btn btn-secondary uploadFiles" data-toggle="modal"
                                                                 data-target='#uploadfiles' data-id="{{ $row->id }}"><i
                                                                     class="fa-solid fa-file-circle-plus"></i></a>
                                                         </span>
-
 
                                                         <span title="Staffs">
                                                             <a class="btn btn-warning addPersonnel" data-toggle="modal"

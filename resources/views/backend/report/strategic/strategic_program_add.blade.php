@@ -135,7 +135,7 @@
                                 <div class="col-md-12 form-group">
                                     <label for="ttp_sof" class=" font-weight-bold">Researchers<span
                                             class="text-danger">*</span></label>
-                                    <textarea name="str_p_researchers" id="strategic_title" class="form-control" rows="4" style="resize: none"
+                                    <textarea name="str_p_researchers" id="strategic_title" class="form-control" rows="3" style="resize: none"
                                         required placeholder="Researchers"></textarea>
                                     <div class="invalid-feedback">Missing researchers</div>
                                 </div>
@@ -158,19 +158,16 @@
 
 
                                 <div class="col-md-12 form-group">
-                                    <label for="awards_recipients" class=" font-weight-bold">Collaborating Agency<span
-                                            class="text-danger">*</span></label>
+                                    <label for="awards_recipients" class=" font-weight-bold">Collaborating Agency</label>
                                     <select class="form-control collaborating_agency" id=""
-                                        name="str_p_collab_agency[]" multiple="multiple" required>
-
+                                        name="str_p_collab_agency[]" multiple="multiple">
                                         @foreach ($agency as $key)
                                             <option value="{{ $key->abbrev }}">{{ $key->agency_name }} -
                                                 ({{ $key->abbrev }})
                                                 </b></option>
                                         @endforeach
-
                                     </select>
-                                    <div class="invalid-feedback">Missing collaborating agency</div>
+                                    {{-- <div class="invalid-feedback">Missing collaborating agency</div> --}}
                                 </div>
 
                                 <div class="col-md-5">
@@ -182,7 +179,7 @@
                                 </div>
 
                                 <div class="col-md-4 form-group">
-                                    <label for="approved_budget" class=" font-weight-bold">Approved Budget<span
+                                    <label for="approved_budget" class=" font-weight-bold">Proposed Budget<span
                                             class="text-danger">*</span></label>
                                     <input type="text" name="str_p_budget" oninput="validateInput(this)"
                                         class="form-control" id="" placeholder="Budget" required>
@@ -271,13 +268,23 @@
     <script>
         function validateInput(input) {
             // Remove non-numeric characters (except '-')
-            input.value = input.value.replace(/[^\d-]/g, '');
+            let numericValue = input.value.replace(/[^\d-]/g, '');
 
             // Ensure the input is not empty
-            if (input.value === '-') {
-                input.value = '';
+            if (numericValue === '-') {
+                numericValue = '';
             }
 
+            // Format the numeric value with commas
+            const formattedValue = formatNumberWithCommas(numericValue);
+
+            // Set the formatted value back to the input
+            input.value = formattedValue;
+        }
+
+        function formatNumberWithCommas(number) {
+            // Convert the number to a string and add commas
+            return parseFloat(number).toLocaleString('en-US');
         }
 
         $(document).ready(function() {

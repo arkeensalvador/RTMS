@@ -14,12 +14,15 @@ class ResearcherController extends Controller
     public function researcherIndex()
     {
         $title = 'Researchers | RTMS';
-        $all = DB::table('researchers')->get();
+        $all = DB::table('researchers')
+            ->orderBy('last_name', 'asc')
+            ->get();
 
         // CMI
         $all_filter = DB::table('researchers')
             ->select('*')
             ->where('agency', auth()->user()->agencyID)
+            ->orderBy('last_name', 'asc')
             ->get();
 
         $user_agency = DB::table('users')
@@ -47,7 +50,7 @@ class ResearcherController extends Controller
         $request->validate(
             [
                 'fname' => 'required',
-                'mname' => 'required',
+                // 'mname' => 'required',
                 'lname' => 'required',
                 'sex' => 'required',
                 'emp_status' => 'required',
@@ -57,7 +60,7 @@ class ResearcherController extends Controller
             ],
             [
                 'fname.required' => 'First name is required!',
-                'mname.required' => 'Middle name is required!',
+                // 'mname.required' => 'Middle name is required!',
                 'lname.required' => 'Last name is required!',
                 'sex.required' => 'Sex is required!',
                 'emp_status.required' => 'Employment status is required!',
@@ -77,6 +80,7 @@ class ResearcherController extends Controller
         $data['contact'] = $request->contact;
         $data['email'] = $request->email;
         $data['agency'] = $request->agency;
+        $data['created_at'] = now();
 
         $researcher = DB::table('researchers')->insert($data);
         if ($researcher) {
@@ -112,12 +116,6 @@ class ResearcherController extends Controller
             ->where('researchers.id', $id)
             ->first();
 
-        // $researchers = DB::table('researchers')
-        //     ->join('agency', 'agency.abbrev', '=', 'researchers.agency')
-        //     ->select('agency.*', DB::raw('CONCAT(researchers.first_name, " ", researchers.middle_name, " ", researchers.last_name) AS name'))
-        //     ->where('researchers.id', $id)
-        //     ->first();
-
         $awards = DB::table('cbg_awards')
             ->where('awards_recipients', 'LIKE', '%' . $researcher->first_name . ' ' . $researcher->middle_name . ' ' . $researcher->last_name . '%')
             ->orWhere('awards_recipients', 'LIKE', '%' . $researcher->first_name . ' ' . $researcher->last_name . '%')
@@ -144,6 +142,7 @@ class ResearcherController extends Controller
             // ->get();
             ->where('sub_projects.sub_project_leader', 'LIKE', '%' . $researcher->id . '%')
             ->get();
+
         return view('backend.researcher.researcher_view', compact('researcher', 'title', 'prog_involvement', 'proj_involvement', 'sub_proj_involvement', 'awards'));
     }
 
@@ -152,7 +151,7 @@ class ResearcherController extends Controller
         $request->validate(
             [
                 'fname' => 'required',
-                'mname' => 'required',
+                // 'mname' => 'required',
                 'lname' => 'required',
                 'sex' => 'required',
                 'emp_status' => 'required',
@@ -162,7 +161,7 @@ class ResearcherController extends Controller
             ],
             [
                 'fname.required' => 'First name is required!',
-                'mname.required' => 'Middle name is required!',
+                // 'mname.required' => 'Middle name is required!',
                 'lname.required' => 'Last name is required!',
                 'sex.required' => 'Sex is required!',
                 'emp_status.required' => 'Employment status is required!',

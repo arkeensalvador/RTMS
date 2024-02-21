@@ -14,7 +14,7 @@ class ContributionsController extends Controller
         $request->validate(
             [
                 'con_name' => 'required',
-                'con_amount' => 'required|numeric',
+                'con_amount' => 'required',
             ],
             [
                 'con_amount.required' => 'Input numbers only',
@@ -23,7 +23,7 @@ class ContributionsController extends Controller
 
         $data = [];
         $data['con_name'] = $request->con_name;
-        $data['con_amount'] = $request->con_amount;
+        $data['con_amount'] = str_replace(',', '', $request->con_amount);
 
         $insert = DB::table('cbg_contributions')->insert($data);
 
@@ -52,7 +52,7 @@ class ContributionsController extends Controller
         $request->validate(
             [
                 'con_name' => 'required',
-                'con_amount' => 'required|numeric',
+                'con_amount' => 'required',
             ],
             [
                 'con_amount.required' => 'Input numbers only',
@@ -60,7 +60,7 @@ class ContributionsController extends Controller
         );
         $data = [];
         $data['con_name'] = $request->con_name;
-        $data['con_amount'] = $request->con_amount;
+        $data['con_amount'] = str_replace(',', '', $request->con_amount);
 
         $insert = DB::table('cbg_contributions')
             ->where('id', $id)

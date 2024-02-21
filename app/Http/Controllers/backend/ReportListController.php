@@ -5,12 +5,14 @@ namespace App\Http\Controllers\backend;
 use App\Http\Controllers\Controller;
 use App\Models\Programs;
 use App\Models\Projects;
+use App\Models\User;
 use App\Models\SubProjects;
 use Mpdf\Mpdf;
 use PDF;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Collection;
+use Datatables;
 // use DB;
 
 use Illuminate\Support\Facades\DB;
@@ -20,56 +22,20 @@ class ReportListController extends Controller
     public function reportListIndex()
     {
         $title = 'List of Reports | RTMS';
-        $new = DB::table('programs')
-            ->where('program_status', '=', 'new')
-            ->pluck('program_status')
-            ->count();
-        $ongoing = DB::table('programs')
-            ->where('program_status', '=', 'on-going')
-            ->pluck('program_status')
-            ->count();
-        $terminated = DB::table('programs')
-            ->where('program_status', '=', 'terminated')
-            ->pluck('program_status')
-            ->count();
-        $completed = DB::table('programs')
-            ->where('program_status', '=', 'completed')
-            ->pluck('program_status')
-            ->count();
+        $new = DB::table('programs')->where('program_status', '=', 'new')->pluck('program_status')->count();
+        $ongoing = DB::table('programs')->where('program_status', '=', 'on-going')->pluck('program_status')->count();
+        $terminated = DB::table('programs')->where('program_status', '=', 'terminated')->pluck('program_status')->count();
+        $completed = DB::table('programs')->where('program_status', '=', 'completed')->pluck('program_status')->count();
         // Project
-        $new_proj = DB::table('projects')
-            ->where('project_status', '=', 'new')
-            ->pluck('project_status')
-            ->count();
-        $ongoing_proj = DB::table('projects')
-            ->where('project_status', '=', 'on-going')
-            ->pluck('project_status')
-            ->count();
-        $terminated_proj = DB::table('projects')
-            ->where('project_status', '=', 'terminated')
-            ->pluck('project_status')
-            ->count();
-        $completed_proj = DB::table('projects')
-            ->where('project_status', '=', 'completed')
-            ->pluck('project_status')
-            ->count();
+        $new_proj = DB::table('projects')->where('project_status', '=', 'new')->pluck('project_status')->count();
+        $ongoing_proj = DB::table('projects')->where('project_status', '=', 'on-going')->pluck('project_status')->count();
+        $terminated_proj = DB::table('projects')->where('project_status', '=', 'terminated')->pluck('project_status')->count();
+        $completed_proj = DB::table('projects')->where('project_status', '=', 'completed')->pluck('project_status')->count();
 
-        $new_sub_proj = DB::table('projects')
-            ->where('project_status', '=', 'new')
-            ->pluck('project_status')
-            ->count();
-        $ongoing_sub_proj = DB::table('projects')
-            ->where('project_status', '=', 'on-going')
-            ->pluck('project_status')
-            ->count();
-        $terminated_sub_proj = DB::table('projects')
-            ->where('project_status', '=', 'terminated')
-            ->pluck('project_status')
-            ->count();
-        $completed_sub_proj = DB::table('projects')
-            ->where('project_status', '=', 'completed')
-            ->pluck('project_status')
-            ->count();
+        $new_sub_proj = DB::table('projects')->where('project_status', '=', 'new')->pluck('project_status')->count();
+        $ongoing_sub_proj = DB::table('projects')->where('project_status', '=', 'on-going')->pluck('project_status')->count();
+        $terminated_sub_proj = DB::table('projects')->where('project_status', '=', 'terminated')->pluck('project_status')->count();
+        $completed_sub_proj = DB::table('projects')->where('project_status', '=', 'completed')->pluck('project_status')->count();
 
         // $agency = DB::table('agency')->get()->pluck("abbrev");
         $data = DB::table('agency')->get();
@@ -101,63 +67,28 @@ class ReportListController extends Controller
             ->orderBy('year')
             ->get();
 
-        $db = DB::table('rdmc_dbinfosys')
-            ->select('dbinfosys_title', 'dbinfosys_type', 'dbinfosys_date_created', 'dbinfosys_purpose')
-            ->where('dbinfosys_category', '=', 'Database')
-            ->get();
+        $db = DB::table('rdmc_dbinfosys')->select('dbinfosys_title', 'dbinfosys_type', 'dbinfosys_date_created', 'dbinfosys_purpose')->where('dbinfosys_category', '=', 'Database')->get();
 
-        $is = DB::table('rdmc_dbinfosys')
-            ->select('dbinfosys_title', 'dbinfosys_type', 'dbinfosys_date_created', 'dbinfosys_purpose')
-            ->where('dbinfosys_category', '=', 'Information System')
-            ->get();
+        $is = DB::table('rdmc_dbinfosys')->select('dbinfosys_title', 'dbinfosys_type', 'dbinfosys_date_created', 'dbinfosys_purpose')->where('dbinfosys_category', '=', 'Information System')->get();
 
-        $stratProgramListProposal = DB::table('strategic_program_list')
-            ->select('str_p_title', 'str_p_imp_agency', 'str_p_sof', 'str_p_date', 'str_p_budget', 'str_p_regional')
-            ->where('str_p_type', '=', 'Proposals')
-            ->get();
+        $stratProgramListProposal = DB::table('strategic_program_list')->select('str_p_title', 'str_p_imp_agency', 'str_p_sof', 'str_p_date', 'str_p_budget', 'str_p_regional')->where('str_p_type', '=', 'Proposals')->get();
 
-        $stratProgramListApproved = DB::table('strategic_program_list')
-            ->select('str_p_title', 'str_p_imp_agency', 'str_p_sof', 'str_p_date', 'str_p_budget', 'str_p_regional')
-            ->where('str_p_type', '=', 'Approved')
-            ->get();
+        $stratProgramListApproved = DB::table('strategic_program_list')->select('str_p_title', 'str_p_imp_agency', 'str_p_sof', 'str_p_date', 'str_p_budget', 'str_p_regional')->where('str_p_type', '=', 'Approved')->get();
 
-        $agencyAbbreviations = DB::table('agency')
-            ->pluck('abbrev')
-            ->toArray();
+        $agencyAbbreviations = DB::table('agency')->pluck('abbrev')->toArray();
 
         $fundedCounts = [];
 
         foreach ($agencyAbbreviations as $abbrev) {
-            // $fundedProgramsCount = DB::table('programs')
-            //     ->whereJsonContains('implementing_agency', $abbrev)
-            //     ->where('program_status', '=', 'Ongoing')
-            //     ->count();
+            $fundedProjectsCount1 = Projects::where('encoder_agency', $abbrev)->where('project_status', '=', 'New')->count();
 
-            $fundedProjectsCount1 = DB::table('projects')
-                ->whereJsonContains('project_implementing_agency', $abbrev)
-                ->where('project_status', '=', 'New')
-                ->count();
+            $fundedProjectsCount2 = Projects::where('encoder_agency', $abbrev)->where('project_status', '=', 'Ongoing')->count();
 
-            $fundedProjectsCount2 = DB::table('projects')
-                ->whereJsonContains('project_implementing_agency', $abbrev)
-                ->where('project_status', '=', 'Ongoing')
-                ->count();
+            $fundedProjectsCount3 = Projects::where('encoder_agency', $abbrev)->where('project_status', '=', 'Terminated')->count();
 
-            $fundedProjectsCount3 = DB::table('projects')
-                ->whereJsonContains('project_implementing_agency', $abbrev)
-                ->where('project_status', '=', 'Terminated')
-                ->count();
-
-            $fundedProjectsCount4 = DB::table('projects')
-                ->whereJsonContains('project_implementing_agency', $abbrev)
-                ->where('project_status', '=', 'Completed')
-                ->count();
+            $fundedProjectsCount4 = Projects::where('encoder_agency', $abbrev)->where('project_status', '=', 'Completed')->count();
 
             $totalProjectCount = $fundedProjectsCount1 + $fundedProjectsCount2 + $fundedProjectsCount3 + $fundedProjectsCount4;
-
-            // $fundedSubProjectsCount = DB::table('sub_projects')
-            //     ->whereJsonContains('sub_project_implementing_agency', $abbrev)
-            //     ->count();
 
             $fundedCounts[$abbrev] = [
                 'new' => $fundedProjectsCount1,
@@ -169,77 +100,41 @@ class ReportListController extends Controller
         }
 
         // strategic collaborative
-        $strat_collaborative = DB::table('strategic_collaborative_list')
-            ->select('str_collab_program', 'str_collab_project', 'str_collab_imp_agency', 'str_collab_agency', 'str_collab_budget', 'str_collab_date', 'str_collab_roc')
-            ->get();
+        $strat_collaborative = DB::table('strategic_collaborative_list')->select('str_collab_program', 'str_collab_project', 'str_collab_imp_agency', 'str_collab_agency', 'str_collab_budget', 'str_collab_date', 'str_collab_roc', 'str_collab_sof')->get();
 
         // strategic tech/info list
-        $strat_tech_research = DB::table('strategic_tech_list')
-            ->select('tech_researchers', 'tech_title', 'tech_agency', 'tech_impact')
-            ->where('tech_type', '=', 'Research')
-            ->get();
-        $strat_tech_dev = DB::table('strategic_tech_list')
-            ->select('tech_researchers', 'tech_title', 'tech_agency', 'tech_impact')
-            ->where('tech_type', '=', 'Development')
-            ->get();
+        $strat_tech_research = DB::table('strategic_tech_list')->select('tech_researchers', 'tech_title', 'tech_agency', 'tech_impact')->where('tech_type', '=', 'Research')->get();
+        $strat_tech_dev = DB::table('strategic_tech_list')->select('tech_researchers', 'tech_title', 'tech_agency', 'tech_impact')->where('tech_type', '=', 'Development')->get();
 
         // list of Technology Transfer Program/Projects Packaged, Approved and Implemented
-        $ttp_proposal = DB::table('results_ttp')
-            ->select('ttp_proponent', 'ttp_researchers', 'ttp_implementing_agency', 'ttp_sof', 'ttp_title', 'ttp_date', 'ttp_budget', 'ttp_priorities')
-            ->where('ttp_type', '=', 'Packaged')
-            ->get();
+        $ttp_proposal = DB::table('results_ttp')->select('ttp_proponent', 'ttp_researchers', 'ttp_implementing_agency', 'ttp_sof', 'ttp_title', 'ttp_date', 'ttp_budget', 'ttp_priorities')->where('ttp_type', '=', 'Packaged')->get();
 
-        $ttp_approved = DB::table('results_ttp')
-            ->select('ttp_proponent', 'ttp_researchers', 'ttp_implementing_agency', 'ttp_sof', 'ttp_title', 'ttp_date', 'ttp_budget', 'ttp_priorities')
-            ->where('ttp_type', '=', 'Approved')
-            ->get();
+        $ttp_approved = DB::table('results_ttp')->select('ttp_proponent', 'ttp_researchers', 'ttp_implementing_agency', 'ttp_sof', 'ttp_title', 'ttp_date', 'ttp_budget', 'ttp_priorities')->where('ttp_type', '=', 'Approved')->get();
 
         //List of Technologies Commercialized or Pre-Commercialization Initiatives
-        $tech_commercialized = DB::table('results_ttm')
-            ->select('ttm_type', 'ttm_title', 'ttm_agency', 'ttm_status')
-            ->orderBy('ttm_type')
-            ->get();
+        $tech_commercialized = DB::table('results_ttm')->select('ttm_type', 'ttm_title', 'ttm_agency', 'ttm_status')->orderBy('ttm_type')->get();
 
         //List of Technology Promotion Approaches
-        $tpa = DB::table('results_tpa')
-            ->select('tpa_approaches', 'tpa_title', 'tpa_agency', 'tpa_details')
-            ->orderBy('tpa_title')
-            ->get();
+        $tpa = DB::table('results_tpa')->select('tpa_approaches', 'tpa_title', 'tpa_agency', 'tpa_details')->orderBy('tpa_title')->get();
 
         // CBG trainings
-        $trainings = DB::table('cbg_trainings')
-            ->select('trainings_title', 'trainings_start', 'trainings_venue', 'trainings_no_participants', 'trainings_expenditures', 'trainings_sof')
-            ->get();
+        $trainings = DB::table('cbg_trainings')->select('id', 'trainings_title', 'trainings_start', 'trainings_venue', 'trainings_expenditures', 'trainings_sof')->get();
         // CBG equipments
-        $equipments = DB::table('cbg_equipments')
-            ->select('equipments_type', 'equipments_name', 'equipments_agency', 'equipments_total', 'equipments_sof')
-            ->get();
+        $equipments = DB::table('cbg_equipments')->select('equipments_type', 'equipments_name', 'equipments_agency', 'equipments_total', 'equipments_sof')->get();
         // CBG awards
-        $awards = DB::table('cbg_awards')
-            ->select('awards_type', 'awards_title', 'awards_recipients', 'awards_agency', 'awards_sponsor', 'awards_event', 'awards_place', 'awards_date')
-            ->get();
+        $awards = DB::table('cbg_awards')->select('awards_type', 'awards_title', 'awards_recipients', 'awards_agency', 'awards_sponsor', 'awards_event', 'awards_place', 'awards_date')->get();
         // CBG meetings
-        $meetings = DB::table('cbg_meetings')
-            ->select('meeting_type', 'meeting_venue', 'meeting_date', 'meeting_host')
-            ->get();
+        $meetings = DB::table('cbg_meetings')->select('meeting_type', 'meeting_venue', 'meeting_date', 'meeting_host')->get();
         // CBG CMI Contributions
-        $contributions = DB::table('cbg_contributions')
-            ->select('con_name', 'con_amount')
-            ->get();
+        $contributions = DB::table('cbg_contributions')->select('con_name', 'con_amount')->get();
         // CBG new initiatives
-        $initiatives = DB::table('cbg_initiatives')
-            ->select('ini_initiates', 'ini_date')
-            ->get();
+        $initiatives = DB::table('cbg_initiatives')->select('ini_initiates', 'ini_date')->get();
 
         // Policy analysis and advocacy (Policy Researches Conducted)
-        $issues = DB::table('policy_prc')
-            ->select('prc_title', 'prc_agency', 'prc_author', 'prc_issues')
-            ->get();
+        $issues = DB::table('policy_prc')->select('prc_title', 'prc_agency', 'prc_author', 'prc_issues')->get();
 
         // Policy analysis and advocacy (Policy Formulated...)
-        $formulated = DB::table('policy_formulated')
-            ->select('policy_type', 'policy_title', 'policy_agency', 'policy_author', 'policy_co_author', 'policy_proponent', 'policy_beneficiary', 'policy_implementer', 'policy_issues')
-            ->get();
+        $formulated = DB::table('policy_formulated')->select('policy_type', 'policy_title', 'policy_agency', 'policy_author', 'policy_co_author', 'policy_beneficiary', 'policy_implementer', 'policy_issues')->get();
 
         return view('backend.reportlist.report_list', [
             'title' => $title,
@@ -278,56 +173,20 @@ class ReportListController extends Controller
     public function createPDF()
     {
         $title = 'List of Reports | RTMS';
-        $new = DB::table('programs')
-            ->where('program_status', '=', 'new')
-            ->pluck('program_status')
-            ->count();
-        $ongoing = DB::table('programs')
-            ->where('program_status', '=', 'on-going')
-            ->pluck('program_status')
-            ->count();
-        $terminated = DB::table('programs')
-            ->where('program_status', '=', 'terminated')
-            ->pluck('program_status')
-            ->count();
-        $completed = DB::table('programs')
-            ->where('program_status', '=', 'completed')
-            ->pluck('program_status')
-            ->count();
+        $new = DB::table('programs')->where('program_status', '=', 'new')->pluck('program_status')->count();
+        $ongoing = DB::table('programs')->where('program_status', '=', 'on-going')->pluck('program_status')->count();
+        $terminated = DB::table('programs')->where('program_status', '=', 'terminated')->pluck('program_status')->count();
+        $completed = DB::table('programs')->where('program_status', '=', 'completed')->pluck('program_status')->count();
         // Project
-        $new_proj = DB::table('projects')
-            ->where('project_status', '=', 'new')
-            ->pluck('project_status')
-            ->count();
-        $ongoing_proj = DB::table('projects')
-            ->where('project_status', '=', 'on-going')
-            ->pluck('project_status')
-            ->count();
-        $terminated_proj = DB::table('projects')
-            ->where('project_status', '=', 'terminated')
-            ->pluck('project_status')
-            ->count();
-        $completed_proj = DB::table('projects')
-            ->where('project_status', '=', 'completed')
-            ->pluck('project_status')
-            ->count();
+        $new_proj = DB::table('projects')->where('project_status', '=', 'new')->pluck('project_status')->count();
+        $ongoing_proj = DB::table('projects')->where('project_status', '=', 'on-going')->pluck('project_status')->count();
+        $terminated_proj = DB::table('projects')->where('project_status', '=', 'terminated')->pluck('project_status')->count();
+        $completed_proj = DB::table('projects')->where('project_status', '=', 'completed')->pluck('project_status')->count();
 
-        $new_sub_proj = DB::table('projects')
-            ->where('project_status', '=', 'new')
-            ->pluck('project_status')
-            ->count();
-        $ongoing_sub_proj = DB::table('projects')
-            ->where('project_status', '=', 'on-going')
-            ->pluck('project_status')
-            ->count();
-        $terminated_sub_proj = DB::table('projects')
-            ->where('project_status', '=', 'terminated')
-            ->pluck('project_status')
-            ->count();
-        $completed_sub_proj = DB::table('projects')
-            ->where('project_status', '=', 'completed')
-            ->pluck('project_status')
-            ->count();
+        $new_sub_proj = DB::table('projects')->where('project_status', '=', 'new')->pluck('project_status')->count();
+        $ongoing_sub_proj = DB::table('projects')->where('project_status', '=', 'on-going')->pluck('project_status')->count();
+        $terminated_sub_proj = DB::table('projects')->where('project_status', '=', 'terminated')->pluck('project_status')->count();
+        $completed_sub_proj = DB::table('projects')->where('project_status', '=', 'completed')->pluck('project_status')->count();
 
         // $agency = DB::table('agency')->get()->pluck("abbrev");
         $data = DB::table('agency')->get();
@@ -359,63 +218,28 @@ class ReportListController extends Controller
             ->orderBy('year')
             ->get();
 
-        $db = DB::table('rdmc_dbinfosys')
-            ->select('dbinfosys_title', 'dbinfosys_type', 'dbinfosys_date_created', 'dbinfosys_purpose')
-            ->where('dbinfosys_category', '=', 'Database')
-            ->get();
+        $db = DB::table('rdmc_dbinfosys')->select('dbinfosys_title', 'dbinfosys_type', 'dbinfosys_date_created', 'dbinfosys_purpose')->where('dbinfosys_category', '=', 'Database')->get();
 
-        $is = DB::table('rdmc_dbinfosys')
-            ->select('dbinfosys_title', 'dbinfosys_type', 'dbinfosys_date_created', 'dbinfosys_purpose')
-            ->where('dbinfosys_category', '=', 'Information System')
-            ->get();
+        $is = DB::table('rdmc_dbinfosys')->select('dbinfosys_title', 'dbinfosys_type', 'dbinfosys_date_created', 'dbinfosys_purpose')->where('dbinfosys_category', '=', 'Information System')->get();
 
-        $stratProgramListProposal = DB::table('strategic_program_list')
-            ->select('str_p_title', 'str_p_imp_agency', 'str_p_sof', 'str_p_date', 'str_p_budget', 'str_p_regional')
-            ->where('str_p_type', '=', 'Proposals')
-            ->get();
+        $stratProgramListProposal = DB::table('strategic_program_list')->select('str_p_title', 'str_p_imp_agency', 'str_p_sof', 'str_p_date', 'str_p_budget', 'str_p_regional')->where('str_p_type', '=', 'Proposals')->get();
 
-        $stratProgramListApproved = DB::table('strategic_program_list')
-            ->select('str_p_title', 'str_p_imp_agency', 'str_p_sof', 'str_p_date', 'str_p_budget', 'str_p_regional')
-            ->where('str_p_type', '=', 'Approved')
-            ->get();
+        $stratProgramListApproved = DB::table('strategic_program_list')->select('str_p_title', 'str_p_imp_agency', 'str_p_sof', 'str_p_date', 'str_p_budget', 'str_p_regional')->where('str_p_type', '=', 'Approved')->get();
 
-        $agencyAbbreviations = DB::table('agency')
-            ->pluck('abbrev')
-            ->toArray();
+        $agencyAbbreviations = DB::table('agency')->pluck('abbrev')->toArray();
 
         $fundedCounts = [];
 
         foreach ($agencyAbbreviations as $abbrev) {
-            // $fundedProgramsCount = DB::table('programs')
-            //     ->whereJsonContains('implementing_agency', $abbrev)
-            //     ->where('program_status', '=', 'Ongoing')
-            //     ->count();
+            $fundedProjectsCount1 = Projects::where('encoder_agency', $abbrev)->where('project_status', '=', 'New')->count();
 
-            $fundedProjectsCount1 = DB::table('projects')
-                ->whereJsonContains('project_implementing_agency', $abbrev)
-                ->where('project_status', '=', 'New')
-                ->count();
+            $fundedProjectsCount2 = Projects::where('encoder_agency', $abbrev)->where('project_status', '=', 'Ongoing')->count();
 
-            $fundedProjectsCount2 = DB::table('projects')
-                ->whereJsonContains('project_implementing_agency', $abbrev)
-                ->where('project_status', '=', 'Ongoing')
-                ->count();
+            $fundedProjectsCount3 = Projects::where('encoder_agency', $abbrev)->where('project_status', '=', 'Terminated')->count();
 
-            $fundedProjectsCount3 = DB::table('projects')
-                ->whereJsonContains('project_implementing_agency', $abbrev)
-                ->where('project_status', '=', 'Terminated')
-                ->count();
-
-            $fundedProjectsCount4 = DB::table('projects')
-                ->whereJsonContains('project_implementing_agency', $abbrev)
-                ->where('project_status', '=', 'Completed')
-                ->count();
+            $fundedProjectsCount4 = Projects::where('encoder_agency', $abbrev)->where('project_status', '=', 'Completed')->count();
 
             $totalProjectCount = $fundedProjectsCount1 + $fundedProjectsCount2 + $fundedProjectsCount3 + $fundedProjectsCount4;
-
-            // $fundedSubProjectsCount = DB::table('sub_projects')
-            //     ->whereJsonContains('sub_project_implementing_agency', $abbrev)
-            //     ->count();
 
             $fundedCounts[$abbrev] = [
                 'new' => $fundedProjectsCount1,
@@ -427,77 +251,41 @@ class ReportListController extends Controller
         }
 
         // strategic collaborative
-        $strat_collaborative = DB::table('strategic_collaborative_list')
-            ->select('str_collab_program', 'str_collab_project', 'str_collab_imp_agency', 'str_collab_agency', 'str_collab_budget', 'str_collab_date', 'str_collab_roc')
-            ->get();
+        $strat_collaborative = DB::table('strategic_collaborative_list')->select('str_collab_program', 'str_collab_project', 'str_collab_imp_agency', 'str_collab_agency', 'str_collab_budget', 'str_collab_date', 'str_collab_roc')->get();
 
         // strategic tech/info list
-        $strat_tech_research = DB::table('strategic_tech_list')
-            ->select('tech_researchers', 'tech_title', 'tech_agency', 'tech_impact')
-            ->where('tech_type', '=', 'Research')
-            ->get();
-        $strat_tech_dev = DB::table('strategic_tech_list')
-            ->select('tech_researchers', 'tech_title', 'tech_agency', 'tech_impact')
-            ->where('tech_type', '=', 'Development')
-            ->get();
+        $strat_tech_research = DB::table('strategic_tech_list')->select('tech_researchers', 'tech_title', 'tech_agency', 'tech_impact')->where('tech_type', '=', 'Research')->get();
+        $strat_tech_dev = DB::table('strategic_tech_list')->select('tech_researchers', 'tech_title', 'tech_agency', 'tech_impact')->where('tech_type', '=', 'Development')->get();
 
         // list of Technology Transfer Program/Projects Packaged, Approved and Implemented
-        $ttp_proposal = DB::table('results_ttp')
-            ->select('ttp_proponent', 'ttp_researchers', 'ttp_implementing_agency', 'ttp_sof', 'ttp_title', 'ttp_date', 'ttp_budget', 'ttp_priorities')
-            ->where('ttp_type', '=', 'Packaged')
-            ->get();
+        $ttp_proposal = DB::table('results_ttp')->select('ttp_proponent', 'ttp_researchers', 'ttp_implementing_agency', 'ttp_sof', 'ttp_title', 'ttp_date', 'ttp_budget', 'ttp_priorities')->where('ttp_type', '=', 'Packaged')->get();
 
-        $ttp_approved = DB::table('results_ttp')
-            ->select('ttp_proponent', 'ttp_researchers', 'ttp_implementing_agency', 'ttp_sof', 'ttp_title', 'ttp_date', 'ttp_budget', 'ttp_priorities')
-            ->where('ttp_type', '=', 'Approved')
-            ->get();
+        $ttp_approved = DB::table('results_ttp')->select('ttp_proponent', 'ttp_researchers', 'ttp_implementing_agency', 'ttp_sof', 'ttp_title', 'ttp_date', 'ttp_budget', 'ttp_priorities')->where('ttp_type', '=', 'Approved')->get();
 
         //List of Technologies Commercialized or Pre-Commercialization Initiatives
-        $tech_commercialized = DB::table('results_ttm')
-            ->select('ttm_type', 'ttm_title', 'ttm_agency', 'ttm_status')
-            ->orderBy('ttm_type')
-            ->get();
+        $tech_commercialized = DB::table('results_ttm')->select('ttm_type', 'ttm_title', 'ttm_agency', 'ttm_status')->orderBy('ttm_type')->get();
 
         //List of Technology Promotion Approaches
-        $tpa = DB::table('results_tpa')
-            ->select('tpa_approaches', 'tpa_title', 'tpa_agency', 'tpa_details')
-            ->orderBy('tpa_title')
-            ->get();
+        $tpa = DB::table('results_tpa')->select('tpa_approaches', 'tpa_title', 'tpa_agency', 'tpa_details')->orderBy('tpa_title')->get();
 
         // CBG trainings
-        $trainings = DB::table('cbg_trainings')
-            ->select('trainings_title', 'trainings_start', 'trainings_venue', 'trainings_no_participants', 'trainings_expenditures', 'trainings_sof')
-            ->get();
+        $trainings = DB::table('cbg_trainings')->select('trainings_title', 'trainings_start', 'trainings_venue', 'trainings_expenditures', 'trainings_sof')->get();
         // CBG equipments
-        $equipments = DB::table('cbg_equipments')
-            ->select('equipments_type', 'equipments_name', 'equipments_agency', 'equipments_total', 'equipments_sof')
-            ->get();
+        $equipments = DB::table('cbg_equipments')->select('equipments_type', 'equipments_name', 'equipments_agency', 'equipments_total', 'equipments_sof')->get();
         // CBG awards
-        $awards = DB::table('cbg_awards')
-            ->select('awards_type', 'awards_title', 'awards_recipients', 'awards_agency', 'awards_sponsor', 'awards_event', 'awards_place', 'awards_date')
-            ->get();
+        $awards = DB::table('cbg_awards')->select('awards_type', 'awards_title', 'awards_recipients', 'awards_agency', 'awards_sponsor', 'awards_event', 'awards_place', 'awards_date')->get();
         // CBG meetings
-        $meetings = DB::table('cbg_meetings')
-            ->select('meeting_type', 'meeting_venue', 'meeting_date', 'meeting_host')
-            ->get();
+        $meetings = DB::table('cbg_meetings')->select('meeting_type', 'meeting_venue', 'meeting_date', 'meeting_host')->get();
         // CBG CMI Contributions
-        $contributions = DB::table('cbg_contributions')
-            ->select('con_name', 'con_amount')
-            ->get();
+        $contributions = DB::table('cbg_contributions')->select('con_name', 'con_amount')->get();
         // CBG new initiatives
-        $initiatives = DB::table('cbg_initiatives')
-            ->select('ini_initiates', 'ini_date')
-            ->get();
+        $initiatives = DB::table('cbg_initiatives')->select('ini_initiates', 'ini_date')->get();
 
         // Policy analysis and advocacy (Policy Researches Conducted)
-        $issues = DB::table('policy_prc')
-            ->select('prc_title', 'prc_agency', 'prc_author', 'prc_issues')
-            ->get();
+        $issues = DB::table('policy_prc')->select('prc_title', 'prc_agency', 'prc_author', 'prc_issues')->get();
 
         // Policy analysis and advocacy (Policy Formulated...)
-        $formulated = DB::table('policy_formulated')
-            ->select('policy_type', 'policy_title', 'policy_agency', 'policy_author', 'policy_co_author', 'policy_proponent', 'policy_beneficiary', 'policy_implementer', 'policy_issues')
-            ->get();
+        $formulated = DB::table('policy_formulated')->select('policy_type', 'policy_title', 'policy_agency', 'policy_author', 'policy_co_author', 'policy_beneficiary', 'policy_implementer', 'policy_issues')->get();
 
         $pdfData = [
             'title' => $title,
@@ -538,36 +326,196 @@ class ReportListController extends Controller
         return $pdf->stream('sample.pdf');
     }
 
-    public function reportTest()
+    public function reportFiltered()
     {
-        $title = 'REPORTS | RTMS';
-        $plist = Projects::get();
-        $list = Programs::get();
-        $splist = SubProjects::get();
-        $linkages_developed = DB::table('rdmc_linkages')
-            ->where('type', '=', 'Developed')
-            ->get();
-        $linkages_maintained = DB::table('rdmc_linkages')
-            ->where('type', '=', 'Maintained')
-            ->get();
+        $title = 'FILTERED REPORTS | RTMS';
+
+        $agency = DB::table('agency')->get();
+        $records = Programs::get();
+        $p_records = Projects::get(); // Change 10 to the desired number of records per page
+        $sp_records = SubProjects::get();
+
+        $agencyAbbreviations = DB::table('agency')->pluck('abbrev')->toArray();
+
+        $fundedCounts = [];
+
+        foreach ($agencyAbbreviations as $abbrev) {
+            $fundedProjectsCount1 = DB::table('projects')->whereJsonContains('project_implementing_agency', $abbrev)->where('project_status', '=', 'New')->count();
+
+            $fundedProjectsCount2 = DB::table('projects')->whereJsonContains('project_implementing_agency', $abbrev)->where('project_status', '=', 'Ongoing')->count();
+
+            $fundedProjectsCount3 = DB::table('projects')->whereJsonContains('project_implementing_agency', $abbrev)->where('project_status', '=', 'Terminated')->count();
+
+            $fundedProjectsCount4 = DB::table('projects')->whereJsonContains('project_implementing_agency', $abbrev)->where('project_status', '=', 'Completed')->count();
+
+            $totalProjectCount = $fundedProjectsCount1 + $fundedProjectsCount2 + $fundedProjectsCount3 + $fundedProjectsCount4;
+
+            $fundedCounts[$abbrev] = [
+                'new' => $fundedProjectsCount1,
+                'ongoing' => $fundedProjectsCount2,
+                'terminated' => $fundedProjectsCount3,
+                'completed' => $fundedProjectsCount4,
+                'totalCount' => $totalProjectCount,
+            ];
+
+            return view('backend.reportlist.filtered_report', [
+                'title' => $title,
+                'fundedCounts' => $fundedCounts,
+            ]);
+        }
+    }
+
+    //Testing
+    public function index()
+    {
+        $title = 'FILTERED REPORTS';
+        $agency = DB::table('agency')->get();
+        $records = Programs::get();
+        $p_records = Projects::get(); // Change 10 to the desired number of records per page
+        $sp_records = SubProjects::get();
+
+        //SUMMARY OF THE AIHRS (CMI's)
+        $agencyAbbreviations = DB::table('agency')->pluck('abbrev')->toArray();
+        $fundedCounts = [];
+        foreach ($agencyAbbreviations as $abbrev) {
+            $fundedProjectsCount1 = Projects::where('encoder_agency', $abbrev)->where('project_status', '=', 'New')->count();
+            $fundedProjectsCount2 = Projects::where('encoder_agency', $abbrev)->where('project_status', '=', 'Ongoing')->count();
+            $fundedProjectsCount3 = Projects::where('encoder_agency', $abbrev)->where('project_status', '=', 'Terminated')->count();
+            $fundedProjectsCount4 = Projects::where('encoder_agency', $abbrev)->where('project_status', '=', 'Completed')->count();
+            $totalProjectCount = $fundedProjectsCount1 + $fundedProjectsCount2 + $fundedProjectsCount3 + $fundedProjectsCount4;
+
+            $fundedCounts[$abbrev] = [
+                'new' => $fundedProjectsCount1,
+                'ongoing' => $fundedProjectsCount2,
+                'terminated' => $fundedProjectsCount3,
+                'completed' => $fundedProjectsCount4,
+                'totalCount' => $totalProjectCount,
+            ];
+        }
+
+        // RDMC LINKAGES
+        $linkages_developed = DB::table('rdmc_linkages')->select('form_of_development', 'address', 'year', 'nature_of_assistance')->where('type', '=', 'Developed')->orderBy('year', 'asc')->get();
+
+        $linkages_maintained = DB::table('rdmc_linkages')->select('form_of_development', 'address', 'year', 'nature_of_assistance')->where('type', '=', 'Maintained')->orderBy('year', 'asc')->get();
+
+        // DBIS
+        $db = DB::table('rdmc_dbinfosys')->select('dbinfosys_title', 'dbinfosys_type', 'dbinfosys_date_created', 'dbinfosys_purpose')->where('dbinfosys_category', '=', 'Database')->get();
+
+        $is = DB::table('rdmc_dbinfosys')->select('dbinfosys_title', 'dbinfosys_type', 'dbinfosys_date_created', 'dbinfosys_purpose')->where('dbinfosys_category', '=', 'Information System')->get();
+
+        // STRATEGIC PROGRAM LIST
+        $stratProgramListProposal = DB::table('strategic_program_list')->select('str_p_title', 'str_p_imp_agency', 'str_p_sof', 'str_p_date', 'str_p_budget', 'str_p_regional')->where('str_p_type', '=', 'Proposals')->get();
+        $stratProgramListApproved = DB::table('strategic_program_list')->select('str_p_title', 'str_p_imp_agency', 'str_p_sof', 'str_p_date', 'str_p_budget', 'str_p_regional')->where('str_p_type', '=', 'Approved')->get();
+
+        // STRATEGIC COLLABORATIVE
+        $strat_collaborative = DB::table('strategic_collaborative_list')->select('str_collab_program', 'str_collab_project', 'str_collab_imp_agency', 'str_collab_agency', 'str_collab_budget', 'str_collab_date', 'str_collab_roc', 'str_collab_sof')->get();
+
+        // list of Technology Transfer Program/Projects Packaged, Approved and Implemented
+        $ttp_proposal = DB::table('results_ttp')->select('ttp_proponent', 'ttp_researchers', 'ttp_implementing_agency', 'ttp_sof', 'ttp_title', 'ttp_date', 'ttp_budget', 'ttp_priorities')->where('ttp_type', '=', 'Packaged')->get();
+        $ttp_approved = DB::table('results_ttp')->select('ttp_proponent', 'ttp_researchers', 'ttp_implementing_agency', 'ttp_sof', 'ttp_title', 'ttp_date', 'ttp_budget', 'ttp_priorities')->where('ttp_type', '=', 'Approved')->get();
+
+        return view('backend.reportlist.report', compact('records', 'agency', 'title', 'p_records', 'sp_records', 'fundedCounts', 'linkages_developed', 'linkages_maintained', 'db', 'is', 'stratProgramListProposal', 'stratProgramListApproved', 'strat_collaborative', 'ttp_proposal', 'ttp_approved'));
+    }
+
+    public function filter(Request $request)
+    {
+        $duration = $request->duration;
+        $title = $duration . ' ' . 'REPORT';
+        $agency = DB::table('agency')->get();
+        // $year = $request->year;
+
+        // Implement your filtering logic here based on $duration
+        $records = Programs::where('duration', 'like', "%$duration%")->get();
+        $p_records = Projects::where('project_duration', 'like', "%$duration%")->get();
+        $sp_records = SubProjects::where('sub_project_duration', 'like', "%$duration%")->get();
+
+        // SUMMARY OF THE AIHRS
+        $agencyAbbreviations = DB::table('agency')->pluck('abbrev')->toArray();
+        $fundedCounts = [];
+
+        foreach ($agencyAbbreviations as $abbrev) {
+            $fundedProjectsCount1 = Projects::where('project_duration', 'like', "%$duration%")
+                ->where('encoder_agency', $abbrev)
+                ->where('project_status', '=', 'New')
+                ->count();
+            $fundedProjectsCount2 = Projects::where('project_duration', 'like', "%$duration%")
+                ->where('encoder_agency', $abbrev)
+                ->where('project_status', '=', 'Ongoing')
+                ->count();
+            $fundedProjectsCount3 = Projects::where('project_duration', 'like', "%$duration%")
+                ->where('encoder_agency', $abbrev)
+                ->where('project_status', '=', 'Terminated')
+                ->count();
+            $fundedProjectsCount4 = Projects::where('project_duration', 'like', "%$duration%")
+                ->where('encoder_agency', $abbrev)
+                ->where('project_status', '=', 'Completed')
+                ->count();
+            $totalProjectCount = $fundedProjectsCount1 + $fundedProjectsCount2 + $fundedProjectsCount3 + $fundedProjectsCount4;
+            $fundedCounts[$abbrev] = [
+                'new' => $fundedProjectsCount1,
+                'ongoing' => $fundedProjectsCount2,
+                'terminated' => $fundedProjectsCount3,
+                'completed' => $fundedProjectsCount4,
+                'totalCount' => $totalProjectCount,
+            ];
+        }
+
+        // RDMC LINKAGES
+        $linkages_developed = DB::table('rdmc_linkages')->select('form_of_development', 'address', 'year', 'nature_of_assistance')->where('year', $duration)->where('type', '=', 'Developed')->orderBy('year', 'asc')->get();
+        $linkages_maintained = DB::table('rdmc_linkages')->select('form_of_development', 'address', 'year', 'nature_of_assistance')->where('year', $duration)->where('type', '=', 'Maintained')->orderBy('year', 'asc')->get();
+
+        // DBIS
         $db = DB::table('rdmc_dbinfosys')
+            ->select('dbinfosys_title', 'dbinfosys_type', 'dbinfosys_date_created', 'dbinfosys_purpose')
+            ->where('dbinfosys_date_created', 'like', "%$duration%")
             ->where('dbinfosys_category', '=', 'Database')
             ->get();
         $is = DB::table('rdmc_dbinfosys')
+            ->select('dbinfosys_title', 'dbinfosys_type', 'dbinfosys_date_created', 'dbinfosys_purpose')
+            ->where('dbinfosys_date_created', 'like', "%$duration%")
             ->where('dbinfosys_category', '=', 'Information System')
             ->get();
-        return view(
-            'backend.reportlist.export_report',
-            [
-                'list' => $list,
-                'plist' => $plist,
-                'splist' => $splist,
-                'linkages_developed' => $linkages_developed,
-                'linkages_maintained' => $linkages_maintained,
-                'db' => $db,
-                'is' => $is,
-            ],
-            compact('title'),
-        );
+
+        // STRATEGIC PROGRAM LIST
+        $stratProgramListProposal = DB::table('strategic_program_list')
+            ->select('str_p_title', 'str_p_imp_agency', 'str_p_sof', 'str_p_date', 'str_p_budget', 'str_p_regional')
+            ->where('str_p_date', 'like', "%$duration%")
+            ->where('str_p_type', '=', 'Proposals')
+            ->get();
+        $stratProgramListApproved = DB::table('strategic_program_list')
+            ->select('str_p_title', 'str_p_imp_agency', 'str_p_sof', 'str_p_date', 'str_p_budget', 'str_p_regional')
+            ->where('str_p_date', 'like', "%$duration%")
+            ->where('str_p_type', '=', 'Approved')
+            ->get();
+
+        // STRATEGIC COLLABORATIVE
+        $strat_collaborative = DB::table('strategic_collaborative_list')
+            ->select('str_collab_program', 'str_collab_project', 'str_collab_imp_agency', 'str_collab_agency', 'str_collab_budget', 'str_collab_date', 'str_collab_roc', 'str_collab_sof')
+            ->where('str_collab_date', 'like', "%$duration%")
+            ->get();
+
+        // list of Technology Transfer Program/Projects Packaged, Approved and Implemented
+        $ttp_proposal = DB::table('results_ttp')
+            ->select('ttp_proponent', 'ttp_researchers', 'ttp_implementing_agency', 'ttp_sof', 'ttp_title', 'ttp_date', 'ttp_budget', 'ttp_priorities')
+            ->where('ttp_date', 'like', "%$duration%")
+            ->where('ttp_type', '=', 'Packaged')
+            ->get();
+        $ttp_approved = DB::table('results_ttp')
+            ->select('ttp_proponent', 'ttp_researchers', 'ttp_implementing_agency', 'ttp_sof', 'ttp_title', 'ttp_date', 'ttp_budget', 'ttp_priorities')
+            ->where('ttp_date', 'like', "%$duration%")
+            ->where('ttp_type', '=', 'Approved')
+            ->get();
+
+        $programs_html = view('backend.reportlist.data.programs_table', compact('records'))->render();
+        $projects_html = view('backend.reportlist.data.projects_table', compact('p_records'))->render();
+        $sub_projects_html = view('backend.reportlist.data.sub_projects_table', compact('sp_records'))->render();
+        $funded_counts_html = view('backend.reportlist.data.summary_aihrs', compact('fundedCounts'))->render();
+        $linkages_table_html = view('backend.reportlist.data.linkages_table', compact('linkages_developed', 'linkages_maintained'))->render();
+        $dbis_table_html = view('backend.reportlist.data.dbis_table', compact('db', 'is'))->render();
+        $strat_proglist_table_html = view('backend.reportlist.data.strat_proglist_table', compact('stratProgramListProposal', 'stratProgramListApproved'))->render();
+        $strat_collab_table_html = view('backend.reportlist.data.strat_collab_table', compact('strat_collaborative'))->render();
+        $rdru_techlist_table_html = view('backend.reportlist.data.rdru_techlist_table', compact('ttp_proposal', 'ttp_approved'))->render();
+
+        return view('backend.reportlist.reports_table', compact('programs_html', 'projects_html', 'sub_projects_html', 'linkages_table_html', 'dbis_table_html', 'strat_proglist_table_html', 'funded_counts_html', 'strat_collab_table_html', 'rdru_techlist_table_html', 'title', 'agency', 'duration', 'linkages_developed', 'linkages_maintained', 'db', 'is', 'stratProgramListProposal', 'stratProgramListApproved', 'strat_collaborative', 'ttp_proposal', 'ttp_approved'));
     }
 }

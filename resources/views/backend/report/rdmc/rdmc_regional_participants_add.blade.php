@@ -57,7 +57,7 @@
                                 </div>
 
                                 <div class="col-md-4 form-group float-right">
-                                    <a href="{{ url('rdmc-regional') }}" class="btn btn-default">Back</a>
+                                    <a href="{{ url('rdmc-regional-participants') }}" class="btn btn-default">Back</a>
                                     <button type="submit" id="submit" class="btn btn-primary btn-m ">Submit</button>
                                 </div>
                             </form>

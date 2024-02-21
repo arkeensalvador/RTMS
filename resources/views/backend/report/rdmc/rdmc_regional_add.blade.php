@@ -63,7 +63,7 @@
                                 <div class="col-md-12 form-group">
                                     <label for="program_title" class=" font-weight-bold">Major Recommendations<span
                                             class="text-danger">*</span></label></label>
-                                    <textarea class="form-control" id="program_title" name="regional_recommendations" style="height: 100px"
+                                    <textarea class="form-control" id="regional_recommendations" name="regional_recommendations" style="height: 100px"
                                         placeholder="Enter recommendations" required></textarea>
                                     <div class="invalid-feedback">Missing recommendations</div>
                                 </div>
@@ -87,8 +87,38 @@
             </div>
         </section>
     </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+        var textarea = document.getElementById('regional_recommendations');
 
-    <script></script>
+        textarea.addEventListener('input', function() {
+            var lines = textarea.value.split('\n');
+            if (!lines[0].startsWith('•')) {
+                textarea.value = '• ' + textarea.value;
+            }
+        });
+
+        textarea.addEventListener('keydown', function(event) {
+            if (event.key === 'Enter') {
+                event.preventDefault(); // Prevent the default behavior of the Enter key
+
+                var cursorPosition = textarea.selectionStart; // Get the current cursor position
+
+                // Get the textarea content and split it into lines
+                var lines = textarea.value.split('\n');
+
+                // Insert a new line with a bullet point at the current cursor position
+                var newContent = lines.slice(0, cursorPosition).join('\n') + '\n• ' + lines.slice(cursorPosition)
+                    .join('\n');
+
+                // Update the textarea content
+                textarea.value = newContent;
+
+                // Move the cursor position after the inserted bullet point
+                textarea.selectionStart = textarea.selectionEnd = cursorPosition + 3;
+            }
+        });
+    </script>
 
     <script>
         var selectBox = document.getElementById("year");
@@ -97,7 +127,6 @@
             textbox.value = this.value;
         };
     </script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
     <script>
         function formatNumber(e) {

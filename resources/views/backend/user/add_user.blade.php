@@ -115,14 +115,18 @@
 
                 // Show loading spinner using Sweet Alert 2
                 Swal.fire({
-                    imageUrl: "https://i.ibb.co/1q3p6Cg/loading.gif",
-                    title: 'Loading...',
+
+                    // imageUrl: "https://i.ibb.co/1q3p6Cg/loading.gif",
+                    text: 'This may take a while...',
                     allowOutsideClick: false,
                     showConfirmButton: false,
-                    timer: 3500,
-                    onBeforeOpen: () => {
+                    didOpen: () => {
                         Swal.showLoading();
-                    },
+                    }
+                    // timer: 3500,
+                    // onBeforeOpen: () => {
+                    //     Swal.showLoading();
+                    // },
                 });
 
                 $.ajax({

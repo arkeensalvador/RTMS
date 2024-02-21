@@ -120,9 +120,8 @@
                                 </div>
 
                                 <div class="col-md-2 form-group">
-                                    <label for="year" class=" font-weight-bold">Year<span
+                                    <label for="form_of_development" class=" font-weight-bold">Year<span
                                             class="text-danger">*</span></label>
-
                                     <select id="year" name="year" class="form-control yearSelect" required>
                                         <option value=""></option>
                                         @for ($year = 2000; $year <= 2060; $year++)
@@ -132,8 +131,7 @@
                                     <div class="invalid-feedback">Missing year</div>
                                 </div>
 
-
-                                <div class="col-md-7 form-group">
+                                <div class="col-md-12 form-group">
                                     <label for="address" class=" font-weight-bold">Address<span
                                             class="text-danger">*</span></label>
                                     <input type="text" id="address" name="address" class="form-control"

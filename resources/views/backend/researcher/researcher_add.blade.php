@@ -99,13 +99,13 @@
 
                                         <div class="col-sm-4">
                                             <input type="text" name="mname" id="mname" class="form-control"
-                                                placeholder="Middle name" required>
+                                                placeholder="Middle name (Optional)">
                                             <div class="invalid-feedback">Missing middle name</div>
                                         </div>
 
                                         <div class="col-sm-4">
                                             <input type="text" name="lname" id="lname" class="form-control"
-                                                placeholder="Last name" required>
+                                                placeholder="Last name (Include suffix e.g. Jr.)" required>
                                             <div class="invalid-feedback">Missing last name</div>
                                         </div>
 
@@ -153,7 +153,7 @@
                                         <option value="Contractual">Contractual</option>
                                         <option value="JO">Job Order</option>
                                         <option value="Project">Project Based</option>
-                                        <option value="Regular">Regular</option>
+                                        <option value="Regular">Regular/Permanent</option>
                                     </select>
                                     <div class="invalid-feedback">Missing employment status</div>
                                 </div>
@@ -175,7 +175,6 @@
                                         class="form-control" placeholder="Phone no." maxlength="11" required>
                                     <div class="invalid-feedback">Missing phone number</div>
                                 </div>
-
 
                                 <div class="col-md-12 form-group buttons">
                                     <a href="{{ url('researcher-index') }}" class="btn btn-default">Back</a>

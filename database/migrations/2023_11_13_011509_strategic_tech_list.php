@@ -19,6 +19,7 @@ return new class extends Migration {
             $table->string('tech_agency');
             $table->string('tech_researchers');
             $table->longText('tech_impact');
+            $table->string('tech_duration')->nullable();
             $table->string('encoder_agency');
             $table->timestamps();
         });

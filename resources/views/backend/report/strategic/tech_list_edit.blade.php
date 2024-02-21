@@ -87,7 +87,7 @@
                                     <h5 class="mt-0"> Kindly fill-out the fields needed.</h5>
                                 </div>
 
-                                @if (!$imgs->isEmpty())
+                                {{-- @if (!$imgs->isEmpty())
                                     <div class="col-md-12">
                                         <label for="strategic_program" class="font-weight-bold">Uploaded Images<span
                                                 class="text-danger"></span></label><br>
@@ -96,6 +96,30 @@
                                                 <img id="" src="{{ asset($img->filename) }}" alt=""
                                                     style="width: 200px; height: 200px;" class="img-thumbnail">
                                             </a>
+
+
+                                            <p>
+                                                Remove
+                                            </p>
+                                        @endforeach
+                                    </div>
+                                @endif --}}
+
+                                @if (!$imgs->isEmpty())
+                                    <div class="col-md-12">
+                                        <label for="strategic_program" class="font-weight-bold">Uploaded Images<span
+                                                class="text-danger"></span></label><br>
+                                        @foreach ($imgs as $img)
+                                            <div style="display: inline-block; margin-right: 10px;">
+                                                <a href="{{ asset($img->filename) }}" data-lightbox="photos">
+                                                    <img src="{{ asset($img->filename) }}" alt=""
+                                                        style="width: 200px; height: 200px;" class="img-thumbnail">
+                                                </a>
+                                                <p style="text-align: center">
+                                                    <a href="{{ url('delete-image/' . $img->id) }}" id="delete"
+                                                        style="color: red; text-decoration: underline; font-size: 13px">remove</a>
+                                                </p>
+                                            </div>
                                         @endforeach
                                     </div>
                                 @endif
@@ -114,6 +138,14 @@
                                     <div class="invalid-feedback">Missing type of technology</div>
                                 </div>
 
+                                <div class="col-md-4 form-group">
+                                    <label for="strategic_implementing_agency" class=" font-weight-bold">Duration<span
+                                            class="text-danger">*</span></label>
+                                    <input type="text" class="form-control date-range" value="{{ $all->tech_duration }}"
+                                        name="tech_duration" placeholder="Duration" required>
+                                    <div class="invalid-feedback">Missing duration</div>
+                                </div>
+
                                 <div class="col-md-12 form-group">
                                     <label for="strategic_implementing_agency" class=" font-weight-bold">Title<span
                                             class="text-danger">*</span></label>
@@ -121,14 +153,6 @@
                                         rows="5" required>{{ $all->tech_title }}</textarea>
                                     <div class="invalid-feedback">Missing title</div>
                                 </div>
-
-                                {{-- <div class="col-md-12 form-group">
-                                    <label for="strategic_implementing_agency" class=" font-weight-bold">Description<span
-                                            class="text-danger">*</span></label>
-                                    <textarea name="tech_desc" id="strategic_title" class="form-control" rows="4" style="resize: none" required
-                                        placeholder="Description">{{ $all->tech_desc }}</textarea>
-                                    <div class="invalid-feedback">Missing title</div>
-                                </div> --}}
 
                                 <div class="col-md-12 form-group">
                                     <label for="agencySelect" class=" font-weight-bold">Agency<span
@@ -164,40 +188,6 @@
                                     </select>
                                     <div class="invalid-feedback">Missing researchers</div>
                                 </div>
-
-                                {{-- <div class="col-md-12 form-group">
-                                    <label for="agencySelect" class=" font-weight-bold">Program/Project Source<span
-                                            class="text-danger">*</span></label>
-                                    <select id="" name="tech_source" class="form-control source" required>
-                                        <option value=""></option>
-                                        <optgroup label="Programs">
-                                            @foreach ($programs as $prog)
-                                                <option value="{{ $prog->program_title }}"
-                                                    {{ $prog->program_title == $all->tech_source ? 'selected' : '' }}>
-                                                    {{ $prog->program_title }}
-                                                </option>
-                                            @endforeach
-                                        </optgroup>
-
-                                        <optgroup label="Projects">
-                                            @foreach ($projects as $proj)
-                                                <option value="{{ $proj->project_title }}"
-                                                    {{ $proj->project_title == $all->tech_source ? 'selected' : '' }}>
-                                                    {{ $proj->project_title }}
-                                                </option>
-                                            @endforeach
-                                        </optgroup>
-
-                                        <optgroup label="Sub Projects">
-                                            @foreach ($sub_projects as $sub_proj)
-                                                <option value="{{ $sub_proj->sub_project_title }}"
-                                                    {{ $sub_proj->sub_project_title == $all->tech_source ? 'selected' : '' }}>
-                                                    {{ $sub_proj->sub_project_title }} </option>
-                                            @endforeach
-                                        </optgroup>
-                                    </select>
-                                    <div class="invalid-feedback">Missing program/project source</div>
-                                </div> --}}
 
                                 <div class="col-md-12 form-group">
                                     <label for="strategic_implementing_agency" class=" font-weight-bold">Potential Impact

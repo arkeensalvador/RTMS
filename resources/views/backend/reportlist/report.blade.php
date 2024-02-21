@@ -1,977 +1,754 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
-        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous">
-    </script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous">
-    </script>
-    <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
-    <title></title>
-
-    <style>
-        @import url('https://fonts.googleapis.com/css?family=Poppins');
-
-        body {
-            font-family: 'Poppins', sans-serif;
-        }
-
-        .table-area .notices {
-            padding-left: 6px;
-            padding: 10px;
-        }
-
-        thead {
-            color: #fff;
-            font-weight: 200;
-            font-size: 20px;
-        }
-
-        .table td,
-        .table th {
-            text-align: center;
-            vertical-align: middle;
-            font-size: 9px;
-        }
-
-        .report-footer {
-            border-top: 1px solid #ddd;
-            padding-top: 10px;
-        }
-    </style>
-</head>
-
-<body>
-    <div class="card-body">
-        <div class="my-1 ">
-            <div class="p-1">
-                <!-- R&D Management and Coordination -->
-                <section class="table-area mt-1 page-break">
-                    <div class="table-title col-12 py-1"
-                        style="background-image: url('https://i.ibb.co/Jp0tJxt/sec1.webp'); background-size:cover;;">
-                        <h1 class="text-center text-capitalized font-weight-bold"
-                            style="color: #fff; text-shadow: 1px 1px 2px #1b1b1b; letter-spacing: -1px; ">
-                            RESEARCH AND
-                            DEVELOPMENT<br>MANAGEMENT AND COORDINATION</h1>
-                    </div>
-
-
-                    <!-- Summary of the AIHR's conducted by the CMI's -->
-                    <div class="category my-5">
-                        <div class="notices mb-1 " style="border-left: 6px solid #0DA603;">
-                            <h5>Summary of the <span class="font-weight-bold" style=" color: #0DA603;">AIHR's conducted
-                                    by
-                                    the CMI's</span></h5>
-                        </div>
-
-                        <table class="table-bordered table table-hover">
-                            <thead style="background-color: #0DA603;">
-                                <tr>
-                                    <td rowspan="2">Agency</td>
-                                    <td colspan="5">Number of Project Presented</td>
-                                </tr>
-                                <tr>
-                                    <td style="">New</td>
-                                    <td>Ongoing</td>
-                                    <td>Terminated</td>
-                                    <td>Completed</td>
-                                    <td>Total Projects Reviewed</td>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($fundedCounts as $abbrev => $counts)
-                                    @if (
-                                        $counts['new'] > 0 ||
-                                            $counts['ongoing'] > 0 ||
-                                            $counts['terminated'] > 0 ||
-                                            $counts['completed'] > 0 ||
-                                            $counts['totalCount'] > 0)
-                                        <tr>
-                                            <td>{{ $abbrev }}</td>
-                                            <td>{{ $counts['new'] }}</td>
-                                            <td>{{ $counts['ongoing'] }}</td>
-                                            <td>{{ $counts['terminated'] }}</td>
-                                            <td>{{ $counts['completed'] }}</td>
-                                            <td>{{ $counts['totalCount'] }}</td>
-                                        </tr>
-                                    @endif
-                                @endforeach
-
-                            </tbody>
-                        </table>
-                    </div>
-
-
-                    <!-- PROGRAMS -->
-                    <div class="category my-5">
-                        <div class="notices mb-1 " style="border-left: 6px solid #0DA603;">
-                            <h5>List of <span class="font-weight-bold" style=" color: #0DA603;">Program</span></h5>
-                        </div>
-                        <table class="table-bordered table table-hover">
-                            <thead style="background-color: #0DA603;">
-                                <tr>
-                                    <td>Program Title </td>
-                                    <td>Description</td>
-                                    <td>Duration</td>
-                                    <td>Funding Agency</td>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($list as $data)
-                                    <tr>
-                                        <td>{{ $data->program_title }}</td>
-                                        <td>{{ $data->program_description }}</td>
-                                        <td>
-                                            {{ $data->duration }}
-                                        </td>
-                                        @php
-                                            $fa = json_decode($data->funding_agency);
-                                            $fa = implode(', ', $fa);
-                                        @endphp
-                                        <td>{{ $fa }}</td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </div>
-
-                    <!-- PROJECTS -->
-                    <div class="category my-5">
-                        <div class="notices mb-1 " style="border-left: 6px solid #0DA603;">
-                            <h5>List of <span class="font-weight-bold" style=" color: #0DA603;">Project</span></h5>
-                        </div>
-                        <table class="table-bordered table table-hover">
-                            <thead style="background-color: #0DA603;">
-                                <tr>
-                                    <td>Project Title</td>
-                                    <td>Description</td>
-                                    <td>Duration</td>
-                                    <td>Funding Agency</td>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($plist as $pl)
-                                    <tr>
-                                        <td>{{ $pl->project_title }}</td>
-                                        <td>{{ $pl->project_description }}</td>
-                                        <td>
-                                            {{ $pl->project_duration }}
-                                        </td>
-                                        @php
-                                            $fa = json_decode($pl->project_agency);
-                                            $fa = implode(', ', $fa);
-                                        @endphp
-                                        <td>{{ $fa }}</td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </div>
-
-                    <!-- SUB-PROJECTS -->
-                    <div class="category my-5">
-                        <div class="notices mb-1 " style="border-left: 6px solid #0DA603;">
-                            <h5>List of <span class="font-weight-bold" style=" color: #0DA603;">Sub-Project</span></h5>
-                        </div>
-                        <table class="table-bordered table table-hover">
-                            <thead style="background-color: #0DA603;">
-                                <tr>
-                                    <td>Sub-Project Title </td>
-                                    <td>Description</td>
-                                    <td>Duration</td>
-                                    <td>Funding Agency</td>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($splist as $spl)
-                                    <tr>
-                                        <td>{{ $spl->sub_project_title }}</td>
-                                        <td>{{ $spl->sub_project_description }}</td>
-                                        <td>
-                                            {{ $spl->sub_project_duration }}
-                                        </td>
-                                        @php
-                                            $fa = json_decode($spl->sub_project_agency);
-                                            $fa = implode(', ', $fa);
-                                        @endphp
-                                        <td>{{ $fa }}</td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </div>
-
-                    <!-- Linkages forged and maintained -->
-                    <div class="category my-5">
-                        <div class="notices mb-1 " style="border-left: 6px solid #0DA603;">
-                            <h5><span class="font-weight-bold" style=" color: #0DA603;">Linkages
-                                    forged</span> and <span class="font-weight-bold"
-                                    style=" color: #0DA603;">maintained</span> </h5>
-                        </div>
-                        <table class="table-bordered table table-hover">
-                            <thead style="background-color: #0DA603;">
-                                <tr>
-                                    <td>Agency/Institutions</td>
-                                    <td>Address</td>
-                                    <td>Year</td>
-                                    <td>Nature of Assistance / Linkages / Projects</td>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td colspan="4" style="background: #d3ffd1;" class="font-weight-bold">
-                                        DEVELOPED/NEW
-                                    </td>
-                                </tr>
-                                @foreach ($linkages_developed as $ld)
-                                    <tr>
-                                        <td>{{ $ld->form_of_development }}</td>
-                                        <td>{{ $ld->address }}</td>
-                                        <td>{{ $ld->year }}</td>
-                                        <td>
-                                            {{ $ld->nature_of_assistance }}
-                                        </td>
-                                    </tr>
-                                @endforeach
-
-                                <tr>
-                                    <td colspan="4" style="background: #d3ffd1;" class="font-weight-bold">
-                                        MAINTAINED/SUSTAINED</td>
-                                </tr>
-
-                                @foreach ($linkages_maintained as $lm)
-                                    <tr>
-                                        <td>{{ $lm->form_of_development }}</td>
-                                        <td>{{ $lm->address }}</td>
-                                        <td>{{ $lm->year }}</td>
-                                        <td>
-                                            {{ $lm->nature_of_assistance }}
-                                        </td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </div>
-
-                    <!-- List of database developed/enhanced and maintained.-->
-                    <div class="category my-5">
-                        <div class="notices mb-1 " style="border-left: 6px solid #0DA603;">
-                            <h5>List of<span class="font-weight-bold" style=" color: #0DA603;"> Database
-                                    developed/enhanced</span> and <span class="font-weight-bold"
-                                    style=" color: #0DA603;">maintained</span> </h5>
-                        </div>
-                        <table class="table-bordered table table-hover">
-                            <thead style="background-color: #0DA603;">
-                                <tr>
-                                    <td>Title</td>
-                                    <td>Type of Database</td>
-                                    <td>Date Created</td>
-                                    <td>Purpose / Use</td>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($db as $db)
-                                    <tr>
-                                        <td>{{ $db->dbinfosys_title }}</td>
-                                        <td>{{ $db->dbinfosys_type }}</td>
-                                        <td>{{ date('m/d/Y', strtotime($db->dbinfosys_date_created)) }}
-                                        </td>
-                                        <td>{{ $db->dbinfosys_purpose }}</td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </div>
-
-                    <!-- List of information system developed/enhanced and maintained.-->
-                    <div class="category my-5">
-                        <div class="notices mb-1 " style="border-left: 6px solid #0DA603;">
-                            <h5>List of<span class="font-weight-bold" style=" color: #0DA603;">
-                                    Information System
-                                    developed/enhanced</span> and <span class="font-weight-bold"
-                                    style=" color: #0DA603;">maintained</span> </h5>
-                        </div>
-                        <table class="table-bordered table table-hover">
-                            <thead style="background-color: #0DA603;">
-                                <tr>
-                                    <td>Title</td>
-                                    <td>Type of Information System</td>
-                                    <td>Date Created</td>
-                                    <td>Purpose / Use</td>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($is as $is)
-                                    <tr>
-                                        <td>{{ $is->dbinfosys_title }}</td>
-                                        <td>{{ $is->dbinfosys_type }}</td>
-
-                                        <td>{{ date('m/d/Y', strtotime($is->dbinfosys_date_created)) }}
-                                        </td>
-                                        <td>{{ $is->dbinfosys_purpose }}</td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </div>
-
-                </section>
-
-                <!-- Strategic Research & Development Activities -->
-                <section class="table-area mt-4 page-break">
-                    <div class="table-title col-12 py-1"
-                        style="background-image: url('https://i.ibb.co/MpcC8d4/sec2.webp'); background-size:cover;">
-                        <h1 class="text-center text-capitalized font-weight-bold"
-                            style="color: #fff; text-shadow: 1px 1px 2px #1b1b1b; letter-spacing: -1px; ">
-                            STRATEGIC
-                            RESEARCH AND <br>DEVELOPMENT ACTIVITIES</h1>
-                    </div><br>
-
-                    <!-- List of R&D Programs/Projects Packaged, Approved and Implemented,CY 2022 -->
-                    <div class="category my-5">
-                        <div class="notices mb-1 " style="border-left: 6px solid #002E94;">
-                            <h5>List of <span class="font-weight-bold" style="color:#002E94;">Research
-                                    & Development
-                                    Programs/Projects Packaged, Approved </span>and <span class="font-weight-bold"
-                                    style="color:#002E94;">Implemented</span>
-                            </h5>
-                        </div>
-                        <table class="table-bordered table table-hover">
-                            <thead style="background-color: #002E94;">
-                                <tr>
-                                    <td>Program / Project Title</td>
-                                    <td>Implementing Agency</td>
-                                    <td>Duration</td>
-                                    <td>Source of Funds</td>
-                                    <td>Budget</td>
-                                    <td>Regional Priority / Commodity Addressed</td>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td colspan="6" style="background: #ddffff; color: black;"
-                                        class="font-weight-bold">PROPOSALS PACKAGED</td>
-                                </tr>
-                                @foreach ($stratProgramListProposal as $splp)
-                                    <tr>
-                                        <td>{{ $splp->str_p_title }}</td>
-                                        @php
-                                            $imp = json_decode($splp->str_p_imp_agency);
-                                            $imp = implode(', ', $imp);
-
-                                            $sof = json_decode($splp->str_p_sof);
-                                            $sof = implode(', ', $sof);
-                                        @endphp
-                                        <td>{{ $imp }}</td>
-                                        <td>{{ $splp->str_p_date }}</td>
-                                        <td>{{ $sof }}</td>
-                                        <td>₱{{ number_format($splp->str_p_budget, 2) }}</td>
-                                        <td>{{ $splp->str_p_regional }}</td>
-                                    </tr>
-                                @endforeach
-                                <tr>
-                                    <td colspan="6" style="background: #ddffff; color: black;"
-                                        class="font-weight-bold">PROJECTS APPROVED AND IMPLEMENTED</td>
-                                </tr>
-                                @foreach ($stratProgramListApproved as $spla)
-                                    <tr>
-                                        <td>{{ $spla->str_p_title }}</td>
-                                        @php
-                                            $imp = json_decode($spla->str_p_imp_agency);
-                                            $imp = implode(', ', $imp);
-
-                                            $sof = json_decode($spla->str_p_sof);
-                                            $sof = implode(', ', $sof);
-                                        @endphp
-                                        <td>{{ $imp }}</td>
-                                        <td>{{ $spla->str_p_date }}</td>
-                                        <td>{{ $sof }}</td>
-                                        <td>₱{{ number_format($spla->str_p_budget, 2) }}</td>
-                                        <td>{{ $spla->str_p_regional }}</td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </div>
-
-                    <!-- Collaborative R&D Programs/Projects Implemented by the Consortium and Member-Agencies in support of regional priorities. -->
-                    <div class="category my-5">
-                        <div class="notices mb-1 " style="border-left: 6px solid #002E94;">
-                            <h5 class=" text-left">Collaborative <span class="font-weight-bold"
-                                    style="color:#002E94;">Research & Development Programs/Projects
-                                    Implemented </span> by
-                                the <span class="font-weight-bold" style="color:#002E94;"> Consortium
-                                </span> and <span class="font-weight-bold" style="color:#002E94;">Member-Agencies in
-                                    support of regional priorities</span></h5>
-                        </div>
-
-                        <table class="table-bordered table table-hover" style="font-size: 5px;">
-                            <thead style="background-color: #002E94;">
-                                <tr>
-                                    <td>Program Title</td>
-                                    <td>Project Title</td>
-                                    <td>Implementing Agency</td>
-                                    <td>Collaborating Agency</td>
-                                    <td>Duration</td>
-                                    <td>Budget</td>
-                                    <td>Source(s) of Fund</td>
-                                    <td>Role of Consortium</td>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($strat_collaborative as $item)
-                                    @php
-                                        if (!empty($item->str_collab_imp_agency)) {
-                                            $imp = json_decode($item->str_collab_imp_agency);
-                                            $imp = implode(', ', $imp);
-                                        }
-
-                                        if (!empty($item->str_collab_agency)) {
-                                            $collab = json_decode($item->str_collab_agency);
-                                            $collab = implode(', ', $collab);
-                                        }
-
-                                        if (!empty($item->str_collab_sof)) {
-                                            $sof = json_decode($item->str_collab_sof);
-                                            $sof = implode(', ', $sof);
-                                        }
-
-                                        [$startDateString, $endDateString] = explode(' to ', $item->str_collab_date);
-                                        $startDate = \Carbon\Carbon::createFromFormat('m/d/Y', trim($startDateString));
-                                        $endDate = \Carbon\Carbon::createFromFormat('m/d/Y', trim($endDateString));
-                                    @endphp
-                                    <tr>
-                                        <td>{{ $item->str_collab_program }}</td>
-                                        <td>{{ $item->str_collab_project }}</td>
-                                        <td>
-                                            {{ $imp }}
-                                        </td>
-                                        <td>
-                                            {{ $collab }}
-                                        </td>
-                                        <td>
-                                            {{ $startDate->format('F Y') }} to
-                                            {{ $endDate->format('F Y') }}
-                                        </td>
-                                        <td>₱{{ number_format($item->str_collab_budget, 2) }}</td>
-                                        <td>{{ $sof }}</td>
-                                        <td>{{ $item->str_collab_roc }}</td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </div>
-                    <!-- 9. List of Technologies/ Information Generated from R&D, CY 2022 -->
-                    <div class="category my-5">
-                        <div class="notices mb-1 " style="border-left: 6px solid #002E94;">
-                            <h5 class=" text-left">List of <span class="font-weight-bold"
-                                    style="color:#002E94;">Technologies / Information </span> Generated
-                                from <span class="font-weight-bold" style="color:#002E94;"> Research
-                                    and Development
-                                </span></h5>
-                        </div>
-
-                        <table class="table-bordered table table-hover" style="font-size: 5px;">
-                            <thead style="background-color: #002E94;">
-                                <tr>
-                                    <td>Title of Technology</td>
-                                    <td>Agency</td>
-                                    <td>Researcher(s)</td>
-                                    <td>Potential Impact or Contribution</td>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td colspan="6" style="background: #ddffff; color: black;"
-                                        class="font-weight-bold">RESEARCH</td>
-                                </tr>
-                                @foreach ($strat_tech_research as $item)
-                                    @php
-                                        $res = json_decode($item->tech_researchers);
-                                        $res = implode(', ', $res);
-                                    @endphp
-                                    <tr>
-                                        <td>{{ $item->tech_title }}</td>
-                                        <td>{{ $item->tech_agency }}</td>
-                                        <td>{{ $res }}</td>
-                                        <td>{{ $item->tech_impact }}</td>
-                                    </tr>
-                                @endforeach
-
-                                <tr>
-                                    <td colspan="6" style="background: #ddffff; color: black;"
-                                        class="font-weight-bold">DEVELOPMENT</td>
-                                </tr>
-                                @foreach ($strat_tech_dev as $item)
-                                    @php
-                                        $res = json_decode($item->tech_researchers);
-                                        $res = implode(', ', $res);
-                                    @endphp
-                                    <tr>
-                                        <td>{{ $item->tech_title }}</td>
-                                        <td>{{ $item->tech_agency }}</td>
-                                        <td>{{ $res }}</td>
-                                        <td>{{ $item->tech_impact }}</td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </div>
-                </section>
-
-                <!-- R & D Results Utilization-->
-                <section class="table-area mt-4 page-break">
-
-                    <div class="table-title col-12 py-1"
-                        style="background-image: url('https://i.ibb.co/0Z2VpgB/sec3.webp'); background-size:cover;;">
-                        <h1 class="text-center text-capitalized font-weight-bold"
-                            style="color: #fff; text-shadow: 1px 1px 2px #1b1b1b; letter-spacing: -1px; ">
-                            RESEARCH AND
-                            DEVELOPMENT<br>RESULTS UTILIZATION</h1>
-                    </div>
-
-                    <!-- Data from "Technology Transfer Proposals -->
-                    <div class="category my-5">
-                        <div class="notices mb-1 " style="border-left: 6px solid #3D30A2;">
-                            <h5>List of <span class="font-weight-bold" style="color:#3D30A2;">
-                                    Technology Transfer
-                                    Program/Projects Packaged, Approved </span>and <span class="font-weight-bold"
-                                    style="color:#002E94;">Implemented</span>
-                            </h5>
-                        </div>
-
-                        <table class="table-bordered table table-hover">
-                            <thead style="background-color: #3D30A2;">
-                                <tr>
-                                    <td>Program / Project Title</td>
-                                    <td>Proponent</td>
-                                    <td>Implementing Agency</td>
-                                    <td>Duration</td>
-                                    <td>Source of Funds</td>
-                                    <td>Budget</td>
-                                    <td>Regional <br>Priority/ <br> Commodities <br> Addressed</td>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td colspan="7" style="background: #DFCCFB; color: black;"
-                                        class="font-weight-bold">PROPOSALS PACKAGED</td>
-                                </tr>
-                                @foreach ($ttp_proposal as $item)
-                                    @php
-                                        $prop = json_decode($item->ttp_proponent);
-                                        $prop = implode(', ', $prop);
-
-                                        $rs = json_decode($item->ttp_researchers);
-                                        $rs = implode(', ', $rs);
-
-                                        $imp = json_decode($item->ttp_implementing_agency);
-                                        $imp = implode(', ', $imp);
-
-                                        $sof = json_decode($item->ttp_sof);
-                                        $sof = implode(', ', $sof);
-                                    @endphp
-                                    <tr>
-                                        <td>{{ $item->ttp_title }}</td>
-                                        <td>{{ $prop . ' / ' . $rs }}</td>
-                                        <td>{{ $imp }}</td>
-                                        <td>{{ $item->ttp_date }}</td>
-                                        <td>{{ $sof }}</td>
-                                        <td>₱{{ number_format($item->ttp_budget, 2) }}</td>
-                                        <td>{{ $item->ttp_priorities }}</td>
-                                    </tr>
-                                @endforeach
-                                <tr>
-                                    <td colspan="7" style="background: #DFCCFB; color: black;"
-                                        class="font-weight-bold">PROJECTS APPROVED AND IMPLEMENTED
-                                    </td>
-                                </tr>
-
-                                @foreach ($ttp_approved as $item)
-                                    @php
-                                        $prop = json_decode($item->ttp_proponent);
-                                        $prop = implode(', ', $prop);
-
-                                        $rs = json_decode($item->ttp_researchers);
-                                        $rs = implode(', ', $rs);
-
-                                        $imp = json_decode($item->ttp_implementing_agency);
-                                        $imp = implode(', ', $imp);
-
-                                        $sof = json_decode($item->ttp_sof);
-                                        $sof = implode(', ', $sof);
-                                    @endphp
-                                    <tr>
-                                        <td>{{ $item->ttp_title }}</td>
-                                        <td>{{ $prop . ' / ' . $rs }}</td>
-                                        <td>{{ $imp }}</td>
-                                        <td>{{ $item->ttp_date }}</td>
-                                        <td>{{ $sof }}</td>
-                                        <td>₱{{ number_format($item->ttp_budget, 2) }}</td>
-                                        <td>{{ $item->ttp_priorities }}</td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </div>
-
-                    <!--  Data from "Technology Transfer Modalities-->
-                    <div class="category my-5">
-                        <div class="notices mb-1 " style="border-left: 6px solid #3D30A2;">
-                            <h5>List of <span class="font-weight-bold" style="color:#3D30A2;">
-                                    Technologies Commercialized
-                                </span>or <span class="font-weight-bold" style="color:#002E94;">Pre-Commercialization
-                                    Initiatives</span></h5>
-                        </div>
-
-                        <table class="table-bordered table table-hover">
-                            <thead style="background-color: #3D30A2;">
-                                <tr>
-                                    <td>Type of IPR Applies</td>
-                                    <td>Technologies</td>
-                                    <td>Agency</td>
-                                    <td>Status</td>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($tech_commercialized as $item)
-                                    <tr>
-                                        <td>{{ $item->ttm_type }}</td>
-                                        <td>{{ $item->ttm_title }}</td>
-                                        <td>{{ $item->ttm_agency }}</td>
-                                        <td>{{ $item->ttm_status }}</td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </div>
-
-                    <!--  Data from "Technology Promotion Approches-->
-                    <div class="category my-5">
-                        <div class="notices mb-1 " style="border-left: 6px solid #3D30A2;">
-                            <h5>List of <span class="font-weight-bold" style="color:#3D30A2;">Technology Promotion
-                                    Approaches </span></h5>
-                        </div>
-                        <table class="table-bordered table table-hover">
-                            <thead style="background-color: #3D30A2;">
-                                <tr>
-                                    <td>Technology Promotion Approaches </td>
-                                    <td>Title</td>
-                                    <td>Remarks</td>
-                                    <td>Details</td>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($tpa as $item)
-                                    @php
-                                        $approaches = json_decode($item->tpa_approaches);
-                                        $approaches = implode(', ', $approaches);
-                                    @endphp
-                                    <tr>
-                                        <td>{{ $approaches }}</td>
-                                        <td>{{ $item->tpa_title }}</td>
-                                        <td>{{ $item->tpa_agency }}</td>
-                                        <td>{{ $item->tpa_details }}</td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </div>
-
-                </section>
-
-                <!-- Capability Building and Governance-->
-                <section class="table-area mt-4 page-break">
-
-                    <div class="table-title col-12 py-1"
-                        style="background-image: url('https://i.ibb.co/NCMBtB8/sec4.webp'); background-size:cover;;">
-                        <h1 class="text-center text-capitalized font-weight-bold"
-                            style="color: #fff; text-shadow: 1px 1px 2px #1b1b1b; letter-spacing: -1px; ">
-                            CAPABILITY
-                            BUILDING<br>AND GOVERNANCE</h1>
-                    </div>
-
-                    <!-- Data from "Trainings-Workshop" -->
-                    <div class="category my-5">
-                        <div class="notices mb-1 " style="border-left: 6px solid #FF8400;">
-                            <h5>List of <span class="font-weight-bold" style="color:#FF8400;">
-                                    non-degree trainings
-                                    conducted/facilitated </span></h5>
-                        </div>
-                        <table class="table-bordered table table-hover">
-                            <thead style="background-color: #FF8400;">
-                                <tr>
-                                    <td>Title of Activity</td>
-                                    <td>Date</td>
-                                    <td>Venue</td>
-                                    <td>Number of Participants</td>
-                                    <td>Expenditures</td>
-                                    <td>Source(s) of Funds</td>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($trainings as $item)
-                                    @php
-                                        $sof = json_decode($item->trainings_sof);
-                                        $sof = implode(', ', $sof);
-                                    @endphp
-                                    <tr>
-                                        <td>{{ $item->trainings_title }}</td>
-                                        <td>{{ $item->trainings_start }}</td>
-                                        <td>{{ $item->trainings_venue }}</td>
-                                        <td>{{ $item->trainings_no_participants }}</td>
-                                        <td>₱{{ number_format($item->trainings_expenditures, 2) }}</td>
-                                        <td>{{ $sof }}
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </div>
-
-                    <!-- Equipments and Facilities" -->
-                    <div class="category my-5">
-                        <div class="notices mb-1 " style="border-left: 6px solid #FF8400;">
-                            <h5><span class="font-weight-bold" style="color:#FF8400;">Equipment</span>
-                                and <span class="font-weight-bold" style="color:#FF8400;">Facilities
-                                    Established/Installed/Acquired/Funded</span></h5>
-                        </div>
-                        <table class="table-bordered table table-hover">
-                            <thead style="background-color: #FF8400;">
-                                <tr>
-                                    <td class="text-center">Equipment/ <br>Facilities
-                                        Established<br>/Upgraded/<br>Approved
-                                    </td>
-                                    <td>Name of Equipment</td>
-                                    <td>Agency</td>
-                                    <td>Expenditures</td>
-                                    <td>Source(s) of Funds</td>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($equipments as $item)
-                                    @php
-                                        $sof = json_decode($item->equipments_sof);
-                                        $sof = implode(', ', $sof);
-                                    @endphp
-                                    <tr>
-                                        <td>{{ $item->equipments_type }}</td>
-                                        <td>{{ $item->equipments_name }}</td>
-                                        <td>{{ $item->equipments_agency }}</td>
-                                        <td>₱{{ number_format($item->equipments_total, 2) }}</td>
-                                        <td>{{ $sof }}</td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </div>
-
-                    <!-- Awards Received" -->
-                    <div class="category my-5">
-                        <div class="notices mb-1 " style="border-left: 6px solid #FF8400;">
-                            <h5><span class="font-weight-bold" style="color:#FF8400;">Awards
-                                    Received</span> by the<span class="font-weight-bold" style="color:#FF8400;">
-                                    consortium </span> or <span class="font-weight-bold" style="color:#FF8400;">
-                                    member-agencies</span></h5>
-                        </div>
-                        <table class="table-bordered table table-hover">
-                            <thead style="background-color: #FF8400;">
-                                <tr>
-                                    <td class="text-center">Type of Award</td>
-                                    <td>Title</td>
-                                    <td>Recipient/Agency</td>
-                                    <td>Sponsor</td>
-                                    <td>Event/Activity</td>
-                                    <td>Place of Award</td>
-                                    <td>Date</td>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($awards as $item)
-                                    <tr>
-                                        <td>{{ $item->awards_type }}</td>
-                                        <td>{{ $item->awards_title }}</td>
-                                        <td>{{ $item->awards_recipients . '/' . $item->awards_agency }}
-                                        </td>
-                                        <td>{{ $item->awards_sponsor }}</td>
-                                        <td>{{ $item->awards_event }}</td>
-                                        <td>{{ $item->awards_place }}</td>
-                                        <td>{{ date('F d, Y', strtotime($item->awards_date)) }}</td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </div>
-
-
-                    {{-- Meetings --}}
-                    <div class="category my-5">
-                        <div class="notices mb-1 " style="border-left: 6px solid #FF8400;">
-                            <h5>Schedule, Venue, Host Agencies of Regular <span class="font-weight-bold"
-                                    style="color:#FF8400;">Meetings
-                                </span></h5>
-                        </div>
-                        <table class="table-bordered table table-hover">
-                            <thead style="background-color: #FF8400;">
-                                <tr>
-                                    <td class="text-center">Type of Meeting/Activity</td>
-                                    <td>Venue</td>
-                                    <td>Date</td>
-                                    <td>Host Agency</td>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($meetings as $item)
-                                    <tr>
-                                        <td>{{ $item->meeting_type }}</td>
-                                        <td>{{ $item->meeting_venue }}</td>
-                                        <td>{{ date('F d, Y', strtotime($item->meeting_date)) }}</td>
-                                        <td>{{ $item->meeting_host }}</td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </div>
-
-                    {{-- CMI Contributions --}}
-                    <div class="category my-5">
-                        <div class="notices mb-1 " style="border-left: 6px solid #FF8400;">
-                            <h5>List of <span class="font-weight-bold" style="color:#FF8400;">CMIs
-                                    Contribution
-                                </span></h5>
-                        </div>
-                        <table class="table-bordered table table-hover">
-                            <thead style="background-color: #FF8400;">
-                                <tr>
-                                    <td class="text-center">Contributor</td>
-                                    <td>Amount</td>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($contributions as $item)
-                                    <tr>
-                                        <td>{{ $item->con_name }}</td>
-                                        <td>{{ $item->con_amount }}</td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </div>
-
-                    {{-- New initatives on Governance --}}
-                    <div class="category my-5">
-                        <div class="notices mb-1 " style="border-left: 6px solid #FF8400;">
-                            <h5>List of <span class="font-weight-bold" style="color:#FF8400;">New
-                                    Initiatives </span> on <span class="font-weight-bold"
-                                    style="color:#FF8400;">Governance</span>
-                            </h5>
-                        </div>
-                        <table class="table-bordered table table-hover">
-                            <thead style="background-color: #FF8400;">
-                                <tr>
-                                    <td class="text-center">New Initiates</td>
-                                    <td>Date Conducted/Implemented</td>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($initiatives as $item)
-                                    <tr>
-                                        <td>{{ $item->ini_initiates }}</td>
-                                        <td>{{ date('F d, Y', strtotime($item->ini_date)) }}</td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </div>
-                </section>
-
-
-                {{-- POLICY ANALYSIS AND ADVOCACY --}}
-                <section class="table-area mt-4 page-break">
-                    <div class="table-title col-12 py-1"
-                        style="background-image: url('https://i.ibb.co/qNdVBF4/sec5.png'); background-size:cover;;">
-                        <h1 class="text-center text-capitalized font-weight-bold"
-                            style="color: #fff; text-shadow: 1px 1px 2px #1b1b1b; letter-spacing: -1px; ">
-                            POLICY
-                            ANALAYSIS<br>AND ADVOCACY</h1>
-                    </div>
-
-                    <!-- Data from "Policy Conducted" -->
-                    <div class="category my-5">
-                        <div class="notices mb-1 " style="border-left: 6px solid #D22B2B;">
-                            <h5>List of <span class="font-weight-bold" style="color:#D22B2B;">Policy
-                                    Researches Conducted </span></h5>
-                        </div>
-                        <table class="table-bordered table table-hover">
-                            <thead style="background-color: #D22B2B;">
-                                <tr>
-                                    <td>Title</td>
-                                    <td>Agency</td>
-                                    <td>Author</td>
-                                    <td>Issues Addressed</td>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($issues as $item)
-                                    <tr>
-                                        <td>{{ $item->prc_title }}</td>
-                                        <td>{{ $item->prc_agency }}</td>
-                                        <td>{{ $item->prc_author }}</td>
-                                        <td>{{ $item->prc_issues }}</td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </div>
-
-                    <!-- Data from "Policy formulated" -->
-                    <div class="category my-5">
-                        <div class="notices mb-1 " style="border-left: 6px solid #D22B2B;">
-                            <h5>List of <span class="font-weight-bold" style="color:#D22B2B;">Policies
-                                    Formulated</span>, <span class="font-weight-bold"
-                                    style="color:#D22B2B;">Advocated</span>, <span class="font-weight-bold"
-                                    style="color:#D22B2B;">Implemented
-                                    Instituional</span> and <span class="font-weight-bold"
-                                    style="color:#D22B2B;">Institutionalized</span></h5>
-                        </div>
-                        <table class="table-bordered table table-hover">
-                            <thead style="background-color: #D22B2B;">
-                                <tr>
-                                    <td>Type</td>
-                                    <td>Title</td>
-                                    <td>Agency</td>
-                                    <td>Author</td>
-                                    <td>Co-author</td>
-                                    <td>Proponent</td>
-                                    <td>Beneficiary</td>
-                                    <td>Implementer</td>
-                                    <td>Issues Addressed</td>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($formulated as $item)
-                                    <tr>
-                                        <td>{{ $item->policy_type }}</td>
-                                        <td>{{ $item->policy_title }}</td>
-                                        <td>{{ $item->policy_agency }}</td>
-                                        <td>{{ $item->policy_author }}</td>
-                                        <td>{{ $item->policy_co_author }}</td>
-                                        <td>{{ $item->policy_proponent }}</td>
-                                        <td>{{ $item->policy_beneficiary }}</td>
-                                        <td>{{ $item->policy_implementer }}</td>
-                                        <td>{{ $item->policy_issues }}</td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </div>
-                </section>
-            </div>
+@extends('backend.layouts.app')
+@section('content')
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <div class="content-wrapper">
+        <div class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-6">
+                        {{-- <h1 class="m-0">{{ auth()->user()->role }} - Manage Accounts</h1> --}}
+                    </div><!-- /.col -->
+                    <div class="col-sm-6">
+                        <ol class="breadcrumb float-sm-right">
+                            <li class="breadcrumb-item"><a href="home">Home</a></li>
+                            <li class="breadcrumb-item active">Filtered Report</li>
+                        </ol>
+                    </div><!-- /.col -->
+                </div><!-- /.row -->
+            </div><!-- /.container-fluid -->
         </div>
-    </div>
-</body>
 
-</html>
+
+        <!-- Main content -->
+        <section class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <form action="{{ route('records.filter') }}" method="POST">
+                                    @csrf
+                                    <select name="duration" id="yearSelect" style="width: 150px">
+                                        <option value="">Select Year</option>
+                                        @for ($year = 2018; $year <= 2050; $year++)
+                                            <option value="{{ $year }}"
+                                                {{ old('duration') == $year ? 'selected' : '' }}>{{ $year }}
+                                            </option>
+                                        @endfor
+                                    </select>
+                                    <button type="submit" class="btn btn-success">Filter</button>
+                                </form>
+                                <!-- /.card-tools -->
+                            </div>
+
+                            {{-- Summary AIHRS --}}
+                            <div class="card-body">
+                                <h5>Summary of the AIHR's conducted by the CMI's</h5>
+                                <table class="table table-bordered table-striped">
+                                    <thead>
+                                        <tr class="th-filtered">
+                                            <th rowspan="2">Agency</th>
+                                            <th colspan="5" style="text-align: center">Number of Projects Presented</th>
+                                        </tr>
+                                        <tr class="th-filtered">
+                                            <th style="">New</th>
+                                            <th>Ongoing</th>
+                                            <th>Terminated</th>
+                                            <th>Completed</th>
+                                            <th>Total Projects Reviewed</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($fundedCounts as $abbrev => $counts)
+                                            @if (
+                                                $counts['new'] > 0 ||
+                                                    $counts['ongoing'] > 0 ||
+                                                    $counts['terminated'] > 0 ||
+                                                    $counts['completed'] > 0 ||
+                                                    $counts['totalCount'] > 0)
+                                                <tr class="td-filtered">
+                                                    <td>{{ $abbrev }}</td>
+                                                    <td>{{ $counts['new'] }}</td>
+                                                    <td>{{ $counts['ongoing'] }}</td>
+                                                    <td>{{ $counts['terminated'] }}</td>
+                                                    <td>{{ $counts['completed'] }}</td>
+                                                    <td>{{ $counts['totalCount'] }}</td>
+                                                </tr>
+                                            @endif
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <!-- /.card-header -->
+                            <div class="card-body">
+                                <!-- Programs Table -->
+                                <h5>Programs</h5>
+                                <table id="programsTable" class="table table-bordered table-striped">
+                                    <!-- Table headers -->
+                                    <thead>
+                                        <tr class="th-filtered">
+                                            <th>Fund Code</th>
+                                            <th>Program Title</th>
+                                            <th>Program Leader</th>
+                                            <th>Duration</th>
+                                            <th>Funding Agency</th>
+                                            <th>Implementing Agency</th>
+                                            <th>Collaborating Agency</th>
+                                            <th>R & D Center</th>
+                                            <th>Description</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                    <!-- Table body to be filled by AJAX response -->
+                                    <tbody>
+                                        <!-- Data will be filled dynamically -->
+                                        @foreach ($records as $key => $row)
+                                            <tr class="td-filtered">
+                                                @php
+                                                    if (!empty($row->implementing_agency)) {
+                                                        $imp = json_decode($row->implementing_agency);
+                                                        $imp = implode(', ', $imp);
+                                                    }
+
+                                                    if ($row->collaborating_agency == 'null') {
+                                                        $collab = 'N/A';
+                                                    } else {
+                                                        $collab = json_decode($row->collaborating_agency);
+                                                        $collab = implode(', ', $collab);
+                                                    }
+
+                                                    if (!empty($row->funding_agency)) {
+                                                        $funding = json_decode($row->funding_agency);
+                                                        $funding = implode(', ', $funding);
+                                                    }
+
+                                                    $rc = $row->research_center;
+                                                    // Check if $rc is [null]
+                                                    if ($rc === '[null]') {
+                                                        $rc = 'N/A';
+                                                    } else {
+                                                        // If $rc is not [null], perform the replacements
+                                                        $rc = str_replace(['[', '"', ']'], '', $rc);
+                                                        $rc = str_replace(',', ', ', $rc);
+                                                    }
+                                                @endphp
+                                                <td>
+                                                    @if (!empty($row->fund_code))
+                                                        {{ $row->fund_code }}
+                                                    @else
+                                                        {{ 'N/A' }}
+                                                    @endif
+                                                </td>
+                                                <td>
+                                                    {{ strtoupper($row->program_title) }}
+                                                </td>
+                                                <td>
+                                                    @php
+                                                        $leader = App\Models\Researchers::find($row->program_leader);
+                                                    @endphp
+                                                    {{ $leader->first_name . ' ' . $leader->last_name }}
+                                                </td>
+                                                <td>
+                                                    {{ $row->duration }}
+                                                </td>
+                                                <td>{{ $funding }}</td>
+
+                                                <td>{{ $imp }} </td>
+                                                <td>{{ $collab }}</td>
+                                                <td>{{ $rc }}</td>
+                                                <td>
+                                                    {{ $row->program_description }}
+                                                </td>
+                                                <td>
+                                                    @if ($row->program_status == 'New')
+                                                        {{ $row->program_status }}
+                                                        <i class="fa-regular fa-square-plus" style="color: #0dcaf0;"></i>
+                                                    @elseif ($row->program_status == 'Ongoing')
+                                                        {{ $row->program_status }}
+                                                        <i class="fa-solid fa-spinner fa-spin" style="color: #0d6efd"></i>
+                                                    @elseif ($row->program_status == 'Terminated')
+                                                        {{ $row->program_status }}
+                                                        <i class="fa-regular fa-circle-xmark" style="color: #ff0000;"></i>
+                                                    @elseif ($row->program_status == 'Completed')
+                                                        {{ $row->program_status }}
+                                                        <i class="fa-regular fa-circle-check" style="color: #28a745;"></i>
+                                                    @endif
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            {{-- Projects --}}
+                            <div class="card-body">
+                                <h5>Projects</h5>
+                                <table id="projectsTable" class="table table-bordered table-striped">
+                                    <thead>
+                                        <tr class="th-filtered">
+                                            <th>Fund Code</th>
+                                            <th>Program</th>
+                                            <th>Project Title</th>
+                                            <th>Project Leader</th>
+                                            <th>Duration</th>
+                                            <th>Funding Agency</th>
+                                            <th>Implementing Agency</th>
+                                            <th>Collaborating Agency</th>
+                                            <th>R & D Center</th>
+                                            <th>Description</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($p_records as $row)
+                                            <tr class="td-filtered">
+                                                @php
+                                                    $program = DB::table('programs')
+                                                        ->select('program_title')
+                                                        ->where('programID', '=', $row->programID)
+                                                        ->first(); // Execute the query to fetch the result
+                                                @endphp
+
+                                                <td>
+                                                    @if (!empty($row->project_fund_code))
+                                                        {{ $row->project_fund_code }}
+                                                    @else
+                                                        {{ 'N/A' }}
+                                                    @endif
+                                                </td>
+                                                <td>
+                                                    @if ($program)
+                                                        {{ strtoupper($program->program_title) }}
+                                                    @else
+                                                        {{ 'N/A' }}
+                                                    @endif
+                                                </td>
+                                                <td>
+                                                    {{ strtoupper($row->project_title) }}
+                                                </td>
+                                                <td>
+                                                    @php
+                                                        $leader = App\Models\Researchers::find($row->project_leader);
+                                                    @endphp
+                                                    {{ $leader->first_name . ' ' . $leader->last_name }}
+                                                </td>
+                                                <td>
+                                                    {{ $row->project_duration }}
+                                                </td>
+                                                @php
+                                                    if (!empty($row->project_implementing_agency)) {
+                                                        $imp = json_decode($row->project_implementing_agency);
+                                                        $imp = implode(', ', $imp);
+                                                    }
+
+                                                    if ($row->project_collaborating_agency == 'null') {
+                                                        $collab = 'N/A';
+                                                    } else {
+                                                        $collab = json_decode($row->project_collaborating_agency);
+                                                        $collab = implode(', ', $collab);
+                                                    }
+
+                                                    if (!empty($row->project_agency)) {
+                                                        $funding = json_decode($row->project_agency);
+                                                        $funding = implode(', ', $funding);
+                                                    }
+                                                    $rc = $row->project_research_center;
+
+                                                    // Check if $rc is [null]
+                                                    if ($rc === '[null]') {
+                                                        $rc = 'N/A';
+                                                    } else {
+                                                        // If $rc is not [null], perform the replacements
+                                                        $rc = str_replace(['[', '"', ']'], '', $rc);
+                                                        $rc = str_replace(',', ', ', $rc);
+                                                    }
+                                                @endphp
+
+                                                <td>{{ $funding }}</td>
+
+                                                <td>{{ $imp }} </td>
+                                                <td>{{ $collab }}</td>
+                                                <td>{{ $rc }}</td>
+
+                                                <td>{{ $row->project_description }}
+                                                </td>
+                                                <td>
+                                                    @if ($row->project_status == 'New')
+                                                        {{ $row->project_status }}
+                                                        <i class="fa-regular fa-square-plus" style="color: #0dcaf0;"></i>
+                                                    @elseif ($row->project_status == 'Ongoing')
+                                                        {{ $row->project_status }}
+                                                        <i class="fa-solid fa-spinner fa-spin" style="color: #0d6efd"></i>
+                                                    @elseif ($row->project_status == 'Terminated')
+                                                        {{ $row->project_status }}
+                                                        <i class="fa-regular fa-circle-xmark" style="color: #ff0000;"></i>
+                                                    @elseif ($row->project_status == 'Completed')
+                                                        {{ $row->project_status }}
+                                                        <i class="fa-regular fa-circle-check" style="color: #28a745;"></i>
+                                                    @endif
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            {{-- Sub Projects --}}
+                            <div class="card-body">
+                                <h5>Sub Projects/Studies</h5>
+                                <table id="subProjectsTable" class="table table-bordered table-striped">
+                                    <thead>
+                                        <tr class="th-filtered">
+                                            <th>Fund Code</th>
+                                            <th>Project</th>
+                                            <th>Sub Project/Study Title</th>
+                                            <th>Sub Project/Study Leader</th>
+                                            <th>Duration</th>
+                                            <th>Funding Agency</th>
+                                            <th>Implementing Agency</th>
+                                            <th>Collaborating Agency</th>
+                                            <th>R & D Center</th>
+                                            <th>Description</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($sp_records as $row)
+                                            <tr class="td-filtered">
+                                                @php
+                                                    $project = DB::table('projects')
+                                                        ->select('project_title')
+                                                        ->where('id', '=', $row->projectID)
+                                                        ->first(); // Execute the query to fetch the result
+                                                @endphp
+                                                <td>
+                                                    @if (!empty($row->sub_project_fund_code))
+                                                        {{ $row->sub_project_fund_code }}
+                                                    @else
+                                                        {{ 'N/A' }}
+                                                    @endif
+                                                </td>
+                                                <td>
+                                                    {{ strtoupper($project->project_title) }}
+                                                </td>
+                                                <td>
+                                                    {{ strtoupper($row->sub_project_title) }}
+                                                </td>
+                                                <td>
+                                                    @php
+                                                        $leader = App\Models\Researchers::find($row->sub_project_leader);
+                                                    @endphp
+                                                    {{ $leader->first_name . ' ' . $leader->last_name }}
+                                                </td>
+                                                <td>
+                                                    {{ $row->sub_project_duration }}
+                                                </td>
+                                                @php
+                                                    if (!empty($row->sub_project_implementing_agency)) {
+                                                        $imp = json_decode($row->sub_project_implementing_agency);
+                                                        $imp = implode(', ', $imp);
+                                                    }
+
+                                                    if ($row->sub_project_collaborating_agency == 'null') {
+                                                        $collab = 'N/A';
+                                                    } else {
+                                                        $collab = json_decode($row->sub_project_collaborating_agency);
+                                                        $collab = implode(', ', $collab);
+                                                    }
+
+                                                    if (!empty($row->sub_project_agency)) {
+                                                        $funding = json_decode($row->sub_project_agency);
+                                                        $funding = implode(', ', $funding);
+                                                    }
+
+                                                    $rc = $row->sub_project_research_center;
+                                                    if ($rc === '[null]') {
+                                                        $rc = 'N/A';
+                                                    } else {
+                                                        // If $rc is not [null], perform the replacements
+                                                        $rc = str_replace(['[', '"', ']'], '', $rc);
+                                                        $rc = str_replace(',', ', ', $rc);
+                                                    }
+                                                @endphp
+                                                <td>{{ $funding }}</td>
+
+                                                <td>{{ $imp }} </td>
+                                                <td>{{ $collab }}</td>
+                                                <td>{{ $rc }}</td>
+                                                <td>{{ $row->sub_project_description }}
+                                                </td>
+                                                <td>
+                                                    @if ($row->sub_project_status == 'New')
+                                                        {{ $row->sub_project_status }}
+                                                        <i class="fa-regular fa-square-plus" style="color: #0dcaf0;"></i>
+                                                    @elseif ($row->sub_project_status == 'Ongoing')
+                                                        {{ $row->sub_project_status }}
+                                                        <i class="fa-solid fa-spinner fa-spin" style="color: #0d6efd"></i>
+                                                    @elseif ($row->sub_project_status == 'Terminated')
+                                                        {{ $row->sub_project_status }}
+                                                        <i class="fa-regular fa-circle-xmark" style="color: #ff0000;"></i>
+                                                    @elseif ($row->sub_project_status == 'Completed')
+                                                        {{ $row->sub_project_status }}
+                                                        <i class="fa-regular fa-circle-check" style="color: #28a745;"></i>
+                                                    @endif
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            {{-- RDMC LINKAGES --}}
+                            <div class="card-body">
+                                <h5>Linkages forged and maintained</h5>
+                                <table id="subProjectsTable" class="table table-bordered table-striped">
+                                    <thead>
+                                        <tr class="th-filtered">
+                                            <th>Agency/Institutions</th>
+                                            <th>Address</th>
+                                            <th>Year</th>
+                                            <th>Nature of Assistance / Linkages / Projects</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td colspan="4" style="text-align: center; font-size: 14px;"
+                                                class="font-weight-bold">
+                                                DEVELOPED/NEW
+                                            </td>
+                                        </tr>
+                                        @foreach ($linkages_developed as $ld)
+                                            <tr class="td-filtered">
+                                                <td>{{ $ld->form_of_development }}</td>
+                                                <td>{{ $ld->address }}</td>
+                                                <td>{{ $ld->year }}</td>
+                                                <td>
+                                                    {{ $ld->nature_of_assistance }}
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                        <tr>
+                                            <td colspan="4" style="text-align: center;  font-size: 14px;"
+                                                class="font-weight-bold">
+                                                MAINTAINED/SUSTAINED</td>
+                                        </tr>
+
+                                        @foreach ($linkages_maintained as $lm)
+                                            <tr class="td-filtered">
+                                                <td>{{ $lm->form_of_development }}</td>
+                                                <td>{{ $lm->address }}</td>
+                                                <td>{{ $lm->year }}</td>
+                                                <td>
+                                                    {{ $lm->nature_of_assistance }}
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            {{-- DBIS --}}
+                            <div class="card-body">
+                                <h5>Database and Information System</h5>
+                                <table class="table table-bordered table-striped">
+                                    <thead>
+                                        <tr class="th-filtered">
+                                            <th>Title</th>
+                                            <th>Type of Database/Information System</th>
+                                            <th>Date Created</th>
+                                            <th>Purpose / Use</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr class="td-filtered">
+                                            <td colspan="4" style="text-align: center; font-size: 14px;"
+                                                class="font-weight-bold">
+                                                DATABASE DEVELOPED/ENHANCED AND MAINTAINED
+                                            </td>
+                                        </tr>
+                                        @foreach ($db as $db)
+                                            <tr class="td-filtered">
+                                                <td>{{ $db->dbinfosys_title }}</td>
+                                                <td>{{ $db->dbinfosys_type }}</td>
+                                                <td>{{ date('m/d/Y', strtotime($db->dbinfosys_date_created)) }}
+                                                </td>
+                                                <td>{{ $db->dbinfosys_purpose }}</td>
+                                            </tr>
+                                        @endforeach
+                                        <tr class="td-filtered">
+                                            <td colspan="4" style="text-align: center; font-size: 14px;"
+                                                class="font-weight-bold">
+                                                INFORMATION SYSTEM DEVELOPED/ENHANCED AND MAINTAINED
+                                            </td>
+                                        </tr>
+                                        @foreach ($is as $is)
+                                            <tr class="td-filtered">
+                                                <td>{{ $is->dbinfosys_title }}</td>
+                                                <td>{{ $is->dbinfosys_type }}</td>
+
+                                                <td>{{ date('m/d/Y', strtotime($is->dbinfosys_date_created)) }}
+                                                </td>
+                                                <td>{{ $is->dbinfosys_purpose }}</td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            {{-- STRATEGIC PROGRAM LIST --}}
+                            <div class="card-body">
+                                <h5>Research & Development Programs/Projects Packaged, Approved and Implemented</h5>
+                                <table class="table-bordered table table-striped">
+                                    <thead>
+                                        <tr class="th-filtered">
+                                            <th>Program / Project Title</th>
+                                            <th>Implementing Agency</td>
+                                            <th>Duration</th>
+                                            <th>Source of Funds</th>
+                                            <th>Budget</th>
+                                            <th>Regional Priority / Commodity Addressed</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr class="td-filtered">
+                                            <td colspan="6" style="text-align: center; font-size: 14px;"
+                                                class="font-weight-bold">PROPOSALS PACKAGED</td>
+                                        </tr>
+                                        @foreach ($stratProgramListProposal as $splp)
+                                            <tr class="td-filtered">
+                                                <td>{{ $splp->str_p_title }}</td>
+                                                @php
+                                                    $imp = json_decode($splp->str_p_imp_agency);
+                                                    $imp = implode(', ', $imp);
+
+                                                    $sof = json_decode($splp->str_p_sof);
+                                                    $sof = implode(', ', $sof);
+                                                @endphp
+                                                <td>{{ $imp }}</td>
+                                                <td>{{ $splp->str_p_date }}</td>
+                                                <td>{{ $sof }}</td>
+                                                <td>₱{{ number_format($splp->str_p_budget, 2) }}</td>
+                                                <td>{{ $splp->str_p_regional }}</td>
+                                            </tr>
+                                        @endforeach
+                                        <tr class="td-filtered">
+                                            <td colspan="6" style="text-align: center; font-size: 14px;"
+                                                class="font-weight-bold">PROJECTS APPROVED AND IMPLEMENTED</td>
+                                        </tr>
+                                        @foreach ($stratProgramListApproved as $spla)
+                                            <tr class="td-filtered">
+                                                <td>{{ $spla->str_p_title }}</td>
+                                                @php
+                                                    $imp = json_decode($spla->str_p_imp_agency);
+                                                    $imp = implode(', ', $imp);
+
+                                                    $sof = json_decode($spla->str_p_sof);
+                                                    $sof = implode(', ', $sof);
+                                                @endphp
+                                                <td>{{ $imp }}</td>
+                                                <td>{{ $spla->str_p_date }}</td>
+                                                <td>{{ $sof }}</td>
+                                                <td>₱{{ number_format($spla->str_p_budget, 2) }}</td>
+                                                <td>{{ $spla->str_p_regional }}</td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            {{-- STRATEGIC COLLABORATIVE --}}
+                            <div class="card-body">
+                                <h5>Collaborative Research & Development Programs/Projects Implemented by the Consortium and
+                                    Member-Agencies in support of regional priorities</h5>
+                                <table class="table-bordered table table-striped">
+                                    <thead>
+                                        <tr class="th-filtered">
+                                            <th>Program Title</th>
+                                            <th>Project Title</th>
+                                            <th>Implementing Agency</th>
+                                            <th>Collaborating Agency</th>
+                                            <th>Duration</th>
+                                            <th>Budget</th>
+                                            <th>Source(s) of Fund</th>
+                                            <th>Role of Consortium</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($strat_collaborative as $item)
+                                            @php
+                                                if (!empty($item->str_collab_imp_agency)) {
+                                                    $imp = json_decode($item->str_collab_imp_agency);
+                                                    $imp = implode(', ', $imp);
+                                                }
+
+                                                if (!empty($item->str_collab_agency)) {
+                                                    $collab = json_decode($item->str_collab_agency);
+                                                    $collab = implode(', ', $collab);
+                                                }
+
+                                                if (!empty($item->str_collab_sof)) {
+                                                    $sof = json_decode($item->str_collab_sof);
+                                                    $sof = implode(', ', $sof);
+                                                }
+
+                                                [$startDateString, $endDateString] = explode(' to ', $item->str_collab_date);
+                                                $startDate = \Carbon\Carbon::createFromFormat('m/d/Y', trim($startDateString));
+                                                $endDate = \Carbon\Carbon::createFromFormat('m/d/Y', trim($endDateString));
+
+                                            @endphp
+                                            <tr class="td-filtered">
+                                                <td>{{ $item->str_collab_program }}</td>
+                                                <td>{{ $item->str_collab_project }}</td>
+                                                <td>
+                                                    {{ $imp }}
+                                                </td>
+                                                <td>
+                                                    {{ $collab }}
+                                                </td>
+                                                <td>
+                                                    @if ($startDate === $endDate)
+                                                        {{ $startDate }}
+                                                    @else
+                                                        {{ $startDate->format('F Y') }} to
+                                                        {{ $endDate->format('F Y') }}
+                                                    @endif
+                                                </td>
+                                                <td>₱{{ number_format($item->str_collab_budget, 2) }}</td>
+                                                <td>{{ $sof }}</td>
+                                                <td>{{ $item->str_collab_roc }}</td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            {{-- RDRU TTP --}}
+                            <div class="card-body">
+                                <h5>Technology Transfer Program/Projects Packaged, Approved and Implemented</h5>
+                                <table class="table-bordered table table-striped">
+                                    <thead>
+                                        <tr class="th-filtered">
+                                            <th>Program / Project Title</th>
+                                            <th>Proponent</th>
+                                            <th>Implementing Agency</th>
+                                            <th>Duration</th>
+                                            <th>Source of Funds</th>
+                                            <th>Budget</th>
+                                            <th>Regional Priority/ Commodities Addressed</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr class="td-filtered">
+                                            <td colspan="7" style="text-align: center; font-size: 14px;"
+                                                class="font-weight-bold">
+                                                PROPOSALS PACKAGED</td>
+                                        </tr>
+                                        @foreach ($ttp_proposal as $item)
+                                            @php
+                                                $prop = json_decode($item->ttp_proponent);
+                                                $prop = implode(', ', $prop);
+
+                                                $rs = json_decode($item->ttp_researchers);
+                                                $rs = implode(', ', $rs);
+
+                                                $imp = json_decode($item->ttp_implementing_agency);
+                                                $imp = implode(', ', $imp);
+
+                                                $sof = json_decode($item->ttp_sof);
+                                                $sof = implode(', ', $sof);
+                                            @endphp
+                                            <tr class="td-filtered">
+                                                <td>{{ $item->ttp_title }}</td>
+                                                <td>{{ $prop . ' / ' . $rs }}</td>
+                                                <td>{{ $imp }}</td>
+                                                <td>{{ $item->ttp_date }}</td>
+                                                <td>{{ $sof }}</td>
+                                                <td>₱{{ number_format($item->ttp_budget, 2) }}</td>
+                                                <td>{{ $item->ttp_priorities }}</td>
+                                            </tr>
+                                        @endforeach
+                                        <tr class="td-filtered">
+                                            <td colspan="7" style="text-align: center; font-size: 14px;"
+                                                class="font-weight-bold">PROJECTS APPROVED AND IMPLEMENTED
+                                            </td>
+                                        </tr>
+
+                                        @foreach ($ttp_approved as $item)
+                                            @php
+                                                $prop = json_decode($item->ttp_proponent);
+                                                $prop = implode(', ', $prop);
+
+                                                $rs = json_decode($item->ttp_researchers);
+                                                $rs = implode(', ', $rs);
+
+                                                $imp = json_decode($item->ttp_implementing_agency);
+                                                $imp = implode(', ', $imp);
+
+                                                $sof = json_decode($item->ttp_sof);
+                                                $sof = implode(', ', $sof);
+                                            @endphp
+                                            <tr class="td-filtered">
+                                                <td>{{ $item->ttp_title }}</td>
+                                                <td>{{ $prop . ' / ' . $rs }}</td>
+                                                <td>{{ $imp }}</td>
+                                                <td>{{ $item->ttp_date }}</td>
+                                                <td>{{ $sof }}</td>
+                                                <td>₱{{ number_format($item->ttp_budget, 2) }}</td>
+                                                <td>{{ $item->ttp_priorities }}</td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+ 
+
+                        </div>
+                        <!-- /.card -->
+                    </div>
+                    <!-- /.col -->
+                </div>
+                <!-- /.row -->
+            </div>
+            <!-- /.container-fluid -->
+        </section>
+        <!-- /.content -->
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            $('#filterForm').submit(function(event) {
+                event.preventDefault(); // Prevent form submission
+
+                var formData = $(this).serialize(); // Serialize form data
+
+                // Send AJAX request
+                $.ajax({
+                    url: "{{ route('records.filter') }}",
+                    type: "POST",
+                    data: formData,
+                    dataType: "json",
+                    success: function(response) {
+                        // Update programs table body
+                        $('#programsTable tbody').html(response.programs_html);
+                        // Update projects table body
+                        $('#projectsTable tbody').html(response.projects_html);
+                        // Update sub-projects table body
+                        $('#subProjectsTable tbody').html(response.sub_projects_html);
+                    },
+                    error: function(xhr, status, error) {
+                        console.error(xhr.responseText);
+                    }
+                });
+            });
+        });
+    </script>
+
+    <script>
+        $(document).ready(function() {
+            $('#yearSelect').select2();
+        });
+    </script>
+@endsection

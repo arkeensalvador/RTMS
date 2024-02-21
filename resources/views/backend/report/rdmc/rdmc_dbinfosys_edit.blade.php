@@ -109,7 +109,7 @@
                                 </div>
 
                                 <div class="col-md-3 form-group">
-                                    <label for="equipments_sof" class=" font-weight-bold">Type<span
+                                    <label for="equipments_sof" class=" font-weight-bold">Type of DB/IS<span
                                             class="text-danger">*</span></label>
                                     <select name="dbinfosys_type" id="dbinfosys_type" class="form-control type" required>
                                         <option value=""></option>
@@ -126,7 +126,7 @@
                                 </div>
 
                                 <div class="col-md-3 form-group">
-                                    <label for="dbinfosys_date_created" class="font-weight-bold">Date<span
+                                    <label for="dbinfosys_date_created" class="font-weight-bold">Date Created<span
                                             class="text-danger">*</span></label>
                                     <input type="text" name="dbinfosys_date_created"
                                         value="{{ $all->dbinfosys_date_created }}" id="dbinfosys_date_created"
@@ -135,7 +135,7 @@
                                 </div>
 
                                 <div class="col-md-12 form-group">
-                                    <label for="dbinfosys_title" class=" font-weight-bold">Title<span
+                                    <label for="dbinfosys_title" class=" font-weight-bold">Title of DB/IS<span
                                             class="text-danger">*</span></label>
                                     <input type="text" name="dbinfosys_title" value="{{ $all->dbinfosys_title }}"
                                         id="dbinfosys_title" class="form-control" placeholder="Enter title" required>
@@ -143,10 +143,10 @@
                                 </div>
 
                                 <div class="col-md-12 form-group">
-                                    <label for="dbinfosys_purpose" class=" font-weight-bold">Purpose<span
+                                    <label for="dbinfosys_purpose" class=" font-weight-bold">Purpose of DB/IS<span
                                             class="text-danger">*</span></label>
-                                    <textarea class="form-control" name="dbinfosys_purpose" id="dbinfosys_purpose" rows="2" placeholder="Enter ..."
-                                        style="resize: none;" required>{{ $all->dbinfosys_purpose }}</textarea>
+                                    <textarea class="form-control" name="dbinfosys_purpose" id="dbinfosys_purpose" rows="2"
+                                        placeholder="Enter DB/IS purpose" required>{{ $all->dbinfosys_purpose }}</textarea>
                                     <div class="invalid-feedback">Missing purpose</div>
                                 </div>
 

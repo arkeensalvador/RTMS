@@ -34,7 +34,6 @@
                                         {{ $total_programs_count_filter }}
                                     @endif
                                 </h3>
-
                                 <p>Total Programs</p>
                             </div>
                             <div class="icon">
@@ -175,6 +174,7 @@
                                     </div>
                                 </div>
                             </div>
+
                             {{-- ALL PROGRAMS, PROJECTS, SUB PROJECTS COUNT IMPLEMENTED BY AGENCIES --}}
                             <div class="col-md-12">
                                 <div class="card card-success">
@@ -187,6 +187,7 @@
                                     </div>
                                 </div>
                             </div>
+
                             {{-- AIHRS --}}
                             <div class="col-md-6">
                                 <div class="card card-success">
@@ -212,6 +213,7 @@
                                     </div>
                                 </div>
                             </div>
+
                             {{-- CMI Initiatives --}}
                             <div class="col-md-6">
                                 <div class="card card-success">
@@ -237,6 +239,7 @@
                                     </div>
                                 </div>
                             </div>
+
                         </div>
                     </div>
                 </div>
@@ -248,7 +251,7 @@
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
-    <script>
+    {{-- <script>
         document.addEventListener('DOMContentLoaded', function() {
             var seriesData = [];
             var usedColors = [];
@@ -304,7 +307,83 @@
                 },
                 plotOptions: {
                     bar: {
-                        columnWidth: '100%', // Adjust the width of the bars (percentage or pixels)
+                        columnWidth: '85    %', // Adjust the width of the bars (percentage or pixels)
+                    }
+                },
+                labels: {
+                    show: true
+                }
+            }
+
+            var chart = new ApexCharts(document.querySelector("#chart-container"), options);
+            chart.render();
+        });
+    </script> --}}
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var seriesData = [];
+            var usedColors = [];
+
+            @foreach ($fundedCounts as $abbrev => $counts)
+                var randomColor = getRandomColor();
+                usedColors.push(randomColor);
+
+                var data = [{{ $counts['programs'] }}, {{ $counts['projects'] }}, {{ $counts['subProjects'] }}];
+
+                // Filter out zero values from the data array
+                data = data.filter(function(value) {
+                    return value !== 0;
+                });
+
+                if (data.length > 0) {
+                    seriesData.push({
+                        name: '{{ $abbrev }}',
+                        data: data,
+                        color: randomColor
+                    });
+                }
+            @endforeach
+
+            function getRandomColor() {
+                var letters = '0123456789ABCDEF';
+                var color = '#';
+
+                // Keep generating random colors until a unique one is found
+                do {
+                    color = '#';
+                    for (var i = 0; i < 6; i++) {
+                        color += letters[Math.floor(Math.random() * 16)];
+                    }
+                } while (usedColors.includes(color));
+
+                return color;
+            }
+
+            var options = {
+                chart: {
+                    type: 'bar',
+                    height: 470,
+                },
+                series: seriesData,
+                title: {
+                    text: 'Funded Programs, Projects, Sub-projects/Studies of Agencies',
+                    align: 'center',
+                    floating: true
+                },
+
+                xaxis: {
+                    categories: ['Funded Programs', 'Funded Projects', 'Funded Sub-Projects/Studies']
+                },
+                yaxis: {
+                    min: 0, // Set the minimum value for the y-axis
+                    title: {
+                        text: 'Total'
+                    }
+                },
+                plotOptions: {
+                    bar: {
+                        columnWidth: '85%' // Adjust the width of the bars (percentage or pixels)
                     }
                 },
                 labels: {
@@ -318,7 +397,7 @@
     </script>
 
     {{-- total imp programs of agencies --}}
-    <script>
+    {{-- <script>
         document.addEventListener('DOMContentLoaded', function() {
             var seriesDataImp = [];
             var usedColorsImp = [];
@@ -387,6 +466,85 @@
             var chart = new ApexCharts(document.querySelector("#imp-chart-container"), options);
             chart.render();
         });
+    </script> --}}
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var seriesDataImp = [];
+            var usedColorsImp = [];
+
+            @foreach ($impCounts as $abbrev_imp => $counts)
+                var randomColor = getRandomColor();
+                usedColorsImp.push(randomColor);
+
+                var dataImp = [{{ $counts['programs'] }}, {{ $counts['projects'] }},
+                    {{ $counts['subProjects'] }}
+                ];
+
+                // Filter out zero values from the data array
+                dataImp = dataImp.filter(function(value) {
+                    return value !== 0;
+                });
+
+                if (dataImp.length > 0) {
+                    seriesDataImp.push({
+                        name: '{{ $abbrev_imp }}',
+                        data: dataImp,
+                        color: randomColor
+                    });
+                }
+            @endforeach
+
+            function getRandomColor() {
+                var letters = '0123456789ABCDEF';
+                var color = '#';
+
+                // Keep generating random colors until a unique one is found
+                do {
+                    color = '#';
+                    for (var i = 0; i < 6; i++) {
+                        color += letters[Math.floor(Math.random() * 16)];
+                    }
+                } while (usedColorsImp.includes(color));
+
+                return color;
+            }
+
+            var options = {
+                chart: {
+                    type: 'bar',
+                    height: 470,
+                },
+                series: seriesDataImp,
+                title: {
+                    text: 'Implemented Program, Projects, Sub-projects/Studies of Agencies',
+                    align: 'center',
+                    floating: true
+                },
+                xaxis: {
+                    categories: ['Implemented Programs', 'Implemented Projects',
+                        'Implemented Sub-Projects/Studies'
+                    ]
+                },
+                yaxis: {
+                    min: 0, // Set the minimum value for the y-axis
+                    title: {
+                        text: 'Total'
+                    }
+                },
+                plotOptions: {
+                    bar: {
+                        columnWidth: '100%' // Adjust the width of the bars (percentage or pixels)
+                    }
+                },
+                labels: {
+                    show: true
+                }
+            }
+
+            var chart = new ApexCharts(document.querySelector("#imp-chart-container"), options);
+            chart.render();
+        });
     </script>
 
     {{-- Initiatives --}}
@@ -405,7 +563,7 @@
                 categories: @json($labels_ini)
             },
             noData: {
-                text: "Loading...",
+                text: "No data available",
             },
             title: {
                 text: 'New Initiatives on Governance',
@@ -423,7 +581,6 @@
         chartIni.render();
     </script>
 
-
     {{-- Policy research conducted --}}
     {{-- Initiatives --}}
     <script>
@@ -435,7 +592,7 @@
             },
             series: [{
                 name: 'PRC Count',
-                data: @json($values_prc)
+                data: @json($values_prc),
             }],
             xaxis: {
                 categories: @json($labels_prc)
@@ -459,95 +616,50 @@
     </script>
 
     <script>
-        var totalNew = {{ json_encode($total_new) }};
-        var totalOngoing = {{ json_encode($total_ongoing) }};
-        var totalTerminated = {{ json_encode($total_terminated) }};
-        var totalCompleted = {{ json_encode($total_completed) }};
+        var totalNew = {{ $total_new }};
+        var totalOngoing = {{ $total_ongoing }};
+        var totalTerminated = {{ $total_terminated }};
+        var totalCompleted = {{ $total_completed }};
 
-        // total programs per consortium
-        var options = {
-            chart: {
-                type: 'bar'
-            },
-            series: [{
-                name: 'total',
-                data: [
-                    @php
-                        foreach ($total_programs as $tp) {
-                            echo "'" . $tp->total_programs_count . "',";
-                        }
-                    @endphp
-                ]
-            }],
-            xaxis: {
-                categories: [
-                    @php
-                        foreach ($total_programs as $tp) {
-                            echo "'" . $tp->total_program_agency . "',";
-                        }
-                    @endphp
-                ],
-            },
-            noData: {
-                text: "Loading...",
-            },
-            legend: {
-                show: true,
-                position: 'top'
-            },
-            title: {
-                text: 'Programs',
-                align: 'center',
-                floating: true
-            },
-            subtitle: {
-                text: 'Total # of programs per consortium',
-                align: 'center',
-            }
-        }
-
-        var chart1 = new ApexCharts(document.querySelector("#myChart1"), options);
-        chart1.render();
+        // Calculate total count
+        var totalCount = totalNew + totalOngoing + totalTerminated + totalCompleted;
 
         // NEW CHARTS APEXCHARTs
         var options = {
             chart: {
-                type: 'bar',
-                height: 285
+                type: 'donut',
+                height: 300
             },
-
-            series: [{
-                name: 'total',
-                data: [totalNew, totalOngoing, totalTerminated, totalCompleted],
-
-            }],
-            colors: ['#5653FE'],
-            xaxis: {
-                categories: ['New', 'Ongoing', 'Terminated', 'Completed']
-            },
+            series: [totalNew, totalOngoing, totalTerminated, totalCompleted],
+            labels: ['New', 'Ongoing', 'Terminated', 'Completed'],
+            colors: ['#5653FE', '#FEB019', '#FF4560', '#00E396'],
             legend: {
                 show: true,
-                position: 'top'
-            },
-            noData: {
-                text: "Loading...",
+                position: 'right',
+                floating: false,
+                formatter: function(seriesName, opts) {
+                    return seriesName + ': ' + opts.w.globals.series[opts.seriesIndex] + ' (' + (opts.w.globals
+                        .series[opts.seriesIndex] / totalCount * 100).toFixed(2) + '%)';
+                }
             },
             title: {
                 text: 'AIHRs',
                 align: 'center',
-                floating: true
+                floating: false
             },
             subtitle: {
                 text: 'Agency In-house Reviews',
                 align: 'center',
             },
-        }
+        };
 
         var chart2 = new ApexCharts(document.querySelector("#myChart2"), options);
-
         chart2.render();
+    </script>
 
 
+
+    <script>
         // AWARDS
 
         let awardData = @json($datas);
@@ -628,50 +740,5 @@
 
         var chart4 = new ApexCharts(document.querySelector("#myChart4"), options);
         chart4.render();
-
-        // Sub PROJECTS
-        var options = {
-            chart: {
-                type: 'bar'
-            },
-
-            series: [{
-                name: 'total',
-                data: [
-                    @php
-                        foreach ($total_sub_projs as $sub_proj) {
-                            echo "'" . $sub_proj->total_count_sub_proj . "',";
-                        }
-                    @endphp
-                ],
-
-            }],
-            colors: ['#90ee7e'],
-            xaxis: {
-                categories: [
-                    @php
-                        foreach ($total_sub_projs as $sub_proj) {
-                            echo "'" . $sub_proj->total_sub_project_agency . "',";
-                        }
-                    @endphp
-                ]
-            },
-            legend: {
-                show: true,
-                position: 'top'
-            },
-            title: {
-                text: 'Sub-Projects',
-                align: 'center',
-                floating: true
-            },
-            subtitle: {
-                text: 'Total # of Sub-projects per consortium',
-                align: 'center',
-            },
-        }
-
-        var chart9 = new ApexCharts(document.querySelector("#myChart9"), options);
-        chart9.render();
     </script>
 @endsection

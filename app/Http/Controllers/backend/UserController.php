@@ -27,12 +27,15 @@ class UserController extends Controller
     public function AllUser()
     {
         $title = 'Manage Accounts | RTMS';
-        $all = DB::table('users')->get();
+        $all = DB::table('users')
+            ->orderBy('name', 'asc')
+            ->get();
 
         // CMI
         $all_filter = DB::table('users')
             ->select('*')
             ->where('agencyID', auth()->user()->agencyID)
+            ->orderBy('name', 'asc')
             ->get();
 
         return view('backend.user.all-user', compact('all', 'title', 'all_filter'));

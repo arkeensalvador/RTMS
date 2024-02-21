@@ -64,9 +64,7 @@ class StrategicController extends Controller
     {
         $id = Crypt::decryptString($id);
         $title = 'Strategic R&D Activities';
-        $all = DB::table('strategic_activities')
-            ->where('id', $id)
-            ->first();
+        $all = DB::table('strategic_activities')->where('id', $id)->first();
         $researchers = DB::table('researchers')->get();
         $agency = DB::table('agency')->get();
         return view('backend.report.strategic.edit_strategic_activities', compact('title', 'all', 'agency', 'researchers'));
@@ -116,9 +114,7 @@ class StrategicController extends Controller
         $data['strategic_consortium_role'] = $request->strategic_consortium_role;
         $data['updated_at'] = now();
 
-        $insert = DB::table('strategic_activities')
-            ->where('id', $id)
-            ->update($data);
+        $insert = DB::table('strategic_activities')->where('id', $id)->update($data);
         if ($insert) {
             return response()->json(['success' => 'R & D Activity Updated Successfully!']);
         } else {
@@ -129,25 +125,19 @@ class StrategicController extends Controller
     public function DeleteStrategic($id)
     {
         $id = Crypt::decryptString($id);
-        $delete = DB::table('strategic_activities')
-            ->where('id', $id)
-            ->delete();
+        $delete = DB::table('strategic_activities')->where('id', $id)->delete();
         if ($delete) {
             $notification = [
                 'message' => 'Activity Successfully Deleted!',
                 'alert-type' => 'success',
             ];
-            return redirect()
-                ->back()
-                ->with($notification);
+            return redirect()->back()->with($notification);
         } else {
             $notification = [
                 'message' => 'Something is wrong, please try again!',
                 'alert-type' => 'error',
             ];
-            return redirect()
-                ->back()
-                ->with($notification);
+            return redirect()->back()->with($notification);
         }
     }
 
@@ -161,6 +151,7 @@ class StrategicController extends Controller
                 // 'tech_desc' => 'required',
                 // 'tech_source' => 'required',
                 'tech_researchers' => 'required',
+                'tech_duration' => 'required',
                 'tech_agency' => 'required',
                 'tech_impact' => 'required',
             ],
@@ -170,6 +161,7 @@ class StrategicController extends Controller
                 // 'tech_desc.required' => 'Description is required!',
                 // 'tech_source.required' => 'Program/Project source is required!',
                 'tech_researchers.required' => 'Researcher(s) is/are required!',
+                'tech_duration.required' => 'Duration is required!',
                 'tech_agency.required' => 'Agency source is required!',
                 'tech_impact.required' => 'Impact is required!',
             ],
@@ -183,6 +175,7 @@ class StrategicController extends Controller
         $data['tech_researchers'] = json_encode($request->tech_researchers);
         $data['tech_agency'] = $request->tech_agency;
         $data['tech_impact'] = $request->tech_impact;
+        $data['tech_duration'] = $request->tech_duration;
         $data['encoder_agency'] = auth()->user()->agencyID;
         $data['created_at'] = now();
 
@@ -198,13 +191,9 @@ class StrategicController extends Controller
     {
         $id = Crypt::decryptString($id);
         $title = 'Strategic R&D Activities';
-        $all = DB::table('strategic_tech_list')
-            ->where('id', $id)
-            ->first();
+        $all = DB::table('strategic_tech_list')->where('id', $id)->first();
 
-        $imgs = DB::table('strat_tech_list_imgs')
-            ->where('strategic_tech_id', $id)
-            ->get();
+        $imgs = DB::table('strat_tech_list_imgs')->where('strategic_tech_id', $id)->get();
 
         $researchers = DB::table('researchers')->get();
         $agency = DB::table('agency')->get();
@@ -226,6 +215,7 @@ class StrategicController extends Controller
                 // 'tech_desc' => 'required',
                 // 'tech_source' => 'required',
                 'tech_researchers' => 'required',
+                'tech_duration' => 'required',
                 'tech_agency' => 'required',
                 'tech_impact' => 'required',
             ],
@@ -236,6 +226,7 @@ class StrategicController extends Controller
                 // 'tech_source.required' => 'Program/Project source is required!',
                 'tech_researchers.required' => 'Researcher(s) is/are required!',
                 'tech_agency.required' => 'Agency source is required!',
+                'tech_duration.required' => 'Duration is required!',
                 'tech_impact.required' => 'Impact is required!',
             ],
         );
@@ -247,12 +238,11 @@ class StrategicController extends Controller
         // $data['tech_source'] = $request->tech_source;
         $data['tech_researchers'] = json_encode($request->tech_researchers);
         $data['tech_agency'] = $request->tech_agency;
+        $data['tech_duration'] = $request->tech_duration;
         $data['tech_impact'] = $request->tech_impact;
         $data['updated_at'] = now();
 
-        $insert = DB::table('strategic_tech_list')
-            ->where('id', $id)
-            ->update($data);
+        $insert = DB::table('strategic_tech_list')->where('id', $id)->update($data);
         if ($insert) {
             return response()->json(['success' => 'Data Updated Successfully!']);
         } else {
@@ -263,25 +253,19 @@ class StrategicController extends Controller
     public function delete_strategic_tech_list($id)
     {
         $id = Crypt::decryptString($id);
-        $delete = DB::table('strategic_tech_list')
-            ->where('id', $id)
-            ->delete();
+        $delete = DB::table('strategic_tech_list')->where('id', $id)->delete();
         if ($delete) {
             $notification = [
                 'message' => 'Data Successfully Deleted!',
                 'alert-type' => 'success',
             ];
-            return redirect()
-                ->back()
-                ->with($notification);
+            return redirect()->back()->with($notification);
         } else {
             $notification = [
                 'message' => 'Something is wrong, please try again!',
                 'alert-type' => 'error',
             ];
-            return redirect()
-                ->back()
-                ->with($notification);
+            return redirect()->back()->with($notification);
         }
     }
 
@@ -296,9 +280,9 @@ class StrategicController extends Controller
                 'str_p_title' => 'required',
                 'str_p_researchers' => 'required',
                 'str_p_imp_agency' => 'required|array|min:1',
-                'str_p_collab_agency' => 'required|array|min:1',
+                // 'str_p_collab_agency' => 'required|array|min:1',
                 'str_p_date' => 'required',
-                'str_p_budget' => 'required|numeric',
+                'str_p_budget' => 'required',
                 'str_p_sof' => 'required|array|min:1',
                 'str_p_regional' => 'required',
             ],
@@ -307,7 +291,7 @@ class StrategicController extends Controller
                 'str_p_title.required' => 'Title is required!',
                 'str_p_researchers.required' => 'Researcher(s) is/are required!',
                 'str_p_imp_agency.required' => 'Implementing agency is required!',
-                'str_p_collab_agency.required' => 'Collaborating agency required!',
+                // 'str_p_collab_agency.required' => 'Collaborating agency required!',
                 'str_p_date.required' => 'Duration is required!',
                 'str_p_budget.required' => 'Budget is required!',
                 'str_p_sof.required' => 'Source of fund is required!',
@@ -322,7 +306,7 @@ class StrategicController extends Controller
         $data['str_p_imp_agency'] = json_encode($request->str_p_imp_agency);
         $data['str_p_collab_agency'] = json_encode($request->str_p_collab_agency);
         $data['str_p_date'] = $request->str_p_date;
-        $data['str_p_budget'] = $request->str_p_budget;
+        $data['str_p_budget'] = str_replace(',', '', $request->str_p_budget);
         $data['str_p_sof'] = json_encode($request->str_p_sof);
         $data['str_p_regional'] = $request->str_p_regional;
         $data['encoder_agency'] = auth()->user()->agencyID;
@@ -340,13 +324,9 @@ class StrategicController extends Controller
     {
         $title = 'TPA | R&D Results Utilizations';
         $id = Crypt::decryptString($id);
-        $all = DB::table('strategic_program_list')
-            ->where('id', $id)
-            ->first();
+        $all = DB::table('strategic_program_list')->where('id', $id)->first();
 
-        $imgs = DB::table('strat_program_list_imgs')
-            ->where('strategic_programs_list_id', $id)
-            ->get();
+        $imgs = DB::table('strat_program_list_imgs')->where('strategic_programs_list_id', $id)->get();
 
         $programs = DB::table('programs')->get();
         $projects = DB::table('projects')->get();
@@ -366,9 +346,9 @@ class StrategicController extends Controller
                 'str_p_title' => 'required',
                 'str_p_researchers' => 'required',
                 'str_p_imp_agency' => 'required|array|min:1',
-                'str_p_collab_agency' => 'required|array|min:1',
+                // 'str_p_collab_agency' => 'required|array|min:1',
                 'str_p_date' => 'required',
-                'str_p_budget' => 'required|numeric',
+                'str_p_budget' => 'required',
                 'str_p_sof' => 'required|array|min:1',
                 'str_p_regional' => 'required',
             ],
@@ -377,7 +357,7 @@ class StrategicController extends Controller
                 'str_p_title.required' => 'Title is required!',
                 'str_p_researchers.required' => 'Researcher(s) is/are required!',
                 'str_p_imp_agency.required' => 'Implementing agency is required!',
-                'str_p_collab_agency.required' => 'Collaborating agency required!',
+                // 'str_p_collab_agency.required' => 'Collaborating agency required!',
                 'str_p_date.required' => 'Duration is required!',
                 'str_p_budget.required' => 'Budget is required!',
                 'str_p_sof.required' => 'Source of fund is required!',
@@ -392,14 +372,12 @@ class StrategicController extends Controller
         $data['str_p_imp_agency'] = json_encode($request->str_p_imp_agency);
         $data['str_p_collab_agency'] = json_encode($request->str_p_collab_agency);
         $data['str_p_date'] = $request->str_p_date;
-        $data['str_p_budget'] = $request->str_p_budget;
+        $data['str_p_budget'] = str_replace(',', '', $request->str_p_budget);
         $data['str_p_sof'] = json_encode($request->str_p_sof);
         $data['str_p_regional'] = $request->str_p_regional;
         $data['updated_at'] = now();
 
-        $insert = DB::table('strategic_program_list')
-            ->where('id', $id)
-            ->update($data);
+        $insert = DB::table('strategic_program_list')->where('id', $id)->update($data);
         if ($insert) {
             return response()->json(['success' => 'Data Updated Successfully!']);
         } else {
@@ -411,26 +389,20 @@ class StrategicController extends Controller
     {
         $id = Crypt::decryptString($id);
 
-        $delete = DB::table('strategic_program_list')
-            ->where('id', $id)
-            ->delete();
+        $delete = DB::table('strategic_program_list')->where('id', $id)->delete();
         if ($delete) {
             $notification = [
                 'message' => 'Data Successfully Deleted!',
                 'alert-type' => 'success',
             ];
 
-            return redirect()
-                ->route('strategic_program_list')
-                ->with($notification);
+            return redirect()->route('strategic_program_list')->with($notification);
         } else {
             $notification = [
                 'message' => 'Something is wrong, please try again!',
                 'alert-type' => 'error',
             ];
-            return redirect()
-                ->route('strategic_program_list')
-                ->with($notification);
+            return redirect()->route('strategic_program_list')->with($notification);
         }
     }
 
@@ -447,7 +419,7 @@ class StrategicController extends Controller
                 'str_collab_imp_agency' => 'required|array|min:1',
                 'str_collab_agency' => 'required|array|min:1',
                 'str_collab_date' => 'required',
-                'str_collab_budget' => 'required|numeric',
+                'str_collab_budget' => 'required',
                 'str_collab_sof' => 'required|array|min:1',
                 'str_collab_roc' => 'required',
             ],
@@ -476,7 +448,7 @@ class StrategicController extends Controller
         $data['str_collab_imp_agency'] = json_encode($request->str_collab_imp_agency);
         $data['str_collab_agency'] = json_encode($request->str_collab_agency);
         $data['str_collab_date'] = $request->str_collab_date;
-        $data['str_collab_budget'] = $request->str_collab_budget;
+        $data['str_collab_budget'] = str_replace(',', '', $request->str_collab_budget);
         $data['str_collab_sof'] = json_encode($request->str_collab_sof);
         $data['str_collab_roc'] = $request->str_collab_roc;
         $data['encoder_agency'] = auth()->user()->agencyID;
@@ -494,13 +466,9 @@ class StrategicController extends Controller
     {
         $title = 'TPA | R&D Results Utilizations';
         $id = Crypt::decryptString($id);
-        $all = DB::table('strategic_collaborative_list')
-            ->where('id', $id)
-            ->first();
+        $all = DB::table('strategic_collaborative_list')->where('id', $id)->first();
 
-        $imgs = DB::table('strat_collab_imgs')
-            ->where('strategic_collab_id', $id)
-            ->get();
+        $imgs = DB::table('strat_collab_imgs')->where('strategic_collab_id', $id)->get();
 
         $programs = DB::table('programs')->get();
         $projects = DB::table('projects')->get();
@@ -524,7 +492,7 @@ class StrategicController extends Controller
                 'str_collab_imp_agency' => 'required|array|min:1',
                 'str_collab_agency' => 'required|array|min:1',
                 'str_collab_date' => 'required',
-                'str_collab_budget' => 'required|numeric',
+                'str_collab_budget' => 'required',
                 'str_collab_sof' => 'required|array|min:1',
                 'str_collab_roc' => 'required',
             ],
@@ -552,14 +520,12 @@ class StrategicController extends Controller
         $data['str_collab_imp_agency'] = json_encode($request->str_collab_imp_agency);
         $data['str_collab_agency'] = json_encode($request->str_collab_agency);
         $data['str_collab_date'] = $request->str_collab_date;
-        $data['str_collab_budget'] = $request->str_collab_budget;
+        $data['str_collab_budget'] = str_replace(',', '', $request->str_collab_budget);
         $data['str_collab_sof'] = json_encode($request->str_collab_sof);
         $data['str_collab_roc'] = $request->str_collab_roc;
         $data['updated_at'] = now();
 
-        $insert = DB::table('strategic_collaborative_list')
-            ->where('id', $id)
-            ->update($data);
+        $insert = DB::table('strategic_collaborative_list')->where('id', $id)->update($data);
         if ($insert) {
             return response()->json(['success' => 'Data Updated Successfully!']);
         } else {
@@ -571,26 +537,20 @@ class StrategicController extends Controller
     {
         $id = Crypt::decryptString($id);
 
-        $delete = DB::table('strategic_collaborative_list')
-            ->where('id', $id)
-            ->delete();
+        $delete = DB::table('strategic_collaborative_list')->where('id', $id)->delete();
         if ($delete) {
             $notification = [
                 'message' => 'Data Successfully Deleted!',
                 'alert-type' => 'success',
             ];
 
-            return redirect()
-                ->route('strategic_collaborative_list')
-                ->with($notification);
+            return redirect()->route('strategic_collaborative_list')->with($notification);
         } else {
             $notification = [
                 'message' => 'Something is wrong, please try again!',
                 'alert-type' => 'error',
             ];
-            return redirect()
-                ->route('strategic_collaborative_list')
-                ->with($notification);
+            return redirect()->route('strategic_collaborative_list')->with($notification);
         }
     }
 }

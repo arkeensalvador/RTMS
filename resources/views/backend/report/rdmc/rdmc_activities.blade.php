@@ -69,8 +69,8 @@
                                                                     @endphp
                                                                     {{ $donor }}
                                                                 </td>
-                                                                <td>{{ $row->activity_type }}</td>
-                                                                <td>{{ $row->activity_title }}</td>
+                                                                <td>{{ strtoupper($row->activity_type) }}</td>
+                                                                <td>{{ strtoupper($row->activity_title) }}</td>
                                                                 <td>₱{{ number_format($row->shared_amount, 2) }}</td>
                                                                 {{-- <td>{{ $row->remarks }}</td> --}}
                                                                 <td class="action">
@@ -98,8 +98,8 @@
                                                                     @endphp
                                                                     {{ $donor }}
                                                                 </td>
-                                                                <td>{{ $row->activity_type }}</td>
-                                                                <td>{{ $row->activity_title }}</td>
+                                                                <td>{{ strtoupper($row->activity_type) }}</td>
+                                                                <td>{{ strtoupper($row->activity_title) }}</td>
                                                                 <td>₱{{ number_format($row->shared_amount, 2) }}</td>
                                                                 {{-- <td>{{ $row->remarks }}</td> --}}
                                                                 <td class="action">

@@ -44,11 +44,10 @@
                                                     <tr>
                                                         <th>Type</th>
                                                         <th>Title</th>
-                                                        {{-- <th>Description</th> --}}
-                                                        {{-- <th>Source</th> --}}
                                                         <th>Agency</th>
                                                         <th>Researchers</th>
                                                         <th>Impact</th>
+                                                        <th>Duration</th>
                                                         <th>Action</th>
                                                     </tr>
                                                 </thead>
@@ -57,9 +56,7 @@
                                                         @foreach ($all as $key => $row)
                                                             <tr>
                                                                 <td>{{ $row->tech_type }}</td>
-                                                                <td>{{ $row->tech_title }}</td>
-                                                                {{-- <td>{{ $row->tech_desc }}</td> --}}
-                                                                {{-- <td>{{ $row->tech_source }}</td> --}}
+                                                                <td>{{ strtoupper($row->tech_title) }}</td>
                                                                 <td>{{ $row->tech_agency }}</td>
                                                                 <td>
                                                                     @php
@@ -69,6 +66,7 @@
                                                                     {{ $res }}
                                                                 </td>
                                                                 <td>{{ $row->tech_impact }}</td>
+                                                                <td>{{ $row->tech_duration }}</td>
                                                                 <td class="action btns">
                                                                     <a class="btn btn-primary"
                                                                         href="{{ url('edit-strategic-tech-list-index/' . Crypt::encryptString($row->id)) }}"><i
@@ -86,9 +84,7 @@
                                                         @foreach ($all_filter as $key => $row)
                                                             <tr>
                                                                 <td>{{ $row->tech_type }}</td>
-                                                                <td>{{ $row->tech_title }}</td>
-                                                                {{-- <td>{{ $row->tech_desc }}</td> --}}
-                                                                {{-- <td>{{ $row->tech_source }}</td> --}}
+                                                                <td>{{ strtoupper($row->tech_title) }}</td>
                                                                 <td>{{ $row->tech_agency }}</td>
                                                                 <td>
                                                                     @php
@@ -98,6 +94,7 @@
                                                                     {{ $res }}
                                                                 </td>
                                                                 <td>{{ $row->tech_impact }}</td>
+                                                                <td>{{ $row->tech_duration }}</td>
                                                                 <td class="action btns">
                                                                     <a class="btn btn-primary"
                                                                         href="{{ url('edit-strategic-tech-list-index/' . Crypt::encryptString($row->id)) }}"><i
@@ -112,15 +109,6 @@
                                                     </tbody>
                                                 @endif
                                             </table>
-                                            {{-- <a href="#">
-                                                <div class="monitoring info-box bg-light">
-                                                    <div class="monitoring info-box-content">
-                                                        <span class="info-box-number text-center text-muted">Agency In-House
-                                                            Reviews (AIHRs)
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                            </a> --}}
                                             <a href="{{ url('strategic-index') }}" class="btn btn-default">Back</a>
                                         </div>
                                     </div>

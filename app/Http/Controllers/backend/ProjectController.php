@@ -23,9 +23,9 @@ class ProjectController extends Controller
                 'project_status' => 'required',
                 'project_category' => 'required',
                 'project_agency' => 'required|array|min:1',
-                'project_collaborating_agency' => 'required|array|min:1',
+                // 'project_collaborating_agency' => 'required|array|min:1',
                 'project_implementing_agency' => 'required|array|min:1',
-                'project_research_center' => 'required|array|min:1',
+                // 'project_research_center' => 'required|array|min:1',
                 'project_duration' => 'required',
                 'project_leader' => 'required',
                 'project_description' => 'required',
@@ -40,9 +40,9 @@ class ProjectController extends Controller
                 'project_status.required' => 'Status is required!',
                 'project_category.required' => 'Category is required!',
                 'project_agency.required' => 'Funding agency is required!',
-                'project_collaborating_agency.required' => 'Collaborating agency is required!',
+                // 'project_collaborating_agency.required' => 'Collaborating agency is required!',
                 'project_implementing_agency.required' => 'Implementing agency is required!',
-                'project_research_center.required' => 'Research center is required!',
+                // 'project_research_center.required' => 'Research center is required!',
                 'project_duration.required' => 'Duration is required!',
                 'project_project_leader.required' => 'Program leader is required!',
                 'project_description.required' => 'Description is required!',
@@ -66,7 +66,7 @@ class ProjectController extends Controller
         $data['project_duration'] = $request->project_duration;
         $data['project_leader'] = $request->project_leader;
         $data['project_description'] = $request->project_description;
-        $data['project_amount_released'] = $request->project_amount_released;
+        $data['project_amount_released'] = str_replace(',', '', $request->project_amount_released);
         $data['project_form_of_development'] = $request->project_form_of_development;
         $data['keywords'] = htmlspecialchars_decode(json_encode($request->keywords));
         $data['encoder_agency'] = auth()->user()->agencyID;
@@ -77,10 +77,9 @@ class ProjectController extends Controller
         $data_budget = [];
 
         foreach ($request->approved_budget as $key => $budget) {
-            // $grantType = count($request->approved_budget) == 1 ? 'One-time' : 'Multi-year';
             $data_budget[] = [
                 'projectID' => $insert,
-                'approved_budget' => $budget,
+                'approved_budget' => str_replace(',', '', $budget),
                 'budget_year' => $request->budget_year[$key],
                 'grant_type' => $request->project_funding_grant,
                 'created_at' => now(),
@@ -138,9 +137,9 @@ class ProjectController extends Controller
                 'project_status' => 'required',
                 'project_category' => 'required',
                 'project_agency' => 'required|array|min:1',
-                'project_collaborating_agency' => 'required|array|min:1',
+                // 'project_collaborating_agency' => 'required|array|min:1',
                 'project_implementing_agency' => 'required|array|min:1',
-                'project_research_center' => 'required|array|min:1',
+                // 'project_research_center' => 'required|array|min:1',
                 'project_duration' => 'required',
                 'project_leader' => 'required',
                 'project_description' => 'required',
@@ -155,9 +154,9 @@ class ProjectController extends Controller
                 'project_status.required' => 'Status is required!',
                 'project_category.required' => 'Category is required!',
                 'project_agency.required' => 'Funding agency is required!',
-                'project_collaborating_agency.required' => 'Collaborating agency is required!',
+                // 'project_collaborating_agency.required' => 'Collaborating agency is required!',
                 'project_implementing_agency.required' => 'Implementing agency is required!',
-                'project_research_center.required' => 'Research center is required!',
+                // 'project_research_center.required' => 'Research center is required!',
                 'project_duration.required' => 'Duration is required!',
                 'project_project_leader.required' => 'Program leader is required!',
                 'project_description.required' => 'Description is required!',
@@ -181,7 +180,7 @@ class ProjectController extends Controller
         $data['project_duration'] = $request->project_duration;
         $data['project_leader'] = $request->project_leader;
         $data['project_description'] = $request->project_description;
-        $data['project_amount_released'] = $request->project_amount_released;
+        $data['project_amount_released'] = str_replace(',', '', $request->project_amount_released);
         $data['project_form_of_development'] = $request->project_form_of_development;
         $data['keywords'] = htmlspecialchars_decode(json_encode($request->keywords));
         $data['updated_at'] = now();
@@ -212,7 +211,7 @@ class ProjectController extends Controller
             // $grantType = count($existingData) == 1 ? 'One-time' : 'Multi-year';
             $data_update[] = [
                 'id' => $existing->id, // Assuming there is an 'id' column
-                'approved_budget' => $request->approved_budget[$key],
+                'approved_budget' => str_replace(',', '', $request->approved_budget[$key]),
                 'grant_type' => $request->project_funding_grant,
                 'budget_year' => $request->budget_year[$key],
             ];
@@ -223,7 +222,7 @@ class ProjectController extends Controller
             DB::table('project_budget')
                 ->where('id', $item['id'])
                 ->update([
-                    'approved_budget' => $item['approved_budget'],
+                    'approved_budget' => str_replace(',', '', $item['approved_budget']),
                     'budget_year' => $item['budget_year'],
                     'grant_type' => $item['grant_type'],
                     'updated_at' => now(),
@@ -236,7 +235,7 @@ class ProjectController extends Controller
                 // $grantType = count($request->approved_budget) >= 1 ? 'Multi-year' : 'One-time';
                 DB::table('project_budget')->insert([
                     'projectID' => $id,
-                    'approved_budget' => $newBudget,
+                    'approved_budget' => str_replace(',', '', $newBudget),
                     'budget_year' => $request->new_budget_year[$key],
                     'grant_type' => $request->project_funding_grant,
                     'created_at' => now(),
@@ -332,12 +331,6 @@ class ProjectController extends Controller
         $file_path = storage_path('import-templates\projects-template.xlsx');
         return Response::download($file_path);
     }
-
-    // public function downloadTemplate2()
-    // {
-    //     $file_path = storage_path("import-templates\under-program-projects-template.xlsx");
-    //     return Response::download($file_path);
-    // }
 
     public function AddProjectPersonnel(Request $request)
     {

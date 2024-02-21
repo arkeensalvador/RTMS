@@ -42,10 +42,10 @@
 
                             <div class="card-body">
                                 <table id="programs" class="table table-bordered table-striped text-center">
+
                                     <thead>
                                         <tr>
-                                            <th hidden>Program ID</th>
-                                            <th hidden>Project ID</th>
+                                            <th>Program ID</th>
                                             <th>Fund Code</th>
                                             <th>Project Title</th>
                                             <th>Project Leader</th>
@@ -56,10 +56,7 @@
                                             <th>R & D Center</th>
                                             <th>Description</th>
                                             <th>Status</th>
-                                            <th hidden>Keyword(s)</th>
-                                            <th>Action</th>
                                         </tr>
-
                                     </thead>
                                     @if (auth()->user()->role == 'Admin')
                                         <tbody>
@@ -81,7 +78,7 @@
                                                         @php
                                                             $leader = App\Models\Researchers::find($row->project_leader);
                                                         @endphp
-                                                        {{ $leader->first_name . ' ' . $leader->middle_name . ' ' . $leader->last_name }}
+                                                        {{ $leader->first_name . ' ' . $leader->last_name }}
                                                     </td>
                                                     <td>
                                                         {{ $row->project_duration }}
@@ -92,7 +89,9 @@
                                                             $imp = implode(', ', $imp);
                                                         }
 
-                                                        if (!empty($row->project_collaborating_agency)) {
+                                                        if ($row->project_collaborating_agency == 'null') {
+                                                            $collab = 'N/A';
+                                                        } else {
                                                             $collab = json_decode($row->project_collaborating_agency);
                                                             $collab = implode(', ', $collab);
                                                         }
@@ -103,8 +102,14 @@
                                                         }
 
                                                         $rc = $row->project_research_center;
-                                                        $rc = str_replace(['[', '"', ']'], '', $rc);
-                                                        $rc = str_replace(',', ', ', $rc);
+                                                        // Check if $rc is [null]
+                                                        if ($rc === '[null]') {
+                                                            $rc = 'N/A';
+                                                        } else {
+                                                            // If $rc is not [null], perform the replacements
+                                                            $rc = str_replace(['[', '"', ']'], '', $rc);
+                                                            $rc = str_replace(',', ', ', $rc);
+                                                        }
                                                     @endphp
 
                                                     <td>{{ $funding }}</td>
@@ -113,7 +118,8 @@
                                                     <td>{{ $collab }}</td>
                                                     <td>{{ $rc }}</td>
 
-                                                    <td>{{ $row->project_description }}</td>
+                                                    <td>{{ Illuminate\Support\Str::limit($row->project_description, 100) }}
+                                                    </td>
                                                     <td>
                                                         @if ($row->project_status == 'New')
                                                             {{ $row->project_status }}
@@ -198,7 +204,7 @@
                                                         @php
                                                             $leader = App\Models\Researchers::find($row->project_leader);
                                                         @endphp
-                                                        {{ $leader->first_name . ' ' . $leader->middle_name . ' ' . $leader->last_name }}
+                                                        {{ $leader->first_name . ' ' . $leader->last_name }}
                                                     </td>
                                                     <td>
                                                         {{ $row->project_duration }}
@@ -209,7 +215,9 @@
                                                             $imp = implode(', ', $imp);
                                                         }
 
-                                                        if (!empty($row->project_collaborating_agency)) {
+                                                        if ($row->project_collaborating_agency == 'null') {
+                                                            $collab = 'N/A';
+                                                        } else {
                                                             $collab = json_decode($row->project_collaborating_agency);
                                                             $collab = implode(', ', $collab);
                                                         }
@@ -220,8 +228,15 @@
                                                         }
 
                                                         $rc = $row->project_research_center;
-                                                        $rc = str_replace(['[', '"', ']'], '', $rc);
-                                                        $rc = str_replace(',', ', ', $rc);
+                                                        // Check if $rc is null
+                                                        // Check if $rc is [null]
+                                                        if ($rc === '[null]') {
+                                                            $rc = 'N/A';
+                                                        } else {
+                                                            // If $rc is not [null], perform the replacements
+                                                            $rc = str_replace(['[', '"', ']'], '', $rc);
+                                                            $rc = str_replace(',', ', ', $rc);
+                                                        }
                                                     @endphp
 
                                                     <td>{{ $funding }}</td>
@@ -230,23 +245,24 @@
                                                     <td>{{ $collab }}</td>
                                                     <td>{{ $rc }}</td>
 
-                                                    <td>{{ $row->project_description }}</td>
+                                                    <td>{{ Illuminate\Support\Str::limit($row->project_description, 100) }}
+                                                    </td>
                                                     <td>
                                                         @if ($row->project_status == 'New')
                                                             {{ $row->project_status }}
-                                                            <i class="fa-solid fa-database fa-xl"
-                                                                style="color: #28a745;"></i>
+                                                            <i class="fa-regular fa-square-plus"
+                                                                style="color: #0dcaf0;"></i>
                                                         @elseif ($row->project_status == 'Ongoing')
                                                             {{ $row->project_status }}
-                                                            <i class="fa-solid fa-magnifying-glass-chart fa-xl"
-                                                                style="color: #2a6cdf;"></i>
+                                                            <i class="fa-solid fa-spinner fa-spin"
+                                                                style="color: #0d6efd"></i>
                                                         @elseif ($row->project_status == 'Terminated')
                                                             {{ $row->project_status }}
-                                                            <i class="fa-solid fa-triangle-exclamation fa-xl"
+                                                            <i class="fa-regular fa-circle-xmark"
                                                                 style="color: #ff0000;"></i>
                                                         @elseif ($row->project_status == 'Completed')
                                                             {{ $row->project_status }}
-                                                            <i class="fa-solid fa-circle-check fa-xl"
+                                                            <i class="fa-regular fa-circle-check"
                                                                 style="color: #28a745;"></i>
                                                         @endif
                                                     </td>

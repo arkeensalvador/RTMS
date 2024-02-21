@@ -71,7 +71,7 @@
                             <!-- /.card-header -->
 
                             <div class="card-body">
-                                <table id="programs" class="table table-bordered table-striped">
+                                <table id="projects" class="table table-bordered table-striped">
                                     <thead>
                                         <tr>
                                             <th hidden>Program ID</th>
@@ -111,7 +111,7 @@
                                                         @php
                                                             $leader = App\Models\Researchers::find($row->project_leader);
                                                         @endphp
-                                                        {{ $leader->first_name . ' ' . $leader->middle_name . ' ' . $leader->last_name }}
+                                                        {{ $leader->first_name . ' ' . $leader->last_name }}
                                                     </td>
                                                     <td>
                                                         {{ $row->project_duration }}
@@ -122,7 +122,9 @@
                                                             $imp = implode(', ', $imp);
                                                         }
 
-                                                        if (!empty($row->project_collaborating_agency)) {
+                                                        if ($row->project_collaborating_agency == 'null') {
+                                                            $collab = 'N/A';
+                                                        } else {
                                                             $collab = json_decode($row->project_collaborating_agency);
                                                             $collab = implode(', ', $collab);
                                                         }
@@ -131,10 +133,18 @@
                                                             $funding = json_decode($row->project_agency);
                                                             $funding = implode(', ', $funding);
                                                         }
-
                                                         $rc = $row->project_research_center;
-                                                        $rc = str_replace(['[', '"', ']'], '', $rc);
-                                                        $rc = str_replace(',', ', ', $rc);
+                                                        // Check if $rc is null
+                                                        // Check if $rc is [null]
+                                                        if ($rc === '[null]') {
+                                                            $rc = 'N/A';
+                                                        } else {
+                                                            // If $rc is not [null], perform the replacements
+                                                            $rc = str_replace(['[', '"', ']'], '', $rc);
+                                                            $rc = str_replace(',', ', ', $rc);
+                                                        }
+                                                        // $rc = str_replace(['[', '"', ']'], '', $rc);
+                                                        // $rc = str_replace(',', ', ', $rc);
                                                     @endphp
 
                                                     <td>{{ $funding }}</td>
@@ -143,7 +153,8 @@
                                                     <td>{{ $collab }}</td>
                                                     <td>{{ $rc }}</td>
 
-                                                    <td>{{ $row->project_description }}</td>
+                                                    <td>{{ Illuminate\Support\Str::limit($row->project_description, 100) }}
+                                                    </td>
                                                     <td>
                                                         @if ($row->project_status == 'New')
                                                             {{ $row->project_status }}
@@ -191,13 +202,13 @@
                                                             @endif
                                                         </span>
 
-                                                        <span title="Upload Program Files">
+                                                        <span title="Upload Project Files">
                                                             <a class="btn btn-secondary uploadFiles" data-toggle="modal"
                                                                 data-target='#uploadfiles' data-id="{{ $row->id }}"><i
                                                                     class="fa-solid fa-file-circle-plus"></i></a>
                                                         </span>
 
-                                                        <span title="Add Program Staffs">
+                                                        <span title="Add Project Staffs">
                                                             <!-- Button trigger modal -->
                                                             <a class="btn btn-warning addPersonnel" data-toggle="modal"
                                                                 data-target='#add-personnel'
@@ -228,7 +239,7 @@
                                                         @php
                                                             $leader = App\Models\Researchers::find($row->project_leader);
                                                         @endphp
-                                                        {{ $leader->first_name . ' ' . $leader->middle_name . ' ' . $leader->last_name }}
+                                                        {{ $leader->first_name . ' ' . $leader->last_name }}
                                                     </td>
                                                     <td>
                                                         {{ $row->project_duration }}
@@ -239,7 +250,9 @@
                                                             $imp = implode(', ', $imp);
                                                         }
 
-                                                        if (!empty($row->project_collaborating_agency)) {
+                                                        if ($row->project_collaborating_agency == 'null') {
+                                                            $collab = 'N/A';
+                                                        } else {
                                                             $collab = json_decode($row->project_collaborating_agency);
                                                             $collab = implode(', ', $collab);
                                                         }
@@ -250,8 +263,14 @@
                                                         }
 
                                                         $rc = $row->project_research_center;
-                                                        $rc = str_replace(['[', '"', ']'], '', $rc);
-                                                        $rc = str_replace(',', ', ', $rc);
+                                                        // Check if $rc is [null]
+                                                        if ($rc === '[null]') {
+                                                            $rc = 'N/A';
+                                                        } else {
+                                                            // If $rc is not [null], perform the replacements
+                                                            $rc = str_replace(['[', '"', ']'], '', $rc);
+                                                            $rc = str_replace(',', ', ', $rc);
+                                                        }
                                                     @endphp
 
                                                     <td>{{ $funding }}</td>
@@ -260,23 +279,24 @@
                                                     <td>{{ $collab }}</td>
                                                     <td>{{ $rc }}</td>
 
-                                                    <td>{{ $row->project_description }}</td>
+                                                    <td>{{ Illuminate\Support\Str::limit($row->project_description, 100) }}
+                                                    </td>
                                                     <td>
                                                         @if ($row->project_status == 'New')
                                                             {{ $row->project_status }}
-                                                            <i class="fa-solid fa-database fa-xl"
-                                                                style="color: #28a745;"></i>
+                                                            <i class="fa-regular fa-square-plus"
+                                                                style="color: #0dcaf0;"></i>
                                                         @elseif ($row->project_status == 'Ongoing')
                                                             {{ $row->project_status }}
-                                                            <i class="fa-solid fa-magnifying-glass-chart fa-xl"
-                                                                style="color: #2a6cdf;"></i>
+                                                            <i class="fa-solid fa-spinner fa-spin"
+                                                                style="color: #0d6efd"></i>
                                                         @elseif ($row->project_status == 'Terminated')
                                                             {{ $row->project_status }}
-                                                            <i class="fa-solid fa-triangle-exclamation fa-xl"
+                                                            <i class="fa-regular fa-circle-xmark"
                                                                 style="color: #ff0000;"></i>
                                                         @elseif ($row->project_status == 'Completed')
                                                             {{ $row->project_status }}
-                                                            <i class="fa-solid fa-circle-check fa-xl"
+                                                            <i class="fa-regular fa-circle-check"
                                                                 style="color: #28a745;"></i>
                                                         @endif
                                                     </td>
@@ -308,14 +328,14 @@
                                                             @endif
                                                         </span>
 
-                                                        <span title="Upload Program Files">
+                                                        <span title="Upload Project Files">
                                                             <a class="btn btn-secondary uploadFiles" data-toggle="modal"
                                                                 data-target='#uploadfiles'
                                                                 data-id="{{ $row->id }}"><i
                                                                     class="fa-solid fa-file-circle-plus"></i></a>
                                                         </span>
 
-                                                        <span title="Add Program Staffs">
+                                                        <span title="Add Project Staffs">
                                                             <!-- Button trigger modal -->
                                                             <a class="btn btn-warning addPersonnel" data-toggle="modal"
                                                                 data-target='#add-personnel'
@@ -365,7 +385,7 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label>Program Staff(s)</label>
+                                        <label>Project Staff(s)</label>
                                         <table class="table table-append" id="dynamicAddRemove">
                                             <tr>
                                                 <td class="append">

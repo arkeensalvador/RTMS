@@ -20,7 +20,6 @@ return new class extends Migration {
             $table->string('policy_co_author');
             $table->string('policy_beneficiary');
             $table->string('policy_implementer');
-            $table->string('policy_proponent');
             $table->longText('policy_issues');
             // $table->longText('policy_resource');
             $table->string('encoder_agency');

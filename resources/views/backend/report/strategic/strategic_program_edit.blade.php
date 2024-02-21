@@ -93,10 +93,16 @@
                                         <label for="strategic_program" class="font-weight-bold">Uploaded Images<span
                                                 class="text-danger"></span></label><br>
                                         @foreach ($imgs as $img)
-                                            <a href="{{ asset($img->filename) }}" data-lightbox="photos">
-                                                <img id="" src="{{ asset($img->filename) }}" alt=""
-                                                    style="width: 200px; height: 200px;" class="img-thumbnail">
-                                            </a>
+                                            <div style="display: inline-block; margin-right: 10px;">
+                                                <a href="{{ asset($img->filename) }}" data-lightbox="photos">
+                                                    <img src="{{ asset($img->filename) }}" alt=""
+                                                        style="width: 200px; height: 200px;" class="img-thumbnail">
+                                                </a>
+                                                <p style="text-align: center">
+                                                    <a href="{{ url('delete-image/' . $img->id) }}" id="delete"
+                                                        style="color: red; text-decoration: underline; font-size: 13px">remove</a>
+                                                </p>
+                                            </div>
                                         @endforeach
                                     </div>
                                 @endif
@@ -120,41 +126,14 @@
                                             class="text-danger">*</span></label>
                                     <textarea name="str_p_title" id="" cols="30" rows="5" class="form-control"
                                         placeholder="Enter program/project title">{{ $all->str_p_title }}</textarea>
-                                    {{-- <select id="" name="str_p_title" class="form-control agency" required>
-                                        <option value=""></option>
-                                        <optgroup label="Programs">
-                                            @foreach ($programs as $prog)
-                                                <option value="{{ $prog->program_title }}"
-                                                    {{ $prog->program_title == $all->str_p_title ? 'selected' : '' }}>
-                                                    {{ $prog->program_title }}
-                                                </option>
-                                            @endforeach
-                                        </optgroup>
 
-                                        <optgroup label="Projects">
-                                            @foreach ($projects as $proj)
-                                                <option value="{{ $proj->project_title }}"
-                                                    {{ $proj->project_title == $all->str_p_title ? 'selected' : '' }}>
-                                                    {{ $proj->project_title }}
-                                                </option>
-                                            @endforeach
-                                        </optgroup>
-
-                                        <optgroup label="Sub Projects">
-                                            @foreach ($sub_projects as $sub_proj)
-                                                <option value="{{ $sub_proj->sub_project_title }}"
-                                                    {{ $sub_proj->sub_project_title == $all->str_p_title ? 'selected' : '' }}>
-                                                    {{ $sub_proj->sub_project_title }} </option>
-                                            @endforeach
-                                        </optgroup>
-                                    </select> --}}
                                     <div class="invalid-feedback">Missing program/project title</div>
                                 </div>
 
                                 <div class="col-md-12 form-group">
                                     <label for="ttp_sof" class=" font-weight-bold">Researchers<span
                                             class="text-danger">*</span></label>
-                                    <textarea name="str_p_researchers" id="strategic_title" class="form-control" rows="4" style="resize: none"
+                                    <textarea name="str_p_researchers" id="strategic_title" class="form-control" rows="3" style="resize: none"
                                         required placeholder="Researchers">{{ $all->str_p_researchers }}</textarea>
                                     <div class="invalid-feedback">Missing researchers</div>
                                 </div>
@@ -185,26 +164,27 @@
                                     $collab = json_decode($all->str_p_collab_agency);
                                 @endphp
 
-
                                 <div class="col-md-12 form-group">
-                                    <label for="awards_recipients" class=" font-weight-bold">Collaborating Agency<span
-                                            class="text-danger">*</span></label>
+                                    <label for="awards_recipients" class=" font-weight-bold">Collaborating Agency</label>
                                     <select class="form-control collaborating_agency" id=""
-                                        name="str_p_collab_agency[]" multiple="multiple" required>
-
-                                        @foreach ($agency as $key)
-                                            <option value="{{ $key->abbrev }}"
-                                                {{ in_array($key->abbrev, $collab) ? 'selected' : '' }}>
-                                                {{ $key->agency_name }} -
+                                        name="str_p_collab_agency[]" multiple="multiple">
+                                        @if (!empty($collab))
+                                            @foreach ($agency as $key)
+                                                <option value="{{ $key->abbrev }}"
+                                                    {{ in_array($key->abbrev, $collab) ? 'selected' : '' }}>
+                                                    {{ $key->agency_name }} -
+                                                    ({{ $key->abbrev }})
+                                                    </b></option>
+                                            @endforeach
+                                        @else
+                                            <option value="{{ $key->abbrev }}">{{ $key->agency_name }} -
                                                 ({{ $key->abbrev }})
                                                 </b></option>
-                                        @endforeach
-
+                                        @endif
                                     </select>
-                                    <div class="invalid-feedback">Missing collaborating agency</div>
                                 </div>
 
-                                <div class="col-md-12">
+                                <div class="col-md-5">
                                     <label for="tpa_date" class=" font-weight-bold">Duration<span
                                             class="text-danger">*</span></label>
                                     <input type="text" name="str_p_date" id="tpa_date" value="{{ $all->str_p_date }}"
@@ -212,11 +192,11 @@
                                     <div class="invalid-feedback">Missing date</div>
                                 </div>
 
-                                <div class="col-md-12 form-group">
-                                    <label for="approved_budget" class=" font-weight-bold">Approved Budget<span
+                                <div class="col-md-4 form-group">
+                                    <label for="approved_budget" class=" font-weight-bold">Proposed Budget<span
                                             class="text-danger">*</span></label>
                                     <input type="text" name="str_p_budget" oninput="validateInput(this)"
-                                        value="{{ $all->str_p_budget }}" class="form-control" id=""
+                                        value="{{ number_format($all->str_p_budget) }}" class="form-control" id=""
                                         placeholder="Budget" required>
                                     <div class="invalid-feedback">Missing budget</div>
                                 </div>
@@ -356,14 +336,25 @@
     <script>
         function validateInput(input) {
             // Remove non-numeric characters (except '-')
-            input.value = input.value.replace(/[^\d-]/g, '');
+            let numericValue = input.value.replace(/[^\d-]/g, '');
 
             // Ensure the input is not empty
-            if (input.value === '-') {
-                input.value = '';
+            if (numericValue === '-') {
+                numericValue = '';
             }
 
+            // Format the numeric value with commas
+            const formattedValue = formatNumberWithCommas(numericValue);
+
+            // Set the formatted value back to the input
+            input.value = formattedValue;
         }
+
+        function formatNumberWithCommas(number) {
+            // Convert the number to a string and add commas
+            return parseFloat(number).toLocaleString('en-US');
+        }
+
         $(document).ready(function() {
             $('#strategic_program, #strategic_researcher, #strategic_implementing_agency, #strategic_funding_agency, #strategic_budget, #strategic_end, #strategic_start, #strategic_title')
                 .on('input', function() {

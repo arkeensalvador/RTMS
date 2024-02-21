@@ -51,7 +51,6 @@
                                                         <th>Agency</th>
                                                         <th>Author</th>
                                                         <th>Co-author</th>
-                                                        <th>Proponent</th>
                                                         <th>Beneficiary</th>
                                                         <th>Implementer</th>
                                                         <th>Date</th>
@@ -68,7 +67,6 @@
                                                                 <td>{{ $row->policy_agency }}</td>
                                                                 <td>{{ $row->policy_author }}</td>
                                                                 <td>{{ $row->policy_co_author }}</td>
-                                                                <td>{{ $row->policy_proponent }}</td>
                                                                 <td>{{ $row->policy_beneficiary }}</td>
                                                                 <td>{{ $row->policy_implementer }}</td>
                                                                 <td>{{ date('m/d/Y', strtotime($row->policy_date)) }}</td>
@@ -94,7 +92,6 @@
                                                                 <td>{{ $row->policy_agency }}</td>
                                                                 <td>{{ $row->policy_author }}</td>
                                                                 <td>{{ $row->policy_co_author }}</td>
-                                                                <td>{{ $row->policy_proponent }}</td>
                                                                 <td>{{ $row->policy_beneficiary }}</td>
                                                                 <td>{{ $row->policy_implementer }}</td>
                                                                 <td>{{ date('m/d/Y', strtotime($row->policy_date)) }}</td>

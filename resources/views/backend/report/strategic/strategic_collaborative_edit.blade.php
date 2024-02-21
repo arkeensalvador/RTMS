@@ -93,10 +93,16 @@
                                         <label for="strategic_program" class="font-weight-bold">Uploaded Images<span
                                                 class="text-danger"></span></label><br>
                                         @foreach ($imgs as $img)
-                                            <a href="{{ asset($img->filename) }}" data-lightbox="photos">
-                                                <img id="" src="{{ asset($img->filename) }}" alt=""
-                                                    style="width: 200px; height: 200px;" class="img-thumbnail">
-                                            </a>
+                                            <div style="display: inline-block; margin-right: 10px;">
+                                                <a href="{{ asset($img->filename) }}" data-lightbox="photos">
+                                                    <img src="{{ asset($img->filename) }}" alt=""
+                                                        style="width: 200px; height: 200px;" class="img-thumbnail">
+                                                </a>
+                                                <p style="text-align: center">
+                                                    <a href="{{ url('delete-image/' . $img->id) }}" id="delete"
+                                                        style="color: red; text-decoration: underline; font-size: 13px">remove</a>
+                                                </p>
+                                            </div>
                                         @endforeach
                                     </div>
                                 @endif
@@ -121,7 +127,7 @@
                                 <div class="col-md-12 form-group">
                                     <label for="ttp_sof" class=" font-weight-bold">Program (Optional)</label>
                                     <textarea name="str_collab_program" id="str_collab_program" cols="30" rows="5" class="form-control"
-                                        placeholder="Enter program title">{{ $all->str_collab_program }}</textarea>
+                                        placeholder="Enter the program title; N/A if none.">{{ $all->str_collab_program }}</textarea>
                                 </div>
 
                                 <div class="col-md-12 form-group">
@@ -181,16 +187,18 @@
                                     <label for="tpa_date" class=" font-weight-bold">Date<span
                                             class="text-danger">*</span></label>
                                     <input type="text" name="str_collab_date" value="{{ $all->str_collab_date }}"
-                                        id="tpa_date" class="form-control date-range" placeholder="Enter date" required>
+                                        id="tpa_date" class="form-control date-range" placeholder="Enter duration date"
+                                        required>
                                     <div class="invalid-feedback">Missing date</div>
                                 </div>
 
                                 <div class="col-md-4 form-group">
-                                    <label for="approved_budget" class=" font-weight-bold">Budget<span
+                                    <label for="approved_budget" class=" font-weight-bold">Proposed Budget<span
                                             class="text-danger">*</span></label>
-                                    <input type="text" name="str_collab_budget" value="{{ $all->str_collab_budget }}"
-                                        class="form-control" id="" placeholder="Budget" required>
-                                    <div class="invalid-feedback">Missing budget</div>
+                                    <input type="text" name="str_collab_budget"
+                                        value="{{ number_format($all->str_collab_budget) }}" oninput="validateInput(this)"
+                                        class="form-control" id="" placeholder="Enter Proposed Budget" required>
+                                    <div class="invalid-feedback">Missing proposed budget</div>
                                 </div>
 
                                 @php
@@ -215,7 +223,7 @@
                                     <label for="strategic_implementing_agency" class=" font-weight-bold">Role of
                                         Consortium<span class="text-danger">*</span></label>
                                     <textarea name="str_collab_roc" id="strategic_title" class="form-control" rows="4" style="resize: none"
-                                        required placeholder="Role of consortium">{{ $all->str_collab_roc }}</textarea>
+                                        required placeholder="Enter role of consortium">{{ $all->str_collab_roc }}</textarea>
                                     <div class="invalid-feedback">Missing role of consortium</div>
                                 </div>
 
@@ -284,6 +292,27 @@
     </script>
 
     <script>
+        function validateInput(input) {
+            // Remove non-numeric characters (except '-')
+            let numericValue = input.value.replace(/[^\d-]/g, '');
+
+            // Ensure the input is not empty
+            if (numericValue === '-') {
+                numericValue = '';
+            }
+
+            // Format the numeric value with commas
+            const formattedValue = formatNumberWithCommas(numericValue);
+
+            // Set the formatted value back to the input
+            input.value = formattedValue;
+        }
+
+        function formatNumberWithCommas(number) {
+            // Convert the number to a string and add commas
+            return parseFloat(number).toLocaleString('en-US');
+        }
+
         $(document).ready(function() {
             $('.r-agency').select2({
                 placeholder: 'Select Agency'

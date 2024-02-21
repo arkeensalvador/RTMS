@@ -99,6 +99,14 @@
                                     <div class="invalid-feedback">Missing type of technology</div>
                                 </div>
 
+                                <div class="col-md-4 form-group">
+                                    <label for="strategic_implementing_agency" class=" font-weight-bold">Duration<span
+                                            class="text-danger">*</span></label>
+                                    <input type="text" class="form-control date-range" name="tech_duration"
+                                        placeholder="Duration" required>
+                                    <div class="invalid-feedback">Missing duration</div>
+                                </div>
+
                                 <div class="col-md-12 form-group">
                                     <label for="strategic_implementing_agency" class=" font-weight-bold">Title of
                                         Technology<span class="text-danger">*</span></label>
@@ -106,14 +114,6 @@
                                         rows="5" required></textarea>
                                     <div class="invalid-feedback">Missing title</div>
                                 </div>
-
-                                {{-- <div class="col-md-12 form-group">
-                                    <label for="strategic_implementing_agency" class=" font-weight-bold">Description<span
-                                            class="text-danger">*</span></label>
-                                    <textarea name="tech_desc" id="strategic_title" class="form-control" rows="4" style="resize: none" required
-                                        placeholder="Description"></textarea>
-                                    <div class="invalid-feedback">Missing title</div>
-                                </div> --}}
 
                                 <div class="col-md-12 form-group">
                                     <label for="agencySelect" class=" font-weight-bold">Agency<span
@@ -136,35 +136,6 @@
                                     </select>
                                     <div class="invalid-feedback">Missing researchers</div>
                                 </div>
-
-                                {{-- <div class="col-md-12 form-group">
-                                    <label for="agencySelect" class="font-weight-bold">Program/Project Source<span
-                                            class="text-danger">*</span></label>
-                                    <select id="" name="tech_source" class="form-control source" required>
-                                        <option value=""></option>
-                                        <optgroup label="Programs">
-                                            @foreach ($programs as $prog)
-                                                <option value="{{ $prog->program_title }}"> {{ $prog->program_title }}
-                                                </option>
-                                            @endforeach
-                                        </optgroup>
-
-                                        <optgroup label="Projects">
-                                            @foreach ($projects as $proj)
-                                                <option value="{{ $proj->project_title }}"> {{ $proj->project_title }}
-                                                </option>
-                                            @endforeach
-                                        </optgroup>
-
-                                        <optgroup label="Sub Projects">
-                                            @foreach ($sub_projects as $sub_proj)
-                                                <option value="{{ $sub_proj->sub_project_title }}">
-                                                    {{ $sub_proj->sub_project_title }} </option>
-                                            @endforeach
-                                        </optgroup>
-                                    </select>
-                                    <div class="invalid-feedback">Missing program/project source</div>
-                                </div> --}}
 
                                 <div class="col-md-12 form-group">
                                     <label for="strategic_implementing_agency" class=" font-weight-bold">Potential Impact or

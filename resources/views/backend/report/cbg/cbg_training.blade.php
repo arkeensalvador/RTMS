@@ -31,7 +31,6 @@
                                 <div class="card-tools">
                                     <a href="{{ url('cbg-training-add') }}" class="btn btn-success"><span><i
                                                 class="fa-solid fa-plus"></i> Create</span></a>
-
                                     <!-- Here is a label for example -->
                                     {{-- <span class="badge badge-primary">Label</span> --}}
                                 </div>
@@ -46,10 +45,10 @@
                                                     <tr>
                                                         <th>#</th>
                                                         <th>Title</th>
-                                                        <th>No. of Participants</th>
+                                                        <th style="width: 110px">No. of Participants</th>
                                                         <th>Venue</th>
                                                         <th>Expenditures</th>
-                                                        <th>Source of Fund</th>
+                                                        <th>Source of Fund / R&D Center(s)</th>
                                                         <th>Implementing Agency</th>
                                                         <th>Duration</th>
                                                         <th>Remarks</th>
@@ -61,10 +60,17 @@
                                                         @foreach ($all as $key => $row)
                                                             <tr>
                                                                 <td>{{ $key + 1 }}</td>
-                                                                <td>{{ $row->trainings_title }}</td>
+                                                                <td>{{ strtoupper($row->trainings_title) }}</td>
                                                                 @php
                                                                     $rc = $row->trainings_research_center;
-                                                                    $rc = str_replace(['[', '"', ']'], '', $rc);
+                                                                    // Check if $rc is [null]
+                                                                    if ($rc === '[null]') {
+                                                                        $rc = 'N/A';
+                                                                    } else {
+                                                                        // If $rc is not [null], perform the replacements
+                                                                        $rc = str_replace(['[', '"', ']'], '', $rc);
+                                                                        $rc = str_replace(',', ', ', $rc);
+                                                                    }
 
                                                                     $sof = json_decode($row->trainings_sof);
                                                                     $sof = implode(', ', $sof);
@@ -72,11 +78,19 @@
                                                                     $agency = json_decode($row->trainings_agency);
                                                                     $agency = implode(', ', $agency);
 
-                                                                    $type = json_decode($row->trainings_type);
-                                                                    $type = implode(', ', $type);
+                                                                    $participants = DB::table('training_participants')
+                                                                        ->select('type_of_participants', 'no_of_participants')
+                                                                        ->where('training_id', '=', $row->id)
+                                                                        ->get();
                                                                 @endphp
-                                                                <td>{{ $type }} /
-                                                                    {{ $row->trainings_no_participants }}
+                                                                <td>
+
+                                                                    @foreach ($participants as $participant)
+                                                                        <li>{{ $participant->type_of_participants }}
+                                                                            ({{ $participant->no_of_participants }})
+                                                                        </li>
+                                                                    @endforeach
+
                                                                 </td>
                                                                 <td>{{ $row->trainings_venue }}</td>
                                                                 <td>₱{{ number_format($row->trainings_expenditures, 2) }}
@@ -106,10 +120,17 @@
                                                         @foreach ($all_filter as $key => $row)
                                                             <tr>
                                                                 <td>{{ $key + 1 }}</td>
-                                                                <td>{{ $row->trainings_title }}</td>
+                                                                <td>{{ strtoupper($row->trainings_title) }}</td>
                                                                 @php
                                                                     $rc = $row->trainings_research_center;
-                                                                    $rc = str_replace(['[', '"', ']'], '', $rc);
+                                                                    // Check if $rc is [null]
+                                                                    if ($rc === 'null') {
+                                                                        $rc = 'N/A';
+                                                                    } else {
+                                                                        // If $rc is not [null], perform the replacements
+                                                                        $rc = str_replace(['[', '"', ']'], '', $rc);
+                                                                        $rc = str_replace(',', ', ', $rc);
+                                                                    }
 
                                                                     $sof = json_decode($row->trainings_sof);
                                                                     $sof = implode(', ', $sof);
@@ -117,11 +138,18 @@
                                                                     $agency = json_decode($row->trainings_agency);
                                                                     $agency = implode(', ', $agency);
 
-                                                                    $type = json_decode($row->trainings_type);
-                                                                    $type = implode(', ', $type);
+                                                                    $participants = DB::table('training_participants')
+                                                                        ->select('type_of_participants', 'no_of_participants')
+                                                                        ->where('training_id', '=', $row->id)
+                                                                        ->get();
+
                                                                 @endphp
-                                                                <td>{{ $type }} /
-                                                                    {{ $row->trainings_no_participants }}
+                                                                <td>
+                                                                    @foreach ($participants as $participant)
+                                                                        <li>{{ $participant->type_of_participants }}
+                                                                            ({{ $participant->no_of_participants }})
+                                                                        </li>
+                                                                    @endforeach
                                                                 </td>
                                                                 <td>{{ $row->trainings_venue }}</td>
                                                                 <td>₱{{ number_format($row->trainings_expenditures, 2) }}

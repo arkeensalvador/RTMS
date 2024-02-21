@@ -17,9 +17,9 @@ return new class extends Migration {
             $table->string('project_category');
             $table->string('project_status');
             $table->string('project_agency');
-            $table->string('project_collaborating_agency');
+            $table->string('project_collaborating_agency')->nullable();
             $table->string('project_implementing_agency');
-            $table->string('project_research_center');
+            $table->string('project_research_center')->nullable();
             $table->string('project_funding_grant');
             // $table->string('project_funding_years');
             $table->text('project_title');

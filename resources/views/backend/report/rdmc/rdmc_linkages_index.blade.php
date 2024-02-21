@@ -61,7 +61,7 @@
                                                                 <td>{{ $row->form_of_development }}</td>
                                                                 <td>{{ $row->year }}</td>
                                                                 <td>{{ $row->address }}</td>
-                                                                <td>{{ $row->nature_of_assistance }}</td>
+                                                                <td>{{ ucwords($row->nature_of_assistance) }}</td>
                                                                 <td class="action btns">
                                                                     <a class="btn btn-primary"
                                                                         href="{{ url("edit-linkages/$row->id") }}"><i
@@ -81,7 +81,7 @@
                                                                 <td>{{ $row->form_of_development }}</td>
                                                                 <td>{{ $row->year }}</td>
                                                                 <td>{{ $row->address }}</td>
-                                                                <td>{{ $row->nature_of_assistance }}</td>
+                                                                <td>{{ ucwords($row->nature_of_assistance) }}</td>
                                                                 <td class="action btns">
                                                                     <a class="btn btn-primary"
                                                                         href="{{ url("edit-linkages/$row->id") }}"><i

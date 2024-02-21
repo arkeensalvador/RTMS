@@ -73,10 +73,6 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 
-
-
-
-
     <style>
         .form-control,
         .form-control:focus,
@@ -433,7 +429,7 @@
         @include('backend.layouts.sidebar')
 
         <!-- Content Wrapper. Contains page content -->
-        {{-- @include('backend.layouts.dashboard') --}}
+        {{-- ('backend.layouts.dashboard') --}}
         @yield('content')
         <!-- /.content-wrapper -->
 
@@ -1050,6 +1046,7 @@ data in various formats (copy, csv, excel, pdf, print) and for column visibility
             "responsive": true,
             "lengthChange": false,
             "autoWidth": true,
+            "order": [],
             "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
         }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
         $('#example2').DataTable({
@@ -1060,6 +1057,7 @@ data in various formats (copy, csv, excel, pdf, print) and for column visibility
             "info": true,
             "autoWidth": true,
             "responsive": true,
+            "order": [],
         });
 
         $("#aihrs").DataTable({
@@ -1077,6 +1075,7 @@ data in various formats (copy, csv, excel, pdf, print) and for column visibility
             "responsive": true,
             "autoWidth": false,
             "info": true,
+            "order": [],
             buttons: {
                 buttons: [{
                     extend: 'copy',
@@ -1119,6 +1118,7 @@ data in various formats (copy, csv, excel, pdf, print) and for column visibility
             "responsive": true,
             "autoWidth": false,
             "info": true,
+            "order": [],
             buttons: {
                 buttons: [{
                     extend: 'csv',
@@ -1134,6 +1134,10 @@ data in various formats (copy, csv, excel, pdf, print) and for column visibility
                     extend: 'pdf',
                     exportOptions: {
                         columns: ':visible'
+                    },
+                    customize: function(doc) {
+                        // Set PDF orientation to landscape
+                        doc.pageOrientation = 'landscape';
                     }
                 }, {
                     extend: 'print',
@@ -1149,12 +1153,15 @@ data in various formats (copy, csv, excel, pdf, print) and for column visibility
 
             // "buttons": ["csv", "excel", "pdf", "print", "colvis"]
         }).buttons().container().appendTo('#projects_wrapper .col-md-6:eq(0)');
+
+
         $('#programs').DataTable({
             "paging": true,
             "lengthChange": false,
             "responsive": true,
             "autoWidth": false,
             "info": true,
+            "order": [],
             buttons: {
                 buttons: [{
                     extend: 'csv',
@@ -1169,7 +1176,11 @@ data in various formats (copy, csv, excel, pdf, print) and for column visibility
                 }, {
                     extend: 'pdf',
                     exportOptions: {
-                        columns: ':visible'
+                        columns: ':visible',
+                    },
+                    customize: function(doc) {
+                        // Set PDF orientation to landscape
+                        doc.pageOrientation = 'landscape';
                     }
                 }, {
                     extend: 'print',
@@ -1185,6 +1196,7 @@ data in various formats (copy, csv, excel, pdf, print) and for column visibility
 
             // "buttons": ["csv", "excel", "pdf", "print", "colvis"]
         }).buttons().container().appendTo('#programs_wrapper .col-md-6:eq(0)');
+
     });
 
     $(document).ready(function() {

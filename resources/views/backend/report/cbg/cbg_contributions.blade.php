@@ -56,7 +56,7 @@
                                                         <tr>
                                                             <td>{{ $row->id }}</td>
                                                             <td>{{ $row->con_name }}</td>
-                                                            <td>{{ $row->con_amount }}</td>
+                                                            <td>₱{{ number_format($row->con_amount, 2) }}</td>
                                                             <td class="action btns">
                                                                 <a class="btn btn-primary editContributionModal"
                                                                     data-toggle="modal" data-id="'.$row->id.'"
@@ -117,8 +117,8 @@
                                 <label for="con_amount" class=" font-weight-bold">Amount<span
                                         class="text-danger">*</span></label>
 
-                                <input type="text" name="con_amount" class="form-control"
-                                    onkeypress="return isNumberKey(event)" placeholder="Enter amount" required>
+                                <input type="text" name="con_amount" class="form-control" oninput="validateInput(this)"
+                                    placeholder="Enter amount" required>
                                 <div class="invalid-feedback">Missing amount</div>
                             </div>
 
@@ -169,16 +169,11 @@
                                 <label for="con_amount" class=" font-weight-bold">Amount<span
                                         class="text-danger">*</span></label>
 
-                                <input type="text" name="con_amount" id="e_con_amount"
-                                    onkeypress="return isNumberKey(event)" class="form-control"
-                                    placeholder="Enter amount" required>
+                                <input type="text" name="con_amount" id="e_con_amount" oninput="validateInput(this)"
+                                    class="form-control" placeholder="Enter amount" required>
                                 <div class="invalid-feedback">Missing amount</div>
                             </div>
 
-                            {{-- <div class="col-md-12 form-group buttons">
-                                <a href="{{ url('cbg-index') }}" class="btn btn-default">Back</a>
-                                
-                            </div> --}}
 
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -196,6 +191,27 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
         <script>
+            function validateInput(input) {
+                // Remove non-numeric characters (except '-')
+                let numericValue = input.value.replace(/[^\d-]/g, '');
+
+                // Ensure the input is not empty
+                if (numericValue === '-') {
+                    numericValue = '';
+                }
+
+                // Format the numeric value with commas
+                const formattedValue = formatNumberWithCommas(numericValue);
+
+                // Set the formatted value back to the input
+                input.value = formattedValue;
+            }
+
+            function formatNumberWithCommas(number) {
+                // Convert the number to a string and add commas
+                return parseFloat(number).toLocaleString('en-US');
+            }
+
             $(document).ready(function() {
                 var table = $('#datatable').DataTable();
 
@@ -208,7 +224,8 @@
                     console.log(data);
 
                     $('#e_con_name').val(data[1]);
-                    $('#e_con_amount').val(data[2]);
+                    var formattedAmount = parseFloat(data[2]).toFixed(0).replace(/\d(?=(\d{3})+$)/g, '$&,');
+                    $('#e_con_amount').val(formattedAmount);
 
                     $('#editForm').attr('action', '/update-contributions/' + data[0]);
                     // $('#editContributionModal').modal('show');

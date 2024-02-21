@@ -231,8 +231,8 @@
                                                     @endforeach
                                                 </tbody>
                                             </table>
-                                            {{-- <a href="{{ url('rdmc-monitoring-evaluation') }}"
-                                                class="btn btn-default">Back</a> --}}
+                                            <a href="{{ url('rdmc-monitoring-evaluation') }}"
+                                                class="btn btn-default">Back</a>
                                         </div>
                                     </div>
                                 </div>
@@ -430,6 +430,7 @@
                                 required>
                             <div class="invalid-feedback">Missing title</div>
                         </div>
+
                         <div class="col-md-12 form-group">
                             <label for="con_name" class="font-weight-bold">Year<span class="text-danger">*</span></label>
 
@@ -525,7 +526,7 @@
                                 <tr>
                                     <td class="append">
                                         <input type="text" class="form-control" placeholder="Evaluator"
-                                            name="moreFields[0][evaluator_name]"required autocomplete="false">
+                                            name="moreFields[0][evaluator_name]" required autocomplete="false">
                                     </td>
 
                                     <td class="append">

@@ -18,9 +18,9 @@ return new class extends Migration {
             $table->string('sub_project_category');
             $table->string('sub_project_status');
             $table->string('sub_project_agency');
-            $table->string('sub_project_collaborating_agency');
+            $table->string('sub_project_collaborating_agency')->nullable();
             $table->string('sub_project_implementing_agency');
-            $table->string('sub_project_research_center');
+            $table->string('sub_project_research_center')->nullable();
             $table->string('sub_project_funding_grant');
             $table->text('sub_project_title');
             $table->string('sub_project_leader');

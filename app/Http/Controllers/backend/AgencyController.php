@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use DB;
 use Response;
+use App\Models\Agency;
 
 class AgencyController extends Controller
 {
@@ -21,7 +22,7 @@ class AgencyController extends Controller
     {
         $title = 'Agency | RTMS';
         $all = DB::table('agency')
-            ->orderBy('agency_name')
+            ->orderByDesc('id')
             ->get();
         return view('backend.agency.agency', compact('all', 'title'));
     }
@@ -38,6 +39,21 @@ class AgencyController extends Controller
                 'abbrev.required' => 'Agency abbreviation is required!',
             ],
         );
+
+        $existingData = Agency::where('agency_name', $request->agency_name)
+            ->orWhere('abbrev', $request->abbrev)
+            ->first();
+
+        if ($existingData) {
+            // Data already exists, handle accordingly (e.g., show an error message)
+            $notification = [
+                'message' => 'Agency Already Exists',
+                'alert-type' => 'error',
+            ];
+            return redirect()
+                ->route('AllAgency')
+                ->with($notification);
+        }
 
         $data = [];
         $data['agency_name'] = $request->agency_name;

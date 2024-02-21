@@ -199,10 +199,11 @@
                                 </div>
 
                                 <div class="col-md-6 form-group">
-                                    <label for="ttp_budget" class=" font-weight-bold">Budget<span
+                                    <label for="ttp_budget" class=" font-weight-bold">Proposed Budget<span
                                             class="text-danger">*</span></label>
                                     <input type="text" class="form-control" name="ttp_budget" id="ttp_budget"
-                                        value="{{ $all->ttp_budget }}" oninput="validateInput(this)" required>
+                                        value="{{ number_format($all->ttp_budget) }}" oninput="validateInput(this)"
+                                        required>
                                     <div class="invalid-feedback">Missing budget</div>
                                 </div>
 
@@ -242,12 +243,23 @@
     <script>
         function validateInput(input) {
             // Remove non-numeric characters (except '-')
-            input.value = input.value.replace(/[^\d-]/g, '');
+            let numericValue = input.value.replace(/[^\d-]/g, '');
 
             // Ensure the input is not empty
-            if (input.value === '-') {
-                input.value = '';
+            if (numericValue === '-') {
+                numericValue = '';
             }
+
+            // Format the numeric value with commas
+            const formattedValue = formatNumberWithCommas(numericValue);
+
+            // Set the formatted value back to the input
+            input.value = formattedValue;
+        }
+
+        function formatNumberWithCommas(number) {
+            // Convert the number to a string and add commas
+            return parseFloat(number).toLocaleString('en-US');
         }
     </script>
     <script>

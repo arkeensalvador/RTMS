@@ -83,11 +83,29 @@
                                         <td>{{ implode(' / ', $imp) }}</td>
                                     </tr>
                                     @php
-                                        $collab = json_decode($sub_projects->sub_project_collaborating_agency);
+                                        if ($sub_projects->sub_project_collaborating_agency == 'null') {
+                                            $collab = 'N/A';
+                                        } else {
+                                            $collab = json_decode($sub_projects->sub_project_collaborating_agency);
+                                            $collab = implode(', ', $collab);
+                                        }
                                     @endphp
                                     <tr>
                                         <th scope="row" class="thwidth">Collaborating Agency</th>
-                                        <td>{{ implode(' / ', $collab) }}</td>
+                                        <td>{{ $collab }}</td>
+                                    </tr>
+
+                                    @php
+                                        if ($sub_projects->sub_project_research_center == '[null]') {
+                                            $rc = 'N/A';
+                                        } else {
+                                            $rc = json_decode($sub_projects->sub_project_research_center);
+                                            $rc = implode(', ', $rc);
+                                        }
+                                    @endphp
+                                    <tr>
+                                        <th scope="row" class="thwidth">R & D Center(s)</th>
+                                        <td>{{ $rc }}</td>
                                     </tr>
 
                                     <tr>
@@ -143,7 +161,7 @@
                             <table id="budget-table" class="table">
                                 <thead>
                                     <tr>
-                                        <th>Approved Budget</th>
+                                        <th>Proposed Budget Breakdown</th>
                                         <th>Year No.</th>
                                     </tr>
                                 </thead>
@@ -153,27 +171,26 @@
                                             <td>
                                                 <input type="text" class="form-control budget-input"
                                                     name="approved_budget[]" readonly oninput="validateInput(this)"
-                                                    value="{{ $data->approved_budget }}" required>
+                                                    value="{{ number_format($data->approved_budget) }}" required>
                                             </td>
                                             <td>
                                                 <input type="text" class="form-control year-input" name="budget_year[]"
                                                     value="{{ $data->budget_year }}" required readonly>
                                             </td>
-                                            {{-- <td>
-                                                    <a href="{{ URL::to('/delete-sub-proj-budget/' . $data->id) }}"
-                                                        class="btn btn-danger" id="delete" style="margin-left: 5px"><i
-                                                            class="fa-solid fa-trash"></i></a>
-                                                </td> --}}
+
                                         </tr>
                                     @endforeach
                                 </tbody>
                             </table>
-                        </div>
 
+                            <div id="total-budget">Total Proposed Budget: <span class="font-weight-bold">₱ </span><span
+                                    id="total">{{ number_format($sub_projects->sub_project_amount_released, 2) }}</span>
+                            </div>
 
-                        <div class="text-center mt-5 mb-3">
-                            <a href="{{ url('sub-projects-view/' . $sub_projects->projectID) }}"
-                                class="btn btn previous btn btn-default">Go back</a>
+                            <div class="text-center mt-5 mb-3">
+                                <a href="{{ url('sub-projects-view/' . $sub_projects->projectID) }}"
+                                    class="btn btn previous btn btn-default">Go back</a>
+                            </div>
                         </div>
                     </div>
                 </div>

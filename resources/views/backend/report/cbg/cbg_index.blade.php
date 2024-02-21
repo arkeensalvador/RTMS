@@ -71,18 +71,20 @@
                                                     </div>
                                                 </a>
                                             </div>
-                                        @endif
 
-                                        <div class="col-sm-12">
-                                            <a href="cbg-initiatives">
-                                                <div class="monitoring info-box bg-light">
-                                                    <div class="monitoring info-box-content">
-                                                        <span class="monitoring info-box-number text-center text-muted">New
-                                                            Initiatives on Governance</span>
+
+                                            <div class="col-sm-12">
+                                                <a href="cbg-initiatives">
+                                                    <div class="monitoring info-box bg-light">
+                                                        <div class="monitoring info-box-content">
+                                                            <span
+                                                                class="monitoring info-box-number text-center text-muted">New
+                                                                Initiatives on Governance</span>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                            </a>
-                                        </div>
+                                                </a>
+                                            </div>
+                                        @endif
 
                                         <div class="col-sm-12">
                                             <a href="cbg-equipment">

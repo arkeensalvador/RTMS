@@ -113,17 +113,15 @@
                                         <div class="col-sm-4">
                                             <input type="text" name="mname" id="mname"
                                                 value="{{ $researcher->middle_name }}" class="form-control"
-                                                placeholder="Middle name" required>
-                                            <div class="invalid-feedback">Missing middle name</div>
+                                                placeholder="Middle name (Optional)">
                                         </div>
 
                                         <div class="col-sm-4">
                                             <input type="text" name="lname" id="lname"
                                                 value="{{ $researcher->last_name }}" class="form-control"
-                                                placeholder="Last name" required>
+                                                placeholder="Last name (Include suffix e.g. Jr.)" required>
                                             <div class="invalid-feedback">Missing last name</div>
                                         </div>
-
                                     </div>
                                 </div>
 

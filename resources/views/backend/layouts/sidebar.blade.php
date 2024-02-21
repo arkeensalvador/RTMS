@@ -129,16 +129,28 @@
                     </a>
                 </li>
 
-
                 <li class="nav-item">
-                    <a href="{{ URL::to('report-index') }}"
-                        class="nav-link @if (in_array($segment1, $pages)) active @endif">
-                        <i class="nav-icon fa-solid fa-book-journal-whills"></i>
+                    <a href="{{ URL::to('/researcher-index') }}"
+                        class="nav-link {{ Request::is('researcher-index', 'edit-researcher/*', 'view-researcher/*', 'researcher-add') ? 'active' : '' }}">
+                        <i class="nav-icon fas fa-users"></i>
                         <p>
-                            Add Report
+                            Researchers
                         </p>
                     </a>
                 </li>
+
+                <li class="nav-item">
+                    <a href="{{ URL::to('/all-agency') }}"
+                        class="nav-link {{ Request::is('all-agency', 'edit-agency/*') ? 'active' : '' }}">
+                        <i class="nav-icon fas fa-building"></i>
+                        <p>
+                            Agency
+                        </p>
+                    </a>
+                </li>
+
+                <hr
+                    style="border-top: 1.5px solid rgb(194 199 208); opacity: .5; margin-top: .3rem; margin-bottom: .5rem;" />
 
                 <li class="nav-item">
                     <a href="{{ URL::to('rdmc-programs') }}"
@@ -162,27 +174,48 @@
                         {{-- <i class="fas fa-angle-left right"></i> --}}
                     </a>
                 </li>
-                @if (auth()->user()->role == 'Admin')
-                    <li class="nav-item">
-                        <a href="{{ URL::to('report-list') }}"
-                            class="nav-link {{ Request::is('report-list') ? 'active' : '' }}">
-                            <i class="nav-icon fa-solid fa-list-ul"></i>
-                            <p>
-                                Reports
-                            </p>
-                        </a>
-                    </li>
-                @endif
+
 
                 <li class="nav-item">
-                    <a href="{{ URL::to('/researcher-index') }}"
-                        class="nav-link {{ Request::is('researcher-index', 'edit-researcher/*', 'view-researcher/*', 'researcher-add') ? 'active' : '' }}">
-                        <i class="nav-icon fas fa-users"></i>
+                    <a href="{{ URL::to('report-index') }}"
+                        class="nav-link @if (in_array($segment1, $pages)) active @endif">
+                        <i class="nav-icon fa-solid fa-book-journal-whills"></i>
                         <p>
-                            Researchers
+                            Add Report
                         </p>
                     </a>
                 </li>
+
+
+                @if (auth()->user()->role == 'Admin')
+                    <li class="nav-item">
+                        <a href="#"
+                            class="nav-link {{ Request::is('report-list', 'filtered-report', 'records/filter', 'records') ? 'active' : '' }}">
+                            <i class="nav-icon fa-solid fa-list-ul"></i>
+                            <p>
+                                Reports
+                                <i class="right fas fa-angle-left"></i>
+                            </p>
+                        </a>
+
+                        <ul class="nav nav-treeview" style="display: none;">
+                            <li class="nav-item">
+                                <a href="{{ URL::to('report-list') }}" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Full Report</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ URL::to('records') }}" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>
+                                        Filtered Report
+                                    </p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                @endif
 
                 <li class="nav-item">
                     <a href="{{ URL::to('/all-templates') }}"
@@ -193,19 +226,10 @@
                         </p>
                     </a>
                 </li>
-                {{-- (auth()->user()->agencyID == 'CLSU') --}}
 
 
-                <li class="nav-item">
-                    <a href="{{ URL::to('/all-agency') }}"
-                        class="nav-link {{ Request::is('all-agency', 'edit-agency/*') ? 'active' : '' }}">
-                        <i class="nav-icon fas fa-building"></i>
-                        <p>
-                            Agency
-                        </p>
-                    </a>
-                </li>
-
+                <hr
+                    style="border-top: 1.5px solid rgb(194 199 208); opacity: .5; margin-top: .3rem; margin-bottom: .5rem;" />
 
                 @if (auth()->user()->role == 'Admin')
                     <li class="nav-item has-treeview">
@@ -228,7 +252,6 @@
                     </a>
                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none" hidden>
                         @csrf
-
                     </form>
                 </li>
             </ul>

@@ -98,7 +98,22 @@
                                                             <td>
                                                                 {{ $formattedNames }}
                                                             </td>
-                                                            <td>{{ $row->regional_recommendations }}</td>
+                                                            <td>
+                                                                @php
+                                                                    // Split the recommendations string by the bullet point character (•)
+                                                                    $recommendations = explode('•', $row->regional_recommendations);
+
+                                                                    // Iterate through each recommendation
+                                                                    foreach ($recommendations as $recommendation) {
+                                                                        // Trim any leading or trailing whitespace
+                                                                        $recommendation = trim($recommendation);
+                                                                        // If the recommendation is not empty, output it with a bullet point
+                                                                        if (!empty($recommendation)) {
+                                                                            echo "• $recommendation <br>";
+                                                                        }
+                                                                    }
+                                                                @endphp
+                                                            </td>
                                                             <td>{{ $row->regional_winners }}</td>
                                                             @if (auth()->user()->role == 'Admin')
                                                                 <td class="action">

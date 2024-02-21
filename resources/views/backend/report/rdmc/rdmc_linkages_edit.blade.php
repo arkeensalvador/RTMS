@@ -141,7 +141,7 @@
                                 </div>
 
 
-                                <div class="col-md-7 form-group">
+                                <div class="col-md-12 form-group">
                                     <label for="address" class=" font-weight-bold">Address<span
                                             class="text-danger">*</span></label>
                                     <input type="text" id="address" name="address" value="{{ $all->address }}"
@@ -156,7 +156,6 @@
                                         required>{{ $all->nature_of_assistance }}</textarea>
                                     <div class="invalid-feedback">Missing nature of assistance</div>
                                 </div>
-
 
                                 <div class="col-md-12 form-group buttons">
                                     <a href="{{ url('rdmc-linkages-index') }}" class="btn btn-default">Back</a>

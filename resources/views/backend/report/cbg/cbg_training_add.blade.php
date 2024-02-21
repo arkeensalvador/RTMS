@@ -87,17 +87,39 @@
                                     <h5 class="mt-0"> Kindly fill-out the fields needed.</h5>
                                 </div>
 
-                                <div class="col-md-5 form-group">
-                                    <label for="category" class=" font-weight-bold">Type of participants<span
+                                <div class="col-md-12 form-group">
+                                    <label for="coordination_fund" class="font-weight-bold">Participants<span
                                             class="text-danger">*</span></label>
-                                    <select id="category" name="trainings_type[]" multiple class="form-control others"
-                                        required>
-                                        <option value="GO">GO</option>
-                                        <option value="NGO">NGO</option>
-                                        <option value="Private Sector">Private Sector</option>
-                                        <option value="LGU">LGU</option>
-                                    </select>
-                                    <div class="invalid-feedback">Missing type</div>
+                                    <table id="participants-table" class="table">
+                                        <thead>
+                                            <tr>
+                                                <th>Type of Participant</th>
+                                                <th>No. of Participants</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td><i class="fa-solid fa-square-plus fa-xl" onclick="addInput()"
+                                                        style="color: #28a745; cursor: pointer; "></i></td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <input type="text" class="form-control" name="type_of_participants[]"
+                                                        placeholder="Enter type of participants" required>
+                                                </td>
+                                                <td>
+                                                    <input type="number" class="form-control" name="no_of_participants[]"
+                                                        placeholder="Enter no. of participants" required>
+                                                </td>
+                                                <td>
+                                                    <i class="fa-solid fa-square-minus fa-lg"
+                                                        style="color: #dc3545; margin-left: 1rem; margin-bottom:0px; cursor: pointer"
+                                                        onclick="removeRow(this)"></i>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
                                 </div>
 
                                 <div class="col-md-12 form-group">
@@ -126,12 +148,11 @@
                                 </div>
 
                                 <div class="col-md-12 form-group">
-                                    <label for="" class=" font-weight-bold">Research and Development Center<span
-                                            class="text-danger">*</span></label>
+                                    <label for="" class=" font-weight-bold">Research and Development Center
+                                        (Optional)</label>
                                     <input type="text" name="trainings_research_center[]" id="rc"
                                         class="form-control research-center" placeholder="R&D Center(s)" value=""
-                                        data-role="tagsinput" required>
-                                    <div class="invalid-feedback">Missing research center</div>
+                                        data-role="tagsinput">
                                 </div>
 
 
@@ -163,20 +184,11 @@
                                     <div class="invalid-feedback">Missing activity/training duration</div>
                                 </div>
 
-                                <div class="col-md-6 form-group">
-                                    <label for="trainings_no_participants" class=" font-weight-bold">No. of
-                                        Participants<span class="text-danger">*</span></label>
-                                    <input type="text" name="trainings_no_participants" class="form-control"
-                                        id="trainings_no_participants" oninput="validateInput(this)"
-                                        placeholder="# of participants" required>
-                                    <div class="invalid-feedback">Missing # of participants</div>
-                                </div>
-
-                                <div class="col-md-6 form-group">
+                                <div class="col-md-12 form-group">
                                     <label for="trainings_no_participants" class=" font-weight-bold">Venue<span
                                             class="text-danger">*</span></label>
-                                    <input type="text" name="trainings_venue" class="form-control"
-                                        id="trainings_venue" placeholder="Venue" required>
+                                    <input type="text" name="trainings_venue" class="form-control" id="trainings_venue"
+                                        placeholder="Venue" required>
                                     <div class="invalid-feedback"> Missing venue</div>
                                 </div>
 
@@ -194,16 +206,60 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script>
+        function addInput() {
+            var table = document.getElementById('participants-table').getElementsByTagName('tbody')[0];
+            var newRow = table.insertRow(table.rows.length);
+            var cell1 = newRow.insertCell(0);
+            var cell2 = newRow.insertCell(1);
+            var cell3 = newRow.insertCell(2);
+
+            cell1.innerHTML =
+                '<input type="text" class="form-control" placeholder="Enter type of participants"  name="type_of_participants[]" required>';
+            cell2.innerHTML =
+                '<input type="text" class="form-control" placeholder="Enter no. of participants" name="no_of_participants[]" required>';
+            cell3.innerHTML =
+                '<i class="fa-solid fa-square-minus fa-lg" style="color: #dc3545; margin-left: 1rem; margin-bottom:0px; cursor: pointer" onclick="removeRow(this)"></i>';
+
+            // Hide "Remove" button if there is only one row
+            updateRemoveButtons();
+        }
+
+        function removeRow(button) {
+            var row = button.parentNode.parentNode;
+            row.parentNode.removeChild(row);
+            // Hide "Remove" button if there is only one row
+            updateRemoveButtons();
+        }
+
+        function updateRemoveButtons() {
+            var removeButtons = document.querySelectorAll('#participants-table tbody tr i.fa-square-minus');
+            removeButtons.forEach(function(button) {
+                button.style.display = removeButtons.length > 1 ? 'block' : 'none';
+            });
+        }
+
         function validateInput(input) {
             // Remove non-numeric characters (except '-')
-            input.value = input.value.replace(/[^\d-]/g, '');
+            let numericValue = input.value.replace(/[^\d-]/g, '');
 
             // Ensure the input is not empty
-            if (input.value === '-') {
-                input.value = '';
+            if (numericValue === '-') {
+                numericValue = '';
             }
+
+            // Format the numeric value with commas
+            const formattedValue = formatNumberWithCommas(numericValue);
+
+            // Set the formatted value back to the input
+            input.value = formattedValue;
+        }
+
+        function formatNumberWithCommas(number) {
+            // Convert the number to a string and add commas
+            return parseFloat(number).toLocaleString('en-US');
         }
     </script>
+
     <script>
         $(document).ready(function() {
             $('#trainings_sof, #trainings_agency, #trainings_title, #trainings_start, #trainings_end, #trainings_title, #trainings_venue')

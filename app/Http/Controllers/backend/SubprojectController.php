@@ -22,9 +22,9 @@ class SubprojectController extends Controller
                 'sub_project_status' => 'required',
                 'sub_project_category' => 'required',
                 'sub_project_agency' => 'required',
-                'sub_project_collaborating_agency' => 'required',
+                // 'sub_project_collaborating_agency' => 'required',
                 'sub_project_implementing_agency' => 'required',
-                'sub_project_research_center' => 'required',
+                // 'sub_project_research_center' => 'required',
                 'sub_project_duration' => 'required',
                 'sub_project_leader' => 'required',
                 'sub_project_description' => 'required',
@@ -39,9 +39,9 @@ class SubprojectController extends Controller
                 'sub_project_status.required' => 'Status is required!',
                 'sub_project_category.required' => 'Category is required!',
                 'sub_project_agency.required' => 'Funding agency is required!',
-                'sub_project_collaborating_agency.required' => 'Collaborating agency is required!',
+                // 'sub_project_collaborating_agency.required' => 'Collaborating agency is required!',
                 'sub_project_implementing_agency.required' => 'Implementing agency is required!',
-                'sub_project_research_center.required' => 'Research center is required!',
+                // 'sub_project_research_center.required' => 'Research center is required!',
                 'sub_project_duration.required' => 'Date is required!',
                 'sub_project_project_leader.required' => 'Program leader is required!',
                 'sub_project_description.required' => 'Description is required!',
@@ -66,7 +66,7 @@ class SubprojectController extends Controller
         $data['sub_project_duration'] = $request->sub_project_duration;
         $data['sub_project_leader'] = $request->sub_project_leader;
         $data['sub_project_description'] = $request->sub_project_description;
-        $data['sub_project_amount_released'] = $request->sub_project_amount_released;
+        $data['sub_project_amount_released'] = str_replace(',', '', $request->sub_project_amount_released);
         $data['sub_project_form_of_development'] = $request->sub_project_form_of_development;
         $data['keywords'] = htmlspecialchars_decode(json_encode($request->keywords));
         $data['encoder_agency'] = auth()->user()->agencyID;
@@ -81,7 +81,7 @@ class SubprojectController extends Controller
             $data_budget[] = [
                 'projectID' => $request->projectID,
                 'sub_projectID' => $insert,
-                'approved_budget' => $budget,
+                'approved_budget' => str_replace(',', '', $budget),
                 'budget_year' => $request->budget_year[$key],
                 'grant_type' => $request->sub_project_funding_grant,
                 'created_at' => now(),
@@ -138,9 +138,9 @@ class SubprojectController extends Controller
                 'sub_project_status' => 'required',
                 'sub_project_category' => 'required',
                 'sub_project_agency' => 'required',
-                'sub_project_collaborating_agency' => 'required',
+                // 'sub_project_collaborating_agency' => 'required',
                 'sub_project_implementing_agency' => 'required',
-                'sub_project_research_center' => 'required',
+                // 'sub_project_research_center' => 'required',
                 'sub_project_duration' => 'required',
                 'sub_project_leader' => 'required',
                 'sub_project_description' => 'required',
@@ -155,9 +155,9 @@ class SubprojectController extends Controller
                 'sub_project_status.required' => 'Status is required!',
                 'sub_project_category.required' => 'Category is required!',
                 'sub_project_agency.required' => 'Funding agency is required!',
-                'sub_project_collaborating_agency.required' => 'Collaborating agency is required!',
+                // 'sub_project_collaborating_agency.required' => 'Collaborating agency is required!',
                 'sub_project_implementing_agency.required' => 'Implementing agency is required!',
-                'sub_project_research_center.required' => 'Research center is required!',
+                // 'sub_project_research_center.required' => 'Research center is required!',
                 'sub_project_duration.required' => 'Date is required!',
                 'sub_project_project_leader.required' => 'Program leader is required!',
                 'sub_project_description.required' => 'Description is required!',
@@ -182,7 +182,7 @@ class SubprojectController extends Controller
         $data['sub_project_duration'] = $request->sub_project_duration;
         $data['sub_project_leader'] = $request->sub_project_leader;
         $data['sub_project_description'] = $request->sub_project_description;
-        $data['sub_project_amount_released'] = $request->sub_project_amount_released;
+        $data['sub_project_amount_released'] = str_replace(',', '', $request->sub_project_amount_released);
         $data['sub_project_form_of_development'] = $request->sub_project_form_of_development;
         $data['keywords'] = htmlspecialchars_decode(json_encode($request->keywords));
         $data['updated_at'] = now();
@@ -214,7 +214,7 @@ class SubprojectController extends Controller
             // $grantType = count($existingData) == 1 ? 'One-time' : 'Multi-year';
             $data_update[] = [
                 'id' => $existing->id, // Assuming there is an 'id' column
-                'approved_budget' => $request->approved_budget[$key],
+                'approved_budget' => str_replace(',', '', $request->approved_budget[$key]),
                 'grant_type' => $request->sub_project_funding_grant,
                 'budget_year' => $request->budget_year[$key],
             ];
@@ -225,7 +225,7 @@ class SubprojectController extends Controller
             DB::table('sub_project_budget')
                 ->where('id', $item['id'])
                 ->update([
-                    'approved_budget' => $item['approved_budget'],
+                    'approved_budget' => str_replace(',', '', $item['approved_budget']),
                     'budget_year' => $item['budget_year'],
                     'grant_type' => $item['grant_type'],
                     'updated_at' => now(),
@@ -239,7 +239,7 @@ class SubprojectController extends Controller
                 DB::table('sub_project_budget')->insert([
                     'projectID' => $projectID,
                     'sub_projectID' => $id,
-                    'approved_budget' => $newBudget,
+                    'approved_budget' => str_replace(',', '', $newBudget),
                     'budget_year' => $request->new_budget_year[$key],
                     'grant_type' => $request->sub_project_funding_grant,
                     'created_at' => now(),

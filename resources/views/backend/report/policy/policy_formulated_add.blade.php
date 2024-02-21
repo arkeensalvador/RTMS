@@ -152,14 +152,6 @@
                                 </div>
 
                                 <div class="col-md-12">
-                                    <label for="tpa_date" class=" font-weight-bold">Proponent<span
-                                            class="text-danger">*</span></label>
-                                    <input type="text" name="policy_proponent" id="policy_proponent" class="form-control"
-                                        placeholder="Enter proponent" required>
-                                    <div class="invalid-feedback">Missing proponent</div>
-                                </div>
-
-                                <div class="col-md-12">
                                     <label for="tpa_date" class=" font-weight-bold">Beneficiary<span
                                             class="text-danger">*</span></label>
                                     <input type="text" name="policy_beneficiary" id="policy_beneficiary"
