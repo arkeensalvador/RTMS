@@ -98,7 +98,7 @@
                                                         style="width: 200px; height: 200px;" class="img-thumbnail">
                                                 </a>
                                                 <p style="text-align: center">
-                                                    <a href="{{ url('delete-image/' . $img->id) }}" id="delete"
+                                                    <a href="{{ url('delete-training-image/' . $img->id) }}" id="delete"
                                                         style="color: red; text-decoration: underline; font-size: 13px">remove</a>
                                                 </p>
                                             </div>

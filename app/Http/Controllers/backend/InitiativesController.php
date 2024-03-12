@@ -37,17 +37,13 @@ class InitiativesController extends Controller
                 'alert-type' => 'success',
             ];
 
-            return redirect()
-                ->route('cbgInitiatives')
-                ->with($notification);
+            return redirect()->route('cbgInitiatives')->with($notification);
         } else {
             $notification = [
                 'message' => 'Something is wrong, please try again!',
                 'alert-type' => 'error',
             ];
-            return redirect()
-                ->route('cbgInitiatives')
-                ->with($notification);
+            return redirect()->route('cbgInitiatives')->with($notification);
         }
     }
 
@@ -71,9 +67,7 @@ class InitiativesController extends Controller
         $data['ini_agency'] = $request->ini_agency;
         $data['ini_date'] = $request->ini_date;
 
-        $insert = DB::table('cbg_initiatives')
-            ->where('id', $id)
-            ->update($data);
+        $insert = DB::table('cbg_initiatives')->where('id', $id)->update($data);
 
         if ($insert) {
             $notification = [
@@ -81,41 +75,31 @@ class InitiativesController extends Controller
                 'alert-type' => 'success',
             ];
 
-            return redirect()
-                ->route('cbgInitiatives')
-                ->with($notification);
+            return redirect()->route('cbgInitiatives')->with($notification);
         } else {
             $notification = [
                 'message' => 'Something is wrong, please try again!',
                 'alert-type' => 'error',
             ];
-            return redirect()
-                ->route('cbgInitiatives')
-                ->with($notification);
+            return redirect()->route('cbgInitiatives')->with($notification);
         }
     }
 
     public function ini_delete($id)
     {
-        $delete = DB::table('cbg_initiatives')
-            ->where('id', $id)
-            ->delete();
+        $delete = DB::table('cbg_initiatives')->where('id', $id)->delete();
         if ($delete) {
             $notification = [
                 'message' => 'Initiative Successfully Deleted!',
                 'alert-type' => 'success',
             ];
-            return redirect()
-                ->back()
-                ->with($notification);
+            return redirect()->back()->with($notification);
         } else {
             $notification = [
                 'message' => 'Something is wrong, please try again!',
                 'alert-type' => 'error',
             ];
-            return redirect()
-                ->back()
-                ->with($notification);
+            return redirect()->back()->with($notification);
         }
     }
 }

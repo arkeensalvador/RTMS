@@ -48,6 +48,7 @@
                                                         <th>#</th>
                                                         <th>Contributor</th>
                                                         <th>Amount</th>
+                                                        <th>Year</th>
                                                         <th>Action</th>
                                                     </tr>
                                                 </thead>
@@ -57,6 +58,7 @@
                                                             <td>{{ $row->id }}</td>
                                                             <td>{{ $row->con_name }}</td>
                                                             <td>₱{{ number_format($row->con_amount, 2) }}</td>
+                                                            <td>{{ $row->con_year }}</td>
                                                             <td class="action btns">
                                                                 <a class="btn btn-primary editContributionModal"
                                                                     data-toggle="modal" data-id="'.$row->id.'"
@@ -108,7 +110,7 @@
                                 <label for="con_name" class=" font-weight-bold">Contributor<span
                                         class="text-danger">*</span></label>
 
-                                <input type="text" name="con_name" class="form-control" placeholder="Enter name"
+                                <input type="text" name="con_name" class="form-control" placeholder="Enter name/agency"
                                     required>
                                 <div class="invalid-feedback">Missing name</div>
                             </div>
@@ -122,10 +124,14 @@
                                 <div class="invalid-feedback">Missing amount</div>
                             </div>
 
-                            {{-- <div class="col-md-12 form-group buttons">
-                                <a href="{{ url('cbg-index') }}" class="btn btn-default">Back</a>
-                                
-                            </div> --}}
+                            <div class="col-md-12 form-group">
+                                <label for="con_year" class=" font-weight-bold">Year<span
+                                        class="text-danger">*</span></label>
+
+                                <input type="text" name="con_year" class="form-control year" placeholder="Select year"
+                                    required>
+                                <div class="invalid-feedback">Missing year</div>
+                            </div>
 
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -161,7 +167,7 @@
                                         class="text-danger">*</span></label>
 
                                 <input type="text" name="con_name" id="e_con_name" class="form-control"
-                                    placeholder="Enter name" required>
+                                    placeholder="Enter name/agency" required>
                                 <div class="invalid-feedback">Missing name</div>
                             </div>
 
@@ -172,6 +178,15 @@
                                 <input type="text" name="con_amount" id="e_con_amount" oninput="validateInput(this)"
                                     class="form-control" placeholder="Enter amount" required>
                                 <div class="invalid-feedback">Missing amount</div>
+                            </div>
+
+                            <div class="col-md-12 form-group">
+                                <label for="con_year" class=" font-weight-bold">Year<span
+                                        class="text-danger">*</span></label>
+
+                                <input type="text" name="con_year" id="e_con_year" class="form-control year"
+                                    placeholder="Select year" required>
+                                <div class="invalid-feedback">Missing year</div>
                             </div>
 
 
@@ -224,18 +239,27 @@
                     console.log(data);
 
                     $('#e_con_name').val(data[1]);
-                    var formattedAmount = parseFloat(data[2]).toFixed(0).replace(/\d(?=(\d{3})+$)/g, '$&,');
-                    $('#e_con_amount').val(formattedAmount);
+
+                    // Remove currency symbol and commas, then parse to float
+                    var amountWithoutCurrency = data[2].replace('₱', '').replace(/,/g, '');
+                    if (!isNaN(parseFloat(amountWithoutCurrency))) {
+                        var formattedAmount = parseFloat(amountWithoutCurrency).toFixed(0).replace(
+                            /\d(?=(\d{3})+$)/g, '$&,');
+                        $('#e_con_amount').val(formattedAmount);
+                    } else {
+                        $('#e_con_amount').val('');
+                    }
+
+                    $('#e_con_year').val(data[3]);
 
                     $('#editForm').attr('action', '/update-contributions/' + data[0]);
                     // $('#editContributionModal').modal('show');
                 })
-
             })
         </script>
         <script>
             $(document).ready(function() {
-                $('#con_name, #con_amount')
+                $('#con_name, #con_amount', '#con_year')
                     .on('input', function() {
                         const inputField = $(this);
                         if (inputField[0].checkValidity()) {

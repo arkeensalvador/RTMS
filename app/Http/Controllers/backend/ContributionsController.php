@@ -15,15 +15,20 @@ class ContributionsController extends Controller
             [
                 'con_name' => 'required',
                 'con_amount' => 'required',
+                'con_year' => 'required',
             ],
             [
-                'con_amount.required' => 'Input numbers only',
+                'con_name.required' => 'Contributor\'s name is required',
+                'con_amount.required' => 'Amount is required',
+                'con_year.required' => 'Date is required',
             ],
         );
 
         $data = [];
         $data['con_name'] = $request->con_name;
         $data['con_amount'] = str_replace(',', '', $request->con_amount);
+        $data['con_year'] = $request->con_year;
+        $data['created_at'] = now();
 
         $insert = DB::table('cbg_contributions')->insert($data);
 
@@ -33,17 +38,13 @@ class ContributionsController extends Controller
                 'alert-type' => 'success',
             ];
 
-            return redirect()
-                ->route('cbgContributions')
-                ->with($notification);
+            return redirect()->route('cbgContributions')->with($notification);
         } else {
             $notification = [
                 'message' => 'Something is wrong, please try again!',
                 'alert-type' => 'error',
             ];
-            return redirect()
-                ->route('cbgContributions')
-                ->with($notification);
+            return redirect()->route('cbgContributions')->with($notification);
         }
     }
 
@@ -53,18 +54,21 @@ class ContributionsController extends Controller
             [
                 'con_name' => 'required',
                 'con_amount' => 'required',
+                'con_year' => 'required',
             ],
             [
-                'con_amount.required' => 'Input numbers only',
+                'con_name.required' => 'Contributor\'s name is required',
+                'con_amount.required' => 'Amount is required',
+                'con_year.required' => 'Date is required',
             ],
         );
         $data = [];
         $data['con_name'] = $request->con_name;
         $data['con_amount'] = str_replace(',', '', $request->con_amount);
+        $data['con_year'] = $request->con_year;
+        $data['updated_at'] = now();
 
-        $insert = DB::table('cbg_contributions')
-            ->where('id', $id)
-            ->update($data);
+        $insert = DB::table('cbg_contributions')->where('id', $id)->update($data);
 
         if ($insert) {
             $notification = [
@@ -72,41 +76,31 @@ class ContributionsController extends Controller
                 'alert-type' => 'success',
             ];
 
-            return redirect()
-                ->route('cbgContributions')
-                ->with($notification);
+            return redirect()->route('cbgContributions')->with($notification);
         } else {
             $notification = [
                 'message' => 'Something is wrong, please try again!',
                 'alert-type' => 'error',
             ];
-            return redirect()
-                ->route('cbgContributions')
-                ->with($notification);
+            return redirect()->route('cbgContributions')->with($notification);
         }
     }
 
     public function con_delete($id)
     {
-        $delete = DB::table('cbg_contributions')
-            ->where('id', $id)
-            ->delete();
+        $delete = DB::table('cbg_contributions')->where('id', $id)->delete();
         if ($delete) {
             $notification = [
                 'message' => 'Contribution Successfully Deleted!',
                 'alert-type' => 'success',
             ];
-            return redirect()
-                ->back()
-                ->with($notification);
+            return redirect()->back()->with($notification);
         } else {
             $notification = [
                 'message' => 'Something is wrong, please try again!',
                 'alert-type' => 'error',
             ];
-            return redirect()
-                ->back()
-                ->with($notification);
+            return redirect()->back()->with($notification);
         }
     }
 }

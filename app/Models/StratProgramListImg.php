@@ -8,4 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class StratProgramListImg extends Model
 {
     use HasFactory;
+    protected $table = 'strat_program_list_imgs';
 }

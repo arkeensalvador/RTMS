@@ -48,25 +48,54 @@
                                                         <th>Researchers</th>
                                                         <th>Impact</th>
                                                         <th>Duration</th>
+                                                        <th>Images</th>
                                                         <th>Action</th>
                                                     </tr>
                                                 </thead>
                                                 @if (auth()->user()->role == 'Admin')
                                                     <tbody>
                                                         @foreach ($all as $key => $row)
+                                                            @php
+                                                                $res = json_decode($row->tech_researchers);
+                                                                $res = implode(', ', $res);
+
+                                                                $imgs = DB::table('strat_tech_list_imgs')
+                                                                    ->where('strategic_tech_id', $row->id)
+                                                                    ->inRandomOrder() // Fetch rows in random order
+                                                                    ->limit(4)
+                                                                    ->get();
+                                                            @endphp
                                                             <tr>
                                                                 <td>{{ $row->tech_type }}</td>
                                                                 <td>{{ strtoupper($row->tech_title) }}</td>
                                                                 <td>{{ $row->tech_agency }}</td>
                                                                 <td>
-                                                                    @php
-                                                                        $res = json_decode($row->tech_researchers);
-                                                                        $res = implode(', ', $res);
-                                                                    @endphp
+
                                                                     {{ $res }}
                                                                 </td>
                                                                 <td>{{ $row->tech_impact }}</td>
                                                                 <td>{{ $row->tech_duration }}</td>
+                                                                <td class="images">
+                                                                    @if (empty($imgs))
+                                                                        {{ 'No image available' }}
+                                                                    @else
+                                                                        <div
+                                                                            style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px;">
+                                                                            @foreach ($imgs as $img)
+                                                                                <div>
+                                                                                    <a href="{{ asset($img->filename) }}"
+                                                                                        data-lightbox="photos"
+                                                                                        title="Click to view">
+                                                                                        <img src="{{ asset($img->filename) }}"
+                                                                                            alt=""
+                                                                                            style="width: 300px; height: 50px;"
+                                                                                            class="img-thumbnail">
+                                                                                    </a>
+                                                                                </div>
+                                                                            @endforeach
+                                                                        </div>
+                                                                    @endif
+                                                                </td>
                                                                 <td class="action btns">
                                                                     <a class="btn btn-primary"
                                                                         href="{{ url('edit-strategic-tech-list-index/' . Crypt::encryptString($row->id)) }}"><i
@@ -95,6 +124,28 @@
                                                                 </td>
                                                                 <td>{{ $row->tech_impact }}</td>
                                                                 <td>{{ $row->tech_duration }}</td>
+
+                                                                <td class="images">
+                                                                    @if (empty($imgs))
+                                                                        {{ 'No image available' }}
+                                                                    @else
+                                                                        <div
+                                                                            style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px;">
+                                                                            @foreach ($imgs as $img)
+                                                                                <div>
+                                                                                    <a href="{{ asset($img->filename) }}"
+                                                                                        data-lightbox="photos"
+                                                                                        title="Click to view">
+                                                                                        <img src="{{ asset($img->filename) }}"
+                                                                                            alt=""
+                                                                                            style="width: 300px; height: 50px;"
+                                                                                            class="img-thumbnail">
+                                                                                    </a>
+                                                                                </div>
+                                                                            @endforeach
+                                                                        </div>
+                                                                    @endif
+                                                                </td>
                                                                 <td class="action btns">
                                                                     <a class="btn btn-primary"
                                                                         href="{{ url('edit-strategic-tech-list-index/' . Crypt::encryptString($row->id)) }}"><i

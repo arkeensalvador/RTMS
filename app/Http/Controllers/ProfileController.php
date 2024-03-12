@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use DB;
 use App\Models\User;
+use App\Models\Programs;
+use App\Models\Projects;
+use App\Models\Researchers;
 use Storage;
 use Hash;
 
@@ -16,8 +19,16 @@ class ProfileController extends Controller
         $all = DB::table('users')
             ->where('id', auth()->user()->id)
             ->first();
+        // CMI
+        $program = Programs::where('encoder_agency', $all->agencyID)->count();
+        $project = Projects::where('encoder_agency', $all->agencyID)->count();
+        $researcher = Researchers::where('agency', $all->agencyID)->count();
 
-        return view('backend.profile.profile_view', compact('title', 'all'));
+        // Admin
+        $total_program = Programs::count();
+        $total_project = Projects::count();
+        $total_researcher = Researchers::count();
+        return view('backend.profile.profile_view', compact('title', 'all', 'program', 'project', 'researcher', 'total_program', 'total_project', 'total_researcher'));
     }
 
     public function profile_edit($id)
@@ -68,9 +79,7 @@ class ProfileController extends Controller
             // $data['password'] = Hash::make($request->password);
             $data['updated_at'] = now();
 
-            $update = DB::table('users')
-                ->where('id', $id)
-                ->update($data);
+            $update = DB::table('users')->where('id', $id)->update($data);
 
             $user->save();
 
@@ -86,9 +95,7 @@ class ProfileController extends Controller
             $data['password'] = Hash::make($request->password);
             $data['updated_at'] = now();
 
-            $update = DB::table('users')
-                ->where('id', $id)
-                ->update($data);
+            $update = DB::table('users')->where('id', $id)->update($data);
 
             $user->save();
             if ($update) {

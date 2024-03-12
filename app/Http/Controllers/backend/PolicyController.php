@@ -48,12 +48,14 @@ class PolicyController extends Controller
                 'prc_agency' => 'required',
                 'prc_author' => 'required',
                 'prc_issues' => 'required',
+                'prc_date' => 'required',
             ],
             [
                 'prc_title.required' => 'Title is required!',
                 'prc_agency.required' => 'Agency is required!',
                 'prc_author.required' => 'Author is required!',
                 'prc_issues.required' => 'Issues field is required!',
+                'prc_date.required' => 'Date is required!',
             ],
         );
 
@@ -62,7 +64,9 @@ class PolicyController extends Controller
         $data['prc_agency'] = $request->prc_agency;
         $data['prc_author'] = $request->prc_author;
         $data['prc_issues'] = $request->prc_issues;
+        $data['prc_date'] = $request->prc_date;
         $data['encoder_agency'] = auth()->user()->agencyID;
+        $data['created_at'] = now();
 
         $insert = DB::table('policy_prc')->insert($data);
 
@@ -77,9 +81,7 @@ class PolicyController extends Controller
     {
         $title = 'Policy';
         $id = Crypt::decryptString($id);
-        $all = DB::table('policy_prc')
-            ->where('id', $id)
-            ->first();
+        $all = DB::table('policy_prc')->where('id', $id)->first();
         $agency = DB::table('agency')->get();
 
         // CMI
@@ -99,12 +101,14 @@ class PolicyController extends Controller
                 'prc_agency' => 'required',
                 'prc_author' => 'required',
                 'prc_issues' => 'required',
+                'prc_date' => 'required',
             ],
             [
                 'prc_title.required' => 'Title is required!',
                 'prc_agency.required' => 'Agency is required!',
                 'prc_author.required' => 'Author is required!',
                 'prc_issues.required' => 'Issues field is required!',
+                'prc_date.required' => 'Date is required!',
             ],
         );
 
@@ -113,10 +117,10 @@ class PolicyController extends Controller
         $data['prc_agency'] = $request->prc_agency;
         $data['prc_author'] = $request->prc_author;
         $data['prc_issues'] = $request->prc_issues;
+        $data['prc_date'] = $request->prc_date;
+        $data['updated_at'] = now();
 
-        $insert = DB::table('policy_prc')
-            ->where('id', $id)
-            ->update($data);
+        $insert = DB::table('policy_prc')->where('id', $id)->update($data);
 
         if ($insert) {
             return response()->json(['success' => 'Data Successfully Updated!']);
@@ -128,25 +132,19 @@ class PolicyController extends Controller
     public function prc_delete($id)
     {
         $id = Crypt::decryptString($id);
-        $delete = DB::table('policy_prc')
-            ->where('id', $id)
-            ->delete();
+        $delete = DB::table('policy_prc')->where('id', $id)->delete();
         if ($delete) {
             $notification = [
                 'message' => 'Policy Successfully Deleted!',
                 'alert-type' => 'success',
             ];
-            return redirect()
-                ->back()
-                ->with($notification);
+            return redirect()->back()->with($notification);
         } else {
             $notification = [
                 'message' => 'Something is wrong, please try again!',
                 'alert-type' => 'error',
             ];
-            return redirect()
-                ->back()
-                ->with($notification);
+            return redirect()->back()->with($notification);
         }
     }
 
@@ -203,9 +201,7 @@ class PolicyController extends Controller
     {
         $title = 'Policy';
         $id = Crypt::decryptString($id);
-        $all = DB::table('policy_formulated')
-            ->where('id', $id)
-            ->first();
+        $all = DB::table('policy_formulated')->where('id', $id)->first();
         $agency = DB::table('agency')->get();
 
         // CMI
@@ -254,9 +250,7 @@ class PolicyController extends Controller
         $data['policy_author'] = $request->policy_author;
         $data['policy_co_author'] = $request->policy_co_author;
 
-        $insert = DB::table('policy_formulated')
-            ->where('id', $id)
-            ->update($data);
+        $insert = DB::table('policy_formulated')->where('id', $id)->update($data);
 
         if ($insert) {
             return response()->json(['success' => 'Data Successfully Updated!']);
@@ -268,25 +262,19 @@ class PolicyController extends Controller
     public function formulated_delete($id)
     {
         $id = Crypt::decryptString($id);
-        $delete = DB::table('policy_formulated')
-            ->where('id', $id)
-            ->delete();
+        $delete = DB::table('policy_formulated')->where('id', $id)->delete();
         if ($delete) {
             $notification = [
                 'message' => 'Policy Successfully Deleted!',
                 'alert-type' => 'success',
             ];
-            return redirect()
-                ->back()
-                ->with($notification);
+            return redirect()->back()->with($notification);
         } else {
             $notification = [
                 'message' => 'Something is wrong, please try again!',
                 'alert-type' => 'error',
             ];
-            return redirect()
-                ->back()
-                ->with($notification);
+            return redirect()->back()->with($notification);
         }
     }
 }

@@ -13,7 +13,7 @@ use App\Models\EquipmentImg;
 class ImageController extends Controller
 {
     //
-    public function deleteImg($id)
+    public function deleteStratTechImg($id)
     {
         // Find the image by its ID
         $image = StratTechListImg::findOrFail($id);

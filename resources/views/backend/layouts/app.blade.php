@@ -445,7 +445,7 @@
                     href="http://pcaarrd.dost.gov.ph/index.php/claarrdec">CLAARRDEC</a>.</strong>
             All rights reserved.
             <div class="float-right d-none d-sm-inline-block">
-                <b>Version</b> 2.0
+                <b>Version</b> 3.0
             </div>
         </footer>
     </div>
@@ -485,7 +485,7 @@
     <script src="{{ asset('backend/plugins/datatables-buttons/js/buttons.html5.min.js') }}"></script>
     <script src="{{ asset('backend/plugins/datatables-buttons/js/buttons.print.min.js') }}"></script>
     <script src="{{ asset('backend/plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bs-stepper/dist/js/bs-stepper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bs-stepper/dist/js/bs-stepper.min.js"></script>-
 
     <script src="{{ asset('backend/plugins/inputmask/inputmask.js') }}"></script>
     <script src="{{ asset('backend/plugins/inputmask/inputmask.es6.js') }}"></script>
@@ -537,7 +537,7 @@ classes. */ --}}
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         flatpickr('.date', {
-            dateFormat: 'Y-m-d',
+            dateFormat: 'm/d/Y',
             altInput: true,
             altFormat: "F j, Y",
             allowInput: true,

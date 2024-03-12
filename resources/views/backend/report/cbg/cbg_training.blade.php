@@ -52,37 +52,47 @@
                                                         <th>Implementing Agency</th>
                                                         <th>Duration</th>
                                                         <th>Remarks</th>
+                                                        <th>Images</th>
                                                         <th>Action</th>
                                                     </tr>
                                                 </thead>
                                                 @if (auth()->user()->role == 'Admin')
                                                     <tbody>
                                                         @foreach ($all as $key => $row)
+                                                            @php
+                                                                $rc = $row->trainings_research_center;
+                                                                // Check if $rc is [null]
+                                                                if ($rc === '[null]') {
+                                                                    $rc = 'N/A';
+                                                                } else {
+                                                                    // If $rc is not [null], perform the replacements
+                                                                    $rc = str_replace(['[', '"', ']'], '', $rc);
+                                                                    $rc = str_replace(',', ', ', $rc);
+                                                                }
+
+                                                                $sof = json_decode($row->trainings_sof);
+                                                                $sof = implode(', ', $sof);
+
+                                                                $agency = json_decode($row->trainings_agency);
+                                                                $agency = implode(', ', $agency);
+
+                                                                $participants = DB::table('training_participants')
+                                                                    ->select(
+                                                                        'type_of_participants',
+                                                                        'no_of_participants',
+                                                                    )
+                                                                    ->where('training_id', '=', $row->id)
+                                                                    ->get();
+                                                                $imgs = DB::table('trainings_imgs')
+                                                                    ->where('training_id', $row->id)
+                                                                    ->inRandomOrder() // Fetch rows in random order
+                                                                    ->limit(4)
+                                                                    ->get();
+                                                            @endphp
                                                             <tr>
                                                                 <td>{{ $key + 1 }}</td>
                                                                 <td>{{ strtoupper($row->trainings_title) }}</td>
-                                                                @php
-                                                                    $rc = $row->trainings_research_center;
-                                                                    // Check if $rc is [null]
-                                                                    if ($rc === '[null]') {
-                                                                        $rc = 'N/A';
-                                                                    } else {
-                                                                        // If $rc is not [null], perform the replacements
-                                                                        $rc = str_replace(['[', '"', ']'], '', $rc);
-                                                                        $rc = str_replace(',', ', ', $rc);
-                                                                    }
 
-                                                                    $sof = json_decode($row->trainings_sof);
-                                                                    $sof = implode(', ', $sof);
-
-                                                                    $agency = json_decode($row->trainings_agency);
-                                                                    $agency = implode(', ', $agency);
-
-                                                                    $participants = DB::table('training_participants')
-                                                                        ->select('type_of_participants', 'no_of_participants')
-                                                                        ->where('training_id', '=', $row->id)
-                                                                        ->get();
-                                                                @endphp
                                                                 <td>
 
                                                                     @foreach ($participants as $participant)
@@ -102,6 +112,27 @@
 
                                                                 <td>
                                                                     {{ $row->trainings_remarks ?: 'N/A' }}
+                                                                </td>
+                                                                <td class="images">
+                                                                    @if (empty($imgs))
+                                                                        {{ 'No image available' }}
+                                                                    @else
+                                                                        <div
+                                                                            style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px;">
+                                                                            @foreach ($imgs as $img)
+                                                                                <div>
+                                                                                    <a href="{{ asset($img->filename) }}"
+                                                                                        data-lightbox="photos"
+                                                                                        title="Click to view">
+                                                                                        <img src="{{ asset($img->filename) }}"
+                                                                                            alt=""
+                                                                                            style="width: 200px; height: 50px;"
+                                                                                            class="img-thumbnail">
+                                                                                    </a>
+                                                                                </div>
+                                                                            @endforeach
+                                                                        </div>
+                                                                    @endif
                                                                 </td>
                                                                 <td class="action btns">
                                                                     <a class="btn btn-primary"
@@ -118,32 +149,42 @@
                                                 @else
                                                     <tbody>
                                                         @foreach ($all_filter as $key => $row)
+                                                            @php
+                                                                $rc = $row->trainings_research_center;
+                                                                // Check if $rc is [null]
+                                                                if ($rc === 'null') {
+                                                                    $rc = 'N/A';
+                                                                } else {
+                                                                    // If $rc is not [null], perform the replacements
+                                                                    $rc = str_replace(['[', '"', ']'], '', $rc);
+                                                                    $rc = str_replace(',', ', ', $rc);
+                                                                }
+
+                                                                $sof = json_decode($row->trainings_sof);
+                                                                $sof = implode(', ', $sof);
+
+                                                                $agency = json_decode($row->trainings_agency);
+                                                                $agency = implode(', ', $agency);
+
+                                                                $participants = DB::table('training_participants')
+                                                                    ->select(
+                                                                        'type_of_participants',
+                                                                        'no_of_participants',
+                                                                    )
+                                                                    ->where('training_id', '=', $row->id)
+                                                                    ->get();
+
+                                                                $imgs = DB::table('trainings_imgs')
+                                                                    ->where('training_id', $row->id)
+                                                                    ->inRandomOrder() // Fetch rows in random order
+                                                                    ->limit(4)
+                                                                    ->get();
+
+                                                            @endphp
                                                             <tr>
                                                                 <td>{{ $key + 1 }}</td>
                                                                 <td>{{ strtoupper($row->trainings_title) }}</td>
-                                                                @php
-                                                                    $rc = $row->trainings_research_center;
-                                                                    // Check if $rc is [null]
-                                                                    if ($rc === 'null') {
-                                                                        $rc = 'N/A';
-                                                                    } else {
-                                                                        // If $rc is not [null], perform the replacements
-                                                                        $rc = str_replace(['[', '"', ']'], '', $rc);
-                                                                        $rc = str_replace(',', ', ', $rc);
-                                                                    }
 
-                                                                    $sof = json_decode($row->trainings_sof);
-                                                                    $sof = implode(', ', $sof);
-
-                                                                    $agency = json_decode($row->trainings_agency);
-                                                                    $agency = implode(', ', $agency);
-
-                                                                    $participants = DB::table('training_participants')
-                                                                        ->select('type_of_participants', 'no_of_participants')
-                                                                        ->where('training_id', '=', $row->id)
-                                                                        ->get();
-
-                                                                @endphp
                                                                 <td>
                                                                     @foreach ($participants as $participant)
                                                                         <li>{{ $participant->type_of_participants }}
@@ -161,6 +202,26 @@
 
                                                                 <td>
                                                                     {{ $row->trainings_remarks ?: 'N/A' }}
+                                                                </td>
+                                                                <td class="images">
+                                                                    @if (empty($imgs))
+                                                                        {{ 'No image available' }}
+                                                                    @else
+                                                                        <div
+                                                                            style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px;">
+                                                                            @foreach ($imgs as $img)
+                                                                                <div>
+                                                                                    <a href="{{ asset($img->filename) }}"
+                                                                                        data-lightbox="photos">
+                                                                                        <img src="{{ asset($img->filename) }}"
+                                                                                            alt=""
+                                                                                            style="width: 200px; height: 50px;"
+                                                                                            class="img-thumbnail">
+                                                                                    </a>
+                                                                                </div>
+                                                                            @endforeach
+                                                                        </div>
+                                                                    @endif
                                                                 </td>
                                                                 <td class="action btns">
                                                                     <a class="btn btn-primary"

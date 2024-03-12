@@ -1,5 +1,5 @@
 <tr class="td-filtered">
-    <td colspan="7" style="text-align: center; font-size: 14px;" class="font-weight-bold">
+    <td colspan="7" style="background: #b8b8ff; color: black; text-align: center;" class="font-weight-bold">
         PROPOSALS PACKAGED</td>
 </tr>
 @if ($ttp_proposal->isEmpty())
@@ -34,7 +34,8 @@
 @endif
 
 <tr class="td-filtered">
-    <td colspan="7" style="text-align: center; font-size: 14px;" class="font-weight-bold">PROJECTS APPROVED AND
+    <td colspan="7" style="background: #b8b8ff; color: black; text-align: center;" class="font-weight-bold">PROJECTS
+        APPROVED AND
         IMPLEMENTED
     </td>
 </tr>

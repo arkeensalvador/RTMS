@@ -8,4 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class StratCollabImg extends Model
 {
     use HasFactory;
+    protected $table = 'strat_collab_imgs';
 }

@@ -143,6 +143,12 @@
                                 <div class="col-md-12 form-group">
                                     <label for="awards_title" class=" font-weight-bold">Title of Award<span
                                             class="text-danger">*</span></label>
+
+                                    <span data-toggle="tooltip" data-placement="right"
+                                        title="Do not add slash (/) on the textarea. It may disrupt the upload path of the system.">
+                                        <i class="fas fa-question-circle" style="cursor: pointer;"></i>
+                                    </span>
+
                                     <textarea class="form-control" name="awards_title" id="awards_title" rows="3" placeholder="Enter ..."
                                         style="resize: none;" required></textarea>
                                     <div class="invalid-feedback">Missing title of award</div>
@@ -154,7 +160,7 @@
 
                                     <!-- Question mark icon with tooltip -->
                                     <span data-toggle="tooltip" data-placement="right"
-                                        title="Use ','(comma and space) as a delimiter after entering the first name and last name (with a suffix if applicable) of the recipient. E.g. Juan Dela Cruz Jr.,<space>Thomas Shelby">
+                                        title="Use ',<space>'(comma and space) as a delimiter after entering the first name and last name (with a suffix if applicable) of the recipient. E.g. Juan Dela Cruz Jr.,<space>Thomas Shelby.">
                                         <i class="fas fa-question-circle" style="cursor: pointer;"></i>
                                     </span>
 
@@ -167,8 +173,8 @@
                                 <div class="col-md-6 form-group">
                                     <label for="awards_sponsor" class=" font-weight-bold">Sponsor<span
                                             class="text-danger">*</span></label>
-                                    <input type="text" name="awards_sponsor" class="form-control" placeholder="Sponsor"
-                                        list="sponsor" required>
+                                    <input type="text" name="awards_sponsor" class="form-control"
+                                        placeholder="Sponsor" list="sponsor" required>
                                     <datalist id="sponsor">
                                         @foreach ($agency as $key)
                                             <option value="{{ $key->abbrev }}">{{ $key->agency_name }}
@@ -190,7 +196,7 @@
                                     <label for="awards_place" class=" font-weight-bold">Venue<span
                                             class="text-danger">*</span></label>
                                     <input type="text" name="awards_place" class="form-control" id="awards_place"
-                                        placeholder="Enter venue; otherwise, N/A" required>
+                                        placeholder="Enter venue; otherwise, N/A (if the ceremony is virtual)." required>
                                     <div class="invalid-feedback"> Missing venue</div>
                                 </div>
 

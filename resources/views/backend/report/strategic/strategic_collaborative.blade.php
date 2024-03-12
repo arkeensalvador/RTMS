@@ -53,6 +53,7 @@
                                                         <th>Budget</th>
                                                         <th>Source of Fund</th>
                                                         <th>Role of Consortium</th>
+                                                        <th>Images</th>
                                                         <th>Action</th>
                                                     </tr>
                                                 </thead>
@@ -68,6 +69,12 @@
 
                                                                 $sof = json_decode($row->str_collab_sof);
                                                                 $sof = implode(', ', $sof);
+
+                                                                $imgs = DB::table('strat_collab_imgs')
+                                                                    ->where('strategic_collab_id', $row->id)
+                                                                    ->inRandomOrder() // Fetch rows in random order
+                                                                    ->limit(4)
+                                                                    ->get();
                                                             @endphp
                                                             <tr>
                                                                 <td>{{ $row->str_collab_type }}</td>
@@ -79,6 +86,27 @@
                                                                 <td>₱{{ number_format($row->str_collab_budget, 2) }}</td>
                                                                 <td>{{ $sof }}</td>
                                                                 <td>{{ $row->str_collab_roc }}</td>
+                                                                <td class="images">
+                                                                    @if (empty($imgs))
+                                                                        {{ 'No image available' }}
+                                                                    @else
+                                                                        <div
+                                                                            style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px;">
+                                                                            @foreach ($imgs as $img)
+                                                                                <div>
+                                                                                    <a href="{{ asset($img->filename) }}"
+                                                                                        data-lightbox="photos"
+                                                                                        title="Click to view">
+                                                                                        <img src="{{ asset($img->filename) }}"
+                                                                                            alt=""
+                                                                                            style="width: 300px; height: 50px;"
+                                                                                            class="img-thumbnail">
+                                                                                    </a>
+                                                                                </div>
+                                                                            @endforeach
+                                                                        </div>
+                                                                    @endif
+                                                                </td>
                                                                 <td class="action btns">
                                                                     <a class="btn btn-primary"
                                                                         href="{{ url('edit-strategic-collaborative-list-index/' . Crypt::encryptString($row->id)) }}"><i
@@ -114,6 +142,27 @@
                                                                 <td>₱{{ number_format($row->str_collab_budget, 2) }}</td>
                                                                 <td>{{ $sof }}</td>
                                                                 <td>{{ $row->str_collab_roc }}</td>
+                                                                <td class="images">
+                                                                    @if (empty($imgs))
+                                                                        {{ 'No image available' }}
+                                                                    @else
+                                                                        <div
+                                                                            style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px;">
+                                                                            @foreach ($imgs as $img)
+                                                                                <div>
+                                                                                    <a href="{{ asset($img->filename) }}"
+                                                                                        data-lightbox="photos"
+                                                                                        title="Click to view">
+                                                                                        <img src="{{ asset($img->filename) }}"
+                                                                                            alt=""
+                                                                                            style="width: 300px; height: 50px;"
+                                                                                            class="img-thumbnail">
+                                                                                    </a>
+                                                                                </div>
+                                                                            @endforeach
+                                                                        </div>
+                                                                    @endif
+                                                                </td>
                                                                 <td class="action btns">
                                                                     <a class="btn btn-primary"
                                                                         href="{{ url('edit-strategic-collaborative-list-index/' . Crypt::encryptString($row->id)) }}"><i

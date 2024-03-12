@@ -37,6 +37,7 @@
                                         @endfor
                                     </select>
                                     <button type="submit" class="btn btn-success">Filter</button>
+                                    <a href="{{ url('records') }}" class="btn btn-primary">Clear</a>
                                 </form>
                                 <!-- /.card-tools -->
                             </div>
@@ -45,7 +46,7 @@
                             <div class="card-body">
                                 <h5>Summary of the AIHR's conducted by the CMI's</h5>
                                 <table class="table table-bordered table-striped">
-                                    <thead>
+                                    <thead style="background: #267b03; color: #F7F7F7; text-align:center;">
                                         <tr class="th-filtered">
                                             <th rowspan="2">Agency</th>
                                             <th colspan="5" style="text-align: center">Number of Projects Presented</th>
@@ -86,7 +87,7 @@
                                 <h5>Programs</h5>
                                 <table id="programsTable" class="table table-bordered table-striped">
                                     <!-- Table headers -->
-                                    <thead>
+                                    <thead style="background: #267b03; color: #F7F7F7; text-align:center;">
                                         <tr class="th-filtered">
                                             <th>Fund Code</th>
                                             <th>Program Title</th>
@@ -185,7 +186,7 @@
                             <div class="card-body">
                                 <h5>Projects</h5>
                                 <table id="projectsTable" class="table table-bordered table-striped">
-                                    <thead>
+                                    <thead style="background: #267b03; color: #F7F7F7; text-align:center;">
                                         <tr class="th-filtered">
                                             <th>Fund Code</th>
                                             <th>Program</th>
@@ -298,7 +299,7 @@
                             <div class="card-body">
                                 <h5>Sub Projects/Studies</h5>
                                 <table id="subProjectsTable" class="table table-bordered table-striped">
-                                    <thead>
+                                    <thead style="background: #267b03; color: #F7F7F7; text-align:center;">
                                         <tr class="th-filtered">
                                             <th>Fund Code</th>
                                             <th>Project</th>
@@ -337,7 +338,9 @@
                                                 </td>
                                                 <td>
                                                     @php
-                                                        $leader = App\Models\Researchers::find($row->sub_project_leader);
+                                                        $leader = App\Models\Researchers::find(
+                                                            $row->sub_project_leader,
+                                                        );
                                                     @endphp
                                                     {{ $leader->first_name . ' ' . $leader->last_name }}
                                                 </td>
@@ -403,7 +406,7 @@
                             <div class="card-body">
                                 <h5>Linkages forged and maintained</h5>
                                 <table id="subProjectsTable" class="table table-bordered table-striped">
-                                    <thead>
+                                    <thead style="background: #267b03; color: #F7F7F7; text-align:center;">
                                         <tr class="th-filtered">
                                             <th>Agency/Institutions</th>
                                             <th>Address</th>
@@ -412,8 +415,9 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td colspan="4" style="text-align: center; font-size: 14px;"
+                                        <tr class="td-filtered">
+                                            <td colspan="4"
+                                                style="background: #d3ffd1; color: black; text-align: center;"
                                                 class="font-weight-bold">
                                                 DEVELOPED/NEW
                                             </td>
@@ -428,8 +432,9 @@
                                                 </td>
                                             </tr>
                                         @endforeach
-                                        <tr>
-                                            <td colspan="4" style="text-align: center;  font-size: 14px;"
+                                        <tr class="td-filtered">
+                                            <td colspan="4"
+                                                style="background: #d3ffd1; color: black; text-align: center;"
                                                 class="font-weight-bold">
                                                 MAINTAINED/SUSTAINED</td>
                                         </tr>
@@ -452,7 +457,7 @@
                             <div class="card-body">
                                 <h5>Database and Information System</h5>
                                 <table class="table table-bordered table-striped">
-                                    <thead>
+                                    <thead style="background: #267b03; color: #F7F7F7; text-align:center;">
                                         <tr class="th-filtered">
                                             <th>Title</th>
                                             <th>Type of Database/Information System</th>
@@ -462,7 +467,8 @@
                                     </thead>
                                     <tbody>
                                         <tr class="td-filtered">
-                                            <td colspan="4" style="text-align: center; font-size: 14px;"
+                                            <td colspan="4"
+                                                style="background: #d3ffd1; color: black; text-align: center;"
                                                 class="font-weight-bold">
                                                 DATABASE DEVELOPED/ENHANCED AND MAINTAINED
                                             </td>
@@ -477,7 +483,8 @@
                                             </tr>
                                         @endforeach
                                         <tr class="td-filtered">
-                                            <td colspan="4" style="text-align: center; font-size: 14px;"
+                                            <td colspan="4"
+                                                style="background: #d3ffd1; color: black; text-align: center;"
                                                 class="font-weight-bold">
                                                 INFORMATION SYSTEM DEVELOPED/ENHANCED AND MAINTAINED
                                             </td>
@@ -500,7 +507,7 @@
                             <div class="card-body">
                                 <h5>Research & Development Programs/Projects Packaged, Approved and Implemented</h5>
                                 <table class="table-bordered table table-striped">
-                                    <thead>
+                                    <thead style="background: #267b03; color: #F7F7F7; text-align:center;">
                                         <tr class="th-filtered">
                                             <th>Program / Project Title</th>
                                             <th>Implementing Agency</td>
@@ -512,7 +519,8 @@
                                     </thead>
                                     <tbody>
                                         <tr class="td-filtered">
-                                            <td colspan="6" style="text-align: center; font-size: 14px;"
+                                            <td colspan="6"
+                                                style="background: #ddffff; color: black; text-align: center;"
                                                 class="font-weight-bold">PROPOSALS PACKAGED</td>
                                         </tr>
                                         @foreach ($stratProgramListProposal as $splp)
@@ -533,7 +541,8 @@
                                             </tr>
                                         @endforeach
                                         <tr class="td-filtered">
-                                            <td colspan="6" style="text-align: center; font-size: 14px;"
+                                            <td colspan="6"
+                                                style="background: #ddffff; color: black; text-align: center;"
                                                 class="font-weight-bold">PROJECTS APPROVED AND IMPLEMENTED</td>
                                         </tr>
                                         @foreach ($stratProgramListApproved as $spla)
@@ -562,7 +571,7 @@
                                 <h5>Collaborative Research & Development Programs/Projects Implemented by the Consortium and
                                     Member-Agencies in support of regional priorities</h5>
                                 <table class="table-bordered table table-striped">
-                                    <thead>
+                                    <thead style="background: #267b03; color: #F7F7F7; text-align:center;">
                                         <tr class="th-filtered">
                                             <th>Program Title</th>
                                             <th>Project Title</th>
@@ -592,9 +601,18 @@
                                                     $sof = implode(', ', $sof);
                                                 }
 
-                                                [$startDateString, $endDateString] = explode(' to ', $item->str_collab_date);
-                                                $startDate = \Carbon\Carbon::createFromFormat('m/d/Y', trim($startDateString));
-                                                $endDate = \Carbon\Carbon::createFromFormat('m/d/Y', trim($endDateString));
+                                                [$startDateString, $endDateString] = explode(
+                                                    ' to ',
+                                                    $item->str_collab_date,
+                                                );
+                                                $startDate = \Carbon\Carbon::createFromFormat(
+                                                    'm/d/Y',
+                                                    trim($startDateString),
+                                                );
+                                                $endDate = \Carbon\Carbon::createFromFormat(
+                                                    'm/d/Y',
+                                                    trim($endDateString),
+                                                );
 
                                             @endphp
                                             <tr class="td-filtered">
@@ -607,7 +625,7 @@
                                                     {{ $collab }}
                                                 </td>
                                                 <td>
-                                                    @if ($startDate === $endDate)
+                                                    @if ($startDate == $endDate)
                                                         {{ $startDate }}
                                                     @else
                                                         {{ $startDate->format('F Y') }} to
@@ -623,11 +641,66 @@
                                 </table>
                             </div>
 
+                            {{-- STRATEGIC List of Technologies / Information Generated from Research and Development --}}
+                            <div class="card-body">
+                                <h5>List of Technologies / Information Generated from Research and Development</h5>
+                                <table class="table-bordered table table-striped">
+                                    <thead style="background: #267b03; color: #F7F7F7; text-align:center;">
+                                        <tr class="th-filtered">
+                                            <th>Title of Technology</th>
+                                            <th>Agency</th>
+                                            <th>Researcher(s)</th>
+                                            <th>Duration</th>
+                                            <th>Potential Impact or Contribution</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr class="td-filtered">
+                                            <td colspan="6"
+                                                style="background: #ddffff; color: black; text-align:center;"
+                                                class="font-weight-bold">RESEARCH</td>
+                                        </tr>
+                                        @foreach ($strat_tech_research as $item)
+                                            @php
+                                                $res = json_decode($item->tech_researchers);
+                                                $res = implode(', ', $res);
+                                            @endphp
+                                            <tr class="td-filtered">
+                                                <td>{{ $item->tech_title }}</td>
+                                                <td>{{ $item->tech_agency }}</td>
+                                                <td>{{ $res }}</td>
+                                                <td>{{ $item->tech_duration }}</td>
+                                                <td>{{ $item->tech_impact }}</td>
+                                            </tr>
+                                        @endforeach
+
+                                        <tr class="td-filtered">
+                                            <td colspan="6"
+                                                style="background: #ddffff; color: black; text-align: center;"
+                                                class="font-weight-bold">DEVELOPMENT</td>
+                                        </tr>
+                                        @foreach ($strat_tech_dev as $item)
+                                            @php
+                                                $res = json_decode($item->tech_researchers);
+                                                $res = implode(', ', $res);
+                                            @endphp
+                                            <tr class="td-filtered">
+                                                <td>{{ $item->tech_title }}</td>
+                                                <td>{{ $item->tech_agency }}</td>
+                                                <td>{{ $res }}</td>
+                                                <td>{{ $item->tech_duration }}</td>
+                                                <td>{{ $item->tech_impact }}</td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+
                             {{-- RDRU TTP --}}
                             <div class="card-body">
                                 <h5>Technology Transfer Program/Projects Packaged, Approved and Implemented</h5>
                                 <table class="table-bordered table table-striped">
-                                    <thead>
+                                    <thead style="background: #267b03; color: #F7F7F7; text-align:center;">
                                         <tr class="th-filtered">
                                             <th>Program / Project Title</th>
                                             <th>Proponent</th>
@@ -640,7 +713,8 @@
                                     </thead>
                                     <tbody>
                                         <tr class="td-filtered">
-                                            <td colspan="7" style="text-align: center; font-size: 14px;"
+                                            <td colspan="7"
+                                                style="background: #b8b8ff; color: black; text-align: center;"
                                                 class="font-weight-bold">
                                                 PROPOSALS PACKAGED</td>
                                         </tr>
@@ -669,7 +743,8 @@
                                             </tr>
                                         @endforeach
                                         <tr class="td-filtered">
-                                            <td colspan="7" style="text-align: center; font-size: 14px;"
+                                            <td colspan="7"
+                                                style="background: #b8b8ff; color: black; text-align: center;"
                                                 class="font-weight-bold">PROJECTS APPROVED AND IMPLEMENTED
                                             </td>
                                         </tr>
@@ -701,8 +776,334 @@
                                     </tbody>
                                 </table>
                             </div>
- 
 
+                            {{-- RDRU TTM --}}
+                            <div class="card-body">
+                                <h5>Technologies Commercialized or Pre-Commercialization Initiatives</h5>
+                                <table class="table-bordered table table-striped">
+                                    <thead style="background: #267b03; color: #F7F7F7; text-align:center;">
+                                        <tr class="th-filtered">
+                                            <th>Type of IPR Applies</th>
+                                            <th>Technologies</th>
+                                            <th>Agency</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($tech_commercialized as $item)
+                                            <tr class="td-filtered">
+                                                <td>{{ $item->ttm_type }}</td>
+                                                <td>{{ $item->ttm_title }}</td>
+                                                <td>{{ $item->ttm_agency }}</td>
+                                                <td>{{ ucwords($item->ttm_status) }}</td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            {{-- RDRU TPA --}}
+                            <div class="card-body">
+                                <h5>Technology Promotion Approaches</h5>
+                                <table class="table-bordered table table-striped">
+                                    <thead style="background: #267b03; color: #F7F7F7; text-align:center;">
+                                        <tr class="th-filtered">
+                                            <th>Technology Promotion Approaches </th>
+                                            <th>Title</th>
+                                            <th>Remarks</th>
+                                            <th>Details</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($tpa as $item)
+                                            @php
+                                                $approaches = json_decode($item->tpa_approaches);
+                                                $approaches = implode(', ', $approaches);
+                                            @endphp
+                                            <tr class="td-filtered">
+                                                <td>{{ $approaches }}</td>
+                                                <td>{{ $item->tpa_title }}</td>
+                                                <td>{{ $item->tpa_agency }}</td>
+                                                <td>{{ $item->tpa_details }}</td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            {{-- Trainings/Workshop --}}
+                            <div class="card-body">
+                                <h5>Non-degree trainings conducted/facilitated
+                                </h5>
+                                <table class="table-bordered table table-striped">
+                                    <thead style="background: #267b03; color: #F7F7F7; text-align:center;">
+                                        <tr class="th-filtered">
+                                            <th>Title of Activity</th>
+                                            <th>Date</th>
+                                            <th>Venue</th>
+                                            <th>Number of Participants</th>
+                                            <th>Expenditures</th>
+                                            <th>Source(s) of Funds</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($trainings as $item)
+                                            @php
+                                                $sof = json_decode($item->trainings_sof);
+                                                $sof = implode(', ', $sof);
+
+                                                $participants = DB::table('training_participants')
+                                                    ->select('type_of_participants', 'no_of_participants')
+                                                    ->where('training_id', '=', $item->id)
+                                                    ->get();
+                                            @endphp
+                                            <tr class="td-filtered">
+                                                <td>{{ $item->trainings_title }}</td>
+                                                <td>{{ $item->trainings_start }}</td>
+                                                <td>{{ $item->trainings_venue }}</td>
+                                                <td>
+                                                    @foreach ($participants as $participant)
+                                                        <li>{{ $participant->type_of_participants }}
+                                                            ({{ $participant->no_of_participants }})
+                                                        </li>
+                                                    @endforeach
+                                                </td>
+                                                <td>₱{{ number_format($item->trainings_expenditures, 2) }}</td>
+                                                <td>{{ $sof }}
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            {{-- Equipment and Facilities Established/Installed/Acquired/Funded --}}
+                            <div class="card-body">
+                                <h5>Equipment and Facilities Established/Installed/Acquired/Funded
+                                </h5>
+                                <table class="table-bordered table table-striped">
+                                    <thead style="background: #267b03; color: #F7F7F7; text-align:center;">
+                                        <tr class="th-filtered">
+                                            <th class="text-center">Equipment/ <br>Facilities
+                                                Established<br>/Upgraded/<br>Approved
+                                            </th>
+                                            <th>Name of Equipment/Facilities</th>
+                                            <th>Agency</th>
+                                            <th>Expenditures</th>
+                                            <th>Source(s) of Funds</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($equipments as $item)
+                                            @php
+                                                $sof = json_decode($item->equipments_sof);
+                                                $sof = implode(', ', $sof);
+                                            @endphp
+                                            <tr class="td-filtered">
+                                                <td>{{ $item->equipments_type }}</td>
+                                                <td>{{ $item->equipments_name }}</td>
+                                                <td>{{ $item->equipments_agency }}</td>
+                                                <td>₱{{ number_format($item->equipments_total, 2) }}</td>
+                                                <td>{{ $sof }}</td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            {{-- Awards --}}
+                            <div class="card-body">
+                                <h5>Awards Received by the consortium or member-agencies
+                                </h5>
+                                <table class="table-bordered table table-striped">
+                                    <thead style="background: #267b03; color: #F7F7F7; text-align:center;">
+                                        <tr class="th-filtered">
+                                            <th class="text-center">Type of Award</th>
+                                            <th>Title</th>
+                                            <th>Recipient/Agency</th>
+                                            <th>Sponsor</th>
+                                            <th>Event/Activity</th>
+                                            <th>Place of Award</th>
+                                            <th>Date</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($awards as $item)
+                                            <tr class="td-filtered">
+                                                <td>{{ $item->awards_type }}</td>
+                                                <td>{{ $item->awards_title }}</td>
+                                                <td>{{ $item->awards_recipients . '/' . $item->awards_agency }}
+                                                </td>
+                                                <td>{{ $item->awards_sponsor }}</td>
+                                                <td>{{ $item->awards_event }}</td>
+                                                <td>{{ $item->awards_place }}</td>
+                                                <td>{{ date('F d, Y', strtotime($item->awards_date)) }}</td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            {{-- Meetings --}}
+                            <div class="card-body">
+                                <h5>Schedule, Venue, Host Agencies of Regular Meetings
+                                </h5>
+                                <table class="table-bordered table table-striped">
+                                    <thead style="background: #267b03; color: #F7F7F7; text-align:center;">
+                                        <tr class="th-filtered">
+                                            <th class="text-center">Type of Meeting/Activity</th>
+                                            <th>Venue</th>
+                                            <th>Date</th>
+                                            <th>Host Agency</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @if ($meetings->isEmpty())
+                                            <tr class="td-filtered">
+                                                <td colspan="4">No data available</td>
+                                            </tr>
+                                        @else
+                                            @foreach ($meetings as $item)
+                                                <tr class="td-filtered">
+                                                    <td>{{ $item->meeting_type }}</td>
+                                                    <td>{{ $item->meeting_venue }}</td>
+                                                    <td>{{ date('F d, Y', strtotime($item->meeting_date)) }}</td>
+                                                    <td>{{ $item->meeting_host }}</td>
+                                                </tr>
+                                            @endforeach
+                                        @endif
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            {{-- CMI Contribution --}}
+                            <div class="card-body">
+                                <h5>CMI Contribution
+                                </h5>
+                                <table class="table-bordered table table-striped">
+                                    <thead style="background: #267b03; color: #F7F7F7; text-align:center;">
+                                        <tr class="th-filtered">
+                                            <th class="text-center">Contributor</th>
+                                            <th>Amount</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @if ($contributions->isEmpty())
+                                            <tr class="td-filtered">
+                                                <td colspan="2">No data available</td>
+                                            </tr>
+                                        @else
+                                            @foreach ($contributions as $item)
+                                                <tr class="td-filtered">
+                                                    <td>{{ $item->con_name }}</td>
+                                                    <td>₱{{ number_format($item->con_amount, 2) }}</td>
+                                                </tr>
+                                            @endforeach
+                                        @endif
+
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            {{-- New Initiatives on Governance --}}
+                            <div class="card-body">
+                                <h5>New Initiatives on Governance
+                                </h5>
+                                <table class="table-bordered table table-striped">
+                                    <thead style="background: #267b03; color: #F7F7F7; text-align:center;">
+                                        <tr class="th-filtered">
+                                            <th class="text-center">New Initiates</th>
+                                            <th>Date Conducted/Implemented</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @if ($initiatives->isEmpty())
+                                            <tr class="td-filtered">
+                                                <td colspan="2">No data available</td>
+                                            </tr>
+                                        @else
+                                            @foreach ($initiatives as $item)
+                                                <tr class="td-filtered">
+                                                    <td>{{ $item->ini_initiates }}</td>
+                                                    <td>{{ date('F d, Y', strtotime($item->ini_date)) }}</td>
+                                                </tr>
+                                            @endforeach
+                                        @endif
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            {{-- Policy Researches Conducted --}}
+                            <div class="card-body">
+                                <h5>Policy Researches Conducted
+                                </h5>
+                                <table class="table-bordered table table-striped">
+                                    <thead style="background: #267b03; color: #F7F7F7; text-align:center;">
+                                        <tr class="th-filtered">
+                                            <th>Title</th>
+                                            <th>Agency</th>
+                                            <th>Author</th>
+                                            <th>Issues Addressed</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @if ($issues->isEmpty())
+                                            <tr class="td-filtered">
+                                                <td colspan="4">No data available</td>
+                                            </tr>
+                                        @else
+                                            @foreach ($issues as $item)
+                                                <tr class="td-filtered">
+                                                    <td>{{ $item->prc_title }}</td>
+                                                    <td>{{ $item->prc_agency }}</td>
+                                                    <td>{{ $item->prc_author }}</td>
+                                                    <td>{{ $item->prc_issues }}</td>
+                                                </tr>
+                                            @endforeach
+                                        @endif
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            {{-- Policies Formulated, Advocated, Implemented Institutional and Institutionalized --}}
+                            <div class="card-body">
+                                <h5>Policies Formulated, Advocated, Implemented Institutional and Institutionalized
+                                </h5>
+                                <table class="table-bordered table table-striped">
+                                    <thead style="background: #267b03; color: #F7F7F7; text-align:center;">
+                                        <tr class="th-filtered">
+                                            <th>Type</th>
+                                            <th>Title</th>
+                                            <th>Agency</th>
+                                            <th>Author</th>
+                                            <th>Co-author</th>
+                                            <th>Beneficiary</th>
+                                            <th>Implementer</th>
+                                            <th>Issues Addressed</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @if ($formulated->isEmpty())
+                                            <tr class="td-filtered">
+                                                <td colspan="8">No data available</td>
+                                            </tr>
+                                        @else
+                                            @foreach ($formulated as $item)
+                                                <tr class="td-filtered">
+                                                    <td>{{ $item->policy_type }}</td>
+                                                    <td>{{ $item->policy_title }}</td>
+                                                    <td>{{ $item->policy_agency }}</td>
+                                                    <td>{{ $item->policy_author }}</td>
+                                                    <td>{{ $item->policy_co_author }}</td>
+                                                    <td>{{ $item->policy_beneficiary }}</td>
+                                                    <td>{{ $item->policy_implementer }}</td>
+                                                    <td>{{ $item->policy_issues }}</td>
+                                                </tr>
+                                            @endforeach
+                                        @endif
+
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                         <!-- /.card -->
                     </div>

@@ -49,7 +49,7 @@
                                                         <th>Title</th>
                                                         <th>Agency</th>
                                                         <th>Researchers</th>
-                                                        <th>Date</th>
+                                                        <th>Duration/Date</th>
                                                         <th>Details</th>
                                                         <th>Remarks</th>
                                                         <th>Action</th>

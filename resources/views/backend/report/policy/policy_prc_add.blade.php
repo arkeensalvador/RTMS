@@ -109,6 +109,15 @@
                                     <div class="invalid-feedback">Missing agency</div>
                                 </div>
 
+                                <div class="col-md-4 form-group">
+                                    <label for="ini_initiates" class="font-weight-bold">Date started<span
+                                            class="text-danger">*</span></label>
+                                    <input type="text" name="prc_date" class="form-control date" placeholder="Enter date"
+                                        required>
+
+                                    <div class="invalid-feedback">Missing date</div>
+                                </div>
+
                                 <div class="col-md-12 form-group">
                                     <label for="ini_initiates" class="font-weight-bold">Title<span
                                             class="text-danger">*</span></label>

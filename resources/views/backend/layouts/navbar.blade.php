@@ -5,7 +5,7 @@
             <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
         </li>
         <li class="nav-item d-none d-sm-inline-block">
-            <a href="{{ url ('home')}}" class="nav-link">Home</a>
+            <a href="{{ url('home') }}" class="nav-link">Home</a>
         </li>
         {{-- <li class="nav-item d-none d-sm-inline-block">
             <a href="#" class="nav-link">Contact</a>
@@ -14,6 +14,23 @@
 
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
+        {{-- <li class="nav-item d-none d-sm-inline-block">
+            <div class="d-flex align-items-center">
+                <img src="{{ asset() }}" alt="User Photo" class="rounded-circle mr-0"
+                    style="width: 40px; height: 40px; border: 1px solid #28a745">
+                <a href="{{ url('profile/' . auth()->user()->id) }}" class="nav-link">Profile</a>
+            </div>
+        </li> --}}
+
+        <li class="nav-item d-none d-sm-inline-block">
+            <a href="{{ url('profile/' . auth()->user()->id) }}" class="nav-link">
+                <div class="d-flex align-items-center">
+                    <img src="{{ asset(auth()->user()->profile_picture) }}" alt="User Photo" class="rounded-circle mr-2"
+                        style="width: 40px; height: 40px;">
+                    <span>{{ auth()->user()->name }}</span>
+                </div>
+            </a>
+        </li>
         <!-- Navbar Search -->
         {{-- <li class="nav-item">
             <a class="nav-link" data-widget="navbar-search" href="#" role="button">
@@ -63,6 +80,7 @@
                 <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
             </div>
         </li> --}}
+
         <li class="nav-item">
             <a class="nav-link" data-widget="fullscreen" href="#" role="button">
                 <i class="fas fa-expand-arrows-alt"></i>

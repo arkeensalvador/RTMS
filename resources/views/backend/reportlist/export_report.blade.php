@@ -4,11 +4,11 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="icon" href="{{ asset('backend/dist/img/favicon.ico') }}" type="image/x-icon" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
         integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
     <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
-
     <title>RTMS - Report</title>
     <style>
         @import url('https://fonts.googleapis.com/css?family=Poppins');
@@ -22,16 +22,34 @@
             padding: 10px;
         }
 
+        .page-break {
+            page-break-after: always;
+            /* or page-break-before: always; */
+        }
+
         thead {
             color: #fff;
             font-weight: 200;
             font-size: 20px;
         }
 
-        .table td,
+        .th-filtered {
+            font-size: 16px;
+            font-weight: 400;
+        }
+
+        .td-filtered {
+            font-size: 14px;
+        }
+
         .table th {
             text-align: center;
             vertical-align: middle;
+            font-size: 9px;
+        }
+
+        .table td {
+            text-align: left;
             font-size: 9px;
         }
 
@@ -43,19 +61,19 @@
 </head>
 
 <body>
-    <div class="my-5 page" size="A4">
+    <div class="my-2 page" size="A4">
         <section class="top-content page-header d-flex justify-content-center"
             style=" border-bottom: 3px solid rgb(194, 194, 194);">
             <div class="logo">
                 <p class="text-center">
                     <img src="https://i.ibb.co/6Yp32Y5/Report-Logo.png" alt="" class="img-fluid d-block"
-                        style="height: 70px; margin: 0 auto;">
+                        style="height: 30px; margin: 0 auto;">
                 </p>
             </div>
         </section>
 
         <!-- R&D Management and Coordination -->
-        <section class="table-area mt-1 page-break">
+        <section class="table-area mt-1">
             <div class="table-title col-12 py-1"
                 style="background-image: url('https://i.ibb.co/Jp0tJxt/sec1.webp'); background-size:cover;;">
                 <h1 class="text-center text-capitalized font-weight-bold"
@@ -66,7 +84,7 @@
 
 
             <!-- Summary of the AIHR's conducted by the CMI's -->
-            <div class="category my-5">
+            <div class="category my-1">
                 <div class="notices mb-1 " style="border-left: 6px solid #0DA603;">
                     <h5>Summary of the <span class="font-weight-bold" style=" color: #0DA603;">AIHR's conducted by
                             the CMI's</span></h5>
@@ -75,15 +93,15 @@
                 <table class="table-bordered table table-hover">
                     <thead style="background-color: #0DA603;">
                         <tr>
-                            <td rowspan="2">Agency</td>
-                            <td colspan="5">Number of Project Presented</td>
+                            <th rowspan="2">Agency</th>
+                            <th colspan="5">Number of Project Presented</th>
                         </tr>
                         <tr>
-                            <td style="">New</td>
-                            <td>Ongoing</td>
-                            <td>Terminated</td>
-                            <td>Completed</td>
-                            <td>Total Projects Reviewed</td>
+                            <th style="">New</th>
+                            <th>Ongoing</th>
+                            <th>Terminated</th>
+                            <th>Completed</th>
+                            <th>Total Projects Reviewed</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -118,16 +136,16 @@
                 <table class="table-bordered table table-hover">
                     <thead style="background-color: #0DA603;">
                         <tr>
-                            <td>Program Title </td>
-                            <td>Description</td>
-                            <td>Duration</td>
-                            <td>Funding Agency</td>
+                            <th>Program Title </th>
+                            <th>Description</th>
+                            <th>Duration</th>
+                            <th>Funding Agency</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach ($list as $data)
                             <tr>
-                                <td>{{ $data->program_title }}</td>
+                                <td>{{ strtoupper($data->program_title) }}</td>
                                 <td>{{ $data->program_description }}</td>
                                 <td>
                                     {{ $data->duration }}
@@ -324,6 +342,8 @@
 
         </section>
 
+        <div class="page-break"></div>
+
         <!-- Strategic Research & Development Activities -->
         <section class="table-area mt-4 page-break">
             <div class="table-title col-12 py-1"
@@ -372,7 +392,7 @@
                                 <td>{{ $imp }}</td>
                                 <td>{{ $splp->str_p_date }}</td>
                                 <td>{{ $sof }}</td>
-                                <td>₱{{ number_format($splp->str_p_budget, 2) }}</td>
+                                <td>{{ number_format($splp->str_p_budget, 2) }}</td>
                                 <td>{{ $splp->str_p_regional }}</td>
                             </tr>
                         @endforeach
@@ -393,7 +413,7 @@
                                 <td>{{ $imp }}</td>
                                 <td>{{ $spla->str_p_date }}</td>
                                 <td>{{ $sof }}</td>
-                                <td>₱{{ number_format($spla->str_p_budget, 2) }}</td>
+                                <td>{{ number_format($spla->str_p_budget, 2) }}</td>
                                 <td>{{ $spla->str_p_regional }}</td>
                             </tr>
                         @endforeach
@@ -460,7 +480,7 @@
                                     {{ $startDate->format('F Y') }} to
                                     {{ $endDate->format('F Y') }}
                                 </td>
-                                <td>₱{{ number_format($item->str_collab_budget, 2) }}</td>
+                                <td>{{ number_format($item->str_collab_budget, 2) }}</td>
                                 <td>{{ $sof }}</td>
                                 <td>{{ $item->str_collab_roc }}</td>
                             </tr>
@@ -526,6 +546,8 @@
             </div>
         </section>
 
+        <div class="page-break"></div>
+
         <!-- R & D Results Utilization-->
         <section class="table-area mt-4 page-break">
 
@@ -584,7 +606,7 @@
                                 <td>{{ $imp }}</td>
                                 <td>{{ $item->ttp_date }}</td>
                                 <td>{{ $sof }}</td>
-                                <td>₱{{ number_format($item->ttp_budget, 2) }}</td>
+                                <td>{{ number_format($item->ttp_budget, 2) }}</td>
                                 <td>{{ $item->ttp_priorities }}</td>
                             </tr>
                         @endforeach
@@ -614,7 +636,7 @@
                                 <td>{{ $imp }}</td>
                                 <td>{{ $item->ttp_date }}</td>
                                 <td>{{ $sof }}</td>
-                                <td>₱{{ number_format($item->ttp_budget, 2) }}</td>
+                                <td>{{ number_format($item->ttp_budget, 2) }}</td>
                                 <td>{{ $item->ttp_priorities }}</td>
                             </tr>
                         @endforeach
@@ -687,6 +709,8 @@
 
         </section>
 
+        <div class="page-break"></div>
+
         <!-- Capability Building and Governance-->
         <section class="table-area mt-4 page-break">
 
@@ -721,13 +745,24 @@
                             @php
                                 $sof = json_decode($item->trainings_sof);
                                 $sof = implode(', ', $sof);
+
+                                $participants = DB::table('training_participants')
+                                    ->select('type_of_participants', 'no_of_participants')
+                                    ->where('training_id', '=', $item->id)
+                                    ->get();
                             @endphp
                             <tr>
                                 <td>{{ $item->trainings_title }}</td>
                                 <td>{{ $item->trainings_start }}</td>
                                 <td>{{ $item->trainings_venue }}</td>
-                                <td>{{ $item->trainings_no_participants }}</td>
-                                <td>₱{{ number_format($item->trainings_expenditures, 2) }}</td>
+                                <td>
+                                    @foreach ($participants as $participant)
+                                        <li>{{ $participant->type_of_participants }}
+                                            ({{ $participant->no_of_participants }})
+                                        </li>
+                                    @endforeach
+                                </td>
+                                <td>{{ number_format($item->trainings_expenditures, 2) }}</td>
                                 <td>{{ $sof }}
                             </tr>
                         @endforeach
@@ -764,7 +799,7 @@
                                 <td>{{ $item->equipments_type }}</td>
                                 <td>{{ $item->equipments_name }}</td>
                                 <td>{{ $item->equipments_agency }}</td>
-                                <td>₱{{ number_format($item->equipments_total, 2) }}</td>
+                                <td>{{ number_format($item->equipments_total, 2) }}</td>
                                 <td>{{ $sof }}</td>
                             </tr>
                         @endforeach
@@ -891,6 +926,7 @@
             </div>
         </section>
 
+        <div class="page-break"></div>
 
         {{-- POLICY ANALYSIS AND ADVOCACY --}}
         <section class="table-area mt-4 page-break">
@@ -937,7 +973,8 @@
                             Formulated</span>, <span class="font-weight-bold" style="color:#D22B2B;">Advocated</span>,
                         <span class="font-weight-bold" style="color:#D22B2B;">Implemented
                             Instituional</span> and <span class="font-weight-bold"
-                            style="color:#D22B2B;">Institutionalized</span></h5>
+                            style="color:#D22B2B;">Institutionalized</span>
+                    </h5>
                 </div>
                 <table class="table-bordered table table-hover">
                     <thead style="background-color: #D22B2B;">
@@ -947,7 +984,7 @@
                             <td>Agency</td>
                             <td>Author</td>
                             <td>Co-author</td>
-                            <td>Proponent</td>
+                            {{-- <td>Proponent</td> --}}
                             <td>Beneficiary</td>
                             <td>Implementer</td>
                             <td>Issues Addressed</td>
@@ -961,7 +998,7 @@
                                 <td>{{ $item->policy_agency }}</td>
                                 <td>{{ $item->policy_author }}</td>
                                 <td>{{ $item->policy_co_author }}</td>
-                                <td>{{ $item->policy_proponent }}</td>
+                                {{-- <td>{{ $item->policy_proponent }}</td> --}}
                                 <td>{{ $item->policy_beneficiary }}</td>
                                 <td>{{ $item->policy_implementer }}</td>
                                 <td>{{ $item->policy_issues }}</td>
@@ -972,6 +1009,7 @@
             </div>
         </section>
 
+        <div class="page-break"></div>
 
         <div class="report-footer mt-5">
             <p class="text-center">

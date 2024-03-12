@@ -128,6 +128,15 @@
                                     </div>
                                 </div>
 
+                                <div class="col-md-4 form-group">
+                                    <label for="equipments_total" class=" font-weight-bold">Date acquired<span
+                                            class="text-danger">*</span></label>
+
+                                    <input type="text" name="equipments_date" id="equipments_date"
+                                        class="form-control date" placeholder="Select date acquired" required>
+                                    <div class="invalid-feedback">Missing date acquired</div>
+                                </div>
+
                                 <div class="col-md-12 form-group">
                                     <label for="equipments_sof" class=" font-weight-bold">Source of Fund<span
                                             class="text-danger">*</span></label>
@@ -174,6 +183,7 @@
                                     </select>
                                     <div class="invalid-feedback">Missing agency</div>
                                 </div>
+
                                 <div class="col-md-6 form-group">
                                     <label for="equipments_total" class=" font-weight-bold">Expenditures<span
                                             class="text-danger">*</span></label>
@@ -183,7 +193,6 @@
                                         required>
                                     <div class="invalid-feedback">Missing expenditures</div>
                                 </div>
-
 
                                 <div class="col-md-12 form-group buttons">
                                     <a href="{{ url('cbg-equipment') }}" class="btn btn-default">Back</a>

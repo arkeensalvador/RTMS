@@ -376,6 +376,7 @@ Route::get('/delete-equipment/{id}', [App\Http\Controllers\backend\EquipmentCont
 Route::get('/report-list', [App\Http\Controllers\backend\ReportListController::class, 'reportListIndex'])->name('reportListIndex');
 Route::get('/report-test', [App\Http\Controllers\backend\ReportListController::class, 'reportTest'])->name('reportTest');
 Route::get('/reports/pdf', [App\Http\Controllers\backend\ReportListController::class, 'createPDF']);
+Route::get('/reports/pdf/filtered_report', [App\Http\Controllers\backend\ReportListController::class, 'exportFilteredData']);
 // Route::get('/filtered-report', [App\Http\Controllers\backend\ReportListController::class, 'reportFiltered'])->name('reportFiltered');
 
 //Download templates
@@ -424,8 +425,8 @@ Route::post('/records/filter', [App\Http\Controllers\backend\ReportListControlle
 Route::get('users', [App\Http\Controllers\backend\ReportListController::class, 'index'])->name('users.index');
 
 // IMAGE DELETE
-Route::get('/delete-image/{id}', [App\Http\Controllers\backend\ImageController::class, 'deleteImg'])->name('delete.image');
-Route::get('/delete-image/{id}', [App\Http\Controllers\backend\ImageController::class, 'deleteCollabImg'])->name('delete.image');
-Route::get('/delete-image/{id}', [App\Http\Controllers\backend\ImageController::class, 'deleteProgListImg'])->name('delete.image');
-Route::get('/delete-image/{id}', [App\Http\Controllers\backend\ImageController::class, 'deleteTrainingImg'])->name('delete.image');
-Route::get('/delete-image/{id}', [App\Http\Controllers\backend\ImageController::class, 'deleteEquipImg'])->name('delete.image');
+Route::get('/delete-strat-tech-image/{id}', [App\Http\Controllers\backend\ImageController::class, 'deleteStratTechImg'])->name('delete.image');
+Route::get('/delete-collab-image/{id}', [App\Http\Controllers\backend\ImageController::class, 'deleteCollabImg'])->name('delete.image');
+Route::get('/delete-proglist-image/{id}', [App\Http\Controllers\backend\ImageController::class, 'deleteProgListImg'])->name('delete.image');
+Route::get('/delete-training-image/{id}', [App\Http\Controllers\backend\ImageController::class, 'deleteTrainingImg'])->name('delete.image');
+Route::get('/delete-equipment-image/{id}', [App\Http\Controllers\backend\ImageController::class, 'deleteEquipImg'])->name('delete.image');

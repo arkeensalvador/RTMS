@@ -121,7 +121,7 @@
                     <div class="card">
                         <div class="card-header">
                             <h5 class="card-title">
-                                Report List (In Progress)
+                                Full Report
                             </h5>
                             <a class="btn btn-primary float-right" target="_blank" href="{{ URL::to('/reports/pdf') }}">Export
                                 to PDF</a>
@@ -527,9 +527,18 @@
                                                                 $sof = implode(', ', $sof);
                                                             }
 
-                                                            [$startDateString, $endDateString] = explode(' to ', $item->str_collab_date);
-                                                            $startDate = \Carbon\Carbon::createFromFormat('m/d/Y', trim($startDateString));
-                                                            $endDate = \Carbon\Carbon::createFromFormat('m/d/Y', trim($endDateString));
+                                                            [$startDateString, $endDateString] = explode(
+                                                                ' to ',
+                                                                $item->str_collab_date,
+                                                            );
+                                                            $startDate = \Carbon\Carbon::createFromFormat(
+                                                                'm/d/Y',
+                                                                trim($startDateString),
+                                                            );
+                                                            $endDate = \Carbon\Carbon::createFromFormat(
+                                                                'm/d/Y',
+                                                                trim($endDateString),
+                                                            );
 
                                                         @endphp
                                                         <tr>
@@ -542,7 +551,7 @@
                                                                 {{ $collab }}
                                                             </td>
                                                             <td>
-                                                                @if ($startDate === $endDate)
+                                                                @if ($startDate == $endDate)
                                                                     {{ $startDate }}
                                                                 @else
                                                                     {{ $startDate->format('F Y') }} to

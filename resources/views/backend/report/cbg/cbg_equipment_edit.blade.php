@@ -98,7 +98,7 @@
                                                         style="width: 200px; height: 200px;" class="img-thumbnail">
                                                 </a>
                                                 <p style="text-align: center">
-                                                    <a href="{{ url('delete-image/' . $img->id) }}" id="delete"
+                                                    <a href="{{ url('delete-equipment-image/' . $img->id) }}" id="delete"
                                                         style="color: red; text-decoration: underline; font-size: 13px">remove</a>
                                                 </p>
                                             </div>
@@ -150,6 +150,17 @@
                                             style="font-weight: bold;">Facilities Established</label>
                                     </div>
                                 </div>
+
+                                <div class="col-md-4 form-group">
+                                    <label for="equipments_total" class=" font-weight-bold">Date acquired<span
+                                            class="text-danger">*</span></label>
+
+                                    <input type="text" name="equipments_date" id="equipments_date"
+                                        class="form-control date" value="{{ $all->equipments_date }}"
+                                        placeholder="Select date acquired" required>
+                                    <div class="invalid-feedback">Missing date acquired</div>
+                                </div>
+
                                 @php
                                     $sof = json_decode($all->equipments_sof);
                                 @endphp
@@ -178,8 +189,8 @@
                                 </div>
 
                                 <div class="col-md-12 form-group">
-                                    <label for="equipments_name" class=" font-weight-bold">Equipment/Facilities Details<span
-                                            class="text-danger">*</span></label>
+                                    <label for="equipments_name" class=" font-weight-bold">Equipment/Facilities
+                                        Details<span class="text-danger">*</span></label>
                                     <textarea name="equipments_details" id="equipments_details" cols="30" rows="5" class="form-control"
                                         required placeholder="Enter details">{{ $all->equipments_details }}</textarea>
 
@@ -201,7 +212,7 @@
                                     <div class="invalid-feedback">Missing agency</div>
                                 </div>
 
-                                <div class="col-md-12 form-group">
+                                <div class="col-md-6 form-group">
                                     <label for="equipments_total" class=" font-weight-bold">Expenditures<span
                                             class="text-danger">*</span></label>
 

@@ -141,7 +141,7 @@
 
                 <li class="nav-item">
                     <a href="{{ URL::to('/all-agency') }}"
-                        class="nav-link {{ Request::is('all-agency', 'edit-agency/*') ? 'active' : '' }}">
+                        class="nav-link {{ Request::is('all-agency', 'edit-agency/*', 'add-agency-index') ? 'active' : '' }}">
                         <i class="nav-icon fas fa-building"></i>
                         <p>
                             Agency

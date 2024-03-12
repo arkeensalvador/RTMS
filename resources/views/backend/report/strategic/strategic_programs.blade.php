@@ -53,12 +53,36 @@
                                                         <th>Budget</th>
                                                         <th>Source of Fund</th>
                                                         <th>Commodities Addressed</th>
+                                                        <th>Images</th>
                                                         <th>Action</th>
                                                     </tr>
                                                 </thead>
                                                 @if (auth()->user()->role == 'Admin')
                                                     <tbody>
                                                         @foreach ($all as $key => $row)
+                                                            @php
+                                                                $imp = json_decode($row->str_p_imp_agency);
+                                                                $imp = implode(', ', $imp);
+
+                                                                $collab = json_decode($row->str_p_collab_agency);
+
+                                                                // Check if $collab is null after decoding JSON
+                                                                if ($collab === null) {
+                                                                    $collab = 'N/A';
+                                                                } else {
+                                                                    // If $collab is not null, implode the array values
+                                                                    $collab = implode(', ', $collab);
+                                                                }
+
+                                                                $sof = json_decode($row->str_p_sof);
+                                                                $sof = implode(', ', $sof);
+
+                                                                $imgs = DB::table('strat_program_list_imgs')
+                                                                    ->where('strategic_programs_list_id', $row->id)
+                                                                    ->inRandomOrder() // Fetch rows in random order
+                                                                    ->limit(4)
+                                                                    ->get();
+                                                            @endphp
                                                             <tr>
                                                                 <td>
                                                                     @if ($row->str_p_type == 'Proposals')
@@ -69,29 +93,33 @@
                                                                 </td>
                                                                 <td>{{ strtoupper($row->str_p_title) }}</td>
                                                                 <td>{{ $row->str_p_researchers }}</td>
-                                                                @php
-                                                                    $imp = json_decode($row->str_p_imp_agency);
-                                                                    $imp = implode(', ', $imp);
 
-                                                                    $collab = json_decode($row->str_p_collab_agency);
-
-                                                                    // Check if $collab is null after decoding JSON
-                                                                    if ($collab === null) {
-                                                                        $collab = 'N/A';
-                                                                    } else {
-                                                                        // If $collab is not null, implode the array values
-                                                                        $collab = implode(', ', $collab);
-                                                                    }
-
-                                                                    $sof = json_decode($row->str_p_sof);
-                                                                    $sof = implode(', ', $sof);
-                                                                @endphp
                                                                 <td> {{ $imp }}</td>
                                                                 <td> {{ $collab }}</td>
                                                                 <td>{{ $row->str_p_date }}</td>
                                                                 <td>₱{{ number_format($row->str_p_budget, 2) }}</td>
                                                                 <td>{{ $sof }}</td>
                                                                 <td>{{ $row->str_p_regional }}</td>
+                                                                <td class="images">
+                                                                    @if (empty($imgs))
+                                                                        {{ 'No image available' }}
+                                                                    @else
+                                                                        <div
+                                                                            style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px;">
+                                                                            @foreach ($imgs as $img)
+                                                                                <div>
+                                                                                    <a href="{{ asset($img->filename) }}"
+                                                                                        data-lightbox="photos">
+                                                                                        <img src="{{ asset($img->filename) }}"
+                                                                                            alt=""
+                                                                                            style="width: 300px; height: 50px;"
+                                                                                            class="img-thumbnail">
+                                                                                    </a>
+                                                                                </div>
+                                                                            @endforeach
+                                                                        </div>
+                                                                    @endif
+                                                                </td>
                                                                 <td class="action btns">
                                                                     <a class="btn btn-primary"
                                                                         href="{{ url('edit-strategic-program-list-index/' . Crypt::encryptString($row->id)) }}"><i
@@ -107,6 +135,16 @@
                                                 @else
                                                     <tbody>
                                                         @foreach ($all_filter as $key => $row)
+                                                            @php
+                                                                $imp = json_decode($row->str_p_imp_agency);
+                                                                $imp = implode(', ', $imp);
+
+                                                                $collab = json_decode($row->str_p_collab_agency);
+                                                                $collab = implode(', ', $collab);
+
+                                                                $sof = json_decode($row->str_p_sof);
+                                                                $sof = implode(', ', $sof);
+                                                            @endphp
                                                             <tr>
                                                                 <td>
                                                                     @if ($row->str_p_type == 'Proposals')
@@ -117,22 +155,32 @@
                                                                 </td>
                                                                 <td>{{ strtoupper($row->str_p_title) }}</td>
                                                                 <td>{{ $row->str_p_researchers }}</td>
-                                                                @php
-                                                                    $imp = json_decode($row->str_p_imp_agency);
-                                                                    $imp = implode(', ', $imp);
-
-                                                                    $collab = json_decode($row->str_p_collab_agency);
-                                                                    $collab = implode(', ', $collab);
-
-                                                                    $sof = json_decode($row->str_p_sof);
-                                                                    $sof = implode(', ', $sof);
-                                                                @endphp
                                                                 <td> {{ $imp }}</td>
                                                                 <td> {{ $collab }}</td>
                                                                 <td>{{ $row->str_p_date }}</td>
                                                                 <td>₱{{ number_format($row->str_p_budget, 2) }}</td>
                                                                 <td>{{ $sof }}</td>
                                                                 <td>{{ $row->str_p_regional }}</td>
+                                                                <td class="images">
+                                                                    @if (empty($imgs))
+                                                                        {{ 'No image available' }}
+                                                                    @else
+                                                                        <div
+                                                                            style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px;">
+                                                                            @foreach ($imgs as $img)
+                                                                                <div>
+                                                                                    <a href="{{ asset($img->filename) }}"
+                                                                                        data-lightbox="photos">
+                                                                                        <img src="{{ asset($img->filename) }}"
+                                                                                            alt=""
+                                                                                            style="width: 300px; height: 50px;"
+                                                                                            class="img-thumbnail">
+                                                                                    </a>
+                                                                                </div>
+                                                                            @endforeach
+                                                                        </div>
+                                                                    @endif
+                                                                </td>
                                                                 <td class="action btns">
                                                                     <a class="btn btn-primary"
                                                                         href="{{ url('edit-strategic-program-list-index/' . Crypt::encryptString($row->id)) }}"><i

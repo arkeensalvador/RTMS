@@ -59,7 +59,7 @@
                                                                 <td>{{ $row->id }}</td>
                                                                 <td>{{ $row->ini_initiates }}</td>
                                                                 <td hidden>{{ $row->ini_agency }}</td>
-                                                                <td>{{ date('m/d/Y', strtotime($row->ini_date)) }}</td>
+                                                                <td>{{ $row->ini_date }}</td>
                                                                 <td class="action btns">
                                                                     <a class="btn btn-primary editModal" data-toggle="modal"
                                                                         data-id="'.$row->id.'" data-target="#editModal"><i
@@ -77,7 +77,7 @@
                                                                 <td>{{ $row->id }}</td>
                                                                 <td>{{ $row->ini_initiates }}</td>
                                                                 <td hidden>{{ $row->ini_agency }}</td>
-                                                                <td>{{ date('m/d/Y', strtotime($row->ini_date)) }}</td>
+                                                                <td>{{ $row->ini_date }}</td>
                                                                 <td class="action btns">
                                                                     <a class="btn btn-primary editModal" data-toggle="modal"
                                                                         data-id="'.$row->id.'" data-target="#editModal"><i
@@ -138,7 +138,7 @@
 
                             {{-- @if (auth()->user()->role == 'CMI') --}}
                             <div class="col-md-12 form-group" hidden>
-                                <label for="ini_date" class=" font-weight-bold">Agency<span
+                                <label for="ini_date" class="font-weight-bold">Agency<span
                                         class="text-danger">*</span></label>
                                 <input type="text" name="ini_agency" id=""
                                     value="{{ auth()->user()->agencyID }}" class="form-control" placeholder="" readonly
@@ -149,8 +149,8 @@
                                 <label for="ini_date" class=" font-weight-bold">Date Implemented<span
                                         class="text-danger">*</span></label>
 
-                                <input type="text" name="ini_date" id="ini_date" class="form-control date"
-                                    placeholder="Date" required>
+                                <input type="text" name="ini_date" id="ini_date" class="form-control year"
+                                    placeholder="Select year" required>
 
                                 <div class="invalid-feedback">Missing date</div>
                             </div>
@@ -205,7 +205,7 @@
                                 <label for="ini_date" class=" font-weight-bold">Date Implemented<span
                                         class="text-danger">*</span></label>
 
-                                <input type="text" name="ini_date" id="e_ini_date" class="form-control date"
+                                <input type="text" name="ini_date" id="e_ini_date" class="form-control year"
                                     placeholder="Date" required>
 
                                 <div class="invalid-feedback">Missing date</div>
@@ -238,11 +238,11 @@
 
                     $('#e_ini_initiates').val(data[1]);
                     $('#e_ini_agency').val(data[2]);
+                    $('#e_ini_date').val(data[3]);
 
-                    if (data) {
-                        var dateValue = data[3];
-                        flatpickr('#e_ini_date').setDate(dateValue);
-                    }
+                    // if (data) {
+                    //     $('#e_ini_date').val(data[3]);
+                    // }
 
                     $('#editForm').attr('action', '/update-initiatives/' + data[0]);
                 });

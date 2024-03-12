@@ -17,6 +17,7 @@ return new class extends Migration {
             $table->string('equipments_total');
             $table->string('equipments_sof');
             $table->string('equipments_agency');
+            $table->string('equipments_date');
             $table->longText('equipments_details');
             $table->string('encoder_agency');
             $table->timestamps();

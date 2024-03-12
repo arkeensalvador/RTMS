@@ -1,5 +1,5 @@
 <tr class="td-filtered">
-    <td colspan="4" style="text-align: center; font-size: 14px;" class="font-weight-bold">
+    <td colspan="4" style="background: #d3ffd1; color: black; text-align: center;" class="font-weight-bold">
         DEVELOPED/NEW
     </td>
 </tr>
@@ -19,7 +19,7 @@
 @endif
 
 <tr class="td-filtered">
-    <td colspan="4" style="text-align: center; font-size: 14px;" class="font-weight-bold">
+    <td colspan="4" style="background: #d3ffd1; color: black; text-align: center;" class="font-weight-bold">
         MAINTAINED/SUSTAINED
     </td>
 </tr>

@@ -1,5 +1,6 @@
 <tr class="td-filtered">
-    <td colspan="6" style="text-align: center; font-size: 14px;" class="font-weight-bold">PROPOSALS PACKAGED</td>
+    <td colspan="6" style="background: #ddffff; color: black; text-align: center;" class="font-weight-bold">PROPOSALS
+        PACKAGED</td>
 </tr>
 @if ($stratProgramListProposal->isEmpty())
     <tr class="td-filtered">
@@ -26,7 +27,8 @@
 @endif
 
 <tr class="td-filtered">
-    <td colspan="6" style="text-align: center; font-size: 14px;" class="font-weight-bold">PROJECTS APPROVED AND
+    <td colspan="6" style="background: #ddffff; color: black; text-align: center;" class="font-weight-bold">PROJECTS
+        APPROVED AND
         IMPLEMENTED</td>
 </tr>
 @if ($stratProgramListApproved->isEmpty())

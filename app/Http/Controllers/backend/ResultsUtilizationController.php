@@ -46,7 +46,7 @@ class ResultsUtilizationController extends Controller
         $data['ttp_researchers'] = json_encode($request->ttp_researchers);
         $data['ttp_implementing_agency'] = json_encode($request->ttp_implementing_agency);
         $data['ttp_date'] = $request->ttp_date;
-        $data['ttp_priorities'] = $request->ttp_priorities;
+        $data['ttp_priorities'] = ucfirst($request->ttp_priorities);
         $data['encoder_agency'] = auth()->user()->agencyID;
         $data['created_at'] = now();
 
@@ -61,9 +61,7 @@ class ResultsUtilizationController extends Controller
     public function editTtp($id)
     {
         $title = 'TTP | R&D Results Utilizations';
-        $all = DB::table('results_ttp')
-            ->where('id', $id)
-            ->first();
+        $all = DB::table('results_ttp')->where('id', $id)->first();
         $agency = DB::table('agency')->get();
         $researchers = DB::table('researchers')->get();
         return view('backend.report.rdru.rdru_ttp_edit', compact('title', 'all', 'agency', 'researchers'));
@@ -105,12 +103,10 @@ class ResultsUtilizationController extends Controller
         $data['ttp_researchers'] = json_encode($request->ttp_researchers);
         $data['ttp_implementing_agency'] = json_encode($request->ttp_implementing_agency);
         $data['ttp_date'] = $request->ttp_date;
-        $data['ttp_priorities'] = $request->ttp_priorities;
+        $data['ttp_priorities'] = ucfirst($request->ttp_priorities);
         $data['updated_at'] = now();
 
-        $update = DB::table('results_ttp')
-            ->where('id', $id)
-            ->update($data);
+        $update = DB::table('results_ttp')->where('id', $id)->update($data);
         if ($update) {
             return response()->json(['success' => 'TTP Updated Successfully!']);
         } else {
@@ -120,26 +116,20 @@ class ResultsUtilizationController extends Controller
 
     public function DeleteTtp($id)
     {
-        $delete = DB::table('results_ttp')
-            ->where('id', $id)
-            ->delete();
+        $delete = DB::table('results_ttp')->where('id', $id)->delete();
         if ($delete) {
             $notification = [
                 'message' => 'Transfer Proposal Successfully Deleted!',
                 'alert-type' => 'success',
             ];
 
-            return redirect()
-                ->route('rdruTtp')
-                ->with($notification);
+            return redirect()->route('rdruTtp')->with($notification);
         } else {
             $notification = [
                 'message' => 'Something is wrong, please try again!',
                 'alert-type' => 'error',
             ];
-            return redirect()
-                ->route('rdruTtp')
-                ->with($notification);
+            return redirect()->route('rdruTtp')->with($notification);
         }
     }
 
@@ -184,9 +174,7 @@ class ResultsUtilizationController extends Controller
     public function editTtm($id)
     {
         $title = 'TTM | R&D Results Utilizations';
-        $all = DB::table('results_ttm')
-            ->where('id', $id)
-            ->first();
+        $all = DB::table('results_ttm')->where('id', $id)->first();
         $agency = DB::table('agency')->get();
         return view('backend.report.rdru.rdru_ttm_edit', compact('title', 'all', 'agency'));
     }
@@ -218,9 +206,7 @@ class ResultsUtilizationController extends Controller
         $data['ttm_sof'] = json_encode($request->ttm_sof);
         $data['updated_at'] = now();
 
-        $update = DB::table('results_ttm')
-            ->where('id', $id)
-            ->update($data);
+        $update = DB::table('results_ttm')->where('id', $id)->update($data);
         if ($update) {
             return response()->json(['success' => 'TTM Updated Successfully!']);
         } else {
@@ -230,26 +216,20 @@ class ResultsUtilizationController extends Controller
 
     public function DeleteTtm($id)
     {
-        $delete = DB::table('results_ttm')
-            ->where('id', $id)
-            ->delete();
+        $delete = DB::table('results_ttm')->where('id', $id)->delete();
         if ($delete) {
             $notification = [
                 'message' => 'Transfer Modality Successfully Deleted!',
                 'alert-type' => 'success',
             ];
 
-            return redirect()
-                ->route('rdruTtm')
-                ->with($notification);
+            return redirect()->route('rdruTtm')->with($notification);
         } else {
             $notification = [
                 'message' => 'Something is wrong, please try again!',
                 'alert-type' => 'error',
             ];
-            return redirect()
-                ->route('rdruTtm')
-                ->with($notification);
+            return redirect()->route('rdruTtm')->with($notification);
         }
     }
 
@@ -303,9 +283,7 @@ class ResultsUtilizationController extends Controller
     public function editTpa($id)
     {
         $title = 'TPA | R&D Results Utilizations';
-        $all = DB::table('results_tpa')
-            ->where('id', $id)
-            ->first();
+        $all = DB::table('results_tpa')->where('id', $id)->first();
         $agency = DB::table('agency')->get();
         $researchers = DB::table('researchers')->get();
         return view('backend.report.rdru.rdru_tpa_edit', compact('title', 'all', 'agency', 'researchers'));
@@ -346,9 +324,7 @@ class ResultsUtilizationController extends Controller
         $data['is_others'] = $request->is_others;
         $data['updated_at'] = now();
 
-        $update = DB::table('results_tpa')
-            ->where('id', $id)
-            ->update($data);
+        $update = DB::table('results_tpa')->where('id', $id)->update($data);
         if ($update) {
             return response()->json(['success' => 'TPA Updated Successfully!']);
         } else {
@@ -358,26 +334,20 @@ class ResultsUtilizationController extends Controller
 
     public function DeleteTpa($id)
     {
-        $delete = DB::table('results_tpa')
-            ->where('id', $id)
-            ->delete();
+        $delete = DB::table('results_tpa')->where('id', $id)->delete();
         if ($delete) {
             $notification = [
                 'message' => 'Transfer Modality Successfully Deleted!',
                 'alert-type' => 'success',
             ];
 
-            return redirect()
-                ->route('rdruTpa')
-                ->with($notification);
+            return redirect()->route('rdruTpa')->with($notification);
         } else {
             $notification = [
                 'message' => 'Something is wrong, please try again!',
                 'alert-type' => 'error',
             ];
-            return redirect()
-                ->route('rdruTpa')
-                ->with($notification);
+            return redirect()->route('rdruTpa')->with($notification);
         }
     }
 
@@ -386,10 +356,7 @@ class ResultsUtilizationController extends Controller
     {
         $agencyId = $request->input('agency_id');
 
-        $researchers = DB::table('researchers')
-            ->select('researchers.id', DB::raw('CONCAT(researchers.first_name, " ", researchers.middle_name, " ", researchers.last_name) AS name'))
-            ->where('agency', $agencyId)
-            ->get();
+        $researchers = DB::table('researchers')->select('researchers.id', DB::raw('CONCAT(researchers.first_name, " ", researchers.middle_name, " ", researchers.last_name) AS name'))->where('agency', $agencyId)->get();
 
         return response()->json($researchers);
     }
@@ -438,9 +405,7 @@ class ResultsUtilizationController extends Controller
     {
         $title = 'TPA | R&D Results Utilizations';
         $id = Crypt::decryptString($id);
-        $all = DB::table('rdru_tech_deployed')
-            ->where('id', $id)
-            ->first();
+        $all = DB::table('rdru_tech_deployed')->where('id', $id)->first();
         $agency = DB::table('agency')->get();
         $researchers = DB::table('researchers')->get();
         return view('backend.report.rdru.rdru_tech_deployed_edit', compact('title', 'all', 'agency', 'researchers'));
@@ -475,9 +440,7 @@ class ResultsUtilizationController extends Controller
         $data['rdru_tech_sof'] = json_encode($request->rdru_tech_sof);
         $data['updated_at'] = now();
 
-        $insert = DB::table('rdru_tech_deployed')
-            ->where('id', $id)
-            ->update($data);
+        $insert = DB::table('rdru_tech_deployed')->where('id', $id)->update($data);
         if ($insert) {
             return response()->json(['success' => 'Data Updated Successfully!']);
         } else {
@@ -489,26 +452,20 @@ class ResultsUtilizationController extends Controller
     {
         $id = Crypt::decryptString($id);
 
-        $delete = DB::table('rdru_tech_deployed')
-            ->where('id', $id)
-            ->delete();
+        $delete = DB::table('rdru_tech_deployed')->where('id', $id)->delete();
         if ($delete) {
             $notification = [
                 'message' => 'Data Successfully Deleted!',
                 'alert-type' => 'success',
             ];
 
-            return redirect()
-                ->route('rdru_tech_deployed')
-                ->with($notification);
+            return redirect()->route('rdru_tech_deployed')->with($notification);
         } else {
             $notification = [
                 'message' => 'Something is wrong, please try again!',
                 'alert-type' => 'error',
             ];
-            return redirect()
-                ->route('rdru_tech_deployed')
-                ->with($notification);
+            return redirect()->route('rdru_tech_deployed')->with($notification);
         }
     }
 }

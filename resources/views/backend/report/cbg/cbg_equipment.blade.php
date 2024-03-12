@@ -48,26 +48,56 @@
                                                         <th>Type</th>
                                                         <th>Equipment/Facilities</th>
                                                         <th>Details</th>
+                                                        <th>Date Acquired</th>
                                                         <th>Source of Fund</th>
                                                         <th>Expenditures</th>
+                                                        <th>Images</th>
                                                         <th>Action</th>
                                                     </tr>
                                                 </thead>
                                                 @if (auth()->user()->role == 'Admin')
                                                     <tbody>
                                                         @foreach ($equipment as $key => $row)
+                                                            @php
+                                                                $sof = json_decode($row->equipments_sof);
+                                                                $sof = implode(', ', $sof);
+
+                                                                $imgs = DB::table('equipment_imgs')
+                                                                    ->where('equipment_id', $row->id)
+                                                                    ->inRandomOrder() // Fetch rows in random order
+                                                                    ->limit(4)
+                                                                    ->get();
+                                                            @endphp
                                                             <tr>
                                                                 <td>{{ $key + 1 }}</td>
                                                                 <td>{{ $row->equipments_agency }}</td>
                                                                 <td>{{ $row->equipments_type }}</td>
                                                                 <td>{{ $row->equipments_name }}</td>
                                                                 <td>{{ $row->equipments_details }}</td>
-                                                                @php
-                                                                    $sof = json_decode($row->equipments_sof);
-                                                                    $sof = implode(', ', $sof);
-                                                                @endphp
+                                                                <td>{{ $row->equipments_date }}</td>
                                                                 <td>{{ $sof }}</td>
                                                                 <td>₱{{ number_format($row->equipments_total, 2) }}</td>
+                                                                <td class="images">
+                                                                    @if (empty($imgs))
+                                                                        {{ 'No image available' }}
+                                                                    @else
+                                                                        <div
+                                                                            style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px;">
+                                                                            @foreach ($imgs as $img)
+                                                                                <div>
+                                                                                    <a href="{{ asset($img->filename) }}"
+                                                                                        data-lightbox="photos"
+                                                                                        title="Click to view">
+                                                                                        <img src="{{ asset($img->filename) }}"
+                                                                                            alt=""
+                                                                                            style="width: 300px; height: 50px;"
+                                                                                            class="img-thumbnail">
+                                                                                    </a>
+                                                                                </div>
+                                                                            @endforeach
+                                                                        </div>
+                                                                    @endif
+                                                                </td>
                                                                 <td class="action btns">
                                                                     <a class="btn btn-primary"
                                                                         href="{{ url('edit-equipment/' . $row->id) }}"><i
@@ -84,18 +114,46 @@
                                                 @else
                                                     <tbody>
                                                         @foreach ($all_filter as $key => $row)
+                                                            @php
+                                                                $sof = json_decode($row->equipments_sof);
+                                                                $sof = implode(', ', $sof);
+
+                                                                $imgs = DB::table('equipment_imgs')
+                                                                    ->where('equipment_id', $row->id)
+                                                                    ->inRandomOrder() // Fetch rows in random order
+                                                                    ->limit(4)
+                                                                    ->get();
+                                                            @endphp
                                                             <tr>
                                                                 <td>{{ $key + 1 }}</td>
                                                                 <td>{{ $row->equipments_agency }}</td>
                                                                 <td>{{ $row->equipments_type }}</td>
                                                                 <td>{{ $row->equipments_name }}</td>
                                                                 <td>{{ $row->equipments_details }}</td>
-                                                                @php
-                                                                    $sof = json_decode($row->equipments_sof);
-                                                                    $sof = implode(', ', $sof);
-                                                                @endphp
                                                                 <td>{{ $sof }}</td>
                                                                 <td>₱{{ number_format($row->equipments_total, 2) }}</td>
+
+                                                                <td class="images">
+                                                                    @if (empty($imgs))
+                                                                        {{ 'No image available' }}
+                                                                    @else
+                                                                        <div
+                                                                            style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px;">
+                                                                            @foreach ($imgs as $img)
+                                                                                <div>
+                                                                                    <a href="{{ asset($img->filename) }}"
+                                                                                        data-lightbox="photos"
+                                                                                        title="Click to view">
+                                                                                        <img src="{{ asset($img->filename) }}"
+                                                                                            alt=""
+                                                                                            style="width: 300px; height: 50px;"
+                                                                                            class="img-thumbnail">
+                                                                                    </a>
+                                                                                </div>
+                                                                            @endforeach
+                                                                        </div>
+                                                                    @endif
+                                                                </td>
                                                                 <td class="action btns">
                                                                     <a class="btn btn-primary"
                                                                         href="{{ url('edit-equipment/' . $row->id) }}"><i

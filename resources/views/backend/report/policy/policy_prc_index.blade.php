@@ -48,6 +48,7 @@
                                                         <th>Agency</th>
                                                         <th>Author</th>
                                                         <th>Addressed Issues</th>
+                                                        <th>Start Date</th>
                                                         <th>Action</th>
                                                     </tr>
                                                 </thead>
@@ -60,6 +61,7 @@
                                                                 <td>{{ $row->prc_agency }}</td>
                                                                 <td>{{ $row->prc_author }}</td>
                                                                 <td>{{ $row->prc_issues }}</td>
+                                                                <td>{{ $row->prc_date }}</td>
                                                                 <td class="action btns">
                                                                     <a href="{{ url('edit-prc/' . Crypt::encryptString($row->id)) }}"
                                                                         class="btn btn-primary"><i
@@ -81,6 +83,7 @@
                                                                 <td>{{ $row->prc_agency }}</td>
                                                                 <td>{{ $row->prc_author }}</td>
                                                                 <td>{{ $row->prc_issues }}</td>
+                                                                <td>{{ $row->prc_date }}</td>
                                                                 <td class="action btns">
                                                                     <a href="{{ url('edit-prc/' . Crypt::encryptString($row->id)) }}"
                                                                         class="btn btn-primary"><i
