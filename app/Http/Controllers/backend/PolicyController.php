@@ -205,7 +205,6 @@ class PolicyController extends Controller
         $agency = DB::table('agency')->get();
 
         // CMI
-
         $user_agency = DB::table('users')
             ->join('agency', 'agency.abbrev', '=', 'users.agencyID')
             ->where('agencyID', auth()->user()->agencyID)

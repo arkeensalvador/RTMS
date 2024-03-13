@@ -3498,7 +3498,7 @@ input[type='submit'].btn-block {
     height: calc(1.5em + 0.5rem + 2px);
 }
 .input-group-sm > .custom-select,
-.input-group-sm > .form-control,
+/* .input-group-sm > .form-control, */
 .input-group-sm > .input-group-append > .btn,
 .input-group-sm > .input-group-append > .input-group-text,
 .input-group-sm > .input-group-prepend > .btn,

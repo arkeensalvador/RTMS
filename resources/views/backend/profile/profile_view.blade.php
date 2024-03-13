@@ -1,10 +1,5 @@
 @extends('backend.layouts.app')
 @section('content')
-    <link rel="stylesheet" type="text/css" href="{{ asset('css/bootstrap.min.css') }}" />
-    <link rel="stylesheet" type="text/css" href="{{ asset('css/app.css') }}" />
-
-    <link rel="stylesheet" type="text/css" href="{{ asset('css/paper-dashboard.css?v=2.0.1') }}" />
-
     <div class="content-wrapper">
         <div class="content-header">
             <div class="container-fluid">

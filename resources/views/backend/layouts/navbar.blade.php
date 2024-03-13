@@ -1,3 +1,4 @@
+{{-- <link rel="stylesheet" type="text/css" href="{{ asset('css/paper-dashboard.css?v=2.0.1') }}" /> --}}
 <nav class="main-header navbar navbar-expand">
     <!-- Left navbar links -->
     <ul class="navbar-nav">
@@ -14,72 +15,23 @@
 
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
-        {{-- <li class="nav-item d-none d-sm-inline-block">
-            <div class="d-flex align-items-center">
-                <img src="{{ asset() }}" alt="User Photo" class="rounded-circle mr-0"
-                    style="width: 40px; height: 40px; border: 1px solid #28a745">
-                <a href="{{ url('profile/' . auth()->user()->id) }}" class="nav-link">Profile</a>
-            </div>
-        </li> --}}
+        <li class="nav-item btn-rotate dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false">
+                <img src="{{ asset(auth()->user()->profile_picture) }}" alt="User Photo" class="rounded-circle mr-2"
+                    style="width: 35x; height: 35px; border: 1.8px solid #4f5962">
+                <span class="mr-2">{{ auth()->user()->name }}</span>
+            </a>
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+                <a class="dropdown-item" href="{{ url('profile/' . auth()->user()->id) }}"><i
+                        class="fa-regular fa-address-card"></i>&nbsp;&nbsp;Profile</a>
+                <a class="dropdown-item" href="{{ route('logout') }}" id="btn-logout">
+                    <i class="nav-icon fas fa-solid fa-right-from-bracket"></i>&nbsp;&nbsp;Logout</a>
 
-        <li class="nav-item d-none d-sm-inline-block">
-            <a href="{{ url('profile/' . auth()->user()->id) }}" class="nav-link">
-                <div class="d-flex align-items-center">
-                    <img src="{{ asset(auth()->user()->profile_picture) }}" alt="User Photo" class="rounded-circle mr-2"
-                        style="width: 40px; height: 40px;">
-                    <span>{{ auth()->user()->name }}</span>
-                </div>
-            </a>
+                <a class="dropdown-item" href="#">Another action</a>
+                <a class="dropdown-item" href="#">Something else here</a>
+            </div>
         </li>
-        <!-- Navbar Search -->
-        {{-- <li class="nav-item">
-            <a class="nav-link" data-widget="navbar-search" href="#" role="button">
-                <i class="fas fa-search"></i>
-            </a>
-            <div class="navbar-search-block">
-                <form class="form-inline">
-                    <div class="input-group input-group-sm">
-                        <input class="form-control form-control-navbar" type="search" placeholder="Search"
-                            aria-label="Search">
-                        <div class="input-group-append">
-                            <button class="btn btn-navbar" type="submit">
-                                <i class="fas fa-search"></i>
-                            </button>
-                            <button class="btn btn-navbar" type="button" data-widget="navbar-search">
-                                <i class="fas fa-times"></i>
-                            </button>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </li> --}}
-        <!-- Notifications Dropdown Menu -->
-        {{-- <li class="nav-item dropdown">
-            <a class="nav-link" data-toggle="dropdown" href="#">
-                <i class="far fa-bell"></i>
-                <span class="badge badge-warning navbar-badge">15</span>
-            </a>
-            <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-                <span class="dropdown-item dropdown-header">15 Notifications</span>
-                <div class="dropdown-divider"></div>
-                <a href="#" class="dropdown-item">
-                    <i class="fas fa-envelope mr-2"></i> 4 new messages
-                    <span class="float-right text-muted text-sm">3 mins</span>
-                </a>
-                <div class="dropdown-divider"></div>
-                <a href="#" class="dropdown-item">
-                    <i class="fas fa-users mr-2"></i> 8 friend requests
-                    <span class="float-right text-muted text-sm">12 hours</span>
-                </a>
-                <div class="dropdown-divider"></div>
-                <a href="#" class="dropdown-item">
-                    <i class="fas fa-file mr-2"></i> 3 new reports
-                    <span class="float-right text-muted text-sm">2 days</span>
-                </a>
-                <div class="dropdown-divider"></div>
-                <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
-            </div>
-        </li> --}}
 
         <li class="nav-item">
             <a class="nav-link" data-widget="fullscreen" href="#" role="button">

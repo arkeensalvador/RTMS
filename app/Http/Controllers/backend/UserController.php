@@ -27,9 +27,7 @@ class UserController extends Controller
     public function AllUser()
     {
         $title = 'Manage Accounts | RTMS';
-        $all = DB::table('users')
-            ->orderBy('name', 'asc')
-            ->get();
+        $all = DB::table('users')->orderBy('name', 'asc')->get();
 
         // CMI
         $all_filter = DB::table('users')
@@ -124,15 +122,9 @@ class UserController extends Controller
     public function EditUser($id)
     {
         $title = 'Manage Accounts | RTMS';
-        $edit2 = DB::table('agency')
-            ->rightJoin('users', 'agency.abbrev', '=', 'users.agencyID')
-            ->select('users.*', 'agency.agency_name', 'agency.id', 'agency.abbrev')
-            ->where('users.id', $id)
-            ->get();
+        $edit2 = DB::table('agency')->rightJoin('users', 'agency.abbrev', '=', 'users.agencyID')->select('users.*', 'agency.agency_name', 'agency.id', 'agency.abbrev')->where('users.id', $id)->get();
 
-        $edit = DB::table('users')
-            ->where('id', $id)
-            ->first();
+        $edit = DB::table('users')->where('id', $id)->first();
 
         $agency = DB::table('agency')->get();
         return view('backend.user.edit_user', compact('edit', 'edit2', 'agency', 'title'));
@@ -183,9 +175,7 @@ class UserController extends Controller
             // $data['password'] = Hash::make($request->password);
             $data['updated_at'] = now();
 
-            $update = DB::table('users')
-                ->where('id', $id)
-                ->update($data);
+            $update = DB::table('users')->where('id', $id)->update($data);
 
             $user->save();
 
@@ -203,9 +193,7 @@ class UserController extends Controller
             $data['password'] = Hash::make($request->password);
             $data['updated_at'] = now();
 
-            $update = DB::table('users')
-                ->where('id', $id)
-                ->update($data);
+            $update = DB::table('users')->where('id', $id)->update($data);
 
             $user->save();
             if ($update) {
@@ -227,26 +215,20 @@ class UserController extends Controller
         $user = User::find($id);
         Storage::disk('public')->delete($user->profile_picture);
 
-        $delete = DB::table('users')
-            ->where('id', $id)
-            ->delete();
+        $delete = DB::table('users')->where('id', $id)->delete();
 
         if ($delete) {
             $notification = [
                 'message' => 'User Successfully Deleted!',
                 'alert-type' => 'success',
             ];
-            return redirect()
-                ->route('AllUser')
-                ->with($notification);
+            return redirect()->route('AllUser')->with($notification);
         } else {
             $notification = [
                 'message' => 'Something is wrong, please try again!',
                 'alert-type' => 'error',
             ];
-            return redirect()
-                ->route('AllUser')
-                ->with($notification);
+            return redirect()->route('AllUser')->with($notification);
         }
     }
 }

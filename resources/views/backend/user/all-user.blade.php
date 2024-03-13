@@ -64,7 +64,7 @@
                                                 <td>{{ $row->role }}</td>
                                                 <td class="action btns">
                                                     <a class="btn btn-primary"
-                                                        href="{{ URL::to('/edit-user/' . $row->id) }}"><i
+                                                        href="{{ URL::to('/edit-user/' . $row->id ) }}"><i
                                                             class="fa-solid fa-pen-to-square" style="color: white;"></i></a>
 
                                                     <a href="{{ URL::to('/delete-user/' . $row->id) }}"

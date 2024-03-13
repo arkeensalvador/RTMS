@@ -15,7 +15,6 @@
     <link rel="stylesheet" href="{{ asset('backend/plugins/fontawesome-free/css/all.min.css') }}">
     <link rel="stylesheet" href="{{ asset('backend/plugins/fontawesome-free-6.3.0-web/css/all.min.css') }}">
 
-    {{-- <script src="https://kit.fontawesome.com/403b4fe327.js" crossorigin="anonymous"></script> --}}
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -56,6 +55,8 @@
 
     {{-- CSS --}}
     <link rel="stylesheet" type="text/css" href="{{ asset('css/app.css') }}" />
+    {{-- <link rel="stylesheet" type="text/css" href="{{ asset('css/paper-dashboard.css?v=2.0.1') }}" /> --}}
+    {{-- <link rel="stylesheet" type="text/css" href="{{ asset('css/bootstrap.min.css') }}" /> --}}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.min.css">
 
 
