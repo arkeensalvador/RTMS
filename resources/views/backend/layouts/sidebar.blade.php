@@ -242,7 +242,7 @@
                         </a>
                     </li>
                 @endif
-                {{-- logout --}}
+                {{-- logout
                 <li class="nav-item has-treeview">
                     <a class="nav-link" href="{{ route('logout') }}" id="btn-logout">
                         <i class="nav-icon fas fa-solid fa-right-from-bracket"></i>
@@ -253,7 +253,7 @@
                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none" hidden>
                         @csrf
                     </form>
-                </li>
+                </li> --}}
             </ul>
         </nav>
         <!-- /.sidebar-menu -->
