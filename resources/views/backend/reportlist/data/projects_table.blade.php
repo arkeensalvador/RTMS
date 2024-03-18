@@ -76,19 +76,7 @@
             <td>{{ $row->project_description }}
             </td>
             <td>
-                @if ($row->project_status == 'New')
-                    {{ $row->project_status }}
-                    <i class="fa-regular fa-square-plus" style="color: #0dcaf0;"></i>
-                @elseif ($row->project_status == 'Ongoing')
-                    {{ $row->project_status }}
-                    <i class="fa-solid fa-spinner fa-spin" style="color: #0d6efd"></i>
-                @elseif ($row->project_status == 'Terminated')
-                    {{ $row->project_status }}
-                    <i class="fa-regular fa-circle-xmark" style="color: #ff0000;"></i>
-                @elseif ($row->project_status == 'Completed')
-                    {{ $row->project_status }}
-                    <i class="fa-regular fa-circle-check" style="color: #28a745;"></i>
-                @endif
+                {{ $row->project_status }}
             </td>
         </tr>
     @endforeach

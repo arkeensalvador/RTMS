@@ -61,19 +61,7 @@
                 {{ $row->program_description }}
             </td>
             <td>
-                @if ($row->program_status == 'New')
-                    {{ $row->program_status }}
-                    <i class="fa-regular fa-square-plus" style="color: #0dcaf0;"></i>
-                @elseif ($row->program_status == 'Ongoing')
-                    {{ $row->program_status }}
-                    <i class="fa-solid fa-spinner fa-spin" style="color: #0d6efd"></i>
-                @elseif ($row->program_status == 'Terminated')
-                    {{ $row->program_status }}
-                    <i class="fa-regular fa-circle-xmark" style="color: #ff0000;"></i>
-                @elseif ($row->program_status == 'Completed')
-                    {{ $row->program_status }}
-                    <i class="fa-regular fa-circle-check" style="color: #28a745;"></i>
-                @endif
+                {{ $row->program_status }}
             </td>
         </tr>
     @endforeach
