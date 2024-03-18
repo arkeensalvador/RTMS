@@ -34,7 +34,8 @@ class ImportController extends Controller
                 'message' => 'File is missing!',
                 'alert-type' => 'error',
             ];
-        } elseif ($request->file('import_excel_users')) {
+        }
+        if ($request->file('import_excel_users')) {
             $import = Excel::import(new UsersImport(), $request->file('import_excel_users'));
             if ($import) {
                 $users = User::all(); // Retrieve all imported users
@@ -47,19 +48,16 @@ class ImportController extends Controller
                     'alert-type' => 'success',
                 ];
 
-                return redirect()
-                    ->route('AllUser')
-                    ->with($notification);
+                return redirect()->route('AllUser')->with($notification);
             } else {
                 $notification = [
                     'message' => 'Something is wrong, please try again!',
                     'alert-type' => 'error',
                 ];
-                return redirect()
-                    ->route('AllUser')
-                    ->with($notification);
+                return redirect()->route('AllUser')->with($notification);
             }
-        } elseif ($request->file('import_excel_programs')) {
+        }
+        if ($request->file('import_excel_programs')) {
             $import = Excel::import(new ProgramsImport(), $request->file('import_excel_programs'));
             if ($import) {
                 // $notification = array(
@@ -76,7 +74,8 @@ class ImportController extends Controller
                 // return back()->with($notification);
                 return back();
             }
-        } elseif ($request->file('import_excel_researchers')) {
+        }
+        if ($request->file('import_excel_researchers')) {
             $import = Excel::import(new ResearchersImport(), $request->file('import_excel_researchers'));
             if ($import) {
                 $notification = [
@@ -91,7 +90,8 @@ class ImportController extends Controller
                 ];
                 return back()->with($notification);
             }
-        } elseif ($request->file('import_excel_agency')) {
+        }
+        if ($request->file('import_excel_agency')) {
             $import = Excel::import(new AgencyImport(), $request->file('import_excel_agency'));
             if ($import) {
                 $notification = [
@@ -106,7 +106,8 @@ class ImportController extends Controller
                 ];
                 return back()->with($notification);
             }
-        } elseif ($request->file('import_excel_projects')) {
+        }
+        if ($request->file('import_excel_projects')) {
             $import = Excel::import(new ProjectsImport(), $request->file('import_excel_projects'));
             if ($import) {
                 // $notification = [
@@ -123,7 +124,8 @@ class ImportController extends Controller
                 // return back()->with($notification);
                 return back();
             }
-        } elseif ($request->file('import_excel_sub_projects')) {
+        }
+        if ($request->file('import_excel_sub_projects')) {
             $import = Excel::import(new SubProjectsImport(), $request->file('import_excel_sub_projects'));
             if ($import) {
                 // $notification = [

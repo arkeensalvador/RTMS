@@ -21,9 +21,7 @@ class AgencyController extends Controller
     public function AllAgency()
     {
         $title = 'Agency | RTMS';
-        $all = DB::table('agency')
-            ->orderByDesc('id')
-            ->get();
+        $all = DB::table('agency')->orderByDesc('id')->get();
         return view('backend.agency.agency', compact('all', 'title'));
     }
 
@@ -40,7 +38,7 @@ class AgencyController extends Controller
             ],
         );
 
-        $existingData = Agency::where('agency_name', $request->agency_name)
+        $existingData = Agency::whereRaw('REPLACE(agency_name, " ", "") = ?', str_replace(' ', '', $request->agency_name))
             ->orWhere('abbrev', $request->abbrev)
             ->first();
 
@@ -50,9 +48,7 @@ class AgencyController extends Controller
                 'message' => 'Agency Already Exists',
                 'alert-type' => 'error',
             ];
-            return redirect()
-                ->route('AllAgency')
-                ->with($notification);
+            return redirect()->route('AllAgency')->with($notification);
         }
 
         $data = [];
@@ -69,26 +65,20 @@ class AgencyController extends Controller
                 'message' => 'Agency Successfully Added!',
                 'alert-type' => 'success',
             ];
-            return redirect()
-                ->route('AllAgency')
-                ->with($notification);
+            return redirect()->route('AllAgency')->with($notification);
         } else {
             $notification = [
                 'message' => 'Something is wrong, please try again!',
                 'alert-type' => 'error',
             ];
-            return redirect()
-                ->route('AllAgency')
-                ->with($notification);
+            return redirect()->route('AllAgency')->with($notification);
         }
     }
 
     public function EditAgency($id)
     {
         $title = 'Agency | RTMS';
-        $edit = DB::table('agency')
-            ->where('id', $id)
-            ->first();
+        $edit = DB::table('agency')->where('id', $id)->first();
         return view('backend.agency.edit_agency', compact('edit', 'title'));
     }
 
@@ -109,25 +99,19 @@ class AgencyController extends Controller
         $data['agency_name'] = $request->agency_name;
         $data['abbrev'] = $request->abbrev;
 
-        $update = DB::table('agency')
-            ->where('id', $id)
-            ->update($data);
+        $update = DB::table('agency')->where('id', $id)->update($data);
         if ($update) {
             $notification = [
                 'message' => 'Agency Successfully Edited!',
                 'alert-type' => 'success',
             ];
-            return redirect()
-                ->route('AllAgency')
-                ->with($notification);
+            return redirect()->route('AllAgency')->with($notification);
         } else {
             $notification = [
                 'message' => 'Something is wrong, please try again!',
                 'alert-type' => 'error',
             ];
-            return redirect()
-                ->route('AllAgency')
-                ->with($notification);
+            return redirect()->route('AllAgency')->with($notification);
         }
     }
 
@@ -138,25 +122,19 @@ class AgencyController extends Controller
     }
     public function DeleteAgency($id)
     {
-        $delete = DB::table('agency')
-            ->where('id', $id)
-            ->delete();
+        $delete = DB::table('agency')->where('id', $id)->delete();
         if ($delete) {
             $notification = [
                 'message' => 'Agency Successfully Deleted!',
                 'alert-type' => 'success',
             ];
-            return redirect()
-                ->route('AllAgency')
-                ->with($notification);
+            return redirect()->route('AllAgency')->with($notification);
         } else {
             $notification = [
                 'message' => 'Something is wrong, please try again!',
                 'alert-type' => 'error',
             ];
-            return redirect()
-                ->route('AllAgency')
-                ->with($notification);
+            return redirect()->route('AllAgency')->with($notification);
         }
     }
 }
