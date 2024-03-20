@@ -1011,7 +1011,7 @@
                                             <h1 class="text-center text-capitalized font-weight-bold"
                                                 style="color: #fff; text-shadow: 1px 1px 2px #1b1b1b; letter-spacing: -1px; ">
                                                 POLICY
-                                                ANALAYSIS<br>AND ADVOCACY</h1>
+                                                ANALYSIS<br>AND ADVOCACY</h1>
                                         </div>
 
                                         <!-- Data from "Policy Conducted" -->
