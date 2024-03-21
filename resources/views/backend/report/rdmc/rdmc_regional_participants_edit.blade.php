@@ -116,12 +116,12 @@
             updateRemoveButtons();
         }
 
-        function updateRemoveButtons() {
-            var removeButtons = document.querySelectorAll('#participants-table tbody tr i.fa-square-minus');
-            removeButtons.forEach(function(button) {
-                button.style.display = removeButtons.length > 1 ? 'block' : 'none';
-            });
-        }
+        // function updateRemoveButtons() {
+        //     var removeButtons = document.querySelectorAll('#participants-table tbody tr i.fa-square-minus');
+        //     removeButtons.forEach(function(button) {
+        //         button.style.display = removeButtons.length > 1 ? 'block' : 'none';
+        //     });
+        // }
 
         function validateInput(input) {
             // Remove non-numeric characters (except '-')
