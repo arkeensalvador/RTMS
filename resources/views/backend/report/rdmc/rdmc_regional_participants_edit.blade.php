@@ -94,6 +94,10 @@
     </div>
 
     <script>
+        $(function() {
+            $('[data-toggle="tooltip"]').tooltip();
+        });
+
         function addInput() {
             var table = document.getElementById('participants-table').getElementsByTagName('tbody')[0];
             var newRow = table.insertRow(table.rows.length);
