@@ -74,17 +74,11 @@ class TrainingsController extends Controller
     public function editTraining($id)
     {
         $title = 'Trainings | CBG';
-        $all = DB::table('cbg_trainings')
-            ->where('id', $id)
-            ->first();
+        $all = DB::table('cbg_trainings')->where('id', $id)->first();
 
-        $participantsData = DB::table('training_participants')
-            ->where('training_id', $id)
-            ->get();
+        $participantsData = DB::table('training_participants')->where('training_id', $id)->get();
 
-        $imgs = DB::table('trainings_imgs')
-            ->where('training_id', $id)
-            ->get();
+        $imgs = DB::table('trainings_imgs')->where('training_id', $id)->get();
         $agency = DB::table('agency')->get();
         return view('backend.report.cbg.cbg_training_edit', compact('title', 'all', 'agency', 'imgs', 'participantsData'));
     }
@@ -133,9 +127,7 @@ class TrainingsController extends Controller
 
         $this->processParticipantsData($request, $id);
 
-        $update = DB::table('cbg_trainings')
-            ->where('id', $id)
-            ->update($data);
+        $update = DB::table('cbg_trainings')->where('id', $id)->update($data);
         if ($update) {
             return response()->json(['success' => 'Training Updated Successfully!']);
         } else {
@@ -146,9 +138,7 @@ class TrainingsController extends Controller
     private function processParticipantsData(Request $request, $id)
     {
         // Retrieve existing data for the specified training_id
-        $existingData = DB::table('training_participants')
-            ->where('training_id', $id)
-            ->get();
+        $existingData = DB::table('training_participants')->where('training_id', $id)->get();
 
         $data_update = [];
 
@@ -186,51 +176,39 @@ class TrainingsController extends Controller
 
     public function DeleteTraining($id)
     {
-        $delete = DB::table('cbg_trainings')
-            ->where('id', $id)
-            ->delete();
+        $delete = DB::table('cbg_trainings')->where('id', $id)->delete();
         if ($delete) {
             $notification = [
                 'message' => 'Training/Workshop Successfully Deleted!',
                 'alert-type' => 'success',
             ];
 
-            return redirect()
-                ->route('cbgTraining')
-                ->with($notification);
+            return redirect()->route('cbgTraining')->with($notification);
         } else {
             $notification = [
                 'message' => 'Something is wrong, please try again!',
                 'alert-type' => 'error',
             ];
-            return redirect()
-                ->route('cbgTraining')
-                ->with($notification);
+            return redirect()->route('cbgTraining')->with($notification);
         }
     }
 
     public function delete_participant($id)
     {
-        $delete = DB::table('training_participants')
-            ->where('id', $id)
-            ->delete();
+        $delete = DB::table('training_participants')->where('id', $id)->delete();
 
         if ($delete) {
             $notification = [
                 'message' => 'Participant Successfully Removed!',
                 'alert-type' => 'success',
             ];
-            return redirect()
-                ->back()
-                ->with($notification);
+            return redirect()->back()->with($notification);
         } else {
             $notification = [
                 'message' => 'Something is wrong, please try again!',
                 'alert-type' => 'error',
             ];
-            return redirect()
-                ->back()
-                ->with($notification);
+            return redirect()->back()->with($notification);
         }
     }
 }

@@ -10,12 +10,11 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::create('rdmc_regional_participants', function (Blueprint $table) {
-            $table->id('id');
-            // $table->string('rp_type');
-            $table->string('rp_agency');
-            // $table->string('rp_no');
-            $table->longText('rp_remarks');
+        Schema::create('regional_symposium_participants', function (Blueprint $table) {
+            $table->id();
+            $table->string('regional_id');
+            $table->string('type_of_participants');
+            $table->string('no_of_participants');
             $table->timestamps();
         });
     }
@@ -25,7 +24,6 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        //
-        Schema::dropIfExists('rdmc_regional_participants');
+        Schema::dropIfExists('regional_symposium_participants');
     }
 };

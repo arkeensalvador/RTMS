@@ -13,27 +13,45 @@
                                     <h5 class="mt-0">Kindly fill-out the fields needed.</h5>
                                 </div>
 
-                                <div class="col-md-4 form-group">
-                                    <label for="category" class=" font-weight-bold">No. of participants<span
+                                <div class="col-md-12 form-group">
+                                    <label for="coordination_fund" class="font-weight-bold">Participants<span
                                             class="text-danger">*</span></label>
-                                    <input type="number" class="form-control" name="rp_no" value="{{ $all->rp_no }}"
-                                        placeholder="Enter no. of participants" required>
-                                    <div class="invalid-feedback">Missing no. of participants</div>
-                                </div>
-
-                                <div class="col-md-4 form-group">
-                                    <label for="category" class=" font-weight-bold">Type of participants<span
-                                            class="text-danger">*</span></label>
-                                    <select id="category" name="rp_type" class="form-control others" required>
-                                        <option selected disabled value="">Select type</option>
-                                        <option value="GO" {{ 'GO' == $all->rp_type ? 'selected' : '' }}>GO</option>
-                                        <option value="NGO" {{ 'NGO' == $all->rp_type ? 'selected' : '' }}>NGO</option>
-                                        <option value="Private Sector"
-                                            {{ 'Private Sector' == $all->rp_type ? 'selected' : '' }}>Private Sector
-                                        </option>
-                                        <option value="LGU" {{ 'LGU' == $all->rp_type ? 'selected' : '' }}>LGU</option>
-                                    </select>
-                                    <div class="invalid-feedback">Missing type</div>
+                                    <table id="participants-table" class="table">
+                                        <thead>
+                                            <tr>
+                                                <th>Type of Participant</th>
+                                                <th>No. of Participants</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td><i class="fa-solid fa-square-plus fa-xl" onclick="addInput()"
+                                                        style="color: #28a745; cursor: pointer; "></i></td>
+                                            </tr>
+                                            @foreach ($participantsData as $key => $data)
+                                                <tr>
+                                                    <td>
+                                                        <input type="text" class="form-control"
+                                                            name="type_of_participants[]"
+                                                            placeholder="Enter type of participants"
+                                                            value="{{ $data->type_of_participants }}" required>
+                                                    </td>
+                                                    <td>
+                                                        <input type="number" class="form-control"
+                                                            name="no_of_participants[]"
+                                                            placeholder="Enter no. of participants"
+                                                            value="{{ $data->no_of_participants }}" required>
+                                                    </td>
+                                                    <td>
+                                                        <a href="{{ URL::to('/delete-symposium-participant/' . $data->id) }}"
+                                                            class="btn btn-danger" id="delete"
+                                                            style="margin-left: 5px"><i class="fa-solid fa-trash"></i></a>
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
                                 </div>
 
                                 <div class="col-md-12 form-group">
@@ -61,7 +79,7 @@
                                 </div>
 
                                 <div class="col-md-4 form-group float-right">
-                                    <a href="{{ url('rdmc-regional') }}" class="btn btn-default">Back</a>
+                                    <a href="{{ url('rdmc-regional-participants') }}" class="btn btn-default">Back</a>
                                     <button type="submit" id="submit" class="btn btn-primary btn-m ">Submit</button>
                                 </div>
                             </form>
@@ -72,7 +90,60 @@
         </section>
     </div>
 
-    <script></script>
+    <script>
+        function addInput() {
+            var table = document.getElementById('participants-table').getElementsByTagName('tbody')[0];
+            var newRow = table.insertRow(table.rows.length);
+            var cell1 = newRow.insertCell(0);
+            var cell2 = newRow.insertCell(1);
+            var cell3 = newRow.insertCell(2);
+
+            cell1.innerHTML =
+                '<input type="text" class="form-control" placeholder="Enter type of participants"  name="new_type_of_participants[]" required>';
+            cell2.innerHTML =
+                '<input type="text" class="form-control" placeholder="Enter no. of participants" name="new_no_of_participants[]" required>';
+            cell3.innerHTML =
+                '<i class="fa-solid fa-square-minus fa-lg" style="color: #dc3545; margin-left: 1rem; margin-bottom:0px; cursor: pointer" onclick="removeRow(this)"></i>';
+
+            // Hide "Remove" button if there is only one row
+            updateRemoveButtons();
+        }
+
+        function removeRow(button) {
+            var row = button.parentNode.parentNode;
+            row.parentNode.removeChild(row);
+            // Hide "Remove" button if there is only one row
+            updateRemoveButtons();
+        }
+
+        function updateRemoveButtons() {
+            var removeButtons = document.querySelectorAll('#participants-table tbody tr i.fa-square-minus');
+            removeButtons.forEach(function(button) {
+                button.style.display = removeButtons.length > 1 ? 'block' : 'none';
+            });
+        }
+
+        function validateInput(input) {
+            // Remove non-numeric characters (except '-')
+            let numericValue = input.value.replace(/[^\d-]/g, '');
+
+            // Ensure the input is not empty
+            if (numericValue === '-') {
+                numericValue = '';
+            }
+
+            // Format the numeric value with commas
+            const formattedValue = formatNumberWithCommas(numericValue);
+
+            // Set the formatted value back to the input
+            input.value = formattedValue;
+        }
+
+        function formatNumberWithCommas(number) {
+            // Convert the number to a string and add commas
+            return parseFloat(number).toLocaleString('en-US');
+        }
+    </script>
 
     <script>
         var selectBox = document.getElementById("year");

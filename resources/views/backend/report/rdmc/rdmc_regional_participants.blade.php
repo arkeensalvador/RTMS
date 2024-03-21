@@ -48,9 +48,8 @@
                                                 <thead>
                                                     <tr>
                                                         <th>#</th>
-                                                        <th>Type of participants</th>
+                                                        <th>Participants</th>
                                                         <th>Agency / Association</th>
-                                                        <th>No. of participants</th>
                                                         <th>Remarks</th>
                                                         @if (auth()->user()->role == 'Admin')
                                                             <th>Action</th>
@@ -59,27 +58,25 @@
                                                 </thead>
                                                 <tbody>
                                                     @foreach ($all as $key => $row)
+                                                        @php
+                                                            $participants = DB::table('regional_symposium_participants')
+                                                                ->select('type_of_participants', 'no_of_participants')
+                                                                ->where('regional_id', '=', $row->id)
+                                                                ->get();
+                                                        @endphp
                                                         <tr>
                                                             <td class="counter">
                                                                 {{ $key + 1 }}
                                                             </td>
                                                             <td>
-                                                                {{ $row->rp_type }}
-                                                            </td>
-                                                            {{-- <td>{{ $row->activity_type }}</td> --}}
-                                                            <td>{{ $row->rp_agency }}</td>
-                                                            {{-- <td>
-                                                                @php
-                                                                    $imp = json_decode($row->regional_implementing_agency);
-                                                                    $imp = implode(', ', $imp);
 
-                                                                    $researchers = json_decode($row->regional_researchers);
-                                                                    $researchers = implode(', ', $researchers);
-                                                                @endphp
-                                                                {{ $imp }}
+                                                                @foreach ($participants as $participant)
+                                                                    <li>{{ $participant->type_of_participants }}
+                                                                        ({{ $participant->no_of_participants }})
+                                                                    </li>
+                                                                @endforeach
                                                             </td>
-                                                            <td>{{ $researchers }}</td> --}}
-                                                            <td>{{ $row->rp_no }}</td>
+                                                            <td>{{ $row->rp_agency }}</td>
                                                             <td>{{ $row->rp_remarks }}</td>
                                                             @if (auth()->user()->role == 'Admin')
                                                                 <td class="action">

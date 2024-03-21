@@ -13,7 +13,45 @@
                                     <h5 class="mt-0">Kindly fill-out the fields needed.</h5>
                                 </div>
 
-                                <div class="col-md-4 form-group">
+                                <div class="col-md-12 form-group">
+                                    <label for="coordination_fund" class="font-weight-bold">Participants<span
+                                            class="text-danger">*</span></label>
+                                    <table id="participants-table" class="table">
+                                        <thead>
+                                            <tr>
+                                                <th>Type of Participant <span data-toggle="tooltip" data-placement="right"
+                                                        title="GO, NGO, Private Sector, or LGU">
+                                                        <i class="fas fa-question-circle" style="cursor: pointer;"></i>
+                                                    </span></th>
+                                                <th>No. of Participants</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td><i class="fa-solid fa-square-plus fa-xl" onclick="addInput()"
+                                                        style="color: #28a745; cursor: pointer; "></i></td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <input type="text" class="form-control" name="type_of_participants[]"
+                                                        placeholder="Enter type of participants" required>
+                                                </td>
+                                                <td>
+                                                    <input type="number" class="form-control" name="no_of_participants[]"
+                                                        placeholder="Enter no. of participants" required>
+                                                </td>
+                                                <td>
+                                                    <i class="fa-solid fa-square-minus fa-lg"
+                                                        style="color: #dc3545; margin-left: 1rem; margin-bottom:0px; cursor: pointer"
+                                                        onclick="removeRow(this)"></i>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                                {{-- <div class="col-md-4 form-group">
                                     <label for="category" class=" font-weight-bold">No. of participants<span
                                             class="text-danger">*</span></label>
                                     <input type="number" class="form-control" name="rp_no"
@@ -32,7 +70,7 @@
                                         <option value="LGU">LGU</option>
                                     </select>
                                     <div class="invalid-feedback">Missing type</div>
-                                </div>
+                                </div> --}}
 
                                 <div class="col-md-12 form-group">
                                     <label for="awards_recipients" class=" font-weight-bold">Agency<span
@@ -68,7 +106,70 @@
         </section>
     </div>
 
-    <script></script>
+    <script>
+        // Initialize Bootstrap tooltips
+        $(function() {
+            $('[data-toggle="tooltip"]').tooltip();
+        });
+
+        window.onload = function() {
+            // Call updateRemoveButtons to ensure "-" button visibility is correct on page load
+            updateRemoveButtons();
+        };
+
+        function addInput() {
+            var table = document.getElementById('participants-table').getElementsByTagName('tbody')[0];
+            var newRow = table.insertRow(table.rows.length);
+            var cell1 = newRow.insertCell(0);
+            var cell2 = newRow.insertCell(1);
+            var cell3 = newRow.insertCell(2);
+
+            cell1.innerHTML =
+                '<input type="text" class="form-control" placeholder="Enter type of participants"  name="type_of_participants[]" required>';
+            cell2.innerHTML =
+                '<input type="text" class="form-control" placeholder="Enter no. of participants" name="no_of_participants[]" required>';
+            cell3.innerHTML =
+                '<i class="fa-solid fa-square-minus fa-lg" style="color: #dc3545; margin-left: 1rem; margin-bottom:0px; cursor: pointer" onclick="removeRow(this)"></i>';
+
+            // Hide "Remove" button if there is only one row
+            updateRemoveButtons();
+        }
+
+        function removeRow(button) {
+            var row = button.parentNode.parentNode;
+            row.parentNode.removeChild(row);
+            // Hide "Remove" button if there is only one row
+            updateRemoveButtons();
+        }
+
+        function updateRemoveButtons() {
+            var removeButtons = document.querySelectorAll('#participants-table tbody tr i.fa-square-minus');
+            removeButtons.forEach(function(button) {
+                button.style.display = removeButtons.length > 1 ? 'block' : 'none';
+            });
+        }
+
+        function validateInput(input) {
+            // Remove non-numeric characters (except '-')
+            let numericValue = input.value.replace(/[^\d-]/g, '');
+
+            // Ensure the input is not empty
+            if (numericValue === '-') {
+                numericValue = '';
+            }
+
+            // Format the numeric value with commas
+            const formattedValue = formatNumberWithCommas(numericValue);
+
+            // Set the formatted value back to the input
+            input.value = formattedValue;
+        }
+
+        function formatNumberWithCommas(number) {
+            // Convert the number to a string and add commas
+            return parseFloat(number).toLocaleString('en-US');
+        }
+    </script>
 
     <script>
         var selectBox = document.getElementById("year");
