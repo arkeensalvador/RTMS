@@ -19,7 +19,10 @@
                                     <table id="participants-table" class="table">
                                         <thead>
                                             <tr>
-                                                <th>Type of Participant</th>
+                                                <th>Type of Participant <span data-toggle="tooltip" data-placement="right"
+                                                        title="GO, NGO, Private Sector, or LGU">
+                                                        <i class="fas fa-question-circle" style="cursor: pointer;"></i>
+                                                    </span></th>
                                                 <th>No. of Participants</th>
                                                 <th>Action</th>
                                             </tr>
