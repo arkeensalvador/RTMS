@@ -27,7 +27,9 @@
                         class="fa-regular fa-address-card"></i>&nbsp;&nbsp;Profile</a>
                 <a class="dropdown-item" href="{{ route('logout') }}" id="btn-logout">
                     <i class="nav-icon fas fa-solid fa-right-from-bracket"></i>&nbsp;&nbsp;Logout</a>
-
+                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none" hidden>
+                    @csrf
+                </form>
                 {{-- <a class="dropdown-item" href="#">Another action</a>
                 <a class="dropdown-item" href="#">Something else here</a> --}}
             </div>
