@@ -15,23 +15,24 @@
 
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
-        <li class="nav-item btn-rotate dropdown">
+        <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
                 aria-haspopup="true" aria-expanded="false">
                 <img src="{{ asset(auth()->user()->profile_picture) }}" alt="User Photo" class="rounded-circle mr-2"
-                    style="width: 35x; height: 35px; border: 1.8px solid #4f5962">
+                    style="width: 35px; height: 35px; border: 1.8px solid #4f5962">
                 <span class="mr-2">{{ auth()->user()->name }}</span>
             </a>
-            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-                <a class="dropdown-item" href="{{ url('profile/' . auth()->user()->id) }}"><i
+            <div class="user-dropdown-menu dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+                <a class="user-dropdown-item dropdown-item" href="{{ url('profile/' . auth()->user()->id) }}"><i
                         class="fa-regular fa-address-card"></i>&nbsp;&nbsp;Profile</a>
-                <a class="dropdown-item" href="{{ route('logout') }}" id="btn-logout">
-                    <i class="nav-icon fas fa-solid fa-right-from-bracket"></i>&nbsp;&nbsp;Logout</a>
-                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none" hidden>
-                    @csrf
-                </form>
-                {{-- <a class="dropdown-item" href="#">Another action</a>
-                <a class="dropdown-item" href="#">Something else here</a> --}}
+                <a class="user-dropdown-item dropdown-item" href="{{ route('logout') }}" id="btn-logout">
+                    <i class="nav-icon fas fa-solid fa-right-from-bracket"></i>&nbsp;&nbsp;Logout
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none" hidden>
+                        @csrf
+                    </form>
+                </a>
+                {{-- <a class="user-dropdown-item dropdown-item" href="#">Another action</a>
+                <a class="user-dropdown-item dropdown-item" href="#">Something else here</a> --}}
             </div>
         </li>
 
